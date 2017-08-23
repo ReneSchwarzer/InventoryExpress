@@ -1,0 +1,578 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{53E9DB5C-F7B9-414D-852D-548C87C6C010}</ProjectGuid>
+    <OutputType>AppContainerExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>InventoryExpress</RootNamespace>
+    <AssemblyName>InventoryExpress</AssemblyName>
+    <DefaultLanguage>de-DE</DefaultLanguage>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.15063.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.15063.0</TargetPlatformMinVersion>
+    <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
+    <PackageCertificateKeyFile>InventoryExpress_StoreKey.pfx</PackageCertificateKeyFile>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <PackageCertificateThumbprint>A480C90981EC684E2C7C508D47BD1E208ED34C6D</PackageCertificateThumbprint>
+    <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
+    <AppxBundle>Always</AppxBundle>
+    <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <OutputPath>bin\ARM\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Microsoft\ApplicationInsights.cs" />
+    <Compile Include="Model\Ascription.cs" />
+    <Compile Include="Model\Attribute.cs" />
+    <Compile Include="Model\AttributeDateTimeValue.cs" />
+    <Compile Include="Model\AttributeImageValue.cs" />
+    <Compile Include="Model\AttributeTextValue.cs" />
+    <Compile Include="Model\CostCenter.cs" />
+    <Compile Include="Model\DecimalConverter.cs" />
+    <Compile Include="Model\Inventory.cs" />
+    <Compile Include="Model\Item.cs" />
+    <Compile Include="Model\Location.cs" />
+    <Compile Include="Model\Manufacturer.cs" />
+    <Compile Include="Model\GLAccount.cs" />
+    <Compile Include="Model\State.cs" />
+    <Compile Include="Model\Supplier.cs" />
+    <Compile Include="Model\Template.cs" />
+    <Compile Include="Model\ViewModel.cs" />
+    <Compile Include="PageInventoryItemPrint.xaml.cs">
+      <DependentUpon>PageInventoryItemPrint.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageInventoryItem.xaml.cs">
+      <DependentUpon>PageInventoryItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageInventoryItemEdit.xaml.cs">
+      <DependentUpon>PageInventoryItemEdit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageMain.xaml.cs">
+      <DependentUpon>PageMain.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageMainHelp.xaml.cs">
+      <DependentUpon>PageMainHelp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageLocation.xaml.cs">
+      <DependentUpon>PageLocation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageLocationHelp.xaml.cs">
+      <DependentUpon>PageLocationHelp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageLocationItemEdit.xaml.cs">
+      <DependentUpon>PageLocationItemEdit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageLocationItemEditHelp.xaml.cs">
+      <DependentUpon>PageLocationItemEditHelp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageCostCenter.xaml.cs">
+      <DependentUpon>PageCostCenter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageCostCenterHelp.xaml.cs">
+      <DependentUpon>PageCostCenterHelp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageCostCenterItemEdit.xaml.cs">
+      <DependentUpon>PageCostCenterItemEdit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageCostCenterEditHelp.xaml.cs">
+      <DependentUpon>PageCostCenterEditHelp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageAttribute.xaml.cs">
+      <DependentUpon>PageAttribute.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageAttributeHelp.xaml.cs">
+      <DependentUpon>PageAttributeHelp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageAttributeItemEdit.xaml.cs">
+      <DependentUpon>PageAttributeItemEdit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageAttributeItemEditHelp.xaml.cs">
+      <DependentUpon>PageAttributeItemEditHelp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageGLAccount.xaml.cs">
+      <DependentUpon>PageGLAccount.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageGLAccountHelp.xaml.cs">
+      <DependentUpon>PageGLAccountHelp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageGLAccountItemEdit.xaml.cs">
+      <DependentUpon>PageGLAccountItemEdit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageGLAccountItemEditHelp.xaml.cs">
+      <DependentUpon>PageGLAccountItemEditHelp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageAsceipion.xaml.cs">
+      <DependentUpon>PageAsceipion.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageAsceptionHelp.xaml.cs">
+      <DependentUpon>PageAsceptionHelp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageAscriptionItemEdit.xaml.cs">
+      <DependentUpon>PageAscriptionItemEdit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageAscriptionItemEditHelp.xaml.cs">
+      <DependentUpon>PageAscriptionItemEditHelp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageState.xaml.cs">
+      <DependentUpon>PageState.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageStateHelp.xaml.cs">
+      <DependentUpon>PageStateHelp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageStateItemEdit.xaml.cs">
+      <DependentUpon>PageStateItemEdit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageStateItemEditHelp.xaml.cs">
+      <DependentUpon>PageStateItemEditHelp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageTemplateItemEditHelp.xaml.cs">
+      <DependentUpon>PageTemplateItemEditHelp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageTemplateItemEdit.xaml.cs">
+      <DependentUpon>PageTemplateItemEdit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageTemplateHelp.xaml.cs">
+      <DependentUpon>PageTemplateHelp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageTemplate.xaml.cs">
+      <DependentUpon>PageTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageSupplierItemEditHelp.xaml.cs">
+      <DependentUpon>PageSupplierItemEditHelp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageSupplierItemEdit.xaml.cs">
+      <DependentUpon>PageSupplierItemEdit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageSupplierHelp.xaml.cs">
+      <DependentUpon>PageSupplierHelp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageSupplier.xaml.cs">
+      <DependentUpon>PageSupplier.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageManufacturer.xaml.cs">
+      <DependentUpon>PageManufacturer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageInventoryItemHelp.xaml.cs">
+      <DependentUpon>PageInventoryItemHelp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageManufacturerItemEdit.xaml.cs">
+      <DependentUpon>PageManufacturerItemEdit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageManufacturerHelp.xaml.cs">
+      <DependentUpon>PageManufacturerHelp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageInventoryItemEditHelp.xaml.cs">
+      <DependentUpon>PageInventoryItemEditHelp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageManufacturerItemEditHelp.xaml.cs">
+      <DependentUpon>PageManufacturerItemEditHelp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PrintHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest">
+      <SubType>Designer</SubType>
+    </AppxManifest>
+    <Content Include="Assets\attributes\Preis.attribute" />
+    <Content Include="Assets\attributes\Flaeche.attribute" />
+    <Content Include="Assets\attributes\Gewicht.attribute" />
+    <Content Include="Assets\attributes\Pruefdatum.attribute" />
+    <Content Include="Assets\attributes\Baujahr.attribute" />
+    <Content Include="Assets\attributes\Seriennummer.attribute" />
+    <Content Include="Assets\attributes\Modell.attribute" />
+    <Content Include="Assets\BadgeLogo.scale-100.png" />
+    <Content Include="Assets\BadgeLogo.scale-125.png" />
+    <Content Include="Assets\BadgeLogo.scale-150.png" />
+    <Content Include="Assets\BadgeLogo.scale-200.png" />
+    <Content Include="Assets\BadgeLogo.scale-400.png" />
+    <Content Include="Assets\LargeTile.scale-100.png" />
+    <Content Include="Assets\LargeTile.scale-125.png" />
+    <Content Include="Assets\LargeTile.scale-150.png" />
+    <Content Include="Assets\LargeTile.scale-200.png" />
+    <Content Include="Assets\LargeTile.scale-400.png" />
+    <Content Include="Assets\locations\Regal.location" />
+    <Content Include="Assets\manufacturers\Commodore.manufacturer" />
+    <Content Include="Assets\SmallTile.scale-100.png" />
+    <Content Include="Assets\SmallTile.scale-125.png" />
+    <Content Include="Assets\SmallTile.scale-150.png" />
+    <Content Include="Assets\SmallTile.scale-200.png" />
+    <Content Include="Assets\SmallTile.scale-400.png" />
+    <Content Include="Assets\SplashScreen.scale-100.png" />
+    <Content Include="Assets\SplashScreen.scale-125.png" />
+    <Content Include="Assets\SplashScreen.scale-150.png" />
+    <Content Include="Assets\SplashScreen.scale-200.png" />
+    <Content Include="Assets\SplashScreen.scale-400.png" />
+    <Content Include="Assets\Square150x150Logo.scale-100.png" />
+    <Content Include="Assets\Square150x150Logo.scale-125.png" />
+    <Content Include="Assets\Square150x150Logo.scale-150.png" />
+    <Content Include="Assets\Square150x150Logo.scale-200.png" />
+    <Content Include="Assets\Square150x150Logo.scale-400.png" />
+    <Content Include="Assets\Square44x44Logo.altform-unplated_targetsize-16.png" />
+    <Content Include="Assets\Square44x44Logo.altform-unplated_targetsize-24.png" />
+    <Content Include="Assets\Square44x44Logo.altform-unplated_targetsize-256.png" />
+    <Content Include="Assets\Square44x44Logo.altform-unplated_targetsize-32.png" />
+    <Content Include="Assets\Square44x44Logo.altform-unplated_targetsize-48.png" />
+    <Content Include="Assets\Square44x44Logo.scale-100.png" />
+    <Content Include="Assets\Square44x44Logo.scale-125.png" />
+    <Content Include="Assets\Square44x44Logo.scale-150.png" />
+    <Content Include="Assets\Square44x44Logo.scale-200.png" />
+    <Content Include="Assets\Square44x44Logo.scale-400.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-16.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-24.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-256.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-32.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-48.png" />
+    <Content Include="Assets\StoreLogo.scale-100.png" />
+    <Content Include="Assets\StoreLogo.scale-125.png" />
+    <Content Include="Assets\StoreLogo.scale-150.png" />
+    <Content Include="Assets\StoreLogo.scale-200.png" />
+    <Content Include="Assets\StoreLogo.scale-400.png" />
+    <Content Include="Assets\suppliers\eBay.supplier" />
+    <Content Include="Assets\states\SehrGut.state" />
+    <Content Include="Assets\states\Gut.state" />
+    <Content Include="Assets\costcenters\Hobby.costcenter" />
+    <Content Include="Assets\glaccounts\Haushalt.glaccount" />
+    <Content Include="Assets\attributes\URL.attribute" />
+    <Content Include="Assets\attributes\Prozessor.attribute" />
+    <Content Include="Assets\attributes\Hauptspeicher.attribute" />
+    <Content Include="Assets\attributes\Taktrate.attribute" />
+    <Content Include="Assets\costcenters\Fuhrpark.costcenter" />
+    <Content Include="Assets\inventorys\c64.inventory" />
+    <Content Include="Assets\states\Befriedigend.state" />
+    <Content Include="Assets\states\Ausreichend.state" />
+    <Content Include="Assets\states\Mangelhaft.state" />
+    <Content Include="Assets\states\Ungenügend.state" />
+    <Content Include="Assets\suppliers\amazon.supplier" />
+    <Content Include="Assets\suppliers\eBayKleinanzeigen.supplier" />
+    <Content Include="Assets\suppliers\Flohmarkt.supplier" />
+    <Content Include="Assets\manufacturers\TI.manufacturer" />
+    <Content Include="Assets\manufacturers\Epson.manufacturer" />
+    <Content Include="Assets\manufacturers\Atari.manufacturer" />
+    <Content Include="Assets\manufacturers\Sinclair.manufacturer" />
+    <Content Include="Assets\manufacturers\Robotron.manufacturer" />
+    <Content Include="Assets\manufacturers\VEBMikroelektronik.manufacturer" />
+    <Content Include="Assets\templates\PC.template" />
+    <Content Include="Assets\suppliers\Saturn.supplier" />
+    <Content Include="Assets\suppliers\MediaMarkt.supplier" />
+    <Content Include="Assets\suppliers\Vobis.supplier" />
+    <Content Include="Assets\suppliers\Escom.supplier" />
+    <Content Include="Assets\suppliers\Conrad.supplier" />
+    <Content Include="Assets\suppliers\Quelle.supplier" />
+    <Content Include="Assets\manufacturers\Sharp.manufacturer" />
+    <Content Include="Assets\manufacturers\Dell.manufacturer" />
+    <Content Include="Assets\manufacturers\HP.manufacturer" />
+    <Content Include="Assets\manufacturers\Acer.manufacturer" />
+    <Content Include="Assets\manufacturers\TA.manufacturer" />
+    <Content Include="Assets\inventorys\ti994a.inventory" />
+    <Content Include="Assets\attributes\Betriebssystem.attribute" />
+    <Content Include="Assets\inventorys\portfolio.inventory" />
+    <Content Include="Assets\inventorys\kc87.inventory" />
+    <Content Include="Assets\inventorys\kc854.inventory" />
+    <Content Include="Assets\inventorys\zx81.inventory" />
+    <Content Include="Assets\inventorys\mz821.inventory" />
+    <Content Include="Assets\inventorys\pc10iii.inventory" />
+    <Content Include="Assets\inventorys\hx20.inventory" />
+    <Content Include="Assets\templates\Zubehör.template" />
+    <Content Include="Assets\manufacturers\Schneider.manufacturer" />
+    <Content Include="Assets\inventorys\cpc464.inventory" />
+    <None Include="InventoryExpress_StoreKey.pfx" />
+    <None Include="InventoryExpress_TemporaryKey.pfx" />
+    <PRIResource Include="Strings\de-DE\Resources.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\attributes\Kaufdatum.attribute" />
+    <Content Include="Assets\templates\Heimcomputer.template" />
+    <None Include="Package.StoreAssociation.xml" />
+    <Content Include="Assets\Wide310x150Logo.scale-100.png" />
+    <Content Include="Assets\Wide310x150Logo.scale-125.png" />
+    <Content Include="Assets\Wide310x150Logo.scale-150.png" />
+    <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+    <Content Include="Assets\Wide310x150Logo.scale-400.png" />
+    <Content Include="Properties\Default.rd.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
+      <Version>5.2.3</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Page Include="PageInventoryItemPrint.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PageInventoryItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PageInventoryItemEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PageMain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PageMainHelp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PageLocation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PageLocationHelp.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PageLocationItemEdit.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PageLocationItemEditHelp.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PageCostCenter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PageCostCenterHelp.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PageCostCenterItemEdit.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PageCostCenterEditHelp.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PageAttribute.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PageAttributeHelp.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PageAttributeItemEdit.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PageAttributeItemEditHelp.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PageGLAccount.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PageGLAccountHelp.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PageGLAccountItemEdit.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PageGLAccountItemEditHelp.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PageAsceipion.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PageAsceptionHelp.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PageAscriptionItemEdit.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PageAscriptionItemEditHelp.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PageState.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PageStateHelp.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PageStateItemEdit.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PageStateItemEditHelp.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PageTemplateItemEditHelp.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PageTemplateItemEdit.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PageTemplateHelp.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PageTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PageSupplierItemEditHelp.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PageSupplierItemEdit.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PageSupplierHelp.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PageSupplier.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PageManufacturer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PageInventoryItemHelp.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PageManufacturerItemEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PageManufacturerHelp.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PageInventoryItemEditHelp.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PageManufacturerItemEditHelp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResourceDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+  </ItemGroup>
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
+    <VisualStudioVersion>14.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

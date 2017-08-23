@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<inventory version="1.0">
+  <id>c1232448-53b1-496f-878a-e59f93febb5e</id>
+  <name>MZ-821</name>
+  <timestamp>2017-08-13T10:48:45.1309632+02:00</timestamp>
+  <template>Heimcomputer</template>
+  <attribute id="57e7594c-7846-436e-b2db-33ba7b751718" name="Prozessor">Z80A</attribute>
+  <attribute id="6c19246c-d57a-44ba-956c-54c0c4b7043d" name="Hauptspeicher">64 KB</attribute>
+  <attribute id="62b9e3eb-81cb-4532-af01-a100d5346385" name="Taktrate">3,55 MHz</attribute>
+  <like>false</like>
+  <costvalue>88.50</costvalue>
+  <purchasedate>2017-08-07T00:00:00+02:00</purchasedate>
+  <derecognitiondate />
+  <location>Regal</location>
+  <costcenter>Hobby</costcenter>
+  <manufacturer>Sharp</manufacturer>
+  <state>2 - Gut</state>
+  <supplier>eBay Inc.</supplier>
+  <glaccount>Haushalt</glaccount>
+  <parent />
+</inventory>

@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<attribute version="1.0" type="DateTime">
+  <id>
+    F6C54745-30C1-1149-4532-3BC993717B5A
+  </id>
+  <name>Prüfdatum</name>
+  <memo>Datum der letzten Prüfung</memo>
+  <tag></tag>
+  <timestamp></timestamp>
+</attribute>

@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<attribute version="1.0" type="String">
+  <id>
+    86C54745-30C1-1149-8DEE-A3C193717B5C
+  </id>
+  <name>Seriennummer</name>
+  <memo>Seriennummer</memo>
+  <tag></tag>
+  <timestamp></timestamp>
+</attribute>

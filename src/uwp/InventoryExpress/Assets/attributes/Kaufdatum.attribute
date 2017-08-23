@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<attribute version="1.0" type="DateTime">
+  <id>
+    7AC54745-30C1-1149-8DEE-3BC993717B55
+  </id>
+  <name>Kaufdatum</name>
+  <memo>Das originale Kaufdatum des Inventars.</memo>
+  <tag></tag>
+  <timestamp></timestamp>
+</attribute>

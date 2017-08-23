@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<attribute version="1.0" type="string">
+  <id>
+    D6C54745-60C1-1649-54EE-3BC993717B6
+  </id>
+  <name>Hauptspeicher</name>
+  <memo>Die Größe des Hauptspeichers.</memo>
+  <tag></tag>
+  <timestamp></timestamp>
+</attribute>

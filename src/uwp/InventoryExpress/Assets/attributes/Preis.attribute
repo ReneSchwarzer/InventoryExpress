@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<attribute version="1.0" type="decimal">
+  <id>
+    EBC54745-30C1-1149-BDEE-3BC993717BFA
+  </id>
+  <name>Preis</name>
+  <memo>Preis in €</memo>
+  <tag></tag>
+  <timestamp></timestamp>
+</attribute>

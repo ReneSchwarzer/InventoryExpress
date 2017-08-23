@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<attribute version="1.0" type="string">
+  <id>
+    A6C54745-6531-1649-54EE-3BC99371754
+  </id>
+  <name>Betriebssystem</name>
+  <memo>Das Betriebssystem.</memo>
+  <tag></tag>
+  <timestamp></timestamp>
+</attribute>

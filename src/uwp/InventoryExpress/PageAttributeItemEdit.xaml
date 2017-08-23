@@ -1,0 +1,82 @@
+﻿<Page
+    x:Class="InventoryExpress.PageAttributeItemEdit"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:InventoryExpress"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ResourceDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
+            <ProgressRing Name="ProgressRing" 
+                          IsActive="False"
+                          Visibility="Collapsed"
+                          Margin="16"
+                          HorizontalAlignment="Center" 
+                          VerticalAlignment="Center"/>
+            <TextBlock x:Name="Titel"
+                   x:Uid="PageAccountItemEditLabel"
+                   Style="{StaticResource TitelTextBlock}"
+                   TextWrapping="WrapWholeWords"
+                   Text="Attribut ändern"/>
+        </StackPanel>
+        <ScrollViewer Grid.Row="1" Grid.Column="1">
+            
+            <StackPanel Margin="16,16,16,16">
+                <TextBlock x:Uid="NameLabel" Text="Name:" Margin="5"/>
+                <TextBox Name="AttributeName" Text="{Binding Name, Mode=TwoWay}" Margin="5,5,5,15"/>
+
+                <TextBlock Text="Tag:" Margin="5"/>
+                <TextBox x:Uid="MemoLabel" Name="Tag" 
+                         AcceptsReturn="True"
+                         Text="{Binding Tag, Mode=TwoWay}" Margin="5,5,5,15"/>
+
+                <TextBlock Text="Beschreibung:" Margin="5"/>
+                <TextBox x:Uid="MemoLabel" Name="Memo" 
+                         AcceptsReturn="True"
+                         TextWrapping="Wrap"
+                         Text="{Binding Memo, Mode=TwoWay}" Margin="5,5,5,15"/>
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+
+    <Page.TopAppBar>
+        <CommandBar x:Name="AppBar" Style="{StaticResource AppBar}">
+            <CommandBar.PrimaryCommands>
+                <AppBarButton FlowDirection="LeftToRight" Name="Back" x:Uid="BackLabel" Label="Zurück" Icon="Back" Click="OnCancelAndNavigateBack" />
+            </CommandBar.PrimaryCommands>
+            <CommandBar.SecondaryCommands>
+                <AppBarButton FlowDirection="LeftToRight" Name="Help" x:Uid="HelpMenu" Label="Hilfe" Icon="Help" Click="OnNavigateToHelpPage" />
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
+    </Page.TopAppBar>
+
+    <Page.BottomAppBar>
+        <CommandBar x:Name="ButtonBar" Style="{StaticResource CommandBar}" ClosedDisplayMode="Compact">
+            <CommandBar.PrimaryCommands>
+                <AppBarButton FlowDirection="LeftToRight" Name="Save" x:Uid="SaveMenu" Label="Speichern" Icon="Save" Click="OnSaveAndNavigateBack" />
+                <AppBarButton FlowDirection="LeftToRight" Name="Cancel" x:Uid="CancelMenu" Label="Abbrechen" Icon="Cancel" Click="OnCancelAndNavigateBack"/>
+            </CommandBar.PrimaryCommands>
+            <CommandBar.SecondaryCommands>
+                <AppBarButton FlowDirection="LeftToRight" Name="Del" Label="Löschen" Icon="Delete" Click="OnDeleteAndNavigateBack"/>
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>

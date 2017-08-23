@@ -1,0 +1,199 @@
+﻿<Page
+    x:Class="InventoryExpress.PageAscriptionItemEdit"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:InventoryExpress"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ResourceDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
+            <ProgressRing Name="ProgressRing" 
+                          IsActive="False"
+                          Visibility="Collapsed"
+                          Margin="16"
+                          HorizontalAlignment="Center" 
+                          VerticalAlignment="Center"/>
+            <TextBlock x:Name="Titel"
+                   x:Uid="PageAccountItemEditLabel"
+                   Style="{StaticResource TitelTextBlock}"
+                   TextWrapping="WrapWholeWords"
+                   Text="Zuschreibung ändern"/>
+        </StackPanel>
+        <ScrollViewer Grid.Row="1" Grid.Column="1">
+            
+            <StackPanel Margin="16,16,16,16">
+                <StackPanel Margin="0, 0, 0, 0" Orientation="Horizontal">
+                    <SymbolIcon Symbol="Font" Margin="3,0,3,0"/>
+                    <TextBlock x:Uid="NameLabel" Text="Name:" Margin="5"/>
+                </StackPanel>
+                <TextBox Name="InventoryName" Text="{Binding Name, Mode=TwoWay}" Margin="5,5,5,15"/>
+
+                <StackPanel Margin="0, 0, 0, 0" Orientation="Horizontal">
+                    <SymbolIcon Symbol="Tag" Margin="3,0,3,0"/>
+                    <TextBlock x:Uid="TagLabel" Text="Tag:" Margin="5"/>
+                </StackPanel>
+                <TextBox x:Uid="TagLabel" Name="Tag" 
+                         AcceptsReturn="True"
+                         Text="{Binding Tag, Mode=TwoWay}" Margin="5,5,5,15"/>
+
+                <StackPanel Margin="0, 0, 0, 0" Orientation="Horizontal">
+                    <SymbolIcon Symbol="Comment" Margin="3,0,3,0"/>
+                    <TextBlock x:Uid="MemoLabel" Text="Beschreibung:" Margin="5"/>
+                </StackPanel>
+                <TextBox x:Uid="MemoLabel" Name="Memo" 
+                         AcceptsReturn="True"
+                         TextWrapping="Wrap"
+                         Text="{Binding Memo, Mode=TwoWay}" Margin="5,5,5,15"/>
+
+                <StackPanel Margin="0, 0, 0, 0" Orientation="Horizontal">
+                    <FontIcon Glyph="&#xEC09;" Margin="3,0,3,0"/>
+                    <TextBlock x:Uid="ManufacturerLabel" Text="Hersteller:" Margin="5"/>
+                </StackPanel>
+
+                <ComboBox Name="ManufacturerComboBox" 
+                          HorizontalAlignment="Stretch"
+                          ItemTemplate="{StaticResource ComboBoxItemTemplate}"
+                          SelectedItem="{Binding Manufacturer, Mode=TwoWay}" 
+                          Margin="5,5,5,15" SelectionChanged="OnSelectionChanged"/>
+
+                <StackPanel Margin="0, 0, 0, 0" Orientation="Horizontal">
+                    <FontIcon Glyph="&#xE7E3;" Margin="3,0,3,0"/>
+                    <TextBlock x:Uid="SupplierLabel" Text="Lieferant:" Margin="5"/>
+                </StackPanel>
+
+                <ComboBox Name="SupplierComboBox" 
+                          HorizontalAlignment="Stretch"
+                          ItemTemplate="{StaticResource ComboBoxItemTemplate}"
+                          SelectedItem="{Binding Supplier, Mode=TwoWay}" 
+                          Margin="5,5,5,15" SelectionChanged="OnSelectionChanged"/>
+
+                <StackPanel Margin="0, 0, 0, 0" Orientation="Horizontal">
+                    <SymbolIcon Symbol="Favorite" Margin="3,0,3,0"/>
+                    <TextBlock x:Uid="StateLabel" Text="Zustand:" Margin="5"/>
+                </StackPanel>
+
+                <ComboBox Name="StateComboBox" 
+                          HorizontalAlignment="Stretch"
+                          ItemTemplate="{StaticResource ComboBoxItemTemplate}"
+                          SelectedItem="{Binding State, Mode=TwoWay}" 
+                          Margin="5,5,5,15" SelectionChanged="OnSelectionChanged"/>
+
+                <StackPanel Margin="0, 0, 0, 0" Orientation="Horizontal">
+                    <SymbolIcon Symbol="Bookmarks" Margin="3,0,3,0"/>
+                    <TextBlock x:Uid="TemplateLabel" Text="Vorlage:" Margin="5"/>
+                </StackPanel>
+
+                <ComboBox Name="TemplateComboBox" 
+                          HorizontalAlignment="Stretch"
+                          ItemTemplate="{StaticResource ComboBoxItemTemplate}"
+                          SelectedItem="{Binding Template, Mode=TwoWay}" 
+                          Margin="5,5,5,15" SelectionChanged="OnSelectionChanged"/>
+
+                <ItemsControl Name="Attribute" 
+                              ItemsSource="{Binding Attributes}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="0, 0, 0, 0" 
+                                            Orientation="Vertical">
+                                <StackPanel Orientation="Horizontal">
+
+                                    <SymbolIcon Symbol="Placeholder" Margin="3,0,3,0"/>
+                                    <TextBlock Text="{Binding Name}"
+                                               Margin="5,5,0,5"/>
+                                    <TextBlock Text=":"
+                                               Margin="0,5,0,5"/>
+                                </StackPanel>
+                                <TextBox Text="{Binding Value, Mode=TwoWay}"
+                                         Margin="5,5,5,15"/>
+
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <StackPanel Margin="0, 0, 0, 0" Orientation="Horizontal">
+                    <TextBlock Text="$" Margin="9,5,6,5" RenderTransformOrigin="0.5,0.5">
+                        <TextBlock.RenderTransform>
+                            <CompositeTransform ScaleX="1.5" ScaleY="1.5"/>
+                        </TextBlock.RenderTransform>
+                    </TextBlock>
+                    <TextBlock x:Uid="CostValueLabel" Text="Anschaffungskosten:" Margin="5"/>
+                </StackPanel>
+
+                <StackPanel Margin="0, 0, 0, 0" Orientation="Horizontal">
+                    <TextBox Name="CostValueName" Text="{Binding Path=CostValue, Mode=TwoWay, Converter={StaticResource DecimalConverter}}" Margin="5,5,5,15"/>
+                    <TextBlock Text="€" Margin="5,5,5,15"/>
+                </StackPanel>
+
+
+                <StackPanel Margin="0, 0, 0, 0" Orientation="Horizontal">
+                    <SymbolIcon Symbol="CalendarDay" Margin="3,0,3,0"/>
+                    <TextBlock x:Uid="PurchaseDateLabel" Text="Anschaffungsdatum:" Margin="5"/>
+                </StackPanel>
+
+                <DatePicker Name="PurchaseDatePicker" 
+                          HorizontalAlignment="Left"
+                          Date="{Binding Path=PurchaseDate, Mode=TwoWay}" 
+                          Margin="5,5,5,15"/>
+
+                <StackPanel Margin="0, 0, 0, 0" Orientation="Horizontal">
+                    <SymbolIcon Symbol="CalendarDay" Margin="3,0,3,0"/>
+                    <TextBlock x:Uid="DerecognitionDateDateLabel" Text="Abgangsdatum:" Margin="5"/>
+                </StackPanel>
+
+                <CheckBox Name="DerecognitionDateCheckBox" 
+                          Margin="5,5,5,15"
+                          IsChecked="{Binding Path=DerecognitionDateEnable, Mode=TwoWay}"
+                          Checked="OnCheck" 
+                          Unchecked="OnUnCheck">
+                    <DatePicker Name="DerecognitionDatePicker" 
+                                HorizontalAlignment="Left"
+                                Visibility="Collapsed"
+                                Date="{Binding DerecognitionDate, Mode=TwoWay}" 
+                                Margin="5, 0, 0, 5"/>
+                </CheckBox>
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+
+    <Page.TopAppBar>
+        <CommandBar x:Name="AppBar" Style="{StaticResource AppBar}">
+            <CommandBar.PrimaryCommands>
+                <AppBarButton FlowDirection="LeftToRight" Name="Back" x:Uid="BackLabel" Label="Zurück" Icon="Back" Click="OnCancelAndNavigateBack" />
+            </CommandBar.PrimaryCommands>
+            <CommandBar.SecondaryCommands>
+                <AppBarButton FlowDirection="LeftToRight" Name="Help" x:Uid="HelpMenu" Label="Hilfe" Icon="Help" Click="OnNavigateToHelpPage" />
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
+    </Page.TopAppBar>
+
+    <Page.BottomAppBar>
+        <CommandBar x:Name="ButtonBar" Style="{StaticResource CommandBar}" ClosedDisplayMode="Compact">
+            <CommandBar.PrimaryCommands>
+                <AppBarButton FlowDirection="LeftToRight" Name="Save" x:Uid="SaveMenu" Label="Speichern" Icon="Save" Click="OnSaveAndNavigateBack" />
+                <AppBarButton FlowDirection="LeftToRight" Name="Cancel" x:Uid="CancelMenu" Label="Abbrechen" Icon="Cancel" Click="OnCancelAndNavigateBack"/>
+            </CommandBar.PrimaryCommands>
+            <CommandBar.SecondaryCommands>
+                <AppBarButton FlowDirection="LeftToRight" Name="Del" Label="Löschen" Icon="Delete" Click="OnDeleteAndNavigateBack"/>
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>

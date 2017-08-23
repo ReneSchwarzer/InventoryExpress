@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<attribute version="1.0" type="string">
+  <id>
+    A6C54745-60C1-1649-54EE-3BC993717B31
+  </id>
+  <name>Prozessor</name>
+  <memo>Der verwendete Hauptprozessor.</memo>
+  <tag></tag>
+  <timestamp></timestamp>
+</attribute>

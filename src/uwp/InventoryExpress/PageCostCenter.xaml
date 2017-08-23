@@ -1,0 +1,81 @@
+﻿<Page
+    x:Class="InventoryExpress.PageCostCenter"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:InventoryExpress"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ResourceDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid HorizontalAlignment="Stretch" Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Row="0">
+            <ProgressRing Name="ProgressRing" 
+                          IsActive="False"
+                          Visibility="Collapsed"
+                          Margin="16"
+                          HorizontalAlignment="Center" 
+                          VerticalAlignment="Center"/>
+            <TextBlock x:Name="Titel"
+                   x:Uid="PageAccountItemEditLabel"
+                   Style="{StaticResource TitelTextBlock}"
+                   Text="Kostenstellen"/>
+        </StackPanel>
+
+        <ListView HorizontalAlignment="Stretch" 
+                  VerticalAlignment="Stretch"
+                  VerticalContentAlignment="Stretch"
+                  HorizontalContentAlignment="Stretch"
+                  ScrollViewer.HorizontalScrollMode="Disabled"   
+                  ShowsScrollingPlaceholders="True"
+                  ScrollViewer.IsHorizontalScrollChainingEnabled="False"
+                  IsItemClickEnabled="True"
+                  SelectionMode="None"
+                  ItemClick="OnItemClick"
+                  ItemsSource="{Binding FilteredCostCenters}" 
+                  Grid.Row="1" 
+                  Margin="0, 5, 5, 0" 
+                  Grid.Column="0"  
+                  ItemTemplate="{StaticResource ListViewItemShortTemplate}"/>
+    </Grid>
+
+    <Page.TopAppBar>
+        <CommandBar x:Name="AppBar" Style="{StaticResource AppBar}">
+            <CommandBar.Content>
+                <AutoSuggestBox Text="{Binding SearchText, Mode=TwoWay}" 
+                         Name="SearchBox" 
+                        Style="{StaticResource AutoSuggestBox}" />
+            </CommandBar.Content>
+            <CommandBar.PrimaryCommands>
+                <AppBarButton FlowDirection="LeftToRight" Name="Home" x:Uid="HomeMenu" Label="Startseite" Icon="Home" Click="OnNavigateToHomePage" />
+             </CommandBar.PrimaryCommands>
+            <CommandBar.SecondaryCommands>
+                <AppBarButton FlowDirection="LeftToRight" Name="Help" x:Uid="HelpMenu" Label="Hilfe" Icon="Help" Click="OnNavigateToHelpPage" />
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
+    </Page.TopAppBar>
+
+    <Page.BottomAppBar>
+        <CommandBar x:Name="ButtonBar" Style="{StaticResource CommandBar}">
+            <CommandBar.PrimaryCommands>
+                <AppBarButton FlowDirection="LeftToRight" Name="AddButton" x:Uid="AddMenu" Label="Hinzufügen" Icon="Add" Click="OnNavigateToAddPage" />
+            </CommandBar.PrimaryCommands>
+            <CommandBar.SecondaryCommands>
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>

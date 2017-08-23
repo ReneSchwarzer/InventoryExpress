@@ -1,0 +1,2 @@
+MainPackage=D:\Rene\Dokumente\Visual Studio 2017\Projects\InventoryExpress\InventoryExpress\bin\x86\Release\Upload\InventoryExpress_1.0.1.0_x86.appx
+SymbolPackage=D:\Rene\Dokumente\Visual Studio 2017\Projects\InventoryExpress\InventoryExpress\bin\x86\Release\Upload\InventoryExpress_1.0.1.0\InventoryExpress_1.0.1.0_x86.appxsym

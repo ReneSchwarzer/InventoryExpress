@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<attribute version="1.0" type="string">
+  <id>
+    B6C56745-60C1-1649-24EE-3BC993717B3C
+  </id>
+  <name>Taktrate</name>
+  <memo>Das Taktsignal des Hauptprozessors.</memo>
+  <tag></tag>
+  <timestamp></timestamp>
+</attribute>

@@ -1,0 +1,317 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddMenu" xml:space="preserve">
+    <value>Hinzufügen</value>
+    <comment>Bezeichnung der Menüentrages Hinzufügen</comment>
+  </data>
+  <data name="Attribute" xml:space="preserve">
+    <value>Attribute</value>
+    <comment>Bezeichnung der Menüentrages Attributes</comment>
+  </data>
+  <data name="CostCenterMenu" xml:space="preserve">
+    <value>Kostenstelle</value>
+    <comment>Bezeichnung der Menüentrages Kostenstelle</comment>
+  </data>
+  <data name="HelpMenu" xml:space="preserve">
+    <value>Hilfe</value>
+    <comment>Bezeichnung der Menüentrages Hilfe</comment>
+  </data>
+  <data name="LocationMenu" xml:space="preserve">
+    <value>Standorte</value>
+    <comment>Bezeichnung der Menüentrages Standorte</comment>
+  </data>
+  <data name="ManufacureMenu" xml:space="preserve">
+    <value>Hersteller</value>
+    <comment>Bezeichnung der Menüentrages Hersteller</comment>
+  </data>
+  <data name="MsgCompulsoryStatement.Text" xml:space="preserve">
+    <value>Der Name ist eine Pflichteingabe!</value>
+    <comment>Messageboxtext</comment>
+  </data>
+  <data name="MsgDelAccountAsk.Text" xml:space="preserve">
+    <value>Löschen</value>
+    <comment>Messageboxüberschrift Löschen</comment>
+  </data>
+  <data name="MsgNo.Text" xml:space="preserve">
+    <value>Nein</value>
+    <comment>Messagebox Nein</comment>
+  </data>
+  <data name="MsgTitleDel.Text" xml:space="preserve">
+    <value>Löschen</value>
+    <comment>Messageboxüberschrift Löschen</comment>
+  </data>
+  <data name="MsgTitleHint.Text" xml:space="preserve">
+    <value>Hinweis</value>
+    <comment>Messageboxüberschrift Hinweis</comment>
+  </data>
+  <data name="MsgUniqe.Text" xml:space="preserve">
+    <value>Der Name muss eindeutig sein!</value>
+    <comment>Messageboxtext</comment>
+  </data>
+  <data name="MsgYes.Text" xml:space="preserve">
+    <value>Ja</value>
+    <comment>Messagebox Ja</comment>
+  </data>
+  <data name="PageAscriptionItemAddLabel.Text" xml:space="preserve">
+    <value>Neue Zuschreibung</value>
+    <comment>Titel Zuschreibung erstellen</comment>
+  </data>
+  <data name="PageAscriptionItemHelp1.Text" xml:space="preserve">
+    <value>Hier finden Sie Detailinformationen zu der ausgewählten Zuschreibung.</value>
+  </data>
+  <data name="PageAscriptionLabel.Text" xml:space="preserve">
+    <value>Zuschreibung</value>
+  </data>
+  <data name="PageAttributeItemAddLabel.Text" xml:space="preserve">
+    <value>Neues Attribut</value>
+    <comment>Titel Attribut erstellen</comment>
+  </data>
+  <data name="PageAttributeItemEditHelp1.Text" xml:space="preserve">
+    <value>Ändern Sie hier die Eigenschaften des Attributes und speichern Sie diese dauerhaft.</value>
+  </data>
+  <data name="PageCostCenterHelp1.Text" xml:space="preserve">
+    <value>Verwalten Sie hier die Kostenstellen.</value>
+  </data>
+  <data name="PageCostCenterItemAddLabel.Text" xml:space="preserve">
+    <value>Neue Kostenstelle</value>
+    <comment>Titel Kostenstelle erstellen</comment>
+  </data>
+  <data name="PageCostCenterItemEditHelp1.Text" xml:space="preserve">
+    <value>Ändern Sie die Eingenschaften der Kostenstelle und speichern Sie die Änderungen dauerhaft. </value>
+  </data>
+  <data name="PageGLAccountHelp1.Text" xml:space="preserve">
+    <value>Verwalten Sie hier die Sachkonten</value>
+  </data>
+  <data name="PageGLAccountItemAddLabel.Text" xml:space="preserve">
+    <value>Neues Sachkonto</value>
+    <comment>Titel Sachkonto erstellen</comment>
+  </data>
+  <data name="PageHelpCopyButton.Content" xml:space="preserve">
+    <value>Beispieldaten bereitstellen</value>
+  </data>
+  <data name="PageHelpHintLabel.Text" xml:space="preserve">
+    <value>Hinweis: Die Daten stehen erst nach einem Neustart der Anwendung zur Verfügung.</value>
+    <comment>Hinweis</comment>
+  </data>
+  <data name="PageHelpLabel.Text" xml:space="preserve">
+    <value>Hilfe</value>
+    <comment>Titel der Hilfe</comment>
+  </data>
+  <data name="PageIAscriptionItemEditHelp1.Text" xml:space="preserve">
+    <value>Ändern Sie die Eingenschaften der Zuschreibung und speichern Sie die Änderungen dauerhaft. </value>
+  </data>
+  <data name="PageInventoryItemAddLabel.Text" xml:space="preserve">
+    <value>Neues Inventar</value>
+    <comment>Titel Inventar erstellen</comment>
+  </data>
+  <data name="PageInventoryItemEditHelp1.Text" xml:space="preserve">
+    <value>Ändern Sie die Eingenschaften des Inventars und speichern Sie die Änderungen dauerhaft. </value>
+  </data>
+  <data name="PageInventoryItemHelp1.Text" xml:space="preserve">
+    <value>Hier finden Sie Detailinformationen zu den ausgewählten Inventar.</value>
+  </data>
+  <data name="PageInventoryLabel.Text" xml:space="preserve">
+    <value>Inventar</value>
+  </data>
+  <data name="PageLocationHelp1.Text" xml:space="preserve">
+    <value>Verwalten Sie hier die Standorte.</value>
+  </data>
+  <data name="PageLocationItemAddLabel.Text" xml:space="preserve">
+    <value>Neuer Standort</value>
+    <comment>Titel Standort erstellen</comment>
+  </data>
+  <data name="PageLocationItemEditHelp1.Text" xml:space="preserve">
+    <value>Ändern Sie die Eingenschaften der Kostenstelle und speichern Sie die Änderungen dauerhaft. </value>
+  </data>
+  <data name="PageMainHelp1.Text" xml:space="preserve">
+    <value>Die Inventardatenbank für private Zwecke.</value>
+  </data>
+  <data name="PageMainHelp2.Text" xml:space="preserve">
+    <value>Mit InventoryExpress verwalten Sie ihren persönlichen Besitz. InventoryExpress ist für den privaten Bereich ausgelegt. Verwalten Sie zum Beispiel Ihre Sammlerobjekte oder Haushaltsgegenstände und behalten Sie somit einen Überblick über Ihre Anschaffungen.</value>
+    <comment>Info</comment>
+  </data>
+  <data name="PageMainHelp3.Text" xml:space="preserve">
+    <value>Datenschutzrichtlinie: Die während der Nutzung eingegebenen Daten werden lokal auf Ihrem Gerät als Dateien gespeichert und über OneDrive automatisch auf Ihre weiteren Geräte synchronisiert. Sie behalten jederzeit die Datenhoheit. Die Daten werden zu keiner Zeit an Dritte übermittelt. Persönliche Informationen und Standortinformationen werden nicht erhoben.</value>
+    <comment>Datenschutzrichtlinie</comment>
+  </data>
+  <data name="PageMainHelp4.Text" xml:space="preserve">
+    <value>Haftungsausschluss: Die Haftung für Schäden durch Sachmängel wird ausgeschlossen. Die Haftung auf Schadensersatz wegen Körperverletzung sowie bei grober Fahrlässigkeit oder Vorsatz bleibt unberührt.</value>
+    <comment>Haftungsausschluss</comment>
+  </data>
+  <data name="PageManufacturerHelp1.Text" xml:space="preserve">
+    <value>Verwalten Sie hier die Hersteller Ihres Inventars.</value>
+  </data>
+  <data name="PageManufacturerItemAddLabel.Text" xml:space="preserve">
+    <value>Neuer Hersteller</value>
+    <comment>Titel Hersteller erstellen</comment>
+  </data>
+  <data name="PageManufacturerItemEditHelp1.Text" xml:space="preserve">
+    <value>Ändern Sie die Eingenschaften des Herstellers und speichern Sie die Änderungen dauerhaft. </value>
+  </data>
+  <data name="PageStateHelp1.Text" xml:space="preserve">
+    <value>Verwalten Sie hier die Zustände</value>
+  </data>
+  <data name="PageStateItemAddLabel.Text" xml:space="preserve">
+    <value>Neuer Zustand</value>
+    <comment>Titel Zustand erstellen</comment>
+  </data>
+  <data name="PageStateItemEditHelp1.Text" xml:space="preserve">
+    <value>Ändern Sie hier die Eigenschaften des Zustandes und speichern Sie diese dauerhaft.</value>
+  </data>
+  <data name="PageSupplierHelp1.Text" xml:space="preserve">
+    <value>Verwalten Sie hier die Lieferanten</value>
+  </data>
+  <data name="PageSupplierItemAddLabel.Text" xml:space="preserve">
+    <value>Neuer Lieferant</value>
+    <comment>Titel Kostenstelle erstellen</comment>
+  </data>
+  <data name="PageSupplierItemEditHelp1.Text1" xml:space="preserve">
+    <value>Ändern Sie die Eingenschaften des Lieferanten und speichern Sie die Änderungen dauerhaft. </value>
+  </data>
+  <data name="PageTemplateItemAddLabel.Text" xml:space="preserve">
+    <value>Vorlage erstellen</value>
+    <comment>Titel Vorlage erstellen</comment>
+  </data>
+  <data name="PageTemplateItemEditHelp1.Text" xml:space="preserve">
+    <value>Ändern Sie hier die Eigenschaften der Vorlage und speichern Sie diese dauerhaft. Sie haben des Weiteren die Möglichkeit über das Menü die Vorlage zu löschen.</value>
+  </data>
+  <data name="PageTemplateItemEditHelp2.Text" xml:space="preserve">
+    <value>Achtung! Gelöschte Vorlagen können nicht wiederhergestellt werden.</value>
+  </data>
+  <data name="PageTemplateItemEditHelp3.Text" xml:space="preserve">
+    <value>Einer Vorlage können mehrere Attribute zugeordnet werden. Attribute werden genutzt um im Inventar weitere Informationen zu speichern.</value>
+  </data>
+  <data name="PageTemplateItemEditLabel.Text" xml:space="preserve">
+    <value>Vorlage ändern</value>
+    <comment>Titel Vorlage ändern</comment>
+  </data>
+  <data name="PageTemplateLabel.Text" xml:space="preserve">
+    <value>Vorlagen</value>
+    <comment>Titel Vorlagen</comment>
+  </data>
+  <data name="SupplierMenu" xml:space="preserve">
+    <value>Lieferanten</value>
+    <comment>Bezeichnung der Menüentrages Lieferanten</comment>
+  </data>
+  <data name="TeplateMenu" xml:space="preserve">
+    <value>Vorlagen</value>
+    <comment>Bezeichnung der Menüentrages Vorlagen</comment>
+  </data>
+</root>

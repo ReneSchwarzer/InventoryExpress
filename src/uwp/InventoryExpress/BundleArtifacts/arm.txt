@@ -1,0 +1,6 @@
+MainPackage=D:\Rene\Dokumente\Visual Studio 2017\Projects\InventoryExpress\InventoryExpress\bin\ARM\Release\InventoryExpress_1.0.1.0_ARM.appx
+SymbolPackage=D:\Rene\Dokumente\Visual Studio 2017\Projects\InventoryExpress\InventoryExpress\AppPackages\InventoryExpress_1.0.1.0_Test\InventoryExpress_1.0.1.0_ARM.appxsym
+ResourcePack=D:\Rene\Dokumente\Visual Studio 2017\Projects\InventoryExpress\InventoryExpress\bin\ARM\Release\InventoryExpress_1.0.1.0_scale-100.appx
+ResourcePack=D:\Rene\Dokumente\Visual Studio 2017\Projects\InventoryExpress\InventoryExpress\bin\ARM\Release\InventoryExpress_1.0.1.0_scale-125.appx
+ResourcePack=D:\Rene\Dokumente\Visual Studio 2017\Projects\InventoryExpress\InventoryExpress\bin\ARM\Release\InventoryExpress_1.0.1.0_scale-150.appx
+ResourcePack=D:\Rene\Dokumente\Visual Studio 2017\Projects\InventoryExpress\InventoryExpress\bin\ARM\Release\InventoryExpress_1.0.1.0_scale-400.appx
