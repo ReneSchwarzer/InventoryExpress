@@ -358,8 +358,7 @@
     <Content Include="Assets\templates\Zubehör.template" />
     <Content Include="Assets\manufacturers\Schneider.manufacturer" />
     <Content Include="Assets\inventorys\cpc464.inventory" />
-    <None Include="InventoryExpress_StoreKey.pfx" />
-    <None Include="InventoryExpress_TemporaryKey.pfx" />
+    <Content Include="Assets\inventorys\800xl.inventory" />
     <PRIResource Include="Strings\de-DE\Resources.resw" />
   </ItemGroup>
   <ItemGroup>

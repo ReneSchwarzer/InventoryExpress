@@ -383,6 +383,16 @@ namespace InventoryExpress.Model
             }
 
             Inventorys.ForEach(a => a.Commit(false));
+
+            Inventorys = Inventorys.OrderBy(x => x.Name).ToList();
+            Templates = Templates.OrderBy(x => x.Name).ToList();
+            Attributes = Attributes.OrderBy(x => x.Name).ToList();
+            Locations = Locations.OrderBy(x => x.Name).ToList();
+            Suppliers = Suppliers.OrderBy(x => x.Name).ToList();
+            Manufacturers = Manufacturers.OrderBy(x => x.Name).ToList();
+            CostCenters = CostCenters.OrderBy(x => x.Name).ToList();
+            States = States.OrderBy(x => x.Name).ToList();
+            GLAccounts = GLAccounts.OrderBy(x => x.Name).ToList();
         }
 
         /// <summary>

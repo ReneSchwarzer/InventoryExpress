@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<inventory version="1.0">
+  <id>b2e1d654-b0b6-4a46-a358-938fb8a08c9f</id>
+  <name>800 XL</name>
+  <timestamp>2017-08-24T20:52:19.2584930+02:00</timestamp>
+  <template>Heimcomputer</template>
+  <like>false</like>
+  <costvalue>110</costvalue>
+  <purchasedate>2017-08-24T00:00:00+02:00</purchasedate>
+  <derecognitiondate />
+  <location>Regal</location>
+  <costcenter>Hobby</costcenter>
+  <manufacturer>Atari</manufacturer>
+  <state />
+  <supplier>eBay Inc.</supplier>
+  <glaccount>Haushalt</glaccount>
+  <parent />
+</inventory>

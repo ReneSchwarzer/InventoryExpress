@@ -179,3 +179,8 @@ UpgradeLog*.htm
 *.rdl.data
 *.bim.layout
 *.bim_*.settings
+
+# Store
+*.appx
+_*.txt
+BundleArtifacts/
