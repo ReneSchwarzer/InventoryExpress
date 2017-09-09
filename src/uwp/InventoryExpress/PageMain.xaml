@@ -83,7 +83,7 @@
                 <AppBarButton FlowDirection="LeftToRight" Name="StateButton" x:Uid="StateMenu" Label="Zustände" Icon="Favorite" Click="OnNavigateToStatePage"/>
                 <AppBarSeparator/>
                 <AppBarButton FlowDirection="LeftToRight" Name="HelpButton" x:Uid="HelpMenu" Label="Hilfe" Icon="Help" Click="OnNavigateToHelpPage" />
-            </CommandBar.SecondaryCommands>
+             </CommandBar.SecondaryCommands>
         </CommandBar>
     </Page.TopAppBar>
 

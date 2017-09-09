@@ -143,7 +143,7 @@ namespace InventoryExpress
         {
             var resourceLoader = ResourceLoader.GetForCurrentView();
             var CostCenter = DataContext as CostCenter;
-            var exist = await ApplicationData.Current.RoamingFolder.TryGetItemAsync(CostCenter.ID + ".CostCenter");
+            var exist = await ApplicationData.Current.LocalFolder.TryGetItemAsync(CostCenter.ID + ".CostCenter");
 
             if (CostCenter != null && exist != null)
             {
@@ -158,7 +158,7 @@ namespace InventoryExpress
                     Model.ViewModel.Instance.CostCenters.Remove(CostCenter);
 
                     // Datei löschen
-                    var file = await ApplicationData.Current.RoamingFolder.GetFileAsync(CostCenter.ID + ".CostCenter");
+                    var file = await ApplicationData.Current.LocalFolder.GetFileAsync(CostCenter.ID + ".CostCenter");
                     await file.DeleteAsync(StorageDeleteOption.PermanentDelete);
 
                     if (Frame.CanGoBack)

@@ -1,2 +1,2 @@
-MainPackage=D:\Rene\Dokumente\Visual Studio 2017\Projects\InventoryExpress\InventoryExpress\bin\x86\Release\InventoryExpress_1.0.1.0_x86.appx
-SymbolPackage=D:\Rene\Dokumente\Visual Studio 2017\Projects\InventoryExpress\InventoryExpress\AppPackages\InventoryExpress_1.0.1.0_Test\InventoryExpress_1.0.1.0_x86.appxsym
+MainPackage=D:\Rene\Dokumente\Visual Studio 2017\Projects\inventar\src\uwp\InventoryExpress\bin\x86\Release\InventoryExpress_1.0.2.0_x86.appx
+SymbolPackage=D:\Rene\Dokumente\Visual Studio 2017\Projects\inventar\src\uwp\InventoryExpress\AppPackages\InventoryExpress_1.0.2.0_Test\InventoryExpress_1.0.2.0_x86.appxsym

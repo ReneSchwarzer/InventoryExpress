@@ -1,9 +1,13 @@
-﻿using System;
+﻿using Microsoft.Graph;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Store;
 using Windows.Storage;
 
 namespace InventoryExpress.Model
@@ -49,6 +53,14 @@ namespace InventoryExpress.Model
             States = new List<State>();
             GLAccounts = new List<GLAccount>();
 
+            var scopes = new[]
+            {
+                "onedrive.readwrite",
+                "offline_access",
+                "wl.signin",
+                "wl.basic"
+            };
+
             await Load();
             Loaded?.Invoke(this, new EventArgs());
         }
@@ -73,7 +85,7 @@ namespace InventoryExpress.Model
                     // Kopieren
                     await file.CopyAsync
                     (
-                        ApplicationData.Current.RoamingFolder,
+                        ApplicationData.Current.LocalFolder,
                         newName,
                         NameCollisionOption.ReplaceExisting
                     );
@@ -96,7 +108,7 @@ namespace InventoryExpress.Model
                     // Kopieren
                     await file.CopyAsync
                     (
-                        ApplicationData.Current.RoamingFolder,
+                        ApplicationData.Current.LocalFolder,
                         newName,
                         NameCollisionOption.ReplaceExisting
                     );
@@ -119,7 +131,7 @@ namespace InventoryExpress.Model
                     // Kopieren
                     await file.CopyAsync
                     (
-                        ApplicationData.Current.RoamingFolder,
+                        ApplicationData.Current.LocalFolder,
                         newName,
                         NameCollisionOption.ReplaceExisting
                     );
@@ -142,7 +154,7 @@ namespace InventoryExpress.Model
                     // Kopieren
                     await file.CopyAsync
                     (
-                        ApplicationData.Current.RoamingFolder,
+                        ApplicationData.Current.LocalFolder,
                         newName,
                         NameCollisionOption.ReplaceExisting
                     );
@@ -165,7 +177,7 @@ namespace InventoryExpress.Model
                     // Kopieren
                     await file.CopyAsync
                     (
-                        ApplicationData.Current.RoamingFolder,
+                        ApplicationData.Current.LocalFolder,
                         newName,
                         NameCollisionOption.ReplaceExisting
                     );
@@ -188,7 +200,7 @@ namespace InventoryExpress.Model
                     // Kopieren
                     await file.CopyAsync
                     (
-                        ApplicationData.Current.RoamingFolder,
+                        ApplicationData.Current.LocalFolder,
                         newName,
                         NameCollisionOption.FailIfExists
                     );
@@ -211,7 +223,7 @@ namespace InventoryExpress.Model
                     // Kopieren
                     await file.CopyAsync
                     (
-                        ApplicationData.Current.RoamingFolder,
+                        ApplicationData.Current.LocalFolder,
                         newName,
                         NameCollisionOption.FailIfExists
                     );
@@ -234,7 +246,7 @@ namespace InventoryExpress.Model
                     // Kopieren
                     await file.CopyAsync
                     (
-                        ApplicationData.Current.RoamingFolder,
+                        ApplicationData.Current.LocalFolder,
                         newName,
                         NameCollisionOption.FailIfExists
                     );
@@ -257,7 +269,7 @@ namespace InventoryExpress.Model
                     // Kopieren
                     await file.CopyAsync
                     (
-                        ApplicationData.Current.RoamingFolder,
+                        ApplicationData.Current.LocalFolder,
                         newName,
                         NameCollisionOption.FailIfExists
                     );
@@ -285,7 +297,7 @@ namespace InventoryExpress.Model
             Templates.Add(new Template());
 
             // 1. Zustände laden
-            foreach (var file in from x in await ApplicationData.Current.RoamingFolder.GetFilesAsync()
+            foreach (var file in from x in await ApplicationData.Current.LocalFolder.GetFilesAsync()
                                  where x.FileType.Equals(".state")
                                  select x)
             {
@@ -295,7 +307,7 @@ namespace InventoryExpress.Model
             States.ForEach(a => a.Commit(false));
 
             // 2. Sachkonten laden
-            foreach (var file in from x in await ApplicationData.Current.RoamingFolder.GetFilesAsync()
+            foreach (var file in from x in await ApplicationData.Current.LocalFolder.GetFilesAsync()
                                  where x.FileType.Equals(".glaccount")
                                  select x)
             {
@@ -305,7 +317,7 @@ namespace InventoryExpress.Model
             GLAccounts.ForEach(a => a.Commit(false));
 
             // 3. Standorte laden
-            foreach (var file in from x in await ApplicationData.Current.RoamingFolder.GetFilesAsync()
+            foreach (var file in from x in await ApplicationData.Current.LocalFolder.GetFilesAsync()
                                  where x.FileType.Equals(".location")
                                  select x)
             {
@@ -315,7 +327,7 @@ namespace InventoryExpress.Model
             Locations.ForEach(a => a.Commit(false));
 
             // 4. Lieferanten laden
-            foreach (var file in from x in await ApplicationData.Current.RoamingFolder.GetFilesAsync()
+            foreach (var file in from x in await ApplicationData.Current.LocalFolder.GetFilesAsync()
                                  where x.FileType.Equals(".supplier")
                                  select x)
             {
@@ -325,7 +337,7 @@ namespace InventoryExpress.Model
             Suppliers.ForEach(a => a.Commit(false));
 
             // 5. Hersteller laden
-            foreach (var file in from x in await ApplicationData.Current.RoamingFolder.GetFilesAsync()
+            foreach (var file in from x in await ApplicationData.Current.LocalFolder.GetFilesAsync()
                                  where x.FileType.Equals(".manufacturer")
                                  select x)
             {
@@ -335,7 +347,7 @@ namespace InventoryExpress.Model
             Manufacturers.ForEach(a => a.Commit(false));
 
             // 6. Kostenstellen laden
-            foreach (var file in from x in await ApplicationData.Current.RoamingFolder.GetFilesAsync()
+            foreach (var file in from x in await ApplicationData.Current.LocalFolder.GetFilesAsync()
                                  where x.FileType.Equals(".costcenter")
                                  select x)
             {
@@ -345,7 +357,7 @@ namespace InventoryExpress.Model
             CostCenters.ForEach(a => a.Commit(false));
 
             // 7. Attribute laden
-            foreach (var file in from x in await ApplicationData.Current.RoamingFolder.GetFilesAsync()
+            foreach (var file in from x in await ApplicationData.Current.LocalFolder.GetFilesAsync()
                                  where x.FileType.Equals(".attribute")
                                  select x)
             {
@@ -355,7 +367,7 @@ namespace InventoryExpress.Model
             Attributes.ForEach(a => a.Commit(false));
 
             // 8. Vorlagen laden
-            foreach (var file in from x in await ApplicationData.Current.RoamingFolder.GetFilesAsync()
+            foreach (var file in from x in await ApplicationData.Current.LocalFolder.GetFilesAsync()
                                  where x.FileType.Equals(".template")
                                  select x)
             {
@@ -365,7 +377,7 @@ namespace InventoryExpress.Model
             Templates.ForEach(a => a.Commit(false));
 
             // 9. Inventar laden
-            foreach (var file in from x in await ApplicationData.Current.RoamingFolder.GetFilesAsync()
+            foreach (var file in from x in await ApplicationData.Current.LocalFolder.GetFilesAsync()
                                  where x.FileType.Equals(".inventory")
                                  select x)
             {

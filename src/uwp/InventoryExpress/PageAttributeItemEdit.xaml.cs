@@ -143,7 +143,7 @@ namespace InventoryExpress
         {
             var resourceLoader = ResourceLoader.GetForCurrentView();
             var Attribute = DataContext as Model.Attribute;
-            var exist = await ApplicationData.Current.RoamingFolder.TryGetItemAsync(Attribute.ID + ".Attribute");
+            var exist = await ApplicationData.Current.LocalFolder.TryGetItemAsync(Attribute.ID + ".Attribute");
 
             if (Attribute != null && exist != null)
             {
@@ -158,7 +158,7 @@ namespace InventoryExpress
                     Model.ViewModel.Instance.Attributes.Remove(Attribute);
 
                     // Datei löschen
-                    var file = await ApplicationData.Current.RoamingFolder.GetFileAsync(Attribute.ID + ".Attribute");
+                    var file = await ApplicationData.Current.LocalFolder.GetFileAsync(Attribute.ID + ".Attribute");
                     await file.DeleteAsync(StorageDeleteOption.PermanentDelete);
 
                     if (Frame.CanGoBack)

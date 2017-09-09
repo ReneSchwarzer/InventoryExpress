@@ -143,7 +143,7 @@ namespace InventoryExpress
         {
             var resourceLoader = ResourceLoader.GetForCurrentView();
             var GLAccount = DataContext as GLAccount;
-            var exist = await ApplicationData.Current.RoamingFolder.TryGetItemAsync(GLAccount.ID + ".GLAccount");
+            var exist = await ApplicationData.Current.LocalFolder.TryGetItemAsync(GLAccount.ID + ".GLAccount");
 
             if (GLAccount != null && exist != null)
             {
@@ -158,7 +158,7 @@ namespace InventoryExpress
                     Model.ViewModel.Instance.GLAccounts.Remove(GLAccount);
 
                     // Datei löschen
-                    var file = await ApplicationData.Current.RoamingFolder.GetFileAsync(GLAccount.ID + ".GLAccount");
+                    var file = await ApplicationData.Current.LocalFolder.GetFileAsync(GLAccount.ID + ".GLAccount");
                     await file.DeleteAsync(StorageDeleteOption.PermanentDelete);
 
                     if (Frame.CanGoBack)

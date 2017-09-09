@@ -146,7 +146,7 @@ namespace InventoryExpress.Model
             async () =>
             {
                 var fileName = ID + ".supplier";
-                var file = await ApplicationData.Current.RoamingFolder.CreateFileAsync
+                var file = await ApplicationData.Current.LocalFolder.CreateFileAsync
                     (
                         fileName,
                         CreationCollisionOption.ReplaceExisting

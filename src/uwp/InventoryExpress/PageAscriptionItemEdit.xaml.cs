@@ -131,7 +131,7 @@ namespace InventoryExpress
         {
             var resourceLoader = ResourceLoader.GetForCurrentView();
             var Ascription = DataContext as Ascription;
-            var exist = await ApplicationData.Current.RoamingFolder.TryGetItemAsync(Ascription.ID + ".Ascription");
+            var exist = await ApplicationData.Current.LocalFolder.TryGetItemAsync(Ascription.ID + ".Ascription");
 
             if (Ascription != null && exist != null)
             {

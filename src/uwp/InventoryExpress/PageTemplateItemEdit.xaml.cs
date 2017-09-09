@@ -143,7 +143,7 @@ namespace InventoryExpress
         {
             var resourceLoader = ResourceLoader.GetForCurrentView();
             var Template = DataContext as Template;
-            var exist = await ApplicationData.Current.RoamingFolder.TryGetItemAsync(Template.ID + ".Template");
+            var exist = await ApplicationData.Current.LocalFolder.TryGetItemAsync(Template.ID + ".Template");
 
             if (Template != null && exist != null)
             {
@@ -158,7 +158,7 @@ namespace InventoryExpress
                     Model.ViewModel.Instance.Templates.Remove(Template);
 
                     // Datei löschen
-                    var file = await ApplicationData.Current.RoamingFolder.GetFileAsync(Template.ID + ".Template");
+                    var file = await ApplicationData.Current.LocalFolder.GetFileAsync(Template.ID + ".Template");
                     await file.DeleteAsync(StorageDeleteOption.PermanentDelete);
 
                     if (Frame.CanGoBack)
