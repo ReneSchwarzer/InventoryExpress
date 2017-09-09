@@ -89,6 +89,12 @@
 
     <Page.BottomAppBar>
         <CommandBar x:Name="ButtonBar" Style="{StaticResource CommandBar}">
+            <CommandBar.Content>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding FilteredInventorysCount}" Margin="5" />
+                    <TextBlock Text="Einträge" Margin="5" />
+                </StackPanel>
+            </CommandBar.Content>
             <CommandBar.PrimaryCommands>
                 <AppBarButton FlowDirection="LeftToRight" Name="AddButton" x:Uid="AddMenu" Label="Hinzufügen" Icon="Add" Click="OnNavigateToAddPage" />
 

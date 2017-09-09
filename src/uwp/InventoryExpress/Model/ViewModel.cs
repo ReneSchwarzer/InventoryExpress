@@ -1,5 +1,4 @@
-﻿using Microsoft.Graph;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -498,6 +497,17 @@ namespace InventoryExpress.Model
         }
 
         /// <summary>
+        /// Liefert oder setzt die Anzahl der gefilterten Inventareinträge
+        /// </summary>
+        public int FilteredInventorysCount
+        {
+            get
+            {
+                return FilteredInventorys.Count();
+            }
+        }
+
+        /// <summary>
         /// Liefert oder setzt die gefilterten Hersteller
         /// </summary>
         public IEnumerable<Manufacturer> FilteredManufacturers
@@ -626,6 +636,7 @@ namespace InventoryExpress.Model
                     searchText = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SearchText"));
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("FilteredInventorys"));
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("FilteredInventorysCount"));
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("FilteredManufacturers"));
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("FilteredSuppliers"));
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("FilteredLocations"));
