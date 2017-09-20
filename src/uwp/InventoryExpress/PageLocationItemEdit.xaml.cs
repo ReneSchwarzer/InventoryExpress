@@ -25,6 +25,8 @@ namespace InventoryExpress
     /// </summary>
     public sealed partial class PageLocationItemEdit : Page
     {
+        private PrintHelper PrintHelper { get; set; }
+
         /// <summary>
         /// Konstruktor
         /// </summary>
@@ -52,6 +54,25 @@ namespace InventoryExpress
                 Titel.Text = resourceLoader.GetString("PageLocationItemAddLabel/Text");
 
                 DataContext = new Model.Location();
+            }
+
+            // Initalize common helper class and register for printing
+            PrintHelper = new PrintHelper(this);
+            PrintHelper.RegisterForPrinting();
+
+            // Initialize print content for this scenario
+            PrintHelper.PreparePrintContent(new PageLocationItemPrint());
+        }
+
+        /// <summary>
+        /// Wird aufgerufen wenn der Benutzer die Seite verlässt
+        /// </summary>
+        /// <param name="e">Der Auslöser des Events</param>
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            if (PrintHelper != null)
+            {
+                PrintHelper.UnregisterForPrinting();
             }
         }
 
@@ -225,6 +246,46 @@ namespace InventoryExpress
             var Location = DataContext as Location;
 
             Location.ImageBase64 = null;
+        }
+
+        /// <summary>
+        /// Wird aufgerufen, wenn gedruckt werden soll
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventparameter</param>
+        async private void OnPrintButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (Windows.Graphics.Printing.PrintManager.IsSupported())
+            {
+                try
+                {
+                    // Show print UI
+                    await Windows.Graphics.Printing.PrintManager.ShowPrintUIAsync();
+
+                }
+                catch
+                {
+                    // Printing cannot proceed at this time
+                    ContentDialog noPrintingDialog = new ContentDialog()
+                    {
+                        Title = "Printing error",
+                        Content = "\nSorry, printing can' t proceed at this time.",
+                        PrimaryButtonText = "OK"
+                    };
+                    await noPrintingDialog.ShowAsync();
+                }
+            }
+            else
+            {
+                // Printing is not supported on this device
+                ContentDialog noPrintingDialog = new ContentDialog()
+                {
+                    Title = "Printing not supported",
+                    Content = "\nSorry, printing is not supported on this device.",
+                    PrimaryButtonText = "OK"
+                };
+                await noPrintingDialog.ShowAsync();
+            }
         }
     }
 }

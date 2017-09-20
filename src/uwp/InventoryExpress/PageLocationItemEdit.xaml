@@ -37,8 +37,8 @@
                    Text="Standort ändern"/>
         </StackPanel>
         <ScrollViewer Grid.Row="1" Grid.Column="1">
-            
             <StackPanel Margin="16,16,16,16">
+                <Canvas x:Name="PrintCanvas" Opacity="0"/>
                 <TextBlock x:Uid="NameLabel" Text="Name:" Margin="5"/>
                 <TextBox Name="InventoryName" Text="{Binding Name, Mode=TwoWay}" Margin="5,5,5,15"/>
 
@@ -137,6 +137,12 @@
     <Page.BottomAppBar>
         <CommandBar x:Name="ButtonBar" Style="{StaticResource CommandBar}" ClosedDisplayMode="Compact">
             <CommandBar.PrimaryCommands>
+                <AppBarButton Name="Print" x:Uid="PrintMenu" Label="Drucken" Click="OnPrintButtonClick" >
+                    <AppBarButton.Icon>
+                        <FontIcon Glyph="&#xE749;"/>
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarSeparator/>
                 <AppBarButton FlowDirection="LeftToRight" Name="Save" x:Uid="SaveMenu" Label="Speichern" Icon="Save" Click="OnSaveAndNavigateBack" />
                 <AppBarButton FlowDirection="LeftToRight" Name="Cancel" x:Uid="CancelMenu" Label="Abbrechen" Icon="Cancel" Click="OnCancelAndNavigateBack"/>
             </CommandBar.PrimaryCommands>

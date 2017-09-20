@@ -120,6 +120,9 @@
     <Compile Include="Model\Supplier.cs" />
     <Compile Include="Model\Template.cs" />
     <Compile Include="Model\ViewModel.cs" />
+    <Compile Include="PageLocationItemPrint.xaml.cs">
+      <DependentUpon>PageLocationItemPrint.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PageInventoryItemPrint.xaml.cs">
       <DependentUpon>PageInventoryItemPrint.xaml</DependentUpon>
     </Compile>
@@ -385,6 +388,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Page Include="PageLocationItemPrint.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="PageInventoryItemPrint.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
