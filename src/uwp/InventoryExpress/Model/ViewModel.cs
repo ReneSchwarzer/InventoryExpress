@@ -508,6 +508,17 @@ namespace InventoryExpress.Model
         }
 
         /// <summary>
+        /// Liefert oder setzt die Anschaffungskosten der gefilterten Inventareinträge
+        /// </summary>
+        public decimal FilteredInventorysCostValue
+        {
+            get
+            {
+                return FilteredInventorys.Sum(x => x.CostValue);
+            }
+        }
+
+        /// <summary>
         /// Liefert oder setzt die gefilterten Hersteller
         /// </summary>
         public IEnumerable<Manufacturer> FilteredManufacturers

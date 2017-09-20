@@ -90,9 +90,16 @@
     <Page.BottomAppBar>
         <CommandBar x:Name="ButtonBar" Style="{StaticResource CommandBar}">
             <CommandBar.Content>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{Binding FilteredInventorysCount}" Margin="5" />
-                    <TextBlock Text="Einträge" Margin="5" />
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding FilteredInventorysCount}" Margin="5" />
+                        <TextBlock Text="Einträge" Margin="5" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Anschaffungskosten der gefilterten Einträge:" Margin="5" />
+                        <TextBlock Text="{Binding FilteredInventorysCostValue}" Margin="5" />
+                        <TextBlock Text="€" Margin="5" />
+                    </StackPanel>
                 </StackPanel>
             </CommandBar.Content>
             <CommandBar.PrimaryCommands>
