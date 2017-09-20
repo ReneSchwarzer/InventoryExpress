@@ -5,6 +5,8 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.DataTransfer;
+using Windows.ApplicationModel.DataTransfer.ShareTarget;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Core;
@@ -134,6 +136,23 @@ namespace InventoryExpress
                 {
                     rootFrame.GoBack();
                 }
+            }
+        }
+
+        /// <summary>
+        /// Wird aufgerufen, wenn die Anwendung durch eine Freigabezuordnung aktiviert wird.
+        /// </summary>
+        /// <param name="args">Die Ereignisdaten für das Ereignis.</param>
+        protected override async void OnShareTargetActivated(ShareTargetActivatedEventArgs args)
+        {
+            ShareOperation shareOperation = args.ShareOperation;
+            if (shareOperation.Data.Contains(StandardDataFormats.Text))
+            {
+                string text = await shareOperation.Data.GetTextAsync();
+
+                // To output the text from this example, you need a TextBlock control
+                // with a name of "sharedContent".
+                //sharedContent.Text = "Text: " + text;
             }
         }
     }

@@ -25,6 +25,23 @@
           <uap:Rotation Preference="landscape" />
         </uap:InitialRotationPreference>
       </uap:VisualElements>
+      <Extensions>
+        <uap:Extension Category="windows.shareTarget" EntryPoint="App">
+          <uap:ShareTarget Description="Empfangen von Inventardaten im XML-Format">
+            <uap:SupportedFileTypes>
+              <uap:FileType>.attribute</uap:FileType>
+              <uap:FileType>.inventory</uap:FileType>
+              <uap:FileType>.location</uap:FileType>
+              <uap:FileType>.manufacturer</uap:FileType>
+              <uap:FileType>.template</uap:FileType>
+              <uap:FileType>.state</uap:FileType>
+              <uap:FileType>.supplier</uap:FileType>
+              <uap:FileType>.glaccount</uap:FileType>
+            </uap:SupportedFileTypes>
+            <uap:DataFormat>XML</uap:DataFormat>
+          </uap:ShareTarget>
+        </uap:Extension>
+      </Extensions>
     </Application>
   </Applications>
   <Capabilities>
