@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Net.Http.Headers;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Store;
 using Windows.Storage;
+using Windows.Storage.Streams;
 
 namespace InventoryExpress.Model
 {
@@ -32,7 +36,7 @@ namespace InventoryExpress.Model
         /// Konstruktor
         /// </summary>
         private ViewModel()
-        { 
+        {
             var init = InitAsync();
         }
 
@@ -51,14 +55,6 @@ namespace InventoryExpress.Model
             CostCenters = new List<CostCenter>();
             States = new List<State>();
             GLAccounts = new List<GLAccount>();
-
-            var scopes = new[]
-            {
-                "onedrive.readwrite",
-                "offline_access",
-                "wl.signin",
-                "wl.basic"
-            };
 
             await Load();
             Loaded?.Invoke(this, new EventArgs());
@@ -385,6 +381,7 @@ namespace InventoryExpress.Model
                     if (file != null)
                     {
                         Inventorys.Add(await Inventory.Factory(file));
+                        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Inventorys"));
                     }
                 }
                 catch
@@ -393,7 +390,10 @@ namespace InventoryExpress.Model
                 }
             }
 
-            Inventorys.ForEach(a => a.Commit(false));
+            Inventorys.ForEach(a => 
+            {
+                a.Commit(false);
+            });
 
             Inventorys = Inventorys.OrderBy(x => x.Name).ToList();
             Templates = Templates.OrderBy(x => x.Name).ToList();
@@ -656,6 +656,77 @@ namespace InventoryExpress.Model
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("FilteredAttributes"));
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("FilteredGLAccounts"));
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("FilteredStates"));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Export der Daten
+        /// </summary>
+        /// <param name="fileName">Das Archive</param>
+        /// <returns></returns>
+        public async Task ExportAsync(StorageFile file)
+        {
+            // ZipFile.CreateFromDirectory(ApplicationData.Current.LocalFolder.Path, file.Path, CompressionLevel.Optimal, false);
+
+            using (var stream = await file.OpenStreamForWriteAsync())
+            { 
+                using (var archive = new ZipArchive(stream, ZipArchiveMode.Create))
+                {
+                    foreach (var f in await ApplicationData.Current.LocalFolder.GetFilesAsync())
+                    {
+                        var buffer = await FileIO.ReadBufferAsync(f);
+                        var entry = archive.CreateEntry(f.Name, CompressionLevel.Optimal);
+                        using (var entryStream = entry.Open())
+                        {
+                            using (var outputputStream = entryStream.AsOutputStream())
+                            {
+                                var b = WindowsRuntimeBufferExtensions.ToArray(buffer);
+                                await entryStream.WriteAsync(b, 0, b.Length);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Import der Daten
+        /// </summary>
+        /// <param name="file">Das Archive</param>
+        /// <returns></returns>
+        public async Task ImportAsync(StorageFile file)
+        {
+            //ZipFile.ExtractToDirectory(file.Path, localFolder.Path);
+
+            using (var stream = await file.OpenStreamForReadAsync())
+            {
+                using (var archive = new ZipArchive(stream, ZipArchiveMode.Read))
+                {
+                    foreach (var entry in archive.Entries)
+                    {
+                        using (Stream entryStream = entry.Open())
+                        {
+                            byte[] buffer = new byte[entry.Length];
+                            entryStream.Read(buffer, 0, buffer.Length);
+
+                            StorageFile uncompressedFile = await ApplicationData.Current.LocalFolder.CreateFileAsync
+                            (
+                                entry.Name, 
+                                CreationCollisionOption.ReplaceExisting
+                            );
+
+                            using (IRandomAccessStream uncompressedFileStream = await uncompressedFile.OpenAsync(FileAccessMode.ReadWrite))
+                            {
+                                using (Stream outstream = uncompressedFileStream.AsStreamForWrite())
+                                {
+                                    outstream.Write(buffer, 0, buffer.Length);
+                                    outstream.Flush();
+                                }
+                            }
+                        }
+
+                    }
                 }
             }
         }

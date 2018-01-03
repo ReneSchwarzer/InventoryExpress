@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="4117R.Schwarzer.InventoryExpress" Publisher="CN=B032DD4D-3A3B-4DA5-971B-AD5681FEA90A" Version="1.0.2.0" />
+  <Identity Name="4117R.Schwarzer.InventoryExpress" Publisher="CN=B032DD4D-3A3B-4DA5-971B-AD5681FEA90A" Version="1.0.3.0" />
   <mp:PhoneIdentity PhoneProductId="5321d308-c539-4d1e-8e0a-0eca5f78cf9c" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>InventoryExpress</DisplayName>
@@ -25,26 +25,6 @@
           <uap:Rotation Preference="landscape" />
         </uap:InitialRotationPreference>
       </uap:VisualElements>
-      <Extensions>
-        <uap:Extension Category="windows.shareTarget" EntryPoint="App">
-          <uap:ShareTarget Description="Empfangen von Inventardaten im XML-Format">
-            <uap:SupportedFileTypes>
-              <uap:FileType>.attribute</uap:FileType>
-              <uap:FileType>.inventory</uap:FileType>
-              <uap:FileType>.location</uap:FileType>
-              <uap:FileType>.manufacturer</uap:FileType>
-              <uap:FileType>.template</uap:FileType>
-              <uap:FileType>.state</uap:FileType>
-              <uap:FileType>.supplier</uap:FileType>
-              <uap:FileType>.glaccount</uap:FileType>
-            </uap:SupportedFileTypes>
-            <uap:DataFormat>XML</uap:DataFormat>
-          </uap:ShareTarget>
-        </uap:Extension>
-      </Extensions>
     </Application>
   </Applications>
-  <Capabilities>
-    <Capability Name="internetClient" />
-  </Capabilities>
 </Package>

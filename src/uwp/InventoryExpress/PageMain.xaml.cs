@@ -5,10 +5,14 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
+using Windows.Storage.Pickers;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -36,7 +40,10 @@ namespace InventoryExpress
             {
                 DataContext = null;
                 DataContext = ViewModel.Instance;
-            };
+
+                ProgressRing.IsActive = false;
+                ProgressRing.Visibility = Visibility.Collapsed;
+            };  
         }
 
         /// <summary>
@@ -48,10 +55,7 @@ namespace InventoryExpress
             base.OnNavigatedTo(e);
 
             ProgressRing.IsActive = true;
-         
-            DataContext = Model.ViewModel.Instance;
-
-            ProgressRing.IsActive = false;
+            ProgressRing.Visibility = Visibility.Visible;
 
             DataContext = ViewModel.Instance;
         }
@@ -154,6 +158,52 @@ namespace InventoryExpress
         private void OnItemClick(object sender, ItemClickEventArgs e)
         {
             Frame.Navigate(typeof(PageInventoryItem), e.ClickedItem);
+        }
+
+        /// <summary>
+        /// Wird aufgerufen, wenn ein Daten importiert werden sollen
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventparameter</param>
+        private async void OnImportAsync(object sender, RoutedEventArgs e)
+        {
+            var picker = new Windows.Storage.Pickers.FileOpenPicker();
+            picker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.DocumentsLibrary;
+            picker.ViewMode = PickerViewMode.List;
+            picker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
+            picker.FileTypeFilter.Add(".inv");
+
+            StorageFile file = await picker.PickSingleFileAsync();
+            if (file != null)
+            {
+                await ViewModel.Instance.ImportAsync(file);
+
+                ProgressRing.IsActive = true;
+                ProgressRing.Visibility = Visibility.Visible;
+
+                // Neu laden
+                await ViewModel.Instance.Load();
+            }
+        }
+
+        /// <summary>
+        /// Wird aufgerufen, wenn ein Daten exportiert werden sollen
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventparameter</param>
+        private async void OnExportAsync(object sender, RoutedEventArgs e)
+        {
+            var picker = new Windows.Storage.Pickers.FileSavePicker();
+            picker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.DocumentsLibrary;
+            picker.FileTypeChoices.Add("Inventar", new List<string>() { ".inv" });
+            picker.SuggestedFileName = DateTime.Now.ToString("yyyyMMdd");
+            picker.DefaultFileExtension = ".inv";
+
+            StorageFile file = await picker.PickSaveFileAsync();
+            if (file != null)
+            {
+                await ViewModel.Instance.ExportAsync(file);
+            }
         }
     }
 }
