@@ -1,21 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
+﻿using InventoryExpress.Model;
+using System;
 using Windows.ApplicationModel.DataTransfer;
-using Windows.ApplicationModel.Resources;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.Storage;
 using Windows.UI.Core;
-using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace InventoryExpress
@@ -33,6 +23,8 @@ namespace InventoryExpress
         public PageInventoryItem()
         {
             this.InitializeComponent();
+
+            FlipView.ItemsSource = ViewModel.Instance.FilteredInventorys;
         }
 
         /// <summary>
@@ -43,27 +35,18 @@ namespace InventoryExpress
         {
             base.OnNavigatedTo(e);
 
-            DataContext = e.Parameter;
+            DataContext = ViewModel.Instance;
             var inventory = e.Parameter as Model.Inventory;
+            FlipView.SelectedItem = inventory;
 
             var currentView = SystemNavigationManager.GetForCurrentView();
-
-            ProgressRing.Visibility = Visibility.Visible;
-            ProgressRing.IsActive = true;
-            ButtonBar.Visibility = Visibility.Collapsed;
-            IsEnabled = false;
-
-            ProgressRing.Visibility = Visibility.Collapsed;
-            ProgressRing.IsActive = false;
-            ButtonBar.Visibility = Visibility.Visible;
-            IsEnabled = true;
 
             // Initalize common helper class and register for printing
             PrintHelper = new PrintHelper(this);
             PrintHelper.RegisterForPrinting();
 
             // Initialize print content for this scenario
-            PrintHelper.PreparePrintContent(new PageInventoryItemPrint());
+            PrintHelper.PreparePrintContent(new PageInventoryItemPrint() { DataContext = inventory });
         }
 
         /// <summary>
@@ -98,7 +81,7 @@ namespace InventoryExpress
         /// <param name="e">Die Eventparameter</param>
         private void OnNavigateToEditPage(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(PageInventoryItemEdit), DataContext);
+            Frame.Navigate(typeof(PageInventoryItemEdit), FlipView.SelectedItem);
         }
 
         /// <summary>
@@ -108,7 +91,7 @@ namespace InventoryExpress
         /// <param name="e">Die Eventparameter</param>
         private void OnLike(object sender, RoutedEventArgs e)
         {
-            var inventory = DataContext as Model.Inventory;
+            var inventory = FlipView.SelectedItem as Model.Inventory;
             if (inventory != null)
             {
                 inventory.Commit(true);
@@ -184,7 +167,7 @@ namespace InventoryExpress
         /// <param name="e">Die Eventparameter</param>
         private void OnNavigateToAscriptionPage(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(PageAscription), DataContext);
+            Frame.Navigate(typeof(PageAscription), FlipView.SelectedItem);
         }
 
         /// <summary>
@@ -225,6 +208,16 @@ namespace InventoryExpress
                 };
                 await noPrintingDialog.ShowAsync();
             }
+        }
+
+        /// <summary>
+        /// Wird aufgerufen, wenn sich das Item der FlipView geändert hat
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventparameter</param>
+        private void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Like.DataContext = FlipView.SelectedItem;
         }
     }
 }

@@ -27,9 +27,9 @@
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Row="0">
             <ProgressRing Name="ProgressRing" 
-                          IsActive="False"
-                          Visibility="Visible"
+                          IsActive="True"
                           Margin="16"
+                          Visibility="{Binding VisibilityProgresBar}"
                           HorizontalAlignment="Center" 
                           VerticalAlignment="Center"/>
             <TextBlock x:Name="Titel"

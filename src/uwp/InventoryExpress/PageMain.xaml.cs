@@ -40,9 +40,7 @@ namespace InventoryExpress
             {
                 DataContext = null;
                 DataContext = ViewModel.Instance;
-
-                ProgressRing.IsActive = false;
-                ProgressRing.Visibility = Visibility.Collapsed;
+                ProgressRing.DataContext = ViewModel.Instance;
             };  
         }
 
@@ -53,9 +51,6 @@ namespace InventoryExpress
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-
-            ProgressRing.IsActive = true;
-            ProgressRing.Visibility = Visibility.Visible;
 
             DataContext = ViewModel.Instance;
         }
@@ -177,9 +172,6 @@ namespace InventoryExpress
             if (file != null)
             {
                 await ViewModel.Instance.ImportAsync(file);
-
-                ProgressRing.IsActive = true;
-                ProgressRing.Visibility = Visibility.Visible;
 
                 // Neu laden
                 await ViewModel.Instance.Load();

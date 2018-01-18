@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.Store;
 using Windows.Storage;
 using Windows.Storage.Streams;
+using Windows.UI.Xaml;
 
 namespace InventoryExpress.Model
 {
@@ -21,6 +22,26 @@ namespace InventoryExpress.Model
         /// Tritt ein, wenn die Daten geladen wurden
         /// </summary>
         public event EventHandler Loaded;
+
+        /// <summary>
+        /// Bestimmt ob das Viewmodell vollständig inizalisiert ist
+        /// </summary>
+        private Visibility _visibilityProgresBar = Visibility.Collapsed;
+        public Visibility VisibilityProgresBar
+        {
+            get
+            {
+                return _visibilityProgresBar;
+            }
+            set
+            {
+                if (_visibilityProgresBar != value)
+                {
+                    _visibilityProgresBar = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("VisibilityProgresBar"));
+                }
+            }
+        } 
 
         /// <summary>
         /// 
@@ -37,6 +58,7 @@ namespace InventoryExpress.Model
         /// </summary>
         private ViewModel()
         {
+            VisibilityProgresBar = Visibility.Visible;
             var init = InitAsync();
         }
 
@@ -404,6 +426,8 @@ namespace InventoryExpress.Model
             CostCenters = CostCenters.OrderBy(x => x.Name).ToList();
             States = States.OrderBy(x => x.Name).ToList();
             GLAccounts = GLAccounts.OrderBy(x => x.Name).ToList();
+
+            VisibilityProgresBar = Visibility.Collapsed;
         }
 
         /// <summary>

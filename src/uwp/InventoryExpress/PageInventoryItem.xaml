@@ -15,136 +15,145 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+    <Grid>
         <Canvas x:Name="PrintCanvas" Opacity="0"/>
-        <StackPanel Orientation="Horizontal" Grid.Row="0">
-            <ProgressRing Name="ProgressRing" 
+        <FlipView Name="FlipView" SelectionChanged="OnSelectionChanged">
+            <FlipView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Orientation="Horizontal" Grid.Row="0">
+                            <ProgressRing Name="ProgressRing" 
                           IsActive="False"
                           Visibility="Collapsed"
                           Margin="16"
                           HorizontalAlignment="Center" 
                           VerticalAlignment="Center"/>
-            <TextBlock Name="Titel" 
+                            <TextBlock Name="Titel" 
                        Text="{Binding Name}"
                        Style="{StaticResource TitelTextBlock}"/>
-        </StackPanel>
-        <ScrollViewer Grid.Row="1" HorizontalAlignment="Stretch">
-            <StackPanel Margin="16" HorizontalAlignment="Stretch">
-                <TextBlock Text="{Binding Path=Template.Name}"
+                        </StackPanel>
+                        <ScrollViewer Grid.Row="1" HorizontalAlignment="Stretch">
+                            <StackPanel Margin="16" HorizontalAlignment="Stretch">
+                                <TextBlock Text="{Binding Path=Template.Name}"
                            Margin="0,0,0,16"
                            Foreground="{ThemeResource SystemAccentColor}" 
                            FontSize="18.667" 
                            FontStyle="Italic"/>
 
-                <StackPanel Margin="0, 0, 0, 0" Orientation="Horizontal">
-                    <SymbolIcon Symbol="Camera" Margin="3,0,3,0"/>
-                    <TextBlock x:Uid="ImageLabel" Text="Bild:" Margin="5"/>
-                </StackPanel>
-                
-                <Image Source="{Binding Path=Image}" MaxWidth="300" MaxHeight="300" Margin="20" HorizontalAlignment="Left"/>
+                                <StackPanel Margin="0, 0, 0, 0" Orientation="Horizontal">
+                                    <SymbolIcon Symbol="Camera" Margin="3,0,3,0"/>
+                                    <TextBlock x:Uid="ImageLabel" Text="Bild:" Margin="5"/>
+                                </StackPanel>
 
-                <StackPanel Margin="0, 0, 0, 0" Orientation="Horizontal">
-                    <SymbolIcon Symbol="Comment" Margin="3,0,3,0"/>
-                    <TextBlock x:Uid="MemoLabel" Text="Beschreibung:" Margin="5"/>
-                </StackPanel>
+                                <Image Source="{Binding Path=Image}" MaxWidth="300" MaxHeight="300" Margin="20" HorizontalAlignment="Left"/>
 
-                <TextBlock Name="Memo" 
+                                <StackPanel Margin="0, 0, 0, 0" Orientation="Horizontal">
+                                    <SymbolIcon Symbol="Comment" Margin="3,0,3,0"/>
+                                    <TextBlock x:Uid="MemoLabel" Text="Beschreibung:" Margin="5"/>
+                                </StackPanel>
+
+                                <TextBlock Name="Memo" 
                            Text="{Binding Memo}" 
                            Margin="20"
                            TextWrapping="Wrap"
                            Foreground="{ThemeResource TextBoxDisabledForegroundThemeBrush}">
-                </TextBlock>
+                                </TextBlock>
 
-                <StackPanel Margin="0, 0, 0, 0" Orientation="Horizontal">
-                    <FontIcon Glyph="&#xEC09;" Margin="3,0,3,0" Visibility="{Binding Path=ManufacturerVisibility}"/>
-                    <TextBlock x:Uid="ManufacturerLabel" Text="Hersteller:" Margin="5,5,5,15" Visibility="{Binding Path=ManufacturerVisibility}"/>
-                    <TextBlock x:Uid="ManufacturerText" Text="{Binding Path=Manufacturer.Name}" Margin="5,5,5,15" Foreground="{ThemeResource TextBoxDisabledForegroundThemeBrush}"  Visibility="{Binding Path=ManufacturerVisibility}"/>
-                </StackPanel>
+                                <StackPanel Margin="0, 0, 0, 0" Orientation="Horizontal">
+                                    <FontIcon Glyph="&#xEC09;" Margin="3,0,3,0" Visibility="{Binding Path=ManufacturerVisibility}"/>
+                                    <TextBlock x:Uid="ManufacturerLabel" Text="Hersteller:" Margin="5,5,5,15" Visibility="{Binding Path=ManufacturerVisibility}"/>
+                                    <TextBlock x:Uid="ManufacturerText" Text="{Binding Path=Manufacturer.Name}" Margin="5,5,5,15" Foreground="{ThemeResource TextBoxDisabledForegroundThemeBrush}"  Visibility="{Binding Path=ManufacturerVisibility}"/>
+                                </StackPanel>
 
-                <StackPanel Margin="0, 0, 0, 0" Orientation="Horizontal">
-                    <SymbolIcon Symbol="Map" Margin="3,0,3,0" Visibility="{Binding Path=LocationVisibility}"/>
-                    <TextBlock x:Uid="LocationLabel" Text="Standort:" Margin="5,5,5,15" Visibility="{Binding Path=LocationVisibility}"/>
-                    <TextBlock x:Uid="LocationText" Text="{Binding Path=Location.Name}" Margin="5,5,5,15" Foreground="{ThemeResource TextBoxDisabledForegroundThemeBrush}"  Visibility="{Binding Path=LocationVisibility}"/>
-                </StackPanel>
+                                <StackPanel Margin="0, 0, 0, 0" Orientation="Horizontal">
+                                    <SymbolIcon Symbol="Map" Margin="3,0,3,0" Visibility="{Binding Path=LocationVisibility}"/>
+                                    <TextBlock x:Uid="LocationLabel" Text="Standort:" Margin="5,5,5,15" Visibility="{Binding Path=LocationVisibility}"/>
+                                    <TextBlock x:Uid="LocationText" Text="{Binding Path=Location.Name}" Margin="5,5,5,15" Foreground="{ThemeResource TextBoxDisabledForegroundThemeBrush}"  Visibility="{Binding Path=LocationVisibility}"/>
+                                </StackPanel>
 
-                <StackPanel Margin="0, 0, 0, 0" Orientation="Horizontal">
-                    <FontIcon Glyph="&#xE7E3;" Margin="3,0,3,0" Visibility="{Binding Path=SupplierVisibility}"/>
-                    <TextBlock x:Uid="SupplierLabel" Text="Lieferant:" Margin="5,5,5,15" Visibility="{Binding Path=SupplierVisibility}"/>
-                    <TextBlock x:Uid="SupplierText" Text="{Binding Path=Supplier.Name}" Margin="5,5,5,15" Foreground="{ThemeResource TextBoxDisabledForegroundThemeBrush}" Visibility="{Binding Path=SupplierVisibility}"/>
-                </StackPanel>
+                                <StackPanel Margin="0, 0, 0, 0" Orientation="Horizontal">
+                                    <FontIcon Glyph="&#xE7E3;" Margin="3,0,3,0" Visibility="{Binding Path=SupplierVisibility}"/>
+                                    <TextBlock x:Uid="SupplierLabel" Text="Lieferant:" Margin="5,5,5,15" Visibility="{Binding Path=SupplierVisibility}"/>
+                                    <TextBlock x:Uid="SupplierText" Text="{Binding Path=Supplier.Name}" Margin="5,5,5,15" Foreground="{ThemeResource TextBoxDisabledForegroundThemeBrush}" Visibility="{Binding Path=SupplierVisibility}"/>
+                                </StackPanel>
 
-                <StackPanel Margin="0, 0, 0, 0" Orientation="Horizontal">
-                    <SymbolIcon Symbol="Account" Margin="3,0,3,0" Visibility="{Binding Path=GLAccountVisibility}"/>
-                    <TextBlock x:Uid="GLAccountLabel" Text="Sachkonto:" Margin="5,5,5,15" Visibility="{Binding Path=GLAccountVisibility}"/>
-                    <TextBlock x:Uid="GLAccountText" Text="{Binding Path=GLAccount.Name}" Margin="5,5,5,15" Foreground="{ThemeResource TextBoxDisabledForegroundThemeBrush}" Visibility="{Binding Path=GLAccountVisibility}"/>
-                </StackPanel>
+                                <StackPanel Margin="0, 0, 0, 0" Orientation="Horizontal">
+                                    <SymbolIcon Symbol="Account" Margin="3,0,3,0" Visibility="{Binding Path=GLAccountVisibility}"/>
+                                    <TextBlock x:Uid="GLAccountLabel" Text="Sachkonto:" Margin="5,5,5,15" Visibility="{Binding Path=GLAccountVisibility}"/>
+                                    <TextBlock x:Uid="GLAccountText" Text="{Binding Path=GLAccount.Name}" Margin="5,5,5,15" Foreground="{ThemeResource TextBoxDisabledForegroundThemeBrush}" Visibility="{Binding Path=GLAccountVisibility}"/>
+                                </StackPanel>
 
-                <StackPanel Margin="0, 0, 0, 0" Orientation="Horizontal">
-                    <SymbolIcon Symbol="Shop" Margin="3,0,3,0" Visibility="{Binding Path=CostCenterVisibility}"/>
-                    <TextBlock x:Uid="CostCenterLabel" Text="Kostenstelle:" Margin="5,5,5,15" Visibility="{Binding Path=CostCenterVisibility}"/>
-                    <TextBlock x:Uid="CostCenterText" Text="{Binding Path=CostCenter.Name}" Margin="5,5,5,15" Foreground="{ThemeResource TextBoxDisabledForegroundThemeBrush}" Visibility="{Binding Path=CostCenterVisibility}"/>
-                </StackPanel>
-                
-                <StackPanel Margin="0, 0, 0, 0" Orientation="Horizontal">
-                    <SymbolIcon Symbol="Favorite" Margin="3,0,3,0" Visibility="{Binding Path=StateVisibility}"/>
-                    <TextBlock x:Uid="StateLabel" Text="Zustand:" Margin="5,5,5,15" Visibility="{Binding Path=StateVisibility}"/>
-                    <TextBlock x:Uid="StateText" Text="{Binding Path=State.Name}" Margin="5,5,5,15" Visibility="{Binding Path=StateVisibility}"/>
-                </StackPanel>
+                                <StackPanel Margin="0, 0, 0, 0" Orientation="Horizontal">
+                                    <SymbolIcon Symbol="Shop" Margin="3,0,3,0" Visibility="{Binding Path=CostCenterVisibility}"/>
+                                    <TextBlock x:Uid="CostCenterLabel" Text="Kostenstelle:" Margin="5,5,5,15" Visibility="{Binding Path=CostCenterVisibility}"/>
+                                    <TextBlock x:Uid="CostCenterText" Text="{Binding Path=CostCenter.Name}" Margin="5,5,5,15" Foreground="{ThemeResource TextBoxDisabledForegroundThemeBrush}" Visibility="{Binding Path=CostCenterVisibility}"/>
+                                </StackPanel>
 
-                <StackPanel Margin="0, 0, 0, 0" Orientation="Horizontal">
-                    <FontIcon Glyph="&#xEA86;" Margin="3,0,3,0" Visibility="{Binding Path=ParentVisibility}"/>
-                    <TextBlock x:Uid="ParentLabel" Text="Zugehörigkeit zu:" Margin="5,5,5,15" Visibility="{Binding Path=ParentVisibility}"/>
-                    <TextBlock x:Uid="PatentText" Text="{Binding Path=ParentItem.Name}" Margin="5,5,5,15" Visibility="{Binding Path=ParentVisibility}"/>
-                </StackPanel>
+                                <StackPanel Margin="0, 0, 0, 0" Orientation="Horizontal">
+                                    <SymbolIcon Symbol="Favorite" Margin="3,0,3,0" Visibility="{Binding Path=StateVisibility}"/>
+                                    <TextBlock x:Uid="StateLabel" Text="Zustand:" Margin="5,5,5,15" Visibility="{Binding Path=StateVisibility}"/>
+                                    <TextBlock x:Uid="StateText" Text="{Binding Path=State.Name}" Margin="5,5,5,15" Visibility="{Binding Path=StateVisibility}"/>
+                                </StackPanel>
 
-                <StackPanel Margin="0, 0, 0, 0" Orientation="Horizontal">
-                    <TextBlock Text="$" Margin="9,5,6,5" RenderTransformOrigin="0.5,0.5">
-                        <TextBlock.RenderTransform>
-                            <CompositeTransform ScaleX="1.3" ScaleY="1.3"/>
-                        </TextBlock.RenderTransform>
-                    </TextBlock>
-                    <TextBlock x:Uid="CostValueLabel" Text="Anschaffungskosten:" Margin="5"/>
-                    <TextBlock x:Uid="CostValueText" Text="{Binding Path=CostValue}" Margin="5"/>
-                    <TextBlock Text="€" Margin="5"/>
-                </StackPanel>
+                                <StackPanel Margin="0, 0, 0, 0" Orientation="Horizontal">
+                                    <FontIcon Glyph="&#xEA86;" Margin="3,0,3,0" Visibility="{Binding Path=ParentVisibility}"/>
+                                    <TextBlock x:Uid="ParentLabel" Text="Zugehörigkeit zu:" Margin="5,5,5,15" Visibility="{Binding Path=ParentVisibility}"/>
+                                    <TextBlock x:Uid="PatentText" Text="{Binding Path=ParentItem.Name}" Margin="5,5,5,15" Visibility="{Binding Path=ParentVisibility}"/>
+                                </StackPanel>
 
-                <ItemsControl Name="Attribute" 
+                                <StackPanel Margin="0, 0, 0, 0" Orientation="Horizontal">
+                                    <TextBlock Text="$" Margin="9,5,6,5" RenderTransformOrigin="0.5,0.5">
+                                        <TextBlock.RenderTransform>
+                                            <CompositeTransform ScaleX="1.3" ScaleY="1.3"/>
+                                        </TextBlock.RenderTransform>
+                                    </TextBlock>
+                                    <TextBlock x:Uid="CostValueLabel" Text="Anschaffungskosten:" Margin="5"/>
+                                    <TextBlock x:Uid="CostValueText" Text="{Binding Path=CostValue}" Margin="5"/>
+                                    <TextBlock Text="€" Margin="5"/>
+                                </StackPanel>
+
+                                <ItemsControl Name="Attribute" 
                               ItemsSource="{Binding Attributes}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
 
-                            <StackPanel Orientation="Horizontal">
-                                <SymbolIcon Symbol="Placeholder" Margin="3,0,3,0"/>
-                                <TextBlock Text="{Binding Name}" Margin="20,5,0,5"/>
-                                <TextBlock Text=":" Margin="0,5,5,5" />
+                                            <StackPanel Orientation="Horizontal">
+                                                <SymbolIcon Symbol="Placeholder" Margin="3,0,3,0"/>
+                                                <TextBlock Text="{Binding Name}" Margin="20,5,0,5"/>
+                                                <TextBlock Text=":" Margin="0,5,5,5" />
 
-                                <TextBlock Text="{Binding Value}"
+                                                <TextBlock Text="{Binding Value}"
                                            RightTapped="OnRightTappedOnItem"
                                            Holding="OnHoldingOnItem"
                                            Margin="5,5,5,15"
                                            Foreground="{ThemeResource TextBoxDisabledForegroundThemeBrush}">
-                                </TextBlock>
+                                                </TextBlock>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+
+                                <StackPanel Margin="0, 0, 0, 0" Orientation="Horizontal">
+                                    <SymbolIcon Symbol="CalendarDay" Margin="3,0,3,0"/>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock x:Uid="PurchaseDateLabel" Text="Anschaffungsdatum:" Margin="5"/>
+                                        <TextBlock x:Uid="PurchaseDateText" Text="{Binding Path=PurchaseDateString}" Margin="5,5,5,15" Foreground="{ThemeResource TextBoxDisabledForegroundThemeBrush}"/>
+                                        <TextBlock x:Uid="DerecognitionDateLabel" Text="Abgangsdatum:" Margin="5,5,5,15" MinWidth="80" Visibility="{Binding DerecognitionDateVisible}"/>
+                                        <TextBlock x:Uid="DerecognitionDateText" Text="{Binding Path=DerecognitionDateString}" Margin="5,5,5,15" Foreground="{ThemeResource TextBoxDisabledForegroundThemeBrush}"/>
+                                    </StackPanel>
+                                </StackPanel>
+
                             </StackPanel>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
+                        </ScrollViewer>
+                    </Grid>
+                </DataTemplate>
+            </FlipView.ItemTemplate>
 
-                <StackPanel Margin="0, 0, 0, 0" Orientation="Horizontal">
-                    <SymbolIcon Symbol="CalendarDay" Margin="3,0,3,0"/>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock x:Uid="PurchaseDateLabel" Text="Anschaffungsdatum:" Margin="5"/>
-                        <TextBlock x:Uid="PurchaseDateText" Text="{Binding Path=PurchaseDateString}" Margin="5,5,5,15" Foreground="{ThemeResource TextBoxDisabledForegroundThemeBrush}"/>
-                        <TextBlock x:Uid="DerecognitionDateLabel" Text="Abgangsdatum:" Margin="5,5,5,15" MinWidth="80" Visibility="{Binding DerecognitionDateVisible}"/>
-                        <TextBlock x:Uid="DerecognitionDateText" Text="{Binding Path=DerecognitionDateString}" Margin="5,5,5,15" Foreground="{ThemeResource TextBoxDisabledForegroundThemeBrush}"/>
-                    </StackPanel>
-                </StackPanel>
-
-            </StackPanel>
-        </ScrollViewer>
+        </FlipView>
     </Grid>
 
     <Page.TopAppBar>
