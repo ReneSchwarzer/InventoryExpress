@@ -125,7 +125,7 @@ namespace InventoryExpress
             {
                 await PrintManager.ShowPrintUIAsync();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //MainPage.Current.NotifyUser("Error printing: " + e.Message + ", hr=" + e.HResult, NotifyType.ErrorMessage);
             }

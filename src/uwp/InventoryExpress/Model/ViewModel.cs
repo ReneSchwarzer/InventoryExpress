@@ -313,8 +313,10 @@ namespace InventoryExpress.Model
             CostCenters.Add(new CostCenter());
             Templates.Add(new Template());
 
+            var files = await ApplicationData.Current.LocalFolder.GetFilesAsync();
+
             // 1. Zustände laden
-            foreach (var file in from x in await ApplicationData.Current.LocalFolder.GetFilesAsync()
+            foreach (var file in from x in files
                                  where x.FileType.Equals(".state")
                                  select x)
             {
@@ -324,7 +326,7 @@ namespace InventoryExpress.Model
             States.ForEach(a => a.Commit(false));
 
             // 2. Sachkonten laden
-            foreach (var file in from x in await ApplicationData.Current.LocalFolder.GetFilesAsync()
+            foreach (var file in from x in files
                                  where x.FileType.Equals(".glaccount")
                                  select x)
             {
@@ -334,7 +336,7 @@ namespace InventoryExpress.Model
             GLAccounts.ForEach(a => a.Commit(false));
 
             // 3. Standorte laden
-            foreach (var file in from x in await ApplicationData.Current.LocalFolder.GetFilesAsync()
+            foreach (var file in from x in files
                                  where x.FileType.Equals(".location")
                                  select x)
             {
@@ -344,7 +346,7 @@ namespace InventoryExpress.Model
             Locations.ForEach(a => a.Commit(false));
 
             // 4. Lieferanten laden
-            foreach (var file in from x in await ApplicationData.Current.LocalFolder.GetFilesAsync()
+            foreach (var file in from x in files
                                  where x.FileType.Equals(".supplier")
                                  select x)
             {
@@ -354,7 +356,7 @@ namespace InventoryExpress.Model
             Suppliers.ForEach(a => a.Commit(false));
 
             // 5. Hersteller laden
-            foreach (var file in from x in await ApplicationData.Current.LocalFolder.GetFilesAsync()
+            foreach (var file in from x in files
                                  where x.FileType.Equals(".manufacturer")
                                  select x)
             {
@@ -364,7 +366,7 @@ namespace InventoryExpress.Model
             Manufacturers.ForEach(a => a.Commit(false));
 
             // 6. Kostenstellen laden
-            foreach (var file in from x in await ApplicationData.Current.LocalFolder.GetFilesAsync()
+            foreach (var file in from x in files
                                  where x.FileType.Equals(".costcenter")
                                  select x)
             {
@@ -374,7 +376,7 @@ namespace InventoryExpress.Model
             CostCenters.ForEach(a => a.Commit(false));
 
             // 7. Attribute laden
-            foreach (var file in from x in await ApplicationData.Current.LocalFolder.GetFilesAsync()
+            foreach (var file in from x in files
                                  where x.FileType.Equals(".attribute")
                                  select x)
             {
@@ -384,7 +386,7 @@ namespace InventoryExpress.Model
             Attributes.ForEach(a => a.Commit(false));
 
             // 8. Vorlagen laden
-            foreach (var file in from x in await ApplicationData.Current.LocalFolder.GetFilesAsync()
+            foreach (var file in from x in files
                                  where x.FileType.Equals(".template")
                                  select x)
             {
@@ -394,7 +396,7 @@ namespace InventoryExpress.Model
             Templates.ForEach(a => a.Commit(false));
 
             // 9. Inventar laden
-            foreach (var file in from x in await ApplicationData.Current.LocalFolder.GetFilesAsync()
+            foreach (var file in from x in files
                                  where x.FileType.Equals(".inventory")
                                  select x)
             {
@@ -403,7 +405,6 @@ namespace InventoryExpress.Model
                     if (file != null)
                     {
                         Inventorys.Add(await Inventory.Factory(file));
-                        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Inventorys"));
                     }
                 }
                 catch

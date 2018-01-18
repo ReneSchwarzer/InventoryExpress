@@ -1,1 +1,1 @@
-D:\Rene\Dokumente\Visual Studio 2017\Projects\inventar\src\uwp\InventoryExpress\bin\ARM\Release\Upload\InventoryExpress_1.0.3.0\InventoryExpress_1.0.3.0_x86_x64_arm.appxbundle
+D:\Rene\Dokumente\Visual Studio 2017\Projects\inventar\src\uwp\InventoryExpress\bin\ARM\Release\Upload\InventoryExpress_1.0.4.0\InventoryExpress_1.0.4.0_x86_x64_arm.appxbundle
