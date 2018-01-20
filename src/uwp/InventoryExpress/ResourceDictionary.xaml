@@ -61,11 +61,7 @@
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
 
-            <Ellipse Width="50" Height="50" Grid.Column="0">
-                <Ellipse.Fill>
-                    <ImageBrush ImageSource="{Binding Image}" Stretch="UniformToFill"/>
-                </Ellipse.Fill>
-            </Ellipse>
+            <PersonPicture Width="50" Height="50" Grid.Column="0" ProfilePicture="{Binding Image}" DisplayName="{Binding Name}"/>
 
             <Grid Grid.Row="1" 
                         Grid.Column="1" 
@@ -224,11 +220,7 @@
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
 
-            <Ellipse Width="50" Height="50" Grid.Column="0">
-                <Ellipse.Fill>
-                    <ImageBrush ImageSource="{Binding Image}" Stretch="UniformToFill"/>
-                </Ellipse.Fill>
-            </Ellipse>
+            <PersonPicture Width="50" Height="50" Grid.Column="0" ProfilePicture="{Binding Image}" DisplayName="{Binding Name}"/>
 
             <Grid Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                 <Grid.RowDefinitions>

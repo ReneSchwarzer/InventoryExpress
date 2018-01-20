@@ -17,7 +17,7 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid HorizontalAlignment="Stretch" Margin="10">
+    <Grid HorizontalAlignment="Stretch" Margin="10,10,0,10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>

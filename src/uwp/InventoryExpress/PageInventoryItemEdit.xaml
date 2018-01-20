@@ -173,7 +173,13 @@
                 <TextBox x:Uid="MemoLabel" Name="Memo" 
                          AcceptsReturn="True"
                          TextWrapping="Wrap"
+                         IsSpellCheckEnabled="True"
                          Text="{Binding Memo, Mode=TwoWay}" Margin="5,5,5,15"/>
+
+                <!--<RichEditBox x:Uid="MemoLabel" Name="Memo" 
+                             AcceptsReturn="True" TextWrapping="Wrap" 
+                             IsSpellCheckEnabled="True"
+                             Document="{Binding Memo, Mode=TwoWay}" Margin="5,5,5,15"/>-->
 
                 <StackPanel Margin="0, 0, 0, 0" Orientation="Horizontal">
                     <SymbolIcon Symbol="Camera" Margin="3,0,3,0"/>
