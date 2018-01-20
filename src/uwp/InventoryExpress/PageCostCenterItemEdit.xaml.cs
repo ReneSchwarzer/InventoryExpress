@@ -41,6 +41,8 @@ namespace InventoryExpress
         {
             base.OnNavigatedTo(e);
 
+            ProgressBar.DataContext = ViewModel.Instance;
+
             if (e.Parameter != null)
             {
                 DataContext = e.Parameter;
@@ -63,8 +65,7 @@ namespace InventoryExpress
         private async void OnSaveAndNavigateBack(object sender, RoutedEventArgs e)
         {
             var resourceLoader = ResourceLoader.GetForCurrentView();
-            var CostCenter = DataContext as Model.CostCenter;
-            if (CostCenter != null)
+            if (DataContext is Model.CostCenter CostCenter)
             {
                 if (string.IsNullOrWhiteSpace(CostCenter.Name))
                 {
@@ -90,8 +91,6 @@ namespace InventoryExpress
                     return;
                 }
 
-                ProgressRing.Visibility = Visibility.Visible;
-                ProgressRing.IsActive = true;
                 IsEnabled = false;
                 ButtonBar.Visibility = Visibility.Collapsed;
 
@@ -99,8 +98,6 @@ namespace InventoryExpress
 
                 IsEnabled = true;
                 ButtonBar.Visibility = Visibility.Visible;
-                ProgressRing.Visibility = Visibility.Collapsed;
-                ProgressRing.IsActive = false;
 
                 if (!ViewModel.Instance.CostCenters.Contains(CostCenter))
                 {
@@ -121,8 +118,7 @@ namespace InventoryExpress
         /// <param name="e">Die Eventparameter</param>
         private void OnCancelAndNavigateBack(object sender, RoutedEventArgs e)
         {
-            var CostCenter = DataContext as CostCenter;
-            if (CostCenter != null)
+            if (DataContext is CostCenter CostCenter)
             {
                 // Daten verwerfen
                 CostCenter.Rollback();
@@ -149,7 +145,7 @@ namespace InventoryExpress
             {
                 MessageDialog msg = new MessageDialog
                 (
-                    resourceLoader.GetString("MsgDelAccountAsk/Text"),
+                    resourceLoader.GetString("MsgDelCostCenterAsk/Text"),
                     resourceLoader.GetString("MsgTitleDel/Text")
                 );
                 msg.Commands.Add(new UICommand(resourceLoader.GetString("MsgYes/Text"), async c =>
@@ -180,16 +176,6 @@ namespace InventoryExpress
                     Frame.GoBack();
                 }
             }
-        }
-
-        /// <summary>
-        /// Wird aufgerufen, wenn zur Hilfe gewechselt werden soll
-        /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
-        /// <param name="e">Die Eventparameter</param>
-        private void OnNavigateToHelpPage(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(PageCostCenterItemEditHelp), DataContext);
         }
 
         /// <summary>

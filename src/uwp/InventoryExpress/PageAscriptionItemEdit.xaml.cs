@@ -41,6 +41,8 @@ namespace InventoryExpress
         {
             base.OnNavigatedTo(e);
 
+            ProgressBar.DataContext = ViewModel.Instance;
+
             if (e.Parameter is Inventory)
             {
                 // aus PageAccountItemAddLabel.Text
@@ -77,8 +79,6 @@ namespace InventoryExpress
             var ascription = DataContext as Model.Ascription;
             var parent = ascription.Parent;
 
-            ProgressRing.Visibility = Visibility.Visible;
-            ProgressRing.IsActive = true;
             IsEnabled = false;
             ButtonBar.Visibility = Visibility.Collapsed;
 
@@ -86,8 +86,6 @@ namespace InventoryExpress
 
             IsEnabled = true;
             ButtonBar.Visibility = Visibility.Visible;
-            ProgressRing.Visibility = Visibility.Collapsed;
-            ProgressRing.IsActive = false;
 
             if (!parent.Ascriptions.Contains(ascription))
             {
@@ -130,19 +128,25 @@ namespace InventoryExpress
         private async void OnDeleteAndNavigateBack(object sender, RoutedEventArgs e)
         {
             var resourceLoader = ResourceLoader.GetForCurrentView();
-            var Ascription = DataContext as Ascription;
-            var exist = await ApplicationData.Current.LocalFolder.TryGetItemAsync(Ascription.ID + ".Ascription");
+            var ascription = DataContext as Ascription;
 
-            if (Ascription != null && exist != null)
+            if (ascription != null)
             {
                 MessageDialog msg = new MessageDialog
                 (
-                    resourceLoader.GetString("MsgDelAccountAsk/Text"),
+                    resourceLoader.GetString("MsgDelAscriptionAsk/Text"),
                     resourceLoader.GetString("MsgTitleDel/Text")
                 );
                 msg.Commands.Add(new UICommand(resourceLoader.GetString("MsgYes/Text"), c =>
                 {
                     // Lösche
+                    ascription.Parent.Ascriptions.Remove(ascription);
+                    ascription.Parent.Commit(true);
+
+                    if (Frame.CanGoBack)
+                    {
+                        Frame.GoBack();
+                    }
                 }));
                 msg.Commands.Add(new UICommand(resourceLoader.GetString("MsgNo/Text")));
 
@@ -151,23 +155,6 @@ namespace InventoryExpress
 
                 await msg.ShowAsync();
             }
-            else
-            {
-                if (Frame.CanGoBack)
-                {
-                    Frame.GoBack();
-                }
-            }
-        }
-
-        /// <summary>
-        /// Wird aufgerufen, wenn zur Hilfe gewechselt werden soll
-        /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
-        /// <param name="e">Die Eventparameter</param>
-        private void OnNavigateToHelpPage(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(PageAscriptionItemEditHelp), DataContext);
         }
 
         /// <summary>

@@ -32,6 +32,8 @@ namespace InventoryExpress
         public PageInventoryItemEdit()
         {
             this.InitializeComponent();
+
+            ProgressBar.DataContext = ViewModel.Instance;
         }
 
         /// <summary>
@@ -110,8 +112,6 @@ namespace InventoryExpress
                     return;
                 }
 
-                ProgressRing.Visibility = Visibility.Visible;
-                ProgressRing.IsActive = true;
                 IsEnabled = false;
                 ButtonBar.Visibility = Visibility.Collapsed;
 
@@ -119,9 +119,7 @@ namespace InventoryExpress
                 
                 IsEnabled = true;
                 ButtonBar.Visibility = Visibility.Visible;
-                ProgressRing.Visibility = Visibility.Collapsed;
-                ProgressRing.IsActive = false;
-
+                
                 if (!ViewModel.Instance.Inventorys.Contains(inventory))
                 {
                     ViewModel.Instance.Inventorys.Add(inventory);
@@ -246,16 +244,6 @@ namespace InventoryExpress
                     Frame.GoBack();
                 }
             }
-        }
-
-        /// <summary>
-        /// Wird aufgerufen, wenn zur Hilfe gewechselt werden soll
-        /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
-        /// <param name="e">Die Eventparameter</param>
-        private void OnNavigateToHelpPage(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(PageInventoryItemEditHelp), DataContext);
         }
 
         /// <summary>

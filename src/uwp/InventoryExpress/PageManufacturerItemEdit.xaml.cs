@@ -41,6 +41,8 @@ namespace InventoryExpress
         {
             base.OnNavigatedTo(e);
 
+            ProgressBar.DataContext = ViewModel.Instance;
+
             if (e.Parameter != null)
             {
                 DataContext = e.Parameter;
@@ -63,8 +65,7 @@ namespace InventoryExpress
         private async void OnSaveAndNavigateBack(object sender, RoutedEventArgs e)
         {
             var resourceLoader = ResourceLoader.GetForCurrentView();
-            var manufacturer = DataContext as Model.Manufacturer;
-            if (manufacturer != null)
+            if (DataContext is Model.Manufacturer manufacturer)
             {
                 if (string.IsNullOrWhiteSpace(manufacturer.Name))
                 {
@@ -90,8 +91,6 @@ namespace InventoryExpress
                     return;
                 }
 
-                ProgressRing.Visibility = Visibility.Visible;
-                ProgressRing.IsActive = true;
                 IsEnabled = false;
                 ButtonBar.Visibility = Visibility.Collapsed;
 
@@ -99,8 +98,6 @@ namespace InventoryExpress
 
                 IsEnabled = true;
                 ButtonBar.Visibility = Visibility.Visible;
-                ProgressRing.Visibility = Visibility.Collapsed;
-                ProgressRing.IsActive = false;
 
                 if (!ViewModel.Instance.Manufacturers.Contains(manufacturer))
                 {
@@ -121,8 +118,7 @@ namespace InventoryExpress
         /// <param name="e">Die Eventparameter</param>
         private void OnCancelAndNavigateBack(object sender, RoutedEventArgs e)
         {
-            var manufacturer = DataContext as Manufacturer;
-            if (manufacturer != null)
+            if (DataContext is Manufacturer manufacturer)
             {
                 // Daten verwerfen
                 manufacturer.Rollback();
@@ -149,7 +145,7 @@ namespace InventoryExpress
             {
                 MessageDialog msg = new MessageDialog
                 (
-                    resourceLoader.GetString("MsgDelAccountAsk/Text"),
+                    resourceLoader.GetString("MsgDelManufacturerAsk/Text"),
                     resourceLoader.GetString("MsgTitleDel/Text")
                 );
                 msg.Commands.Add(new UICommand(resourceLoader.GetString("MsgYes/Text"), async c =>
@@ -183,16 +179,6 @@ namespace InventoryExpress
         }
 
         /// <summary>
-        /// Wird aufgerufen, wenn zur Hilfe gewechselt werden soll
-        /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
-        /// <param name="e">Die Eventparameter</param>
-        private void OnNavigateToHelpPage(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(PageManufacturerItemEditHelp), DataContext);
-        }
-
-        /// <summary>
         /// Wird aufgerufen, wenn ein Bild geladen werden soll
         /// </summary>
         /// <param name="sender">Der Auslöser des Events</param>
@@ -201,9 +187,11 @@ namespace InventoryExpress
         {
             var manufacturer = DataContext as Manufacturer;
 
-            var picker = new Windows.Storage.Pickers.FileOpenPicker();
-            picker.ViewMode = Windows.Storage.Pickers.PickerViewMode.Thumbnail;
-            picker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.PicturesLibrary;
+            var picker = new Windows.Storage.Pickers.FileOpenPicker
+            {
+                ViewMode = Windows.Storage.Pickers.PickerViewMode.Thumbnail,
+                SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.PicturesLibrary
+            };
             picker.FileTypeFilter.Add(".jpg");
             picker.FileTypeFilter.Add(".jpeg");
             picker.FileTypeFilter.Add(".png");

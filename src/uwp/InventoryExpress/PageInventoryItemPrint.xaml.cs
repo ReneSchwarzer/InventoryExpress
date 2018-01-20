@@ -139,16 +139,6 @@ namespace InventoryExpress
                 flyoutBase.ShowAt(senderElement);
             }
         }
-
-        /// <summary>
-        /// Wird aufgerufen, wenn zur Hilfe gewechselt werden soll
-        /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
-        /// <param name="e">Die Eventparameter</param>
-        private void OnNavigateToHelpPage(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(PageInventoryItemHelp), DataContext);
-        }
         
         /// <summary>
         /// Wird aufgerufen, wenn zur Hilfe gewechselt werden soll

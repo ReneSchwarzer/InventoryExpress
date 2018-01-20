@@ -41,21 +41,8 @@ namespace InventoryExpress
         {
             base.OnNavigatedTo(e);
 
-            ProgressRing.IsActive = true;
-
             DataContext = e.Parameter;
-
-            ProgressRing.IsActive = false;
-        }
-
-        /// <summary>
-        /// Wird aufgerufen, wenn zur Hilfe gewechselt werden soll
-        /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
-        /// <param name="e">Die Eventparameter</param>
-        private void OnNavigateToHelpPage(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(PageAscriptionHelp), DataContext);
+            ProgressBar.DataContext = ViewModel.Instance;
         }
 
         /// <summary>
@@ -79,26 +66,83 @@ namespace InventoryExpress
         }
 
         /// <summary>
-        /// Wird aufgerufen, wenn zur Startseite gewechselt werden soll
+        /// Wird aufgerufen, wenn zur letzten Seite gewechselt werden soll
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventparameter</param>
+        private void OnNavigateBack(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(PageInventoryItem), DataContext);
+        }
+
+        /// <summary>
+        /// Wird aufgerufen, wenn zu Hilfeseite gewechselt werden soll
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventparameter</param>
+        private void OnNavigateToEditPage(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(PageAscriptionItemEdit), DataContext);
+        }
+
+        /// <summary>
+        /// Wird aufgerufen, wenn zur den Herstellern gewechselt werden soll
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventparameter</param>
+        private void OnNavigateToManufacturerPage(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(PageManufacturer));
+        }
+
+        /// <summary>
+        /// Wird aufgerufen, wenn zur den Herstellern gewechselt werden soll
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventparameter</param>
+        private void OnNavigateToSupplierPage(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(PageSupplier));
+        }
+
+        /// <summary>
+        /// Wird aufgerufen, wenn zur den Standorten gewechselt werden soll
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventparameter</param>
+        private void OnNavigateToLocationPage(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(PageLocation));
+        }
+
+        /// <summary>
+        /// Wird aufgerufen, wenn zur den Standorten gewechselt werden soll
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventparameter</param>
+        private void OnNavigateToCostCenterPage(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(PageCostCenter));
+        }
+
+        /// <summary>
+        /// Wird aufgerufen, wenn zur den Sachkonten gewechselt werden soll
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventparameter</param>
+        private void OnNavigateToGLAccountPage(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(PageGLAccount));
+        }
+
+        /// <summary>
+        /// Wird aufgerufen, wenn zur den Sachkonten gewechselt werden soll
         /// </summary>
         /// <param name="sender">Der Auslöser des Events</param>
         /// <param name="e">Die Eventparameter</param>
         private void OnNavigateToHomePage(object sender, RoutedEventArgs e)
         {
-            if (Frame.CanGoBack)
-            {
-                Frame.GoBack();
-            }
+            Frame.Navigate(typeof(PageMain));
         }
-
-        ///// <summary>
-        ///// Wird aufgerufen, wenn zu Hilfeseite gewechselt werden soll
-        ///// </summary>
-        ///// <param name="sender">Der Auslöser des Events</param>
-        ///// <param name="e">Die Eventparameter</param>
-        //private void OnNavigateToEditPage(object sender, RoutedEventArgs e)
-        //{
-        //    Frame.Navigate(typeof(PageAscriptionItemEdit), DataContext);
-        //}
     }
 }

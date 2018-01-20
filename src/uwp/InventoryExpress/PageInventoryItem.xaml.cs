@@ -16,6 +16,7 @@ namespace InventoryExpress
     public sealed partial class PageInventoryItem : Page
     {
         private PrintHelper PrintHelper { get; set; }
+        private PageInventoryItemPrint PageInventoryItemPrint { get; set; }
 
         /// <summary>
         /// Konstruktor
@@ -23,6 +24,7 @@ namespace InventoryExpress
         public PageInventoryItem()
         {
             this.InitializeComponent();
+            ProgressBar.DataContext = ViewModel.Instance;
 
             FlipView.ItemsSource = ViewModel.Instance.FilteredInventorys;
         }
@@ -40,13 +42,14 @@ namespace InventoryExpress
             FlipView.SelectedItem = inventory;
 
             var currentView = SystemNavigationManager.GetForCurrentView();
+            PageInventoryItemPrint = new PageInventoryItemPrint();
 
             // Initalize common helper class and register for printing
             PrintHelper = new PrintHelper(this);
             PrintHelper.RegisterForPrinting();
 
             // Initialize print content for this scenario
-            PrintHelper.PreparePrintContent(new PageInventoryItemPrint() { DataContext = inventory });
+            PrintHelper.PreparePrintContent(PageInventoryItemPrint);
         }
 
         /// <summary>
@@ -68,10 +71,7 @@ namespace InventoryExpress
         /// <param name="e">Die Eventparameter</param>
         private void OnNavigateToHomePage(object sender, RoutedEventArgs e)
         {
-            if (Frame.CanGoBack)
-            {
-                Frame.GoBack();
-            }
+            Frame.Navigate(typeof(PageMain), FlipView.SelectedItem);
         }
 
         /// <summary>
@@ -91,8 +91,7 @@ namespace InventoryExpress
         /// <param name="e">Die Eventparameter</param>
         private void OnLike(object sender, RoutedEventArgs e)
         {
-            var inventory = FlipView.SelectedItem as Model.Inventory;
-            if (inventory != null)
+            if (FlipView.SelectedItem is Model.Inventory inventory)
             {
                 inventory.Commit(true);
             }
@@ -105,8 +104,7 @@ namespace InventoryExpress
         /// <param name="e">Die Eventparameter</param>
         private void OnPasswordToClipboard(object sender, RoutedEventArgs e)
         {
-            var senderElement = sender as FrameworkElement;
-            if (senderElement != null)
+            if (sender is FrameworkElement senderElement)
             {
                 // In Tag-Eigenschaft befindet sich der Wert
                 var tag = senderElement.Tag.ToString();
@@ -149,17 +147,7 @@ namespace InventoryExpress
                 flyoutBase.ShowAt(senderElement);
             }
         }
-
-        /// <summary>
-        /// Wird aufgerufen, wenn zur Hilfe gewechselt werden soll
-        /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
-        /// <param name="e">Die Eventparameter</param>
-        private void OnNavigateToHelpPage(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(PageInventoryItemHelp), DataContext);
-        }
-        
+       
         /// <summary>
         /// Wird aufgerufen, wenn zur Hilfe gewechselt werden soll
         /// </summary>
@@ -177,6 +165,8 @@ namespace InventoryExpress
         /// <param name="e">Die Eventparameter</param>
         async private void OnPrintButtonClick(object sender, RoutedEventArgs e)
         {
+            PageInventoryItemPrint.DataContext = FlipView.SelectedItem;
+
             if (Windows.Graphics.Printing.PrintManager.IsSupported())
             {
                 try
@@ -218,6 +208,76 @@ namespace InventoryExpress
         private void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Like.DataContext = FlipView.SelectedItem;
+        }
+
+        /// <summary>
+        /// Wird aufgerufen, wenn zur den Herstellern gewechselt werden soll
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventparameter</param>
+        private void OnNavigateToManufacturerPage(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(PageManufacturer));
+        }
+
+        /// <summary>
+        /// Wird aufgerufen, wenn zur den Herstellern gewechselt werden soll
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventparameter</param>
+        private void OnNavigateToSupplierPage(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(PageSupplier));
+        }
+
+        /// <summary>
+        /// Wird aufgerufen, wenn zur den Standorten gewechselt werden soll
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventparameter</param>
+        private void OnNavigateToLocationPage(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(PageLocation));
+        }
+
+        /// <summary>
+        /// Wird aufgerufen, wenn zur den Standorten gewechselt werden soll
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventparameter</param>
+        private void OnNavigateToCostCenterPage(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(PageCostCenter));
+        }
+
+        /// <summary>
+        /// Wird aufgerufen, wenn zur den Sachkonten gewechselt werden soll
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventparameter</param>
+        private void OnNavigateToGLAccountPage(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(PageGLAccount));
+        }
+
+        /// <summary>
+        /// Wird aufgerufen, wenn zur den Zuständen gewechselt werden soll
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventparameter</param>
+        private void OnNavigateToStatePage(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(PageState), FlipView.SelectedItem);
+        }
+
+        /// <summary>
+        /// Wird aufgerufen, wenn zur den Vorlagen gewechselt werden soll
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventparameter</param>
+        private void OnNavigateToTemplatePage(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(PageTemplate), FlipView.SelectedItem);
         }
     }
 }

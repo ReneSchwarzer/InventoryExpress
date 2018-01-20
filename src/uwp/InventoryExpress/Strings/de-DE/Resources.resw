@@ -145,8 +145,44 @@
     <value>Der Name ist eine Pflichteingabe!</value>
     <comment>Messageboxtext</comment>
   </data>
-  <data name="MsgDelAccountAsk.Text" xml:space="preserve">
-    <value>Löschen</value>
+  <data name="MsgDelAscriptionAsk.Text" xml:space="preserve">
+    <value>Möchten Sie die Zuschreibung löschen?</value>
+    <comment>Messageboxüberschrift Löschen</comment>
+  </data>
+  <data name="MsgDelAttributeAsk.Text" xml:space="preserve">
+    <value>Möchten Sie das Attribut löschen?</value>
+    <comment>Messageboxüberschrift Löschen</comment>
+  </data>
+  <data name="MsgDelCostCenterAsk.Text" xml:space="preserve">
+    <value>Möchten Sie die Kostenstelle löschen?</value>
+    <comment>Messageboxüberschrift Löschen</comment>
+  </data>
+  <data name="MsgDelGLAccountAsk.Text" xml:space="preserve">
+    <value>Möchten Sie das Sachkonto löschen?</value>
+    <comment>Messageboxüberschrift Löschen</comment>
+  </data>
+  <data name="MsgDelInventoryAsk.Text" xml:space="preserve">
+    <value>Möchten Sie das ausgewählte Inventar löschen?</value>
+    <comment>Messageboxüberschrift Löschen</comment>
+  </data>
+  <data name="MsgDelLocationAsk.Text" xml:space="preserve">
+    <value>Möchten Sie den Standort löschen?</value>
+    <comment>Messageboxüberschrift Löschen</comment>
+  </data>
+  <data name="MsgDelManufacturerAsk.Text" xml:space="preserve">
+    <value>Möchten Sie den Hersteller löschen?</value>
+    <comment>Messageboxüberschrift Löschen</comment>
+  </data>
+  <data name="MsgDelStateAsk.Text" xml:space="preserve">
+    <value>Möchten Sie den Zustand löschen?</value>
+    <comment>Messageboxüberschrift Löschen</comment>
+  </data>
+  <data name="MsgDelSupplierAsk.Text" xml:space="preserve">
+    <value>Möchten Sie den Lieferanten löschen?</value>
+    <comment>Messageboxüberschrift Löschen</comment>
+  </data>
+  <data name="MsgDelTemplateAsk.Text" xml:space="preserve">
+    <value>Möchten Sie die Vorlage löschen?</value>
     <comment>Messageboxüberschrift Löschen</comment>
   </data>
   <data name="MsgNo.Text" xml:space="preserve">

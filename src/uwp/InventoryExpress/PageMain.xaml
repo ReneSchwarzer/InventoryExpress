@@ -17,28 +17,70 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid HorizontalAlignment="Stretch" Margin="10,10,0,10">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+    <Grid Margin="0">
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" Grid.Row="0">
-            <ProgressRing Name="ProgressRing" 
-                          IsActive="True"
-                          Margin="16"
-                          Visibility="{Binding VisibilityProgresBar}"
-                          HorizontalAlignment="Center" 
-                          VerticalAlignment="Center"/>
-            <TextBlock x:Name="Titel"
-                   x:Uid="PageInventoryItemEditLabel"
-                   Style="{StaticResource TitelTextBlock}"
-                   Text="Inventar" TabFocusNavigation="Cycle"/>
-        </StackPanel>
-
-        <ListView HorizontalAlignment="Stretch" 
+        <Grid Grid.Column="0" Grid.Row="0" Style="{StaticResource Menue}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <AppBarButton Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Height="50" Width="50" Style="{StaticResource AppBarButton}">
+                <AppBarButton.Icon>
+                    <FontIcon Glyph="&#xE700;"/>
+                </AppBarButton.Icon>
+                <AppBarButton.Flyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem Text="Standorte" Icon="Map" Click="OnNavigateToLocationPage"/>
+                        <MenuFlyoutItem Text="Hersteller" Click="OnNavigateToManufacturerPage">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xEC09;"/>
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                        <MenuFlyoutItem Text="Lieferanten" Click="OnNavigateToSupplierPage">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xE7E3;"/>
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                        <MenuFlyoutItem Text="Sachkonto" Icon="Account" Click="OnNavigateToGLAccountPage"/>
+                        <MenuFlyoutItem Text="Kostenstelle" Icon="Shop" Click="OnNavigateToCostCenterPage"/>
+                        <MenuFlyoutSeparator/>
+                        <MenuFlyoutItem Text="Import" Icon="Import"  Click="OnImportAsync"/>
+                        <MenuFlyoutItem Text="Export" Icon="SaveLocal" Click="OnExportAsync"/>
+                        <MenuFlyoutSeparator/>
+                        <MenuFlyoutItem Text="Hilfe" Icon="Help" Click="OnNavigateToHelpPage"/>
+                    </MenuFlyout>
+                </AppBarButton.Flyout>
+            </AppBarButton>
+            <TextBlock x:Name="Titel" 
+                       VerticalAlignment="Center"
+                       Margin="5,0,5,0"
+                       Grid.Row="0" Grid.Column="1"    
+                       x:Uid="PageInventoryItemEditLabel"
+                       Style="{StaticResource TitelTextBlock}"
+                       Text="Inventar" TabFocusNavigation="Cycle"/>
+            <AutoSuggestBox VerticalAlignment="Center"
+                        Grid.Row="0" Grid.Column="2"
+                        Margin="0,0,10,0"
+                        Text="{Binding SearchText, Mode=TwoWay}" 
+                        Name="SearchBox" 
+                        Style="{StaticResource AutoSuggestBox}" />
+        </Grid>
+        <ProgressBar Grid.Column="0" 
+                     Grid.Row="1" 
+                     Name="ProgressBar" 
+                     IsIndeterminate="True" ShowPaused="False" ShowError="False"
+                     Visibility="{Binding VisibilityProgresBar}"
+                     HorizontalAlignment="Stretch" 
+                     VerticalAlignment="Center"/>
+        <ListView Grid.Column="0" 
+                  Grid.Row="2"
+                  Margin="0,5,0,0"
+                  HorizontalAlignment="Stretch" 
                   VerticalAlignment="Stretch"
                   VerticalContentAlignment="Stretch"
                   HorizontalContentAlignment="Stretch"
@@ -50,45 +92,8 @@
                   Name="ListView"
                   ItemClick="OnItemClick"
                   ItemsSource="{Binding FilteredInventorys}" 
-                  Grid.Row="1" 
-                  Margin="0, 0, 0, 0" 
-                  Grid.Column="0"  
                   ItemTemplate="{StaticResource ListViewInventoryItemTemplate}"/>
     </Grid>
-
-    <Page.TopAppBar>
-        <CommandBar x:Name="AppBar" Style="{StaticResource AppBar}">
-            <CommandBar.Content>
-                <AutoSuggestBox Text="{Binding SearchText, Mode=TwoWay}" 
-                         Name="SearchBox" 
-                        Style="{StaticResource AutoSuggestBox}" />
-            </CommandBar.Content>
-            <CommandBar.PrimaryCommands>
-                <AppBarButton FlowDirection="LeftToRight" Name="ManufacureButton" x:Uid="ManufacureMenu" Label="Hersteller" Click="OnNavigateToManufacturerPage">
-                    <AppBarButton.Icon>
-                        <FontIcon Glyph="&#xEC09;"/>
-                    </AppBarButton.Icon>
-                </AppBarButton>
-                <AppBarButton FlowDirection="LeftToRight" Name="LocationButton" x:Uid="LocationMenu" Label="Standorte" Icon="Map" Click="OnNavigateToLocationPage"/>
-                <AppBarButton FlowDirection="LeftToRight" Name="SupplierButton" x:Uid="SupplierMenu" Label="Lieferanten" Click="OnNavigateToSupplierPage">
-                    <AppBarButton.Icon>
-                        <FontIcon Glyph="&#xE7E3;"/>
-                    </AppBarButton.Icon>
-                </AppBarButton>
-                <AppBarButton FlowDirection="LeftToRight" Name="GLAccountButton" x:Uid="GLAccountMenu" Label="Sachkonto" Click="OnNavigateToGLAccountPage" Icon="Account"/>
-                <AppBarButton FlowDirection="LeftToRight" Name="CostCenterButton" x:Uid="CostCenterMenu" Label="Kostenstelle" Icon="Shop" Click="OnNavigateToCostCenterPage"/>
-            </CommandBar.PrimaryCommands>
-            <CommandBar.SecondaryCommands>
-                <AppBarButton FlowDirection="LeftToRight" Name="TemplateButton" x:Uid="TeplateMenu" Label="Vorlagen" Icon="Bookmarks" Click="OnNavigateToTemplatePage"/>
-                <AppBarButton FlowDirection="LeftToRight" Name="StateButton" x:Uid="StateMenu" Label="Zustände" Icon="Favorite" Click="OnNavigateToStatePage"/>
-                <AppBarSeparator/>
-                <AppBarButton FlowDirection="LeftToRight" Name="ImportButton" x:Uid="ImportMenu" Label="Import" Icon="Import" Click="OnImportAsync"/>
-                <AppBarButton FlowDirection="LeftToRight" Name="ExportButton" x:Uid="ExportMenu" Label="Export" Icon="SaveLocal" Click="OnExportAsync"/>
-                <AppBarSeparator/>
-                <AppBarButton FlowDirection="LeftToRight" Name="HelpButton" x:Uid="HelpMenu" Label="Hilfe" Icon="Help" Click="OnNavigateToHelpPage" />
-             </CommandBar.SecondaryCommands>
-        </CommandBar>
-    </Page.TopAppBar>
 
     <Page.BottomAppBar>
         <CommandBar x:Name="ButtonBar" Style="{StaticResource CommandBar}">

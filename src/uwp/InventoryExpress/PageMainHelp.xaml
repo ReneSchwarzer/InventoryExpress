@@ -15,20 +15,64 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Margin="0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <TextBlock Name="Titel" 
-                   x:Uid="PageHelpLabel"
-                   Text="Hilfe"
-                   Style="{StaticResource TitelTextBlock}"
-                   Grid.Row="0"/>
-        <ScrollViewer Grid.Row="1" HorizontalAlignment="Stretch">
+        <Grid Grid.Column="0" Grid.Row="0" Style="{StaticResource Menue}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <AppBarButton Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Height="50" Width="50" Style="{StaticResource AppBarButton}">
+                <AppBarButton.Icon>
+                    <FontIcon Glyph="&#xE700;"/>
+                </AppBarButton.Icon>
+                <AppBarButton.Flyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem Text="Inventar" Icon="Home" Click="OnNavigateToHomePage"/>
+                        <MenuFlyoutSeparator/>
+                        <MenuFlyoutItem Text="Standorte" Icon="Map" Click="OnNavigateToLocationPage"/>
+                        <MenuFlyoutItem Text="Hersteller" Click="OnNavigateToManufacturerPage">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xEC09;"/>
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                        <MenuFlyoutItem Text="Lieferanten" Click="OnNavigateToSupplierPage">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xE7E3;"/>
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                        <MenuFlyoutItem Text="Sachkonto" Icon="Account" Click="OnNavigateToGLAccountPage"/>
+                        <MenuFlyoutItem Text="Kostenstelle" Icon="Shop" Click="OnNavigateToCostCenterPage"/>
+                    </MenuFlyout>
+                </AppBarButton.Flyout>
+            </AppBarButton>
+            <TextBlock x:Name="Titel" 
+                       VerticalAlignment="Center"
+                       Margin="5,0,5,0"
+                       Grid.Row="0" Grid.Column="1"    
+                       x:Uid="PageInventoryItemEditLabel"
+                       Style="{StaticResource TitelTextBlock}"
+                       Text="Hilfe" TabFocusNavigation="Cycle"/>
+        </Grid>
+        <ProgressBar Grid.Column="0" 
+                     Grid.Row="1" 
+                     Name="ProgressBar" 
+                     IsIndeterminate="True" ShowPaused="False" ShowError="False"
+                     Visibility="{Binding VisibilityProgresBar}"
+                     HorizontalAlignment="Stretch" 
+                     VerticalAlignment="Center"/>
+
+        <ScrollViewer Grid.Column="0" 
+                      Grid.Row="2" 
+                      HorizontalAlignment="Stretch">
             <RichTextBlock Padding="16">
                 <Paragraph>
                     <Span>
@@ -52,7 +96,9 @@
                 </Paragraph>
             </RichTextBlock>
         </ScrollViewer>
-        <Button Grid.Row="2" x:Uid="PageHelpCopyButton" Margin="5,5,5,15" Click="OnClickButtonAsync">
+        <Button Grid.Column="0" 
+                Grid.Row="3"  
+                x:Uid="PageHelpCopyButton" Margin="5,5,5,15" Click="OnClickButtonAsync">
             <Button.Content>
                 <Grid>
                     <ProgressRing Name="ProgressRing" 
@@ -65,19 +111,11 @@
                 </Grid>
             </Button.Content>
         </Button>
-        <TextBlock Grid.Row="3" x:Uid="PageHelpHintLabel" Margin="5" TextWrapping="Wrap"/>
+        <TextBlock Grid.Row="4" x:Uid="PageHelpHintLabel" Margin="5" TextWrapping="Wrap"/>
         <TextBlock Name ="Version" 
                    HorizontalAlignment="Right" 
-                   Grid.Row="4">
+                   Grid.Row="5">
             V 1.0.1.0
         </TextBlock>
     </Grid>
-
-    <Page.TopAppBar>
-        <CommandBar x:Name="ButtonBar" Style="{StaticResource AppBar}">
-            <CommandBar.PrimaryCommands>
-                <AppBarButton FlowDirection="LeftToRight" Name="Home" x:Uid="BackLabel" Label="Zurück" Icon="Back" Click="OnNavigateToBackPage" />
-            </CommandBar.PrimaryCommands>
-        </CommandBar>
-    </Page.TopAppBar>
 </Page>

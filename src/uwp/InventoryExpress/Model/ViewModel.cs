@@ -58,7 +58,6 @@ namespace InventoryExpress.Model
         /// </summary>
         private ViewModel()
         {
-            VisibilityProgresBar = Visibility.Visible;
             var init = InitAsync();
         }
 
@@ -304,6 +303,8 @@ namespace InventoryExpress.Model
         /// <returns></returns>
         public async Task Load()
         {
+            VisibilityProgresBar = Visibility.Visible;
+
             // Leereinträge zum Entfernen
             States.Add(new State());
             GLAccounts.Add(new GLAccount());

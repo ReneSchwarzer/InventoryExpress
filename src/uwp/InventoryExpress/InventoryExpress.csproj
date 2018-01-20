@@ -120,9 +120,6 @@
     <Compile Include="Model\Supplier.cs" />
     <Compile Include="Model\Template.cs" />
     <Compile Include="Model\ViewModel.cs" />
-    <Compile Include="PageInventory.xaml.cs">
-      <DependentUpon>PageInventory.xaml</DependentUpon>
-    </Compile>
     <Compile Include="PageLocationItemPrint.xaml.cs">
       <DependentUpon>PageLocationItemPrint.xaml</DependentUpon>
     </Compile>
@@ -144,95 +141,47 @@
     <Compile Include="PageLocation.xaml.cs">
       <DependentUpon>PageLocation.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PageLocationHelp.xaml.cs">
-      <DependentUpon>PageLocationHelp.xaml</DependentUpon>
-    </Compile>
     <Compile Include="PageLocationItemEdit.xaml.cs">
       <DependentUpon>PageLocationItemEdit.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PageLocationItemEditHelp.xaml.cs">
-      <DependentUpon>PageLocationItemEditHelp.xaml</DependentUpon>
     </Compile>
     <Compile Include="PageCostCenter.xaml.cs">
       <DependentUpon>PageCostCenter.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PageCostCenterHelp.xaml.cs">
-      <DependentUpon>PageCostCenterHelp.xaml</DependentUpon>
-    </Compile>
     <Compile Include="PageCostCenterItemEdit.xaml.cs">
       <DependentUpon>PageCostCenterItemEdit.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PageCostCenterEditHelp.xaml.cs">
-      <DependentUpon>PageCostCenterEditHelp.xaml</DependentUpon>
     </Compile>
     <Compile Include="PageAttribute.xaml.cs">
       <DependentUpon>PageAttribute.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PageAttributeHelp.xaml.cs">
-      <DependentUpon>PageAttributeHelp.xaml</DependentUpon>
-    </Compile>
     <Compile Include="PageAttributeItemEdit.xaml.cs">
       <DependentUpon>PageAttributeItemEdit.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PageAttributeItemEditHelp.xaml.cs">
-      <DependentUpon>PageAttributeItemEditHelp.xaml</DependentUpon>
     </Compile>
     <Compile Include="PageGLAccount.xaml.cs">
       <DependentUpon>PageGLAccount.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PageGLAccountHelp.xaml.cs">
-      <DependentUpon>PageGLAccountHelp.xaml</DependentUpon>
-    </Compile>
     <Compile Include="PageGLAccountItemEdit.xaml.cs">
       <DependentUpon>PageGLAccountItemEdit.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PageGLAccountItemEditHelp.xaml.cs">
-      <DependentUpon>PageGLAccountItemEditHelp.xaml</DependentUpon>
     </Compile>
     <Compile Include="PageAsceipion.xaml.cs">
       <DependentUpon>PageAsceipion.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PageAsceptionHelp.xaml.cs">
-      <DependentUpon>PageAsceptionHelp.xaml</DependentUpon>
-    </Compile>
     <Compile Include="PageAscriptionItemEdit.xaml.cs">
       <DependentUpon>PageAscriptionItemEdit.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PageAscriptionItemEditHelp.xaml.cs">
-      <DependentUpon>PageAscriptionItemEditHelp.xaml</DependentUpon>
     </Compile>
     <Compile Include="PageState.xaml.cs">
       <DependentUpon>PageState.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PageStateHelp.xaml.cs">
-      <DependentUpon>PageStateHelp.xaml</DependentUpon>
-    </Compile>
     <Compile Include="PageStateItemEdit.xaml.cs">
       <DependentUpon>PageStateItemEdit.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PageStateItemEditHelp.xaml.cs">
-      <DependentUpon>PageStateItemEditHelp.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PageTemplateItemEditHelp.xaml.cs">
-      <DependentUpon>PageTemplateItemEditHelp.xaml</DependentUpon>
     </Compile>
     <Compile Include="PageTemplateItemEdit.xaml.cs">
       <DependentUpon>PageTemplateItemEdit.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PageTemplateHelp.xaml.cs">
-      <DependentUpon>PageTemplateHelp.xaml</DependentUpon>
-    </Compile>
     <Compile Include="PageTemplate.xaml.cs">
       <DependentUpon>PageTemplate.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PageSupplierItemEditHelp.xaml.cs">
-      <DependentUpon>PageSupplierItemEditHelp.xaml</DependentUpon>
-    </Compile>
     <Compile Include="PageSupplierItemEdit.xaml.cs">
       <DependentUpon>PageSupplierItemEdit.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PageSupplierHelp.xaml.cs">
-      <DependentUpon>PageSupplierHelp.xaml</DependentUpon>
     </Compile>
     <Compile Include="PageSupplier.xaml.cs">
       <DependentUpon>PageSupplier.xaml</DependentUpon>
@@ -240,20 +189,8 @@
     <Compile Include="PageManufacturer.xaml.cs">
       <DependentUpon>PageManufacturer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PageInventoryItemHelp.xaml.cs">
-      <DependentUpon>PageInventoryItemHelp.xaml</DependentUpon>
-    </Compile>
     <Compile Include="PageManufacturerItemEdit.xaml.cs">
       <DependentUpon>PageManufacturerItemEdit.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PageManufacturerHelp.xaml.cs">
-      <DependentUpon>PageManufacturerHelp.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PageInventoryItemEditHelp.xaml.cs">
-      <DependentUpon>PageInventoryItemEditHelp.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PageManufacturerItemEditHelp.xaml.cs">
-      <DependentUpon>PageManufacturerItemEditHelp.xaml</DependentUpon>
     </Compile>
     <Compile Include="PrintHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -391,10 +328,6 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Page Include="PageInventory.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="PageLocationItemPrint.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -423,15 +356,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="PageLocationHelp.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="PageLocationItemEdit.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="PageLocationItemEditHelp.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -439,15 +364,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="PageCostCenterHelp.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="PageCostCenterItemEdit.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="PageCostCenterEditHelp.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -455,15 +372,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="PageAttributeHelp.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="PageAttributeItemEdit.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="PageAttributeItemEditHelp.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -471,15 +380,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="PageGLAccountHelp.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="PageGLAccountItemEdit.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="PageGLAccountItemEditHelp.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -487,15 +388,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="PageAsceptionHelp.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="PageAscriptionItemEdit.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="PageAscriptionItemEditHelp.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -503,19 +396,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="PageStateHelp.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="PageStateItemEdit.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="PageStateItemEditHelp.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="PageTemplateItemEditHelp.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -523,23 +404,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="PageTemplateHelp.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="PageTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="PageSupplierItemEditHelp.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="PageSupplierItemEdit.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="PageSupplierHelp.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -551,23 +420,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="PageInventoryItemHelp.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="PageManufacturerItemEdit.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="PageManufacturerHelp.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="PageInventoryItemEditHelp.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="PageManufacturerItemEditHelp.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

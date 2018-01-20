@@ -41,6 +41,8 @@ namespace InventoryExpress
         {
             base.OnNavigatedTo(e);
 
+            ProgressBar.DataContext = ViewModel.Instance;
+
             if (e.Parameter != null)
             {
                 DataContext = e.Parameter;
@@ -90,8 +92,6 @@ namespace InventoryExpress
                     return;
                 }
 
-                ProgressRing.Visibility = Visibility.Visible;
-                ProgressRing.IsActive = true;
                 IsEnabled = false;
                 ButtonBar.Visibility = Visibility.Collapsed;
 
@@ -99,8 +99,6 @@ namespace InventoryExpress
 
                 IsEnabled = true;
                 ButtonBar.Visibility = Visibility.Visible;
-                ProgressRing.Visibility = Visibility.Collapsed;
-                ProgressRing.IsActive = false;
 
                 if (!ViewModel.Instance.GLAccounts.Contains(GLAccount))
                 {
@@ -149,7 +147,7 @@ namespace InventoryExpress
             {
                 MessageDialog msg = new MessageDialog
                 (
-                    resourceLoader.GetString("MsgDelAccountAsk/Text"),
+                    resourceLoader.GetString("MsgDelGLAccountAsk/Text"),
                     resourceLoader.GetString("MsgTitleDel/Text")
                 );
                 msg.Commands.Add(new UICommand(resourceLoader.GetString("MsgYes/Text"), async c =>
@@ -180,16 +178,6 @@ namespace InventoryExpress
                     Frame.GoBack();
                 }
             }
-        }
-
-        /// <summary>
-        /// Wird aufgerufen, wenn zur Hilfe gewechselt werden soll
-        /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
-        /// <param name="e">Die Eventparameter</param>
-        private void OnNavigateToHelpPage(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(PageGLAccountItemEditHelp), DataContext);
         }
 
         /// <summary>

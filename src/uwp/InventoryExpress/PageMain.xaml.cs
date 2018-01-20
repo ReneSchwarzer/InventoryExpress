@@ -40,7 +40,7 @@ namespace InventoryExpress
             {
                 DataContext = null;
                 DataContext = ViewModel.Instance;
-                ProgressRing.DataContext = ViewModel.Instance;
+                ProgressBar.DataContext = ViewModel.Instance;
             };  
         }
 
@@ -96,16 +96,6 @@ namespace InventoryExpress
         }
 
         /// <summary>
-        /// Wird aufgerufen, wenn zur den Vorlagen gewechselt werden soll
-        /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
-        /// <param name="e">Die Eventparameter</param>
-        private void OnNavigateToTemplatePage(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(PageTemplate));
-        }
-
-        /// <summary>
         /// Wird aufgerufen, wenn zur den Sachkonten gewechselt werden soll
         /// </summary>
         /// <param name="sender">Der Auslöser des Events</param>
@@ -113,16 +103,6 @@ namespace InventoryExpress
         private void OnNavigateToGLAccountPage(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(PageGLAccount));
-        }
-
-        /// <summary>
-        /// Wird aufgerufen, wenn zur den Zuständen gewechselt werden soll
-        /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
-        /// <param name="e">Die Eventparameter</param>
-        private void OnNavigateToStatePage(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(PageState));
         }
 
         /// <summary>

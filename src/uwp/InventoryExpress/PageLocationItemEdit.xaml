@@ -15,35 +15,51 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Margin="0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="80"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
-            <ProgressRing Name="ProgressRing" 
-                          IsActive="False"
-                          Visibility="Collapsed"
-                          Margin="16"
-                          HorizontalAlignment="Center" 
-                          VerticalAlignment="Center"/>
-            <TextBlock x:Name="Titel"
-                   x:Uid="PageAccountItemEditLabel"
-                   Style="{StaticResource TitelTextBlock}"
-                   TextWrapping="WrapWholeWords"
-                   Text="Standort ändern"/>
-        </StackPanel>
-        <ScrollViewer Grid.Row="1" Grid.Column="1">
+        <Grid Grid.Column="0" Grid.Row="0" Style="{StaticResource Menue}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <AppBarButton Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Height="50" Width="50" Style="{StaticResource AppBarButton}">
+                <AppBarButton.Icon>
+                    <FontIcon Glyph="&#xE700;"/>
+                </AppBarButton.Icon>
+                <AppBarButton.Flyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem Text="Zurück" Icon="Back" Click="OnCancelAndNavigateBack"/>
+                    </MenuFlyout>
+                </AppBarButton.Flyout>
+            </AppBarButton>
+            <TextBlock x:Name="Titel" 
+                       VerticalAlignment="Center"
+                       Margin="5,0,5,0"
+                       Grid.Row="0" Grid.Column="1"    
+                       x:Uid="PageInventoryItemEditLabel"
+                       Style="{StaticResource TitelTextBlock}"
+                       Text="Standort ändern" TabFocusNavigation="Cycle"/>
+        </Grid>
+        <ProgressBar Grid.Column="0" 
+                     Grid.Row="1" 
+                     Name="ProgressBar" 
+                     IsIndeterminate="True" ShowPaused="False" ShowError="False"
+                     Visibility="{Binding VisibilityProgresBar}"
+                     HorizontalAlignment="Stretch" 
+                     VerticalAlignment="Center"/>
+        <ScrollViewer Grid.Column="1" Grid.Row="2">
             <StackPanel Margin="16,16,16,16">
                 <Canvas x:Name="PrintCanvas" Opacity="0"/>
                 <TextBlock x:Uid="NameLabel" Text="Name:" Margin="5"/>
                 <TextBox Name="InventoryName" Text="{Binding Name, Mode=TwoWay}" Margin="5,5,5,15"/>
 
                 <TextBlock Text="Tag:" Margin="5"/>
-                <TextBox x:Uid="MemoLabel" Name="Tag" 
+                <TextBox x:Uid="MemoLabel" Name="TagBox" 
                          AcceptsReturn="True"
                          Text="{Binding Tag, Mode=TwoWay}" Margin="5,5,5,15"/>
 
@@ -122,17 +138,6 @@
             </StackPanel>
         </ScrollViewer>
     </Grid>
-
-    <Page.TopAppBar>
-        <CommandBar x:Name="AppBar" Style="{StaticResource AppBar}">
-            <CommandBar.PrimaryCommands>
-                <AppBarButton FlowDirection="LeftToRight" Name="Back" x:Uid="BackLabel" Label="Zurück" Icon="Back" Click="OnCancelAndNavigateBack" />
-            </CommandBar.PrimaryCommands>
-            <CommandBar.SecondaryCommands>
-                <AppBarButton FlowDirection="LeftToRight" Name="Help" x:Uid="HelpMenu" Label="Hilfe" Icon="Help" Click="OnNavigateToHelpPage" />
-            </CommandBar.SecondaryCommands>
-        </CommandBar>
-    </Page.TopAppBar>
 
     <Page.BottomAppBar>
         <CommandBar x:Name="ButtonBar" Style="{StaticResource CommandBar}" ClosedDisplayMode="Compact">

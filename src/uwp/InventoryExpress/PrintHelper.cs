@@ -142,10 +142,6 @@ namespace InventoryExpress
             if (firstPage == null)
             {
                 firstPage = page;
-
-                //StackPanel header = (StackPanel)firstPage.FindName("Header");
-
-                //header.Visibility = Windows.UI.Xaml.Visibility.Visible;
             }
 
             // Add the (newly created) page to the print canvas which is part of the visual tree and force it to go

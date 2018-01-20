@@ -15,28 +15,65 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid HorizontalAlignment="Stretch" Margin="10">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+    <Grid Margin="0">
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" Grid.Row="0">
-            <ProgressRing Name="ProgressRing" 
-                          IsActive="False"
-                          Visibility="Collapsed"
-                          Margin="16"
-                          HorizontalAlignment="Center" 
-                          VerticalAlignment="Center"/>
-            <TextBlock x:Name="Titel"
-                   x:Uid="PageAccountItemEditLabel"
-                   Style="{StaticResource TitelTextBlock}"
-                   Text="Standorte"/>
-        </StackPanel>
-
-        <ListView HorizontalAlignment="Stretch" 
+        <Grid Grid.Column="0" Grid.Row="0" Style="{StaticResource Menue}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <AppBarButton Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Height="50" Width="50" Style="{StaticResource AppBarButton}">
+                <AppBarButton.Icon>
+                    <FontIcon Glyph="&#xE700;"/>
+                </AppBarButton.Icon>
+                <AppBarButton.Flyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem Text="Inventar" Icon="Home" Click="OnNavigateToHomePage"/>
+                        <MenuFlyoutSeparator/>
+                        <MenuFlyoutItem Text="Hersteller" Click="OnNavigateToManufacturerPage">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xEC09;"/>
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                        <MenuFlyoutItem Text="Lieferanten" Click="OnNavigateToSupplierPage">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xE7E3;"/>
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                        <MenuFlyoutItem Text="Sachkonto" Icon="Account" Click="OnNavigateToGLAccountPage"/>
+                        <MenuFlyoutItem Text="Kostenstelle" Icon="Shop" Click="OnNavigateToCostCenterPage"/>
+                    </MenuFlyout>
+                </AppBarButton.Flyout>
+            </AppBarButton>
+            <TextBlock x:Name="Titel" 
+                       VerticalAlignment="Center"
+                       Margin="5,0,5,0"
+                       Grid.Row="0" Grid.Column="1"    
+                       x:Uid="PageInventoryItemEditLabel"
+                       Style="{StaticResource TitelTextBlock}"
+                       Text="Standorte" TabFocusNavigation="Cycle"/>
+            <AutoSuggestBox VerticalAlignment="Center"
+                        Grid.Row="0" Grid.Column="2"
+                        Margin="0,0,10,0"
+                        Text="{Binding SearchText, Mode=TwoWay}" 
+                        Name="SearchBox" 
+                        Style="{StaticResource AutoSuggestBox}" />
+        </Grid>
+        <ProgressBar Grid.Column="0" 
+                     Grid.Row="1" 
+                     Name="ProgressBar" 
+                     IsIndeterminate="True" ShowPaused="False" ShowError="False"
+                     Visibility="{Binding VisibilityProgresBar}"
+                     HorizontalAlignment="Stretch" 
+                     VerticalAlignment="Center"/>
+        <ListView Grid.Column="0" 
+                  Grid.Row="2"
+                  HorizontalAlignment="Stretch" 
                   VerticalAlignment="Stretch"
                   VerticalContentAlignment="Stretch"
                   HorizontalContentAlignment="Stretch"
@@ -47,27 +84,9 @@
                   SelectionMode="None"
                   ItemClick="OnItemClick"
                   ItemsSource="{Binding FilteredLocations}" 
-                  Grid.Row="1" 
                   Margin="0, 5, 5, 0" 
-                  Grid.Column="0"  
                   ItemTemplate="{StaticResource ListViewItemTemplate}"/>
     </Grid>
-
-    <Page.TopAppBar>
-        <CommandBar x:Name="AppBar" Style="{StaticResource AppBar}">
-            <CommandBar.Content>
-                <AutoSuggestBox Text="{Binding SearchText, Mode=TwoWay}" 
-                         Name="SearchBox" 
-                        Style="{StaticResource AutoSuggestBox}" />
-            </CommandBar.Content>
-            <CommandBar.PrimaryCommands>
-                <AppBarButton FlowDirection="LeftToRight" Name="Home" x:Uid="HomeMenu" Label="Startseite" Icon="Home" Click="OnNavigateToHomePage" />
-             </CommandBar.PrimaryCommands>
-            <CommandBar.SecondaryCommands>
-                <AppBarButton FlowDirection="LeftToRight" Name="Help" x:Uid="HelpMenu" Label="Hilfe" Icon="Help" Click="OnNavigateToHelpPage" />
-            </CommandBar.SecondaryCommands>
-        </CommandBar>
-    </Page.TopAppBar>
 
     <Page.BottomAppBar>
         <CommandBar x:Name="ButtonBar" Style="{StaticResource CommandBar}">

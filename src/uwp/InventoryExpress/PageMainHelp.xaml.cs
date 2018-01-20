@@ -75,5 +75,65 @@ namespace InventoryExpress
 
             ProgressRing.Visibility = Visibility.Collapsed;
         }
+
+        /// <summary>
+        /// Wird aufgerufen, wenn zur den Herstellern gewechselt werden soll
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventparameter</param>
+        private void OnNavigateToManufacturerPage(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(PageManufacturer));
+        }
+
+        /// <summary>
+        /// Wird aufgerufen, wenn zur den Herstellern gewechselt werden soll
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventparameter</param>
+        private void OnNavigateToSupplierPage(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(PageSupplier));
+        }
+
+        /// <summary>
+        /// Wird aufgerufen, wenn zur den Standorten gewechselt werden soll
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventparameter</param>
+        private void OnNavigateToLocationPage(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(PageLocation));
+        }
+
+        /// <summary>
+        /// Wird aufgerufen, wenn zur den Standorten gewechselt werden soll
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventparameter</param>
+        private void OnNavigateToCostCenterPage(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(PageCostCenter));
+        }
+
+        /// <summary>
+        /// Wird aufgerufen, wenn zur den Sachkonten gewechselt werden soll
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventparameter</param>
+        private void OnNavigateToGLAccountPage(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(PageGLAccount));
+        }
+
+        /// <summary>
+        /// Wird aufgerufen, wenn zur den Sachkonten gewechselt werden soll
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventparameter</param>
+        private void OnNavigateToHomePage(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(PageMain));
+        }
     }
 }
