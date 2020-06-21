@@ -429,7 +429,44 @@ namespace InventoryExpress.Model
             States = States.OrderBy(x => x.Name).ToList();
             GLAccounts = GLAccounts.OrderBy(x => x.Name).ToList();
 
+            Inventorys.ForEach(a => { ToImage(a); });
+            Templates.ForEach(a => { ToImage(a); });
+            Attributes.ForEach(a => { ToImage(a); });
+            Locations.ForEach(a => { ToImage(a); });
+            Suppliers.ForEach(a => { ToImage(a); });
+            Manufacturers.ForEach(a => { ToImage(a); });
+            CostCenters.ForEach(a => { ToImage(a); });
+            States.ForEach(a => { ToImage(a); });
+            GLAccounts.ForEach(a => { ToImage(a); });
+
             VisibilityProgresBar = Visibility.Collapsed;
+        }
+
+        /// <summary>
+        /// Konvertiert und speichert das Bild
+        /// </summary>
+        /// <param name="item">Das Item</param>
+        private async void ToImage(Item item)
+        {
+            if (!string.IsNullOrWhiteSpace(item.ImageBase64) && string.IsNullOrWhiteSpace(item.Image))
+            {
+                var fileName = Guid.NewGuid() + ".png";
+                var file = await ApplicationData.Current.LocalFolder.CreateFileAsync
+                    (
+                        fileName,
+                        CreationCollisionOption.ReplaceExisting
+                    );
+
+                using (var data = await file.OpenStreamForWriteAsync())
+                {
+                    var bytes = Convert.FromBase64String(item.ImageBase64);
+
+                    data.Write(bytes, 0, bytes.Count());
+                }
+
+                item.Image = fileName;
+                item.Commit(true);
+            }
         }
 
         /// <summary>

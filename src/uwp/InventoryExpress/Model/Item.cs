@@ -29,8 +29,10 @@ namespace InventoryExpress.Model
         private string _tag;
         private DateTime timestamp;
         private DateTime _timestamp;
+        private string image;
+        private string _image;
 
-        private BitmapImage image;
+        private BitmapImage bitmapImage;
 
         private string imageBase64;
         private string _imageBase64;
@@ -124,11 +126,11 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Bild
         /// </summary>
-        public BitmapImage Image
+        public BitmapImage BitmapImage
         {
             get
             {
-                return image;
+                return bitmapImage;
             }
         }
 
@@ -148,8 +150,27 @@ namespace InventoryExpress.Model
                     imageBase64 = value;
                     NotifyPropertyChanged();
 
-                    image = !string.IsNullOrWhiteSpace(value) ? ConvertToImage(value) : null;
+                    bitmapImage = !string.IsNullOrWhiteSpace(value) ? ConvertToImage(value) : null;
                     NotifyPropertyChanged("Image");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Bild
+        /// </summary>
+        public string Image
+        {
+            get
+            {
+                return image;
+            }
+            set
+            {
+                if (image != value)
+                {
+                    image = value;
+                    NotifyPropertyChanged();
                 }
             }
         }
@@ -173,6 +194,7 @@ namespace InventoryExpress.Model
             _tag = Tag;
             _timestamp = Timestamp;
             _imageBase64 = ImageBase64;
+            _image = image;
             
             if (durable)
             {
@@ -190,6 +212,7 @@ namespace InventoryExpress.Model
             Tag = _tag;
             Timestamp = _timestamp;
             ImageBase64 = _imageBase64;
+            Image = _image;
         }
 
         /// <summary>
@@ -238,6 +261,9 @@ namespace InventoryExpress.Model
 
             ImageBase64 = (from x in xml.Elements("image")
                            select x.Value).FirstOrDefault();
+
+            Image = (from x in xml.Elements("imagefile")
+                    select x.Value.Trim()).FirstOrDefault();
 
             if (string.IsNullOrWhiteSpace(ID))
             {
@@ -330,12 +356,17 @@ namespace InventoryExpress.Model
                 xml.Add(new XElement("tag", Tag));
             }
 
-            if (!string.IsNullOrWhiteSpace(ImageBase64))
-            {
-                xml.Add(new XElement("image", new XCData(ImageBase64)));
-            }
+            //if (!string.IsNullOrWhiteSpace(ImageBase64))
+            //{
+            //    xml.Add(new XElement("image", new XCData(ImageBase64)));
+            //}
 
             xml.Add(new XElement("timestamp", Timestamp));
+
+            if (!string.IsNullOrWhiteSpace(Image))
+            {
+                xml.Add(new XElement("image", Image));
+            }
         }
 
         /// <summary>
