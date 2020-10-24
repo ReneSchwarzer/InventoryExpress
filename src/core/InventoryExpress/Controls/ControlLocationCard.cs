@@ -46,7 +46,7 @@ namespace InventoryExpress.Controls
                 Title = new ControlLink(Page)
                 {
                     Text = Location.Name,
-                    Uri = Page.Uri.Append(Location.ID),
+                    Uri = Page.Uri.Append(Location.ID.ToString()),
                     TextColor = new PropertyColorText(TypeColorText.Dark)
                 }
             };

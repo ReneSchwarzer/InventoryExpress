@@ -28,7 +28,7 @@ namespace InventoryExpress.Controls
             {
                 Text = "Home",
                 Uri = Page.Uri.Root,
-                Active = Page is PageDashboard ? TypeActive.Active : TypeActive.None,
+                Active = Page is PageDashboard || Page is PageInventoryAdd ? TypeActive.Active : TypeActive.None,
                 Icon = new PropertyIcon(TypeIcon.Home)
             });
             
@@ -44,7 +44,7 @@ namespace InventoryExpress.Controls
             {
                 Text = "Hersteller",
                 Uri = Page.Uri.Root.Append("manufactors"),
-                Active = Page is PageManufactors ? TypeActive.Active : TypeActive.None,
+                Active = Page is IManufactor ? TypeActive.Active : TypeActive.None,
                 Icon = new PropertyIcon(TypeIcon.Industry)
             });
 
@@ -60,7 +60,7 @@ namespace InventoryExpress.Controls
             {
                 Text = "Sachkonto",
                 Uri = Page.Uri.Root.Append("glaccount"),
-                Active = Page is PageDashboard ? TypeActive.Active : TypeActive.None,
+                Active = Page is PageGlAccount ? TypeActive.Active : TypeActive.None,
                 Icon = new PropertyIcon(TypeIcon.At)
             });
 
@@ -68,7 +68,7 @@ namespace InventoryExpress.Controls
             {
                 Text = "Kostenstelle",
                 Uri = Page.Uri.Root.Append("costcenter"),
-                Active = Page is PageDashboard ? TypeActive.Active : TypeActive.None,
+                Active = Page is PageCostcenter ? TypeActive.Active : TypeActive.None,
                 Icon = new PropertyIcon(TypeIcon.ShoppingBag)
             });
         }

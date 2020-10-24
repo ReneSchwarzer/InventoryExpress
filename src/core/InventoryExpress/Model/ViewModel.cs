@@ -106,7 +106,15 @@ namespace InventoryExpress.Model
             States = new List<State>();
             GLAccounts = new List<GLAccount>();
 
-            Load();
+            if (Directory.Exists(Path.Combine(Context.AssetBaseFolder, "data")))
+            {
+                Load();
+            }
+            else
+            {
+                // Datenverzeichnis erstellen
+                Directory.CreateDirectory(Path.Combine(Context.AssetBaseFolder, "data"));
+            }
         }
 
         /// <summary>
@@ -116,13 +124,6 @@ namespace InventoryExpress.Model
         {
             var files = Directory.GetFiles(Path.Combine(Context.AssetBaseFolder, "data"));
 
-            // 1. Zustände laden
-            foreach (var file in from x in files
-                                 where Path.GetExtension(x).Equals(".state")
-                                 select x)
-            {
-                States.Add(State.Factory(file));
-            }
 
             // 2. Sachkonten laden
             foreach (var file in from x in files
@@ -130,14 +131,6 @@ namespace InventoryExpress.Model
                                  select x)
             {
                 GLAccounts.Add(GLAccount.Factory(file));
-            }
-
-            // 3. Standorte laden
-            foreach (var file in from x in files
-                                 where Path.GetExtension(x).Equals(".location")
-                                 select x)
-            {
-                Locations.Add(Location.Factory(file));
             }
 
             // 4. Lieferanten laden
@@ -148,13 +141,6 @@ namespace InventoryExpress.Model
                 Suppliers.Add(Supplier.Factory(file));
             }
 
-            // 5. Hersteller laden
-            foreach (var file in from x in files
-                                 where Path.GetExtension(x).Equals(".manufacturer")
-                                 select x)
-            {
-                Manufacturers.Add(Manufacturer.Factory(file));
-            }
 
             // 6. Kostenstellen laden
             foreach (var file in from x in files
@@ -191,11 +177,8 @@ namespace InventoryExpress.Model
             Inventorys = Inventorys.OrderBy(x => x.Name).ToList();
             Templates = Templates.OrderBy(x => x.Name).ToList();
             Attributes = Attributes.OrderBy(x => x.Name).ToList();
-            Locations = Locations.OrderBy(x => x.Name).ToList();
             Suppliers = Suppliers.OrderBy(x => x.Name).ToList();
-            Manufacturers = Manufacturers.OrderBy(x => x.Name).ToList();
             CostCenters = CostCenters.OrderBy(x => x.Name).ToList();
-            States = States.OrderBy(x => x.Name).ToList();
             GLAccounts = GLAccounts.OrderBy(x => x.Name).ToList();
         }
     }

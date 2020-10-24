@@ -56,7 +56,7 @@ namespace InventoryExpress.Pages
             var grid = new ControlGrid(this) { Fluid = false };
             int i = 0;
 
-            foreach (var location in ViewModel.Instance.Locations)
+            foreach (var location in DB.DB.Instance.Locations)
             {
                 var card = new ControlLocationCard(this)
                 { 

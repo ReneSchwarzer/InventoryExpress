@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -10,8 +12,39 @@ namespace InventoryExpress.Model
     /// <summary>
     /// Zustand
     /// </summary>
-    public class State : Item
+    [Table("STATE")]
+    public class State
     {
+        /// <summary>
+        /// ID
+        /// </summary>
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ID { get; set; }
+
+        /// <summary>
+        /// Liefert oder setzt den Namen
+        /// </summary>
+        [StringLength(64), Required, Column("NAME")]
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Zustand als Note
+        /// </summary>
+        [Column("GRADE")]
+        public int Grade { get; set; }
+
+        /// <summary>
+        /// Liefert oder setzt die Beschreibung
+        /// </summary>
+        [Column("DISCRIPTION")]
+        public string Discription { get; set; }
+
+        /// <summary>
+        /// Der Zeitstempel der Erstellung
+        /// </summary>
+        [Column("TIMESTAMP")]
+        public DateTime Timestamp { get; set; }
+
         /// <summary>
         /// Konstruktor
         /// </summary>
@@ -21,41 +54,12 @@ namespace InventoryExpress.Model
         }
 
         /// <summary>
-        /// Konstruktor
+        /// Umwandlung in String
         /// </summary>
-        /// <param name="xml">
-        ///   Die XML-Struktur, aus dem das 
-        ///   Objekt erstellt werden soll
-        /// </param>
-        public State(XElement xml)
-            : base(xml)
+        /// <returns>Das als String umgewandelte Objekt</returns>
+        public override string ToString()
         {
-        }
-
-        /// <summary>
-        /// Wandelt das Objekt in XML um
-        /// </summary>
-        /// <param name="xml"></param>
-        protected override void ToXML(XElement xml)
-        {
-            base.ToXML(xml);
-        }
-
-        /// <summary>
-        /// Erstellt eine neue Instanz eines Zustandes 
-        /// aus der gegebenen XML-Datei
-        /// </summary>
-        /// <param name="file">Die XML-Repräsentation in Dateiform</param>
-        /// <returns>Der Zustand</returns>
-        public static State Factory(string file)
-        {
-            using (var content = File.OpenRead(file))
-            {
-                var doc = XDocument.Load(content);
-                var root = doc.Descendants("state");
-
-                return new State(root.FirstOrDefault());
-            }
+            return string.Format("{0} - {1}", Grade, Name);
         }
     }
 }

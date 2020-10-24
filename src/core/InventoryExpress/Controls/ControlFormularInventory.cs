@@ -59,12 +59,12 @@ namespace InventoryExpress.Controls
         private List<ControlFormularItemTextBox> Attributes { get; set; } = new List<ControlFormularItemTextBox>();
 
         /// <summary>
-        /// Liefert oder setzt den Namen die Schlagwörter
+        /// Liefert oder setzt die Schlagwörter
         /// </summary>
         private ControlFormularItemTextBox Tag { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt den Namen die Beschreibung
+        /// Liefert oder setzt die Beschreibung
         /// </summary>
         private ControlFormularItemTextBox Memo { get; set; }
 
@@ -111,10 +111,10 @@ namespace InventoryExpress.Controls
                 Value = null
             });
 
-            Manufactor.Items.AddRange(ViewModel.Instance.Manufacturers.Select(x => new ControlFormularItemComboBoxItem()
+            Manufactor.Items.AddRange(DB.DB.Instance.Manufacturers.Select(x => new ControlFormularItemComboBoxItem()
             {
                 Text = x.Name,
-                Value = x.ID
+                Value = x.ID.ToString()
             }));
 
             Location = new ControlFormularItemComboBox(this)
@@ -131,10 +131,10 @@ namespace InventoryExpress.Controls
                 Value = null
             });
 
-            Location.Items.AddRange(ViewModel.Instance.Locations.Select(x => new ControlFormularItemComboBoxItem()
+            Location.Items.AddRange(DB.DB.Instance.Locations.Select(x => new ControlFormularItemComboBoxItem()
             {
                 Text = x.Name,
-                Value = x.ID
+                Value = x.ID.ToString()
             }));
 
             Supplier = new ControlFormularItemComboBox(this)
@@ -211,10 +211,10 @@ namespace InventoryExpress.Controls
                 Value = null
             });
 
-            State.Items.AddRange(ViewModel.Instance.States.Select(x => new ControlFormularItemComboBoxItem()
+            State.Items.AddRange(DB.DB.Instance.States.OrderBy(x => x.Grade).Select(x => new ControlFormularItemComboBoxItem()
             {
-                Text = x.Name,
-                Value = x.ID
+                Text = string.Format("{0} - {1}", x.Grade, x.Name),
+                Value = x.ID.ToString()
             }));
 
             Parent = new ControlFormularItemComboBox(this)
@@ -303,7 +303,7 @@ namespace InventoryExpress.Controls
         }
 
         /// <summary>
-        /// Initialisierung
+        ///  Prüft das Eingabeelement auf Korrektheit der Daten
         /// </summary>
         public override void Validate()
         {

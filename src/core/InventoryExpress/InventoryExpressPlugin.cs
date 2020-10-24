@@ -35,26 +35,36 @@ namespace InventoryExpress
             SiteMap.AddPage("Dashboard", "dashboard", (x) => { return new WorkerPage<PageDashboard>(x); });
             SiteMap.AddPage("InventoryAdd", "add", "Neu", (x) => { return new WorkerPage<PageInventoryAdd>(x); });
             SiteMap.AddPage("Details", "details", (x) => { return new WorkerPage<PageDetails>(x); });
-            SiteMap.AddPage("Locations", "locations", (x) => { return new WorkerPage<PageLocations>(x); });
-            SiteMap.AddPage("Manufactors", "manufactors", (x) => { return new WorkerPage<PageManufactors>(x); });
-            SiteMap.AddPage("Suppliers", "suppliers", (x) => { return new WorkerPage<PageSuppliers>(x); });
+            SiteMap.AddPage("Locations", "locations", "Standorte", (x) => { return new WorkerPage<PageLocations>(x); });
+            SiteMap.AddPage("Manufactors", "manufactors", "Hersteller", (x) => { return new WorkerPage<PageManufactors>(x); });
+            SiteMap.AddPage("ManufactorAdd", "add", "Neu", (x) => { return new WorkerPage<PageManufactorAdd>(x); });
+            SiteMap.AddPage("ManufactorEdit", "edit", "Bearbeiten", (x) => { return new WorkerPage<PageManufactorEdit>(x); });
+            SiteMap.AddPage("Suppliers", "suppliers", "Lieferanten", (x) => { return new WorkerPage<PageSuppliers>(x); });
+            SiteMap.AddPage("GlAccounts", "glaccount", "Sachkonten", (x) => { return new WorkerPage<PageGlAccount>(x); });
+            SiteMap.AddPage("CostCenters", "costcenter", "Kostenstellen", (x) => { return new WorkerPage<PageCostcenter>(x); });
             SiteMap.AddPage("Help", "help", (x) => { return new WorkerPage<PageHelp>(x); });
+
+            //SiteMap.AddPathSegmentVariable
+            //(
+            //    "Details",
+            //    new UriPathSegmentDynamicDisplay
+            //    (
+            //        new UriPathSegmentDynamicDisplayText("Details"),
+            //        new UriPathSegmentDynamicDisplayText(" "),
+            //        new UriPathSegmentDynamicDisplayReference("id5")
+            //    ),
+            //    "-",
+            //    new UriPathSegmentVariable("id", "([0-9A-Fa-f]{8})")
+            //);
 
             SiteMap.AddPathSegmentVariable
             (
-                "Details",
+                "ManufactorEdit",
                 new UriPathSegmentDynamicDisplay
                 (
-                    new UriPathSegmentDynamicDisplayText("Details"),
-                    new UriPathSegmentDynamicDisplayText(" "),
-                    new UriPathSegmentDynamicDisplayReference("id5")
+                    new UriPathSegmentDynamicDisplayText("Bearbeiten")
                 ),
-                "-",
-                new UriPathSegmentVariable("id1", "([0-9A-Fa-f]{8})"),
-                new UriPathSegmentVariable("id2", "([0-9A-Fa-f]{4})"),
-                new UriPathSegmentVariable("id3", "([0-9A-Fa-f]{4})"),
-                new UriPathSegmentVariable("id4", "([0-9A-Fa-f]{4})"),
-                new UriPathSegmentVariable("id5", "([0-9A-Fa-f]{12})")
+                new UriPathSegmentVariable("id", "(\\d+)")
             );
 
             SiteMap.AddPath("Assets", true);
@@ -65,7 +75,11 @@ namespace InventoryExpress
             SiteMap.AddPath("Home/Details");
             SiteMap.AddPath("Home/Locations");
             SiteMap.AddPath("Home/Manufactors");
+            SiteMap.AddPath("Home/Manufactors/ManufactorAdd");
+            SiteMap.AddPath("Home/Manufactors/ManufactorEdit");
             SiteMap.AddPath("Home/Suppliers");
+            SiteMap.AddPath("Home/GlAccounts");
+            SiteMap.AddPath("Home/Costcenters");
             SiteMap.AddPath("Home/Help");
 
         }
