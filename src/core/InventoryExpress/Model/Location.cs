@@ -11,7 +11,7 @@ namespace InventoryExpress.Model
     /// Standort
     /// </summary>
     [Table("LOCATION")]
-    public class Location : Item
+    public class Location
     {
         /// <summary>
         /// ID
@@ -66,7 +66,6 @@ namespace InventoryExpress.Model
         /// </summary>
         [Column("TIMESTAMP")]
         public DateTime Timestamp { get; set; }
-
 
         /// <summary>
         /// Konstruktor

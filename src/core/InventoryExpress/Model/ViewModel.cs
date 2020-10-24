@@ -125,31 +125,6 @@ namespace InventoryExpress.Model
             var files = Directory.GetFiles(Path.Combine(Context.AssetBaseFolder, "data"));
 
 
-            // 2. Sachkonten laden
-            foreach (var file in from x in files
-                                 where Path.GetExtension(x).Equals(".glaccount")
-                                 select x)
-            {
-                GLAccounts.Add(GLAccount.Factory(file));
-            }
-
-            // 4. Lieferanten laden
-            foreach (var file in from x in files
-                                 where Path.GetExtension(x).Equals(".supplier")
-                                 select x)
-            {
-                Suppliers.Add(Supplier.Factory(file));
-            }
-
-
-            // 6. Kostenstellen laden
-            foreach (var file in from x in files
-                                 where Path.GetExtension(x).Equals(".costcenter")
-                                 select x)
-            {
-                CostCenters.Add(CostCenter.Factory(file));
-            }
-
             // 7. Attribute laden
             foreach (var file in from x in files
                                  where Path.GetExtension(x).Equals(".attribute")

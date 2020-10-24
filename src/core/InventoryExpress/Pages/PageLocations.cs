@@ -7,7 +7,7 @@ using WebExpress.UI.Controls;
 
 namespace InventoryExpress.Pages
 {
-    public class PageLocations : PageBase
+    public class PageLocations : PageBase, ILocation
     {
         /// <summary>
         /// Konstruktor
@@ -23,10 +23,28 @@ namespace InventoryExpress.Pages
         public override void Init()
         {
             base.Init();
+
+            ToolBar.Add(new ControlToolBarItemButton(this)
+            {
+                Icon = new PropertyIcon(TypeIcon.Plus),
+                Text = "Hinzufügen",
+                Title = "Neu",
+                Uri = Uri.Append("add"),
+                TextColor = new PropertyColorText(TypeColorText.White)
+            },
+           new ControlToolBarItemButton(this)
+           {
+               Icon = new PropertyIcon(TypeIcon.Print),
+               Uri = Uri.Append("print"),
+               Title = "Drucken",
+               Size = new PropertySizeText(TypeSizeText.Default),
+               TextColor = new PropertyColorText(TypeColorText.White)
+           });
+
             //var menu = new ControlMenu(this, null, 
             //    new ControlLink(this) { Text = "Home", Icon = "fas fa-map", Url = GetUrl(0) },
             //    new ControlDropdownMenuDivider(this) { }
-                
+
             //)
             //{
             //    Icon = "fas fa-bars",
@@ -56,7 +74,7 @@ namespace InventoryExpress.Pages
             var grid = new ControlGrid(this) { Fluid = false };
             int i = 0;
 
-            foreach (var location in DB.DB.Instance.Locations)
+            foreach (var location in DB.Instance.Locations)
             {
                 var card = new ControlLocationCard(this)
                 { 

@@ -1,23 +1,26 @@
 ﻿using InventoryExpress.Controls;
 using InventoryExpress.Model;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using System.Linq;
+using System.Text;
 using WebExpress.UI.Controls;
 
 namespace InventoryExpress.Pages
 {
-    public class PageManufactorEdit : PageBase, IManufactor
+    public class PageSupplierAdd : PageBase, ISupplier
     {
         /// <summary>
         /// Formular
         /// </summary>
-        private ControlFormularManufactor form;
+        private ControlFormularSupplier form;
 
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public PageManufactorEdit()
-            : base("Hersteller bearbeiten")
+        public PageSupplierAdd()
+            : base("Lieferant hinzufügen")
         {
         }
 
@@ -28,7 +31,7 @@ namespace InventoryExpress.Pages
         {
             base.Init();
 
-            form = new ControlFormularManufactor(this)
+            form = new ControlFormularSupplier(this)
             {
                 RedirectUrl = Uri.Take(-1)
             };
@@ -41,33 +44,31 @@ namespace InventoryExpress.Pages
         {
             base.Process();
 
-            var id = Convert.ToInt32(GetParam("id"));
-            var manufacturer = DB.Instance.Manufacturers.Where(x => x.ID == id).FirstOrDefault();
-
             Main.Content.Add(form);
 
-            form.ManufactorName.Value = manufacturer?.Name;
-            form.Discription.Value = manufacturer?.Discription;
-
-            form.ManufactorName.Validation += (s, e) =>
+            form.SupplierName.Validation += (s, e) =>
             {
                 if (e.Value.Count() < 1)
                 {
                     e.Results.Add(new ValidationResult() { Text = "Geben Sie einen gültigen Namen ein!", Type = TypesInputValidity.Error });
                 }
-                else if (ViewModel.Instance.Manufacturers.Where(x => x.Name.Equals(e.Value, StringComparison.InvariantCultureIgnoreCase)).Count() > 0)
+                else if (ViewModel.Instance.Suppliers.Where(x => x.Name.Equals(e.Value, StringComparison.InvariantCultureIgnoreCase)).Count() > 0)
                 {
-                    e.Results.Add(new ValidationResult() { Text = "Der Hersteller wird bereits verwendet. Geben Sie einen anderen Namen an!", Type = TypesInputValidity.Error });
+                    e.Results.Add(new ValidationResult() { Text = "Der Lieferant wird bereits verwendet. Geben Sie einen anderen Namen an!", Type = TypesInputValidity.Error });
                 }
             };
 
-            form.ProcessFormular += (s, e) =>
+            form.ProcessFormular += (s, e)=>
             {
-                // Herstellerobjekt ändern und speichern
-                manufacturer.Name = form.ManufactorName.Value;
-                //Tag = form.Tag.Value;
-                manufacturer.Discription = form.Discription.Value;
+                // Neues Herstellerobjekt erstellen und speichern
+                var supplier = new Supplier()
+                {
+                    Name = form.SupplierName.Value,
+                    //Tag = form.Tag.Value,
+                    Discription = form.Discription.Value
+                };
 
+                DB.Instance.Suppliers.Add(supplier);
                 DB.Instance.SaveChanges();
             };
         }

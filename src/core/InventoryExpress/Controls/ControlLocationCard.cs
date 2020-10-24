@@ -40,7 +40,7 @@ namespace InventoryExpress.Controls
         {
             var media = new ControlPanelMedia(Page)
             {
-                Image = new UriRelative(string.IsNullOrWhiteSpace(Location.Image) ? "/Assets/img/Logo.png" : "/data/" + Location.Image),
+                //Image = new UriRelative(string.IsNullOrWhiteSpace(Location.Image) ? "/Assets/img/Logo.png" : "/data/" + Location.Image),
                 ImageWidth = 100,
                 ImageHeight = 100,
                 Title = new ControlLink(Page)
@@ -53,7 +53,7 @@ namespace InventoryExpress.Controls
 
             media.Content.Add(new ControlText(Page)
             {
-                Text = Location.Memo,
+                Text = Location.Discription,
                 Format = TypeFormatText.Paragraph
             });
 

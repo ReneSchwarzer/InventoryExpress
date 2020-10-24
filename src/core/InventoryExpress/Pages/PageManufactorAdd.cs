@@ -50,7 +50,7 @@ namespace InventoryExpress.Pages
             {
                 if (e.Value.Count() < 1)
                 {
-                    e.Results.Add(new ValidationResult() { Text = "Geben Sie einen  gültigen Namen ein!", Type = TypesInputValidity.Error });
+                    e.Results.Add(new ValidationResult() { Text = "Geben Sie einen gültigen Namen ein!", Type = TypesInputValidity.Error });
                 }
                 else if (ViewModel.Instance.Manufacturers.Where(x => x.Name.Equals(e.Value, StringComparison.InvariantCultureIgnoreCase)).Count() > 0)
                 {
@@ -68,8 +68,8 @@ namespace InventoryExpress.Pages
                     Discription = form.Discription.Value
                 };
 
-                DB.DB.Instance.Manufacturers.Add(manufacturer);
-                DB.DB.Instance.SaveChanges();
+                DB.Instance.Manufacturers.Add(manufacturer);
+                DB.Instance.SaveChanges();
             };
         }
 

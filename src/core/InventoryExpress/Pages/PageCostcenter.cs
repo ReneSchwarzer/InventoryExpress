@@ -1,18 +1,15 @@
 ﻿using InventoryExpress.Controls;
 using InventoryExpress.Model;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using WebExpress.UI.Controls;
 
 namespace InventoryExpress.Pages
 {
-    public class PageCostcenter : PageBase
+    public class PageCostCenter : PageBase, ICostCenter
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public PageCostcenter()
+        public PageCostCenter()
             : base("Kostenstelle")
         {
         }
@@ -23,6 +20,23 @@ namespace InventoryExpress.Pages
         public override void Init()
         {
             base.Init();
+
+            ToolBar.Add(new ControlToolBarItemButton(this)
+            {
+                Icon = new PropertyIcon(TypeIcon.Plus),
+                Text = "Hinzufügen",
+                Title = "Neu",
+                Uri = Uri.Append("add"),
+                TextColor = new PropertyColorText(TypeColorText.White)
+            },
+            new ControlToolBarItemButton(this)
+            {
+                Icon = new PropertyIcon(TypeIcon.Print),
+                Uri = Uri.Append("print"),
+                Title = "Drucken",
+                Size = new PropertySizeText(TypeSizeText.Default),
+                TextColor = new PropertyColorText(TypeColorText.White)
+            });
         }
 
         /// <summary>
@@ -35,14 +49,14 @@ namespace InventoryExpress.Pages
             var grid = new ControlGrid(this) { Fluid = false };
             int i = 0;
 
-            foreach (var supplier in ViewModel.Instance.Suppliers)
+            foreach (var costcenter in DB.Instance.CostCenters)
             {
-                //var card = new ControlSuppliersCard(this)
-                //{
-                //    Supplier = supplier
-                //};
+                var card = new ControlCostCenterCard(this)
+                {
+                    CostCenter = costcenter
+                };
 
-                //grid.Add(i++, card);
+                grid.Add(i++, card);
             }
 
             Main.Content.Add(grid);

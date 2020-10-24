@@ -6,18 +6,18 @@ using WebExpress.UI.Controls;
 
 namespace InventoryExpress.Pages
 {
-    public class PageManufactorEdit : PageBase, IManufactor
+    public class PageCostCenterEdit : PageBase, ICostCenter
     {
         /// <summary>
         /// Formular
         /// </summary>
-        private ControlFormularManufactor form;
+        private ControlFormularCostCenter form;
 
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public PageManufactorEdit()
-            : base("Hersteller bearbeiten")
+        public PageCostCenterEdit()
+            : base("Kostenstelle bearbeiten")
         {
         }
 
@@ -28,7 +28,7 @@ namespace InventoryExpress.Pages
         {
             base.Init();
 
-            form = new ControlFormularManufactor(this)
+            form = new ControlFormularCostCenter(this)
             {
                 RedirectUrl = Uri.Take(-1)
             };
@@ -42,31 +42,31 @@ namespace InventoryExpress.Pages
             base.Process();
 
             var id = Convert.ToInt32(GetParam("id"));
-            var manufacturer = DB.Instance.Manufacturers.Where(x => x.ID == id).FirstOrDefault();
+            var costcenter = DB.Instance.CostCenters.Where(x => x.ID == id).FirstOrDefault();
 
             Main.Content.Add(form);
 
-            form.ManufactorName.Value = manufacturer?.Name;
-            form.Discription.Value = manufacturer?.Discription;
+            form.CostCenterName.Value = costcenter?.Name;
+            form.Discription.Value = costcenter?.Discription;
 
-            form.ManufactorName.Validation += (s, e) =>
+            form.CostCenterName.Validation += (s, e) =>
             {
                 if (e.Value.Count() < 1)
                 {
                     e.Results.Add(new ValidationResult() { Text = "Geben Sie einen gültigen Namen ein!", Type = TypesInputValidity.Error });
                 }
-                else if (ViewModel.Instance.Manufacturers.Where(x => x.Name.Equals(e.Value, StringComparison.InvariantCultureIgnoreCase)).Count() > 0)
+                else if (ViewModel.Instance.CostCenters.Where(x => x.Name.Equals(e.Value, StringComparison.InvariantCultureIgnoreCase)).Count() > 0)
                 {
-                    e.Results.Add(new ValidationResult() { Text = "Der Hersteller wird bereits verwendet. Geben Sie einen anderen Namen an!", Type = TypesInputValidity.Error });
+                    e.Results.Add(new ValidationResult() { Text = "Die Kostenstelle wird bereits verwendet. Geben Sie einen anderen Namen an!", Type = TypesInputValidity.Error });
                 }
             };
 
             form.ProcessFormular += (s, e) =>
             {
                 // Herstellerobjekt ändern und speichern
-                manufacturer.Name = form.ManufactorName.Value;
+                costcenter.Name = form.CostCenterName.Value;
                 //Tag = form.Tag.Value;
-                manufacturer.Discription = form.Discription.Value;
+                costcenter.Discription = form.Discription.Value;
 
                 DB.Instance.SaveChanges();
             };

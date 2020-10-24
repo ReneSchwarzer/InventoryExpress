@@ -1,4 +1,5 @@
 ﻿using InventoryExpress.Controls;
+using InventoryExpress.Model;
 using WebExpress.UI.Controls;
 
 namespace InventoryExpress.Pages
@@ -48,7 +49,7 @@ namespace InventoryExpress.Pages
             var grid = new ControlGrid(this) { Fluid = false };
             int i = 0;
 
-            foreach (var manufactor in DB.DB.Instance.Manufacturers)
+            foreach (var manufactor in DB.Instance.Manufacturers)
             {
                 var card = new ControlManufactorsCard(this)
                 {

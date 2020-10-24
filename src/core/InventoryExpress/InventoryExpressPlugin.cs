@@ -36,12 +36,20 @@ namespace InventoryExpress
             SiteMap.AddPage("InventoryAdd", "add", "Neu", (x) => { return new WorkerPage<PageInventoryAdd>(x); });
             SiteMap.AddPage("Details", "details", (x) => { return new WorkerPage<PageDetails>(x); });
             SiteMap.AddPage("Locations", "locations", "Standorte", (x) => { return new WorkerPage<PageLocations>(x); });
+            SiteMap.AddPage("LocationAdd", "add", "Neu", (x) => { return new WorkerPage<PageLocationAdd>(x); });
+            SiteMap.AddPage("LocationEdit", "edit", "Bearbeiten", (x) => { return new WorkerPage<PageLocationEdit>(x); });
             SiteMap.AddPage("Manufactors", "manufactors", "Hersteller", (x) => { return new WorkerPage<PageManufactors>(x); });
             SiteMap.AddPage("ManufactorAdd", "add", "Neu", (x) => { return new WorkerPage<PageManufactorAdd>(x); });
             SiteMap.AddPage("ManufactorEdit", "edit", "Bearbeiten", (x) => { return new WorkerPage<PageManufactorEdit>(x); });
             SiteMap.AddPage("Suppliers", "suppliers", "Lieferanten", (x) => { return new WorkerPage<PageSuppliers>(x); });
-            SiteMap.AddPage("GlAccounts", "glaccount", "Sachkonten", (x) => { return new WorkerPage<PageGlAccount>(x); });
-            SiteMap.AddPage("CostCenters", "costcenter", "Kostenstellen", (x) => { return new WorkerPage<PageCostcenter>(x); });
+            SiteMap.AddPage("SupplierAdd", "add", "Neu", (x) => { return new WorkerPage<PageSupplierAdd>(x); });
+            SiteMap.AddPage("SupplierEdit", "edit", "Bearbeiten", (x) => { return new WorkerPage<PageSupplierEdit>(x); });
+            SiteMap.AddPage("GLAccounts", "glaccount", "Sachkonten", (x) => { return new WorkerPage<PageGlAccount>(x); });
+            SiteMap.AddPage("GLAccountAdd", "add", "Neu", (x) => { return new WorkerPage<PageGLAccountAdd>(x); });
+            SiteMap.AddPage("GLAccountEdit", "edit", "Bearbeiten", (x) => { return new WorkerPage<PageGLAccountEdit>(x); });
+            SiteMap.AddPage("CostCenters", "costcenter", "Kostenstellen", (x) => { return new WorkerPage<PageCostCenter>(x); });
+            SiteMap.AddPage("CostCenterAdd", "add", "Neu", (x) => { return new WorkerPage<PageCostCenterAdd>(x); });
+            SiteMap.AddPage("CostCenterEdit", "edit", "Bearbeiten", (x) => { return new WorkerPage<PageCostCenterEdit>(x); });
             SiteMap.AddPage("Help", "help", (x) => { return new WorkerPage<PageHelp>(x); });
 
             //SiteMap.AddPathSegmentVariable
@@ -67,6 +75,46 @@ namespace InventoryExpress
                 new UriPathSegmentVariable("id", "(\\d+)")
             );
 
+            SiteMap.AddPathSegmentVariable
+            (
+                "LocationEdit",
+                new UriPathSegmentDynamicDisplay
+                (
+                    new UriPathSegmentDynamicDisplayText("Bearbeiten")
+                ),
+                new UriPathSegmentVariable("id", "(\\d+)")
+            );
+            
+            SiteMap.AddPathSegmentVariable
+            (
+                "SupplierEdit",
+                new UriPathSegmentDynamicDisplay
+                (
+                    new UriPathSegmentDynamicDisplayText("Bearbeiten")
+                ),
+                new UriPathSegmentVariable("id", "(\\d+)")
+            );
+
+            SiteMap.AddPathSegmentVariable
+            (
+                "GLAccountEdit",
+                new UriPathSegmentDynamicDisplay
+                (
+                    new UriPathSegmentDynamicDisplayText("Bearbeiten")
+                ),
+                new UriPathSegmentVariable("id", "(\\d+)")
+            );
+
+            SiteMap.AddPathSegmentVariable
+            (
+                "CostCenterEdit",
+                new UriPathSegmentDynamicDisplay
+                (
+                    new UriPathSegmentDynamicDisplayText("Bearbeiten")
+                ),
+                new UriPathSegmentVariable("id", "(\\d+)")
+            );
+
             SiteMap.AddPath("Assets", true);
             SiteMap.AddPath("Data", true);
             SiteMap.AddPath("Home");
@@ -74,12 +122,20 @@ namespace InventoryExpress
             SiteMap.AddPath("Home/InventoryAdd");
             SiteMap.AddPath("Home/Details");
             SiteMap.AddPath("Home/Locations");
+            SiteMap.AddPath("Home/Locations/LocationAdd");
+            SiteMap.AddPath("Home/Locations/LocationEdit");
             SiteMap.AddPath("Home/Manufactors");
             SiteMap.AddPath("Home/Manufactors/ManufactorAdd");
             SiteMap.AddPath("Home/Manufactors/ManufactorEdit");
             SiteMap.AddPath("Home/Suppliers");
+            SiteMap.AddPath("Home/Suppliers/SupplierAdd");
+            SiteMap.AddPath("Home/Suppliers/SupplierEdit");
             SiteMap.AddPath("Home/GlAccounts");
+            SiteMap.AddPath("Home/GlAccounts/GLAccountAdd");
+            SiteMap.AddPath("Home/GlAccounts/GLAccountEdit");
             SiteMap.AddPath("Home/Costcenters");
+            SiteMap.AddPath("Home/CostCenters/CostCenterAdd");
+            SiteMap.AddPath("Home/CostCenters/CostCenterEdit");
             SiteMap.AddPath("Home/Help");
 
         }

@@ -111,7 +111,7 @@ namespace InventoryExpress.Controls
                 Value = null
             });
 
-            Manufactor.Items.AddRange(DB.DB.Instance.Manufacturers.Select(x => new ControlFormularItemComboBoxItem()
+            Manufactor.Items.AddRange(DB.Instance.Manufacturers.Select(x => new ControlFormularItemComboBoxItem()
             {
                 Text = x.Name,
                 Value = x.ID.ToString()
@@ -131,7 +131,7 @@ namespace InventoryExpress.Controls
                 Value = null
             });
 
-            Location.Items.AddRange(DB.DB.Instance.Locations.Select(x => new ControlFormularItemComboBoxItem()
+            Location.Items.AddRange(DB.Instance.Locations.Select(x => new ControlFormularItemComboBoxItem()
             {
                 Text = x.Name,
                 Value = x.ID.ToString()
@@ -151,10 +151,10 @@ namespace InventoryExpress.Controls
                 Value = null
             });
 
-            Supplier.Items.AddRange(ViewModel.Instance.Suppliers.Select(x => new ControlFormularItemComboBoxItem()
+            Supplier.Items.AddRange(DB.Instance.Suppliers.Select(x => new ControlFormularItemComboBoxItem()
             {
                 Text = x.Name,
-                Value = x.ID
+                Value = x.ID.ToString()
             }));
 
             GlAccount = new ControlFormularItemComboBox(this)
@@ -171,10 +171,10 @@ namespace InventoryExpress.Controls
                 Value = null
             });
 
-            GlAccount.Items.AddRange(ViewModel.Instance.GLAccounts.Select(x => new ControlFormularItemComboBoxItem()
+            GlAccount.Items.AddRange(DB.Instance.GLAccounts.Select(x => new ControlFormularItemComboBoxItem()
             {
                 Text = x.Name,
-                Value = x.ID
+                Value = x.ID.ToString()
             }));
 
             CostCenter = new ControlFormularItemComboBox(this)
@@ -191,10 +191,10 @@ namespace InventoryExpress.Controls
                 Value = null
             });
 
-            CostCenter.Items.AddRange(ViewModel.Instance.CostCenters.Select(x => new ControlFormularItemComboBoxItem()
+            CostCenter.Items.AddRange(DB.Instance.CostCenters.Select(x => new ControlFormularItemComboBoxItem()
             {
                 Text = x.Name,
-                Value = x.ID
+                Value = x.ID.ToString()
             }));
 
             State = new ControlFormularItemComboBox(this)
@@ -211,7 +211,7 @@ namespace InventoryExpress.Controls
                 Value = null
             });
 
-            State.Items.AddRange(DB.DB.Instance.States.OrderBy(x => x.Grade).Select(x => new ControlFormularItemComboBoxItem()
+            State.Items.AddRange(DB.Instance.States.OrderBy(x => x.Grade).Select(x => new ControlFormularItemComboBoxItem()
             {
                 Text = string.Format("{0} - {1}", x.Grade, x.Name),
                 Value = x.ID.ToString()

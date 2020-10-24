@@ -1,7 +1,6 @@
-﻿using InventoryExpress.Model;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
-namespace InventoryExpress.DB
+namespace InventoryExpress.Model
 {
     public class DB : DbContext
     {
@@ -24,6 +23,21 @@ namespace InventoryExpress.DB
         /// Liefert oder setzt die Hersteller
         /// </summary>
         public DbSet<Manufacturer> Manufacturers { get; set; }
+
+        /// <summary>
+        /// Liefert oder setzt die Lieferanten
+        /// </summary>
+        public DbSet<Supplier> Suppliers { get; set; }
+
+        /// <summary>
+        /// Liefert oder setzt die Sachkonten
+        /// </summary>
+        public DbSet<GLAccount> GLAccounts { get; set; }
+
+        /// <summary>
+        /// Liefert oder setzt die Kostenstellen
+        /// </summary>
+        public DbSet<CostCenter> CostCenters { get; set; }
 
         /// <summary>
         /// Lifert die einzige Instanz der DB-Klasse
