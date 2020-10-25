@@ -4,13 +4,13 @@ using WebExpress.UI.Controls;
 
 namespace InventoryExpress.Pages
 {
-    public class PageManufactors : PageBase, IManufactor
+    public class PageTemplates : PageBase, ITemplate
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public PageManufactors()
-            : base("Hersteller")
+        public PageTemplates()
+            : base("Vorlagen")
         {
         }
 
@@ -49,11 +49,11 @@ namespace InventoryExpress.Pages
             var grid = new ControlGrid(this) { Fluid = false };
             int i = 0;
 
-            foreach (var manufactor in ViewModel.Instance.Manufacturers)
+            foreach (var template in ViewModel.Instance.Templates)
             {
-                var card = new ControlCardManufactor(this)
+                var card = new ControlCardTemplate(this)
                 {
-                    Manufactur = manufactor
+                    Template = template
                 };
 
                 grid.Add(i++, card);

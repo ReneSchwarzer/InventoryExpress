@@ -11,7 +11,7 @@ namespace InventoryExpress.Controls
         /// <summary>
         /// Liefert oder setzt den Namen des Inventargegenstandes
         /// </summary>
-        private ControlFormularItemTextBox InventoryName { get; set; }
+        public ControlFormularItemTextBox InventoryName { get; set; }
 
         /// <summary>
         /// Liefert oder setzt den Hersteller
@@ -111,7 +111,7 @@ namespace InventoryExpress.Controls
                 Value = null
             });
 
-            Manufactor.Items.AddRange(DB.Instance.Manufacturers.Select(x => new ControlFormularItemComboBoxItem()
+            Manufactor.Items.AddRange(ViewModel.Instance.Manufacturers.Select(x => new ControlFormularItemComboBoxItem()
             {
                 Text = x.Name,
                 Value = x.ID.ToString()
@@ -131,7 +131,7 @@ namespace InventoryExpress.Controls
                 Value = null
             });
 
-            Location.Items.AddRange(DB.Instance.Locations.Select(x => new ControlFormularItemComboBoxItem()
+            Location.Items.AddRange(ViewModel.Instance.Locations.Select(x => new ControlFormularItemComboBoxItem()
             {
                 Text = x.Name,
                 Value = x.ID.ToString()
@@ -151,7 +151,7 @@ namespace InventoryExpress.Controls
                 Value = null
             });
 
-            Supplier.Items.AddRange(DB.Instance.Suppliers.Select(x => new ControlFormularItemComboBoxItem()
+            Supplier.Items.AddRange(ViewModel.Instance.Suppliers.Select(x => new ControlFormularItemComboBoxItem()
             {
                 Text = x.Name,
                 Value = x.ID.ToString()
@@ -171,7 +171,7 @@ namespace InventoryExpress.Controls
                 Value = null
             });
 
-            GlAccount.Items.AddRange(DB.Instance.GLAccounts.Select(x => new ControlFormularItemComboBoxItem()
+            GlAccount.Items.AddRange(ViewModel.Instance.GLAccounts.Select(x => new ControlFormularItemComboBoxItem()
             {
                 Text = x.Name,
                 Value = x.ID.ToString()
@@ -191,7 +191,7 @@ namespace InventoryExpress.Controls
                 Value = null
             });
 
-            CostCenter.Items.AddRange(DB.Instance.CostCenters.Select(x => new ControlFormularItemComboBoxItem()
+            CostCenter.Items.AddRange(ViewModel.Instance.CostCenters.Select(x => new ControlFormularItemComboBoxItem()
             {
                 Text = x.Name,
                 Value = x.ID.ToString()
@@ -211,7 +211,7 @@ namespace InventoryExpress.Controls
                 Value = null
             });
 
-            State.Items.AddRange(DB.Instance.States.OrderBy(x => x.Grade).Select(x => new ControlFormularItemComboBoxItem()
+            State.Items.AddRange(ViewModel.Instance.States.OrderBy(x => x.Grade).Select(x => new ControlFormularItemComboBoxItem()
             {
                 Text = string.Format("{0} - {1}", x.Grade, x.Name),
                 Value = x.ID.ToString()
@@ -231,10 +231,10 @@ namespace InventoryExpress.Controls
                 Value = null
             });
 
-            Parent.Items.AddRange(ViewModel.Instance.Inventorys.Select(x => new ControlFormularItemComboBoxItem()
+            Parent.Items.AddRange(ViewModel.Instance.Inventories.Select(x => new ControlFormularItemComboBoxItem()
             {
                 Text = x.Name,
-                Value = x.ID
+                Value = x.ID.ToString()
             }));
 
             Template = new ControlFormularItemComboBox(this)
@@ -254,21 +254,21 @@ namespace InventoryExpress.Controls
             Template.Items.AddRange(ViewModel.Instance.Templates.Select(x => new ControlFormularItemComboBoxItem()
             {
                 Text = x.Name,
-                Value = x.ID
+                Value = x.ID.ToString()
             }));
 
-            foreach (var template in ViewModel.Instance.Templates.Where(x => x.ID == Template.SelectedValue))
-            {
-                foreach (var attribute in template?.Attributes)
-                {
-                    Attributes.Add(new ControlFormularItemTextBox(this)
-                    {
-                        Name = "attribute_" + attribute.ID,
-                        Label = attribute.Name,
-                        Help = attribute.Memo
-                    });
-                }
-            }
+            //foreach (var template in ViewModel.Instance.Templates.Where(x => x.ID.ToString() == Template.SelectedValue))
+            //{
+                //foreach (var attribute in template?.Attributes)
+                //{
+                //    Attributes.Add(new ControlFormularItemTextBox(this)
+                //    {
+                //        Name = "attribute_" + attribute.ID,
+                //        Label = attribute.Name,
+                //        Help = attribute.Discription
+                //    });
+                //}
+            //}
 
             Tag = new ControlFormularItemTextBox(this)
             {

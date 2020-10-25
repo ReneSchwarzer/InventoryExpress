@@ -6,7 +6,7 @@ using WebExpress.Plugins;
 
 namespace InventoryExpress.Model
 {
-    public class ViewModel
+    public class ViewModel : DB
     {
         /// <summary>
         /// Instanz des einzigen Modells
@@ -40,51 +40,6 @@ namespace InventoryExpress.Model
         public IPluginContext Context { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Inventarelemente
-        /// </summary>
-        public List<Inventory> Inventorys { get; set; }
-
-        /// <summary>
-        /// Liefert oder setzt die Vorlagen
-        /// </summary>
-        public List<Template> Templates { get; set; }
-
-        /// <summary>
-        /// Liefert oder setzt die Attribute
-        /// </summary>
-        public List<Attribute> Attributes { get; set; }
-
-        /// <summary>
-        /// Liefert oder setzt die Standorte
-        /// </summary>
-        public List<Location> Locations { get; set; }
-
-        /// <summary>
-        /// Liefert oder setzt die Lieferanten
-        /// </summary>
-        public List<Supplier> Suppliers { get; set; }
-
-        /// <summary>
-        /// Liefert oder setzt die Hersteller
-        /// </summary>
-        public List<Manufacturer> Manufacturers { get; set; }
-
-        /// <summary>
-        /// Liefert oder setzt die Kostenstellen
-        /// </summary>
-        public List<CostCenter> CostCenters { get; set; }
-
-        /// <summary>
-        /// Liefert oder setzt die Zustände
-        /// </summary>
-        public List<State> States { get; set; }
-
-        /// <summary>
-        /// Liefert oder setzt die Sachkonten
-        /// </summary>
-        public List<GLAccount> GLAccounts { get; set; }
-
-        /// <summary>
         /// Konstruktor
         /// </summary>
         private ViewModel()
@@ -96,65 +51,7 @@ namespace InventoryExpress.Model
         /// </summary>
         public void Init()
         {
-            Inventorys = new List<Inventory>();
-            Templates = new List<Template>();
-            Attributes = new List<Attribute>();
-            Locations = new List<Location>();
-            Suppliers = new List<Supplier>();
-            Manufacturers = new List<Manufacturer>();
-            CostCenters = new List<CostCenter>();
-            States = new List<State>();
-            GLAccounts = new List<GLAccount>();
-
-            if (Directory.Exists(Path.Combine(Context.AssetBaseFolder, "data")))
-            {
-                Load();
-            }
-            else
-            {
-                // Datenverzeichnis erstellen
-                Directory.CreateDirectory(Path.Combine(Context.AssetBaseFolder, "data"));
-            }
         }
 
-        /// <summary>
-        /// Lade die Daten
-        /// </summary>
-        public void Load()
-        {
-            var files = Directory.GetFiles(Path.Combine(Context.AssetBaseFolder, "data"));
-
-
-            // 7. Attribute laden
-            foreach (var file in from x in files
-                                 where Path.GetExtension(x).Equals(".attribute")
-                                 select x)
-            {
-                Attributes.Add(Attribute.Factory(file));
-            }
-
-            // 8. Vorlagen laden
-            foreach (var file in from x in files
-                                 where Path.GetExtension(x).Equals(".template")
-                                 select x)
-            {
-                Templates.Add(Template.Factory(file));
-            }
-
-            // 9. Inventar laden
-            foreach (var file in from x in files
-                                 where Path.GetExtension(x).Equals(".inventory")
-                                 select x)
-            {
-                Inventorys.Add(Inventory.Factory(file));
-            }
-
-            Inventorys = Inventorys.OrderBy(x => x.Name).ToList();
-            Templates = Templates.OrderBy(x => x.Name).ToList();
-            Attributes = Attributes.OrderBy(x => x.Name).ToList();
-            Suppliers = Suppliers.OrderBy(x => x.Name).ToList();
-            CostCenters = CostCenters.OrderBy(x => x.Name).ToList();
-            GLAccounts = GLAccounts.OrderBy(x => x.Name).ToList();
-        }
     }
 }

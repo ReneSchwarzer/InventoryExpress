@@ -26,9 +26,9 @@ namespace InventoryExpress.Controls
 
             Items.Add(new ControlLink(Page)
             {
-                Text = "Home",
+                Text = "Inventar",
                 Uri = Page.Uri.Root,
-                Active = Page is PageDashboard || Page is PageInventoryAdd ? TypeActive.Active : TypeActive.None,
+                Active = Page is PageInventories || Page is PageInventoryAdd ? TypeActive.Active : TypeActive.None,
                 Icon = new PropertyIcon(TypeIcon.Home)
             });
             
@@ -58,18 +58,26 @@ namespace InventoryExpress.Controls
 
             Items.Add(new ControlLink(Page)
             {
-                Text = "Sachkonto",
-                Uri = Page.Uri.Root.Append("glaccount"),
+                Text = "Sachkonten",
+                Uri = Page.Uri.Root.Append("glaccounts"),
                 Active = Page is IGLAccount ? TypeActive.Active : TypeActive.None,
                 Icon = new PropertyIcon(TypeIcon.At)
             });
 
             Items.Add(new ControlLink(Page)
             {
-                Text = "Kostenstelle",
-                Uri = Page.Uri.Root.Append("costcenter"),
+                Text = "Kostenstellen",
+                Uri = Page.Uri.Root.Append("costcenters"),
                 Active = Page is ICostCenter ? TypeActive.Active : TypeActive.None,
                 Icon = new PropertyIcon(TypeIcon.ShoppingBag)
+            });
+            
+            Items.Add(new ControlLink(Page)
+            {
+                Text = "Vorlagen",
+                Uri = Page.Uri.Root.Append("templates"),
+                Active = Page is ITemplate ? TypeActive.Active : TypeActive.None,
+                Icon = new PropertyIcon(TypeIcon.Book)
             });
         }
     }

@@ -5,19 +5,19 @@ using WebExpress.UI.Controls;
 
 namespace InventoryExpress.Controls
 {
-    public class ControlManufactorsCard : ControlPanelCard
+    public class ControlCardGLAccount : ControlPanelCard
     {
         /// <summary>
         /// Liefert oder setzt den Hersteller
         /// </summary>
-        public Manufacturer Manufactur { get; set; }
+        public GLAccount GLAccount { get; set; }
 
         /// <summary>
         /// Konstruktor
         /// </summary>
         /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlManufactorsCard(IPage page, string id = null)
+        public ControlCardGLAccount(IPage page, string id = null)
             : base(page, id)
         {
             Init();
@@ -45,15 +45,15 @@ namespace InventoryExpress.Controls
                 ImageHeight = 100,
                 Title = new ControlLink(Page)
                 {
-                    Text = Manufactur.Name,
-                    Uri = Page.Uri.Append(Manufactur.ID.ToString()),
+                    Text = GLAccount.Name,
+                    Uri = Page.Uri.Append(GLAccount.ID.ToString()),
                     TextColor = new PropertyColorText(TypeColorText.Dark)
                 }
             };
 
             media.Content.Add(new ControlText(Page)
             {
-                Text = Manufactur.Discription,
+                Text = GLAccount.Discription,
                 Format = TypeFormatText.Paragraph
             });
 

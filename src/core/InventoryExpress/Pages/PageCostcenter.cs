@@ -49,9 +49,9 @@ namespace InventoryExpress.Pages
             var grid = new ControlGrid(this) { Fluid = false };
             int i = 0;
 
-            foreach (var costcenter in DB.Instance.CostCenters)
+            foreach (var costcenter in ViewModel.Instance.CostCenters)
             {
-                var card = new ControlCostCenterCard(this)
+                var card = new ControlCardCostCenter(this)
                 {
                     CostCenter = costcenter
                 };

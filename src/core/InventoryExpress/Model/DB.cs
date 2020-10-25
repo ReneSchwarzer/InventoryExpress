@@ -5,10 +5,10 @@ namespace InventoryExpress.Model
     public class DB : DbContext
     {
         /// <summary>
-        /// Instanz des DbContext
+        /// Liefert oder setzt die Inventargegenstände
         /// </summary>
-        private static DB _this = null;
-
+        public DbSet<Inventory> Inventories { get; set; }
+        
         /// <summary>
         /// Liefert oder setzt die Zustände
         /// </summary>
@@ -40,25 +40,19 @@ namespace InventoryExpress.Model
         public DbSet<CostCenter> CostCenters { get; set; }
 
         /// <summary>
-        /// Lifert die einzige Instanz der DB-Klasse
+        /// Liefert oder setzt die Vorlagen
         /// </summary>
-        public static DB Instance
-        {
-            get
-            {
-                if (_this == null)
-                {
-                    _this = new DB();
-                }
+        public DbSet<Template> Templates { get; set; }
 
-                return _this;
-            }
-        }
+        /// <summary>
+        /// Liefert oder setzt die Attribute
+        /// </summary>
+        public DbSet<Attribute> Attributes { get; set; }
 
         /// <summary>
         /// Konstruktor
         /// </summary>
-        private DB()
+        internal DB()
         {
         }
 

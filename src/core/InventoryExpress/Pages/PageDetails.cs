@@ -1,9 +1,7 @@
 ﻿using InventoryExpress.Controls;
 using InventoryExpress.Model;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using WebExpress.Html;
 using WebExpress.UI.Controls;
 
@@ -64,10 +62,10 @@ namespace InventoryExpress.Pages
             base.Process();
 
             var id = string.Format("{0}-{1}-{2}-{3}-{4}", GetParam("id1"), GetParam("id2"), GetParam("id3"), GetParam("id4"), GetParam("id5"));
-            var inventory = ViewModel.Instance.Inventorys.Where(x => x.ID.Equals(id)).FirstOrDefault();
+            var inventory = ViewModel.Instance.Inventories.Where(x => x.ID.Equals(id)).FirstOrDefault();
 
             Main.Content.Add(new ControlText(this)
-            { 
+            {
                 Text = inventory?.Name,
                 Format = TypeFormatText.H1,
                 TextColor = new PropertyColorText(TypeColorText.Primary)
@@ -82,8 +80,8 @@ namespace InventoryExpress.Pages
 
             Main.Content.Add(new ControlImage(this)
             {
-                Source = new UriRelative("/data/" + inventory?.Image)
-                
+                //Source = new UriRelative("/data/" + inventory?.Image)
+
             });
 
             Main.Content.Add(new ControlAttribute(this)
@@ -96,7 +94,7 @@ namespace InventoryExpress.Pages
 
             Main.Content.Add(new ControlText(this)
             {
-                Text = inventory?.Memo,
+                Text = inventory?.Discription,
                 Format = TypeFormatText.Paragraph,
                 TextColor = new PropertyColorText(TypeColorText.Dark)
             });

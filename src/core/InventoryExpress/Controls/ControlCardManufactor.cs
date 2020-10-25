@@ -5,19 +5,19 @@ using WebExpress.UI.Controls;
 
 namespace InventoryExpress.Controls
 {
-    public class ControlLocationCard : ControlPanelCard
+    public class ControlCardManufactor : ControlPanelCard
     {
         /// <summary>
-        /// Liefert oder setzt den Standort
+        /// Liefert oder setzt den Hersteller
         /// </summary>
-        public Location Location { get; set; }
+        public Manufacturer Manufactur { get; set; }
 
         /// <summary>
         /// Konstruktor
         /// </summary>
         /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlLocationCard(IPage page, string id = null)
+        public ControlCardManufactor(IPage page, string id = null)
             : base(page, id)
         {
             Init();
@@ -40,20 +40,20 @@ namespace InventoryExpress.Controls
         {
             var media = new ControlPanelMedia(Page)
             {
-                //Image = new UriRelative(string.IsNullOrWhiteSpace(Location.Image) ? "/Assets/img/Logo.png" : "/data/" + Location.Image),
+                //Image = new UriRelative(string.IsNullOrWhiteSpace(Manufactur.Image) ? "/Assets/img/Logo.png" : "/data/" + Manufactur.Image),
                 ImageWidth = 100,
                 ImageHeight = 100,
                 Title = new ControlLink(Page)
                 {
-                    Text = Location.Name,
-                    Uri = Page.Uri.Append(Location.ID.ToString()),
+                    Text = Manufactur.Name,
+                    Uri = Page.Uri.Append(Manufactur.ID.ToString()),
                     TextColor = new PropertyColorText(TypeColorText.Dark)
                 }
             };
 
             media.Content.Add(new ControlText(Page)
             {
-                Text = Location.Discription,
+                Text = Manufactur.Discription,
                 Format = TypeFormatText.Paragraph
             });
 

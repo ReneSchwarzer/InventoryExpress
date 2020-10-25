@@ -42,7 +42,7 @@ namespace InventoryExpress.Pages
             base.Process();
 
             var id = Convert.ToInt32(GetParam("id"));
-            var manufacturer = DB.Instance.Manufacturers.Where(x => x.ID == id).FirstOrDefault();
+            var manufacturer = ViewModel.Instance.Manufacturers.Where(x => x.ID == id).FirstOrDefault();
 
             Main.Content.Add(form);
 
@@ -68,7 +68,7 @@ namespace InventoryExpress.Pages
                 //Tag = form.Tag.Value;
                 manufacturer.Discription = form.Discription.Value;
 
-                DB.Instance.SaveChanges();
+                ViewModel.Instance.SaveChanges();
             };
         }
 

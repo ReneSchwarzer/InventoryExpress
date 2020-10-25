@@ -68,8 +68,8 @@ namespace InventoryExpress.Pages
                     Discription = form.Discription.Value
                 };
 
-                DB.Instance.Manufacturers.Add(manufacturer);
-                DB.Instance.SaveChanges();
+                ViewModel.Instance.Manufacturers.Add(manufacturer);
+                ViewModel.Instance.SaveChanges();
             };
         }
 

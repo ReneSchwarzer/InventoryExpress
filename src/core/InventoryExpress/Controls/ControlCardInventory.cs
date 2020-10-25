@@ -5,7 +5,7 @@ using WebExpress.UI.Controls;
 
 namespace InventoryExpress.Controls
 {
-    public class ControlInventoryCard : ControlPanelCard
+    public class ControlCardInventory : ControlPanelCard
     {
         /// <summary>
         /// Liefert oder setzt das Inventarelement
@@ -17,7 +17,7 @@ namespace InventoryExpress.Controls
         /// </summary>
         /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlInventoryCard(IPage page, string id = null)
+        public ControlCardInventory(IPage page, string id = null)
             : base(page, id)
         {
             Init();
@@ -40,13 +40,13 @@ namespace InventoryExpress.Controls
         {
             var media = new ControlPanelMedia(Page)
             {
-                Image = new UriRelative(string.IsNullOrWhiteSpace(Inventory.Image) ? "/Assets/img/Logo.png" : "/data/" + Inventory.Image),
+                //Image = new UriRelative(string.IsNullOrWhiteSpace(Inventory.Image) ? "/Assets/img/Logo.png" : "/data/" + Inventory.Image),
                 ImageWidth = 100,
                 ImageHeight = 100,
                 Title = new ControlLink(Page)
                 {
                     Text = Inventory.Name,
-                    Uri = Page.Uri.Root.Append(Inventory.ID),
+                    Uri = Page.Uri.Root.Append(Inventory.ID.ToString()),
                     TextColor = new PropertyColorText(TypeColorText.Primary)
                 }
             };

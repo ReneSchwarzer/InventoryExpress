@@ -42,7 +42,7 @@ namespace InventoryExpress.Pages
             base.Process();
 
             var id = Convert.ToInt32(GetParam("id"));
-            var costcenter = DB.Instance.CostCenters.Where(x => x.ID == id).FirstOrDefault();
+            var costcenter = ViewModel.Instance.CostCenters.Where(x => x.ID == id).FirstOrDefault();
 
             Main.Content.Add(form);
 
@@ -68,7 +68,7 @@ namespace InventoryExpress.Pages
                 //Tag = form.Tag.Value;
                 costcenter.Discription = form.Discription.Value;
 
-                DB.Instance.SaveChanges();
+                ViewModel.Instance.SaveChanges();
             };
         }
 

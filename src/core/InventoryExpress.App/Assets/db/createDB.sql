@@ -1,133 +1,132 @@
 ﻿CREATE TABLE State 
 (
-    ID 			INTEGER			PRIMARY KEY AUTOINCREMENT NOT NULL,
-    Name 		VARCHAR(64),
-    Grade       INTEGER (1),    NOT NULL UNIQUE
-	Discription TEXT,
-    Timestamp 	TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL
+    ID 			        INTEGER			PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Name 		        VARCHAR(64),
+    Grade               INTEGER (1),    NOT NULL UNIQUE
+	Discription         TEXT,
+    Timestamp 	        TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
 
 CREATE TABLE CostCenter 
 (
-    ID 			INTEGER			PRIMARY KEY AUTOINCREMENT NOT NULL,
-    Name 		VARCHAR(64),
-	Discription TEXT,
-    Timestamp 	TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL
+    ID 			        INTEGER			PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Name 		        VARCHAR(64),
+	Discription         TEXT,
+    Timestamp 	        TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
 
 CREATE TABLE GLAccount  
 (
-    ID 			INTEGER			PRIMARY KEY AUTOINCREMENT NOT NULL,
-    Name 		VARCHAR(64),
-	Discription TEXT,
-    Timestamp 	TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL
+    ID 			        INTEGER			PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Name 		        VARCHAR(64),
+	Discription         TEXT,
+    Timestamp 	        TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
 
 CREATE TABLE Manufacturer 
 (
-    ID          INTEGER			PRIMARY KEY AUTOINCREMENT NOT NULL,
-    Name        VARCHAR (64)	UNIQUE NOT NULL,
-    Address     VARCHAR (256),
-    Zip         VARCHAR (10),
-    Place       VARCHAR (64),
-    Discription TEXT,
-    Timestamp   TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL
+    ID                  INTEGER			PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Name                VARCHAR (64)	UNIQUE NOT NULL,
+    Address             VARCHAR (256),
+    Zip                 VARCHAR (10),
+    Place               VARCHAR (64),
+    Discription         TEXT,
+    Timestamp           TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
 
 CREATE TABLE Supplier 
 (
-    ID          INTEGER			PRIMARY KEY AUTOINCREMENT NOT NULL,
-    Name        VARCHAR (64)	UNIQUE NOT NULL,
-    Address     VARCHAR (256),
-    Zip         VARCHAR (10),
-    Place       VARCHAR (64),
-    Discription TEXT,
-    Timestamp   TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL
+    ID                  INTEGER			PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Name                VARCHAR (64)	UNIQUE NOT NULL,
+    Address             VARCHAR (256),
+    Zip                 VARCHAR (10),
+    Place               VARCHAR (64),
+    Discription         TEXT,
+    Timestamp           TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
 
 CREATE TABLE Location  
 (
-    ID          INTEGER			PRIMARY KEY AUTOINCREMENT NOT NULL,
-    Name        VARCHAR (64)	UNIQUE NOT NULL,
-    Address     VARCHAR (256),
-    Zip         VARCHAR (10),
-    Place       VARCHAR (64),
-	Building    VARCHAR (64),
-	Room        VARCHAR (64),
-    Discription TEXT,
-    Timestamp   TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL
+    ID                  INTEGER			PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Name                VARCHAR (64)	UNIQUE NOT NULL,
+    Address             VARCHAR (256),
+    Zip                 VARCHAR (10),
+    Place               VARCHAR (64),
+	Building            VARCHAR (64),
+	Room                VARCHAR (64),
+    Discription         TEXT,
+    Timestamp           TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
 
 CREATE TABLE Attribute   
 (
-    ID 			INTEGER			PRIMARY KEY AUTOINCREMENT NOT NULL,
-    Name 		VARCHAR(64),
-	Discription TEXT,
-    Timestamp 	TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL
+    ID 			        INTEGER			PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Name 		        VARCHAR(64),
+	Discription         TEXT,
+    Timestamp 	        TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
 
 CREATE TABLE AttributeDateTimeValue    
 (
-    ID 			INTEGER			PRIMARY KEY NOT NULL REFERENCES Attribute (ID),
-    Value 		DATETIME
+    ID 			        INTEGER			PRIMARY KEY NOT NULL REFERENCES Attribute (ID),
+    Value 		        DATETIME
 );
 
 CREATE TABLE AttributeTextValue    
 (
-    ID 			INTEGER			PRIMARY KEY NOT NULL REFERENCES Attribute (ID),
-    Value 		TEXT
+    ID 			        INTEGER			PRIMARY KEY NOT NULL REFERENCES Attribute (ID),
+    Value 		        TEXT
 );
 
 CREATE TABLE Template      
 (
-    ID 			INTEGER			PRIMARY KEY AUTOINCREMENT NOT NULL,
-    Name 		VARCHAR(64),
-	Discription TEXT,
-    Timestamp 	TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL
-);
-
-CREATE TABLE TemplateAttribute     
-(
-    Template 	INTEGER			NOT NULL REFERENCES Template (ID),
-    Atrtribute 	INTEGER			NOT NULL REFERENCES Attribute (ID),
-    Timestamp 	TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
-	PRIMARY KEY (Template, Atrtribute)
-);
-
-CREATE TABLE Inventory     
-(
-    ID 			INTEGER			PRIMARY KEY AUTOINCREMENT NOT NULL,
-	Template	INTEGER      	REFERENCES Template (ID),
-	Location	INTEGER      	REFERENCES Location (ID),
-	CostCenter 	INTEGER      	REFERENCES CostCenter (ID),
-	Manufacturer INTEGER      	REFERENCES Manufacturer (ID),
-	State  		INTEGER      	REFERENCES State (ID),
-	Supplier 	INTEGER      	REFERENCES Supplier (ID),
-	GLAccount  	INTEGER      	REFERENCES GLAccount (ID),
-	Name 		VARCHAR(64),
-	CostValue 	DECIMAL,
-	PurchaseDate DATE,
-	DerecognitionDate DATE,
-	Discription TEXT,
-    Timestamp 	TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL
-);
-
-CREATE TABLE InventoryAttribute     
-(
-    Inventory 	INTEGER			NOT NULL REFERENCES Inventory (ID),
-    Atrtribute 	INTEGER			NOT NULL REFERENCES Attribute (ID),
-    Timestamp 	TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
-	PRIMARY KEY (Inventory, Atrtribute)
+    ID 			        INTEGER			PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Name 		        VARCHAR(64),
+	Discription         TEXT,
+    Timestamp 	        TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
 
 CREATE TABLE Ascription    
 (
-    ID 			INTEGER			PRIMARY KEY AUTOINCREMENT NOT NULL,
-    Name 		VARCHAR(64),
-	Discription TEXT,
-    Timestamp 	TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL
+    ID 			        INTEGER			PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Name 		        VARCHAR(64),
+	Discription         TEXT,
+    Timestamp 	        TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
 
+CREATE TABLE TemplateAttribute     
+(
+    TemplateID          INTEGER			NOT NULL REFERENCES Template (ID),
+    AtrtributeID        INTEGER			NOT NULL REFERENCES Attribute (ID),
+    Timestamp 	        TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	PRIMARY KEY (TemplateID, AtrtributeID)
+);
+
+CREATE TABLE Inventory     
+(
+    ID                  INTEGER			PRIMARY KEY AUTOINCREMENT NOT NULL,
+	TemplateID	        INTEGER      	REFERENCES Template (ID),
+	LocationID	        INTEGER      	REFERENCES Location (ID),
+	CostCenterID 	    INTEGER      	REFERENCES CostCenter (ID),
+	ManufacturerID      INTEGER      	REFERENCES Manufacturer (ID),
+	StateID  		    INTEGER      	REFERENCES State (ID),
+	SupplierID 	        INTEGER      	REFERENCES Supplier (ID),
+	GLAccountID  	    INTEGER      	REFERENCES GLAccount (ID),
+	Name 		        VARCHAR(64),
+	CostValue 	        DECIMAL,
+	PurchaseDate        DATE,
+	DerecognitionDate   DATE,
+	Discription         TEXT,
+    Timestamp 	        TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+CREATE TABLE InventoryAttribute     
+(
+    InventoryID 	    INTEGER			NOT NULL REFERENCES Inventory (ID),
+    AtrtributeID 	    INTEGER			NOT NULL REFERENCES Attribute (ID),
+    Timestamp 	        TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	PRIMARY KEY (InventoryID, AtrtributeID)
+);
 
 -- Example
 INSERT INTO State (ID, Name, Grade, Discription, Timestamp) VALUES (1, 'Ungenügend', 6, NULL, '2020-10-11 14:24:32');
@@ -167,3 +166,34 @@ INSERT INTO GLAccount (ID, Name, Discription, Timestamp) VALUES (1, 'Haushalt', 
 
 INSERT INTO CostCenter (ID, Name, Discription, Timestamp) VALUES (1, 'Fuhrpark', '', '2020-10-11 14:24:32');
 INSERT INTO CostCenter (ID, Name, Discription, Timestamp) VALUES (2, 'Hobby', '', '2020-10-11 14:24:32');
+
+INSERT INTO Template (ID, Name, Discription, Timestamp) VALUES (1, 'Druckmedien', 'Gedruckte Informationsquellen wie Zeitschriften, Zeitungen, Bücher oder Kataloge.', '2020-10-11 14:24:32');
+INSERT INTO Template (ID, Name, Discription, Timestamp) VALUES (2, 'Heimcomputer', 'Mikrocomputer der 80-er Jahre, welche überwiegend im privaten Haushalten genutzt wurden.', '2020-10-11 14:24:32');
+INSERT INTO Template (ID, Name, Discription, Timestamp) VALUES (3, 'Personal Computer', 'Mikrocomputer, welche überwiegend im geschäftlichem Umfeld genutzt wurden.', '2020-10-11 14:24:32');
+INSERT INTO Template (ID, Name, Discription, Timestamp) VALUES (4, 'Pocket PC', 'Handheld und PocketPSs', '2020-10-11 14:24:32');
+INSERT INTO Template (ID, Name, Discription, Timestamp) VALUES (5, 'Radio-, Kasetten- und Tonbandgeräte', 'Audiogeräte', '2020-10-11 14:24:32');
+INSERT INTO Template (ID, Name, Discription, Timestamp) VALUES (6, 'Smartphone', 'Handy', '2020-10-11 14:24:32');
+INSERT INTO Template (ID, Name, Discription, Timestamp) VALUES (7, 'Software', 'Computerprogramme', '2020-10-11 14:24:32');
+INSERT INTO Template (ID, Name, Discription, Timestamp) VALUES (8, 'Spiel', 'Computerspiele', '2020-10-11 14:24:32');
+INSERT INTO Template (ID, Name, Discription, Timestamp) VALUES (9, 'Spielekonsole', '', '2020-10-11 14:24:32');
+INSERT INTO Template (ID, Name, Discription, Timestamp) VALUES (10, 'Telespiel', 'Handheld Spielekonsole', '2020-10-11 14:24:32');
+INSERT INTO Template (ID, Name, Discription, Timestamp) VALUES (11, 'Tischrechner', 'Rechenmaschienen und Taschenrechner', '2020-10-11 14:24:32');
+INSERT INTO Template (ID, Name, Discription, Timestamp) VALUES (12, 'Zubehör', 'Computerzubehör', '2020-10-11 14:24:32');
+
+INSERT INTO Attribute (ID, Name, Discription, Timestamp) VALUES (1, 'ISBN', '', '2020-10-11 14:24:32');
+INSERT INTO Attribute (ID, Name, Discription, Timestamp) VALUES (2, 'Autor', '', '2020-10-11 14:24:32');
+INSERT INTO Attribute (ID, Name, Discription, Timestamp) VALUES (3, 'Baujahr', '', '2020-10-11 14:24:32');
+INSERT INTO Attribute (ID, Name, Discription, Timestamp) VALUES (4, 'Betriebssystem', '', '2020-10-11 14:24:32');
+INSERT INTO Attribute (ID, Name, Discription, Timestamp) VALUES (5, 'Gewicht', '', '2020-10-11 14:24:32');
+INSERT INTO Attribute (ID, Name, Discription, Timestamp) VALUES (6, 'Hauptspeicher', '', '2020-10-11 14:24:32');
+INSERT INTO Attribute (ID, Name, Discription, Timestamp) VALUES (7, 'Kaufdatum', '', '2020-10-11 14:24:32');
+INSERT INTO Attribute (ID, Name, Discription, Timestamp) VALUES (8, 'Lizenzschlüssel', '', '2020-10-11 14:24:32');
+INSERT INTO Attribute (ID, Name, Discription, Timestamp) VALUES (9, 'Medium', '', '2020-10-11 14:24:32');
+INSERT INTO Attribute (ID, Name, Discription, Timestamp) VALUES (10, 'Modell', '', '2020-10-11 14:24:32');
+INSERT INTO Attribute (ID, Name, Discription, Timestamp) VALUES (11, 'Preis', '', '2020-10-11 14:24:32');
+INSERT INTO Attribute (ID, Name, Discription, Timestamp) VALUES (12, 'Prozessor', '', '2020-10-11 14:24:32');
+INSERT INTO Attribute (ID, Name, Discription, Timestamp) VALUES (13, 'Prüfdatum', '', '2020-10-11 14:24:32');
+INSERT INTO Attribute (ID, Name, Discription, Timestamp) VALUES (14, 'Sereinnummer', '', '2020-10-11 14:24:32');
+INSERT INTO Attribute (ID, Name, Discription, Timestamp) VALUES (15, 'Taktrate', '', '2020-10-11 14:24:32');
+INSERT INTO Attribute (ID, Name, Discription, Timestamp) VALUES (16, 'URL', '', '2020-10-11 14:24:32');
+INSERT INTO Attribute (ID, Name, Discription, Timestamp) VALUES (17, 'Verpackung', '', '2020-10-11 14:24:32');

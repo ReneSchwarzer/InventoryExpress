@@ -6,18 +6,18 @@ using WebExpress.UI.Controls;
 
 namespace InventoryExpress.Pages
 {
-    public class PageCostCenterAdd : PageBase, ICostCenter
+    public class PageTemplateEdit : PageBase, ITemplate
     {
         /// <summary>
         /// Formular
         /// </summary>
-        private ControlFormularCostCenter form;
+        private ControlFormularTemplate form;
 
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public PageCostCenterAdd()
-            : base("Kostenstelle hinzufügen")
+        public PageTemplateEdit()
+            : base("Vorlage bearbeiten")
         {
         }
 
@@ -28,7 +28,7 @@ namespace InventoryExpress.Pages
         {
             base.Init();
 
-            form = new ControlFormularCostCenter(this)
+            form = new ControlFormularTemplate(this)
             {
                 RedirectUrl = Uri.Take(-1)
             };
@@ -41,31 +41,33 @@ namespace InventoryExpress.Pages
         {
             base.Process();
 
+            var id = Convert.ToInt32(GetParam("id"));
+            var template = ViewModel.Instance.Templates.Where(x => x.ID == id).FirstOrDefault();
+
             Main.Content.Add(form);
 
-            form.CostCenterName.Validation += (s, e) =>
+            form.ManufactorName.Value = template?.Name;
+            form.Discription.Value = template?.Discription;
+
+            form.ManufactorName.Validation += (s, e) =>
             {
                 if (e.Value.Count() < 1)
                 {
                     e.Results.Add(new ValidationResult() { Text = "Geben Sie einen gültigen Namen ein!", Type = TypesInputValidity.Error });
                 }
-                else if (ViewModel.Instance.CostCenters.Where(x => x.Name.Equals(e.Value, StringComparison.InvariantCultureIgnoreCase)).Count() > 0)
+                else if (ViewModel.Instance.Templates.Where(x => x.Name.Equals(e.Value, StringComparison.InvariantCultureIgnoreCase)).Count() > 0)
                 {
-                    e.Results.Add(new ValidationResult() { Text = "Die Kostenstelle wird bereits verwendet. Geben Sie einen anderen Namen an!", Type = TypesInputValidity.Error });
+                    e.Results.Add(new ValidationResult() { Text = "Der Hersteller wird bereits verwendet. Geben Sie einen anderen Namen an!", Type = TypesInputValidity.Error });
                 }
             };
 
             form.ProcessFormular += (s, e) =>
             {
-                // Neues Herstellerobjekt erstellen und speichern
-                var costcenter = new CostCenter()
-                {
-                    Name = form.CostCenterName.Value,
-                    //Tag = form.Tag.Value,
-                    Discription = form.Discription.Value
-                };
+                // Herstellerobjekt ändern und speichern
+                template.Name = form.ManufactorName.Value;
+                //Tag = form.Tag.Value;
+                template.Discription = form.Discription.Value;
 
-                ViewModel.Instance.CostCenters.Add(costcenter);
                 ViewModel.Instance.SaveChanges();
             };
         }

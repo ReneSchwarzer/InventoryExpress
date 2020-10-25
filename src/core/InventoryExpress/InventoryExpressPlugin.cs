@@ -31,8 +31,8 @@ namespace InventoryExpress
             SiteMap.AddPage("Assets", "Assets", (x) => { return new WorkerFile(x, Context.AssetBaseFolder); });
             SiteMap.AddPage("Data", "data", (x) => { return new WorkerFile(x, Context.AssetBaseFolder); });
 
-            SiteMap.AddPage("Home", (x) => { return new WorkerPage<PageDashboard>(x); });
-            SiteMap.AddPage("Dashboard", "dashboard", (x) => { return new WorkerPage<PageDashboard>(x); });
+            SiteMap.AddPage("Home", (x) => { return new WorkerPage<PageInventories>(x); });
+            SiteMap.AddPage("Dashboard", "dashboard", (x) => { return new WorkerPage<PageInventories>(x); });
             SiteMap.AddPage("InventoryAdd", "add", "Neu", (x) => { return new WorkerPage<PageInventoryAdd>(x); });
             SiteMap.AddPage("Details", "details", (x) => { return new WorkerPage<PageDetails>(x); });
             SiteMap.AddPage("Locations", "locations", "Standorte", (x) => { return new WorkerPage<PageLocations>(x); });
@@ -44,12 +44,15 @@ namespace InventoryExpress
             SiteMap.AddPage("Suppliers", "suppliers", "Lieferanten", (x) => { return new WorkerPage<PageSuppliers>(x); });
             SiteMap.AddPage("SupplierAdd", "add", "Neu", (x) => { return new WorkerPage<PageSupplierAdd>(x); });
             SiteMap.AddPage("SupplierEdit", "edit", "Bearbeiten", (x) => { return new WorkerPage<PageSupplierEdit>(x); });
-            SiteMap.AddPage("GLAccounts", "glaccount", "Sachkonten", (x) => { return new WorkerPage<PageGlAccount>(x); });
+            SiteMap.AddPage("GLAccounts", "glaccounts", "Sachkonten", (x) => { return new WorkerPage<PageGLAccounts>(x); });
             SiteMap.AddPage("GLAccountAdd", "add", "Neu", (x) => { return new WorkerPage<PageGLAccountAdd>(x); });
             SiteMap.AddPage("GLAccountEdit", "edit", "Bearbeiten", (x) => { return new WorkerPage<PageGLAccountEdit>(x); });
-            SiteMap.AddPage("CostCenters", "costcenter", "Kostenstellen", (x) => { return new WorkerPage<PageCostCenter>(x); });
+            SiteMap.AddPage("CostCenters", "costcenters", "Kostenstellen", (x) => { return new WorkerPage<PageCostCenter>(x); });
             SiteMap.AddPage("CostCenterAdd", "add", "Neu", (x) => { return new WorkerPage<PageCostCenterAdd>(x); });
             SiteMap.AddPage("CostCenterEdit", "edit", "Bearbeiten", (x) => { return new WorkerPage<PageCostCenterEdit>(x); });
+            SiteMap.AddPage("Templates", "templates", "Vorlagen", (x) => { return new WorkerPage<PageTemplates>(x); });
+            SiteMap.AddPage("TemplateAdd", "add", "Neu", (x) => { return new WorkerPage<PageTemplateAdd>(x); });
+            SiteMap.AddPage("TemplateEdit", "edit", "Bearbeiten", (x) => { return new WorkerPage<PageTemplateEdit>(x); });
             SiteMap.AddPage("Help", "help", (x) => { return new WorkerPage<PageHelp>(x); });
 
             //SiteMap.AddPathSegmentVariable
@@ -114,6 +117,16 @@ namespace InventoryExpress
                 ),
                 new UriPathSegmentVariable("id", "(\\d+)")
             );
+            
+            SiteMap.AddPathSegmentVariable
+            (
+                "TemplateEdit",
+                new UriPathSegmentDynamicDisplay
+                (
+                    new UriPathSegmentDynamicDisplayText("Bearbeiten")
+                ),
+                new UriPathSegmentVariable("id", "(\\d+)")
+            );
 
             SiteMap.AddPath("Assets", true);
             SiteMap.AddPath("Data", true);
@@ -136,6 +149,9 @@ namespace InventoryExpress
             SiteMap.AddPath("Home/Costcenters");
             SiteMap.AddPath("Home/CostCenters/CostCenterAdd");
             SiteMap.AddPath("Home/CostCenters/CostCenterEdit");
+            SiteMap.AddPath("Home/Templates");
+            SiteMap.AddPath("Home/Templates/TemplateAdd");
+            SiteMap.AddPath("Home/Templates/TemplateEdit");
             SiteMap.AddPath("Home/Help");
 
         }

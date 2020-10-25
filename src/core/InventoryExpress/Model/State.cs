@@ -13,20 +13,8 @@ namespace InventoryExpress.Model
     /// Zustand
     /// </summary>
     [Table("STATE")]
-    public class State
+    public class State : Item
     {
-        /// <summary>
-        /// ID
-        /// </summary>
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ID { get; set; }
-
-        /// <summary>
-        /// Liefert oder setzt den Namen
-        /// </summary>
-        [StringLength(64), Required, Column("NAME")]
-        public string Name { get; set; }
-
         /// <summary>
         /// Zustand als Note
         /// </summary>
@@ -34,32 +22,11 @@ namespace InventoryExpress.Model
         public int Grade { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Beschreibung
-        /// </summary>
-        [Column("DISCRIPTION")]
-        public string Discription { get; set; }
-
-        /// <summary>
-        /// Der Zeitstempel der Erstellung
-        /// </summary>
-        [Column("TIMESTAMP")]
-        public DateTime Timestamp { get; set; }
-
-        /// <summary>
         /// Konstruktor
         /// </summary>
         public State()
             : base()
         {
-        }
-
-        /// <summary>
-        /// Umwandlung in String
-        /// </summary>
-        /// <returns>Das als String umgewandelte Objekt</returns>
-        public override string ToString()
-        {
-            return string.Format("{0} - {1}", Grade, Name);
         }
     }
 }

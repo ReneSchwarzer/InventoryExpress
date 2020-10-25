@@ -42,12 +42,12 @@ namespace InventoryExpress.Pages
             base.Process();
 
             var id = Convert.ToInt32(GetParam("id"));
-            var manufacturer = DB.Instance.Locations.Where(x => x.ID == id).FirstOrDefault();
+            var location = ViewModel.Instance.Locations.Where(x => x.ID == id).FirstOrDefault();
 
             Main.Content.Add(form);
 
-            form.LocationName.Value = manufacturer?.Name;
-            form.Discription.Value = manufacturer?.Discription;
+            form.LocationName.Value = location?.Name;
+            form.Discription.Value = location?.Discription;
 
             form.LocationName.Validation += (s, e) =>
             {
@@ -57,18 +57,18 @@ namespace InventoryExpress.Pages
                 }
                 else if (ViewModel.Instance.Locations.Where(x => x.Name.Equals(e.Value, StringComparison.InvariantCultureIgnoreCase)).Count() > 0)
                 {
-                    e.Results.Add(new ValidationResult() { Text = "Der Hersteller wird bereits verwendet. Geben Sie einen anderen Namen an!", Type = TypesInputValidity.Error });
+                    e.Results.Add(new ValidationResult() { Text = "Der Standort wird bereits verwendet. Geben Sie einen anderen Namen an!", Type = TypesInputValidity.Error });
                 }
             };
 
             form.ProcessFormular += (s, e) =>
             {
                 // Herstellerobjekt ändern und speichern
-                manufacturer.Name = form.LocationName.Value;
+                location.Name = form.LocationName.Value;
                 //Tag = form.Tag.Value;
-                manufacturer.Discription = form.Discription.Value;
+                location.Discription = form.Discription.Value;
 
-                DB.Instance.SaveChanges();
+                ViewModel.Instance.SaveChanges();
             };
         }
 

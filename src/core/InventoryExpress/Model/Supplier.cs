@@ -13,20 +13,8 @@ namespace InventoryExpress.Model
     /// Lieferant
     /// </summary>
     [Table("SUPPLIER")]
-    public class Supplier 
-    {
-        /// <summary>
-        /// ID
-        /// </summary>
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ID { get; set; }
-
-        /// <summary>
-        /// Liefert oder setzt den Namen
-        /// </summary>
-        [StringLength(64), Required, Column("NAME")]
-        public string Name { get; set; }
-
+    public class Supplier : Item
+    { 
         /// <summary>
         /// Die Adresse
         /// </summary>
@@ -44,34 +32,13 @@ namespace InventoryExpress.Model
         /// </summary>
         [StringLength(64), Column("PLACE")]
         public string Place { get; set; }
-
-        /// <summary>
-        /// Liefert oder setzt die Beschreibung
-        /// </summary>
-        [Column("DISCRIPTION")]
-        public string Discription { get; set; }
-
-        /// <summary>
-        /// Der Zeitstempel der Erstellung
-        /// </summary>
-        [Column("TIMESTAMP")]
-        public DateTime Timestamp { get; set; }
-
+                
         /// <summary>
         /// Konstruktor
         /// </summary>
         public Supplier()
             : base()
         {
-        }
-
-        /// <summary>
-        /// Umwandlung in String
-        /// </summary>
-        /// <returns>Das als String umgewandelte Objekt</returns>
-        public override string ToString()
-        {
-            return string.Format("{0}", Name);
         }
     }
 }

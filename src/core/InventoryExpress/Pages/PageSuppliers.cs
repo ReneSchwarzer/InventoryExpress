@@ -52,9 +52,9 @@ namespace InventoryExpress.Pages
             var grid = new ControlGrid(this) { Fluid = false };
             int i = 0;
 
-            foreach (var supplier in DB.Instance.Suppliers)
+            foreach (var supplier in ViewModel.Instance.Suppliers)
             {
-                var card = new ControlSuppliersCard(this)
+                var card = new ControlCardSupplier(this)
                 {
                     Supplier = supplier
                 };

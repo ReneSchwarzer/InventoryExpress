@@ -65,8 +65,8 @@ namespace InventoryExpress.Pages
                     Discription = form.Discription.Value
                 };
 
-                DB.Instance.GLAccounts.Add(gLAccount);
-                DB.Instance.SaveChanges();
+                ViewModel.Instance.GLAccounts.Add(gLAccount);
+                ViewModel.Instance.SaveChanges();
             };
         }
 

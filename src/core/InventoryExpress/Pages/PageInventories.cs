@@ -7,12 +7,12 @@ using WebExpress.UI.Controls;
 
 namespace InventoryExpress.Pages
 {
-    public class PageDashboard : PageBase
+    public class PageInventories : PageBase
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public PageDashboard()
+        public PageInventories()
             : base("Überblick")
         {
         }
@@ -60,9 +60,9 @@ namespace InventoryExpress.Pages
             var grid = new ControlGrid(this) { Fluid = false };
             int i = 0;
 
-            foreach (var inventory in ViewModel.Instance.Inventorys)
+            foreach (var inventory in ViewModel.Instance.Inventories)
             {
-                var card = new ControlInventoryCard(this) 
+                var card = new ControlCardInventory(this) 
                 { 
                      Inventory = inventory
                 };

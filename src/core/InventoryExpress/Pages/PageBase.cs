@@ -47,7 +47,7 @@ namespace InventoryExpress.Pages
             HamburgerMenu.Add(new ControlLink(this) { Text = "Sachkonto", Icon = new PropertyIcon(TypeIcon.At), Uri = Uri.Root.Append("glaccount") });
             HamburgerMenu.Add(new ControlLink(this) { Text = "Kostenstelle", Icon = new PropertyIcon(TypeIcon.ShoppingBag), Uri = Uri.Root.Append("costcenter") });
 
-            if (this is PageDashboard)
+            if (this is PageInventories)
             {
                 HamburgerMenu.AddSeperator();
                 HamburgerMenu.Add(new ControlLink(this) { Text = "Import", Icon = new PropertyIcon(TypeIcon.Upload), Uri = Uri.Root.Append("import") });

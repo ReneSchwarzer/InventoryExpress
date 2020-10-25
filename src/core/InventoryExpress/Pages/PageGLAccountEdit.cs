@@ -42,7 +42,7 @@ namespace InventoryExpress.Pages
             base.Process();
 
             var id = Convert.ToInt32(GetParam("id"));
-            var gLAccounts = DB.Instance.GLAccounts.Where(x => x.ID == id).FirstOrDefault();
+            var gLAccounts = ViewModel.Instance.GLAccounts.Where(x => x.ID == id).FirstOrDefault();
 
             Main.Content.Add(form);
 
@@ -68,7 +68,7 @@ namespace InventoryExpress.Pages
                 //Tag = form.Tag.Value;
                 gLAccounts.Discription = form.Discription.Value;
 
-                DB.Instance.SaveChanges();
+                ViewModel.Instance.SaveChanges();
             };
         }
 
