@@ -10,9 +10,14 @@ namespace InventoryExpress.Controls
     public class ControlFormularTemplate : ControlPanelFormular
     {
         /// <summary>
-        /// Liefert oder setzt den Namen des Herstellers
+        /// Liefert oder setzt den Namen der Vorlage
         /// </summary>
-        public ControlFormularItemTextBox ManufactorName { get; set; }
+        public ControlFormularItemTextBox TemplateName { get; set; }
+
+        /// <summary>
+        /// Liefert oder setzt die ungenutzten Attribute
+        /// </summary>
+        private ControlFormularItemComboBox UnusedAttributes { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Schlagwörter
@@ -44,11 +49,11 @@ namespace InventoryExpress.Controls
             EnableCancelButton = false;
             Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Three, PropertySpacing.Space.None, PropertySpacing.Space.None);
 
-            ManufactorName = new ControlFormularItemTextBox(this)
+            TemplateName = new ControlFormularItemTextBox(this)
             {
                 Name = "name",
                 Label = "Name",
-                Help = "Der Name des Herstellers",
+                Help = "Der Name der Vorlage",
                 Icon = new PropertyIcon(TypeIcon.Font)
             };
 
@@ -69,9 +74,29 @@ namespace InventoryExpress.Controls
                 Icon = new PropertyIcon(TypeIcon.CommentAlt)
             };
 
-            Add(ManufactorName);
+            UnusedAttributes = new ControlFormularItemComboBox(this)
+            {
+                Name = "unusedattributes",
+                Label = "Attribute",
+                Help = "Weitere Attribute"
+            };
+
+            UnusedAttributes.Items.Add(new ControlFormularItemComboBoxItem()
+            {
+                Text = string.Empty,
+                Value = null
+            });
+
+            UnusedAttributes.Items.AddRange(ViewModel.Instance.Attributes.Select(x => new ControlFormularItemComboBoxItem()
+            {
+                Text = x.Name,
+                Value = x.ID.ToString()
+            }));
+
+            Add(TemplateName);
             Add(Tag);
             Add(Discription);
+            Add(UnusedAttributes);
 
         }
     }

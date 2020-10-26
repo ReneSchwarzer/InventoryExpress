@@ -46,10 +46,10 @@ namespace InventoryExpress.Pages
 
             Main.Content.Add(form);
 
-            form.ManufactorName.Value = template?.Name;
+            form.TemplateName.Value = template?.Name;
             form.Discription.Value = template?.Discription;
 
-            form.ManufactorName.Validation += (s, e) =>
+            form.TemplateName.Validation += (s, e) =>
             {
                 if (e.Value.Count() < 1)
                 {
@@ -57,14 +57,14 @@ namespace InventoryExpress.Pages
                 }
                 else if (ViewModel.Instance.Templates.Where(x => x.Name.Equals(e.Value, StringComparison.InvariantCultureIgnoreCase)).Count() > 0)
                 {
-                    e.Results.Add(new ValidationResult() { Text = "Der Hersteller wird bereits verwendet. Geben Sie einen anderen Namen an!", Type = TypesInputValidity.Error });
+                    e.Results.Add(new ValidationResult() { Text = "Die Vorlage wird bereits verwendet. Geben Sie einen anderen Namen an!", Type = TypesInputValidity.Error });
                 }
             };
 
             form.ProcessFormular += (s, e) =>
             {
                 // Herstellerobjekt ändern und speichern
-                template.Name = form.ManufactorName.Value;
+                template.Name = form.TemplateName.Value;
                 //Tag = form.Tag.Value;
                 template.Discription = form.Discription.Value;
 

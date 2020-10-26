@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Xml.Linq;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace InventoryExpress.Model
 {
@@ -35,7 +29,7 @@ namespace InventoryExpress.Model
         public Template()
             : base()
         {
-           // Attributes = new List<Attribute>();
+            // Attributes = new List<Attribute>();
         }
     }
 }
