@@ -24,7 +24,7 @@ namespace InventoryExpress.Pages
         {
             base.Init();
 
-            ToolBar.Add(new ControlToolBarItemButton(this)
+            ToolBar.Add(new ControlToolBarItemButton()
             {
                 Icon = new PropertyIcon(TypeIcon.Plus),
                 Text = "Hinzufügen",
@@ -32,7 +32,7 @@ namespace InventoryExpress.Pages
                 Uri = Uri.Root.Append("add"),
                 TextColor = new PropertyColorText(TypeColorText.White)
             },
-            new ControlToolBarItemButton(this)
+            new ControlToolBarItemButton()
             {
                 Icon = new PropertyIcon(TypeIcon.Print),
                 Uri = Uri.Root.Append("print"),
@@ -40,7 +40,7 @@ namespace InventoryExpress.Pages
                 Size = new PropertySizeText(TypeSizeText.Default),
                 TextColor = new PropertyColorText(TypeColorText.White)
             },
-            new ControlToolBarItemButton(this)
+            new ControlToolBarItemButton()
             {
                 Icon = new PropertyIcon(TypeIcon.Download),
                 Uri = Uri.Root.Append("export"),
@@ -57,29 +57,20 @@ namespace InventoryExpress.Pages
         {
             base.Process();
 
-            var grid = new ControlGrid(this) { Fluid = false };
+            var grid = new ControlPanelGrid() { Fluid =  TypePanelContainer.Fluid };
             int i = 0;
 
             foreach (var inventory in ViewModel.Instance.Inventories)
             {
-                var card = new ControlCardInventory(this) 
+                var card = new ControlCardInventory() 
                 { 
                      Inventory = inventory
                 };
 
-                grid.Add(i++, card);
+                grid.Content.Add(card);
             }
 
             Main.Content.Add(grid);
-        }
-
-        /// <summary>
-        /// In String konvertieren
-        /// </summary>
-        /// <returns>Das Objekt als String</returns>
-        public override string ToString()
-        {
-            return base.ToString();
         }
     }
 }

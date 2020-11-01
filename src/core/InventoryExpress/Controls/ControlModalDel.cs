@@ -16,9 +16,8 @@ namespace InventoryExpress.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
-        public ControlModalDel(IPage page)
-            : base(page, "modal_del")
+        public ControlModalDel()
+            : base("modal_del")
         {
             Init();
         }
@@ -30,12 +29,12 @@ namespace InventoryExpress.Controls
         {
             Header = "Löschen";
 
-            Content.Add(new ControlText(Page)
+            Content.Add(new ControlText()
             {
                 Text = Message
             });
 
-            Content.Add(new ControlButton(Page)
+            Content.Add(new ControlButton()
             {
                 Text = "Löschen",
                 Icon = new PropertyIcon(TypeIcon.TrashAlt),

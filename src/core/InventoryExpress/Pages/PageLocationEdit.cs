@@ -28,7 +28,7 @@ namespace InventoryExpress.Pages
         {
             base.Init();
 
-            form = new ControlFormularLocation(this)
+            form = new ControlFormularLocation()
             {
                 RedirectUrl = Uri.Take(-1)
             };
@@ -70,15 +70,6 @@ namespace InventoryExpress.Pages
 
                 ViewModel.Instance.SaveChanges();
             };
-        }
-
-        /// <summary>
-        /// In String konvertieren
-        /// </summary>
-        /// <returns>Das Objekt als String</returns>
-        public override string ToString()
-        {
-            return base.ToString();
         }
     }
 }

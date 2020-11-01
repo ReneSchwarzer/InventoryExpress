@@ -21,7 +21,7 @@ namespace InventoryExpress.Pages
         {
             base.Init();
 
-            ToolBar.Add(new ControlToolBarItemButton(this)
+            ToolBar.Add(new ControlToolBarItemButton()
             {
                 Icon = new PropertyIcon(TypeIcon.Plus),
                 Text = "Hinzufügen",
@@ -29,7 +29,7 @@ namespace InventoryExpress.Pages
                 Uri = Uri.Append("add"),
                 TextColor = new PropertyColorText(TypeColorText.White)
             },
-            new ControlToolBarItemButton(this)
+            new ControlToolBarItemButton()
             {
                 Icon = new PropertyIcon(TypeIcon.Print),
                 Uri = Uri.Append("print"),
@@ -46,17 +46,17 @@ namespace InventoryExpress.Pages
         {
             base.Process();
 
-            var grid = new ControlGrid(this) { Fluid = false };
+            var grid = new ControlPanelGrid() { Fluid =  TypePanelContainer.Fluid };
             int i = 0;
 
             foreach (var costcenter in ViewModel.Instance.CostCenters)
             {
-                var card = new ControlCardCostCenter(this)
+                var card = new ControlCardCostCenter()
                 {
                     CostCenter = costcenter
                 };
 
-                grid.Add(i++, card);
+                grid.Content.Add(card);
             }
 
             Main.Content.Add(grid);

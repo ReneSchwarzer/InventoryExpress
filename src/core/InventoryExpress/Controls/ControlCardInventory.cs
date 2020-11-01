@@ -15,10 +15,9 @@ namespace InventoryExpress.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlCardInventory(IPage page, string id = null)
-            : base(page, id)
+        public ControlCardInventory(string id = null)
+            : base(id)
         {
             Init();
         }
@@ -35,37 +34,38 @@ namespace InventoryExpress.Controls
         /// <summary>
         /// In HTML konvertieren
         /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         /// <returns>Das Control als HTML</returns>
-        public override IHtmlNode ToHtml()
+        public override IHtmlNode Render(RenderContext context)
         {
-            var media = new ControlPanelMedia(Page)
+            var media = new ControlPanelMedia()
             {
                 //Image = new UriRelative(string.IsNullOrWhiteSpace(Inventory.Image) ? "/Assets/img/Logo.png" : "/data/" + Inventory.Image),
                 ImageWidth = 100,
                 ImageHeight = 100,
-                Title = new ControlLink(Page)
+                Title = new ControlLink()
                 {
                     Text = Inventory.Name,
-                    Uri = Page.Uri.Root.Append(Inventory.ID.ToString()),
+                    Uri = context.Page.Uri.Root.Append(Inventory.ID.ToString()),
                     TextColor = new PropertyColorText(TypeColorText.Primary)
                 }
             };
 
-            media.Content.Add(new ControlLink(Page)
+            media.Content.Add(new ControlLink()
             {
                 Text = Inventory?.Template?.Name,
                 //Url = "/" + Inventory.ID,
                 TextColor = new PropertyColorText(TypeColorText.Dark)
             });
 
-            var flex = new ControlFlexbox(Page)
+            var flex = new ControlFlexbox()
             {
                 Direction = TypesFlexboxDirection.Horizontal
             };
 
             if (Inventory.Manufacturer != null && Inventory.Manufacturer is var manufacturer)
             {
-                flex.Items.Add(new ControlAttribute(Page)
+                flex.Items.Add(new ControlAttribute()
                 {
                     Icon = new PropertyIcon(TypeIcon.Industry),
                     Padding = new PropertySpacingPadding(PropertySpacing.Space.Two),
@@ -76,7 +76,7 @@ namespace InventoryExpress.Controls
 
             if (Inventory.Location != null && Inventory.Location is var location)
             {
-                flex.Items.Add(new ControlAttribute(Page)
+                flex.Items.Add(new ControlAttribute()
                 {
                     Icon = new PropertyIcon(TypeIcon.Map),
                     Padding = new PropertySpacingPadding(PropertySpacing.Space.Two),
@@ -87,7 +87,7 @@ namespace InventoryExpress.Controls
 
             if (Inventory.Supplier != null && Inventory.Supplier is var supplier)
             {
-                flex.Items.Add(new ControlAttribute(Page)
+                flex.Items.Add(new ControlAttribute()
                 {
                     Icon = new PropertyIcon(TypeIcon.Truck),
                     Padding = new PropertySpacingPadding(PropertySpacing.Space.Two),
@@ -98,7 +98,7 @@ namespace InventoryExpress.Controls
 
             if (Inventory.GLAccount != null && Inventory.GLAccount is var glaAccount)
             {
-                flex.Items.Add(new ControlAttribute(Page)
+                flex.Items.Add(new ControlAttribute()
                 {
                     Icon = new PropertyIcon(TypeIcon.At),
                     Padding = new PropertySpacingPadding(PropertySpacing.Space.Two),
@@ -109,7 +109,7 @@ namespace InventoryExpress.Controls
 
             if (Inventory.State != null && Inventory.State is var state)
             {
-                flex.Items.Add(new ControlAttribute(Page)
+                flex.Items.Add(new ControlAttribute()
                 {
                     Icon = new PropertyIcon(TypeIcon.Star),
                     Name = state.Name,
@@ -122,7 +122,7 @@ namespace InventoryExpress.Controls
 
             Content.Add(media);
 
-            return base.ToHtml();
+            return base.Render(context);
         }
     }
 }

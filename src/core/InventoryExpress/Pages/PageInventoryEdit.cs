@@ -28,7 +28,7 @@ namespace InventoryExpress.Pages
         {
             base.Init();
 
-            form = new ControlFormularInventory(this)
+            form = new ControlFormularInventory()
             {
                 RedirectUrl = Uri.Take(-1)
             };
@@ -45,15 +45,6 @@ namespace InventoryExpress.Pages
             var inventory = ViewModel.Instance.Inventories.Where(x => x.ID == id).FirstOrDefault();
 
             Main.Content.Add(form);
-        }
-
-        /// <summary>
-        /// In String konvertieren
-        /// </summary>
-        /// <returns>Das Objekt als String</returns>
-        public override string ToString()
-        {
-            return base.ToString();
         }
     }
 }

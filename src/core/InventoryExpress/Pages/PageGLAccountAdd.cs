@@ -28,7 +28,7 @@ namespace InventoryExpress.Pages
         {
             base.Init();
 
-            form = new ControlFormularGLAccount(this)
+            form = new ControlFormularGLAccount()
             {
                 RedirectUrl = Uri.Take(-1)
             };

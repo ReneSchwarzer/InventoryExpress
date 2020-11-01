@@ -15,10 +15,9 @@ namespace InventoryExpress.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlCardSupplier(IPage page, string id = null)
-            : base(page, id)
+        public ControlCardSupplier(string id = null)
+            : base(id)
         {
             Init();
         }
@@ -35,23 +34,24 @@ namespace InventoryExpress.Controls
         /// <summary>
         /// In HTML konvertieren
         /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         /// <returns>Das Control als HTML</returns>
-        public override IHtmlNode ToHtml()
+        public override IHtmlNode Render(RenderContext context)
         {
-            var media = new ControlPanelMedia(Page)
+            var media = new ControlPanelMedia()
             {
                 //Image = new UriRelative(string.IsNullOrWhiteSpace(Supplier.Image) ? "/Assets/img/Logo.png" : "/data/" + Supplier.Image),
                 ImageWidth = 100,
                 ImageHeight = 100,
-                Title = new ControlLink(Page)
+                Title = new ControlLink()
                 {
                     Text = Supplier.Name,
-                    Uri = Page.Uri.Append(Supplier.ID.ToString()),
+                    Uri = context.Page.Uri.Append(Supplier.ID.ToString()),
                     TextColor = new PropertyColorText(TypeColorText.Dark)
                 }
             };
 
-            media.Content.Add(new ControlText(Page)
+            media.Content.Add(new ControlText()
             {
                 Text = Supplier.Discription,
                 Format = TypeFormatText.Paragraph
@@ -59,7 +59,7 @@ namespace InventoryExpress.Controls
 
             Content.Add(media);
 
-            return base.ToHtml();
+            return base.Render(context);
         }
     }
 }

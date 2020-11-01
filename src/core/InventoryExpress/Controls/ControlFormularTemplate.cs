@@ -7,35 +7,34 @@ using WebExpress.UI.Controls;
 
 namespace InventoryExpress.Controls
 {
-    public class ControlFormularTemplate : ControlPanelFormular
+    public class ControlFormularTemplate : ControlFormular
     {
         /// <summary>
         /// Liefert oder setzt den Namen der Vorlage
         /// </summary>
-        public ControlFormularItemTextBox TemplateName { get; set; }
+        public ControlFormularItemInputTextBox TemplateName { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die ungenutzten Attribute
         /// </summary>
-        private ControlFormularItemComboBox UnusedAttributes { get; set; }
+        private ControlFormularItemInputComboBox UnusedAttributes { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Schlagwörter
         /// </summary>
-        public ControlFormularItemTextBox Tag { get; set; }
+        public ControlFormularItemInputTextBox Tag { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Beschreibung
         /// </summary>
-        public ControlFormularItemTextBox Discription { get; set; }
+        public ControlFormularItemInputTextBox Discription { get; set; }
 
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlFormularTemplate(IPage page, string id = null)
-            : base(page, id)
+        public ControlFormularTemplate(string id = null)
+            : base(id)
         {
             Init();
         }
@@ -49,7 +48,7 @@ namespace InventoryExpress.Controls
             EnableCancelButton = false;
             Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Three, PropertySpacing.Space.None, PropertySpacing.Space.None);
 
-            TemplateName = new ControlFormularItemTextBox(this)
+            TemplateName = new ControlFormularItemInputTextBox()
             {
                 Name = "name",
                 Label = "Name",
@@ -57,7 +56,7 @@ namespace InventoryExpress.Controls
                 Icon = new PropertyIcon(TypeIcon.Font)
             };
 
-            Tag = new ControlFormularItemTextBox(this)
+            Tag = new ControlFormularItemInputTextBox()
             {
                 Name = "tag",
                 Label = "Schlagwörter",
@@ -65,7 +64,7 @@ namespace InventoryExpress.Controls
                 Icon = new PropertyIcon(TypeIcon.Tag)
             };
 
-            Discription = new ControlFormularItemTextBox(this)
+            Discription = new ControlFormularItemInputTextBox()
             {
                 Name = "memo",
                 Label = "Beschreibung",
@@ -74,20 +73,20 @@ namespace InventoryExpress.Controls
                 Icon = new PropertyIcon(TypeIcon.CommentAlt)
             };
 
-            UnusedAttributes = new ControlFormularItemComboBox(this)
+            UnusedAttributes = new ControlFormularItemInputComboBox()
             {
                 Name = "unusedattributes",
                 Label = "Attribute",
                 Help = "Weitere Attribute"
             };
 
-            UnusedAttributes.Items.Add(new ControlFormularItemComboBoxItem()
+            UnusedAttributes.Items.Add(new ControlFormularItemInputComboBoxItem()
             {
                 Text = string.Empty,
                 Value = null
             });
 
-            UnusedAttributes.Items.AddRange(ViewModel.Instance.Attributes.Select(x => new ControlFormularItemComboBoxItem()
+            UnusedAttributes.Items.AddRange(ViewModel.Instance.Attributes.Select(x => new ControlFormularItemInputComboBoxItem()
             {
                 Text = x.Name,
                 Value = x.ID.ToString()

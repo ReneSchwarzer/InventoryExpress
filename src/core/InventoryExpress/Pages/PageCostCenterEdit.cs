@@ -28,7 +28,7 @@ namespace InventoryExpress.Pages
         {
             base.Init();
 
-            form = new ControlFormularCostCenter(this)
+            form = new ControlFormularCostCenter()
             {
                 RedirectUrl = Uri.Take(-1)
             };

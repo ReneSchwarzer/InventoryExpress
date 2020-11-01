@@ -3,30 +3,29 @@ using WebExpress.UI.Controls;
 
 namespace InventoryExpress.Controls
 {
-    public class ControlFormularCostCenter : ControlPanelFormular
+    public class ControlFormularCostCenter : ControlFormular
     {
         /// <summary>
         /// Liefert oder setzt den Namen der Kostenstelle
         /// </summary>
-        public ControlFormularItemTextBox CostCenterName { get; set; }
+        public ControlFormularItemInputTextBox CostCenterName { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Schlagwörter
         /// </summary>
-        public ControlFormularItemTextBox Tag { get; set; }
+        public ControlFormularItemInputTextBox Tag { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Beschreibung
         /// </summary>
-        public ControlFormularItemTextBox Discription { get; set; }
+        public ControlFormularItemInputTextBox Discription { get; set; }
 
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
         /// <param name="id">Die ID</param>
-        public ControlFormularCostCenter(IPage page, string id = null)
-            : base(page, id)
+        public ControlFormularCostCenter(string id = null)
+            : base(id)
         {
             Init();
         }
@@ -40,7 +39,7 @@ namespace InventoryExpress.Controls
             EnableCancelButton = false;
             Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Three, PropertySpacing.Space.None, PropertySpacing.Space.None);
 
-            CostCenterName = new ControlFormularItemTextBox(this)
+            CostCenterName = new ControlFormularItemInputTextBox()
             {
                 Name = "name",
                 Label = "Name",
@@ -48,7 +47,7 @@ namespace InventoryExpress.Controls
                 Icon = new PropertyIcon(TypeIcon.Font)
             };
 
-            Tag = new ControlFormularItemTextBox(this)
+            Tag = new ControlFormularItemInputTextBox()
             {
                 Name = "tag",
                 Label = "Schlagwörter",
@@ -56,7 +55,7 @@ namespace InventoryExpress.Controls
                 Icon = new PropertyIcon(TypeIcon.Tag)
             };
 
-            Discription = new ControlFormularItemTextBox(this)
+            Discription = new ControlFormularItemInputTextBox()
             {
                 Name = "memo",
                 Label = "Beschreibung",

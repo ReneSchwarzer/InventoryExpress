@@ -8,14 +8,14 @@ namespace InventoryExpress.Controls
         /// <summary>
         /// Liefert oder setzt den Namen des Inventargegenstandes
         /// </summary>
-        private ControlFormularItemTextBox Name { get; set; }
+        private ControlFormularItemInputTextBox Name { get; set; }
 
         /// <summary>
         /// Konstruktor
         /// </summary>
         /// <param name="page">Die zugehörige Seite</param>
-        public ControlModalEdit(IPage page)
-            : base(page, "modal_edit")
+        public ControlModalEdit()
+            : base("modal_edit")
         {
             Init();
         }
@@ -27,7 +27,7 @@ namespace InventoryExpress.Controls
         {
             Header = "Bearbeiten";
 
-            Name = new ControlFormularItemTextBox(this)
+            Name = new ControlFormularItemInputTextBox()
             {
                 Name = "name",
                 Label = "Name",

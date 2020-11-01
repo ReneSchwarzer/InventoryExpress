@@ -39,36 +39,36 @@ namespace InventoryExpress.Pages
             Head.Content.Add(HamburgerMenu);
             HamburgerMenu.HorizontalAlignment = TypeHorizontalAlignment.Left;
             HamburgerMenu.Image = Uri?.Root.Append("Assets/img/Logo.png");
-            HamburgerMenu.Add(new ControlLink(this) { Text = "Home", Icon = new PropertyIcon(TypeIcon.Home), Uri = Uri.Root });
+            HamburgerMenu.Add(new ControlLink() { Text = "Home", Icon = new PropertyIcon(TypeIcon.Home), Uri = Uri.Root });
             HamburgerMenu.AddSeperator();
-            HamburgerMenu.Add(new ControlLink(this) { Text = "Standorte", Icon = new PropertyIcon(TypeIcon.Map), Uri = Uri.Root.Append("locations") });
-            HamburgerMenu.Add(new ControlLink(this) { Text = "Hersteller", Icon = new PropertyIcon(TypeIcon.Industry), Uri = Uri.Root.Append("manufactors") });
-            HamburgerMenu.Add(new ControlLink(this) { Text = "Lieferanten", Icon = new PropertyIcon(TypeIcon.Truck), Uri = Uri.Root.Append("suppliers") });
-            HamburgerMenu.Add(new ControlLink(this) { Text = "Sachkonto", Icon = new PropertyIcon(TypeIcon.At), Uri = Uri.Root.Append("glaccount") });
-            HamburgerMenu.Add(new ControlLink(this) { Text = "Kostenstelle", Icon = new PropertyIcon(TypeIcon.ShoppingBag), Uri = Uri.Root.Append("costcenter") });
+            HamburgerMenu.Add(new ControlLink() { Text = "Standorte", Icon = new PropertyIcon(TypeIcon.Map), Uri = Uri.Root.Append("locations") });
+            HamburgerMenu.Add(new ControlLink() { Text = "Hersteller", Icon = new PropertyIcon(TypeIcon.Industry), Uri = Uri.Root.Append("manufactors") });
+            HamburgerMenu.Add(new ControlLink() { Text = "Lieferanten", Icon = new PropertyIcon(TypeIcon.Truck), Uri = Uri.Root.Append("suppliers") });
+            HamburgerMenu.Add(new ControlLink() { Text = "Sachkonto", Icon = new PropertyIcon(TypeIcon.At), Uri = Uri.Root.Append("glaccount") });
+            HamburgerMenu.Add(new ControlLink() { Text = "Kostenstelle", Icon = new PropertyIcon(TypeIcon.ShoppingBag), Uri = Uri.Root.Append("costcenter") });
 
             if (this is PageInventories)
             {
                 HamburgerMenu.AddSeperator();
-                HamburgerMenu.Add(new ControlLink(this) { Text = "Import", Icon = new PropertyIcon(TypeIcon.Upload), Uri = Uri.Root.Append("import") });
-                HamburgerMenu.Add(new ControlLink(this) { Text = "Export", Icon = new PropertyIcon(TypeIcon.Download), Uri = Uri.Root.Append("export") });
+                HamburgerMenu.Add(new ControlLink() { Text = "Import", Icon = new PropertyIcon(TypeIcon.Upload), Uri = Uri.Root.Append("import") });
+                HamburgerMenu.Add(new ControlLink() { Text = "Export", Icon = new PropertyIcon(TypeIcon.Download), Uri = Uri.Root.Append("export") });
                 
             }
             HamburgerMenu.AddSeperator();
-            HamburgerMenu.Add(new ControlLink(this) { Text = "Hilfe", Icon = new PropertyIcon(TypeIcon.InfoCircle), Uri = Uri.Root.Append("help") });
+            HamburgerMenu.Add(new ControlLink() { Text = "Hilfe", Icon = new PropertyIcon(TypeIcon.InfoCircle), Uri = Uri.Root.Append("help") });
 
             // ToolBar
             ToolBar.BackgroundColor = new PropertyColorBackground(TypeColorBackground.Secondary);
 
             // SideBar
-            SideBar = new ControlToolBar(this)
+            SideBar = new ControlToolBar()
             {
                 BackgroundColor = new PropertyColorBackground("#553322"),
                 HorizontalAlignment = TypeHorizontalAlignment.Left
             };
             SideBar.Classes.Add("sidebar");
 
-            Head.Content.Add(new ControlPanelCenter(this, new ControlText(this)
+            Head.Content.Add(new ControlPanelCenter(new ControlText()
             {
                 Text = Title,
                 TextColor = new PropertyColorText(TypeColorText.White),
@@ -83,23 +83,15 @@ namespace InventoryExpress.Pages
             PathCtrl.Classes.Add("content");
 
             Main.Content.Add(new ControlTabMenu(this));
-            Main.Content.Add(new ControlLine(this));
+            Main.Content.Add(new ControlLine());
 
-            Foot.Content.Add(new ControlText(this, "now")
+            Foot.Content.Add(new ControlText("now")
             {
                 Text = string.Format("{0}", ViewModel.Instance.Now),
                 TextColor = new PropertyColorText(TypeColorText.Muted),
                 Format = TypeFormatText.Center,
                 Size = new PropertySizeText(TypeSizeText.Small)
             });
-        }
-
-        /// <summary>
-        /// Verarbeitung
-        /// </summary>
-        public override void Process()
-        {
-            base.Process();
         }
     }
 }
