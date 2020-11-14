@@ -18,13 +18,7 @@ namespace InventoryExpress.Pages
         public PageBase(string title)
             : base()
         {
-            Title = "Inventory Express";
-
-            if (!string.IsNullOrWhiteSpace(title))
-            {
-                Title += " - " + title;
-            }
-
+            Title = title;
             Favicons.Add(new Favicon("/Assets/img/Favicon.png", TypeFavicon.PNG));
         }
 
@@ -35,57 +29,10 @@ namespace InventoryExpress.Pages
         {
             base.Init();
 
-            Head.Sticky = TypeSticky.Top;
-            Head.Content.Add(HamburgerMenu);
-            HamburgerMenu.HorizontalAlignment = TypeHorizontalAlignment.Left;
-            HamburgerMenu.Image = Uri?.Root.Append("Assets/img/Logo.png");
-            HamburgerMenu.Add(new ControlLink() { Text = "Home", Icon = new PropertyIcon(TypeIcon.Home), Uri = Uri.Root });
-            HamburgerMenu.AddSeperator();
-            HamburgerMenu.Add(new ControlLink() { Text = "Standorte", Icon = new PropertyIcon(TypeIcon.Map), Uri = Uri.Root.Append("locations") });
-            HamburgerMenu.Add(new ControlLink() { Text = "Hersteller", Icon = new PropertyIcon(TypeIcon.Industry), Uri = Uri.Root.Append("manufactors") });
-            HamburgerMenu.Add(new ControlLink() { Text = "Lieferanten", Icon = new PropertyIcon(TypeIcon.Truck), Uri = Uri.Root.Append("suppliers") });
-            HamburgerMenu.Add(new ControlLink() { Text = "Sachkonto", Icon = new PropertyIcon(TypeIcon.At), Uri = Uri.Root.Append("glaccount") });
-            HamburgerMenu.Add(new ControlLink() { Text = "Kostenstelle", Icon = new PropertyIcon(TypeIcon.ShoppingBag), Uri = Uri.Root.Append("costcenter") });
-
-            if (this is PageInventories)
-            {
-                HamburgerMenu.AddSeperator();
-                HamburgerMenu.Add(new ControlLink() { Text = "Import", Icon = new PropertyIcon(TypeIcon.Upload), Uri = Uri.Root.Append("import") });
-                HamburgerMenu.Add(new ControlLink() { Text = "Export", Icon = new PropertyIcon(TypeIcon.Download), Uri = Uri.Root.Append("export") });
-                
-            }
-            HamburgerMenu.AddSeperator();
-            HamburgerMenu.Add(new ControlLink() { Text = "Hilfe", Icon = new PropertyIcon(TypeIcon.InfoCircle), Uri = Uri.Root.Append("help") });
-
-            // ToolBar
-            ToolBar.BackgroundColor = new PropertyColorBackground(TypeColorBackground.Secondary);
-
-            // SideBar
-            SideBar = new ControlToolBar()
-            {
-                BackgroundColor = new PropertyColorBackground("#553322"),
-                HorizontalAlignment = TypeHorizontalAlignment.Left
-            };
-            SideBar.Classes.Add("sidebar");
-
-            Head.Content.Add(new ControlPanelCenter(new ControlText()
-            {
-                Text = Title,
-                TextColor = new PropertyColorText(TypeColorText.White),
-                Format = TypeFormatText.H1,
-                Size = new PropertySizeText(TypeSizeText.Default),
-                Padding = new PropertySpacingPadding(PropertySpacing.Space.One),
-                Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.None, PropertySpacing.Space.None, PropertySpacing.Space.Null),
-                Styles = new List<string>(new[] { "font-size:190%; height: 50px;" })
-            }));
-
-            Main.Classes.Add("content");
-            PathCtrl.Classes.Add("content");
-
-            Main.Content.Add(new ControlTabMenu(this));
-            Main.Content.Add(new ControlLine());
-
-            Foot.Content.Add(new ControlText("now")
+            Header.Logo = Uri?.Root.Append("Assets/img/Logo.png");
+            Header.Title = Context.Name;
+                        
+            Footer.Content.Add(new ControlText("now")
             {
                 Text = string.Format("{0}", ViewModel.Instance.Now),
                 TextColor = new PropertyColorText(TypeColorText.Muted),

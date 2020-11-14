@@ -24,34 +24,34 @@ namespace InventoryExpress.Pages
         {
             base.Init();
 
-            ToolBar.Add(new ControlToolBarItemButton()
-            {
-                Icon = new PropertyIcon(TypeIcon.Edit),
-                Text = "Ändern",
-                Title = "Bearbeiten",
-                Uri = Uri.Root.Append("edit"),
-                TextColor = new PropertyColorText(TypeColorText.White),
-                //Modal = new ControlModalEdit(this)
-            },
-            new ControlToolBarItemButton()
-            {
-                Icon = new PropertyIcon(TypeIcon.Print),
-                Uri = Uri.Root.Append("print"),
-                Title = "Drucken",
-                Size = new PropertySizeText(TypeSizeText.Default),
-                TextColor = new PropertyColorText(TypeColorText.White)
-            },
-            new ControlToolBarItemButton()
-            {
-                Icon = new PropertyIcon(TypeIcon.TrashAlt),
-                Title = "Löschen",
-                Size = new PropertySizeText(TypeSizeText.Default),
-                TextColor = new PropertyColorText(TypeColorText.White),
-                Modal = new ControlModalDel()
-                {
+            //ToolBar.Add(new ControlToolBarItemButton()
+            //{
+            //    Icon = new PropertyIcon(TypeIcon.Edit),
+            //    Text = "Ändern",
+            //    Title = "Bearbeiten",
+            //    Uri = Uri.Root.Append("edit"),
+            //    TextColor = new PropertyColorText(TypeColorText.White),
+            //    //Modal = new ControlModalEdit(this)
+            //},
+            //new ControlToolBarItemButton()
+            //{
+            //    Icon = new PropertyIcon(TypeIcon.Print),
+            //    Uri = Uri.Root.Append("print"),
+            //    Title = "Drucken",
+            //    Size = new PropertySizeText(TypeSizeText.Default),
+            //    TextColor = new PropertyColorText(TypeColorText.White)
+            //},
+            //new ControlToolBarItemButton()
+            //{
+            //    Icon = new PropertyIcon(TypeIcon.TrashAlt),
+            //    Title = "Löschen",
+            //    Size = new PropertySizeText(TypeSizeText.Default),
+            //    TextColor = new PropertyColorText(TypeColorText.White),
+            //    Modal = new ControlModalDel()
+            //    {
 
-                }
-            });
+            //    }
+            //});
         }
 
         /// <summary>
@@ -64,27 +64,27 @@ namespace InventoryExpress.Pages
             var id = string.Format("{0}-{1}-{2}-{3}-{4}", GetParam("id1"), GetParam("id2"), GetParam("id3"), GetParam("id4"), GetParam("id5"));
             var inventory = ViewModel.Instance.Inventories.Where(x => x.ID.Equals(id)).FirstOrDefault();
 
-            Main.Content.Add(new ControlText()
+            Content.Content.Add(new ControlText()
             {
                 Text = inventory?.Name,
                 Format = TypeFormatText.H1,
                 TextColor = new PropertyColorText(TypeColorText.Primary)
             });
 
-            Main.Content.Add(new ControlAttribute()
+            Content.Content.Add(new ControlAttribute()
             {
                 Name = "Bild:",
                 Icon = new PropertyIcon(TypeIcon.Image),
                 TextColor = new PropertyColorText(TypeColorText.Dark)
             });
 
-            Main.Content.Add(new ControlImage()
+            Content.Content.Add(new ControlImage()
             {
                 //Source = new UriRelative("/data/" + inventory?.Image)
 
             });
 
-            Main.Content.Add(new ControlAttribute()
+            Content.Content.Add(new ControlAttribute()
             {
                 Name = "Beschreibung:",
                 Icon = new PropertyIcon(TypeIcon.Comment),
@@ -92,14 +92,14 @@ namespace InventoryExpress.Pages
 
             });
 
-            Main.Content.Add(new ControlText()
+            Content.Content.Add(new ControlText()
             {
                 Text = inventory?.Discription,
                 Format = TypeFormatText.Paragraph,
                 TextColor = new PropertyColorText(TypeColorText.Dark)
             });
 
-            Main.Content.Add(new ControlAttribute()
+            Content.Content.Add(new ControlAttribute()
             {
                 Name = "Hersteller:",
                 Icon = new PropertyIcon(TypeIcon.Industry),
@@ -107,7 +107,7 @@ namespace InventoryExpress.Pages
                 TextColor = new PropertyColorText(TypeColorText.Dark)
             });
 
-            Main.Content.Add(new ControlAttribute()
+            Content.Content.Add(new ControlAttribute()
             {
                 Name = "Standort:",
                 Icon = new PropertyIcon(TypeIcon.Map),
@@ -115,7 +115,7 @@ namespace InventoryExpress.Pages
                 TextColor = new PropertyColorText(TypeColorText.Dark)
             });
 
-            Main.Content.Add(new ControlAttribute()
+            Content.Content.Add(new ControlAttribute()
             {
                 Name = "Lieferant:",
                 Icon = new PropertyIcon(TypeIcon.Truck),
@@ -123,7 +123,7 @@ namespace InventoryExpress.Pages
                 TextColor = new PropertyColorText(TypeColorText.Dark)
             });
 
-            Main.Content.Add(new ControlAttribute()
+            Content.Content.Add(new ControlAttribute()
             {
                 Name = "Sachkonto:",
                 Icon = new PropertyIcon(TypeIcon.At),
@@ -131,7 +131,7 @@ namespace InventoryExpress.Pages
                 TextColor = new PropertyColorText(TypeColorText.Dark)
             });
 
-            Main.Content.Add(new ControlAttribute()
+            Content.Content.Add(new ControlAttribute()
             {
                 Name = "Kostenstelle:",
                 Icon = new PropertyIcon(TypeIcon.ShoppingBag),
@@ -139,7 +139,7 @@ namespace InventoryExpress.Pages
                 TextColor = new PropertyColorText(TypeColorText.Dark)
             });
 
-            Main.Content.Add(new ControlAttribute()
+            Content.Content.Add(new ControlAttribute()
             {
                 Name = "Zustand:",
                 Icon = new PropertyIcon(TypeIcon.Star),
@@ -149,7 +149,7 @@ namespace InventoryExpress.Pages
 
             foreach (var v in inventory?.Attributes)
             {
-                Main.Content.Add(new ControlAttribute()
+                Content.Content.Add(new ControlAttribute()
                 {
                     Name = v.Name + ":",
                     Icon = new PropertyIcon(TypeIcon.MapMarker),
@@ -158,7 +158,7 @@ namespace InventoryExpress.Pages
                 });
             }
 
-            Main.Content.Add(new ControlAttribute()
+            Content.Content.Add(new ControlAttribute()
             {
                 Name = "Anschaffungskosten:",
                 Icon = new PropertyIcon(TypeIcon.EuroSign),
@@ -166,7 +166,7 @@ namespace InventoryExpress.Pages
                 TextColor = new PropertyColorText(TypeColorText.Dark)
             });
 
-            Main.Content.Add(new ControlAttribute()
+            Content.Content.Add(new ControlAttribute()
             {
                 Name = "Anschaffungsdatum:",
                 Icon = new PropertyIcon(TypeIcon.CalendarPlus),
@@ -176,7 +176,7 @@ namespace InventoryExpress.Pages
 
             if (inventory.DerecognitionDate.HasValue)
             {
-                Main.Content.Add(new ControlAttribute()
+                Content.Content.Add(new ControlAttribute()
                 {
                     Name = "Abgangsdatum:",
                     Icon = new PropertyIcon(TypeIcon.CalendarMinus),

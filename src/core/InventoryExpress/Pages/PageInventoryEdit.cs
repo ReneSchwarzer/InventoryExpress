@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace InventoryExpress.Pages
 {
-    public class PageInventoryEdit : PageBase
+    public class PageInventoryEdit : PageBase, IPageInventory
     {
         /// <summary>
         /// Formular
@@ -44,7 +44,7 @@ namespace InventoryExpress.Pages
             var id = Convert.ToInt32(GetParam("id"));
             var inventory = ViewModel.Instance.Inventories.Where(x => x.ID == id).FirstOrDefault();
 
-            Main.Content.Add(form);
+            Content.Content.Add(form);
         }
     }
 }

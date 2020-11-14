@@ -6,7 +6,7 @@ using WebExpress.UI.Controls;
 
 namespace InventoryExpress.Pages
 {
-    public class PageManufactorEdit : PageBase, IManufactor
+    public class PageManufactorEdit : PageBase, IPageManufactor
     {
         /// <summary>
         /// Formular
@@ -44,7 +44,7 @@ namespace InventoryExpress.Pages
             var id = Convert.ToInt32(GetParam("id"));
             var manufacturer = ViewModel.Instance.Manufacturers.Where(x => x.ID == id).FirstOrDefault();
 
-            Main.Content.Add(form);
+            Content.Content.Add(form);
 
             form.ManufactorName.Value = manufacturer?.Name;
             form.Discription.Value = manufacturer?.Discription;

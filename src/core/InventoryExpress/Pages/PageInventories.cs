@@ -7,7 +7,7 @@ using WebExpress.UI.Controls;
 
 namespace InventoryExpress.Pages
 {
-    public class PageInventories : PageBase
+    public class PageInventories : PageBase, IPageInventory
     {
         /// <summary>
         /// Konstruktor
@@ -24,30 +24,30 @@ namespace InventoryExpress.Pages
         {
             base.Init();
 
-            ToolBar.Add(new ControlToolBarItemButton()
-            {
-                Icon = new PropertyIcon(TypeIcon.Plus),
-                Text = "Hinzufügen",
-                Title = "Neu",
-                Uri = Uri.Root.Append("add"),
-                TextColor = new PropertyColorText(TypeColorText.White)
-            },
-            new ControlToolBarItemButton()
-            {
-                Icon = new PropertyIcon(TypeIcon.Print),
-                Uri = Uri.Root.Append("print"),
-                Title = "Drucken",
-                Size = new PropertySizeText(TypeSizeText.Default),
-                TextColor = new PropertyColorText(TypeColorText.White)
-            },
-            new ControlToolBarItemButton()
-            {
-                Icon = new PropertyIcon(TypeIcon.Download),
-                Uri = Uri.Root.Append("export"),
-                Title = "Exportieren",
-                Size = new PropertySizeText(TypeSizeText.Default),
-                TextColor = new PropertyColorText(TypeColorText.White)
-            });
+            //ToolBar.Add(new ControlToolBarItemButton()
+            //{
+            //    Icon = new PropertyIcon(TypeIcon.Plus),
+            //    Text = "Hinzufügen",
+            //    Title = "Neu",
+            //    Uri = Uri.Root.Append("add"),
+            //    TextColor = new PropertyColorText(TypeColorText.White)
+            //},
+            //new ControlToolBarItemButton()
+            //{
+            //    Icon = new PropertyIcon(TypeIcon.Print),
+            //    Uri = Uri.Root.Append("print"),
+            //    Title = "Drucken",
+            //    Size = new PropertySizeText(TypeSizeText.Default),
+            //    TextColor = new PropertyColorText(TypeColorText.White)
+            //},
+            //new ControlToolBarItemButton()
+            //{
+            //    Icon = new PropertyIcon(TypeIcon.Download),
+            //    Uri = Uri.Root.Append("export"),
+            //    Title = "Exportieren",
+            //    Size = new PropertySizeText(TypeSizeText.Default),
+            //    TextColor = new PropertyColorText(TypeColorText.White)
+            //});
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace InventoryExpress.Pages
                 grid.Content.Add(card);
             }
 
-            Main.Content.Add(grid);
+            Content.Content.Add(grid);
         }
     }
 }

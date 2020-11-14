@@ -8,7 +8,7 @@ using WebExpress.UI.Controls;
 
 namespace InventoryExpress.Pages
 {
-    public class PageInventoryAdd : PageBase
+    public class PageInventoryAdd : PageBase, IPageInventory
     {
         /// <summary>
         /// Formular
@@ -43,7 +43,7 @@ namespace InventoryExpress.Pages
         {
             base.Process();
 
-            Main.Content.Add(form);
+            Content.Content.Add(form);
 
             form.InventoryName.Validation += (s, e) =>
             {

@@ -7,7 +7,7 @@ using WebExpress.UI.Controls;
 
 namespace InventoryExpress.Pages
 {
-    public class PageSuppliers : PageBase, ISupplier
+    public class PageSuppliers : PageBase, IPageSupplier
     {
         /// <summary>
         /// Konstruktor
@@ -24,22 +24,22 @@ namespace InventoryExpress.Pages
         {
             base.Init();
 
-            ToolBar.Add(new ControlToolBarItemButton()
-            {
-                Icon = new PropertyIcon(TypeIcon.Plus),
-                Text = "Hinzufügen",
-                Title = "Neu",
-                Uri = Uri.Append("add"),
-                TextColor = new PropertyColorText(TypeColorText.White)
-            },
-            new ControlToolBarItemButton()
-            {
-                Icon = new PropertyIcon(TypeIcon.Print),
-                Uri = Uri.Append("print"),
-                Title = "Drucken",
-                Size = new PropertySizeText(TypeSizeText.Default),
-                TextColor = new PropertyColorText(TypeColorText.White)
-            });
+            //ToolBar.Add(new ControlToolBarItemButton()
+            //{
+            //    Icon = new PropertyIcon(TypeIcon.Plus),
+            //    Text = "Hinzufügen",
+            //    Title = "Neu",
+            //    Uri = Uri.Append("add"),
+            //    TextColor = new PropertyColorText(TypeColorText.White)
+            //},
+            //new ControlToolBarItemButton()
+            //{
+            //    Icon = new PropertyIcon(TypeIcon.Print),
+            //    Uri = Uri.Append("print"),
+            //    Title = "Drucken",
+            //    Size = new PropertySizeText(TypeSizeText.Default),
+            //    TextColor = new PropertyColorText(TypeColorText.White)
+            //});
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace InventoryExpress.Pages
                 grid.Content.Add(card);
             }
 
-            Main.Content.Add(grid);
+            Content.Content.Add(grid);
         }
     }
 }

@@ -58,14 +58,14 @@ namespace InventoryExpress.Controls
                 TextColor = new PropertyColorText(TypeColorText.Dark)
             });
 
-            var flex = new ControlFlexbox()
+            var flex = new ControlPanelFlexbox()
             {
-                Direction = TypesFlexboxDirection.Horizontal
+                Direction = TypeDirection.Horizontal
             };
 
             if (Inventory.Manufacturer != null && Inventory.Manufacturer is var manufacturer)
             {
-                flex.Items.Add(new ControlAttribute()
+                flex.Content.Add(new ControlAttribute()
                 {
                     Icon = new PropertyIcon(TypeIcon.Industry),
                     Padding = new PropertySpacingPadding(PropertySpacing.Space.Two),
@@ -76,7 +76,7 @@ namespace InventoryExpress.Controls
 
             if (Inventory.Location != null && Inventory.Location is var location)
             {
-                flex.Items.Add(new ControlAttribute()
+                flex.Content.Add(new ControlAttribute()
                 {
                     Icon = new PropertyIcon(TypeIcon.Map),
                     Padding = new PropertySpacingPadding(PropertySpacing.Space.Two),
@@ -87,7 +87,7 @@ namespace InventoryExpress.Controls
 
             if (Inventory.Supplier != null && Inventory.Supplier is var supplier)
             {
-                flex.Items.Add(new ControlAttribute()
+                flex.Content.Add(new ControlAttribute()
                 {
                     Icon = new PropertyIcon(TypeIcon.Truck),
                     Padding = new PropertySpacingPadding(PropertySpacing.Space.Two),
@@ -98,7 +98,7 @@ namespace InventoryExpress.Controls
 
             if (Inventory.GLAccount != null && Inventory.GLAccount is var glaAccount)
             {
-                flex.Items.Add(new ControlAttribute()
+                flex.Content.Add(new ControlAttribute()
                 {
                     Icon = new PropertyIcon(TypeIcon.At),
                     Padding = new PropertySpacingPadding(PropertySpacing.Space.Two),
@@ -109,7 +109,7 @@ namespace InventoryExpress.Controls
 
             if (Inventory.State != null && Inventory.State is var state)
             {
-                flex.Items.Add(new ControlAttribute()
+                flex.Content.Add(new ControlAttribute()
                 {
                     Icon = new PropertyIcon(TypeIcon.Star),
                     Name = state.Name,

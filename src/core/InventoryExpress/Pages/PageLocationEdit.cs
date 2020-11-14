@@ -6,7 +6,7 @@ using WebExpress.UI.Controls;
 
 namespace InventoryExpress.Pages
 {
-    public class PageLocationEdit : PageBase, ILocation
+    public class PageLocationEdit : PageBase, IPageLocation
     {
         /// <summary>
         /// Formular
@@ -44,7 +44,7 @@ namespace InventoryExpress.Pages
             var id = Convert.ToInt32(GetParam("id"));
             var location = ViewModel.Instance.Locations.Where(x => x.ID == id).FirstOrDefault();
 
-            Main.Content.Add(form);
+            Content.Content.Add(form);
 
             form.LocationName.Value = location?.Name;
             form.Discription.Value = location?.Discription;

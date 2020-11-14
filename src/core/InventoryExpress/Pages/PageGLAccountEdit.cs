@@ -6,7 +6,7 @@ using WebExpress.UI.Controls;
 
 namespace InventoryExpress.Pages
 {
-    public class PageGLAccountEdit : PageBase, IGLAccount
+    public class PageGLAccountEdit : PageBase, IPageGLAccount
     {
         /// <summary>
         /// Formular
@@ -44,7 +44,7 @@ namespace InventoryExpress.Pages
             var id = Convert.ToInt32(GetParam("id"));
             var gLAccounts = ViewModel.Instance.GLAccounts.Where(x => x.ID == id).FirstOrDefault();
 
-            Main.Content.Add(form);
+            Content.Content.Add(form);
 
             form.GLAccountName.Value = gLAccounts?.Name;
             form.Discription.Value = gLAccounts?.Discription;

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace InventoryExpress.Pages
 {
-    public interface ISupplier
+    public interface IPageLocation
     {
     }
 }

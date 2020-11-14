@@ -6,7 +6,7 @@ using WebExpress.UI.Controls;
 
 namespace InventoryExpress.Pages
 {
-    public class PageTemplateEdit : PageBase, ITemplate
+    public class PageTemplateEdit : PageBase, IPageTemplate
     {
         /// <summary>
         /// Formular
@@ -44,7 +44,7 @@ namespace InventoryExpress.Pages
             var id = Convert.ToInt32(GetParam("id"));
             var template = ViewModel.Instance.Templates.Where(x => x.ID == id).FirstOrDefault();
 
-            Main.Content.Add(form);
+            Content.Content.Add(form);
 
             form.TemplateName.Value = template?.Name;
             form.Discription.Value = template?.Discription;

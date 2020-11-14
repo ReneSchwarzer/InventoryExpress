@@ -39,7 +39,7 @@ namespace InventoryExpress.Controls
                 Text = "Löschen",
                 Icon = new PropertyIcon(TypeIcon.TrashAlt),
                 Margin = new PropertySpacingMargin(PropertySpacing.Space.One),
-                Color = new PropertyColorButton(TypeColorButton.Danger),
+                BackgroundColor = new PropertyColorButton(TypeColorButton.Danger),
                 OnClick = "window.location.href = '/del'"
             });
         }
