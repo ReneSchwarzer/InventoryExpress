@@ -1,9 +1,7 @@
 ﻿using InventoryExpress.Controls;
 using InventoryExpress.Model;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using WebExpress.UI.Controls;
 
 namespace InventoryExpress.Pages
@@ -19,7 +17,7 @@ namespace InventoryExpress.Pages
         /// Konstruktor
         /// </summary>
         public PageInventoryAdd()
-            : base("Inventargegenstand hinzufügen")
+            : base("inventoryexpress.inventory.add.label")
         {
         }
 

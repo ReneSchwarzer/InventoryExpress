@@ -17,7 +17,7 @@ namespace InventoryExpress.Pages
         /// Konstruktor
         /// </summary>
         public PageManufactorEdit()
-            : base("Hersteller bearbeiten")
+            : base("inventoryexpress.manufactor.edit.label")
         {
         }
 

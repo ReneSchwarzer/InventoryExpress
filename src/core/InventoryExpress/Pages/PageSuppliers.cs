@@ -1,8 +1,5 @@
 ﻿using InventoryExpress.Controls;
 using InventoryExpress.Model;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using WebExpress.UI.Controls;
 
 namespace InventoryExpress.Pages
@@ -13,7 +10,7 @@ namespace InventoryExpress.Pages
         /// Konstruktor
         /// </summary>
         public PageSuppliers()
-            : base("Lieferanten")
+            : base("inventoryexpress.suppliers.label")
         {
         }
 
@@ -49,7 +46,7 @@ namespace InventoryExpress.Pages
         {
             base.Process();
 
-            var grid = new ControlPanelGrid() { Fluid =  TypePanelContainer.Fluid };
+            var grid = new ControlPanelGrid() { Fluid = TypePanelContainer.Fluid };
             int i = 0;
 
             foreach (var supplier in ViewModel.Instance.Suppliers)

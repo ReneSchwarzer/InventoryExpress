@@ -1,10 +1,7 @@
 ﻿using InventoryExpress.Controls;
 using InventoryExpress.Model;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics.Tracing;
 using System.Linq;
-using System.Text;
 using WebExpress.UI.Controls;
 
 namespace InventoryExpress.Pages
@@ -20,7 +17,7 @@ namespace InventoryExpress.Pages
         /// Konstruktor
         /// </summary>
         public PageManufactorAdd()
-            : base("Hersteller hinzufügen")
+            : base("inventoryexpress.manufactor.add.label")
         {
         }
 
@@ -58,7 +55,7 @@ namespace InventoryExpress.Pages
                 }
             };
 
-            form.ProcessFormular += (s, e)=>
+            form.ProcessFormular += (s, e) =>
             {
                 // Neues Herstellerobjekt erstellen und speichern
                 var manufacturer = new Manufacturer()

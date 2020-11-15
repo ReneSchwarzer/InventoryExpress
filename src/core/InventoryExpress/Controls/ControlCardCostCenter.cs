@@ -1,6 +1,5 @@
 ﻿using InventoryExpress.Model;
 using WebExpress.Html;
-using WebExpress.Pages;
 using WebExpress.UI.Controls;
 
 namespace InventoryExpress.Controls

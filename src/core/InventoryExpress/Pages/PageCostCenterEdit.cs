@@ -17,7 +17,7 @@ namespace InventoryExpress.Pages
         /// Konstruktor
         /// </summary>
         public PageCostCenterEdit()
-            : base("Kostenstelle bearbeiten")
+            : base("inventoryexpress.costcenters.edit.label")
         {
         }
 

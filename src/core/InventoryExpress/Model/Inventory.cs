@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Globalization;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Xml.Linq;
 
 namespace InventoryExpress.Model
 {
@@ -95,13 +91,13 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Die ID des Zustandes
         /// </summary>
-        [Column("STATEID")]
-        public int? StateID { get; set; }
+        [Column("CONDITIONID")]
+        public int? ConditionID { get; set; }
 
         /// <summary>
         /// Der Zustand
         /// </summary>
-        public virtual State State { get; set; }
+        public virtual Condition Condition { get; set; }
 
         /// <summary>
         /// Die ID des Lieferanten
@@ -117,13 +113,13 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Die ID des Sachkontos
         /// </summary>
-        [Column("GLACCOUNTID")]
-        public int? GLAccountID { get; set; }
+        [Column("LEDGERACCOUNTID")]
+        public int? LedgerAccountID { get; set; }
 
         /// <summary>
         /// Das Sachkonto
         /// </summary>
-        public virtual GLAccount GLAccount { get; set; }
+        public virtual LedgerAccount LedgerAccount { get; set; }
 
         /// <summary>
         /// Teil eines Ganzen

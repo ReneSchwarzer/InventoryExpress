@@ -1,8 +1,4 @@
-﻿
-using InventoryExpress.Model;
-using System.Collections.Generic;
-using System.Linq;
-using WebExpress.Pages;
+﻿using WebExpress.Pages;
 using WebExpress.UI.Controls;
 
 namespace InventoryExpress.Controls

@@ -1,5 +1,4 @@
-﻿using WebExpress.Pages;
-using WebExpress.UI.Controls;
+﻿using WebExpress.UI.Controls;
 
 namespace InventoryExpress.Controls
 {

@@ -1,8 +1,5 @@
-﻿using InventoryExpress.Controls;
-using InventoryExpress.Model;
-using System;
+﻿using InventoryExpress.Model;
 using System.Linq;
-using WebExpress.Html;
 using WebExpress.UI.Controls;
 
 namespace InventoryExpress.Pages
@@ -13,7 +10,7 @@ namespace InventoryExpress.Pages
         /// Konstruktor
         /// </summary>
         public PageDetails()
-            : base("Details")
+            : base("inventoryexpress.details.label")
         {
         }
 
@@ -127,7 +124,7 @@ namespace InventoryExpress.Pages
             {
                 Name = "Sachkonto:",
                 Icon = new PropertyIcon(TypeIcon.At),
-                Value = inventory?.GLAccount?.Name,
+                Value = inventory?.LedgerAccount?.Name,
                 TextColor = new PropertyColorText(TypeColorText.Dark)
             });
 
@@ -143,7 +140,7 @@ namespace InventoryExpress.Pages
             {
                 Name = "Zustand:",
                 Icon = new PropertyIcon(TypeIcon.Star),
-                Value = inventory?.State?.Name,
+                Value = inventory?.Condition?.Name,
                 TextColor = new PropertyColorText(TypeColorText.Dark)
             });
 

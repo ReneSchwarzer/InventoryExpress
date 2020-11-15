@@ -17,7 +17,7 @@ namespace InventoryExpress.Pages
         /// Konstruktor
         /// </summary>
         public PageTemplateEdit()
-            : base("Vorlage bearbeiten")
+            : base("inventoryexpress.template.edit.label")
         {
         }
 

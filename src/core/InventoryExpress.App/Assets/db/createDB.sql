@@ -1,4 +1,4 @@
-﻿CREATE TABLE State 
+﻿CREATE TABLE Condition 
 (
     ID 			        INTEGER			PRIMARY KEY AUTOINCREMENT NOT NULL,
     Name 		        VARCHAR(64),
@@ -15,7 +15,7 @@ CREATE TABLE CostCenter
     Timestamp 	        TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
 
-CREATE TABLE GLAccount  
+CREATE TABLE LedgerAccount  
 (
     ID 			        INTEGER			PRIMARY KEY AUTOINCREMENT NOT NULL,
     Name 		        VARCHAR(64),
@@ -109,9 +109,9 @@ CREATE TABLE Inventory
 	LocationID	        INTEGER      	REFERENCES Location (ID),
 	CostCenterID 	    INTEGER      	REFERENCES CostCenter (ID),
 	ManufacturerID      INTEGER      	REFERENCES Manufacturer (ID),
-	StateID  		    INTEGER      	REFERENCES State (ID),
+	ConditionID  		INTEGER      	REFERENCES Condition (ID),
 	SupplierID 	        INTEGER      	REFERENCES Supplier (ID),
-	GLAccountID  	    INTEGER      	REFERENCES GLAccount (ID),
+	LedgerAccountID     INTEGER      	REFERENCES LedgerAccount (ID),
 	Name 		        VARCHAR(64),
 	CostValue 	        DECIMAL,
 	PurchaseDate        DATE,
@@ -129,12 +129,12 @@ CREATE TABLE InventoryAttribute
 );
 
 -- Example
-INSERT INTO State (ID, Name, Grade, Discription, Timestamp) VALUES (1, 'Ungenügend', 6, NULL, '2020-10-11 14:24:32');
-INSERT INTO State (ID, Name, Grade, Discription, Timestamp) VALUES (2, 'Mangelhaft', 5, NULL, '2020-10-11 14:24:32');
-INSERT INTO State (ID, Name, Grade, Discription, Timestamp) VALUES (3, 'Ausreichend', 4, NULL, '2020-10-11 14:24:32');
-INSERT INTO State (ID, Name, Grade, Discription, Timestamp) VALUES (4, 'Befriedigend', 3, NULL, '2020-10-11 14:24:32');
-INSERT INTO State (ID, Name, Grade, Discription, Timestamp) VALUES (5, 'Gut', 2, NULL, '2020-10-11 14:24:32');
-INSERT INTO State (ID, Name, Grade, Discription, Timestamp) VALUES (6, 'Sehr gut', 1, NULL, '2020-10-11 14:24:32');
+INSERT INTO Condition (ID, Name, Grade, Discription, Timestamp) VALUES (1, 'Ungenügend', 6, NULL, '2020-10-11 14:24:32');
+INSERT INTO Condition (ID, Name, Grade, Discription, Timestamp) VALUES (2, 'Mangelhaft', 5, NULL, '2020-10-11 14:24:32');
+INSERT INTO Condition (ID, Name, Grade, Discription, Timestamp) VALUES (3, 'Ausreichend', 4, NULL, '2020-10-11 14:24:32');
+INSERT INTO Condition (ID, Name, Grade, Discription, Timestamp) VALUES (4, 'Befriedigend', 3, NULL, '2020-10-11 14:24:32');
+INSERT INTO Condition (ID, Name, Grade, Discription, Timestamp) VALUES (5, 'Gut', 2, NULL, '2020-10-11 14:24:32');
+INSERT INTO Condition (ID, Name, Grade, Discription, Timestamp) VALUES (6, 'Sehr gut', 1, NULL, '2020-10-11 14:24:32');
 
 INSERT INTO Manufacturer (ID, Name, Place, Zip, Address, Discription, Timestamp) VALUES (1, 'RFT', NULL, NULL, 'Rundfunk- und FernmeldeTechnik', NULL, '2020-10-11 12:57:38');
 INSERT INTO Manufacturer (ID, Name, Place, Zip, Address, Discription, Timestamp) VALUES (2, 'ROBOTRON', NULL, NULL, NULL, 'VEB Kombinat Robotron', '2020-10-11 12:57:38');                            
@@ -162,7 +162,7 @@ INSERT INTO Supplier (ID, Name, Place, Zip, Address, Discription, Timestamp) VAL
 INSERT INTO Supplier (ID, Name, Place, Zip, Address, Discription, Timestamp) VALUES (11, 'Saturn',  NULL, NULL, NULL, 'MediaMartSaturn Retail Group', '2020-10-11 14:53:19');
 INSERT INTO Supplier (ID, Name, Place, Zip, Address, Discription, Timestamp) VALUES (12, 'Vobis',  NULL, NULL, NULL, 'Vobis AG', '2020-10-11 14:53:19');
 
-INSERT INTO GLAccount (ID, Name, Discription, Timestamp) VALUES (1, 'Haushalt', '', '2020-10-11 14:24:32');
+INSERT INTO LedgerAccount (ID, Name, Discription, Timestamp) VALUES (1, 'Haushalt', '', '2020-10-11 14:24:32');
 
 INSERT INTO CostCenter (ID, Name, Discription, Timestamp) VALUES (1, 'Fuhrpark', '', '2020-10-11 14:24:32');
 INSERT INTO CostCenter (ID, Name, Discription, Timestamp) VALUES (2, 'Hobby', '', '2020-10-11 14:24:32');

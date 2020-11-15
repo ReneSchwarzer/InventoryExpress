@@ -1,7 +1,6 @@
 ﻿using InventoryExpress.Model;
 using System.Collections.Generic;
 using System.Linq;
-using WebExpress.Pages;
 using WebExpress.UI.Controls;
 
 namespace InventoryExpress.Controls
@@ -41,7 +40,7 @@ namespace InventoryExpress.Controls
         /// <summary>
         /// Liefert oder setzt den Zustand
         /// </summary>
-        private ControlFormularItemInputComboBox State { get; set; }
+        private ControlFormularItemInputComboBox Condition { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Zugehörigkeit
@@ -94,16 +93,16 @@ namespace InventoryExpress.Controls
             InventoryName = new ControlFormularItemInputTextBox()
             {
                 Name = "name",
-                Label = "Name",
-                Help = "Die Kurzbezeichnung des Inventargegenstandes",
+                Label = "inventoryexpress.inventory.name.label",
+                Help = "inventoryexpress.inventory.name.discription",
                 Icon = new PropertyIcon(TypeIcon.Font)
             };
 
             Manufactor = new ControlFormularItemInputComboBox()
             {
                 Name = "manufactor",
-                Label = "Hersteller",
-                Help = "Der Hersteller des Inventargegenstandes",
+                Label = "inventoryexpress.manufactors.label",
+                Help = "inventoryexpress.manufactor.discription",
                 Icon = new PropertyIcon(TypeIcon.Industry)
             };
 
@@ -122,8 +121,8 @@ namespace InventoryExpress.Controls
             Location = new ControlFormularItemInputComboBox()
             {
                 Name = "location",
-                Label = "Standort",
-                Help = "Der Standort des Inventargegenstandes",
+                Label = "inventoryexpress.location.label",
+                Help = "inventoryexpress.location.discription",
                 Icon = new PropertyIcon(TypeIcon.Map)
             };
 
@@ -142,8 +141,8 @@ namespace InventoryExpress.Controls
             Supplier = new ControlFormularItemInputComboBox()
             {
                 Name = "supplier",
-                Label = "Lieferant",
-                Help = "Der Lieferant des Inventargegenstandes",
+                Label = "inventoryexpress.supplier.label",
+                Help = "inventoryexpress.supplier.discription",
                 Icon = new PropertyIcon(TypeIcon.Truck)
             };
 
@@ -162,8 +161,8 @@ namespace InventoryExpress.Controls
             GlAccount = new ControlFormularItemInputComboBox()
             {
                 Name = "glaccount",
-                Label = "Sachkonto",
-                Help = "Das Sachkonto des Inventargegenstandes",
+                Label = "inventoryexpress.ledgeraccount.label",
+                Help = "inventoryexpress.ledgeraccount.discription",
                 Icon = new PropertyIcon(TypeIcon.At)
             };
 
@@ -182,8 +181,8 @@ namespace InventoryExpress.Controls
             CostCenter = new ControlFormularItemInputComboBox()
             {
                 Name = "costcenter",
-                Label = "Kostenstelle",
-                Help = "Die Kostenstelle des Inventargegenstandes",
+                Label = "inventoryexpress.costcenter.label",
+                Help = "inventoryexpress.costcenter.discription",
                 Icon = new PropertyIcon(TypeIcon.ShoppingBag)
             };
 
@@ -199,21 +198,21 @@ namespace InventoryExpress.Controls
                 Value = x.ID.ToString()
             }));
 
-            State = new ControlFormularItemInputComboBox()
+            Condition = new ControlFormularItemInputComboBox()
             {
                 Name = "state",
-                Label = "Zustand",
-                Help = "Der Zustand des Inventargegenstandes",
+                Label = "inventoryexpress.condition.label",
+                Help = "inventoryexpress.condition.discription",
                 Icon = new PropertyIcon(TypeIcon.Star)
             };
 
-            State.Items.Add(new ControlFormularItemInputComboBoxItem()
+            Condition.Items.Add(new ControlFormularItemInputComboBoxItem()
             {
                 Text = string.Empty,
                 Value = null
             });
 
-            State.Items.AddRange(ViewModel.Instance.States.OrderBy(x => x.Grade).Select(x => new ControlFormularItemInputComboBoxItem()
+            Condition.Items.AddRange(ViewModel.Instance.Conditions.OrderBy(x => x.Grade).Select(x => new ControlFormularItemInputComboBoxItem()
             {
                 Text = string.Format("{0} - {1}", x.Grade, x.Name),
                 Value = x.ID.ToString()
@@ -222,8 +221,8 @@ namespace InventoryExpress.Controls
             Parent = new ControlFormularItemInputComboBox()
             {
                 Name = "parent",
-                Label = "Zugehörigkeit zu",
-                Help = "Die Zuständigkeit zu einem anderen Inventargegenstand",
+                Label = "inventoryexpress.parent.label",
+                Help = "inventoryexpress.parent.discription",
                 Icon = new PropertyIcon(TypeIcon.Link)
             };
 
@@ -242,8 +241,8 @@ namespace InventoryExpress.Controls
             Template = new ControlFormularItemInputComboBox()
             {
                 Name = "template",
-                Label = "Vorlage",
-                Help = "Die Vorlage",
+                Label = "inventoryexpress.template.label",
+                Help = "inventoryexpress.template.discription",
                 OnChange = new PropertyOnChange(TypeOnChange.Submit)
             };
 
@@ -261,22 +260,22 @@ namespace InventoryExpress.Controls
 
             //foreach (var template in ViewModel.Instance.Templates.Where(x => x.ID.ToString() == Template.SelectedValue))
             //{
-                //foreach (var attribute in template?.Attributes)
-                //{
-                //    Attributes.Add(new ControlFormularItemTextBox(this)
-                //    {
-                //        Name = "attribute_" + attribute.ID,
-                //        Label = attribute.Name,
-                //        Help = attribute.Discription
-                //    });
-                //}
+            //foreach (var attribute in template?.Attributes)
+            //{
+            //    Attributes.Add(new ControlFormularItemTextBox(this)
+            //    {
+            //        Name = "attribute_" + attribute.ID,
+            //        Label = attribute.Name,
+            //        Help = attribute.Discription
+            //    });
+            //}
             //}
 
             Tag = new ControlFormularItemInputTextBox()
             {
                 Name = "tag",
-                Label = "Schlagwörter",
-                Help = "",
+                Label = "inventoryexpress.tags.label",
+                Help = "inventoryexpress.tags.discription",
                 Icon = new PropertyIcon(TypeIcon.Tag)
             };
 
@@ -295,7 +294,7 @@ namespace InventoryExpress.Controls
             Add(Supplier);
             Add(GlAccount);
             Add(CostCenter);
-            Add(State);
+            Add(Condition);
             Add(Parent);
             Add(Template);
             Add(Attributes.ToArray());

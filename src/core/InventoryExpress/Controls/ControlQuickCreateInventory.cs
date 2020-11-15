@@ -5,7 +5,7 @@ using WebExpress.UI.Plugin;
 
 namespace InventoryExpress.Controls
 {
-    public class ControlQuickCreateInventory : ControlLink, IPluginComponentQuickCreatePrimary
+    public class ControlQuickCreateInventory : ControlDropdownItemLink, IPluginComponentQuickCreatePrimary
     {
         /// <summary>
         /// Konstruktor
@@ -21,7 +21,6 @@ namespace InventoryExpress.Controls
         /// </summary>
         private void Init()
         {
-            TextColor = new PropertyColorText(TypeColorText.Light);
         }
 
         /// <summary>
@@ -31,7 +30,7 @@ namespace InventoryExpress.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            Text = "Inventar";
+            Text = context.I18N("inventoryexpress.inventories.label", "Inventory");
             Uri = context.Page.Uri.Root.Append("add");
             Active = context.Page is IPageInventory ? TypeActive.Active : TypeActive.None;
             Icon = new PropertyIcon(TypeIcon.Plus);

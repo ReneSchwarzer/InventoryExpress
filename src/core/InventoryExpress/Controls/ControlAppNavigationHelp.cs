@@ -5,7 +5,7 @@ using WebExpress.UI.Plugin;
 
 namespace InventoryExpress.Controls
 {
-    public class ControlAppNavigationHelp : ControlLink, IPluginComponentAppNavigationSecondary
+    public class ControlAppNavigationHelp : ControlNavigationItemLink, IPluginComponentAppNavigationSecondary
     {
         /// <summary>
         /// Konstruktor
@@ -21,7 +21,6 @@ namespace InventoryExpress.Controls
         /// </summary>
         private void Init()
         {
-            TextColor = new PropertyColorText(TypeColorText.Light);
         }
 
         /// <summary>
@@ -31,7 +30,7 @@ namespace InventoryExpress.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            Text = "Hilfe";
+            Text = context.I18N("inventoryexpress.help.label", "Help");
             Uri = context.Page.Uri.Root.Append("help");
             Active = context.Page is IPageHelp ? TypeActive.Active : TypeActive.None;
             Icon = new PropertyIcon(TypeIcon.InfoCircle);

@@ -1,8 +1,5 @@
 ﻿using InventoryExpress.Controls;
 using InventoryExpress.Model;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using WebExpress.UI.Controls;
 
 namespace InventoryExpress.Pages
@@ -13,7 +10,7 @@ namespace InventoryExpress.Pages
         /// Konstruktor
         /// </summary>
         public PageLocations()
-            : base("Standorte")
+            : base("inventoryexpress.locations.label")
         {
         }
 
@@ -24,22 +21,22 @@ namespace InventoryExpress.Pages
         {
             base.Init();
 
-           // ToolBar.Add(new ControlToolBarItemButton()
-           // {
-           //     Icon = new PropertyIcon(TypeIcon.Plus),
-           //     Text = "Hinzufügen",
-           //     Title = "Neu",
-           //     Uri = Uri.Append("add"),
-           //     TextColor = new PropertyColorText(TypeColorText.White)
-           // },
-           //new ControlToolBarItemButton()
-           //{
-           //    Icon = new PropertyIcon(TypeIcon.Print),
-           //    Uri = Uri.Append("print"),
-           //    Title = "Drucken",
-           //    Size = new PropertySizeText(TypeSizeText.Default),
-           //    TextColor = new PropertyColorText(TypeColorText.White)
-           //});
+            // ToolBar.Add(new ControlToolBarItemButton()
+            // {
+            //     Icon = new PropertyIcon(TypeIcon.Plus),
+            //     Text = "Hinzufügen",
+            //     Title = "Neu",
+            //     Uri = Uri.Append("add"),
+            //     TextColor = new PropertyColorText(TypeColorText.White)
+            // },
+            //new ControlToolBarItemButton()
+            //{
+            //    Icon = new PropertyIcon(TypeIcon.Print),
+            //    Uri = Uri.Append("print"),
+            //    Title = "Drucken",
+            //    Size = new PropertySizeText(TypeSizeText.Default),
+            //    TextColor = new PropertyColorText(TypeColorText.White)
+            //});
 
             //var menu = new ControlMenu(this, null, 
             //    new ControlLink(this) { Text = "Home", Icon = "fas fa-map", Url = GetUrl(0) },
@@ -77,8 +74,8 @@ namespace InventoryExpress.Pages
             foreach (var location in ViewModel.Instance.Locations)
             {
                 var card = new ControlCardLocation()
-                { 
-                     Location = location
+                {
+                    Location = location
                 };
 
                 grid.Content.Add(card);

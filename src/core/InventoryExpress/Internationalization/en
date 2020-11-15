@@ -1,0 +1,61 @@
+﻿# Englisch
+
+inventoryexpress.inventories.label=Inventories
+inventoryexpress.inventory.label=Inventoriy
+inventoryexpress.inventory.discription=The inventory item
+inventoryexpress.inventory.name.label=Name
+inventoryexpress.inventory.name.discription=The name of the inventory item
+inventoryexpress.inventory.add.label=Add inventory item
+inventoryexpress.Inventory.edit.label=Edit inventory item
+
+inventoryexpress.costcenters.label=Cost centers
+inventoryexpress.costcenter.label=Cost center
+inventoryexpress.costcenter.discription=The cost center of the inventory item
+inventoryexpress.costcenters.add.label=Add cost center
+inventoryexpress.costcenters.edit.label=Edit cost center
+
+inventoryexpress.ledgeraccounts.label=Ledger accounts
+inventoryexpress.ledgeraccount.label=Ledger account
+inventoryexpress.ledgeraccount.discription=The ledger account of the inventory item
+inventoryexpress.ledgeraccount.add.label=Add ledger account
+inventoryexpress.ledgeraccount.edit.label=Edit ledger account
+
+inventoryexpress.locations.label=Locations
+inventoryexpress.location.label=Location
+inventoryexpress.location.discription=The location of the inventory item
+inventoryexpress.location.add.label=Add location
+inventoryexpress.location.edit.label=Edit location
+
+inventoryexpress.manufactors.label=Manufactors
+inventoryexpress.manufactor.label=Manufactor
+inventoryexpress.manufactor.discription=The manufacturer of the inventory item
+inventoryexpress.manufactor.add.label=Add manufacturer
+inventoryexpress.manufactor.edit.label=Edit manufacturer
+
+inventoryexpress.suppliers.label=Suppliers
+inventoryexpress.supplier.label=Supplier
+inventoryexpress.supplier.discription=The supplier of the inventory item
+inventoryexpress.supplier.add.label=Add supplier
+inventoryexpress.supplier.edit.label=Edit supplier
+
+inventoryexpress.templates.label=Templates
+inventoryexpress.template.label=Template
+inventoryexpress.template.discription=The template
+inventoryexpress.template.add.label=Add template
+inventoryexpress.template.edit.label=Edit template
+
+inventoryexpress.condition.label=Condition
+inventoryexpress.condition.discription=The condition of the inventory item
+
+inventoryexpress.parent.label=Membership of
+inventoryexpress.parent.discription=Belonging to another inventory item
+
+inventoryexpress.tags.label=Tags
+inventoryexpress.tags.discription=
+
+inventoryexpress.help.label=Help
+inventoryexpress.details.label=Details
+
+inventoryexpress.add.label=Add
+inventoryexpress.edit.label=Edit
+inventoryexpress.delete.label=Delete

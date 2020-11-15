@@ -1,22 +1,21 @@
 ﻿using InventoryExpress.Model;
 using WebExpress.Html;
-using WebExpress.Pages;
 using WebExpress.UI.Controls;
 
 namespace InventoryExpress.Controls
 {
-    public class ControlCardGLAccount : ControlPanelCard
+    public class ControlCardLedgerAccount : ControlPanelCard
     {
         /// <summary>
         /// Liefert oder setzt den Hersteller
         /// </summary>
-        public GLAccount GLAccount { get; set; }
+        public LedgerAccount GLAccount { get; set; }
 
         /// <summary>
         /// Konstruktor
         /// </summary>
         /// <param name="id">Die ID</param>
-        public ControlCardGLAccount(string id = null)
+        public ControlCardLedgerAccount(string id = null)
             : base(id)
         {
             Init();

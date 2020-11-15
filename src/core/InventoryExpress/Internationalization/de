@@ -1,0 +1,62 @@
+﻿# Deutsch
+
+inventoryexpress.inventories.label=Inventar
+inventoryexpress.inventory.label=Inventar
+inventoryexpress.inventory.discription=Der Inventargegenstand
+inventoryexpress.inventory.name.label=Name
+inventoryexpress.inventory.name.discription=Der Name des Inventargegenstandes
+inventoryexpress.inventory.add.label=Inventargegenstand hinzufügen
+inventoryexpress.Inventory.edit.label=Inventargegenstand bearbeiten
+
+inventoryexpress.costcenters.label=Kostenstellen
+inventoryexpress.costcenter.label=Kostenstelle
+inventoryexpress.costcenter.discription=Die Kostenstelle des Inventargegenstandes
+inventoryexpress.costcenters.add.label=Kostenstelle hinzufügen
+inventoryexpress.costcenters.edit.label=Kostenstelle bearbeiten
+
+inventoryexpress.ledgeraccounts.label=Sachkonten
+inventoryexpress.ledgeraccount.label=Sachkonto
+inventoryexpress.ledgeraccount.discription=Das Sachkonto des Inventargegenstandes
+inventoryexpress.ledgeraccount.add.label=Sachkonto hinzufügen
+inventoryexpress.ledgeraccount.edit.label=Sachkonto bearbeiten
+
+inventoryexpress.locations.label=Standorte
+inventoryexpress.location.label=Standort
+inventoryexpress.location.discription=Der Standort des Inventargegenstandes
+inventoryexpress.location.add.label=Standort hinzufügen
+inventoryexpress.location.edit.label=Standort bearbeiten
+
+inventoryexpress.manufactors.label=Hersteller
+inventoryexpress.manufactor.label=Hersteller
+inventoryexpress.manufactor.discription=Der Hersteller des Inventargegenstandes
+inventoryexpress.manufactor.add.label=Hersteller hinzufügen
+inventoryexpress.manufactor.edit.label=Hersteller bearbeiten
+
+inventoryexpress.suppliers.label=Lieferanten
+inventoryexpress.supplier.label=Lieferant
+inventoryexpress.supplier.discription=Der Lieferant des Inventargegenstandes
+inventoryexpress.supplier.add.label=Lieferant hinzufügen
+inventoryexpress.supplier.edit.label=Lieferant bearbeiten
+
+inventoryexpress.templates.label=Vorlagen
+inventoryexpress.template.label=Vorlage
+inventoryexpress.template.discription=Die Vorlage
+inventoryexpress.template.add.label=Vorlage hinzufügen
+inventoryexpress.template.edit.label=Vorlage bearbeiten
+
+inventoryexpress.condition.label=Zustand
+inventoryexpress.condition.discription=Der Zustand des Inventargegenstandes
+
+inventoryexpress.parent.label=Zugehörigkeit zu
+inventoryexpress.parent.discription=Die Zugehörigkeit zu einem anderen Inventargegenstand
+
+inventoryexpress.tags.label=Schlagwörter
+inventoryexpress.tags.discription=
+
+inventoryexpress.help.label=Hilfe
+inventoryexpress.details.label=Details
+
+
+inventoryexpress.add.label=Hinzufügen
+inventoryexpress.edit.label=Bearbeiten
+inventoryexpress.delete.label=Löschen

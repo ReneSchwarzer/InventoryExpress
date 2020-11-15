@@ -4,13 +4,13 @@ using WebExpress.UI.Controls;
 
 namespace InventoryExpress.Pages
 {
-    public class PageGLAccounts : PageBase, IPageGLAccount
+    public class PageLedgerAccounts : PageBase, IPageLedgerAccount
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public PageGLAccounts()
-            : base("Sachkonten")
+        public PageLedgerAccounts()
+            : base("inventoryexpress.ledgeraccounts.label")
         {
         }
 
@@ -46,12 +46,12 @@ namespace InventoryExpress.Pages
         {
             base.Process();
 
-            var grid = new ControlPanelGrid() { Fluid =  TypePanelContainer.Fluid };
+            var grid = new ControlPanelGrid() { Fluid = TypePanelContainer.Fluid };
             int i = 0;
 
             foreach (var gLAccount in ViewModel.Instance.GLAccounts)
             {
-                var card = new ControlCardGLAccount()
+                var card = new ControlCardLedgerAccount()
                 {
                     GLAccount = gLAccount
                 };

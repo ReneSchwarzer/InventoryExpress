@@ -6,18 +6,18 @@ using WebExpress.UI.Controls;
 
 namespace InventoryExpress.Pages
 {
-    public class PageGLAccountAdd : PageBase, IPageGLAccount
+    public class PageLedgerAccountAdd : PageBase, IPageLedgerAccount
     {
         /// <summary>
         /// Formular
         /// </summary>
-        private ControlFormularGLAccount form;
+        private ControlFormularLedgerAccount form;
 
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public PageGLAccountAdd()
-            : base("Sachkonto hinzufügen")
+        public PageLedgerAccountAdd()
+            : base("inventoryexpress.ledgeraccount.add.label")
         {
         }
 
@@ -28,7 +28,7 @@ namespace InventoryExpress.Pages
         {
             base.Init();
 
-            form = new ControlFormularGLAccount()
+            form = new ControlFormularLedgerAccount()
             {
                 RedirectUrl = Uri.Take(-1)
             };
@@ -58,7 +58,7 @@ namespace InventoryExpress.Pages
             form.ProcessFormular += (s, e) =>
             {
                 // Neues Herstellerobjekt erstellen und speichern
-                var gLAccount = new GLAccount()
+                var gLAccount = new LedgerAccount()
                 {
                     Name = form.GLAccountName.Value,
                     //Tag = form.Tag.Value,

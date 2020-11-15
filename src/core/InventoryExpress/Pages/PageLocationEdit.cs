@@ -17,7 +17,7 @@ namespace InventoryExpress.Pages
         /// Konstruktor
         /// </summary>
         public PageLocationEdit()
-            : base("Standort bearbeiten")
+            : base("inventoryexpress.location.edit.label")
         {
         }
 

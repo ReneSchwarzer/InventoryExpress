@@ -6,18 +6,18 @@ using WebExpress.UI.Controls;
 
 namespace InventoryExpress.Pages
 {
-    public class PageGLAccountEdit : PageBase, IPageGLAccount
+    public class PageLedgerAccountEdit : PageBase, IPageLedgerAccount
     {
         /// <summary>
         /// Formular
         /// </summary>
-        private ControlFormularGLAccount form;
+        private ControlFormularLedgerAccount form;
 
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public PageGLAccountEdit()
-            : base("Sachkonto bearbeiten")
+        public PageLedgerAccountEdit()
+            : base("inventoryexpress.ledgeraccount.edit.label")
         {
         }
 
@@ -28,7 +28,7 @@ namespace InventoryExpress.Pages
         {
             base.Init();
 
-            form = new ControlFormularGLAccount()
+            form = new ControlFormularLedgerAccount()
             {
                 RedirectUrl = Uri.Take(-1)
             };

@@ -1,6 +1,5 @@
 ﻿using InventoryExpress.Model;
 using InventoryExpress.Pages;
-using System.Linq;
 using System.Reflection;
 using WebExpress.Pages;
 using WebExpress.Workers;
@@ -27,34 +26,33 @@ namespace InventoryExpress
 
             ViewModel.Instance.Context = Context;
             ViewModel.Instance.Init();
-            Context.Log.Info(MethodBase.GetCurrentMethod(), "InventoryExpressPlugin initialisierung");
+            Context.Log.Info(MethodBase.GetCurrentMethod(), "InventoryExpressPlugin Initialisierung");
 
             SiteMap.AddPage("Assets", "Assets", (x) => { return new WorkerFile(x, Context.AssetBaseFolder); });
-            SiteMap.AddPage("Data", "data", (x) => { return new WorkerFile(x, Context.AssetBaseFolder); });
 
             SiteMap.AddPage("Home", (x) => { return new WorkerPage<PageInventories>(x); });
-            SiteMap.AddPage("Dashboard", "dashboard", (x) => { return new WorkerPage<PageInventories>(x); });
-            SiteMap.AddPage("InventoryAdd", "add", "Neu", (x) => { return new WorkerPage<PageInventoryAdd>(x); });
-            SiteMap.AddPage("Details", "details", (x) => { return new WorkerPage<PageDetails>(x); });
-            SiteMap.AddPage("Locations", "locations", "Standorte", (x) => { return new WorkerPage<PageLocations>(x); });
-            SiteMap.AddPage("LocationAdd", "add", "Neu", (x) => { return new WorkerPage<PageLocationAdd>(x); });
-            SiteMap.AddPage("LocationEdit", "edit", "Bearbeiten", (x) => { return new WorkerPage<PageLocationEdit>(x); });
-            SiteMap.AddPage("Manufactors", "manufactors", "Hersteller", (x) => { return new WorkerPage<PageManufactors>(x); });
-            SiteMap.AddPage("ManufactorAdd", "add", "Neu", (x) => { return new WorkerPage<PageManufactorAdd>(x); });
-            SiteMap.AddPage("ManufactorEdit", "edit", "Bearbeiten", (x) => { return new WorkerPage<PageManufactorEdit>(x); });
-            SiteMap.AddPage("Suppliers", "suppliers", "Lieferanten", (x) => { return new WorkerPage<PageSuppliers>(x); });
-            SiteMap.AddPage("SupplierAdd", "add", "Neu", (x) => { return new WorkerPage<PageSupplierAdd>(x); });
-            SiteMap.AddPage("SupplierEdit", "edit", "Bearbeiten", (x) => { return new WorkerPage<PageSupplierEdit>(x); });
-            SiteMap.AddPage("GLAccounts", "glaccounts", "Sachkonten", (x) => { return new WorkerPage<PageGLAccounts>(x); });
-            SiteMap.AddPage("GLAccountAdd", "add", "Neu", (x) => { return new WorkerPage<PageGLAccountAdd>(x); });
-            SiteMap.AddPage("GLAccountEdit", "edit", "Bearbeiten", (x) => { return new WorkerPage<PageGLAccountEdit>(x); });
-            SiteMap.AddPage("CostCenters", "costcenters", "Kostenstellen", (x) => { return new WorkerPage<PageCostCenter>(x); });
-            SiteMap.AddPage("CostCenterAdd", "add", "Neu", (x) => { return new WorkerPage<PageCostCenterAdd>(x); });
-            SiteMap.AddPage("CostCenterEdit", "edit", "Bearbeiten", (x) => { return new WorkerPage<PageCostCenterEdit>(x); });
-            SiteMap.AddPage("Templates", "templates", "Vorlagen", (x) => { return new WorkerPage<PageTemplates>(x); });
-            SiteMap.AddPage("TemplateAdd", "add", "Neu", (x) => { return new WorkerPage<PageTemplateAdd>(x); });
-            SiteMap.AddPage("TemplateEdit", "edit", "Bearbeiten", (x) => { return new WorkerPage<PageTemplateEdit>(x); });
-            SiteMap.AddPage("Help", "help", (x) => { return new WorkerPage<PageHelp>(x); });
+            SiteMap.AddPage("Dashboard", "dashboard", "inventoryexpress.inventories.label", (x) => { return new WorkerPage<PageInventories>(x); });
+            SiteMap.AddPage("InventoryAdd", "add", "inventoryexpress.add.label", (x) => { return new WorkerPage<PageInventoryAdd>(x); });
+            SiteMap.AddPage("Details", "details", "inventoryexpress.details.label", (x) => { return new WorkerPage<PageDetails>(x); });
+            SiteMap.AddPage("Locations", "locations", "inventoryexpress.locations.label", (x) => { return new WorkerPage<PageLocations>(x); });
+            SiteMap.AddPage("LocationAdd", "add", "inventoryexpress.add.label", (x) => { return new WorkerPage<PageLocationAdd>(x); });
+            SiteMap.AddPage("LocationEdit", "edit", "inventoryexpress.edit.label", (x) => { return new WorkerPage<PageLocationEdit>(x); });
+            SiteMap.AddPage("Manufactors", "manufactors", "inventoryexpress.manufactors.label", (x) => { return new WorkerPage<PageManufactors>(x); });
+            SiteMap.AddPage("ManufactorAdd", "add", "inventoryexpress.add.label", (x) => { return new WorkerPage<PageManufactorAdd>(x); });
+            SiteMap.AddPage("ManufactorEdit", "edit", "inventoryexpress.edit.label", (x) => { return new WorkerPage<PageManufactorEdit>(x); });
+            SiteMap.AddPage("Suppliers", "suppliers", "inventoryexpress.suppliers.label", (x) => { return new WorkerPage<PageSuppliers>(x); });
+            SiteMap.AddPage("SupplierAdd", "add", "inventoryexpress.add.label", (x) => { return new WorkerPage<PageSupplierAdd>(x); });
+            SiteMap.AddPage("SupplierEdit", "edit", "inventoryexpress.edit.label", (x) => { return new WorkerPage<PageSupplierEdit>(x); });
+            SiteMap.AddPage("LedgerAccounts", "ledgeraccounts", "inventoryexpress.ledgeraccounts.label", (x) => { return new WorkerPage<PageLedgerAccounts>(x); });
+            SiteMap.AddPage("LedgerAccountAdd", "add", "inventoryexpress.add.label", (x) => { return new WorkerPage<PageLedgerAccountAdd>(x); });
+            SiteMap.AddPage("LedgerAccountEdit", "edit", "inventoryexpress.edit.label", (x) => { return new WorkerPage<PageLedgerAccountEdit>(x); });
+            SiteMap.AddPage("CostCenters", "costcenters", "inventoryexpress.costcenters.label", (x) => { return new WorkerPage<PageCostCenter>(x); });
+            SiteMap.AddPage("CostCenterAdd", "add", "inventoryexpress.add.label", (x) => { return new WorkerPage<PageCostCenterAdd>(x); });
+            SiteMap.AddPage("CostCenterEdit", "edit", "inventoryexpress.edit.label", (x) => { return new WorkerPage<PageCostCenterEdit>(x); });
+            SiteMap.AddPage("Templates", "templates", "inventoryexpress.templates.label", (x) => { return new WorkerPage<PageTemplates>(x); });
+            SiteMap.AddPage("TemplateAdd", "add", "inventoryexpress.add.label", (x) => { return new WorkerPage<PageTemplateAdd>(x); });
+            SiteMap.AddPage("TemplateEdit", "edit", "inventoryexpress.edit.label", (x) => { return new WorkerPage<PageTemplateEdit>(x); });
+            SiteMap.AddPage("Help", "help", "inventoryexpress.help.label", (x) => { return new WorkerPage<PageHelp>(x); });
 
             //SiteMap.AddPathSegmentVariable
             //(
@@ -88,7 +86,7 @@ namespace InventoryExpress
                 ),
                 new UriPathSegmentVariable("id", "(\\d+)")
             );
-            
+
             SiteMap.AddPathSegmentVariable
             (
                 "SupplierEdit",
@@ -101,7 +99,7 @@ namespace InventoryExpress
 
             SiteMap.AddPathSegmentVariable
             (
-                "GLAccountEdit",
+                "LedgerAccountEdit",
                 new UriPathSegmentDynamicDisplay
                 (
                     new UriPathSegmentDynamicDisplayText("Bearbeiten")
@@ -118,7 +116,7 @@ namespace InventoryExpress
                 ),
                 new UriPathSegmentVariable("id", "(\\d+)")
             );
-            
+
             SiteMap.AddPathSegmentVariable
             (
                 "TemplateEdit",
@@ -130,7 +128,6 @@ namespace InventoryExpress
             );
 
             SiteMap.AddPath("Assets", true);
-            SiteMap.AddPath("Data", true);
             SiteMap.AddPath("Home");
             SiteMap.AddPath("Home/Dashboard");
             SiteMap.AddPath("Home/InventoryAdd");
@@ -144,9 +141,9 @@ namespace InventoryExpress
             SiteMap.AddPath("Home/Suppliers");
             SiteMap.AddPath("Home/Suppliers/SupplierAdd");
             SiteMap.AddPath("Home/Suppliers/SupplierEdit");
-            SiteMap.AddPath("Home/GlAccounts");
-            SiteMap.AddPath("Home/GlAccounts/GLAccountAdd");
-            SiteMap.AddPath("Home/GlAccounts/GLAccountEdit");
+            SiteMap.AddPath("Home/LedgerAccounts");
+            SiteMap.AddPath("Home/LedgerAccounts/LedgerAccountAdd");
+            SiteMap.AddPath("Home/LedgerAccounts/LedgerAccountEdit");
             SiteMap.AddPath("Home/Costcenters");
             SiteMap.AddPath("Home/CostCenters/CostCenterAdd");
             SiteMap.AddPath("Home/CostCenters/CostCenterEdit");

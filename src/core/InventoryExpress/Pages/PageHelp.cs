@@ -1,9 +1,4 @@
-﻿using InventoryExpress.Controls;
-using InventoryExpress.Model;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using WebExpress.UI.Controls;
+﻿using WebExpress.UI.Controls;
 
 namespace InventoryExpress.Pages
 {
@@ -13,7 +8,7 @@ namespace InventoryExpress.Pages
         /// Konstruktor
         /// </summary>
         public PageHelp()
-            : base("Hilfe")
+            : base("inventoryexpress.help.label")
         {
         }
 

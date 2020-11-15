@@ -10,7 +10,7 @@ namespace InventoryExpress.Pages
         /// Konstruktor
         /// </summary>
         public PageCostCenter()
-            : base("Kostenstelle")
+            : base("inventoryexpress.costcenters.label")
         {
         }
 
@@ -46,7 +46,7 @@ namespace InventoryExpress.Pages
         {
             base.Process();
 
-            var grid = new ControlPanelGrid() { Fluid =  TypePanelContainer.Fluid };
+            var grid = new ControlPanelGrid() { Fluid = TypePanelContainer.Fluid };
             int i = 0;
 
             foreach (var costcenter in ViewModel.Instance.CostCenters)

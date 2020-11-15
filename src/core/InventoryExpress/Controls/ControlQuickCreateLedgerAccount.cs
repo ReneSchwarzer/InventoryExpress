@@ -5,12 +5,12 @@ using WebExpress.UI.Plugin;
 
 namespace InventoryExpress.Controls
 {
-    public class ControlAppNavigationGLAccount : ControlLink, IPluginComponentAppNavigationPrimary
+    public class ControlQuickCreateLedgerAccount : ControlDropdownItemLink, IPluginComponentQuickCreateSecondary
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public ControlAppNavigationGLAccount()
+        public ControlQuickCreateLedgerAccount()
             : base()
         {
             Init();
@@ -21,7 +21,6 @@ namespace InventoryExpress.Controls
         /// </summary>
         private void Init()
         {
-            TextColor = new PropertyColorText(TypeColorText.Light);
         }
 
         /// <summary>
@@ -31,9 +30,9 @@ namespace InventoryExpress.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            Text = "Sachkonten";
-            Uri = context.Page.Uri.Root.Append("glaccounts");
-            Active = context.Page is IPageGLAccount ? TypeActive.Active : TypeActive.None;
+            Text = context.I18N("inventoryexpress.ledgeraccounts.label", "Ledger accounts");
+            Uri = context.Page.Uri.Root.Append("ledgeraccounts/add");
+            Active = context.Page is IPageLedgerAccount ? TypeActive.Active : TypeActive.None;
             Icon = new PropertyIcon(TypeIcon.At);
 
             return base.Render(context);

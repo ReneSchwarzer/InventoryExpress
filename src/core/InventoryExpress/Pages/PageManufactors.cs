@@ -10,7 +10,7 @@ namespace InventoryExpress.Pages
         /// Konstruktor
         /// </summary>
         public PageManufactors()
-            : base("Hersteller")
+            : base("inventoryexpress.manufactors.label")
         {
         }
 
@@ -21,22 +21,22 @@ namespace InventoryExpress.Pages
         {
             base.Init();
 
-            //ToolBar.Add(new ControlToolBarItemButton()
-            //{
-            //    Icon = new PropertyIcon(TypeIcon.Plus),
-            //    Text = "Hinzufügen",
-            //    Title = "Neu",
-            //    Uri = Uri.Append("add"),
-            //    TextColor = new PropertyColorText(TypeColorText.White)
-            //},
-            //new ControlToolBarItemButton()
-            //{
-            //    Icon = new PropertyIcon(TypeIcon.Print),
-            //    Uri = Uri.Append("print"),
-            //    Title = "Drucken",
-            //    Size = new PropertySizeText(TypeSizeText.Default),
-            //    TextColor = new PropertyColorText(TypeColorText.White)
-            //});
+            Toolbar.Add(new ControlToolBarItemButton()
+            {
+                Icon = new PropertyIcon(TypeIcon.Plus),
+                Text = "Hinzufügen",
+                Title = "Neu",
+                Uri = Uri.Append("add"),
+                TextColor = new PropertyColorText(TypeColorText.White)
+            },
+            new ControlToolBarItemButton()
+            {
+                Icon = new PropertyIcon(TypeIcon.Print),
+                Uri = Uri.Append("print"),
+                Title = "Drucken",
+                Size = new PropertySizeText(TypeSizeText.Default),
+                TextColor = new PropertyColorText(TypeColorText.White)
+            });
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace InventoryExpress.Pages
         {
             base.Process();
 
-            var grid = new ControlPanelGrid() { Fluid =  TypePanelContainer.Fluid };
+            var grid = new ControlPanelGrid() { Fluid = TypePanelContainer.Fluid };
             int i = 0;
 
             foreach (var manufactor in ViewModel.Instance.Manufacturers)

@@ -5,7 +5,7 @@ using WebExpress.UI.Plugin;
 
 namespace InventoryExpress.Controls
 {
-    public class ControlSettingsTemplates : ControlLink, IPluginComponentSettingsPrimary
+    public class ControlSettingsTemplates : ControlDropdownItemLink, IPluginComponentSettingsPrimary
     {
         /// <summary>
         /// Konstruktor
@@ -21,7 +21,6 @@ namespace InventoryExpress.Controls
         /// </summary>
         private void Init()
         {
-            TextColor = new PropertyColorText(TypeColorText.Dark);
         }
 
         /// <summary>
@@ -31,7 +30,7 @@ namespace InventoryExpress.Controls
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            Text = "Vorlagen";
+            Text = context.I18N("inventoryexpress.templates.label", "Templates");
             Uri = context.Page.Uri.Root.Append("templates");
             Active = context.Page is IPageTemplate ? TypeActive.Active : TypeActive.None;
             //Icon = new PropertyIcon(TypeIcon.Book);

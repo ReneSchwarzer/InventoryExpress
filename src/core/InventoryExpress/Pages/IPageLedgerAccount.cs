@@ -1,6 +1,6 @@
 ﻿namespace InventoryExpress.Pages
 {
-    public interface IPageInventory
+    public interface IPageLedgerAccount
     {
     }
 }

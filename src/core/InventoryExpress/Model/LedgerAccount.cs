@@ -1,19 +1,17 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace InventoryExpress.Model
 {
     /// <summary>
     /// Sachkonto
     /// </summary>
-    [Table("GLACCOUNT")]
-    public class GLAccount : Item
+    [Table("LEDGERACCOUNT")]
+    public class LedgerAccount : Item
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public GLAccount()
+        public LedgerAccount()
             : base()
         {
         }

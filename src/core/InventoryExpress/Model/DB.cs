@@ -8,11 +8,11 @@ namespace InventoryExpress.Model
         /// Liefert oder setzt die Inventargegenstände
         /// </summary>
         public DbSet<Inventory> Inventories { get; set; }
-        
+
         /// <summary>
         /// Liefert oder setzt die Zustände
         /// </summary>
-        public DbSet<State> States { get; set; }
+        public DbSet<Condition> Conditions { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Standorte
@@ -32,7 +32,7 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Liefert oder setzt die Sachkonten
         /// </summary>
-        public DbSet<GLAccount> GLAccounts { get; set; }
+        public DbSet<LedgerAccount> GLAccounts { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Kostenstellen

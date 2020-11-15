@@ -10,7 +10,7 @@ namespace InventoryExpress.Pages
         /// Konstruktor
         /// </summary>
         public PageTemplates()
-            : base("Vorlagen")
+            : base("inventoryexpress.templates.label")
         {
         }
 
@@ -46,7 +46,7 @@ namespace InventoryExpress.Pages
         {
             base.Process();
 
-            var grid = new ControlPanelGrid() { Fluid =  TypePanelContainer.Fluid };
+            var grid = new ControlPanelGrid() { Fluid = TypePanelContainer.Fluid };
             int i = 0;
 
             foreach (var template in ViewModel.Instance.Templates)

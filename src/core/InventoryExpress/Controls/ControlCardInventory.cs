@@ -1,6 +1,5 @@
 ﻿using InventoryExpress.Model;
 using WebExpress.Html;
-using WebExpress.Pages;
 using WebExpress.UI.Controls;
 
 namespace InventoryExpress.Controls
@@ -96,18 +95,18 @@ namespace InventoryExpress.Controls
                 });
             }
 
-            if (Inventory.GLAccount != null && Inventory.GLAccount is var glaAccount)
+            if (Inventory.LedgerAccount != null && Inventory.LedgerAccount is var ledgerAccount)
             {
                 flex.Content.Add(new ControlAttribute()
                 {
                     Icon = new PropertyIcon(TypeIcon.At),
                     Padding = new PropertySpacingPadding(PropertySpacing.Space.Two),
                     TextColor = new PropertyColorText(TypeColorText.Secondary),
-                    Name = glaAccount.Name
+                    Name = ledgerAccount.Name
                 });
             }
 
-            if (Inventory.State != null && Inventory.State is var state)
+            if (Inventory.Condition != null && Inventory.Condition is var state)
             {
                 flex.Content.Add(new ControlAttribute()
                 {

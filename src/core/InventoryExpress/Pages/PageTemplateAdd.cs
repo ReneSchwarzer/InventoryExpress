@@ -17,7 +17,7 @@ namespace InventoryExpress.Pages
         /// Konstruktor
         /// </summary>
         public PageTemplateAdd()
-            : base("Vorlage hinzufügen")
+            : base("inventoryexpress.template.add.label")
         {
         }
 

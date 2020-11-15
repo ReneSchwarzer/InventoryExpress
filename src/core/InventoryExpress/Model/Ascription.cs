@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Xml.Linq;
 
 namespace InventoryExpress.Model
 {
@@ -24,7 +20,7 @@ namespace InventoryExpress.Model
         /// Der Anschaffungswert
         /// </summary>
         public decimal CostValue { get; set; }
-        
+
         /// <summary>
         /// Das Template
         /// </summary>
@@ -53,7 +49,7 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Der Zustand
         /// </summary>
-        public State State { get; set; }
+        public Condition State { get; set; }
 
         /// <summary>
         /// Der Lieferant
@@ -70,6 +66,6 @@ namespace InventoryExpress.Model
             PurchaseDate = DateTime.Today;
         }
 
-        
+
     }
 }

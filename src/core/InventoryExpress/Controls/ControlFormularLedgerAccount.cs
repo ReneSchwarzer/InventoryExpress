@@ -1,13 +1,8 @@
-﻿
-using InventoryExpress.Model;
-using System.Collections.Generic;
-using System.Linq;
-using WebExpress.Pages;
-using WebExpress.UI.Controls;
+﻿using WebExpress.UI.Controls;
 
 namespace InventoryExpress.Controls
 {
-    public class ControlFormularGLAccount : ControlFormular
+    public class ControlFormularLedgerAccount : ControlFormular
     {
         /// <summary>
         /// Liefert oder setzt den Namen des Sachkontos
@@ -28,7 +23,7 @@ namespace InventoryExpress.Controls
         /// Konstruktor
         /// </summary>
         /// <param name="id">Die ID</param>
-        public ControlFormularGLAccount(string id = null)
+        public ControlFormularLedgerAccount(string id = null)
             : base(id)
         {
             Init();

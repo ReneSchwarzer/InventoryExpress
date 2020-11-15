@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using WebExpress.Pages;
-using WebExpress.UI.Controls;
+﻿using WebExpress.UI.Controls;
 
 namespace InventoryExpress.Controls
 {
@@ -12,7 +8,7 @@ namespace InventoryExpress.Controls
         /// Liefert oder setzt die Botschaft
         /// </summary>
         public string Message { get; set; } = "Möchten Sie das Element wirklich löschen?";
-        
+
         /// <summary>
         /// Konstruktor
         /// </summary>
