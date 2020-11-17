@@ -1,11 +1,12 @@
 ﻿using InventoryExpress.Pages;
 using WebExpress.Html;
+using WebExpress.Plugins;
 using WebExpress.UI.Controls;
-using WebExpress.UI.Plugin;
 
 namespace InventoryExpress.Controls
 {
-    public class ControlAppNavigationSupplier : ControlNavigationItemLink, IPluginComponentAppNavigationPrimary
+    [PluginComponent("app.navigation.primary")]
+    public class ControlAppNavigationSupplier : ControlNavigationItemLink
     {
         /// <summary>
         /// Konstruktor

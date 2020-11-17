@@ -1,11 +1,12 @@
 ﻿using InventoryExpress.Pages;
 using WebExpress.Html;
+using WebExpress.Plugins;
 using WebExpress.UI.Controls;
-using WebExpress.UI.Plugin;
 
 namespace InventoryExpress.Controls
 {
-    public class ControlAppNavigationInventory : ControlNavigationItemLink, IPluginComponentAppNavigationPreferences
+    [PluginComponent("app.navigation.preferences")]
+    public class ControlAppNavigationInventory : ControlNavigationItemLink
     {
         /// <summary>
         /// Konstruktor
@@ -33,7 +34,7 @@ namespace InventoryExpress.Controls
             Text = context.I18N("inventoryexpress.inventories.label", "Inventory");
             Uri = context.Page.Uri.Root;
             Active = context.Page is IPageInventory ? TypeActive.Active : TypeActive.None;
-            Icon = new PropertyIcon(TypeIcon.Home);
+            Icon = new PropertyIcon(TypeIcon.LayerGroup);
 
             return base.Render(context);
         }

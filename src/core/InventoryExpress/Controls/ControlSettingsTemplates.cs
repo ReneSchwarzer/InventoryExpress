@@ -1,11 +1,12 @@
 ﻿using InventoryExpress.Pages;
 using WebExpress.Html;
+using WebExpress.Plugins;
 using WebExpress.UI.Controls;
-using WebExpress.UI.Plugin;
 
 namespace InventoryExpress.Controls
 {
-    public class ControlSettingsTemplates : ControlDropdownItemLink, IPluginComponentSettingsPrimary
+    [PluginComponent("app.settings.primary")]
+    public class ControlSettingsTemplates : ControlDropdownItemLink
     {
         /// <summary>
         /// Konstruktor

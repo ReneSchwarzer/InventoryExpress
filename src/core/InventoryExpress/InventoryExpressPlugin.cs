@@ -2,6 +2,7 @@
 using InventoryExpress.Pages;
 using System.Reflection;
 using WebExpress.Pages;
+using WebExpress.Plugins;
 using WebExpress.Workers;
 
 namespace InventoryExpress
@@ -12,21 +13,19 @@ namespace InventoryExpress
         /// Konstruktor
         /// </summary>
         public InventoryExpressPlugin()
-            : base("InventoryExpress", "/Asserts/img/InventoryExpress.svg")
         {
         }
 
         /// <summary>
-        /// Initialisierung des Prozesszustandes. Hier können z.B. verwaltete Ressourcen geladen werden. 
+        /// Initialisierung des Plugins. Hier können z.B. verwaltete Ressourcen geladen werden. 
         /// </summary>
-        /// <param name="configFileName">Der Dateiname der Konfiguration oder null</param>
-        public override void Init(string configFileName = null)
+        /// <param name="context">Der Kontext, welcher für die Ausführung des Plugins gilt</param>
+        public override void Init(IPluginContext context)
         {
-            base.Init(configFileName);
+            base.Init(context);
 
             ViewModel.Instance.Context = Context;
             ViewModel.Instance.Init();
-            Context.Log.Info(MethodBase.GetCurrentMethod(), "InventoryExpressPlugin Initialisierung");
 
             SiteMap.AddPage("Assets", "Assets", (x) => { return new WorkerFile(x, Context.AssetBaseFolder); });
 

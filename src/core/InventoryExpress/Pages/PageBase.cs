@@ -23,13 +23,8 @@ namespace InventoryExpress.Pages
         /// Initialisierung
         /// </summary>
         public override void Init()
-        {
-            Title = this.I18N(Title);
-            
+        {          
             base.Init();
-
-            Header.Logo = Uri?.Root.Append("Assets/img/Logo.png");
-            Header.Title = Context.Name;
 
             Footer.Content.Add(new ControlText("now")
             {

@@ -1,5 +1,6 @@
 ﻿using InventoryExpress.Controls;
 using InventoryExpress.Model;
+using WebExpress.Internationalization;
 using WebExpress.UI.Controls;
 
 namespace InventoryExpress.Pages
@@ -24,18 +25,17 @@ namespace InventoryExpress.Pages
             Toolbar.Add(new ControlToolBarItemButton()
             {
                 Icon = new PropertyIcon(TypeIcon.Plus),
-                Text = "Hinzufügen",
-                Title = "Neu",
+                Text = this.I18N("inventoryexpress.add.label"),
+                Title = this.I18N("inventoryexpress.add.discription"),
                 Uri = Uri.Append("add"),
-                TextColor = new PropertyColorText(TypeColorText.White)
+                Size = new PropertySizeText(TypeSizeText.Small)
             },
             new ControlToolBarItemButton()
             {
                 Icon = new PropertyIcon(TypeIcon.Print),
                 Uri = Uri.Append("print"),
-                Title = "Drucken",
-                Size = new PropertySizeText(TypeSizeText.Default),
-                TextColor = new PropertyColorText(TypeColorText.White)
+                Title = this.I18N("inventoryexpress.print.discription"),
+                Size = new PropertySizeText(TypeSizeText.Small)
             });
         }
 

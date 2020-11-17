@@ -1,4 +1,5 @@
 ﻿# Deutsch
+org.WebExpress.Inventory=Inventar
 
 inventoryexpress.inventories.label=Inventar
 inventoryexpress.inventory.label=Inventar
@@ -53,10 +54,15 @@ inventoryexpress.parent.discription=Die Zugehörigkeit zu einem anderen Inventar
 inventoryexpress.tags.label=Schlagwörter
 inventoryexpress.tags.discription=
 
+inventoryexpress.discription.label=Beschreibung
+inventoryexpress.discription.discription=
+
 inventoryexpress.help.label=Hilfe
 inventoryexpress.details.label=Details
 
-
 inventoryexpress.add.label=Hinzufügen
+inventoryexpress.add.discription=Erstellt ein neues Element
 inventoryexpress.edit.label=Bearbeiten
 inventoryexpress.delete.label=Löschen
+inventoryexpress.print.label=Drucken
+inventoryexpress.print.Discription=Druckt das aktuelle Element

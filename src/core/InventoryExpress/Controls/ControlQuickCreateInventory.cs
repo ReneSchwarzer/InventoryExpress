@@ -1,11 +1,12 @@
 ﻿using InventoryExpress.Pages;
 using WebExpress.Html;
+using WebExpress.Plugins;
 using WebExpress.UI.Controls;
-using WebExpress.UI.Plugin;
 
 namespace InventoryExpress.Controls
 {
-    public class ControlQuickCreateInventory : ControlDropdownItemLink, IPluginComponentQuickCreatePrimary
+    [PluginComponent("app.quickcreate.primary")]
+    public class ControlQuickCreateInventory : ControlSplitButtonItemLink
     {
         /// <summary>
         /// Konstruktor

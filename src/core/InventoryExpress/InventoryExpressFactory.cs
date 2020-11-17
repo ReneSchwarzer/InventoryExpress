@@ -7,6 +7,11 @@ namespace InventoryExpress
     public class InventoryExpressFactory : PluginFactory
     {
         /// <summary>
+        /// Liefert den Anwendungsnamen indem das Plugin aktiv ist. 
+        /// </summary>
+        public override string AppArtifactID => "org.WebExpress.Inventory";
+
+        /// <summary>
         /// Liefert oder setzt die ID
         /// </summary>
         public override string ArtifactID => "Inventory";
@@ -25,6 +30,11 @@ namespace InventoryExpress
         /// Liefert oder setzt den Namen
         /// </summary>
         public override string Version => Assembly.GetExecutingAssembly().GetName().Version.ToString();
+
+        /// <summary>
+        /// Liefert das Icon des Plugins
+        /// </summary>
+        public override string Icon => "Assets/img/Logo.png";
 
         /// <summary>
         /// Liefert den Dateinamen der Konfigurationsdatei

@@ -85,7 +85,7 @@ namespace InventoryExpress.Controls
             Name = "inventory";
             EnableCancelButton = false;
             Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Three, PropertySpacing.Space.None, PropertySpacing.Space.None);
-            BackgroundColor = new PropertyColorBackground(TypeColorBackground.Warning);
+            BackgroundColor = LayoutSchema.FormularBackground;
             Border = new PropertyBorder(true);
             Padding = new PropertySpacingPadding(PropertySpacing.Space.Two);
             Layout = TypeLayoutFormular.Horizontal;
@@ -243,6 +243,7 @@ namespace InventoryExpress.Controls
                 Name = "template",
                 Label = "inventoryexpress.template.label",
                 Help = "inventoryexpress.template.discription",
+                Icon = new PropertyIcon(TypeIcon.Copy),
                 OnChange = new PropertyOnChange(TypeOnChange.Submit)
             };
 
@@ -282,8 +283,8 @@ namespace InventoryExpress.Controls
             Memo = new ControlFormularItemInputTextBox()
             {
                 Name = "memo",
-                Label = "Beschreibung",
-                Help = "",
+                Label = "inventoryexpress.discription.label",
+                Help = "inventoryexpress.discription.discription",
                 Format = TypesEditTextFormat.Wysiwyg,
                 Icon = new PropertyIcon(TypeIcon.CommentAlt)
             };
