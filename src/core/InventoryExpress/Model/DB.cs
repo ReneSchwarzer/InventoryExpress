@@ -32,7 +32,7 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Liefert oder setzt die Sachkonten
         /// </summary>
-        public DbSet<LedgerAccount> GLAccounts { get; set; }
+        public DbSet<LedgerAccount> LedgerAccounts { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Kostenstellen
@@ -48,6 +48,11 @@ namespace InventoryExpress.Model
         /// Liefert oder setzt die Attribute
         /// </summary>
         public DbSet<Attribute> Attributes { get; set; }
+
+        /// <summary>
+        /// Liefert oder setzt die Medien
+        /// </summary>
+        public DbSet<Media> Media { get; set; }
 
         /// <summary>
         /// Konstruktor

@@ -1,10 +1,17 @@
-﻿namespace InventoryExpress.App
+﻿using System.Reflection;
+
+namespace InventoryExpress.App
 {
     class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-            WebExpress.App.Program.Main(args);
+            var app = new WebExpress.Program()
+            {
+                Name = Assembly.GetExecutingAssembly().GetName().Name
+            };
+
+            app.Execution(args);
         }
     }
 }

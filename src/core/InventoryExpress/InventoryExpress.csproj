@@ -9,11 +9,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\img\Favicon.png" />
+    <None Remove="Assets\img\Logo.png" />
     <None Remove="Internationalization\de" />
     <None Remove="Internationalization\en" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Assets\img\Favicon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\img\Logo.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Internationalization\de" />
     <EmbeddedResource Include="Internationalization\en" />
   </ItemGroup>
@@ -24,6 +32,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\WebExpress\core\WebExpress.UI\WebExpress.UI.csproj" />
+    <ProjectReference Include="..\..\..\..\WebExpress\core\WebExpress.WebApp\WebExpress.WebApp.csproj" />
     <ProjectReference Include="..\..\..\..\WebExpress\core\WebExpress\WebExpress.csproj" />
   </ItemGroup>
 

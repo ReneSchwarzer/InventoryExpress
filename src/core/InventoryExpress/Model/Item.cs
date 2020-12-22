@@ -7,7 +7,7 @@ namespace InventoryExpress.Model
     public class Item
     {
         /// <summary>
-        /// ID
+        /// Die ID
         /// </summary>
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
@@ -21,8 +21,8 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Liefert oder setzt die Beschreibung
         /// </summary>
-        [Column("DISCRIPTION")]
-        public string Discription { get; set; }
+        [Column("DESCRIPTION")]
+        public string Description { get; set; }
 
         /// <summary>
         /// Der Zeitstempel der Erstellung
@@ -31,9 +31,21 @@ namespace InventoryExpress.Model
         public DateTime Timestamp { get; set; }
 
         /// <summary>
-        /// Bild
+        /// Die GUID
         /// </summary>
-        //public string Image { get; set; }
+        [Column("GUID")]
+        public string Guid { get; set; }
+
+        /// <summary>
+        /// Das Bild
+        /// </summary>
+        [Column("MEDIAID")]
+        public int? MediaID { get; set; }
+
+        /// <summary>
+        /// Das Bild
+        /// </summary>
+        public virtual Media Media { get; set; }
 
         /// <summary>
         /// Konstruktor

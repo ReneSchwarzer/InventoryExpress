@@ -47,13 +47,13 @@ namespace InventoryExpress.Model
         /// Das Anschaffungsdatum
         /// </summary>
         [Column("PURCHASEDATE")]
-        public DateTimeOffset? PurchaseDate { get; set; }
+        public DateTime? PurchaseDate { get; set; }
 
         /// <summary>
         /// Das Abgangsdatum
         /// </summary>
         [Column("DERECOGNITIONDATE")]
-        public DateTimeOffset? DerecognitionDate { get; set; }
+        public DateTime? DerecognitionDate { get; set; }
 
         /// <summary>
         /// Die ID des Standortes
@@ -125,7 +125,7 @@ namespace InventoryExpress.Model
         /// Teil eines Ganzen
         /// </summary>
         [NotMapped]
-        public int Parent { get; set; }
+        public string Parent { get; set; }
 
         /// <summary>
         /// Teil eines Ganzen
@@ -136,14 +136,14 @@ namespace InventoryExpress.Model
             get
             {
                 return (from x in ViewModel.Instance.Inventories
-                        where x.ID == Parent
+                        where x.Guid == Parent
                         select x).FirstOrDefault();
             }
             set
             {
-                if (Parent != value.ID)
+                if (Parent != value.Guid)
                 {
-                    Parent = value.ID;
+                    Parent = value.Guid;
                 }
             }
         }

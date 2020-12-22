@@ -1,68 +1,134 @@
 ﻿# Englisch
+plugin.name=Plugin Inventory Express
+plugin.description=
+
+app.name=Inventory Express
+app.description=
+
+module.name=Modul Inventory Express
+module.description=
+
 org.WebExpress.Inventory=Inventory
 
 inventoryexpress.inventories.label=Inventories
 inventoryexpress.inventory.label=Inventoriy
-inventoryexpress.inventory.discription=The inventory item
+inventoryexpress.inventory.description=The inventory item
 inventoryexpress.inventory.name.label=Name
-inventoryexpress.inventory.name.discription=The name of the inventory item
+inventoryexpress.inventory.name.description=The name of the inventory item.
 inventoryexpress.inventory.add.label=Add inventory item
-inventoryexpress.Inventory.edit.label=Edit inventory item
+inventoryexpress.inventory.edit.label=Edit inventory item
+inventoryexpress.inventory.edit.display={0}
 
 inventoryexpress.costcenters.label=Cost centers
 inventoryexpress.costcenter.label=Cost center
-inventoryexpress.costcenter.discription=The cost center of the inventory item
+inventoryexpress.costcenter.description=The cost center of the inventory item.
 inventoryexpress.costcenters.add.label=Add cost center
 inventoryexpress.costcenters.edit.label=Edit cost center
+inventoryexpress.costcenters.edit.display={0}
+inventoryexpress.costcenters.form.name.label=Name
+inventoryexpress.costcenters.form.name.description=The name of the cost center.
+inventoryexpress.costcenters.form.description.label=Beschreibung
+inventoryexpress.costcenters.form.description.description=
+inventoryexpress.costcenters.form.image.label=Bild
+inventoryexpress.costcenters.form.image.description=
+inventoryexpress.costcenters.form.tag.label=Schlagwörter
+inventoryexpress.costcenters.form.tag.description=
 
 inventoryexpress.ledgeraccounts.label=Ledger accounts
 inventoryexpress.ledgeraccount.label=Ledger account
-inventoryexpress.ledgeraccount.discription=The ledger account of the inventory item
+inventoryexpress.ledgeraccount.description=The ledger account of the inventory item.
 inventoryexpress.ledgeraccount.add.label=Add ledger account
 inventoryexpress.ledgeraccount.edit.label=Edit ledger account
+inventoryexpress.ledgeraccount.edit.display={0}
+inventoryexpress.ledgeraccount.form.name.label=Name
+inventoryexpress.ledgeraccount.form.name.description=The name of the ledger account.
+inventoryexpress.ledgeraccount.form.description.label=Beschreibung
+inventoryexpress.ledgeraccount.form.description.description=
+inventoryexpress.ledgeraccount.form.image.label=Bild
+inventoryexpress.ledgeraccount.form.image.description=
+inventoryexpress.ledgeraccount.form.tag.label=Schlagwörter
+inventoryexpress.ledgeraccount.form.tag.description=
 
 inventoryexpress.locations.label=Locations
 inventoryexpress.location.label=Location
-inventoryexpress.location.discription=The location of the inventory item
+inventoryexpress.location.description=The location of the inventory item.
 inventoryexpress.location.add.label=Add location
 inventoryexpress.location.edit.label=Edit location
+inventoryexpress.location.edit.display={0}
+inventoryexpress.location.form.name.label=Name
+inventoryexpress.location.form.name.description=The name of the location.
+inventoryexpress.location.form.description.label=Beschreibung
+inventoryexpress.location.form.description.description=
+inventoryexpress.location.form.image.label=Bild
+inventoryexpress.location.form.image.description=
+inventoryexpress.location.form.tag.label=Schlagwörter
+inventoryexpress.location.form.tag.description=
 
 inventoryexpress.manufactors.label=Manufactors
 inventoryexpress.manufactor.label=Manufactor
-inventoryexpress.manufactor.discription=The manufacturer of the inventory item
+inventoryexpress.manufactor.description=The manufacturer of the inventory item.
 inventoryexpress.manufactor.add.label=Add manufacturer
 inventoryexpress.manufactor.edit.label=Edit manufacturer
+inventoryexpress.manufactor.edit.display={0}
+inventoryexpress.manufactor.form.name.label=Name
+inventoryexpress.manufactor.form.name.description=The name of the manufacturer.
+inventoryexpress.manufactor.form.description.label=Description
+inventoryexpress.manufactor.form.description.description=
+inventoryexpress.manufactor.form.image.label=Image
+inventoryexpress.manufactor.form.image.description=
+inventoryexpress.manufactor.form.tag.label=Tags
+inventoryexpress.manufactor.form.tag.description=
 
 inventoryexpress.suppliers.label=Suppliers
 inventoryexpress.supplier.label=Supplier
-inventoryexpress.supplier.discription=The supplier of the inventory item
+inventoryexpress.supplier.description=The supplier of the inventory item.
 inventoryexpress.supplier.add.label=Add supplier
 inventoryexpress.supplier.edit.label=Edit supplier
+inventoryexpress.supplier.edit.display={0}
+inventoryexpress.supplier.form.name.label=Name
+inventoryexpress.supplier.form.name.description=The name of the supplier.
+inventoryexpress.supplier.form.description.label=Beschreibung
+inventoryexpress.supplier.form.description.description=
+inventoryexpress.supplier.form.image.label=Bild
+inventoryexpress.supplier.form.image.description=
+inventoryexpress.supplier.form.tag.label=Schlagwörter
+inventoryexpress.supplier.form.tag.description=
 
 inventoryexpress.templates.label=Templates
 inventoryexpress.template.label=Template
-inventoryexpress.template.discription=The template
+inventoryexpress.template.description=The template
 inventoryexpress.template.add.label=Add template
 inventoryexpress.template.edit.label=Edit template
+inventoryexpress.template.edit.display={0}
+inventoryexpress.template.form.name.label=Name
+inventoryexpress.template.form.name.description=The name of the template.
+inventoryexpress.template.form.unused.label=Attributes
+inventoryexpress.template.form.unused.description=Other attributes.
+inventoryexpress.template.form.description.label=Beschreibung
+inventoryexpress.template.form.description.description=
+inventoryexpress.template.form.image.label=Bild
+inventoryexpress.template.form.image.description=
+inventoryexpress.template.form.tag.label=Schlagwörter
+inventoryexpress.template.form.tag.description=
 
 inventoryexpress.condition.label=Condition
-inventoryexpress.condition.discription=The condition of the inventory item
+inventoryexpress.condition.description=The condition of the inventory item.
 
 inventoryexpress.parent.label=Membership of
-inventoryexpress.parent.discription=Belonging to another inventory item
+inventoryexpress.parent.description=Belonging to another inventory item.
 
 inventoryexpress.tags.label=Tags
-inventoryexpress.tags.discription=
+inventoryexpress.tags.description=
 
-inventoryexpress.discription.label=Discription
-inventoryexpress.discription.discription=
+inventoryexpress.description.label=Description
+inventoryexpress.description.description=
 
 inventoryexpress.help.label=Help
 inventoryexpress.details.label=Details
 
 inventoryexpress.add.label=Add
-inventoryexpress.add.discription=Creates a new item
+inventoryexpress.add.description=Creates a new item.
 inventoryexpress.edit.label=Edit
 inventoryexpress.delete.label=Delete
 inventoryexpress.print.label=Print
-inventoryexpress.print.Discription=Prints the current item
+inventoryexpress.print.Description=Prints the current item.

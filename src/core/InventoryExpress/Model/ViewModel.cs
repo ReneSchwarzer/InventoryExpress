@@ -1,5 +1,5 @@
 ﻿using System;
-using WebExpress.Plugins;
+using WebExpress.Plugin;
 
 namespace InventoryExpress.Model
 {
