@@ -1,4 +1,5 @@
 ﻿using InventoryExpress.Model;
+using System.Linq;
 using WebExpress.Html;
 using WebExpress.UI.WebControl;
 
@@ -26,7 +27,7 @@ namespace InventoryExpress.WebControl
         /// </summary>
         private void Init()
         {
-            Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Two);
+            Margin = new PropertySpacingMargin(PropertySpacing.Space.Two);
             BackgroundColor = new PropertyColorBackground(TypeColorBackground.Light);
         }
 
@@ -37,9 +38,11 @@ namespace InventoryExpress.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
+            var image = ViewModel.Instance.Media.Where(x => x.ID == Inventory.MediaID).Select(x => context.Page.Uri.Root.Append("media/" + x.Guid)).FirstOrDefault();
+
             var media = new ControlPanelMedia()
             {
-                //Image = new UriRelative(string.IsNullOrWhiteSpace(Inventory.Image) ? "/Assets/img/Logo.png" : "/data/" + Inventory.Image),
+                Image = image == null ? context.Page.Uri.Root.Append("/assets/img/inventoryexpress.svg") : image,
                 ImageWidth = 100,
                 ImageHeight = 100,
                 Title = new ControlLink()

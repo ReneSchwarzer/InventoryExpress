@@ -1,4 +1,5 @@
 ﻿using InventoryExpress.Model;
+using System.Linq;
 using WebExpress.Html;
 using WebExpress.UI.WebControl;
 
@@ -7,9 +8,9 @@ namespace InventoryExpress.WebControl
     public class ControlCardLedgerAccount : ControlPanelCard
     {
         /// <summary>
-        /// Liefert oder setzt den Hersteller
+        /// Liefert oder setzt das Sachkonto
         /// </summary>
-        public LedgerAccount GLAccount { get; set; }
+        public LedgerAccount LedgerAccount { get; set; }
 
         /// <summary>
         /// Konstruktor
@@ -26,7 +27,7 @@ namespace InventoryExpress.WebControl
         /// </summary>
         private void Init()
         {
-            Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Two);
+            Margin = new PropertySpacingMargin(PropertySpacing.Space.Two);
             BackgroundColor = new PropertyColorBackground(TypeColorBackground.Light);
         }
 
@@ -37,22 +38,24 @@ namespace InventoryExpress.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
+            var image = ViewModel.Instance.Media.Where(x => x.ID == LedgerAccount.MediaID).Select(x => context.Page.Uri.Root.Append("media/" + x.Guid)).FirstOrDefault();
+
             var media = new ControlPanelMedia()
             {
-                //Image = new UriRelative(string.IsNullOrWhiteSpace(Manufactur.Image) ? "/Assets/img/Logo.png" : "/data/" + Manufactur.Image),
+                Image = image == null ? context.Page.Uri.Root.Append("/assets/img/inventoryexpress.svg") : image,
                 ImageWidth = 100,
                 ImageHeight = 100,
                 Title = new ControlLink()
                 {
-                    Text = GLAccount.Name,
-                    Uri = context.Page.Uri.Append(GLAccount.Guid),
+                    Text = LedgerAccount.Name,
+                    Uri = context.Page.Uri.Append(LedgerAccount.Guid),
                     TextColor = new PropertyColorText(TypeColorText.Dark)
                 }
             };
 
             media.Content.Add(new ControlText()
             {
-                Text = GLAccount.Description,
+                Text = LedgerAccount.Description,
                 Format = TypeFormatText.Paragraph
             });
 

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace InventoryExpress.Model
@@ -26,6 +27,18 @@ namespace InventoryExpress.Model
         /// </summary>
         [Column("DATA")]
         public byte[] Data { get; set; }
+
+        /// <summary>
+        /// Der Zeitstempel der Erstellung
+        /// </summary>
+        [Column("CREATED")]
+        public DateTime Created { get; set; }
+
+        /// <summary>
+        /// Der Zeitstempel der letzten Änderung
+        /// </summary>
+        [Column("UPDATED")]
+        public DateTime Updated { get; set; }
 
         /// <summary>
         /// Die GUID

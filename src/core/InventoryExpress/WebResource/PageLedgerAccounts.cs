@@ -59,7 +59,7 @@ namespace InventoryExpress.WebResource
             {
                 var card = new ControlCardLedgerAccount()
                 {
-                    GLAccount = gLAccount
+                    LedgerAccount = gLAccount
                 };
 
                 grid.Content.Add(card);

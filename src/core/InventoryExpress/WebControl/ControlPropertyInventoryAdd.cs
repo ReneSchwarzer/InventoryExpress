@@ -18,7 +18,8 @@ namespace InventoryExpress.WebControl
         /// Konstruktor
         /// </summary>
         public ControlPropertyInventoryAdd()
-        {           
+        {
+            Margin = new PropertySpacingMargin(PropertySpacing.Space.Two);
         }
 
         /// <summary>

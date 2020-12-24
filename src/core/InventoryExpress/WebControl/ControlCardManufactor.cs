@@ -1,6 +1,4 @@
 ﻿using InventoryExpress.Model;
-using System;
-using System.IO;
 using System.Linq;
 using WebExpress.Html;
 using WebExpress.UI.WebControl;
@@ -44,7 +42,7 @@ namespace InventoryExpress.WebControl
 
             var media = new ControlPanelMedia()
             {
-                Image = image,
+                Image = image == null ? context.Page.Uri.Root.Append("/assets/img/inventoryexpress.svg") : image,
                 ImageWidth = 100,
                 ImageHeight = 100,
                 Title = new ControlLink()

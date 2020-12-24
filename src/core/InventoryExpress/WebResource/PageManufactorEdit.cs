@@ -15,6 +15,7 @@ namespace InventoryExpress.WebResource
     [Path("/Manufactor")]
     [Module("InventoryExpress")]
     [Context("general")]
+    [Context("manufectoredit")]
     public sealed class PageManufactorEdit : PageTemplateWebApp, IPageManufactor
     {
         /// <summary>
@@ -38,7 +39,8 @@ namespace InventoryExpress.WebResource
 
             form = new ControlFormularManufactor(this)
             {
-                RedirectUrl = Uri.Take(-1)
+                RedirectUrl = Uri.Take(-1),
+                Edit = true
             };
         }
 
@@ -50,12 +52,13 @@ namespace InventoryExpress.WebResource
             base.Process();
 
             var guid = GetParamValue("ManufactorID");
-            var manufacturer = ViewModel.Instance.Manufacturers.Where(x => x.Guid == guid).FirstOrDefault();
+            var manufactur = ViewModel.Instance.Manufacturers.Where(x => x.Guid == guid).FirstOrDefault();
 
             Content.Content.Add(form);
 
-            form.ManufactorName.Value = manufacturer?.Name;
-            form.Description.Value = manufacturer?.Description;
+            form.ManufactorName.Value = manufactur?.Name;
+            form.Description.Value = manufactur?.Description;
+            form.Tag.Value = "rft;ddr;dresden";
 
             form.ManufactorName.Validation += (s, e) =>
             {
@@ -63,7 +66,7 @@ namespace InventoryExpress.WebResource
                 {
                     e.Results.Add(new ValidationResult() { Text = "Geben Sie einen gültigen Namen ein!", Type = TypesInputValidity.Error });
                 }
-                else if (!manufacturer.Name.Equals(e.Value, StringComparison.InvariantCultureIgnoreCase) && ViewModel.Instance.Suppliers.Where(x => x.Name.Equals(e.Value)).Count() > 0)
+                else if (!manufactur.Name.Equals(e.Value, StringComparison.InvariantCultureIgnoreCase) && ViewModel.Instance.Suppliers.Where(x => x.Name.Equals(e.Value)).Count() > 0)
                 {
                     e.Results.Add(new ValidationResult() { Text = "Der Hersteller wird bereits verwendet. Geben Sie einen anderen Namen an!", Type = TypesInputValidity.Error });
                 }
@@ -72,18 +75,28 @@ namespace InventoryExpress.WebResource
             form.ProcessFormular += (s, e) =>
             {
                 // Herstellerobjekt ändern und speichern
-                manufacturer.Name = form.ManufactorName.Value;
-                manufacturer.Description = form.Description.Value;
+                manufactur.Name = form.ManufactorName.Value;
+                manufactur.Description = form.Description.Value;
+                manufactur.Updated = DateTime.Now;
+
                 if (GetParam(form.Image.Name) is ParameterFile file)
                 {
-                    if (manufacturer.Media == null)
+                    if (manufactur.Media == null)
                     {
-                        manufacturer.Media = new Media() 
+                        manufactur.Media = new Media() 
                         { 
                             Name = file.Value, 
                             Data = file.Data,
+                            Created = DateTime.Now,
+                            Updated = DateTime.Now,
                             Guid = Guid.NewGuid().ToString()
                         };
+                    }
+                    else
+                    {
+                        manufactur.Media. Name = file.Value;
+                        manufactur.Media.Data = file.Data;
+                        manufactur.Media.Updated = DateTime.Now;
                     }
                 }
 

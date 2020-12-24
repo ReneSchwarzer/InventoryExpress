@@ -70,7 +70,9 @@ namespace InventoryExpress.WebResource
                     Name = form.ManufactorName.Value,
                     //Tag = form.Tag.Value,
                     Description = form.Description.Value,
-                    Guid = Guid.NewGuid().ToString()
+                    Guid = Guid.NewGuid().ToString(),
+                    Created = DateTime.Now,
+                    Updated = DateTime.Now
                 };
 
                 ViewModel.Instance.Manufacturers.Add(manufacturer);

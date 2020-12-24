@@ -20,7 +20,7 @@ namespace InventoryExpress.WebControl
         public ControlPropertyInventoryDetails()
         {
             Layout = TypeLayoutList.Flush;
-            
+            Margin = new PropertySpacingMargin(PropertySpacing.Space.Two);
         }
 
         /// <summary>
@@ -37,42 +37,48 @@ namespace InventoryExpress.WebControl
             {
                 Name = "Hersteller:",
                 Icon = new PropertyIcon(TypeIcon.Industry),
-                Value = inventory?.Manufacturer?.Name
+                Value = inventory?.Manufacturer?.Name,
+                TextColor = new PropertyColorText(TypeColorText.Secondary)
             }));
 
             Add(new ControlListItem(new ControlAttribute()
             {
                 Name = "Standort:",
                 Icon = new PropertyIcon(TypeIcon.Map),
-                Value = inventory?.Location?.Name
+                Value = inventory?.Location?.Name,
+                TextColor = new PropertyColorText(TypeColorText.Secondary)
             }));
 
             Add(new ControlListItem(new ControlAttribute()
             {
                 Name = "Lieferant:",
                 Icon = new PropertyIcon(TypeIcon.Truck),
-                Value = inventory?.Supplier?.Name
+                Value = inventory?.Supplier?.Name,
+                TextColor = new PropertyColorText(TypeColorText.Secondary)
             }));
 
             Add(new ControlListItem(new ControlAttribute()
             {
                 Name = "Sachkonto:",
                 Icon = new PropertyIcon(TypeIcon.At),
-                Value = inventory?.LedgerAccount?.Name
+                Value = inventory?.LedgerAccount?.Name,
+                TextColor = new PropertyColorText(TypeColorText.Secondary)
             }));
 
             Add(new ControlListItem(new ControlAttribute()
             {
                 Name = "Kostenstelle:",
                 Icon = new PropertyIcon(TypeIcon.ShoppingBag),
-                Value = inventory?.CostCenter?.Name
+                Value = inventory?.CostCenter?.Name,
+                TextColor = new PropertyColorText(TypeColorText.Secondary)
             }));
 
             Add(new ControlListItem(new ControlAttribute()
             {
                 Name = "Zustand:",
                 Icon = new PropertyIcon(TypeIcon.Star),
-                Value = inventory?.Condition?.Name
+                Value = inventory?.Condition?.Name,
+                TextColor = new PropertyColorText(TypeColorText.Secondary)
             }));
 
             foreach (var v in inventory?.Attributes)
@@ -81,7 +87,8 @@ namespace InventoryExpress.WebControl
                 {
                     Name = v.Name + ":",
                     Icon = new PropertyIcon(TypeIcon.MapMarker),
-                    Value = v.Value
+                    Value = v.Value,
+                    TextColor = new PropertyColorText(TypeColorText.Secondary)
                 }));
             }
 
@@ -89,14 +96,16 @@ namespace InventoryExpress.WebControl
             {
                 Name = "Anschaffungskosten:",
                 Icon = new PropertyIcon(TypeIcon.EuroSign),
-                Value = inventory?.CostValue.ToString() + " €"
+                Value = inventory?.CostValue.ToString(context.Culture) + " €",
+                TextColor = new PropertyColorText(TypeColorText.Secondary)
             }));
 
             Add(new ControlListItem(new ControlAttribute()
             {
                 Name = "Anschaffungsdatum:",
                 Icon = new PropertyIcon(TypeIcon.CalendarPlus),
-                Value = inventory?.PurchaseDate != null ? inventory?.PurchaseDate.Value.ToString("d", context.Culture) : string.Empty
+                Value = inventory?.PurchaseDate != null ? inventory?.PurchaseDate.Value.ToString("d", context.Culture) : string.Empty,
+                TextColor = new PropertyColorText(TypeColorText.Secondary)
             }));
 
             if (inventory.DerecognitionDate.HasValue)
@@ -105,7 +114,8 @@ namespace InventoryExpress.WebControl
                 {
                     Name = "Abgangsdatum:",
                     Icon = new PropertyIcon(TypeIcon.CalendarMinus),
-                    Value = inventory?.DerecognitionDate != null ? inventory?.DerecognitionDate.Value.ToString("d", context.Culture) : string.Empty
+                    Value = inventory?.DerecognitionDate != null ? inventory?.DerecognitionDate.Value.ToString("d", context.Culture) : string.Empty,
+                    TextColor = new PropertyColorText(TypeColorText.Secondary)
                 }));
             }
 

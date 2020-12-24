@@ -27,8 +27,14 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Der Zeitstempel der Erstellung
         /// </summary>
-        [Column("TIMESTAMP")]
-        public DateTime Timestamp { get; set; }
+        [Column("CREATED")]
+        public DateTime Created { get; set; }
+
+        /// <summary>
+        /// Der Zeitstempel der letzten Änderung
+        /// </summary>
+        [Column("UPDATED")]
+        public DateTime Updated { get; set; }
 
         /// <summary>
         /// Die GUID

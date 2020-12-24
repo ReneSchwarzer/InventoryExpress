@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <None Remove="Assets\img\Favicon.png" />
+    <None Remove="Assets\img\inventoryexpress.svg" />
     <None Remove="Assets\img\Logo.png" />
     <None Remove="Internationalization\de" />
     <None Remove="Internationalization\en" />
@@ -19,9 +20,7 @@
     <EmbeddedResource Include="Assets\img\Favicon.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Assets\img\Logo.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\img\inventoryexpress.svg" />
     <EmbeddedResource Include="Internationalization\de" />
     <EmbeddedResource Include="Internationalization\en" />
   </ItemGroup>

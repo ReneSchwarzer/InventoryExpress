@@ -1,5 +1,6 @@
 ﻿using WebExpress.WebResource;
 using WebExpress.UI.WebControl;
+using WebExpress.Html;
 
 namespace InventoryExpress.WebControl
 {
@@ -23,7 +24,12 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Liefert oder setzt die Schlagwörter
         /// </summary>
-        public ControlFormularItemInputTextBox Tag { get; set; }
+        public ControlFormularItemInputTag Tag { get; set; }
+
+        /// <summary>
+        /// Bestimmt, ob das Formular zum Bearbeiten oder zum Neuanlegen verwendet werden soll.
+        /// </summary>
+        public bool Edit { get; set; } = false;
 
         /// <summary>
         /// Konstruktor
@@ -42,9 +48,9 @@ namespace InventoryExpress.WebControl
         {
             Name = "manufactor";
             EnableCancelButton = false;
-            Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Three, PropertySpacing.Space.None, PropertySpacing.Space.None);
+            Margin = new PropertySpacingMargin(PropertySpacing.Space.Three);
             Layout = TypeLayoutFormular.Horizontal;
-
+            
             ManufactorName = new ControlFormularItemInputTextBox()
             {
                 Name = "name",
@@ -59,7 +65,8 @@ namespace InventoryExpress.WebControl
                 Label = "inventoryexpress.manufactor.form.description.label",
                 Help = "inventoryexpress.manufactor.form.description.description",
                 Format = TypesEditTextFormat.Wysiwyg,
-                Icon = new PropertyIcon(TypeIcon.CommentAlt)
+                Icon = new PropertyIcon(TypeIcon.CommentAlt),
+                Rows = 10
             };
 
             Image = new ControlFormularItemInputFile()
@@ -71,19 +78,31 @@ namespace InventoryExpress.WebControl
                 AcceptFile = new string[] { "image/*" }
             };
 
-            Tag = new ControlFormularItemInputTextBox()
+            Tag = new ControlFormularItemInputTag("tags")
             {
                 Name = "tag",
                 Label = "inventoryexpress.manufactor.form.tag.label",
                 Help = "inventoryexpress.manufactor.form.tag.description",
                 Icon = new PropertyIcon(TypeIcon.Tag)
             };
+        }
 
+        /// <summary>
+        /// In HTML konvertieren
+        /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        /// <returns>Das Control als HTML</returns>
+        public override IHtmlNode Render(RenderContext context)
+        {
             Add(ManufactorName);
             Add(Description);
-            Add(Image);
+            if (!Edit)
+            {
+                Add(Image);
+            }
             Add(Tag);
 
+            return base.Render(context);
         }
     }
 }

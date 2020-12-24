@@ -6,7 +6,7 @@ namespace InventoryExpress
     [ID("InventoryExpress")]
     [Name("app.name")]
     [Description("app.description")]
-    [Icon("/assets/img/Logo.png")]
+    [Icon("/assets/img/inventoryexpress.svg")]
     [AssetPath("/")]
     [ContextPath("/ix")]
     public sealed class Application : IApplication
