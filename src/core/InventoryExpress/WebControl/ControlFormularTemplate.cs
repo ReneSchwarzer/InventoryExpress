@@ -1,6 +1,7 @@
 ﻿
 using InventoryExpress.Model;
 using System.Linq;
+using WebExpress.Html;
 using WebExpress.UI.WebControl;
 
 namespace InventoryExpress.WebControl
@@ -30,7 +31,12 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Liefert oder setzt die Schlagwörter
         /// </summary>
-        public ControlFormularItemInputTextBox Tag { get; set; }
+        public ControlFormularItemInputTag Tag { get; set; }
+
+        /// <summary>
+        /// Bestimmt, ob das Formular zum Bearbeiten oder zum Neuanlegen verwendet werden soll.
+        /// </summary>
+        public bool Edit { get; set; } = false;
 
         /// <summary>
         /// Konstruktor
@@ -97,19 +103,34 @@ namespace InventoryExpress.WebControl
                 AcceptFile = new string[] { "image/*" }
             };
 
-            Tag = new ControlFormularItemInputTextBox()
+            Tag = new ControlFormularItemInputTag("tags")
             {
                 Name = "tag",
                 Label = "inventoryexpress.template.form.tag.label",
                 Help = "inventoryexpress.template.form.tag.description",
                 Icon = new PropertyIcon(TypeIcon.Tag)
             };
+        }
 
+        /// <summary>
+        /// In HTML konvertieren
+        /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        /// <returns>Das Control als HTML</returns>
+        public override IHtmlNode Render(RenderContext context)
+        {
             Add(TemplateName);
             Add(UnusedAttributes);
             Add(Description);
-            Add(Image);
+
+            if (!Edit)
+            {
+                Add(Image);
+            }
+
             Add(Tag);
+
+            return base.Render(context);
         }
     }
 }

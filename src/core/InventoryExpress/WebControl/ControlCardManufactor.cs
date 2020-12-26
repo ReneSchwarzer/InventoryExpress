@@ -5,7 +5,7 @@ using WebExpress.UI.WebControl;
 
 namespace InventoryExpress.WebControl
 {
-    public class ControlCardManufactor : ControlPanelCard
+    public class ControlCardManufacturer : ControlPanelCard
     {
         /// <summary>
         /// Liefert oder setzt den Hersteller
@@ -16,7 +16,7 @@ namespace InventoryExpress.WebControl
         /// Konstruktor
         /// </summary>
         /// <param name="id">Die ID</param>
-        public ControlCardManufactor(string id = null)
+        public ControlCardManufacturer(string id = null)
             : base(id)
         {
             Init();

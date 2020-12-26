@@ -54,11 +54,11 @@ namespace InventoryExpress.WebResource
             var guid = GetParamValue("InventoryID");
             var inventory = ViewModel.Instance.Inventories.Where(x => x.Guid == guid).FirstOrDefault();
 
-            Content.Content.Add(form);
+            Content.Primary.Add(form);
 
             form.InventoryName.Value = inventory?.Name;
             form.Description.Value = inventory?.Description;
-            form.Manufactor.Value = inventory?.Manufacturer?.Guid;
+            form.Manufacturer.Value = inventory?.Manufacturer?.Guid;
             form.Location.Value = inventory?.Location?.Guid;
             form.Supplier.Value = inventory?.Supplier?.Guid;
             form.LedgerAccount.Value = inventory?.LedgerAccount?.Guid;
@@ -83,7 +83,7 @@ namespace InventoryExpress.WebResource
             {
                 // Neues Herstellerobjekt erstellen und speichern
                 inventory.Name = form.InventoryName.Value;
-                inventory.Manufacturer = ViewModel.Instance.Manufacturers.Where(x => x.Guid == form.Manufactor.Value).FirstOrDefault();
+                inventory.Manufacturer = ViewModel.Instance.Manufacturers.Where(x => x.Guid == form.Manufacturer.Value).FirstOrDefault();
                 inventory.Location = ViewModel.Instance.Locations.Where(x => x.Guid == form.Location.Value).FirstOrDefault();
                 inventory.Supplier = ViewModel.Instance.Suppliers.Where(x => x.Guid == form.Supplier.Value).FirstOrDefault();
                 inventory.LedgerAccount = ViewModel.Instance.LedgerAccounts.Where(x => x.Guid == form.LedgerAccount.Value).FirstOrDefault();

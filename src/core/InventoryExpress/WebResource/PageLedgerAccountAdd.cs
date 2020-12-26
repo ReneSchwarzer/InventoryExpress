@@ -5,6 +5,7 @@ using System.Linq;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebResource;
 using WebExpress.Attribute;
+using WebExpress.Message;
 
 namespace InventoryExpress.WebResource
 {
@@ -48,9 +49,9 @@ namespace InventoryExpress.WebResource
         {
             base.Process();
 
-            Content.Content.Add(form);
+            Content.Primary.Add(form);
 
-            form.GLAccountName.Validation += (s, e) =>
+            form.LedgerAccountName.Validation += (s, e) =>
             {
                 if (e.Value.Count() < 1)
                 {
@@ -64,16 +65,39 @@ namespace InventoryExpress.WebResource
 
             form.ProcessFormular += (s, e) =>
             {
-                // Neues Herstellerobjekt erstellen und speichern
-                var gLAccount = new LedgerAccount()
+                // Neues Sachkonto erstellen und speichern
+                var ledgerAccount = new LedgerAccount()
                 {
-                    Name = form.GLAccountName.Value,
-                    //Tag = form.Tag.Value,
+                    Name = form.LedgerAccountName.Value,
                     Description = form.Description.Value,
+                    //Tag = form.Tag.Value,
+                    Created = DateTime.Now,
+                    Updated = DateTime.Now,
                     Guid = Guid.NewGuid().ToString()
                 };
 
-                ViewModel.Instance.LedgerAccounts.Add(gLAccount);
+                if (GetParam(form.Image.Name) is ParameterFile file)
+                {
+                    if (ledgerAccount.Media == null)
+                    {
+                        ledgerAccount.Media = new Media()
+                        {
+                            Name = file.Value,
+                            Data = file.Data,
+                            Created = DateTime.Now,
+                            Updated = DateTime.Now,
+                            Guid = Guid.NewGuid().ToString()
+                        };
+                    }
+                    else
+                    {
+                        ledgerAccount.Media.Name = file.Value;
+                        ledgerAccount.Media.Data = file.Data;
+                        ledgerAccount.Media.Updated = DateTime.Now;
+                    }
+                }
+
+                ViewModel.Instance.LedgerAccounts.Add(ledgerAccount);
                 ViewModel.Instance.SaveChanges();
             };
         }

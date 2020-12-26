@@ -5,26 +5,27 @@ using System.Linq;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebResource;
 using WebExpress.Attribute;
+using WebExpress.Message;
 
 namespace InventoryExpress.WebResource
 {
-    [ID("ManufactorAdd")]
-    [Title("inventoryexpress.manufactor.add.label")]
-    [Segment("add", "inventoryexpress.manufactor.add.label")]
-    [Path("/Manufactor")]
+    [ID("ManufacturerAdd")]
+    [Title("inventoryexpress.manufacturer.add.label")]
+    [Segment("add", "inventoryexpress.manufacturer.add.label")]
+    [Path("/Manufacturer")]
     [Module("InventoryExpress")]
     [Context("general")]
-    public sealed class PageManufactorAdd : PageTemplateWebApp, IPageManufactor
+    public sealed class PageManufacturerAdd : PageTemplateWebApp, IPageManufacturer
     {
         /// <summary>
         /// Formular
         /// </summary>
-        private ControlFormularManufactor form;
+        private ControlFormularManufacturer form;
 
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public PageManufactorAdd()
+        public PageManufacturerAdd()
         {
         }
 
@@ -35,7 +36,7 @@ namespace InventoryExpress.WebResource
         {
             base.Initialization();
 
-            form = new ControlFormularManufactor(this)
+            form = new ControlFormularManufacturer(this)
             {
                 RedirectUrl = Uri.Take(-1)
             };
@@ -48,9 +49,9 @@ namespace InventoryExpress.WebResource
         {
             base.Process();
 
-            Content.Content.Add(form);
+            Content.Primary.Add(form);
 
-            form.ManufactorName.Validation += (s, e) =>
+            form.ManufacturerName.Validation += (s, e) =>
             {
                 if (e.Value.Count() < 1)
                 {
@@ -67,13 +68,37 @@ namespace InventoryExpress.WebResource
                 // Neues Herstellerobjekt erstellen und speichern
                 var manufacturer = new Manufacturer()
                 {
-                    Name = form.ManufactorName.Value,
-                    //Tag = form.Tag.Value,
+                    Name = form.ManufacturerName.Value,
                     Description = form.Description.Value,
-                    Guid = Guid.NewGuid().ToString(),
+                    Address = form.Address.Value,
+                    Zip = form.Zip.Value,
+                    Place = form.Place.Value,
+                    //Tag = form.Tag.Value,
                     Created = DateTime.Now,
-                    Updated = DateTime.Now
+                    Updated = DateTime.Now,
+                    Guid = Guid.NewGuid().ToString()
                 };
+
+                if (GetParam(form.Image.Name) is ParameterFile file)
+                {
+                    if (manufacturer.Media == null)
+                    {
+                        manufacturer.Media = new Media()
+                        {
+                            Name = file.Value,
+                            Data = file.Data,
+                            Created = DateTime.Now,
+                            Updated = DateTime.Now,
+                            Guid = Guid.NewGuid().ToString()
+                        };
+                    }
+                    else
+                    {
+                        manufacturer.Media.Name = file.Value;
+                        manufacturer.Media.Data = file.Data;
+                        manufacturer.Media.Updated = DateTime.Now;
+                    }
+                }
 
                 ViewModel.Instance.Manufacturers.Add(manufacturer);
                 ViewModel.Instance.SaveChanges();

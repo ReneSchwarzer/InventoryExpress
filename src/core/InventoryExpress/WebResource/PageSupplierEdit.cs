@@ -5,6 +5,7 @@ using System.Linq;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebResource;
 using WebExpress.Attribute;
+using WebExpress.Message;
 
 namespace InventoryExpress.WebResource
 {
@@ -14,6 +15,7 @@ namespace InventoryExpress.WebResource
     [Path("/Supplier")]
     [Module("InventoryExpress")]
     [Context("general")]
+    [Context("supplieredit")]
     public sealed class PageSupplierEdit : PageTemplateWebApp, IPageSupplier
     {
         /// <summary>
@@ -37,7 +39,8 @@ namespace InventoryExpress.WebResource
 
             form = new ControlFormularSupplier(this)
             {
-                RedirectUrl = Uri.Take(-1)
+                RedirectUrl = Uri.Take(-1),
+                Edit = true
             };
         }
 
@@ -51,10 +54,14 @@ namespace InventoryExpress.WebResource
             var guid = GetParamValue("SupplierID");
             var supplier = ViewModel.Instance.Suppliers.Where(x => x.Guid == guid).FirstOrDefault();
 
-            Content.Content.Add(form);
+            Content.Primary.Add(form);
 
             form.SupplierName.Value = supplier?.Name;
             form.Description.Value = supplier?.Description;
+            form.Address.Value = supplier.Address;
+            form.Zip.Value = supplier.Zip;
+            form.Place.Value = supplier.Place;
+            form.Tag.Value = "";
 
             form.SupplierName.Validation += (s, e) =>
             {
@@ -70,10 +77,14 @@ namespace InventoryExpress.WebResource
 
             form.ProcessFormular += (s, e) =>
             {
-                // Herstellerobjekt ändern und speichern
+                // Lieferant ändern und speichern
                 supplier.Name = form.SupplierName.Value;
-                //Tag = form.Tag.Value;
                 supplier.Description = form.Description.Value;
+                supplier.Address = form.Address.Value;
+                supplier.Zip = form.Zip.Value;
+                supplier.Place = form.Place.Value;
+                supplier.Updated = DateTime.Now;
+                //supplier.Tag = form.Tag.Value;
 
                 ViewModel.Instance.SaveChanges();
             };

@@ -12,13 +12,13 @@ namespace InventoryExpress.WebControl
 {
     [Section(Section.PropertySecondary)]
     [Application("InventoryExpress")]
-    [Context("manufectoredit")]
-    public sealed class ControlPropertyManufactorDelete : ControlButtonLink, IComponent
+    [Context("manufactureredit")]
+    public sealed class ControlPropertyManufacturerDelete : ControlButtonLink, IComponent
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public ControlPropertyManufactorDelete()
+        public ControlPropertyManufacturerDelete()
         {
             Margin = new PropertySpacingMargin(PropertySpacing.Space.Two);
         }
@@ -30,8 +30,22 @@ namespace InventoryExpress.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var guid = context.Page.GetParamValue("ManufactorID");
+            var guid = context.Page.GetParamValue("ManufacturerID");
             var manufactur = ViewModel.Instance.Manufacturers.Where(x => x.Guid == guid).FirstOrDefault();
+            var form = new ControlFormular("del") { EnableSubmitAndNextButton = false, EnableCancelButton = false, RedirectUrl = Uri };
+            form.SubmitButton.Text = context.Page.I18N("inventoryexpress.delete.label");
+            form.SubmitButton.Icon = new PropertyIcon(TypeIcon.TrashAlt);
+            form.SubmitButton.Color = new PropertyColorButton(TypeColorButton.Danger);
+            form.ProcessFormular += (s, e) =>
+            {
+                if (manufactur != null)
+                {
+                    ViewModel.Instance.Manufacturers.Remove(manufactur);
+                    ViewModel.Instance.SaveChanges();
+
+                    context.Page.Redirecting(context.Uri.Take(-1));
+                }
+            };
 
             Text = context.Page.I18N("inventoryexpress.delete.label");
             Icon = new PropertyIcon(TypeIcon.Trash);
@@ -41,19 +55,12 @@ namespace InventoryExpress.WebControl
             Modal = new ControlModal
             (
                 "delete",
-                context.Page.I18N("inventoryexpress.manufactor.delete.label"),
+                context.Page.I18N("inventoryexpress.manufacturer.delete.label"),
                 new ControlText()
                 {
-                    Text = context.Page.I18N("inventoryexpress.manufactor.delete.description")
+                    Text = context.Page.I18N("inventoryexpress.manufacturer.delete.description")
                 },
-                new ControlButton()
-                {
-                    Text = context.Page.I18N("inventoryexpress.delete.label"),
-                    Icon = new PropertyIcon(TypeIcon.PowerOff),
-                    Margin = new PropertySpacingMargin(PropertySpacing.Space.One),
-                    BackgroundColor = new PropertyColorButton(TypeColorButton.Danger),
-                    OnClick = $"window.location.href = '{ context.Page.Uri.Append("del") }'"
-                }
+                form
             );
 
             return base.Render(context);

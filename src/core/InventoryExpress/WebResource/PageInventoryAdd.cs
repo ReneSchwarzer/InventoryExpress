@@ -48,7 +48,7 @@ namespace InventoryExpress.WebResource
         {
             base.Process();
 
-            Content.Content.Add(form);
+            Content.Primary.Add(form);
 
             form.InventoryName.Validation += (s, e) =>
             {
@@ -68,7 +68,7 @@ namespace InventoryExpress.WebResource
                 var inventory = new Inventory()
                 {
                     Name = form.InventoryName.Value,
-                    Manufacturer = ViewModel.Instance.Manufacturers.Where(x => x.Guid == form.Manufactor.Value).FirstOrDefault(),
+                    Manufacturer = ViewModel.Instance.Manufacturers.Where(x => x.Guid == form.Manufacturer.Value).FirstOrDefault(),
                     Location = ViewModel.Instance.Locations.Where(x => x.Guid == form.Location.Value).FirstOrDefault(),
                     Supplier = ViewModel.Instance.Suppliers.Where(x => x.Guid == form.Supplier.Value).FirstOrDefault(),
                     LedgerAccount = ViewModel.Instance.LedgerAccounts.Where(x => x.Guid == form.LedgerAccount.Value).FirstOrDefault(),

@@ -1,10 +1,11 @@
-﻿using InventoryExpress.WebControl;
-using InventoryExpress.Model;
+﻿using InventoryExpress.Model;
+using InventoryExpress.WebControl;
 using System;
 using System.Linq;
+using WebExpress.Attribute;
+using WebExpress.Message;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebResource;
-using WebExpress.Attribute;
 
 namespace InventoryExpress.WebResource
 {
@@ -48,7 +49,7 @@ namespace InventoryExpress.WebResource
         {
             base.Process();
 
-            Content.Content.Add(form);
+            Content.Primary.Add(form);
 
             form.LocationName.Validation += (s, e) =>
             {
@@ -68,10 +69,38 @@ namespace InventoryExpress.WebResource
                 var location = new Location()
                 {
                     Name = form.LocationName.Value,
-                    //Tag = form.Tag.Value,
                     Description = form.Description.Value,
+                    Address = form.Address.Value,
+                    Zip = form.Zip.Value,
+                    Place = form.Place.Value,
+                    Building = form.Building.Value,
+                    Room = form.Room.Value,
+                    //Tag = form.Tag.Value,
+                    Created = DateTime.Now,
+                    Updated = DateTime.Now,
                     Guid = Guid.NewGuid().ToString()
                 };
+
+                if (GetParam(form.Image.Name) is ParameterFile file)
+                {
+                    if (location.Media == null)
+                    {
+                        location.Media = new Media()
+                        {
+                            Name = file.Value,
+                            Data = file.Data,
+                            Created = DateTime.Now,
+                            Updated = DateTime.Now,
+                            Guid = Guid.NewGuid().ToString()
+                        };
+                    }
+                    else
+                    {
+                        location.Media.Name = file.Value;
+                        location.Media.Data = file.Data;
+                        location.Media.Updated = DateTime.Now;
+                    }
+                }
 
                 ViewModel.Instance.Locations.Add(location);
                 ViewModel.Instance.SaveChanges();

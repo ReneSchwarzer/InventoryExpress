@@ -5,6 +5,7 @@ using System.Linq;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebResource;
 using WebExpress.Attribute;
+using WebExpress.Message;
 
 namespace InventoryExpress.WebResource
 {
@@ -14,6 +15,7 @@ namespace InventoryExpress.WebResource
     [Path("/Location")]
     [Module("InventoryExpress")]
     [Context("general")]
+    [Context("locationedit")]
     public sealed class PageLocationEdit : PageTemplateWebApp, IPageLocation
     {
         /// <summary>
@@ -37,7 +39,8 @@ namespace InventoryExpress.WebResource
 
             form = new ControlFormularLocation()
             {
-                RedirectUrl = Uri.Take(-1)
+                RedirectUrl = Uri.Take(-1),
+                Edit = true
             };
         }
 
@@ -51,10 +54,16 @@ namespace InventoryExpress.WebResource
             var guid = GetParamValue("LocationID");
             var location = ViewModel.Instance.Locations.Where(x => x.Guid == guid).FirstOrDefault();
 
-            Content.Content.Add(form);
+            Content.Primary.Add(form);
 
             form.LocationName.Value = location?.Name;
             form.Description.Value = location?.Description;
+            form.Address.Value = location.Address;
+            form.Zip.Value = location.Zip;
+            form.Place.Value = location.Place;
+            form.Building.Value = location.Building;
+            form.Room.Value = location.Room;
+            form.Tag.Value = "";
 
             form.LocationName.Validation += (s, e) =>
             {
@@ -70,10 +79,16 @@ namespace InventoryExpress.WebResource
 
             form.ProcessFormular += (s, e) =>
             {
-                // Herstellerobjekt ändern und speichern
+                // Standort ändern und speichern
                 location.Name = form.LocationName.Value;
-                //Tag = form.Tag.Value;
                 location.Description = form.Description.Value;
+                location.Address = form.Address.Value;
+                location.Zip = form.Zip.Value;
+                location.Place = form.Place.Value;
+                location.Building = form.Building.Value;
+                location.Room = form.Room.Value;
+                location.Updated = DateTime.Now;
+                //location.Tag = form.Tag.Value;
 
                 ViewModel.Instance.SaveChanges();
             };

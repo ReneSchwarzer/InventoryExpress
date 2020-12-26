@@ -5,6 +5,7 @@ using System.Linq;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebResource;
 using WebExpress.Attribute;
+using WebExpress.Message;
 
 namespace InventoryExpress.WebResource
 {
@@ -48,7 +49,7 @@ namespace InventoryExpress.WebResource
         {
             base.Process();
 
-            Content.Content.Add(form);
+            Content.Primary.Add(form);
 
             form.SupplierName.Validation += (s, e) =>
             {
@@ -64,14 +65,39 @@ namespace InventoryExpress.WebResource
 
             form.ProcessFormular += (s, e) =>
             {
-                // Neues Herstellerobjekt erstellen und speichern
+                // Neuen Liferanten erstellen und speichern
                 var supplier = new Supplier()
                 {
                     Name = form.SupplierName.Value,
+                    Address = form.Address.Value,
+                    Zip = form.Zip.Value,
+                    Place = form.Place.Value,
                     //Tag = form.Tag.Value,
-                    Description = form.Description.Value,
+                    Created = DateTime.Now,
+                    Updated = DateTime.Now,
                     Guid = Guid.NewGuid().ToString()
                 };
+
+                if (GetParam(form.Image.Name) is ParameterFile file)
+                {
+                    if (supplier.Media == null)
+                    {
+                        supplier.Media = new Media()
+                        {
+                            Name = file.Value,
+                            Data = file.Data,
+                            Created = DateTime.Now,
+                            Updated = DateTime.Now,
+                            Guid = Guid.NewGuid().ToString()
+                        };
+                    }
+                    else
+                    {
+                        supplier.Media.Name = file.Value;
+                        supplier.Media.Data = file.Data;
+                        supplier.Media.Updated = DateTime.Now;
+                    }
+                }
 
                 ViewModel.Instance.Suppliers.Add(supplier);
                 ViewModel.Instance.SaveChanges();

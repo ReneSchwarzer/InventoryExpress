@@ -1,4 +1,5 @@
-﻿using WebExpress.UI.WebControl;
+﻿using WebExpress.Html;
+using WebExpress.UI.WebControl;
 
 namespace InventoryExpress.WebControl
 {
@@ -7,7 +8,7 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Liefert oder setzt den Namen des Sachkontos
         /// </summary>
-        public ControlFormularItemInputTextBox GLAccountName { get; set; }
+        public ControlFormularItemInputTextBox LedgerAccountName { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Beschreibung
@@ -22,7 +23,12 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Liefert oder setzt die Schlagwörter
         /// </summary>
-        public ControlFormularItemInputTextBox Tag { get; set; }
+        public ControlFormularItemInputTag Tag { get; set; }
+
+        /// <summary>
+        /// Bestimmt, ob das Formular zum Bearbeiten oder zum Neuanlegen verwendet werden soll.
+        /// </summary>
+        public bool Edit { get; set; } = false;
 
         /// <summary>
         /// Konstruktor
@@ -44,7 +50,7 @@ namespace InventoryExpress.WebControl
             Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Three, PropertySpacing.Space.None, PropertySpacing.Space.None);
             Layout = TypeLayoutFormular.Horizontal;
 
-            GLAccountName = new ControlFormularItemInputTextBox()
+            LedgerAccountName = new ControlFormularItemInputTextBox()
             {
                 Name = "name",
                 Label = "inventoryexpress.ledgeraccount.form.name.label",
@@ -70,19 +76,33 @@ namespace InventoryExpress.WebControl
                 AcceptFile = new string[] { "image/*" }
             };
 
-            Tag = new ControlFormularItemInputTextBox()
+            Tag = new ControlFormularItemInputTag("tags")
             {
                 Name = "tag",
                 Label = "inventoryexpress.ledgeraccount.form.tag.label",
                 Help = "inventoryexpress.ledgeraccount.form.tag.description",
                 Icon = new PropertyIcon(TypeIcon.Tag)
             };
+        }
 
-            Add(GLAccountName);
+        /// <summary>
+        /// In HTML konvertieren
+        /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        /// <returns>Das Control als HTML</returns>
+        public override IHtmlNode Render(RenderContext context)
+        {
+            Add(LedgerAccountName);
             Add(Description);
-            Add(Image);
+
+            if (!Edit)
+            {
+                Add(Image);
+            }
+
             Add(Tag);
 
+            return base.Render(context);
         }
     }
 }

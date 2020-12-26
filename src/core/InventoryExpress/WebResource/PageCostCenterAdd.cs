@@ -1,16 +1,17 @@
-﻿using InventoryExpress.WebControl;
-using InventoryExpress.Model;
+﻿using InventoryExpress.Model;
+using InventoryExpress.WebControl;
 using System;
 using System.Linq;
+using WebExpress.Attribute;
+using WebExpress.Message;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebResource;
-using WebExpress.Attribute;
 
 namespace InventoryExpress.WebResource
 {
     [ID("CostCenterAdd")]
-    [Title("inventoryexpress.costcenters.add.label")]
-    [Segment("add", "inventoryexpress.costcenters.add.label")]
+    [Title("inventoryexpress.costcenter.add.label")]
+    [Segment("add", "inventoryexpress.costcenter.add.label")]
     [Path("/CostCenter")]
     [Module("InventoryExpress")]
     [Context("general")]
@@ -48,7 +49,7 @@ namespace InventoryExpress.WebResource
         {
             base.Process();
 
-            Content.Content.Add(form);
+            Content.Primary.Add(form);
 
             form.CostCenterName.Validation += (s, e) =>
             {
@@ -64,14 +65,37 @@ namespace InventoryExpress.WebResource
 
             form.ProcessFormular += (s, e) =>
             {
-                // Neues Herstellerobjekt erstellen und speichern
+                // Neue Kostenstelle erstellen und speichern
                 var costcenter = new CostCenter()
                 {
                     Name = form.CostCenterName.Value,
-                    //Tag = form.Tag.Value,
                     Description = form.Description.Value,
+                    //Tag = form.Tag.Value,
+                    Created = DateTime.Now,
+                    Updated = DateTime.Now,
                     Guid = Guid.NewGuid().ToString()
                 };
+
+                if (GetParam(form.Image.Name) is ParameterFile file)
+                {
+                    if (costcenter.Media == null)
+                    {
+                        costcenter.Media = new Media()
+                        {
+                            Name = file.Value,
+                            Data = file.Data,
+                            Created = DateTime.Now,
+                            Updated = DateTime.Now,
+                            Guid = Guid.NewGuid().ToString()
+                        };
+                    }
+                    else
+                    {
+                        costcenter.Media.Name = file.Value;
+                        costcenter.Media.Data = file.Data;
+                        costcenter.Media.Updated = DateTime.Now;
+                    }
+                }
 
                 ViewModel.Instance.CostCenters.Add(costcenter);
                 ViewModel.Instance.SaveChanges();

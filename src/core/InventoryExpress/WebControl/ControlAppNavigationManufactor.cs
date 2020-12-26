@@ -11,12 +11,12 @@ namespace InventoryExpress.WebControl
 {
     [Section(Section.AppNavigationPrimary)]
     [Application("InventoryExpress")]
-    public sealed class ControlAppNavigationManufactor : ControlNavigationItemLink, IComponent
+    public sealed class ControlAppNavigationManufacturer : ControlNavigationItemLink, IComponent
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public ControlAppNavigationManufactor()
+        public ControlAppNavigationManufacturer()
             : base()
         {
             Init();
@@ -36,9 +36,9 @@ namespace InventoryExpress.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            Text = context.I18N("inventoryexpress.manufactors.label");
-            Uri = context.Page.Uri.Root.Append("manufactors");
-            Active = context.Page is IPageManufactor ? TypeActive.Active : TypeActive.None;
+            Text = context.I18N("inventoryexpress.manufacturers.label");
+            Uri = context.Page.Uri.Root.Append("manufacturers");
+            Active = context.Page is IPageManufacturer ? TypeActive.Active : TypeActive.None;
             Icon = new PropertyIcon(TypeIcon.Industry);
 
             return base.Render(context);

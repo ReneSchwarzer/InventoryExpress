@@ -75,7 +75,7 @@ namespace InventoryExpress.WebResource
                 grid.Content.Add(card);
             }
 
-            Content.Content.Add(grid);
+            Content.Primary.Add(grid);
         }
     }
 }

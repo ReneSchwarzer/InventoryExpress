@@ -1,6 +1,6 @@
 ﻿namespace InventoryExpress.WebResource
 {
-    public interface IPageManufactor
+    public interface IPageManufacturer
     {
     }
 }

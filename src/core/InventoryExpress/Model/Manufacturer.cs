@@ -7,26 +7,8 @@ namespace InventoryExpress.Model
     /// Hersteller
     /// </summary>
     [Table("MANUFACTURER")]
-    public class Manufacturer : Item
+    public class Manufacturer : ItemAaddress
     {
-        /// <summary>
-        /// Die Adresse
-        /// </summary>
-        [Column("ADDRESS")]
-        public string Address { get; set; }
-
-        /// <summary>
-        /// Die Postleitzahl
-        /// </summary>
-        [StringLength(10), Column("ZIP")]
-        public string Zip { get; set; }
-
-        /// <summary>
-        /// Der Ort
-        /// </summary>
-        [StringLength(64), Column("PLACE")]
-        public string Place { get; set; }
-
         /// <summary>
         /// Konstruktor
         /// </summary>

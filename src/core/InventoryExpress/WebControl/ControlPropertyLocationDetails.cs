@@ -12,13 +12,13 @@ namespace InventoryExpress.WebControl
 {
     [Section(Section.PropertyPrimary)]
     [Application("InventoryExpress")]
-    [Context("manufectoredit")]
-    public sealed class ControlPropertyManufactorDetails : ControlList, IComponent
+    [Context("locationedit")]
+    public sealed class ControlPropertyLocationDetails : ControlList, IComponent
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public ControlPropertyManufactorDetails()
+        public ControlPropertyLocationDetails()
         {
             Layout = TypeLayoutList.Flush;
             Margin = new PropertySpacingMargin(PropertySpacing.Space.Two);
@@ -32,22 +32,22 @@ namespace InventoryExpress.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var guid = context.Page.GetParamValue("ManufactorID");
-            var manufactur = ViewModel.Instance.Manufacturers.Where(x => x.Guid == guid).FirstOrDefault();
+            var guid = context.Page.GetParamValue("LocationID");
+            var location = ViewModel.Instance.Locations.Where(x => x.Guid == guid).FirstOrDefault();
 
             Add(new ControlListItem(new ControlAttribute()
             {
-                Name = context.Page.I18N("inventoryexpress.manufactor.creationdate.label") + ":",
+                Name = context.Page.I18N("inventoryexpress.location.creationdate.label") + ":",
                 Icon = new PropertyIcon(TypeIcon.CalendarPlus),
-                Value = manufactur?.Created.ToString(context.Culture.DateTimeFormat.ShortDatePattern),
+                Value = location?.Created.ToString(context.Culture.DateTimeFormat.ShortDatePattern),
                 TextColor = new PropertyColorText(TypeColorText.Secondary)
             }));
 
             Add(new ControlListItem(new ControlAttribute()
             {
-                Name = context.Page.I18N("inventoryexpress.manufactor.updatedate.label") + ":",
+                Name = context.Page.I18N("inventoryexpress.location.updatedate.label") + ":",
                 Icon = new PropertyIcon(TypeIcon.Save),
-                Value = manufactur?.Updated.ToString(context.Culture.DateTimeFormat.ShortDatePattern + " " + context.Culture.DateTimeFormat.ShortTimePattern),
+                Value = location?.Updated.ToString(context.Culture.DateTimeFormat.ShortDatePattern + " " + context.Culture.DateTimeFormat.ShortTimePattern),
                 TextColor = new PropertyColorText(TypeColorText.Secondary)
             }));
 

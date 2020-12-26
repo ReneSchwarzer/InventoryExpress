@@ -5,6 +5,7 @@ using System.Linq;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebResource;
 using WebExpress.Attribute;
+using WebExpress.Message;
 
 namespace InventoryExpress.WebResource
 {
@@ -14,6 +15,7 @@ namespace InventoryExpress.WebResource
     [Path("/LedgerAccount")]
     [Module("InventoryExpress")]
     [Context("general")]
+    [Context("ledgeraccountedit")]
     public sealed class PageLedgerAccountEdit : PageTemplateWebApp, IPageLedgerAccount
     {
         /// <summary>
@@ -37,7 +39,8 @@ namespace InventoryExpress.WebResource
 
             form = new ControlFormularLedgerAccount()
             {
-                RedirectUrl = Uri.Take(-1)
+                RedirectUrl = Uri.Take(-1),
+                Edit = true
             };
         }
 
@@ -51,12 +54,13 @@ namespace InventoryExpress.WebResource
             var guid = GetParamValue("LedgerAccountID");
             var ledgerAccount = ViewModel.Instance.LedgerAccounts.Where(x => x.Guid == guid).FirstOrDefault();
 
-            Content.Content.Add(form);
+            Content.Primary.Add(form);
 
-            form.GLAccountName.Value = ledgerAccount?.Name;
+            form.LedgerAccountName.Value = ledgerAccount?.Name;
             form.Description.Value = ledgerAccount?.Description;
+            form.Tag.Value = "";
 
-            form.GLAccountName.Validation += (s, e) =>
+            form.LedgerAccountName.Validation += (s, e) =>
             {
                 if (e.Value.Count() < 1)
                 {
@@ -70,22 +74,14 @@ namespace InventoryExpress.WebResource
 
             form.ProcessFormular += (s, e) =>
             {
-                // Herstellerobjekt ändern und speichern
-                ledgerAccount.Name = form.GLAccountName.Value;
-                //Tag = form.Tag.Value;
+                // Sachkonto ändern und speichern
+                ledgerAccount.Name = form.LedgerAccountName.Value;
                 ledgerAccount.Description = form.Description.Value;
+                ledgerAccount.Updated = DateTime.Now;
+                //ledgerAccount.Tag = form.Tag.Value;
 
                 ViewModel.Instance.SaveChanges();
             };
-        }
-
-        /// <summary>
-        /// In String konvertieren
-        /// </summary>
-        /// <returns>Das Objekt als String</returns>
-        public override string ToString()
-        {
-            return base.ToString();
         }
     }
 }

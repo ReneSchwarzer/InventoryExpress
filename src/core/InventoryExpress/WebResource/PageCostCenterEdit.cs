@@ -1,19 +1,20 @@
-﻿using InventoryExpress.WebControl;
-using InventoryExpress.Model;
+﻿using InventoryExpress.Model;
+using InventoryExpress.WebControl;
 using System;
 using System.Linq;
+using WebExpress.Attribute;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebResource;
-using WebExpress.Attribute;
 
 namespace InventoryExpress.WebResource
 {
     [ID("CostCenterEdit")]
-    [Title("inventoryexpress.costcenters.edit.label")]
-    [SegmentGuid("CostCenterID", "inventoryexpress.costcenters.edit.display")]
+    [Title("inventoryexpress.costcenter.edit.label")]
+    [SegmentGuid("CostCenterID", "inventoryexpress.costcenter.edit.display")]
     [Path("/CostCenter")]
     [Module("InventoryExpress")]
     [Context("general")]
+    [Context("costcenteredit")]
     public sealed class PageCostCenterEdit : PageTemplateWebApp, IPageCostCenter
     {
         /// <summary>
@@ -37,7 +38,8 @@ namespace InventoryExpress.WebResource
 
             form = new ControlFormularCostCenter()
             {
-                RedirectUrl = Uri.Take(-1)
+                RedirectUrl = Uri.Take(-1),
+                Edit = true
             };
         }
 
@@ -51,10 +53,11 @@ namespace InventoryExpress.WebResource
             var guid = GetParamValue("CostCenterID");
             var costcenter = ViewModel.Instance.CostCenters.Where(x => x.Guid == guid).FirstOrDefault();
 
-            Content.Content.Add(form);
+            Content.Primary.Add(form);
 
             form.CostCenterName.Value = costcenter?.Name;
             form.Description.Value = costcenter?.Description;
+            form.Tag.Value = "";
 
             form.CostCenterName.Validation += (s, e) =>
             {
@@ -70,22 +73,13 @@ namespace InventoryExpress.WebResource
 
             form.ProcessFormular += (s, e) =>
             {
-                // Herstellerobjekt ändern und speichern
-                costcenter.Name = form.CostCenterName.Value;
-                //Tag = form.Tag.Value;
+                // Kostenstelle ändern und speichern
                 costcenter.Description = form.Description.Value;
+                costcenter.Updated = DateTime.Now;
+                //costcenter.Tag = form.Tag.Value;
 
                 ViewModel.Instance.SaveChanges();
             };
-        }
-
-        /// <summary>
-        /// In String konvertieren
-        /// </summary>
-        /// <returns>Das Objekt als String</returns>
-        public override string ToString()
-        {
-            return base.ToString();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using WebExpress.WebResource;
 using WebExpress.UI.WebControl;
+using WebExpress.Html;
 
 namespace InventoryExpress.WebControl
 {
@@ -16,6 +17,21 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemInputTextBox Description { get; set; }
 
         /// <summary>
+        /// Liefert oder setzt die Aaddresse
+        /// </summary>
+        public ControlFormularItemInputTextBox Address { get; set; }
+
+        /// <summary>
+        /// Liefert oder setzt die Postleitzahl
+        /// </summary>
+        public ControlFormularItemInputTextBox Zip { get; set; }
+
+        /// <summary>
+        /// Liefert oder setzt den Ort
+        /// </summary>
+        public ControlFormularItemInputTextBox Place { get; set; }
+
+        /// <summary>
         /// Liefert oder setzt das Bild
         /// </summary>
         public ControlFormularItemInputFile Image { get; set; }
@@ -23,7 +39,12 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Liefert oder setzt die Schlagwörter
         /// </summary>
-        public ControlFormularItemInputTextBox Tag { get; set; }
+        public ControlFormularItemInputTag Tag { get; set; }
+
+        /// <summary>
+        /// Bestimmt, ob das Formular zum Bearbeiten oder zum Neuanlegen verwendet werden soll.
+        /// </summary>
+        public bool Edit { get; set; } = false;
 
         /// <summary>
         /// Konstruktor
@@ -59,7 +80,32 @@ namespace InventoryExpress.WebControl
                 Label = "inventoryexpress.supplier.form.description.label",
                 Help = "inventoryexpress.supplier.form.description.description",
                 Format = TypesEditTextFormat.Wysiwyg,
-                Icon = new PropertyIcon(TypeIcon.CommentAlt)
+                Icon = new PropertyIcon(TypeIcon.CommentAlt),
+                Rows = 10
+            };
+
+            Address = new ControlFormularItemInputTextBox("adress")
+            {
+                Name = "adress",
+                Label = "inventoryexpress.supplier.form.adress.label",
+                Help = "inventoryexpress.supplier.form.adress.description",
+                Icon = new PropertyIcon(TypeIcon.Home)
+            };
+
+            Zip = new ControlFormularItemInputTextBox("zip")
+            {
+                Name = "zip",
+                Label = "inventoryexpress.supplier.form.zip.label",
+                Help = "inventoryexpress.supplier.form.zip.description",
+                Icon = new PropertyIcon(TypeIcon.MapMarker)
+            };
+
+            Place = new ControlFormularItemInputTextBox("place")
+            {
+                Name = "place",
+                Label = "inventoryexpress.supplier.form.place.label",
+                Help = "inventoryexpress.supplier.form.place.description",
+                Icon = new PropertyIcon(TypeIcon.City)
             };
 
             Image = new ControlFormularItemInputFile()
@@ -71,19 +117,39 @@ namespace InventoryExpress.WebControl
                 AcceptFile = new string[] { "image/*" }
             };
 
-            Tag = new ControlFormularItemInputTextBox()
+            Tag = new ControlFormularItemInputTag("tags")
             {
                 Name = "tag",
                 Label = "inventoryexpress.supplier.form.tag.label",
                 Help = "inventoryexpress.supplier.form.tag.description",
                 Icon = new PropertyIcon(TypeIcon.Tag)
             };
+        }
+
+        /// <summary>
+        /// In HTML konvertieren
+        /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        /// <returns>Das Control als HTML</returns>
+        public override IHtmlNode Render(RenderContext context)
+        {
+            var group = new ControlFormularItemGroup() { Layout = TypeLayoutFormular.Mix };
+            group.Items.Add(Zip);
+            group.Items.Add(Place);
 
             Add(SupplierName);
             Add(Description);
-            Add(Image);
+            Add(Address);
+            Add(group);
+
+            if (!Edit)
+            {
+                Add(Image);
+            }
+
             Add(Tag);
 
+            return base.Render(context);
         }
     }
 }

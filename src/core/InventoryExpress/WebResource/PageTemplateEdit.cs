@@ -14,6 +14,7 @@ namespace InventoryExpress.WebResource
     [Path("/Template")]
     [Module("InventoryExpress")]
     [Context("general")]
+    [Context("templateedit")]
     public sealed class PageTemplateEdit : PageTemplateWebApp, IPageTemplate
     {
         /// <summary>
@@ -37,7 +38,8 @@ namespace InventoryExpress.WebResource
 
             form = new ControlFormularTemplate()
             {
-                RedirectUrl = Uri.Take(-1)
+                RedirectUrl = Uri.Take(-1),
+                Edit = true
             };
         }
 
@@ -51,7 +53,7 @@ namespace InventoryExpress.WebResource
             var guid =GetParamValue("TemplateID");
             var template = ViewModel.Instance.Templates.Where(x => x.Guid == guid).FirstOrDefault();
 
-            Content.Content.Add(form);
+            Content.Primary.Add(form);
 
             form.TemplateName.Value = template?.Name;
             form.Description.Value = template?.Description;
@@ -70,10 +72,11 @@ namespace InventoryExpress.WebResource
 
             form.ProcessFormular += (s, e) =>
             {
-                // Herstellerobjekt ändern und speichern
+                // Vorlage ändern und speichern
                 template.Name = form.TemplateName.Value;
-                //Tag = form.Tag.Value;
                 template.Description = form.Description.Value;
+                template.Updated = DateTime.Now;
+                //manufacturer.Tag = form.Tag.Value;
 
                 ViewModel.Instance.SaveChanges();
             };

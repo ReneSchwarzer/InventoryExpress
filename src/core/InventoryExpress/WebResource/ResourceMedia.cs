@@ -8,11 +8,11 @@ namespace InventoryExpress.WebResource
     /// <summary>
     /// Lieferung einer im Assamby eingebetteten Ressource
     /// </summary>
-    [ID("Media")]
+    [ID("MediaAsset")]
     [Title("Media")]
     [SegmentGuid("MediaID", "")]
-    [Path("/Media")]
-    [IncludeSubPaths(true)]
+    [Path("/media")]
+    [IncludeSubPaths(false)]
     [Module("InventoryExpress")]
     public sealed class ResourceMedia : WebExpress.WebResource.ResourceBinary
     {
@@ -50,7 +50,7 @@ namespace InventoryExpress.WebResource
                 Data = media?.Data;
 
                 var response = base.Process(request);
-                response.HeaderFields.CacheControl = "public, max-age=31536000";
+                response.HeaderFields.CacheControl = "no-cache";
 
                 var extension = System.IO.Path.GetExtension(media?.Name);
                 extension = !string.IsNullOrWhiteSpace(extension) ? extension.ToLower() : "";

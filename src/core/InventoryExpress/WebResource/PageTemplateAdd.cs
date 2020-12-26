@@ -5,6 +5,7 @@ using System.Linq;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebResource;
 using WebExpress.Attribute;
+using WebExpress.Message;
 
 namespace InventoryExpress.WebResource
 {
@@ -48,7 +49,7 @@ namespace InventoryExpress.WebResource
         {
             base.Process();
 
-            Content.Content.Add(form);
+            Content.Primary.Add(form);
 
             form.TemplateName.Validation += (s, e) =>
             {
@@ -64,14 +65,37 @@ namespace InventoryExpress.WebResource
 
             form.ProcessFormular += (s, e) =>
             {
-                // Neues Herstellerobjekt erstellen und speichern
+                // Neue Vorlage erstellen und speichern
                 var template = new Template()
                 {
                     Name = form.TemplateName.Value,
-                    //Tag = form.Tag.Value,
                     Description = form.Description.Value,
+                    //Tag = form.Tag.Value,
+                    Created = DateTime.Now,
+                    Updated = DateTime.Now,
                     Guid = Guid.NewGuid().ToString()
                 };
+
+                if (GetParam(form.Image.Name) is ParameterFile file)
+                {
+                    if (template.Media == null)
+                    {
+                        template.Media = new Media()
+                        {
+                            Name = file.Value,
+                            Data = file.Data,
+                            Created = DateTime.Now,
+                            Updated = DateTime.Now,
+                            Guid = Guid.NewGuid().ToString()
+                        };
+                    }
+                    else
+                    {
+                        template.Media.Name = file.Value;
+                        template.Media.Data = file.Data;
+                        template.Media.Updated = DateTime.Now;
+                    }
+                }
 
                 ViewModel.Instance.Templates.Add(template);
                 ViewModel.Instance.SaveChanges();

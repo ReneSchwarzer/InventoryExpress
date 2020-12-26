@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using WebExpress.UI.WebControl;
+using WebExpress.WebApp.WebResource;
 
 namespace InventoryExpress.WebControl
 {
@@ -15,7 +16,7 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Liefert oder setzt den Hersteller
         /// </summary>
-        public ControlFormularItemInputComboBox Manufactor { get; set; }
+        public ControlFormularItemInputComboBox Manufacturer { get; set; }
 
         /// <summary>
         /// Liefert oder setzt den Standort
@@ -99,21 +100,21 @@ namespace InventoryExpress.WebControl
                 Format = TypesEditTextFormat.Default
             };
 
-            Manufactor = new ControlFormularItemInputComboBox()
+            Manufacturer = new ControlFormularItemInputComboBox()
             {
-                Name = "manufactor",
-                Label = "inventoryexpress.manufactors.label",
-                Help = "inventoryexpress.manufactor.description",
+                Name = "manufacturer",
+                Label = "inventoryexpress.manufacturers.label",
+                Help = "inventoryexpress.manufacturer.description",
                 Icon = new PropertyIcon(TypeIcon.Industry)
             };
 
-            Manufactor.Items.Add(new ControlFormularItemInputComboBoxItem()
+            Manufacturer.Items.Add(new ControlFormularItemInputComboBoxItem()
             {
                 Text = string.Empty,
                 Value = null
             });
 
-            Manufactor.Items.AddRange(ViewModel.Instance.Manufacturers.Select(x => new ControlFormularItemInputComboBoxItem()
+            Manufacturer.Items.AddRange(ViewModel.Instance.Manufacturers.Select(x => new ControlFormularItemInputComboBoxItem()
             {
                 Text = x.Name,
                 Value = x.Guid
@@ -293,7 +294,7 @@ namespace InventoryExpress.WebControl
             };
 
             Add(InventoryName);
-            Add(Manufactor);
+            Add(Manufacturer);
             Add(Location);
             Add(Supplier);
             Add(LedgerAccount);

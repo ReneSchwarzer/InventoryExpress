@@ -1,12 +1,11 @@
-﻿using WebExpress.Html;
-using WebExpress.WebResource;
-using WebExpress.UI.WebControl;
+﻿using InventoryExpress.WebResource;
 using WebExpress.Attribute;
-using WebExpress.UI.Attribute;
-using WebExpress.WebApp.Components;
-using WebExpress.UI.Component;
+using WebExpress.Html;
 using WebExpress.Internationalization;
-using InventoryExpress.WebResource;
+using WebExpress.UI.Attribute;
+using WebExpress.UI.Component;
+using WebExpress.UI.WebControl;
+using WebExpress.WebApp.Components;
 
 namespace InventoryExpress.WebControl
 {

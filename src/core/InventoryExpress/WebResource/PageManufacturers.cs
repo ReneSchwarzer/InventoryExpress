@@ -7,18 +7,18 @@ using WebExpress.WebApp.WebResource;
 
 namespace InventoryExpress.WebResource
 {
-    [ID("Manufactor")]
-    [Title("inventoryexpress.manufactors.label")]
-    [Segment("manufactors", "inventoryexpress.manufactors.label")]
+    [ID("Manufacturer")]
+    [Title("inventoryexpress.manufacturers.label")]
+    [Segment("manufacturers", "inventoryexpress.manufacturers.label")]
     [Path("/")]
     [Module("InventoryExpress")]
     [Context("general")]
-    public sealed class PageManufactors : PageTemplateWebApp, IPageManufactor
+    public sealed class PageManufacturers : PageTemplateWebApp, IPageManufacturer
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public PageManufactors()
+        public PageManufacturers()
         {
         }
 
@@ -39,17 +39,17 @@ namespace InventoryExpress.WebResource
 
             var grid = new ControlPanelGrid() { Fluid = TypePanelContainer.Fluid };
 
-            foreach (var manufactor in ViewModel.Instance.Manufacturers)
+            foreach (var manufacturer in ViewModel.Instance.Manufacturers)
             {
-                var card = new ControlCardManufactor()
+                var card = new ControlCardManufacturer()
                 {
-                    Manufactur = manufactor
+                    Manufactur = manufacturer
                 };
 
                 grid.Content.Add(card);
             }
 
-            Content.Content.Add(grid);
+            Content.Primary.Add(grid);
         }
     }
 }
