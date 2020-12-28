@@ -39,7 +39,7 @@ namespace InventoryExpress.WebControl
             Text = context.I18N("inventoryexpress.templates.label");
             Uri = context.Page.Uri.Root.Append("templates");
             Active = context.Page is IPageTemplate ? TypeActive.Active : TypeActive.None;
-            //Icon = new PropertyIcon(TypeIcon.Book);
+            Icon = new PropertyIcon(TypeIcon.Clone);
 
             return base.Render(context);
         }

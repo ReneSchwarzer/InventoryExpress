@@ -16,7 +16,7 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Liefert oder setzt die ungenutzten Attribute
         /// </summary>
-        private ControlFormularItemInputComboBox UnusedAttributes { get; set; }
+        public ControlFormularItemInputMoveSelector Attributes { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Beschreibung
@@ -66,24 +66,13 @@ namespace InventoryExpress.WebControl
                 Icon = new PropertyIcon(TypeIcon.Font)
             };
 
-            UnusedAttributes = new ControlFormularItemInputComboBox()
+            Attributes = new ControlFormularItemInputMoveSelector("attributes")
             {
-                Name = "unusedattributes",
+                Name = "attributes",
                 Label = "inventoryexpress.template.form.unused.label",
-                Help = "inventoryexpress.template.form.unused.description"
+                Help = "inventoryexpress.template.form.unused.description",
+                Icon = new PropertyIcon(TypeIcon.Cubes)
             };
-
-            UnusedAttributes.Items.Add(new ControlFormularItemInputComboBoxItem()
-            {
-                Text = string.Empty,
-                Value = null
-            });
-
-            UnusedAttributes.Items.AddRange(ViewModel.Instance.Attributes.Select(x => new ControlFormularItemInputComboBoxItem()
-            {
-                Text = x.Name,
-                Value = x.ID.ToString()
-            }));
 
             Description = new ControlFormularItemInputTextBox("note")
             {
@@ -120,7 +109,7 @@ namespace InventoryExpress.WebControl
         public override IHtmlNode Render(RenderContext context)
         {
             Add(TemplateName);
-            Add(UnusedAttributes);
+            Add(Attributes);
             Add(Description);
 
             if (!Edit)

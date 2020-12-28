@@ -245,7 +245,7 @@ namespace InventoryExpress.WebControl
                 Name = "template",
                 Label = "inventoryexpress.template.label",
                 Help = "inventoryexpress.template.description",
-                Icon = new PropertyIcon(TypeIcon.Copy),
+                Icon = new PropertyIcon(TypeIcon.Clone),
                 OnChange = new PropertyOnChange(TypeOnChange.Submit)
             };
 

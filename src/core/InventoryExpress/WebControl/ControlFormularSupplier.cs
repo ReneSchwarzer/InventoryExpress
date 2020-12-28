@@ -133,14 +133,14 @@ namespace InventoryExpress.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var group = new ControlFormularItemGroup() { Layout = TypeLayoutFormular.Mix };
+            var group = new ControlFormularItemGroupColumnVertical() { Distribution = new int[] { 33 } };
             group.Items.Add(Zip);
             group.Items.Add(Place);
 
             Add(SupplierName);
             Add(Description);
             Add(Address);
-            Add(group);
+            Add(new ControlFormularItemInputGroup(null, group));
 
             if (!Edit)
             {

@@ -27,7 +27,7 @@ namespace InventoryExpress.WebControl
             Name = "location";
             EnableCancelButton = false;
             Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Three, PropertySpacing.Space.None, PropertySpacing.Space.None);
-            Layout = TypeLayoutFormular.Inline;
+            Layout = TypeLayoutFormular.Horizontal;
 
             Image = new ControlFormularItemInputFile()
             {

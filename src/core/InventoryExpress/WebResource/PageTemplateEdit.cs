@@ -53,9 +53,19 @@ namespace InventoryExpress.WebResource
             var guid =GetParamValue("TemplateID");
             var template = ViewModel.Instance.Templates.Where(x => x.Guid == guid).FirstOrDefault();
 
+            foreach (var v in ViewModel.Instance.Attributes)
+            {
+                form.Attributes.Options.Add(new ControlFormularItemInputMoveSelectorItem() 
+                { 
+                    ID =  v.Guid,
+                    Value = v.Name
+                });
+            }
+
             Content.Primary.Add(form);
 
             form.TemplateName.Value = template?.Name;
+            
             form.Description.Value = template?.Description;
 
             form.TemplateName.Validation += (s, e) =>
