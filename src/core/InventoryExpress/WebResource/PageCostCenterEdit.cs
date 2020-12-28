@@ -3,6 +3,7 @@ using InventoryExpress.WebControl;
 using System;
 using System.Linq;
 using WebExpress.Attribute;
+using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebResource;
 
@@ -38,8 +39,10 @@ namespace InventoryExpress.WebResource
 
             form = new ControlFormularCostCenter()
             {
-                RedirectUrl = Uri.Take(-1),
-                Edit = true
+                RedirectUri = Uri.Take(-1),
+                Edit = true,
+                EnableCancelButton = true,
+                BackUri = Uri.Take(-1),
             };
         }
 
@@ -57,17 +60,17 @@ namespace InventoryExpress.WebResource
 
             form.CostCenterName.Value = costcenter?.Name;
             form.Description.Value = costcenter?.Description;
-            form.Tag.Value = "";
+            form.Tag.Value = costcenter?.Tag;
 
             form.CostCenterName.Validation += (s, e) =>
             {
                 if (e.Value.Count() < 1)
                 {
-                    e.Results.Add(new ValidationResult() { Text = "Geben Sie einen gültigen Namen ein!", Type = TypesInputValidity.Error });
+                    e.Results.Add(new ValidationResult() { Text = this.I18N("inventoryexpress.costcenter.validation.name.invalid"), Type = TypesInputValidity.Error });
                 }
                 else if (!costcenter.Name.Equals(e.Value, StringComparison.InvariantCultureIgnoreCase) && ViewModel.Instance.Suppliers.Where(x => x.Name.Equals(e.Value)).Count() > 0)
                 {
-                    e.Results.Add(new ValidationResult() { Text = "Die Kostenstelle wird bereits verwendet. Geben Sie einen anderen Namen an!", Type = TypesInputValidity.Error });
+                    e.Results.Add(new ValidationResult() { Text = this.I18N("inventoryexpress.costcenter.validation.name.used"), Type = TypesInputValidity.Error });
                 }
             };
 
@@ -76,7 +79,7 @@ namespace InventoryExpress.WebResource
                 // Kostenstelle ändern und speichern
                 costcenter.Description = form.Description.Value;
                 costcenter.Updated = DateTime.Now;
-                //costcenter.Tag = form.Tag.Value;
+                costcenter.Tag = form.Tag.Value;
 
                 ViewModel.Instance.SaveChanges();
             };

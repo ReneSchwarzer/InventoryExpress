@@ -6,6 +6,7 @@ using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebResource;
 using WebExpress.Attribute;
 using WebExpress.Message;
+using WebExpress.Internationalization;
 
 namespace InventoryExpress.WebResource
 {
@@ -38,7 +39,9 @@ namespace InventoryExpress.WebResource
 
             form = new ControlFormularLedgerAccount()
             {
-                RedirectUrl = Uri.Take(-1)
+                RedirectUri = Uri.Take(-1),
+                EnableCancelButton = true,
+                BackUri = Uri.Take(-1),
             };
         }
 
@@ -55,12 +58,12 @@ namespace InventoryExpress.WebResource
             {
                 if (e.Value.Count() < 1)
                 {
-                    e.Results.Add(new ValidationResult() { Text = "Geben Sie einen gültigen Namen ein!", Type = TypesInputValidity.Error });
+                    e.Results.Add(new ValidationResult() { Text = this.I18N("inventoryexpress.ledgeraccount.validation.name.invalid"), Type = TypesInputValidity.Error });
                 }
                 else if (ViewModel.Instance.LedgerAccounts.Where(x => x.Name.Equals(e.Value)).Count() > 0)
                 {
-                    e.Results.Add(new ValidationResult() { Text = "Das Sachkonto wird bereits verwendet. Geben Sie einen anderen Namen an!", Type = TypesInputValidity.Error });
-                }
+                    e.Results.Add(new ValidationResult() { Text = this.I18N("inventoryexpress.ledgeraccount.validation.name.used"), Type = TypesInputValidity.Error });
+                    }
             };
 
             form.ProcessFormular += (s, e) =>
@@ -70,7 +73,7 @@ namespace InventoryExpress.WebResource
                 {
                     Name = form.LedgerAccountName.Value,
                     Description = form.Description.Value,
-                    //Tag = form.Tag.Value,
+                    Tag = form.Tag.Value,
                     Created = DateTime.Now,
                     Updated = DateTime.Now,
                     Guid = Guid.NewGuid().ToString()

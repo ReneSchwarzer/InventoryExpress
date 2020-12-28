@@ -9,7 +9,7 @@ namespace InventoryExpress.Model
     /// Eine Zuschreibung kann auf ein Inventar erfolgen, um diesen zu Erweitern (z.B. Speichererweiterung)
     /// ohne das die Zuschreibung selbst ím Inventar eigeständig geführt wird
     /// </summary>
-    public class Ascription : Item
+    public class Ascription : ItemTag
     {
         /// <summary>
         /// Liefert oder setzt das übergeordnete Inventar

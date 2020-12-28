@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace InventoryExpress.Model
 {
-    public class ItemAaddress : Item
+    public class ItemAaddress : ItemTag
     {
         /// <summary>
         /// Die Aaddresse

@@ -5,6 +5,7 @@ using System.Linq;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebResource;
 using WebExpress.Attribute;
+using WebExpress.Internationalization;
 
 namespace InventoryExpress.WebResource
 {
@@ -38,8 +39,10 @@ namespace InventoryExpress.WebResource
 
             form = new ControlFormularTemplate()
             {
-                RedirectUrl = Uri.Take(-1),
-                Edit = true
+                RedirectUri = Uri.Take(-1),
+                Edit = true,
+                EnableCancelButton = true,
+                BackUri = Uri.Take(-1),
             };
         }
 
@@ -67,16 +70,17 @@ namespace InventoryExpress.WebResource
             form.TemplateName.Value = template?.Name;
             
             form.Description.Value = template?.Description;
+            form.Tag.Value = template?.Tag;
 
             form.TemplateName.Validation += (s, e) =>
             {
                 if (e.Value.Count() < 1)
                 {
-                    e.Results.Add(new ValidationResult() { Text = "Geben Sie einen gültigen Namen ein!", Type = TypesInputValidity.Error });
+                    e.Results.Add(new ValidationResult() { Text = this.I18N("inventoryexpress.template.validation.name.invalid"), Type = TypesInputValidity.Error });
                 }
                 else if (!template.Name.Equals(e.Value, StringComparison.InvariantCultureIgnoreCase) && ViewModel.Instance.Suppliers.Where(x => x.Name.Equals(e.Value)).Count() > 0)
                 {
-                    e.Results.Add(new ValidationResult() { Text = "Die Vorlage wird bereits verwendet. Geben Sie einen anderen Namen an!", Type = TypesInputValidity.Error });
+                    e.Results.Add(new ValidationResult() { Text = this.I18N("inventoryexpress.template.validation.name.used"), Type = TypesInputValidity.Error });
                 }
             };
 
@@ -85,8 +89,8 @@ namespace InventoryExpress.WebResource
                 // Vorlage ändern und speichern
                 template.Name = form.TemplateName.Value;
                 template.Description = form.Description.Value;
+                template.Tag = form.Tag.Value;
                 template.Updated = DateTime.Now;
-                //manufacturer.Tag = form.Tag.Value;
 
                 ViewModel.Instance.SaveChanges();
             };

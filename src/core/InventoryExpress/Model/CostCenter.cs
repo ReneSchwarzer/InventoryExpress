@@ -6,7 +6,7 @@ namespace InventoryExpress.Model
     /// Kostenstelle
     /// </summary>
     [Table("COSTCENTER")]
-    public class CostCenter : Item
+    public class CostCenter : ItemTag
     {
         /// <summary>
         /// Konstruktor

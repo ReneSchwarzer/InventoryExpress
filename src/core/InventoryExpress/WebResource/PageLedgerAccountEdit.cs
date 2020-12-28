@@ -6,6 +6,7 @@ using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebResource;
 using WebExpress.Attribute;
 using WebExpress.Message;
+using WebExpress.Internationalization;
 
 namespace InventoryExpress.WebResource
 {
@@ -39,8 +40,10 @@ namespace InventoryExpress.WebResource
 
             form = new ControlFormularLedgerAccount()
             {
-                RedirectUrl = Uri.Take(-1),
-                Edit = true
+                RedirectUri = Uri.Take(-1),
+                Edit = true,
+                EnableCancelButton = true,
+                BackUri = Uri.Take(-1),
             };
         }
 
@@ -58,17 +61,17 @@ namespace InventoryExpress.WebResource
 
             form.LedgerAccountName.Value = ledgerAccount?.Name;
             form.Description.Value = ledgerAccount?.Description;
-            form.Tag.Value = "";
+            form.Tag.Value = ledgerAccount?.Tag;
 
             form.LedgerAccountName.Validation += (s, e) =>
             {
                 if (e.Value.Count() < 1)
                 {
-                    e.Results.Add(new ValidationResult() { Text = "Geben Sie einen gültigen Namen ein!", Type = TypesInputValidity.Error });
+                    e.Results.Add(new ValidationResult() { Text = this.I18N("inventoryexpress.ledgeraccount.validation.name.invalid"), Type = TypesInputValidity.Error });
                 }
                 else if (!ledgerAccount.Name.Equals(e.Value, StringComparison.InvariantCultureIgnoreCase) && ViewModel.Instance.Suppliers.Where(x => x.Name.Equals(e.Value)).Count() > 0)
                 {
-                    e.Results.Add(new ValidationResult() { Text = "Das Sachkonto wird bereits verwendet. Geben Sie einen anderen Namen an!", Type = TypesInputValidity.Error });
+                    e.Results.Add(new ValidationResult() { Text = this.I18N("inventoryexpress.ledgeraccount.validation.name.used"), Type = TypesInputValidity.Error });
                 }
             };
 
@@ -77,9 +80,9 @@ namespace InventoryExpress.WebResource
                 // Sachkonto ändern und speichern
                 ledgerAccount.Name = form.LedgerAccountName.Value;
                 ledgerAccount.Description = form.Description.Value;
+                ledgerAccount.Tag = form.Tag.Value;
                 ledgerAccount.Updated = DateTime.Now;
-                //ledgerAccount.Tag = form.Tag.Value;
-
+                
                 ViewModel.Instance.SaveChanges();
             };
         }

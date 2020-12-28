@@ -69,6 +69,11 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemInputTextBox Description { get; set; }
 
         /// <summary>
+        /// Bestimmt, ob das Formular zum Bearbeiten oder zum Neuanlegen verwendet werden soll.
+        /// </summary>
+        public bool Edit { get; set; } = false;
+
+        /// <summary>
         /// Konstruktor
         /// </summary>
         /// <param name="id">Die ID</param>

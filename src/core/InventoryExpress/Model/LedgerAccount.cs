@@ -6,7 +6,7 @@ namespace InventoryExpress.Model
     /// Sachkonto
     /// </summary>
     [Table("LEDGERACCOUNT")]
-    public class LedgerAccount : Item
+    public class LedgerAccount : ItemTag
     {
         /// <summary>
         /// Konstruktor

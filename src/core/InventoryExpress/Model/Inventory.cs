@@ -9,7 +9,7 @@ namespace InventoryExpress.Model
     /// Inventar
     /// </summary>
     [Table("INVENTORY")]
-    public class Inventory : Item
+    public class Inventory : ItemTag
     {
         /// <summary>
         /// Der Anschaffungswert

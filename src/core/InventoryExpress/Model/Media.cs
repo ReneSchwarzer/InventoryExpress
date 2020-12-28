@@ -29,6 +29,12 @@ namespace InventoryExpress.Model
         public byte[] Data { get; set; }
 
         /// <summary>
+        /// Die Postleitzahl
+        /// </summary>
+        [StringLength(256), Column("TAG")]
+        public string Tag { get; set; }
+
+        /// <summary>
         /// Der Zeitstempel der Erstellung
         /// </summary>
         [Column("CREATED")]

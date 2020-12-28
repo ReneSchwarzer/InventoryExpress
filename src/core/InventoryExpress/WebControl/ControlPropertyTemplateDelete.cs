@@ -32,7 +32,7 @@ namespace InventoryExpress.WebControl
         {
             var guid = context.Page.GetParamValue("TemplateID");
             var template = ViewModel.Instance.Templates.Where(x => x.Guid == guid).FirstOrDefault();
-            var form = new ControlFormular("del") { EnableSubmitAndNextButton = false, EnableCancelButton = false, RedirectUrl = Uri };
+            var form = new ControlFormular("del") { EnableSubmitAndNextButton = false, EnableCancelButton = false, RedirectUri = Uri };
             form.SubmitButton.Text = context.Page.I18N("inventoryexpress.delete.label");
             form.SubmitButton.Icon = new PropertyIcon(TypeIcon.TrashAlt);
             form.SubmitButton.Color = new PropertyColorButton(TypeColorButton.Danger);

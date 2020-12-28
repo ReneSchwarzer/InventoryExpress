@@ -6,7 +6,7 @@ namespace InventoryExpress.Model
     /// Vorlage
     /// </summary>
     [Table("TEMPLATE")]
-    public class Template : Item
+    public class Template : ItemTag
     {
         /// <summary>
         /// Die URL des Providers

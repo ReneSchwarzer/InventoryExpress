@@ -16,6 +16,7 @@ CREATE TABLE CostCenter
     MediaID             INTEGER         REFERENCES Media (ID) ON DELETE SET NULL,
     Name 		        VARCHAR(64)     UNIQUE NOT NULL,   
 	Description         TEXT,
+    Tag 		        VARCHAR(256),
     Created 	        TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
     Updated 	        TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
     Guid                CHAR(36)        UNIQUE NOT NULL
@@ -27,6 +28,7 @@ CREATE TABLE LedgerAccount
     MediaID             INTEGER         REFERENCES Media (ID) ON DELETE SET NULL,
     Name 		        VARCHAR(64)     UNIQUE NOT NULL,
 	Description         TEXT,
+    Tag 		        VARCHAR(256),
     Created 	        TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
     Updated 	        TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
     Guid                CHAR(36)        UNIQUE NOT NULL
@@ -41,6 +43,7 @@ CREATE TABLE Manufacturer
     Zip                 VARCHAR(10),
     Place               VARCHAR(64),
     Description         TEXT,
+    Tag 		        VARCHAR(256),
     Created             TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
     Updated 	        TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
     Guid                CHAR(36)        UNIQUE NOT NULL
@@ -55,6 +58,7 @@ CREATE TABLE Supplier
     Zip                 VARCHAR(10),
     Place               VARCHAR(64),
     Description         TEXT,
+    Tag 		        VARCHAR(256),
     Created             TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
     Updated 	        TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
     Guid                CHAR(36)        UNIQUE NOT NULL
@@ -71,6 +75,7 @@ CREATE TABLE Location
 	Building            VARCHAR(64),
 	Room                VARCHAR(64),
     Description         TEXT,
+    Tag 		        VARCHAR(256),
     Created             TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
     Updated 	        TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
     Guid                CHAR(36)        UNIQUE NOT NULL
@@ -105,6 +110,7 @@ CREATE TABLE Template
     MediaID             INTEGER         REFERENCES Media (ID) ON DELETE SET NULL,
 	Name 		        VARCHAR(64)     UNIQUE NOT NULL,
     Description         TEXT,
+    Tag 		        VARCHAR(256),
     Created 	        TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
     Updated 	        TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
     Guid                CHAR(36)        UNIQUE NOT NULL
@@ -116,6 +122,7 @@ CREATE TABLE Ascription
     MediaID             INT             REFERENCES Media (ID) ON DELETE SET NULL,
     Name 		        VARCHAR(64)     UNIQUE NOT NULL,
 	Description         TEXT,
+    Tag 		        VARCHAR(256),
     Created 	        TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
     Updated 	        TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
     Guid                CHAR(36)        UNIQUE NOT NULL
@@ -146,6 +153,7 @@ CREATE TABLE Inventory
 	PurchaseDate        DATE,
 	DerecognitionDate   DATE,
 	Description         TEXT,
+    Tag 		        VARCHAR(256),
     Created 	        TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
     Updated 	        TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
     Guid                CHAR(36)        UNIQUE NOT NULL
@@ -165,6 +173,7 @@ CREATE TABLE Media
     ID                  INTEGER			PRIMARY KEY AUTOINCREMENT NOT NULL,
     Name 		        VARCHAR(64)     NOT NULL,
     Data                BLOB,
+    Tag 		        VARCHAR(256),
     Created 	        TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
     Updated 	        TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
     Guid                CHAR(36)        UNIQUE NOT NULL
@@ -178,8 +187,8 @@ INSERT INTO Condition (ID, Name, Grade, Description, Created, Guid) VALUES (4, '
 INSERT INTO Condition (ID, Name, Grade, Description, Created, Guid) VALUES (5, 'Gut', 2, NULL, '2020-10-11 14:24:32', '24985685-3fa2-4ece-bee5-13b76def881c');
 INSERT INTO Condition (ID, Name, Grade, Description, Created, Guid) VALUES (6, 'Sehr gut', 1, NULL, '2020-10-11 14:24:32', '78f2acbc-2a21-4cd2-ba59-73ac67fbd60d');
 
-INSERT INTO Manufacturer (ID, Name, Place, Zip, Address, Description, Created, Guid) VALUES (1, 'RFT', NULL, NULL, 'Rundfunk- und FernmeldeTechnik', NULL, '2020-10-11 12:57:38', '3e4c09ef-aa85-425f-ac24-4733463f6046');
-INSERT INTO Manufacturer (ID, Name, Place, Zip, Address, Description, Created, Guid) VALUES (2, 'ROBOTRON', NULL, NULL, NULL, 'VEB Kombinat Robotron', '2020-10-11 12:57:38', '67d35a0f-7e94-4bfd-a309-36e9162a67ff');                            
+INSERT INTO Manufacturer (ID, Name, Place, Zip, Address, Description, Tag, Created, Guid) VALUES (1, 'RFT', NULL, NULL, 'Rundfunk- und FernmeldeTechnik', NULL, 'ddr', '2020-10-11 12:57:38', '3e4c09ef-aa85-425f-ac24-4733463f6046');
+INSERT INTO Manufacturer (ID, Name, Place, Zip, Address, Description, Tag, Created, Guid) VALUES (2, 'ROBOTRON', NULL, NULL, NULL, 'VEB Kombinat Robotron', 'ddr;veb', '2020-10-11 12:57:38', '67d35a0f-7e94-4bfd-a309-36e9162a67ff');                            
 INSERT INTO Manufacturer (ID, Name, Place, Zip, Address, Description, Created, Guid) VALUES (3, 'Acer', NULL, NULL, NULL, 'VAcer Group', '2020-10-11 12:57:38', 'e06bbef2-4c24-4512-a4d3-e4363aa88687');                            
 INSERT INTO Manufacturer (ID, Name, Place, Zip, Address, Description, Created, Guid) VALUES (4, 'Atari', NULL, NULL, NULL, 'Atari Inc.', '2020-10-11 12:57:38', 'f9b28160-42d6-4b76-8c61-1f591780576a');                            
 INSERT INTO Manufacturer (ID, Name, Place, Zip, Address, Description, Created, Guid) VALUES (5, 'Commodore', NULL, NULL, NULL, 'Commodore International', '2020-10-11 12:57:38', '4cfa73c2-0e76-4fc1-b74a-9a345ade2bc4');                            

@@ -6,6 +6,7 @@ using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebResource;
 using WebExpress.Attribute;
 using WebExpress.Message;
+using WebExpress.Internationalization;
 
 namespace InventoryExpress.WebResource
 {
@@ -39,8 +40,10 @@ namespace InventoryExpress.WebResource
 
             form = new ControlFormularSupplier(this)
             {
-                RedirectUrl = Uri.Take(-1),
-                Edit = true
+                RedirectUri = Uri.Take(-1),
+                Edit = true,
+                EnableCancelButton = true,
+                BackUri = Uri.Take(-1),
             };
         }
 
@@ -58,20 +61,20 @@ namespace InventoryExpress.WebResource
 
             form.SupplierName.Value = supplier?.Name;
             form.Description.Value = supplier?.Description;
-            form.Address.Value = supplier.Address;
-            form.Zip.Value = supplier.Zip;
-            form.Place.Value = supplier.Place;
-            form.Tag.Value = "";
+            form.Address.Value = supplier?.Address;
+            form.Zip.Value = supplier?.Zip;
+            form.Place.Value = supplier?.Place;
+            form.Tag.Value = supplier?.Tag;
 
             form.SupplierName.Validation += (s, e) =>
             {
                 if (e.Value.Count() < 1)
                 {
-                    e.Results.Add(new ValidationResult() { Text = "Geben Sie einen gültigen Namen ein!", Type = TypesInputValidity.Error });
+                    e.Results.Add(new ValidationResult() { Text = this.I18N("inventoryexpress.supplier.validation.name.invalid"), Type = TypesInputValidity.Error });
                 }
                 else if (!supplier.Name.Equals(e.Value, StringComparison.InvariantCultureIgnoreCase) && ViewModel.Instance.Suppliers.Where(x => x.Name.Equals(e.Value)).Count() > 0)
                 {
-                    e.Results.Add(new ValidationResult() { Text = "Der Lieferant wird bereits verwendet. Geben Sie einen anderen Namen an!", Type = TypesInputValidity.Error });
+                    e.Results.Add(new ValidationResult() { Text = this.I18N("inventoryexpress.supplier.validation.name.used"), Type = TypesInputValidity.Error });
                 }
             };
 
@@ -84,7 +87,7 @@ namespace InventoryExpress.WebResource
                 supplier.Zip = form.Zip.Value;
                 supplier.Place = form.Place.Value;
                 supplier.Updated = DateTime.Now;
-                //supplier.Tag = form.Tag.Value;
+                supplier.Tag = form.Tag.Value;
 
                 ViewModel.Instance.SaveChanges();
             };

@@ -21,7 +21,7 @@ namespace InventoryExpress.WebResource
         /// <summary>
         /// Formular
         /// </summary>
-        private ControlFormularMedia form;
+        private ControlFormularMedia Form { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Vorlage
@@ -38,6 +38,7 @@ namespace InventoryExpress.WebResource
         /// </summary>
         public PageTemplateMedia()
         {
+            
         }
 
         /// <summary>
@@ -47,16 +48,18 @@ namespace InventoryExpress.WebResource
         {
             base.Initialization();
 
+            Form = new ControlFormularMedia("media")
+            {
+                RedirectUri = Uri,
+                EnableCancelButton = true,
+                BackUri = Uri.Take(-1),
+            };
+
             var guid = GetParamValue("TemplateID");
             Template = ViewModel.Instance.Templates.Where(x => x.Guid == guid).FirstOrDefault();
             Media = ViewModel.Instance.Media.Where(x => x.ID == Template.MediaID).FirstOrDefault();
 
             AddParam("MediaID", Media?.Guid, ParameterScope.Local);
-
-            form = new ControlFormularMedia("media")
-            {
-                RedirectUrl = Uri
-            };
         }
 
         /// <summary>
@@ -73,9 +76,11 @@ namespace InventoryExpress.WebResource
                 Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.None, PropertySpacing.Space.None, PropertySpacing.Space.Three)
             });
 
-            Content.Primary.Add(form);
+            Content.Primary.Add(Form);
 
-            form.Image.Validation += (s, e) =>
+            Form.Tag.Value = Media?.Tag;
+
+            Form.Image.Validation += (s, e) =>
             {
                 //if (e.Value.Count() < 1)
                 //{
@@ -87,9 +92,9 @@ namespace InventoryExpress.WebResource
                 //}
             };
 
-            form.ProcessFormular += (s, e) =>
+            Form.ProcessFormular += (s, e) =>
             {
-                if (GetParam(form.Image.Name) is ParameterFile file)
+                if (GetParam(Form.Image.Name) is ParameterFile file)
                 {
                     // Image speichern
                     if (Media == null)
@@ -98,6 +103,7 @@ namespace InventoryExpress.WebResource
                         { 
                             Name = file.Value, 
                             Data = file.Data,
+                            Tag = Form.Tag.Value,
                             Created = DateTime.Now,
                             Updated = DateTime.Now,
                             Guid = Guid.NewGuid().ToString()
@@ -108,6 +114,7 @@ namespace InventoryExpress.WebResource
                         // Image ändern
                         Media.Name = file.Value;
                         Media.Data = file.Data;
+                        Media.Tag = Form.Tag.Value;
                         Media.Updated = DateTime.Now;
                     }
                 }

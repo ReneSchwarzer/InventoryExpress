@@ -3,6 +3,7 @@ using InventoryExpress.WebControl;
 using System;
 using System.Linq;
 using WebExpress.Attribute;
+using WebExpress.Internationalization;
 using WebExpress.Message;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebResource;
@@ -38,7 +39,9 @@ namespace InventoryExpress.WebResource
 
             form = new ControlFormularLocation()
             {
-                RedirectUrl = Uri.Take(-1)
+                RedirectUri = Uri.Take(-1),
+                EnableCancelButton = true,
+                BackUri = Uri.Take(-1),
             };
         }
 
@@ -55,11 +58,11 @@ namespace InventoryExpress.WebResource
             {
                 if (e.Value.Count() < 1)
                 {
-                    e.Results.Add(new ValidationResult() { Text = "Geben Sie einen  gültigen Namen ein!", Type = TypesInputValidity.Error });
+                    e.Results.Add(new ValidationResult() { Text = this.I18N("inventoryexpress.location.validation.name.invalid"), Type = TypesInputValidity.Error });
                 }
                 else if (ViewModel.Instance.Locations.Where(x => x.Name.Equals(e.Value)).Count() > 0)
                 {
-                    e.Results.Add(new ValidationResult() { Text = "Der Hersteller wird bereits verwendet. Geben Sie einen anderen Namen an!", Type = TypesInputValidity.Error });
+                    e.Results.Add(new ValidationResult() { Text = this.I18N("inventoryexpress.location.validation.name.used"), Type = TypesInputValidity.Error });
                 }
             };
 
@@ -75,7 +78,7 @@ namespace InventoryExpress.WebResource
                     Place = form.Place.Value,
                     Building = form.Building.Value,
                     Room = form.Room.Value,
-                    //Tag = form.Tag.Value,
+                    Tag = form.Tag.Value,
                     Created = DateTime.Now,
                     Updated = DateTime.Now,
                     Guid = Guid.NewGuid().ToString()

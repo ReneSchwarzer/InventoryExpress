@@ -12,6 +12,7 @@ namespace InventoryExpress.WebResource
     [Path("/")]
     [Module("InventoryExpress")]
     [Context("general")]
+    [Context("template")]
     public sealed class PageTemplates : PageTemplateWebApp, IPageTemplate
     {
         /// <summary>

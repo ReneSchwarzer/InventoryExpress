@@ -49,6 +49,8 @@ inventoryexpress.costcenter.creationdate.label=Erstellungsdatum
 inventoryexpress.costcenter.creationdate.description=
 inventoryexpress.costcenter.updatedate.label=Letzte Aktualisierung
 inventoryexpress.costcenter.updatedate.description=
+inventoryexpress.costcenter.validation.name.invalid=Geben Sie einen gültigen Namen ein!
+inventoryexpress.costcenter.validation.name.used=Die Kostenstelle wird bereits verwendet. Geben Sie einen anderen Namen an!
 
 inventoryexpress.ledgeraccounts.label=Sachkonten
 inventoryexpress.ledgeraccount.label=Sachkonto
@@ -72,6 +74,8 @@ inventoryexpress.ledgeraccount.creationdate.label=Erstellungsdatum
 inventoryexpress.ledgeraccount.creationdate.description=
 inventoryexpress.ledgeraccount.updatedate.label=Letzte Aktualisierung
 inventoryexpress.ledgeraccount.updatedate.description=
+inventoryexpress.ledgeraccount.validation.name.invalid=Geben Sie einen gültigen Namen ein!
+inventoryexpress.ledgeraccount.validation.name.used=Das Sachkonto wird bereits verwendet. Geben Sie einen anderen Namen an!
 
 inventoryexpress.locations.label=Standorte
 inventoryexpress.location.label=Standort
@@ -105,6 +109,8 @@ inventoryexpress.location.creationdate.label=Erstellungsdatum
 inventoryexpress.location.creationdate.description=
 inventoryexpress.location.updatedate.label=Letzte Aktualisierung
 inventoryexpress.location.updatedate.description=
+inventoryexpress.location.validation.name.invalid=Geben Sie einen gültigen Namen ein!
+inventoryexpress.location.validation.name.used=Der Standortes wird bereits verwendet. Geben Sie einen anderen Namen an!
 
 inventoryexpress.manufacturers.label=Hersteller
 inventoryexpress.manufacturer.label=Hersteller
@@ -134,6 +140,9 @@ inventoryexpress.manufacturer.creationdate.label=Erstellungsdatum
 inventoryexpress.manufacturer.creationdate.description=
 inventoryexpress.manufacturer.updatedate.label=Letzte Aktualisierung
 inventoryexpress.manufacturer.updatedate.description=
+inventoryexpress.manufacturer.validation.name.invalid=Geben Sie einen gültigen Namen ein!
+inventoryexpress.manufacturer.validation.name.used=Der Hersteller wird bereits verwendet. Geben Sie einen anderen Namen an!
+inventoryexpress.manufacturer.validation.zip.tolong=Die Postleitzahl ist zu lang!
 
 inventoryexpress.suppliers.label=Lieferanten
 inventoryexpress.supplier.label=Lieferant
@@ -163,6 +172,8 @@ inventoryexpress.supplier.creationdate.label=Erstellungsdatum
 inventoryexpress.supplier.creationdate.description=
 inventoryexpress.supplier.updatedate.label=Letzte Aktualisierung
 inventoryexpress.supplier.updatedate.description=
+inventoryexpress.supplier.validation.name.invalid=Geben Sie einen gültigen Namen ein!
+inventoryexpress.supplier.validation.name.used=Der Lieferant wird bereits verwendet. Geben Sie einen anderen Namen an!
 
 inventoryexpress.templates.label=Vorlagen
 inventoryexpress.template.label=Vorlage
@@ -188,6 +199,8 @@ inventoryexpress.template.creationdate.label=Erstellungsdatum
 inventoryexpress.template.creationdate.description=
 inventoryexpress.template.updatedate.label=Letzte Aktualisierung
 inventoryexpress.template.updatedate.description=
+inventoryexpress.template.validation.name.invalid=Geben Sie einen gültigen Namen ein!
+inventoryexpress.template.validation.name.used=Die Vorlage wird bereits verwendet. Geben Sie einen anderen Namen an!
 
 inventoryexpress.condition.label=Zustand
 inventoryexpress.condition.description=Der Zustand des Inventargegenstandes.

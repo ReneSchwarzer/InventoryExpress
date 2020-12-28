@@ -38,7 +38,10 @@ namespace InventoryExpress.WebResource
 
             form = new ControlFormularInventory()
             {
-                RedirectUrl = Uri.Take(-1)
+                RedirectUri = Uri.Take(-1),
+                Edit = true,
+                EnableCancelButton = true,
+                BackUri = Uri.Take(-1)
             };
 
             Uri.Display = GetParamValue("InventoryID").Split('-').LastOrDefault();
@@ -91,7 +94,7 @@ namespace InventoryExpress.WebResource
                 inventory.Condition = ViewModel.Instance.Conditions.Where(x => x.Guid == form.Condition.Value).FirstOrDefault();
                 inventory.Parent = form.Parent.Value;
                 inventory.Template = ViewModel.Instance.Templates.Where(x => x.Guid == form.Template.Value).FirstOrDefault();
-                //Tag = form.Tag.Value,
+                inventory.Tag = form.Tag.Value;
                 inventory.Description = form.Description.Value;
 
                 ViewModel.Instance.SaveChanges();
