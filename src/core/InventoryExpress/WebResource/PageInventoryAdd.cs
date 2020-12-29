@@ -76,7 +76,7 @@ namespace InventoryExpress.WebResource
                     LedgerAccount = ViewModel.Instance.LedgerAccounts.Where(x => x.Guid == form.LedgerAccount.Value).FirstOrDefault(),
                     CostCenter = ViewModel.Instance.CostCenters.Where(x => x.Guid == form.CostCenter.Value).FirstOrDefault(),
                     Condition = ViewModel.Instance.Conditions.Where(x => x.Guid == form.Condition.Value).FirstOrDefault(),
-                    Parent = form.Parent.Value,
+                    //Parent = form.Parent.Value,
                     Template = ViewModel.Instance.Templates.Where(x => x.Guid == form.Template.Value).FirstOrDefault(),
                     Tag = form.Tag.Value,
                     Description = form.InventoryName.Value,

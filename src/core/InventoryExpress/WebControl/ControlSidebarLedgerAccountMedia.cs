@@ -30,7 +30,7 @@ namespace InventoryExpress.WebControl
         {
             var guid = context.Page.GetParamValue("LedgerAccountID");
             var ledgerAccount = ViewModel.Instance.LedgerAccounts.Where(x => x.Guid == guid).FirstOrDefault();
-            var media = ViewModel.Instance.Media.Where(x => x.ID == (ledgerAccount != null ? ledgerAccount.MediaID : null)).FirstOrDefault();
+            var media = ViewModel.Instance.Media.Where(x => x.Id == (ledgerAccount != null ? ledgerAccount.MediaId : null)).FirstOrDefault();
             var image = media != null ? context.Uri.Root.Append("media").Append(media.Guid) : null;
 
             Uri = context.Uri.Append("media");

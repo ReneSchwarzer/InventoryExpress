@@ -57,7 +57,7 @@ namespace InventoryExpress.WebResource
 
             var guid = GetParamValue("TemplateID");
             Template = ViewModel.Instance.Templates.Where(x => x.Guid == guid).FirstOrDefault();
-            Media = ViewModel.Instance.Media.Where(x => x.ID == Template.MediaID).FirstOrDefault();
+            Media = ViewModel.Instance.Media.Where(x => x.Id == Template.MediaId).FirstOrDefault();
 
             AddParam("MediaID", Media?.Guid, ParameterScope.Local);
         }

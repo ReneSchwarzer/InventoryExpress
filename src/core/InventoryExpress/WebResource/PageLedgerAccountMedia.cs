@@ -57,7 +57,7 @@ namespace InventoryExpress.WebResource
 
             var guid = GetParamValue("LedgerAccountID");
             LedgerAccount = ViewModel.Instance.LedgerAccounts.Where(x => x.Guid == guid).FirstOrDefault();
-            Media = ViewModel.Instance.Media.Where(x => x.ID == LedgerAccount.MediaID).FirstOrDefault();
+            Media = ViewModel.Instance.Media.Where(x => x.Id == LedgerAccount.MediaId).FirstOrDefault();
 
             AddParam("MediaID", Media?.Guid, ParameterScope.Local);
         }

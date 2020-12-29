@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace InventoryExpress.Model
 {
@@ -8,12 +9,15 @@ namespace InventoryExpress.Model
     [Table("LEDGERACCOUNT")]
     public class LedgerAccount : ItemTag
     {
+        public virtual ICollection<Inventory> Inventories { get; set; }
+
         /// <summary>
         /// Konstruktor
         /// </summary>
         public LedgerAccount()
             : base()
         {
+            Inventories = new HashSet<Inventory>();
         }
     }
 }

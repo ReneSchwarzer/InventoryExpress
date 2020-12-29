@@ -30,7 +30,7 @@ namespace InventoryExpress.WebControl
         {
             var guid = context.Page.GetParamValue("LocationID");
             var location = ViewModel.Instance.Locations.Where(x => x.Guid == guid).FirstOrDefault();
-            var media = ViewModel.Instance.Media.Where(x => x.ID == (location != null ? location.MediaID : null)).FirstOrDefault();
+            var media = ViewModel.Instance.Media.Where(x => x.Id == (location != null ? location.MediaId : null)).FirstOrDefault();
             var image = media != null ? context.Uri.Root.Append("media").Append(media.Guid) : null;
 
             Uri = context.Uri.Append("media");

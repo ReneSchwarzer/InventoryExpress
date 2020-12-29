@@ -10,7 +10,7 @@ namespace InventoryExpress.Model
         /// Die ID
         /// </summary>
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Liefert oder setzt den Namen
@@ -46,11 +46,12 @@ namespace InventoryExpress.Model
         /// Das Bild
         /// </summary>
         [Column("MEDIAID")]
-        public int? MediaID { get; set; }
+        public int? MediaId { get; set; }
 
         /// <summary>
         /// Das Bild
         /// </summary>
+        [ForeignKey("MediaId")]
         public virtual Media Media { get; set; }
 
         /// <summary>
@@ -66,7 +67,7 @@ namespace InventoryExpress.Model
         /// <returns>Das als String umgewandelte Objekt</returns>
         public override string ToString()
         {
-            return string.Format("{0} - {1}", ID, Name);
+            return string.Format("{0} - {1}", Id, Name);
         }
     }
 }

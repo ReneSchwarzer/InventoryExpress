@@ -92,18 +92,6 @@ CREATE TABLE Attribute
     Guid                CHAR(36)        UNIQUE NOT NULL
 );
 
-CREATE TABLE AttributeDateTimeValue    
-(
-    ID 			        INTEGER			PRIMARY KEY NOT NULL REFERENCES Attribute (ID),
-    Value 		        DATETIME
-);
-
-CREATE TABLE AttributeTextValue    
-(
-    ID 			        INTEGER			PRIMARY KEY NOT NULL REFERENCES Attribute (ID),
-    Value 		        TEXT
-);
-
 CREATE TABLE Template      
 (
     ID 			        INTEGER			PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -131,9 +119,8 @@ CREATE TABLE Ascription
 CREATE TABLE TemplateAttribute     
 (
     TemplateID          INTEGER			NOT NULL REFERENCES Template (ID),
-    AtrtributeID        INTEGER			NOT NULL REFERENCES Attribute (ID),
+    AttributeID         INTEGER			NOT NULL REFERENCES Attribute (ID),
     Created 	        TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    Updated 	        TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	PRIMARY KEY (TemplateID, AtrtributeID)
 );
 
@@ -162,9 +149,9 @@ CREATE TABLE Inventory
 CREATE TABLE InventoryAttribute     
 (
     InventoryID 	    INTEGER			NOT NULL REFERENCES Inventory (ID),
-    AtrtributeID 	    INTEGER			NOT NULL REFERENCES Attribute (ID),
+    AttributeID 	    INTEGER			NOT NULL REFERENCES Attribute (ID),
+    Value 		        TEXT
     Created 	        TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    Updated 	        TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	PRIMARY KEY (InventoryID, AtrtributeID)
 );
 
@@ -249,5 +236,11 @@ INSERT INTO Attribute (ID, Name, Description, Created, Guid) VALUES (14, 'Serein
 INSERT INTO Attribute (ID, Name, Description, Created, Guid) VALUES (15, 'Taktrate', '', '2020-10-11 14:24:32', '2acdd6ba-f8c5-490d-87b4-e16f2b1a41e3');
 INSERT INTO Attribute (ID, Name, Description, Created, Guid) VALUES (16, 'URL', '', '2020-10-11 14:24:32', 'a8393edc-0881-47fa-a11b-1efe465f3beb');
 INSERT INTO Attribute (ID, Name, Description, Created, Guid) VALUES (17, 'Verpackung', '', '2020-10-11 14:24:32', 'fbabf826-e05f-46b7-972b-d0532714fd28');
+
+INSERT INTO TemplateAttribute (TemplateID, AttributeID) VALUES (2, 3);
+INSERT INTO TemplateAttribute (TemplateID, AttributeID) VALUES (2, 12);
+INSERT INTO TemplateAttribute (TemplateID, AttributeID) VALUES (2, 14);
+INSERT INTO TemplateAttribute (TemplateID, AttributeID) VALUES (2, 15);
+INSERT INTO TemplateAttribute (TemplateID, AttributeID) VALUES (2, 3);
 
 INSERT INTO Inventory (ID, Name, ManufacturerID, SupplierID, LedgerAccountID, CostCenterID, ConditionID, CostValue, Description, Created, Guid) VALUES (1, 'KC compact', 8, 2, 1, 2, 5, 600, 'letzter DDR-Heimcomputer', '2020-10-11 14:24:32', 'd24e656a-186a-4936-bb81-940e08d75ab1');

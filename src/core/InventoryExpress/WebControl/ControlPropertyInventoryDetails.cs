@@ -81,11 +81,11 @@ namespace InventoryExpress.WebControl
                 TextColor = new PropertyColorText(TypeColorText.Secondary)
             }));
 
-            foreach (var v in inventory?.Attributes)
+            foreach (var v in inventory?.InventoryAttributes)
             {
                 Add(new ControlListItem(new ControlAttribute()
                 {
-                    Name = v.Name + ":",
+                    Name = "???:",
                     Icon = new PropertyIcon(TypeIcon.MapMarker),
                     Value = v.Value,
                     TextColor = new PropertyColorText(TypeColorText.Secondary)

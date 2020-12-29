@@ -67,7 +67,7 @@ namespace InventoryExpress.WebResource
             form.LedgerAccount.Value = inventory?.LedgerAccount?.Guid;
             form.CostCenter.Value = inventory?.CostCenter?.Guid;
             form.Condition.Value = inventory?.Condition?.Guid;
-            form.Parent.Value = inventory?.Parent;
+            //form.Parent.Value = inventory?.Parent;
             form.Template.Value = inventory?.Template?.Guid;
 
             form.InventoryName.Validation += (s, e) =>
@@ -92,7 +92,7 @@ namespace InventoryExpress.WebResource
                 inventory.LedgerAccount = ViewModel.Instance.LedgerAccounts.Where(x => x.Guid == form.LedgerAccount.Value).FirstOrDefault();
                 inventory.CostCenter = ViewModel.Instance.CostCenters.Where(x => x.Guid == form.CostCenter.Value).FirstOrDefault();
                 inventory.Condition = ViewModel.Instance.Conditions.Where(x => x.Guid == form.Condition.Value).FirstOrDefault();
-                inventory.Parent = form.Parent.Value;
+                //inventory.Parent = form.Parent.Value;
                 inventory.Template = ViewModel.Instance.Templates.Where(x => x.Guid == form.Template.Value).FirstOrDefault();
                 inventory.Tag = form.Tag.Value;
                 inventory.Description = form.Description.Value;

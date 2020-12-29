@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace InventoryExpress.Model
 {
@@ -8,10 +9,8 @@ namespace InventoryExpress.Model
     [Table("ATTRIBUTE")]
     public class Attribute : Item
     {
-        /// <summary>
-        /// Gibt an oder legt den Standardwert fest
-        /// </summary>
-        //public string DefaultValue { get; set; }
+        public virtual ICollection<InventoryAttribute> InventoryAttributes { get; set; }
+        public virtual ICollection<TemplateAttribute> TemplateAttributes { get; set; }
 
         /// <summary>
         /// Konstruktor
@@ -19,7 +18,8 @@ namespace InventoryExpress.Model
         public Attribute()
             : base()
         {
-
+            InventoryAttributes = new HashSet<InventoryAttribute>();
+            TemplateAttributes = new HashSet<TemplateAttribute>();
         }
     }
 }

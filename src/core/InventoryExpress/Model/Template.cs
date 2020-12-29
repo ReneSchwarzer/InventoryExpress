@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace InventoryExpress.Model
 {
@@ -9,19 +10,12 @@ namespace InventoryExpress.Model
     public class Template : ItemTag
     {
         /// <summary>
-        /// Die URL des Providers
+        /// Liefert oder setzt die Attribute
         /// </summary>
-        //public string Url { get; set; }
+        public virtual ICollection<TemplateAttribute> TemplateAttributes { get; set; }
 
-        /// <summary>
-        /// Die Attribute der Vorlage
-        /// </summary>
-        //public List<Attribute> Attributes { get; set; }
-
-        /// <summary>
-        /// Die ungenutzten Attribute der Vorlage
-        /// </summary>
-        //public List<Attribute> UnusedAttributes { get; set; }
+        public virtual ICollection<Inventory> Inventories { get; set; }
+        
 
         /// <summary>
         /// Konstruktor
@@ -29,7 +23,8 @@ namespace InventoryExpress.Model
         public Template()
             : base()
         {
-            // Attributes = new List<Attribute>();
+            Inventories = new HashSet<Inventory>();
+            TemplateAttributes = new HashSet<TemplateAttribute>();
         }
     }
 }

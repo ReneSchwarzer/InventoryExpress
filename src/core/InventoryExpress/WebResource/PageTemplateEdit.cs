@@ -53,8 +53,11 @@ namespace InventoryExpress.WebResource
         {
             base.Process();
 
-            var guid =GetParamValue("TemplateID");
+            var guid = GetParamValue("TemplateID");
             var template = ViewModel.Instance.Templates.Where(x => x.Guid == guid).FirstOrDefault();
+            var orignalAttributes = ViewModel.Instance.TemplateAttributes
+                .Where(x => x.TemplateId == template.Id)
+                .Join(ViewModel.Instance.Attributes, t => t.AttributeId, a => a.Id, (t, a) => a.Guid).ToList();
 
             foreach (var v in ViewModel.Instance.Attributes)
             {
@@ -68,7 +71,7 @@ namespace InventoryExpress.WebResource
             Content.Primary.Add(form);
 
             form.TemplateName.Value = template?.Name;
-            
+            form.Attributes.Value = string.Join(";", orignalAttributes);
             form.Description.Value = template?.Description;
             form.Tag.Value = template?.Tag;
 
@@ -91,6 +94,23 @@ namespace InventoryExpress.WebResource
                 template.Description = form.Description.Value;
                 template.Tag = form.Tag.Value;
                 template.Updated = DateTime.Now;
+
+                ViewModel.Instance.SaveChanges();
+
+                var changeAttributes = form.Attributes.Value?.Split(";", StringSplitOptions.RemoveEmptyEntries);
+                
+                // lösche nicht mehr verwendete Attribute
+                foreach (var removeItem in orignalAttributes.Except(changeAttributes).Join(ViewModel.Instance.Attributes, x => x, y => y.Guid, (x, y) => y))
+                {
+                    var attr = ViewModel.Instance.TemplateAttributes.Where(x => x.TemplateId == template.Id && x.AttributeId == removeItem.Id).FirstOrDefault();
+                    ViewModel.Instance.TemplateAttributes.Remove(attr);
+                }
+
+                // verknüpfe Attribute
+                foreach (var newItems in changeAttributes.Except(orignalAttributes).Join(ViewModel.Instance.Attributes, x => x, y => y.Guid, (x, y) => y))
+                {
+                    ViewModel.Instance.TemplateAttributes.Add(new TemplateAttribute() { TemplateId = template.Id, AttributeId = newItems.Id });
+                }
 
                 ViewModel.Instance.SaveChanges();
             };

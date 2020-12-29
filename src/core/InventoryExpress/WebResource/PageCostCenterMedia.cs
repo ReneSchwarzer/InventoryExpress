@@ -57,7 +57,7 @@ namespace InventoryExpress.WebResource
 
             var guid = GetParamValue("CostCenterID");
             CostCenter = ViewModel.Instance.CostCenters.Where(x => x.Guid == guid).FirstOrDefault();
-            Media = ViewModel.Instance.Media.Where(x => x.ID == CostCenter.MediaID).FirstOrDefault();
+            Media = ViewModel.Instance.Media.Where(x => x.Id == CostCenter.MediaId).FirstOrDefault();
 
             AddParam("MediaID", Media?.Guid, ParameterScope.Local);
         }

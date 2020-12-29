@@ -21,17 +21,12 @@ namespace InventoryExpress.Model
         /// Die ID der Vorlage
         /// </summary>
         [Column("TEMPLATEID")]
-        public int? TemplateID { get; set; }
+        public int? TemplateId { get; set; }
 
         /// <summary>
         /// Das Template
         /// </summary>
         public virtual Template Template { get; set; }
-
-        /// <summary>
-        /// Die Attribute des Kontos
-        /// </summary>
-        public List<AttributeTextValue> Attributes { get; set; }
 
         /// <summary>
         /// Die Zuschreibungen
@@ -59,7 +54,7 @@ namespace InventoryExpress.Model
         /// Die ID des Standortes
         /// </summary>
         [Column("LOCATIONID")]
-        public int? LocationID { get; set; }
+        public int? LocationId { get; set; }
 
         /// <summary>
         /// Der Standort
@@ -70,7 +65,7 @@ namespace InventoryExpress.Model
         /// Die ID der Kostenstelle
         /// </summary>
         [Column("COSTCENTERID")]
-        public int? CostCenterID { get; set; }
+        public int? CostCenterId { get; set; }
 
         /// <summary>
         /// Die Kostenstelle
@@ -81,7 +76,7 @@ namespace InventoryExpress.Model
         /// Die ID des Herstellers
         /// </summary>
         [Column("MANUFACTURERID")]
-        public int? ManufacturerID { get; set; }
+        public int? ManufacturerId { get; set; }
 
         /// <summary>
         /// Der Hersteller
@@ -92,7 +87,7 @@ namespace InventoryExpress.Model
         /// Die ID des Zustandes
         /// </summary>
         [Column("CONDITIONID")]
-        public int? ConditionID { get; set; }
+        public int? ConditionId { get; set; }
 
         /// <summary>
         /// Der Zustand
@@ -103,7 +98,7 @@ namespace InventoryExpress.Model
         /// Die ID des Lieferanten
         /// </summary>
         [Column("SUPPLIERID")]
-        public int? SupplierID { get; set; }
+        public int? SupplierId { get; set; }
 
         /// <summary>
         /// Der Lieferant
@@ -114,39 +109,14 @@ namespace InventoryExpress.Model
         /// Die ID des Sachkontos
         /// </summary>
         [Column("LEDGERACCOUNTID")]
-        public int? LedgerAccountID { get; set; }
+        public int? LedgerAccountId { get; set; }
 
         /// <summary>
         /// Das Sachkonto
         /// </summary>
         public virtual LedgerAccount LedgerAccount { get; set; }
 
-        /// <summary>
-        /// Teil eines Ganzen
-        /// </summary>
-        [NotMapped]
-        public string Parent { get; set; }
-
-        /// <summary>
-        /// Teil eines Ganzen
-        /// </summary>
-        [NotMapped]
-        public Inventory ParentItem
-        {
-            get
-            {
-                return (from x in ViewModel.Instance.Inventories
-                        where x.Guid == Parent
-                        select x).FirstOrDefault();
-            }
-            set
-            {
-                if (Parent != value.Guid)
-                {
-                    Parent = value.Guid;
-                }
-            }
-        }
+        public virtual ICollection<InventoryAttribute> InventoryAttributes { get; set; }
 
         /// <summary>
         /// Konstruktor
@@ -154,8 +124,7 @@ namespace InventoryExpress.Model
         public Inventory()
             : base()
         {
-            Attributes = new List<AttributeTextValue>();
-            Ascriptions = new List<Ascription>();
+            InventoryAttributes = new HashSet<InventoryAttribute>();
 
             PurchaseDate = DateTime.Today;
         }

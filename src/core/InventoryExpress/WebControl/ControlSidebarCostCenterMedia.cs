@@ -30,7 +30,7 @@ namespace InventoryExpress.WebControl
         {
             var guid = context.Page.GetParamValue("CostCenterID");
             var costCenter = ViewModel.Instance.CostCenters.Where(x => x.Guid == guid).FirstOrDefault();
-            var media = ViewModel.Instance.Media.Where(x => x.ID == (costCenter != null ? costCenter.MediaID : null)).FirstOrDefault();
+            var media = ViewModel.Instance.Media.Where(x => x.Id == (costCenter != null ? costCenter.MediaId : null)).FirstOrDefault();
             var image = media != null ? context.Uri.Root.Append("media").Append(media.Guid) : null;
 
             Uri = context.Uri.Append("media");

@@ -57,7 +57,7 @@ namespace InventoryExpress.WebResource
 
             var guid = GetParamValue("SupplierID");
             Supplier = ViewModel.Instance.Suppliers.Where(x => x.Guid == guid).FirstOrDefault();
-            Media = ViewModel.Instance.Media.Where(x => x.ID == Supplier.MediaID).FirstOrDefault();
+            Media = ViewModel.Instance.Media.Where(x => x.Id == Supplier.MediaId).FirstOrDefault();
 
             AddParam("MediaID", Media?.Guid, ParameterScope.Local);
         }

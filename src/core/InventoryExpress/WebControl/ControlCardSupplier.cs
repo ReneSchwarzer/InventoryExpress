@@ -38,7 +38,7 @@ namespace InventoryExpress.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var image = ViewModel.Instance.Media.Where(x => x.ID == Supplier.MediaID).Select(x => context.Page.Uri.Root.Append("media/" + x.Guid)).FirstOrDefault();
+            var image = ViewModel.Instance.Media.Where(x => x.Id == Supplier.MediaId).Select(x => context.Page.Uri.Root.Append("media/" + x.Guid)).FirstOrDefault();
 
             var media = new ControlPanelMedia()
             {

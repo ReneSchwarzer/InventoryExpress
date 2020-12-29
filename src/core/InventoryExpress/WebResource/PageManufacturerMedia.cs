@@ -57,7 +57,7 @@ namespace InventoryExpress.WebResource
 
             var guid = GetParamValue("ManufacturerID");
             Manufacturer = ViewModel.Instance.Manufacturers.Where(x => x.Guid == guid).FirstOrDefault();
-            Media = ViewModel.Instance.Media.Where(x => x.ID == Manufacturer.MediaID).FirstOrDefault();
+            Media = Manufacturer?.Media;
 
             AddParam("MediaID", Media?.Guid, ParameterScope.Local);
         }

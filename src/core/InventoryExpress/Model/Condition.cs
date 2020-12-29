@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace InventoryExpress.Model
 {
@@ -14,12 +15,15 @@ namespace InventoryExpress.Model
         [Column("GRADE")]
         public int Grade { get; set; }
 
+        public virtual ICollection<Inventory> Inventories { get; set; }
+
         /// <summary>
         /// Konstruktor
         /// </summary>
         public Condition()
             : base()
         {
+            Inventories = new HashSet<Inventory>();
         }
     }
 }
