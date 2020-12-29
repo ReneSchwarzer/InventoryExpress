@@ -52,16 +52,19 @@ namespace InventoryExpress.WebResource
 
             Content.Primary.Add(form);
 
-            form.InventoryName.Validation += (s, e) =>
+            form.InitializeFormular += (s, e) =>
             {
-                if (e.Value.Count() < 1)
+                form.InventoryName.Validation += (s, e) =>
                 {
-                    e.Results.Add(new ValidationResult() { Text = "Geben Sie einen gültigen Namen ein!", Type = TypesInputValidity.Error });
-                }
-                else if (ViewModel.Instance.Inventories.Where(x => x.Name.Equals(e.Value)).Count() > 0)
-                {
-                    e.Results.Add(new ValidationResult() { Text = "Der Name wird bereits verwendet. Geben Sie einen anderen Namen an!", Type = TypesInputValidity.Error });
-                }
+                    if (e.Value.Count() < 1)
+                    {
+                        e.Results.Add(new ValidationResult() { Text = "Geben Sie einen gültigen Namen ein!", Type = TypesInputValidity.Error });
+                    }
+                    else if (ViewModel.Instance.Inventories.Where(x => x.Name.Equals(e.Value)).Count() > 0)
+                    {
+                        e.Results.Add(new ValidationResult() { Text = "Der Name wird bereits verwendet. Geben Sie einen anderen Namen an!", Type = TypesInputValidity.Error });
+                    }
+                };
             };
 
             form.ProcessFormular += (s, e) =>

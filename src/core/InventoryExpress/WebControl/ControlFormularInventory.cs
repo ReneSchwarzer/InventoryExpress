@@ -1,6 +1,8 @@
 ﻿using InventoryExpress.Model;
+using Microsoft.EntityFrameworkCore.Internal;
 using System.Collections.Generic;
 using System.Linq;
+using WebExpress.Html;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebResource;
 
@@ -56,7 +58,7 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Liefert oder setzt die Attribute
         /// </summary>
-        public List<ControlFormularItemInputTextBox> Attributes { get; set; } = new List<ControlFormularItemInputTextBox>();
+        public ControlFormularItemGroupVertical Attributes { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Schlagwörter
@@ -80,14 +82,16 @@ namespace InventoryExpress.WebControl
         public ControlFormularInventory(string id = null)
             : base(id)
         {
-            Init();
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialisiert das Formular
         /// </summary>
-        private void Init()
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        public override void Initialize(RenderContext context)
         {
+            base.Initialize(context);
+
             Name = "inventory";
             EnableCancelButton = false;
             Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Three, PropertySpacing.Space.None, PropertySpacing.Space.None);
@@ -266,18 +270,10 @@ namespace InventoryExpress.WebControl
                 Value = x.Guid
             }));
 
-            //foreach (var template in ViewModel.Instance.Templates.Where(x => x.ID.ToString() == Template.SelectedValue))
-            //{
-            //foreach (var attribute in template?.Attributes)
-            //{
-            //    Attributes.Add(new ControlFormularItemTextBox(this)
-            //    {
-            //        Name = "attribute_" + attribute.ID,
-            //        Label = attribute.Name,
-            //        Help = attribute.Description
-            //    });
-            //}
-            //}
+            Attributes = new ControlFormularItemGroupVertical()
+            {
+                 
+            };
 
             Tag = new ControlFormularItemInputTextBox()
             {
@@ -307,10 +303,55 @@ namespace InventoryExpress.WebControl
             Add(Condition);
             Add(Parent);
             Add(Template);
-            Add(Attributes.ToArray());
+            Add(Attributes);
             Add(Tag);
             Add(Description);
 
+        }
+
+        /// <summary>
+        /// Vorverarbeitung des Formulars
+        /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        public override void PreProcess(RenderContext context)
+        {
+            if (context.Page.HasParam(Template.Name))
+            {
+                var template = context.Page.GetParamValue(Template.Name);
+                foreach (var t in ViewModel.Instance.Templates.Where(x => x.Guid == template))
+                {
+                    var attributes = ViewModel.Instance.TemplateAttributes.Where(x => x.TemplateId == t.Id)
+                        .Join(ViewModel.Instance.Attributes, x => x.AttributeId, y => y.Id, (x, y) => y);
+
+                    foreach (var attribute in attributes)
+                    {
+                        Attributes.Items.Add(new ControlFormularItemInputTextBox()
+                        {
+                            Name = "attribute_" + attribute.Guid,
+                            Label = attribute.Name,
+                            Help = attribute.Description
+                        });
+                    }
+                }
+            }
+            else
+            {
+                foreach (var t in ViewModel.Instance.Templates.Where(x => x.Guid == Template.Value))
+                {
+                    var attributes = ViewModel.Instance.TemplateAttributes.Where(x => x.TemplateId == t.Id)
+                        .Join(ViewModel.Instance.Attributes, x => x.AttributeId, y => y.Id, (x, y) => y);
+
+                    foreach (var attribute in attributes)
+                    {
+                        Attributes.Items.Add(new ControlFormularItemInputTextBox()
+                        {
+                            Name = "attribute_" + attribute.Guid,
+                            Label = attribute.Name,
+                            Help = attribute.Description
+                        });
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -324,6 +365,17 @@ namespace InventoryExpress.WebControl
             {
                 e.Results.Add(new ValidationResult() { Text = "Fehler", Type = TypesInputValidity.Error });
             };
+        }
+
+        /// <summary>
+        /// In HTML konvertieren
+        /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        /// <returns>Das Control als HTML</returns>
+        public override IHtmlNode Render(RenderContext context)
+        {
+            var html = base.Render(context);
+            return html;
         }
     }
 }

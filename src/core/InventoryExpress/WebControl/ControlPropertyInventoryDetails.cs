@@ -11,7 +11,7 @@ namespace InventoryExpress.WebControl
 {
     [Section(Section.PropertyPrimary)]
     [Application("InventoryExpress")]
-    [Context("details")]
+    [Context("inventorydetails")]
     public sealed class ControlPropertyInventoryDetails : ControlList, IComponent
     {
         /// <summary>

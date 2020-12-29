@@ -18,6 +18,12 @@ inventoryexpress.inventory.name.description=Der Name des Inventargegenstandes.
 inventoryexpress.inventory.add.label=Inventargegenstand hinzufügen
 inventoryexpress.inventory.edit.label=Inventargegenstand bearbeiten
 inventoryexpress.inventory.edit.display={0}
+inventoryexpress.inventory.media.label=Bild bearbeiten
+inventoryexpress.inventory.media.display=Bild
+inventoryexpress.inventory.delete.label=Inventar löschen
+inventoryexpress.inventory.delete.description=Möchten Sie das Inventar wirklich löschen?
+inventoryexpress.inventory.validation.name.invalid=Geben Sie einen gültigen Namen ein!
+inventoryexpress.inventory.validation.name.used=Das Inventar wird bereits verwendet. Geben Sie einen anderen Namen an!
 
 inventoryexpress.media.form.image.label=Bild
 inventoryexpress.media.form.image.description=

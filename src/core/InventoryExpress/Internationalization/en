@@ -18,6 +18,12 @@ inventoryexpress.inventory.name.description=The name of the inventory item.
 inventoryexpress.inventory.add.label=Add inventory item
 inventoryexpress.inventory.edit.label=Edit inventory item
 inventoryexpress.inventory.edit.display={0}
+inventoryexpress.inventory.media.label=Edit image
+inventoryexpress.inventory.media.display=Image
+inventoryexpress.inventory.delete.label=Deleting inventory
+inventoryexpress.inventory.delete.description=Are you sure you want to delete the inventory?
+inventoryexpress.inventory.validation.name.invalid=Enter a valid name!
+inventoryexpress.inventory.validation.name.used=The inventory is already in use. Enter a different name!
 
 inventoryexpress.media.form.image.label=Image
 inventoryexpress.media.form.image.description=

@@ -3,6 +3,7 @@ using InventoryExpress.WebControl;
 using System;
 using System.Linq;
 using WebExpress.Attribute;
+using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebResource;
 
@@ -36,7 +37,10 @@ namespace InventoryExpress.WebResource
         {
             base.Initialization();
 
-            form = new ControlFormularInventory()
+            var guid = GetParamValue("InventoryID");
+            var inventory = ViewModel.Instance.Inventories.Where(x => x.Guid == guid).FirstOrDefault();
+
+            form = new ControlFormularInventory("inventory")
             {
                 RedirectUri = Uri.Take(-1),
                 Edit = true,
@@ -44,42 +48,33 @@ namespace InventoryExpress.WebResource
                 BackUri = Uri.Take(-1)
             };
 
-            Uri.Display = GetParamValue("InventoryID").Split('-').LastOrDefault();
-        }
-
-        /// <summary>
-        /// Verarbeitung
-        /// </summary>
-        public override void Process()
-        {
-            base.Process();
-
-            var guid = GetParamValue("InventoryID");
-            var inventory = ViewModel.Instance.Inventories.Where(x => x.Guid == guid).FirstOrDefault();
-
-            Content.Primary.Add(form);
-
-            form.InventoryName.Value = inventory?.Name;
-            form.Description.Value = inventory?.Description;
-            form.Manufacturer.Value = inventory?.Manufacturer?.Guid;
-            form.Location.Value = inventory?.Location?.Guid;
-            form.Supplier.Value = inventory?.Supplier?.Guid;
-            form.LedgerAccount.Value = inventory?.LedgerAccount?.Guid;
-            form.CostCenter.Value = inventory?.CostCenter?.Guid;
-            form.Condition.Value = inventory?.Condition?.Guid;
-            //form.Parent.Value = inventory?.Parent;
-            form.Template.Value = inventory?.Template?.Guid;
-
-            form.InventoryName.Validation += (s, e) =>
+            form.InitializeFormular += (s, e) =>
             {
-                if (e.Value.Count() < 1)
+                form.InventoryName.Validation += (s, e) =>
                 {
-                    e.Results.Add(new ValidationResult() { Text = "Geben Sie einen gültigen Namen ein!", Type = TypesInputValidity.Error });
-                }
-                else if (!inventory.Name.Equals(e.Value, StringComparison.InvariantCultureIgnoreCase) && ViewModel.Instance.Inventories.Where(x => x.Name.Equals(e.Value)).Count() > 0)
-                {
-                    e.Results.Add(new ValidationResult() { Text = "Der Name wird bereits verwendet. Geben Sie einen anderen Namen an!", Type = TypesInputValidity.Error });
-                }
+                    if (e.Value.Count() < 1)
+                    {
+                        e.Results.Add(new ValidationResult() { Text = this.I18N("inventoryexpress.inventory.validation.name.invalid"), Type = TypesInputValidity.Error });
+                    }
+                    else if (!inventory.Name.Equals(e.Value, StringComparison.InvariantCultureIgnoreCase) && ViewModel.Instance.Inventories.Where(x => x.Name.Equals(e.Value)).Count() > 0)
+                    {
+                        e.Results.Add(new ValidationResult() { Text = this.I18N("inventoryexpress.inventory.validation.name.used"), Type = TypesInputValidity.Error });
+                    }
+                };
+            };
+
+            form.FillFormular += (s, e) =>
+            {
+                form.InventoryName.Value = inventory?.Name;
+                form.Description.Value = inventory?.Description;
+                form.Manufacturer.Value = inventory?.Manufacturer?.Guid;
+                form.Location.Value = inventory?.Location?.Guid;
+                form.Supplier.Value = inventory?.Supplier?.Guid;
+                form.LedgerAccount.Value = inventory?.LedgerAccount?.Guid;
+                form.CostCenter.Value = inventory?.CostCenter?.Guid;
+                form.Condition.Value = inventory?.Condition?.Guid;
+                //form.Parent.Value = inventory?.Parent;
+                form.Template.Value = inventory?.Template?.Guid;
             };
 
             form.ProcessFormular += (s, e) =>
@@ -99,6 +94,17 @@ namespace InventoryExpress.WebResource
 
                 ViewModel.Instance.SaveChanges();
             };
+
+            Content.Primary.Add(form);
+            Uri.Display = GetParamValue("InventoryID").Split('-').LastOrDefault();
+        }
+
+        /// <summary>
+        /// Verarbeitung
+        /// </summary>
+        public override void Process()
+        {
+            base.Process();
         }
     }
 }

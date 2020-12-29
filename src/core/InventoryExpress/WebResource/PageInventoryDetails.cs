@@ -12,13 +12,13 @@ namespace InventoryExpress.WebResource
     [Path("/")]
     [Module("InventoryExpress")]
     [Context("general")]
-    [Context("details")]
-    public sealed class PageDetails : PageTemplateWebApp
+    [Context("inventorydetails")]
+    public sealed class PageInventoryDetails : PageTemplateWebApp
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public PageDetails()
+        public PageInventoryDetails()
         {
         }
 
