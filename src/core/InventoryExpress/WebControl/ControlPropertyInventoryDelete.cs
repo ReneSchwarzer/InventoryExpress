@@ -12,7 +12,7 @@ namespace InventoryExpress.WebControl
 {
     [Section(Section.PropertySecondary)]
     [Application("InventoryExpress")]
-    [Context("inventorydetails")]
+    [Context("inventoryedit")]
     public sealed class ControlPropertyInventoryDelete : ControlButtonLink, IComponent
     {
         /// <summary>

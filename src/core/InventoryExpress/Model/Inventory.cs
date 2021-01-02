@@ -117,6 +117,7 @@ namespace InventoryExpress.Model
         public virtual LedgerAccount LedgerAccount { get; set; }
 
         public virtual ICollection<InventoryAttribute> InventoryAttributes { get; set; }
+        public virtual ICollection<InventoryMedia> InventoryMedia { get; set; }
 
         /// <summary>
         /// Konstruktor
@@ -125,6 +126,7 @@ namespace InventoryExpress.Model
             : base()
         {
             InventoryAttributes = new HashSet<InventoryAttribute>();
+            InventoryMedia = new HashSet<InventoryMedia>();
 
             PurchaseDate = DateTime.Today;
         }

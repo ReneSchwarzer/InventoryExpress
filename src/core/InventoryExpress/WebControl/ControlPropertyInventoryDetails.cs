@@ -37,7 +37,7 @@ namespace InventoryExpress.WebControl
             {
                 Name = "Hersteller:",
                 Icon = new PropertyIcon(TypeIcon.Industry),
-                Value = inventory?.Manufacturer?.Name,
+                Value = ViewModel.Instance.Manufacturers.Where(x => x.Id == inventory.ManufacturerId).FirstOrDefault()?.Name,
                 TextColor = new PropertyColorText(TypeColorText.Secondary)
             }));
 
@@ -45,7 +45,7 @@ namespace InventoryExpress.WebControl
             {
                 Name = "Standort:",
                 Icon = new PropertyIcon(TypeIcon.Map),
-                Value = inventory?.Location?.Name,
+                Value = ViewModel.Instance.Locations.Where(x => x.Id == inventory.LocationId).FirstOrDefault()?.Name,
                 TextColor = new PropertyColorText(TypeColorText.Secondary)
             }));
 
@@ -53,7 +53,7 @@ namespace InventoryExpress.WebControl
             {
                 Name = "Lieferant:",
                 Icon = new PropertyIcon(TypeIcon.Truck),
-                Value = inventory?.Supplier?.Name,
+                Value = ViewModel.Instance.Suppliers.Where(x => x.Id == inventory.SupplierId).FirstOrDefault()?.Name,
                 TextColor = new PropertyColorText(TypeColorText.Secondary)
             }));
 
@@ -61,7 +61,7 @@ namespace InventoryExpress.WebControl
             {
                 Name = "Sachkonto:",
                 Icon = new PropertyIcon(TypeIcon.At),
-                Value = inventory?.LedgerAccount?.Name,
+                Value = ViewModel.Instance.LedgerAccounts.Where(x => x.Id == inventory.LedgerAccountId).FirstOrDefault()?.Name,
                 TextColor = new PropertyColorText(TypeColorText.Secondary)
             }));
 
@@ -69,7 +69,7 @@ namespace InventoryExpress.WebControl
             {
                 Name = "Kostenstelle:",
                 Icon = new PropertyIcon(TypeIcon.ShoppingBag),
-                Value = inventory?.CostCenter?.Name,
+                Value = ViewModel.Instance.CostCenters.Where(x => x.Id == inventory.CostCenterId).FirstOrDefault()?.Name,
                 TextColor = new PropertyColorText(TypeColorText.Secondary)
             }));
 
@@ -77,7 +77,7 @@ namespace InventoryExpress.WebControl
             {
                 Name = "Zustand:",
                 Icon = new PropertyIcon(TypeIcon.Star),
-                Value = inventory?.Condition?.Name,
+                Value = ViewModel.Instance.Conditions.Where(x => x.Id == inventory.ConditionId)?.FirstOrDefault()?.Name,
                 TextColor = new PropertyColorText(TypeColorText.Secondary)
             }));
 

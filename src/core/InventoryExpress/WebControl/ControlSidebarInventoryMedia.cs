@@ -28,9 +28,9 @@ namespace InventoryExpress.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var guid = context.Page.GetParamValue("ManufacturerID");
-            var manufactur = ViewModel.Instance.Manufacturers.Where(x => x.Guid == guid).FirstOrDefault();
-            var media = ViewModel.Instance.Media.Where(x => x.Id == (manufactur != null ? manufactur.MediaId : null)).FirstOrDefault();
+            var guid = context.Page.GetParamValue("InventoryID");
+            var inventory = ViewModel.Instance.Inventories.Where(x => x.Guid == guid).FirstOrDefault();
+            var media = ViewModel.Instance.Media.Where(x => x.Id == (inventory != null ? inventory.MediaId : null)).FirstOrDefault();
             var image = media != null ? context.Uri.Root.Append("media").Append(media.Guid) : null;
 
             Uri = context.Uri.Append("media");

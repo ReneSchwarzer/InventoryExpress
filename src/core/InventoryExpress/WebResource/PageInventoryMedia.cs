@@ -57,7 +57,7 @@ namespace InventoryExpress.WebResource
 
             var guid = GetParamValue("InventoryID");
             Inventory = ViewModel.Instance.Inventories.Where(x => x.Guid == guid).FirstOrDefault();
-            Media = Inventory?.Media;
+            Media = ViewModel.Instance.Media.Where(x => x.Id == Inventory.MediaId).FirstOrDefault();
 
             AddParam("MediaID", Media?.Guid, ParameterScope.Local);
         }
@@ -117,6 +117,11 @@ namespace InventoryExpress.WebResource
                         Media.Tag = Form.Tag.Value;
                         Media.Updated = DateTime.Now;
                     }
+                }
+
+                if (Form.Tag.Value != Media?.Tag)
+                {
+                    Media.Tag = Form.Tag.Value;
                 }
 
                 ViewModel.Instance.SaveChanges();

@@ -1,6 +1,5 @@
 ﻿using InventoryExpress.Model;
 using Microsoft.EntityFrameworkCore.Internal;
-using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Html;
 using WebExpress.UI.WebControl;
@@ -61,6 +60,21 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemGroupVertical Attributes { get; set; }
 
         /// <summary>
+        /// Liefert oder setzt den Anschaffungswert
+        /// </summary>
+        public ControlFormularItemInputTextBox CostValue { get; set; }
+
+        /// <summary>
+        /// Liefert oder setzt das Anschaffungsdatum
+        /// </summary>
+        public ControlFormularItemInputTextBox PurchaseDate { get; set; }
+
+        /// <summary>
+        /// Liefert oder setzt das Abgangsdatum
+        /// </summary>
+        public ControlFormularItemInputTextBox DerecognitionDate { get; set; }
+
+        /// <summary>
         /// Liefert oder setzt die Schlagwörter
         /// </summary>
         public ControlFormularItemInputTextBox Tag { get; set; }
@@ -112,8 +126,8 @@ namespace InventoryExpress.WebControl
             Manufacturer = new ControlFormularItemInputComboBox()
             {
                 Name = "manufacturer",
-                Label = "inventoryexpress.manufacturers.label",
-                Help = "inventoryexpress.manufacturer.description",
+                Label = "inventoryexpress.inventory.manufacturers.label",
+                Help = "inventoryexpress.inventory.manufacturer.description",
                 Icon = new PropertyIcon(TypeIcon.Industry)
             };
 
@@ -132,8 +146,8 @@ namespace InventoryExpress.WebControl
             Location = new ControlFormularItemInputComboBox()
             {
                 Name = "location",
-                Label = "inventoryexpress.location.label",
-                Help = "inventoryexpress.location.description",
+                Label = "inventoryexpress.inventory.location.label",
+                Help = "inventoryexpress.inventory.location.description",
                 Icon = new PropertyIcon(TypeIcon.Map)
             };
 
@@ -152,8 +166,8 @@ namespace InventoryExpress.WebControl
             Supplier = new ControlFormularItemInputComboBox()
             {
                 Name = "supplier",
-                Label = "inventoryexpress.supplier.label",
-                Help = "inventoryexpress.supplier.description",
+                Label = "inventoryexpress.inventory.supplier.label",
+                Help = "inventoryexpress.inventory.supplier.description",
                 Icon = new PropertyIcon(TypeIcon.Truck)
             };
 
@@ -171,9 +185,9 @@ namespace InventoryExpress.WebControl
 
             LedgerAccount = new ControlFormularItemInputComboBox()
             {
-                Name = "glaccount",
-                Label = "inventoryexpress.ledgeraccount.label",
-                Help = "inventoryexpress.ledgeraccount.description",
+                Name = "ledgeraccount",
+                Label = "inventoryexpress.inventory.ledgeraccount.label",
+                Help = "inventoryexpress.inventory.ledgeraccount.description",
                 Icon = new PropertyIcon(TypeIcon.At)
             };
 
@@ -192,8 +206,8 @@ namespace InventoryExpress.WebControl
             CostCenter = new ControlFormularItemInputComboBox()
             {
                 Name = "costcenter",
-                Label = "inventoryexpress.costcenter.label",
-                Help = "inventoryexpress.costcenter.description",
+                Label = "inventoryexpress.inventory.costcenter.label",
+                Help = "inventoryexpress.inventory.costcenter.description",
                 Icon = new PropertyIcon(TypeIcon.ShoppingBag)
             };
 
@@ -211,9 +225,9 @@ namespace InventoryExpress.WebControl
 
             Condition = new ControlFormularItemInputComboBox()
             {
-                Name = "state",
-                Label = "inventoryexpress.condition.label",
-                Help = "inventoryexpress.condition.description",
+                Name = "condition",
+                Label = "inventoryexpress.inventory.condition.label",
+                Help = "inventoryexpress.inventory.condition.description",
                 Icon = new PropertyIcon(TypeIcon.Star)
             };
 
@@ -232,8 +246,8 @@ namespace InventoryExpress.WebControl
             Parent = new ControlFormularItemInputComboBox()
             {
                 Name = "parent",
-                Label = "inventoryexpress.parent.label",
-                Help = "inventoryexpress.parent.description",
+                Label = "inventoryexpress.inventory.parent.label",
+                Help = "inventoryexpress.inventory.parent.description",
                 Icon = new PropertyIcon(TypeIcon.Link)
             };
 
@@ -252,8 +266,8 @@ namespace InventoryExpress.WebControl
             Template = new ControlFormularItemInputComboBox()
             {
                 Name = "template",
-                Label = "inventoryexpress.template.label",
-                Help = "inventoryexpress.template.description",
+                Label = "inventoryexpress.inventory.template.label",
+                Help = "inventoryexpress.inventory.template.description",
                 Icon = new PropertyIcon(TypeIcon.Clone),
                 OnChange = new PropertyOnChange(TypeOnChange.Submit)
             };
@@ -272,22 +286,46 @@ namespace InventoryExpress.WebControl
 
             Attributes = new ControlFormularItemGroupVertical()
             {
-                 
+
+            };
+
+            CostValue = new ControlFormularItemInputTextBox()
+            {
+                Name = "costvalue",
+                Label = "inventoryexpress.inventory.costvalue.label",
+                Help = "inventoryexpress.inventory.costvalue.description",
+                Icon = new PropertyIcon(TypeIcon.EuroSign)
+            };
+
+            PurchaseDate = new ControlFormularItemInputTextBox()
+            {
+                Name = "purchasedate",
+                Label = "inventoryexpress.inventory.purchasedate.label",
+                Help = "inventoryexpress.inventory.purchasedate.description",
+                Icon = new PropertyIcon(TypeIcon.CalendarPlus)
+            };
+
+            DerecognitionDate = new ControlFormularItemInputTextBox()
+            {
+                Name = "derecognitiondate",
+                Label = "inventoryexpress.inventory.derecognitiondate.label",
+                Help = "inventoryexpress.inventory.derecognitiondate.description",
+                Icon = new PropertyIcon(TypeIcon.CalendarMinus)
             };
 
             Tag = new ControlFormularItemInputTextBox()
             {
                 Name = "tag",
-                Label = "inventoryexpress.tags.label",
-                Help = "inventoryexpress.tags.description",
+                Label = "inventoryexpress.inventory.tags.label",
+                Help = "inventoryexpress.inventory.tags.description",
                 Icon = new PropertyIcon(TypeIcon.Tag)
             };
 
             Description = new ControlFormularItemInputTextBox("note")
             {
                 Name = "description",
-                Label = "inventoryexpress.description.label",
-                Help = "inventoryexpress.description.description",
+                Label = "inventoryexpress.inventory.description.label",
+                Help = "inventoryexpress.inventory.description.description",
                 Format = TypesEditTextFormat.Wysiwyg,
                 Icon = new PropertyIcon(TypeIcon.CommentAlt),
                 Rows = 10,
@@ -304,6 +342,9 @@ namespace InventoryExpress.WebControl
             Add(Parent);
             Add(Template);
             Add(Attributes);
+            Add(CostValue);
+            Add(PurchaseDate);
+            Add(DerecognitionDate);
             Add(Tag);
             Add(Description);
 

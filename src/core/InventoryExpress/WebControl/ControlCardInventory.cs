@@ -39,12 +39,18 @@ namespace InventoryExpress.WebControl
         public override IHtmlNode Render(RenderContext context)
         {
             var image = ViewModel.Instance.Media.Where(x => x.Id == Inventory.MediaId).Select(x => context.Page.Uri.Root.Append("media/" + x.Guid)).FirstOrDefault();
+            var manufacturer = ViewModel.Instance.Manufacturers.Where(x => x.Id == Inventory.ManufacturerId).FirstOrDefault();
+            var location = ViewModel.Instance.Locations.Where(x => x.Id == Inventory.LocationId).FirstOrDefault();
+            var supplier = ViewModel.Instance.Suppliers.Where(x => x.Id == Inventory.SupplierId).FirstOrDefault();
+            var ledgerAccount = ViewModel.Instance.LedgerAccounts.Where(x => x.Id == Inventory.LedgerAccountId).FirstOrDefault();
+            var costCenter = ViewModel.Instance.CostCenters.Where(x => x.Id == Inventory.CostCenterId).FirstOrDefault();
+            var condition = ViewModel.Instance.Conditions.Where(x => x.Id == Inventory.ConditionId)?.FirstOrDefault();
+            var template = ViewModel.Instance.Templates.Where(x => x.Id == Inventory.TemplateId)?.FirstOrDefault();
 
             var media = new ControlPanelMedia()
             {
                 Image = image == null ? context.Page.Uri.Root.Append("/assets/img/inventoryexpress.svg") : image,
                 ImageWidth = 100,
-                ImageHeight = 100,
                 Title = new ControlLink()
                 {
                     Text = Inventory.Name,
@@ -55,7 +61,7 @@ namespace InventoryExpress.WebControl
 
             media.Content.Add(new ControlLink()
             {
-                Text = Inventory?.Template?.Name,
+                Text = template?.Name,
                 //Url = "/" + Inventory.ID,
                 TextColor = new PropertyColorText(TypeColorText.Dark)
             });
@@ -65,7 +71,7 @@ namespace InventoryExpress.WebControl
                 Direction = TypeDirection.Horizontal
             };
 
-            if (Inventory.Manufacturer != null && Inventory.Manufacturer is var manufacturer)
+            if (manufacturer != null)
             {
                 flex.Content.Add(new ControlAttribute()
                 {
@@ -76,7 +82,7 @@ namespace InventoryExpress.WebControl
                 });
             }
 
-            if (Inventory.Location != null && Inventory.Location is var location)
+            if (location != null)
             {
                 flex.Content.Add(new ControlAttribute()
                 {
@@ -87,7 +93,7 @@ namespace InventoryExpress.WebControl
                 });
             }
 
-            if (Inventory.Supplier != null && Inventory.Supplier is var supplier)
+            if (supplier != null)
             {
                 flex.Content.Add(new ControlAttribute()
                 {
@@ -98,7 +104,7 @@ namespace InventoryExpress.WebControl
                 });
             }
 
-            if (Inventory.LedgerAccount != null && Inventory.LedgerAccount is var ledgerAccount)
+            if (ledgerAccount != null)
             {
                 flex.Content.Add(new ControlAttribute()
                 {
@@ -108,13 +114,24 @@ namespace InventoryExpress.WebControl
                     Name = ledgerAccount.Name
                 });
             }
+            
+            if (costCenter != null)
+            {
+                flex.Content.Add(new ControlAttribute()
+                {
+                    Icon = new PropertyIcon(TypeIcon.ShoppingBag),
+                    Padding = new PropertySpacingPadding(PropertySpacing.Space.Two),
+                    TextColor = new PropertyColorText(TypeColorText.Secondary),
+                    Name = costCenter.Name
+                });
+            }
 
-            if (Inventory.Condition != null && Inventory.Condition is var state)
+            if (condition != null)
             {
                 flex.Content.Add(new ControlAttribute()
                 {
                     Icon = new PropertyIcon(TypeIcon.Star),
-                    Name = state.Name,
+                    Name = condition.Name,
                     Padding = new PropertySpacingPadding(PropertySpacing.Space.Two),
                     TextColor = new PropertyColorText(TypeColorText.Secondary)
                 });

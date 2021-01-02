@@ -344,6 +344,32 @@ namespace InventoryExpress.Model
                     .OnDelete(DeleteBehavior.ClientSetNull);
             });
 
+            modelBuilder.Entity<InventoryMedia>(entity =>
+            {
+                entity.HasKey(e => new { e.InventoryId, e.MediaId });
+
+                entity.ToTable("InventoryMedia");
+
+                entity.Property(e => e.InventoryId).HasColumnName("InventoryID");
+
+                entity.Property(e => e.MediaId).HasColumnName("MediaID");
+
+                entity.Property(e => e.Created)
+                    .IsRequired()
+                    .HasColumnType("TIMESTAMP")
+                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                entity.HasOne(d => d.Media)
+                    .WithMany(p => p.InventoryMedia)
+                    .HasForeignKey(d => d.MediaId)
+                    .OnDelete(DeleteBehavior.ClientSetNull);
+
+                entity.HasOne(d => d.Inventory)
+                    .WithMany(p => p.InventoryMedia)
+                    .HasForeignKey(d => d.InventoryId)
+                    .OnDelete(DeleteBehavior.ClientSetNull);
+            });
+
             modelBuilder.Entity<LedgerAccount>(entity =>
             {
                 entity.ToTable("LedgerAccount");

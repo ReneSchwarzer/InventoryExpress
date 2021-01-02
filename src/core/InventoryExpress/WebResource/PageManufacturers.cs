@@ -4,6 +4,7 @@ using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
 using WebExpress.Attribute;
 using WebExpress.WebApp.WebResource;
+using System.Linq;
 
 namespace InventoryExpress.WebResource
 {
@@ -39,7 +40,7 @@ namespace InventoryExpress.WebResource
 
             var grid = new ControlPanelGrid() { Fluid = TypePanelContainer.Fluid };
 
-            foreach (var manufacturer in ViewModel.Instance.Manufacturers)
+            foreach (var manufacturer in ViewModel.Instance.Manufacturers.OrderBy(x => x.Name))
             {
                 var card = new ControlCardManufacturer()
                 {

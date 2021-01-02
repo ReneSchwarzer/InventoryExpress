@@ -58,6 +58,7 @@ namespace InventoryExpress.Model
         public virtual ICollection<Condition> Conditions { get; set; }
         public virtual ICollection<CostCenter> CostCenters { get; set; }
         public virtual ICollection<Inventory> Inventories { get; set; }
+        public virtual ICollection<InventoryMedia> InventoryMedia { get; set; }
         public virtual ICollection<LedgerAccount> LedgerAccounts { get; set; }
         public virtual ICollection<Location> Locations { get; set; }
         public virtual ICollection<Manufacturer> Manufacturers { get; set; }
@@ -75,6 +76,7 @@ namespace InventoryExpress.Model
             Conditions = new HashSet<Condition>();
             CostCenters = new HashSet<CostCenter>();
             Inventories = new HashSet<Inventory>();
+            InventoryMedia = new HashSet<InventoryMedia>();
             LedgerAccounts = new HashSet<LedgerAccount>();
             Locations = new HashSet<Location>();
             Manufacturers = new HashSet<Manufacturer>();

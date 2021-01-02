@@ -155,6 +155,15 @@ CREATE TABLE InventoryAttribute
 	PRIMARY KEY (InventoryID, AtrtributeID)
 );
 
+CREATE TABLE InventoryMedia     
+(
+    InventoryID 	    INTEGER			NOT NULL REFERENCES Inventory (ID),
+    MediaID 	        INTEGER			NOT NULL REFERENCES Media (ID),
+    Value 		        TEXT
+    Created 	        TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	PRIMARY KEY (InventoryID, MediaID)
+);
+
 CREATE TABLE Media 
 (
     ID                  INTEGER			PRIMARY KEY AUTOINCREMENT NOT NULL,

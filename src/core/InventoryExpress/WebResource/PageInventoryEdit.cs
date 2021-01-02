@@ -15,6 +15,7 @@ namespace InventoryExpress.WebResource
     [Path("/Details")]
     [Module("InventoryExpress")]
     [Context("general")]
+    [Context("inventoryedit")]
     public sealed class PageInventoryEdit : PageTemplateWebApp, IPageInventory
     {
         /// <summary>
@@ -61,20 +62,39 @@ namespace InventoryExpress.WebResource
                         e.Results.Add(new ValidationResult() { Text = this.I18N("inventoryexpress.inventory.validation.name.used"), Type = TypesInputValidity.Error });
                     }
                 };
+
+                form.CostValue.Validation += (s, e) =>
+                {
+                    try
+                    {
+                        if (Convert.ToDecimal(form.CostValue.Value, Culture) < 0)
+                        {
+                            e.Results.Add(new ValidationResult() { Text = this.I18N("inventoryexpress.inventory.validation.costvalue.negativ"), Type = TypesInputValidity.Error });
+                        };
+                    }
+                    catch
+                    {
+                        e.Results.Add(new ValidationResult() { Text = this.I18N("inventoryexpress.inventory.validation.costvalue.invalid"), Type = TypesInputValidity.Error });
+                    }
+                };
             };
 
             form.FillFormular += (s, e) =>
             {
                 form.InventoryName.Value = inventory?.Name;
-                form.Description.Value = inventory?.Description;
-                form.Manufacturer.Value = inventory?.Manufacturer?.Guid;
-                form.Location.Value = inventory?.Location?.Guid;
-                form.Supplier.Value = inventory?.Supplier?.Guid;
-                form.LedgerAccount.Value = inventory?.LedgerAccount?.Guid;
-                form.CostCenter.Value = inventory?.CostCenter?.Guid;
-                form.Condition.Value = inventory?.Condition?.Guid;
+                form.Manufacturer.Value = ViewModel.Instance.Manufacturers.Where(x => x.Id == inventory.ManufacturerId).FirstOrDefault()?.Guid;
+                form.Location.Value = ViewModel.Instance.Locations.Where(x => x.Id == inventory.LocationId).FirstOrDefault()?.Guid;
+                form.Supplier.Value = ViewModel.Instance.Suppliers.Where(x => x.Id == inventory.SupplierId).FirstOrDefault()?.Guid;
+                form.LedgerAccount.Value = ViewModel.Instance.LedgerAccounts.Where(x => x.Id == inventory.LedgerAccountId).FirstOrDefault()?.Guid;
+                form.CostCenter.Value = ViewModel.Instance.CostCenters.Where(x => x.Id == inventory.CostCenterId).FirstOrDefault()?.Guid;
+                form.Condition.Value = ViewModel.Instance.Conditions.Where(x => x.Id == inventory.ConditionId)?.FirstOrDefault().Guid;
                 //form.Parent.Value = inventory?.Parent;
-                form.Template.Value = inventory?.Template?.Guid;
+                form.Template.Value = ViewModel.Instance.Templates.Where(x => x.Id == inventory.TemplateId)?.FirstOrDefault()?.Guid;
+                form.CostValue.Value = inventory.CostValue.ToString(Culture);
+                form.PurchaseDate.Value = inventory.PurchaseDate.HasValue ? inventory.PurchaseDate.Value.ToString(Culture.DateTimeFormat.ShortDatePattern) : null;
+                form.DerecognitionDate.Value = inventory.DerecognitionDate.HasValue ? inventory.DerecognitionDate.Value.ToString(Culture.DateTimeFormat.ShortDatePattern) : null;
+                form.Tag.Value = inventory?.Tag;
+                form.Description.Value = inventory?.Description;
             };
 
             form.ProcessFormular += (s, e) =>
@@ -89,6 +109,9 @@ namespace InventoryExpress.WebResource
                 inventory.Condition = ViewModel.Instance.Conditions.Where(x => x.Guid == form.Condition.Value).FirstOrDefault();
                 //inventory.Parent = form.Parent.Value;
                 inventory.Template = ViewModel.Instance.Templates.Where(x => x.Guid == form.Template.Value).FirstOrDefault();
+                inventory.CostValue = !string.IsNullOrWhiteSpace(form.CostValue.Value) ? Convert.ToDecimal(form.CostValue.Value, Culture) : 0;
+                inventory.PurchaseDate = !string.IsNullOrWhiteSpace(form.PurchaseDate.Value) ? Convert.ToDateTime(form.PurchaseDate.Value, Culture) : null;
+                inventory.DerecognitionDate = !string.IsNullOrWhiteSpace(form.DerecognitionDate.Value) ? Convert.ToDateTime(form.DerecognitionDate.Value, Culture) : null;
                 inventory.Tag = form.Tag.Value;
                 inventory.Description = form.Description.Value;
 

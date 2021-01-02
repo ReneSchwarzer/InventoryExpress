@@ -44,7 +44,6 @@ namespace InventoryExpress.WebControl
             {
                 Image = image == null ? context.Page.Uri.Root.Append("/assets/img/inventoryexpress.svg") : image,
                 ImageWidth = 100,
-                ImageHeight = 100,
                 Title = new ControlLink()
                 {
                     Text = Template.Name,
