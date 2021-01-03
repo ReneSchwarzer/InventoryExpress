@@ -34,6 +34,21 @@ namespace InventoryExpress.WebControl
             var id = context.Page.GetParamValue("InventoryID");
             var inventory = ViewModel.Instance.Inventories.Where(x => x.Guid.Equals(id)).FirstOrDefault();
 
+            Add(new ControlListItem
+            (
+                new ControlAttribute()
+                {
+                    Name = context.I18N("inventoryexpress.inventory.inventorynumber.label"),
+                    Icon = new PropertyIcon(TypeIcon.Key),
+                    TextColor = new PropertyColorText(TypeColorText.Secondary)
+                },
+                new ControlLink()
+                {
+                    Text = id,
+                    Uri = context.Uri.Root.Append(id),
+                }
+            ));
+
             Add(new ControlListItem(new ControlAttribute()
             {
                 Name = context.I18N("inventoryexpress.inventory.manufacturers.label"),

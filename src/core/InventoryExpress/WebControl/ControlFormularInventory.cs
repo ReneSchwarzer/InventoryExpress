@@ -67,12 +67,12 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Liefert oder setzt das Anschaffungsdatum
         /// </summary>
-        public ControlFormularItemInputTextBox PurchaseDate { get; set; }
+        public ControlFormularItemInputDatepicker PurchaseDate { get; set; }
 
         /// <summary>
         /// Liefert oder setzt das Abgangsdatum
         /// </summary>
-        public ControlFormularItemInputTextBox DerecognitionDate { get; set; }
+        public ControlFormularItemInputDatepicker DerecognitionDate { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Schlagwörter
@@ -137,7 +137,7 @@ namespace InventoryExpress.WebControl
                 Value = null
             });
 
-            Manufacturer.Items.AddRange(ViewModel.Instance.Manufacturers.Select(x => new ControlFormularItemInputComboBoxItem()
+            Manufacturer.Items.AddRange(ViewModel.Instance.Manufacturers.OrderBy(x => x.Name).Select(x => new ControlFormularItemInputComboBoxItem()
             {
                 Text = x.Name,
                 Value = x.Guid
@@ -157,7 +157,7 @@ namespace InventoryExpress.WebControl
                 Value = null
             });
 
-            Location.Items.AddRange(ViewModel.Instance.Locations.Select(x => new ControlFormularItemInputComboBoxItem()
+            Location.Items.AddRange(ViewModel.Instance.Locations.OrderBy(x => x.Name).Select(x => new ControlFormularItemInputComboBoxItem()
             {
                 Text = x.Name,
                 Value = x.Guid
@@ -177,7 +177,7 @@ namespace InventoryExpress.WebControl
                 Value = null
             });
 
-            Supplier.Items.AddRange(ViewModel.Instance.Suppliers.Select(x => new ControlFormularItemInputComboBoxItem()
+            Supplier.Items.AddRange(ViewModel.Instance.Suppliers.OrderBy(x => x.Name).Select(x => new ControlFormularItemInputComboBoxItem()
             {
                 Text = x.Name,
                 Value = x.Guid
@@ -197,7 +197,7 @@ namespace InventoryExpress.WebControl
                 Value = null
             });
 
-            LedgerAccount.Items.AddRange(ViewModel.Instance.LedgerAccounts.Select(x => new ControlFormularItemInputComboBoxItem()
+            LedgerAccount.Items.AddRange(ViewModel.Instance.LedgerAccounts.OrderBy(x => x.Name).Select(x => new ControlFormularItemInputComboBoxItem()
             {
                 Text = x.Name,
                 Value = x.Guid
@@ -217,7 +217,7 @@ namespace InventoryExpress.WebControl
                 Value = null
             });
 
-            CostCenter.Items.AddRange(ViewModel.Instance.CostCenters.Select(x => new ControlFormularItemInputComboBoxItem()
+            CostCenter.Items.AddRange(ViewModel.Instance.CostCenters.OrderBy(x => x.Name).Select(x => new ControlFormularItemInputComboBoxItem()
             {
                 Text = x.Name,
                 Value = x.Guid
@@ -257,7 +257,7 @@ namespace InventoryExpress.WebControl
                 Value = null
             });
 
-            Parent.Items.AddRange(ViewModel.Instance.Inventories.Select(x => new ControlFormularItemInputComboBoxItem()
+            Parent.Items.AddRange(ViewModel.Instance.Inventories.OrderBy(x => x.Name).Select(x => new ControlFormularItemInputComboBoxItem()
             {
                 Text = x.Name,
                 Value = x.Guid
@@ -278,7 +278,7 @@ namespace InventoryExpress.WebControl
                 Value = null
             });
 
-            Template.Items.AddRange(ViewModel.Instance.Templates.Select(x => new ControlFormularItemInputComboBoxItem()
+            Template.Items.AddRange(ViewModel.Instance.Templates.OrderBy(x => x.Name).Select(x => new ControlFormularItemInputComboBoxItem()
             {
                 Text = x.Name,
                 Value = x.Guid
@@ -297,7 +297,7 @@ namespace InventoryExpress.WebControl
                 Icon = new PropertyIcon(TypeIcon.EuroSign)
             };
 
-            PurchaseDate = new ControlFormularItemInputTextBox()
+            PurchaseDate = new ControlFormularItemInputDatepicker("purchasedate")
             {
                 Name = "purchasedate",
                 Label = "inventoryexpress.inventory.purchasedate.label",
@@ -305,7 +305,7 @@ namespace InventoryExpress.WebControl
                 Icon = new PropertyIcon(TypeIcon.CalendarPlus)
             };
 
-            DerecognitionDate = new ControlFormularItemInputTextBox()
+            DerecognitionDate = new ControlFormularItemInputDatepicker("derecognitiondate")
             {
                 Name = "derecognitiondate",
                 Label = "inventoryexpress.inventory.derecognitiondate.label",

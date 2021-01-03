@@ -130,6 +130,7 @@ namespace InventoryExpress.Model
         public virtual ICollection<InventoryAttribute> InventoryAttributes { get; set; }
         public virtual ICollection<InventoryMedia> InventoryMedia { get; set; }
         public virtual ICollection<InventoryComment> InventoryComments { get; set; }
+        public virtual ICollection<InventoryJournal> InventoryJournals { get; set; }
         public virtual ICollection<Inventory> Inventories { get; set; }
 
         /// <summary>
@@ -141,6 +142,7 @@ namespace InventoryExpress.Model
             InventoryAttributes = new HashSet<InventoryAttribute>();
             InventoryMedia = new HashSet<InventoryMedia>();
             InventoryComments = new HashSet<InventoryComment>();
+            InventoryJournals = new HashSet<InventoryJournal>();
             Inventories = new HashSet<Inventory>();
 
             PurchaseDate = DateTime.Today;

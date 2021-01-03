@@ -169,9 +169,19 @@ CREATE TABLE InventoryComment
 (
     ID                  INTEGER			PRIMARY KEY AUTOINCREMENT NOT NULL,
     InventoryID 	    INTEGER			NOT NULL REFERENCES Inventory (ID),
-    Comment 		    TEXT
+    Comment 		    TEXT,
     Created 	        TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
     Updated 	        TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    Guid                CHAR (36)       UNIQUE  NOT NULL
+);
+
+CREATE TABLE InventoryJournal    
+(
+    ID                  INTEGER			PRIMARY KEY AUTOINCREMENT NOT NULL,
+    InventoryID 	    INTEGER			NOT NULL REFERENCES Inventory (ID),
+    Action 		        VARCHAR(256),
+    ActionParam 	    VARCHAR(256),
+    Created 	        TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
     Guid                CHAR (36)       UNIQUE  NOT NULL
 );
 

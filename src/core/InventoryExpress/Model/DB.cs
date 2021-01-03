@@ -10,6 +10,26 @@ namespace InventoryExpress.Model
         public DbSet<Inventory> Inventories { get; set; }
 
         /// <summary>
+        /// Liefert oder setzt die Attribute der Inventargegenstände
+        /// </summary>
+        public DbSet<InventoryAttribute> InventoryAttributes { get; set; }
+
+        /// <summary>
+        /// Liefert oder setzt die Medien der Inventargegenstände
+        /// </summary>
+        public DbSet<InventoryMedia> InventoryMedia { get; set; }
+
+        /// <summary>
+        /// Liefert oder setzt die Kommentare der Inventargegenstände
+        /// </summary>
+        public DbSet<InventoryComment> InventoryComments { get; set; }
+
+        /// <summary>
+        /// Liefert oder setzt das Journal der Inventargegenstände
+        /// </summary>
+        public DbSet<InventoryJournal> InventoryJournals { get; set; }
+
+        /// <summary>
         /// Liefert oder setzt die Zustände
         /// </summary>
         public DbSet<Condition> Conditions { get; set; }
@@ -398,6 +418,32 @@ namespace InventoryExpress.Model
 
                 entity.HasOne(d => d.Inventory)
                     .WithMany(p => p.InventoryComments)
+                    .HasForeignKey(d => d.InventoryId)
+                    .OnDelete(DeleteBehavior.ClientSetNull);
+            });
+
+            modelBuilder.Entity<InventoryJournal>(entity =>
+            {
+                entity.HasKey(e => new { e.Id });
+
+                entity.ToTable("InventoryJournal");
+
+                entity.Property(e => e.InventoryId).HasColumnName("InventoryID");
+
+                entity.Property(e => e.Action).HasColumnType("VARCHAR (256)");
+                entity.Property(e => e.ActionParam).HasColumnType("VARCHAR (256)");
+
+                entity.Property(e => e.Created)
+                    .IsRequired()
+                    .HasColumnType("TIMESTAMP")
+                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                entity.Property(e => e.Guid)
+                   .IsRequired()
+                   .HasColumnType("CHAR (36)");
+
+                entity.HasOne(d => d.Inventory)
+                    .WithMany(p => p.InventoryJournals)
                     .HasForeignKey(d => d.InventoryId)
                     .OnDelete(DeleteBehavior.ClientSetNull);
             });

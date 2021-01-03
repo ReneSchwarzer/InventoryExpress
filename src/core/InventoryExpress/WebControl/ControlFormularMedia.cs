@@ -30,7 +30,7 @@ namespace InventoryExpress.WebControl
         /// </summary>
         private void Init()
         {
-            Name = "location";
+            Name = "media";
             EnableCancelButton = true;
             Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Three, PropertySpacing.Space.None, PropertySpacing.Space.None);
             Layout = TypeLayoutFormular.Vertical;
