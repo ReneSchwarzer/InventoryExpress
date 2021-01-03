@@ -119,6 +119,11 @@ namespace InventoryExpress.WebResource
                     }
                 }
 
+                if (Form.Tag.Value != Media?.Tag)
+                {
+                    CostCenter.Media.Tag = Form.Tag.Value;
+                }
+
                 ViewModel.Instance.SaveChanges();
             };
         }

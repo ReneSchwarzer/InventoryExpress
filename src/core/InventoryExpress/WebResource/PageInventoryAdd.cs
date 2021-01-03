@@ -85,7 +85,7 @@ namespace InventoryExpress.WebResource
                     PurchaseDate = !string.IsNullOrWhiteSpace(form.PurchaseDate.Value) ? Convert.ToDateTime(form.PurchaseDate.Value, Culture) : null,
                     DerecognitionDate = !string.IsNullOrWhiteSpace(form.DerecognitionDate.Value) ? Convert.ToDateTime(form.DerecognitionDate.Value, Culture) : null,
                     Tag = form.Tag.Value,
-                    Description = form.InventoryName.Value,
+                    Description = form.Description.Value,
                     Guid = Guid.NewGuid().ToString()
                 };
 

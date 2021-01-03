@@ -121,7 +121,7 @@ namespace InventoryExpress.WebResource
 
                 if (Form.Tag.Value != Media?.Tag)
                 {
-                    Media.Tag = Form.Tag.Value;
+                    Inventory.Media.Tag = Form.Tag.Value;
                 }
 
                 ViewModel.Instance.SaveChanges();
