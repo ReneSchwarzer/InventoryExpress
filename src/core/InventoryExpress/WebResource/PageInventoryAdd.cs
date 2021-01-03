@@ -81,6 +81,9 @@ namespace InventoryExpress.WebResource
                     Condition = ViewModel.Instance.Conditions.Where(x => x.Guid == form.Condition.Value).FirstOrDefault(),
                     //Parent = form.Parent.Value,
                     Template = ViewModel.Instance.Templates.Where(x => x.Guid == form.Template.Value).FirstOrDefault(),
+                    CostValue = !string.IsNullOrWhiteSpace(form.CostValue.Value) ? Convert.ToDecimal(form.CostValue.Value, Culture) : 0,
+                    PurchaseDate = !string.IsNullOrWhiteSpace(form.PurchaseDate.Value) ? Convert.ToDateTime(form.PurchaseDate.Value, Culture) : null,
+                    DerecognitionDate = !string.IsNullOrWhiteSpace(form.DerecognitionDate.Value) ? Convert.ToDateTime(form.DerecognitionDate.Value, Culture) : null,
                     Tag = form.Tag.Value,
                     Description = form.InventoryName.Value,
                     Guid = Guid.NewGuid().ToString()

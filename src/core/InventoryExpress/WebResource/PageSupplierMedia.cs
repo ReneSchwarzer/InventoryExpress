@@ -16,7 +16,7 @@ namespace InventoryExpress.WebResource
     [Module("InventoryExpress")]
     [Context("general")]
     [Context("media")]
-    public sealed class PageSupplierMedia : PageTemplateWebApp, IPageManufacturer
+    public sealed class PageSupplierMedia : PageTemplateWebApp, IPageSupplier
     {
         /// <summary>
         /// Formular

@@ -28,6 +28,12 @@ namespace InventoryExpress.WebResource
         public override void Initialization()
         {
             base.Initialization();
+
+            var id = GetParamValue("InventoryID");
+            var inventory = ViewModel.Instance.Inventories.Where(x => x.Guid.Equals(id)).FirstOrDefault();
+
+            Uri.Display = inventory?.Name;
+            Title = inventory?.Name;
         }
 
         /// <summary>
@@ -39,8 +45,6 @@ namespace InventoryExpress.WebResource
 
             var id = GetParamValue("InventoryID");
             var inventory = ViewModel.Instance.Inventories.Where(x => x.Guid.Equals(id)).FirstOrDefault();
-
-            Title = inventory?.Name;
 
             Content.Primary.Add(new ControlImage()
             {
