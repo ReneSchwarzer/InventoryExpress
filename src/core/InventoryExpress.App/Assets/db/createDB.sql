@@ -134,6 +134,7 @@ CREATE TABLE Inventory
 	ConditionID  		INTEGER      	REFERENCES Condition (ID),
 	SupplierID 	        INTEGER      	REFERENCES Supplier (ID),
 	LedgerAccountID     INTEGER      	REFERENCES LedgerAccount (ID),
+    ParentID            INTEGER         REFERENCES Inventory (ID) ON DELETE SET NULL,
     MediaID             INTEGER         REFERENCES Media (ID) ON DELETE SET NULL,
 	Name 		        VARCHAR(64)     UNIQUE NOT NULL,
     CostValue 	        DECIMAL,
@@ -162,6 +163,16 @@ CREATE TABLE InventoryMedia
     Value 		        TEXT
     Created 	        TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	PRIMARY KEY (InventoryID, MediaID)
+);
+
+CREATE TABLE InventoryComment    
+(
+    ID                  INTEGER			PRIMARY KEY AUTOINCREMENT NOT NULL,
+    InventoryID 	    INTEGER			NOT NULL REFERENCES Inventory (ID),
+    Comment 		    TEXT
+    Created 	        TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    Updated 	        TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    Guid                CHAR (36)       UNIQUE  NOT NULL
 );
 
 CREATE TABLE Media 

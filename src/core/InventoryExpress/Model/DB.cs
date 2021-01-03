@@ -305,6 +305,10 @@ namespace InventoryExpress.Model
                     .WithMany(p => p.Inventories)
                     .HasForeignKey(d => d.ManufacturerId);
 
+                entity.HasOne(d => d.Parent)
+                    .WithMany(p => p.Inventories)
+                    .HasForeignKey(d => d.ParentId);
+
                 entity.HasOne(d => d.Media)
                     .WithMany(p => p.Inventories)
                     .HasForeignKey(d => d.MediaId);
@@ -366,6 +370,34 @@ namespace InventoryExpress.Model
 
                 entity.HasOne(d => d.Inventory)
                     .WithMany(p => p.InventoryMedia)
+                    .HasForeignKey(d => d.InventoryId)
+                    .OnDelete(DeleteBehavior.ClientSetNull);
+            });
+
+            modelBuilder.Entity<InventoryComment>(entity =>
+            {
+                entity.HasKey(e => new { e.Id});
+
+                entity.ToTable("InventoryComment");
+
+                entity.Property(e => e.InventoryId).HasColumnName("InventoryID");
+
+                entity.Property(e => e.Created)
+                    .IsRequired()
+                    .HasColumnType("TIMESTAMP")
+                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                entity.Property(e => e.Updated)
+                    .IsRequired()
+                    .HasColumnType("TIMESTAMP")
+                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                entity.Property(e => e.Guid)
+                   .IsRequired()
+                   .HasColumnType("CHAR (36)");
+
+                entity.HasOne(d => d.Inventory)
+                    .WithMany(p => p.InventoryComments)
                     .HasForeignKey(d => d.InventoryId)
                     .OnDelete(DeleteBehavior.ClientSetNull);
             });

@@ -116,8 +116,21 @@ namespace InventoryExpress.Model
         /// </summary>
         public virtual LedgerAccount LedgerAccount { get; set; }
 
+        /// <summary>
+        /// Die ID übergeordneten Inventargegenstandes
+        /// </summary>
+        [Column("PARENTID")]
+        public int? ParentId { get; set; }
+
+        /// <summary>
+        /// Der übergeordnete Inventargegenstand
+        /// </summary>
+        public virtual Inventory Parent { get; set; }
+
         public virtual ICollection<InventoryAttribute> InventoryAttributes { get; set; }
         public virtual ICollection<InventoryMedia> InventoryMedia { get; set; }
+        public virtual ICollection<InventoryComment> InventoryComments { get; set; }
+        public virtual ICollection<Inventory> Inventories { get; set; }
 
         /// <summary>
         /// Konstruktor
@@ -127,6 +140,8 @@ namespace InventoryExpress.Model
         {
             InventoryAttributes = new HashSet<InventoryAttribute>();
             InventoryMedia = new HashSet<InventoryMedia>();
+            InventoryComments = new HashSet<InventoryComment>();
+            Inventories = new HashSet<Inventory>();
 
             PurchaseDate = DateTime.Today;
         }

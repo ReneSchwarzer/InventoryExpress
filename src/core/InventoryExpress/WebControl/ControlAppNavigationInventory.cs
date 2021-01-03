@@ -11,7 +11,7 @@ using WebExpress.UI.Component;
 namespace InventoryExpress.WebControl
 {
     [Section(Section.AppNavigationPreferences)]
-    [Application("education")]
+    [Application("InventoryExpress")]
     public sealed class ControlAppNavigationInventory : ControlNavigationItemLink, IComponent
     {
         /// <summary>
