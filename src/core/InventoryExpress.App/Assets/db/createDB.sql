@@ -196,7 +196,15 @@ CREATE TABLE Media
     Guid                CHAR(36)        UNIQUE NOT NULL
 );
 
+CREATE TABLE Setting
+(
+    ID                 INTEGER			PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Currency           VARCHAR(10)      
+);
+
 -- Example
+INSERT INTO Setting (Currency) VALUES ('€');
+
 INSERT INTO Condition (ID, Name, Grade, Description, Created, Guid) VALUES (1, 'Ungenügend', 6, NULL, '2020-10-11 14:24:32', 'e9746bf2-9592-44e0-9013-9ba0c0008071');
 INSERT INTO Condition (ID, Name, Grade, Description, Created, Guid) VALUES (2, 'Mangelhaft', 5, NULL, '2020-10-11 14:24:32', 'c315b705-d73c-4e42-bdcb-39f4a9d0b4de');
 INSERT INTO Condition (ID, Name, Grade, Description, Created, Guid) VALUES (3, 'Ausreichend', 4, NULL, '2020-10-11 14:24:32', '6505c67f-45e4-49f0-8e1b-40488e16deec');

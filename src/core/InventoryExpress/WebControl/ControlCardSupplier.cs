@@ -38,29 +38,35 @@ namespace InventoryExpress.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var image = ViewModel.Instance.Media.Where(x => x.Id == Supplier.MediaId).Select(x => context.Page.Uri.Root.Append("media/" + x.Guid)).FirstOrDefault();
-
-            var media = new ControlPanelMedia()
+            lock (ViewModel.Instance.Database)
             {
-                Image = image == null ? context.Page.Uri.Root.Append("/assets/img/inventoryexpress.svg") : image,
-                ImageWidth = 100,
-                Title = new ControlLink()
+                lock (ViewModel.Instance.Database)
                 {
-                    Text = Supplier.Name,
-                    Uri = context.Page.Uri.Append(Supplier.Guid),
-                    TextColor = new PropertyColorText(TypeColorText.Dark)
+                    var image = ViewModel.Instance.Media.Where(x => x.Id == Supplier.MediaId).Select(x => context.Page.Uri.Root.Append("media/" + x.Guid)).FirstOrDefault();
+
+                    var media = new ControlPanelMedia()
+                    {
+                        Image = image == null ? context.Page.Uri.Root.Append("/assets/img/inventoryexpress.svg") : image,
+                        ImageWidth = 100,
+                        Title = new ControlLink()
+                        {
+                            Text = Supplier.Name,
+                            Uri = context.Page.Uri.Append(Supplier.Guid),
+                            TextColor = new PropertyColorText(TypeColorText.Dark)
+                        }
+                    };
+
+                    media.Content.Add(new ControlText()
+                    {
+                        Text = Supplier.Description,
+                        Format = TypeFormatText.Paragraph
+                    });
+
+                    Content.Add(media);
+
+                    return base.Render(context);
                 }
-            };
-
-            media.Content.Add(new ControlText()
-            {
-                Text = Supplier.Description,
-                Format = TypeFormatText.Paragraph
-            });
-
-            Content.Add(media);
-
-            return base.Render(context);
+            }
         }
     }
 }

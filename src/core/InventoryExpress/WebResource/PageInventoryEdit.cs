@@ -21,8 +21,7 @@ namespace InventoryExpress.WebResource
         /// <summary>
         /// Formular
         /// </summary>
-        private ControlFormularInventory form;
-
+        private ControlFormularInventory Form;
 
         /// <summary>
         /// Konstruktor
@@ -41,7 +40,7 @@ namespace InventoryExpress.WebResource
             var guid = GetParamValue("InventoryID");
             var inventory = ViewModel.Instance.Inventories.Where(x => x.Guid == guid).FirstOrDefault();
 
-            form = new ControlFormularInventory("inventory")
+            Form = new ControlFormularInventory("inventory")
             {
                 RedirectUri = Uri.Take(-1),
                 Edit = true,
@@ -49,9 +48,9 @@ namespace InventoryExpress.WebResource
                 BackUri = Uri.Take(-1)
             };
 
-            form.InitializeFormular += (s, e) =>
+            Form.InitializeFormular += (s, e) =>
             {
-                form.InventoryName.Validation += (s, e) =>
+                Form.InventoryName.Validation += (s, e) =>
                 {
                     if (e.Value.Count() < 1)
                     {
@@ -63,11 +62,11 @@ namespace InventoryExpress.WebResource
                     }
                 };
 
-                form.CostValue.Validation += (s, e) =>
+                Form.CostValue.Validation += (s, e) =>
                 {
                     try
                     {
-                        if (Convert.ToDecimal(form.CostValue.Value, Culture) < 0)
+                        if (Convert.ToDecimal(Form.CostValue.Value, Culture) < 0)
                         {
                             e.Results.Add(new ValidationResult() { Text = this.I18N("inventoryexpress.inventory.validation.costvalue.negativ"), Type = TypesInputValidity.Error });
                         };
@@ -79,46 +78,46 @@ namespace InventoryExpress.WebResource
                 };
             };
 
-            form.FillFormular += (s, e) =>
+            Form.FillFormular += (s, e) =>
             {
-                form.InventoryName.Value = inventory?.Name;
-                form.Manufacturer.Value = ViewModel.Instance.Manufacturers.Where(x => x.Id == inventory.ManufacturerId).FirstOrDefault()?.Guid;
-                form.Location.Value = ViewModel.Instance.Locations.Where(x => x.Id == inventory.LocationId).FirstOrDefault()?.Guid;
-                form.Supplier.Value = ViewModel.Instance.Suppliers.Where(x => x.Id == inventory.SupplierId).FirstOrDefault()?.Guid;
-                form.LedgerAccount.Value = ViewModel.Instance.LedgerAccounts.Where(x => x.Id == inventory.LedgerAccountId).FirstOrDefault()?.Guid;
-                form.CostCenter.Value = ViewModel.Instance.CostCenters.Where(x => x.Id == inventory.CostCenterId).FirstOrDefault()?.Guid;
-                form.Condition.Value = ViewModel.Instance.Conditions.Where(x => x.Id == inventory.ConditionId).FirstOrDefault()?.Guid;
-                form.Parent.Value = ViewModel.Instance.Inventories.Where(x => x.Id == inventory.ParentId).FirstOrDefault()?.Guid;
-                form.Template.Value = ViewModel.Instance.Templates.Where(x => x.Id == inventory.TemplateId)?.FirstOrDefault()?.Guid;
-                form.CostValue.Value = inventory.CostValue.ToString(Culture);
-                form.PurchaseDate.Value = inventory.PurchaseDate.HasValue ? inventory.PurchaseDate.Value.ToString(Culture.DateTimeFormat.ShortDatePattern) : null;
-                form.DerecognitionDate.Value = inventory.DerecognitionDate.HasValue ? inventory.DerecognitionDate.Value.ToString(Culture.DateTimeFormat.ShortDatePattern) : null;
-                form.Tag.Value = inventory?.Tag;
-                form.Description.Value = inventory?.Description;
+                Form.InventoryName.Value = inventory?.Name;
+                Form.Manufacturer.Value = ViewModel.Instance.Manufacturers.Where(x => x.Id == inventory.ManufacturerId).FirstOrDefault()?.Guid;
+                Form.Location.Value = ViewModel.Instance.Locations.Where(x => x.Id == inventory.LocationId).FirstOrDefault()?.Guid;
+                Form.Supplier.Value = ViewModel.Instance.Suppliers.Where(x => x.Id == inventory.SupplierId).FirstOrDefault()?.Guid;
+                Form.LedgerAccount.Value = ViewModel.Instance.LedgerAccounts.Where(x => x.Id == inventory.LedgerAccountId).FirstOrDefault()?.Guid;
+                Form.CostCenter.Value = ViewModel.Instance.CostCenters.Where(x => x.Id == inventory.CostCenterId).FirstOrDefault()?.Guid;
+                Form.Condition.Value = ViewModel.Instance.Conditions.Where(x => x.Id == inventory.ConditionId).FirstOrDefault()?.Guid;
+                Form.Parent.Value = ViewModel.Instance.Inventories.Where(x => x.Id == inventory.ParentId).FirstOrDefault()?.Guid;
+                Form.Template.Value = ViewModel.Instance.Templates.Where(x => x.Id == inventory.TemplateId)?.FirstOrDefault()?.Guid;
+                Form.CostValue.Value = inventory.CostValue.ToString(Culture);
+                Form.PurchaseDate.Value = inventory.PurchaseDate.HasValue ? inventory.PurchaseDate.Value.ToString(Culture.DateTimeFormat.ShortDatePattern) : null;
+                Form.DerecognitionDate.Value = inventory.DerecognitionDate.HasValue ? inventory.DerecognitionDate.Value.ToString(Culture.DateTimeFormat.ShortDatePattern) : null;
+                Form.Tag.Value = inventory?.Tag;
+                Form.Description.Value = inventory?.Description;
             };
 
-            form.ProcessFormular += (s, e) =>
+            Form.ProcessFormular += (s, e) =>
             {
                 // Neues Herstellerobjekt erstellen und speichern
-                inventory.Name = form.InventoryName.Value;
-                inventory.Manufacturer = ViewModel.Instance.Manufacturers.Where(x => x.Guid == form.Manufacturer.Value).FirstOrDefault();
-                inventory.Location = ViewModel.Instance.Locations.Where(x => x.Guid == form.Location.Value).FirstOrDefault();
-                inventory.Supplier = ViewModel.Instance.Suppliers.Where(x => x.Guid == form.Supplier.Value).FirstOrDefault();
-                inventory.LedgerAccount = ViewModel.Instance.LedgerAccounts.Where(x => x.Guid == form.LedgerAccount.Value).FirstOrDefault();
-                inventory.CostCenter = ViewModel.Instance.CostCenters.Where(x => x.Guid == form.CostCenter.Value).FirstOrDefault();
-                inventory.Condition = ViewModel.Instance.Conditions.Where(x => x.Guid == form.Condition.Value).FirstOrDefault();
-                inventory.Parent = ViewModel.Instance.Inventories.Where(x => x.Guid == form.Parent.Value).FirstOrDefault();
-                inventory.Template = ViewModel.Instance.Templates.Where(x => x.Guid == form.Template.Value).FirstOrDefault();
-                inventory.CostValue = !string.IsNullOrWhiteSpace(form.CostValue.Value) ? Convert.ToDecimal(form.CostValue.Value, Culture) : 0;
-                inventory.PurchaseDate = !string.IsNullOrWhiteSpace(form.PurchaseDate.Value) ? Convert.ToDateTime(form.PurchaseDate.Value, Culture) : null;
-                inventory.DerecognitionDate = !string.IsNullOrWhiteSpace(form.DerecognitionDate.Value) ? Convert.ToDateTime(form.DerecognitionDate.Value, Culture) : null;
-                inventory.Tag = form.Tag.Value;
-                inventory.Description = form.Description.Value;
+                inventory.Name = Form.InventoryName.Value;
+                inventory.Manufacturer = ViewModel.Instance.Manufacturers.Where(x => x.Guid == Form.Manufacturer.Value).FirstOrDefault();
+                inventory.Location = ViewModel.Instance.Locations.Where(x => x.Guid == Form.Location.Value).FirstOrDefault();
+                inventory.Supplier = ViewModel.Instance.Suppliers.Where(x => x.Guid == Form.Supplier.Value).FirstOrDefault();
+                inventory.LedgerAccount = ViewModel.Instance.LedgerAccounts.Where(x => x.Guid == Form.LedgerAccount.Value).FirstOrDefault();
+                inventory.CostCenter = ViewModel.Instance.CostCenters.Where(x => x.Guid == Form.CostCenter.Value).FirstOrDefault();
+                inventory.Condition = ViewModel.Instance.Conditions.Where(x => x.Guid == Form.Condition.Value).FirstOrDefault();
+                inventory.Parent = ViewModel.Instance.Inventories.Where(x => x.Guid == Form.Parent.Value).FirstOrDefault();
+                inventory.Template = ViewModel.Instance.Templates.Where(x => x.Guid == Form.Template.Value).FirstOrDefault();
+                inventory.CostValue = !string.IsNullOrWhiteSpace(Form.CostValue.Value) ? Convert.ToDecimal(Form.CostValue.Value, Culture) : 0;
+                inventory.PurchaseDate = !string.IsNullOrWhiteSpace(Form.PurchaseDate.Value) ? Convert.ToDateTime(Form.PurchaseDate.Value, Culture) : null;
+                inventory.DerecognitionDate = !string.IsNullOrWhiteSpace(Form.DerecognitionDate.Value) ? Convert.ToDateTime(Form.DerecognitionDate.Value, Culture) : null;
+                inventory.Tag = Form.Tag.Value;
+                inventory.Description = Form.Description.Value;
 
                 ViewModel.Instance.SaveChanges();
             };
 
-            Content.Primary.Add(form);
+            Content.Primary.Add(Form);
             Uri.Display = GetParamValue("InventoryID").Split('-').LastOrDefault();
         }
 

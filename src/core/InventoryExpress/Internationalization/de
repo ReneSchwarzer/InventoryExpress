@@ -247,6 +247,13 @@ inventoryexpress.template.updatedate.description=
 inventoryexpress.template.validation.name.invalid=Geben Sie einen gültigen Namen ein!
 inventoryexpress.template.validation.name.used=Die Vorlage wird bereits verwendet. Geben Sie einen anderen Namen an!
 
+inventoryexpress.settings.label=Einstellungen
+inventoryexpress.settings.submit.label=Speichern
+inventoryexpress.settings.currency.label=Währung
+inventoryexpress.settings.currency.description=
+inventoryexpress.settings.currency.validation.null=Es wurde keine Währung angegeben!
+inventoryexpress.settings.currency.validation.tolong=Die Währung besteht aus zu vielen Zeichen!
+
 inventoryexpress.condition.label=Zustand
 inventoryexpress.condition.description=Der Zustand des Inventargegenstandes.
 

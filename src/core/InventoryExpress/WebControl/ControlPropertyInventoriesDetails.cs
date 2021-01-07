@@ -31,24 +31,28 @@ namespace InventoryExpress.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var inventories = ViewModel.Instance.Inventories.ToList();
-
-            Add(new ControlListItem(new ControlAttribute()
+            lock (ViewModel.Instance.Database)
             {
-                Name = context.I18N("inventoryexpress.inventory.details.count.label"),
-                Value = inventories.Count().ToString(),
-                TextColor = new PropertyColorText(TypeColorText.Secondary)
-            }));
+                var inventories = ViewModel.Instance.Inventories.ToList();
+                var currency = ViewModel.Instance.Settings.FirstOrDefault()?.Currency;
 
-            Add(new ControlListItem(new ControlAttribute()
-            {
-                Name = context.I18N("inventoryexpress.inventory.details.totalacquisitioncosts.label"),
-                Icon = new PropertyIcon(TypeIcon.EuroSign),
-                Value = inventories.Sum(x => x.CostValue).ToString(context.Culture) + " €",
-                TextColor = new PropertyColorText(TypeColorText.Secondary)
-            }));
+                Add(new ControlListItem(new ControlAttribute()
+                {
+                    Name = context.I18N("inventoryexpress.inventory.details.count.label"),
+                    Value = inventories.Count().ToString(),
+                    TextColor = new PropertyColorText(TypeColorText.Secondary)
+                }));
 
-            return base.Render(context);
+                Add(new ControlListItem(new ControlAttribute()
+                {
+                    Name = context.I18N("inventoryexpress.inventory.details.totalacquisitioncosts.label"),
+                    Icon = new PropertyIcon(TypeIcon.EuroSign),
+                    Value = $"{inventories.Sum(x => x.CostValue).ToString(context.Culture)} { (string.IsNullOrWhiteSpace(currency) ? "€" : currency) }",
+                    TextColor = new PropertyColorText(TypeColorText.Secondary)
+                }));
+
+                return base.Render(context);
+            }
         }
     }
 }

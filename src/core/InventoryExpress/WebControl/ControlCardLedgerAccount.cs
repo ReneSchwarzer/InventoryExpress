@@ -38,29 +38,32 @@ namespace InventoryExpress.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var image = ViewModel.Instance.Media.Where(x => x.Id == LedgerAccount.MediaId).Select(x => context.Page.Uri.Root.Append("media/" + x.Guid)).FirstOrDefault();
-
-            var media = new ControlPanelMedia()
+            lock (ViewModel.Instance.Database)
             {
-                Image = image == null ? context.Page.Uri.Root.Append("/assets/img/inventoryexpress.svg") : image,
-                ImageWidth = 100,
-                Title = new ControlLink()
+                var image = ViewModel.Instance.Media.Where(x => x.Id == LedgerAccount.MediaId).Select(x => context.Page.Uri.Root.Append("media/" + x.Guid)).FirstOrDefault();
+
+                var media = new ControlPanelMedia()
                 {
-                    Text = LedgerAccount.Name,
-                    Uri = context.Page.Uri.Append(LedgerAccount.Guid),
-                    TextColor = new PropertyColorText(TypeColorText.Dark)
-                }
-            };
+                    Image = image == null ? context.Page.Uri.Root.Append("/assets/img/inventoryexpress.svg") : image,
+                    ImageWidth = 100,
+                    Title = new ControlLink()
+                    {
+                        Text = LedgerAccount.Name,
+                        Uri = context.Page.Uri.Append(LedgerAccount.Guid),
+                        TextColor = new PropertyColorText(TypeColorText.Dark)
+                    }
+                };
 
-            media.Content.Add(new ControlText()
-            {
-                Text = LedgerAccount.Description,
-                Format = TypeFormatText.Paragraph
-            });
+                media.Content.Add(new ControlText()
+                {
+                    Text = LedgerAccount.Description,
+                    Format = TypeFormatText.Paragraph
+                });
 
-            Content.Add(media);
+                Content.Add(media);
 
-            return base.Render(context);
+                return base.Render(context);
+            }
         }
     }
 }

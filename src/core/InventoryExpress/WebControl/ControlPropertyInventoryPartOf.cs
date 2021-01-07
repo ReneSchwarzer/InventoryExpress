@@ -32,50 +32,53 @@ namespace InventoryExpress.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var id = context.Page.GetParamValue("InventoryID");
-            var inventory = ViewModel.Instance.Inventories.Where(x => x.Guid.Equals(id)).FirstOrDefault();
-            var parent = ViewModel.Instance.Inventories.Where(x => x.Id.Equals(inventory.ParentId)).FirstOrDefault();
-            var children = ViewModel.Instance.Inventories.Where(x => x.ParentId.Equals(inventory.Id));
-
-            if (parent != null)
+            lock (ViewModel.Instance.Database)
             {
-                Add(new ControlListItem(new ControlAttribute()
-                {
-                    Name = context.I18N("inventoryexpress.inventory.parent.label"),
-                    Icon = new PropertyIcon(TypeIcon.Link),
-                    TextColor = new PropertyColorText(TypeColorText.Secondary)
-                },
-                new ControlLink()
-                {
-                    Text = parent?.Name,
-                    Uri = context.Uri.Root.Append(parent.Guid),
-                }
-                ));
-            }
+                var id = context.Page.GetParamValue("InventoryID");
+                var inventory = ViewModel.Instance.Inventories.Where(x => x.Guid.Equals(id)).FirstOrDefault();
+                var parent = ViewModel.Instance.Inventories.Where(x => x.Id.Equals(inventory.ParentId)).FirstOrDefault();
+                var children = ViewModel.Instance.Inventories.Where(x => x.ParentId.Equals(inventory.Id));
 
-            if (children.Count() > 0)
-            {
-                var list = new List<Control>();
-                list.Add(new ControlAttribute()
+                if (parent != null)
                 {
-                    Name = context.I18N("inventoryexpress.inventory.child.label"),
-                    Icon = new PropertyIcon(TypeIcon.Link),
-                    TextColor = new PropertyColorText(TypeColorText.Secondary)
-                });
-
-                foreach (var child in children)
-                {
-                    list.Add(new ControlLink()
+                    Add(new ControlListItem(new ControlAttribute()
                     {
-                        Text = child?.Name,
-                        Uri = context.Uri.Root.Append(child?.Guid)
-                    });
+                        Name = context.I18N("inventoryexpress.inventory.parent.label"),
+                        Icon = new PropertyIcon(TypeIcon.Link),
+                        TextColor = new PropertyColorText(TypeColorText.Secondary)
+                    },
+                    new ControlLink()
+                    {
+                        Text = parent?.Name,
+                        Uri = context.Uri.Root.Append(parent.Guid),
+                    }
+                    ));
                 }
 
-                Add(new ControlListItem(list));
-            }
+                if (children.Count() > 0)
+                {
+                    var list = new List<Control>();
+                    list.Add(new ControlAttribute()
+                    {
+                        Name = context.I18N("inventoryexpress.inventory.child.label"),
+                        Icon = new PropertyIcon(TypeIcon.Link),
+                        TextColor = new PropertyColorText(TypeColorText.Secondary)
+                    });
 
-            return base.Render(context);
+                    foreach (var child in children)
+                    {
+                        list.Add(new ControlLink()
+                        {
+                            Text = child?.Name,
+                            Uri = context.Uri.Root.Append(child?.Guid)
+                        });
+                    }
+
+                    Add(new ControlListItem(list));
+                }
+
+                return base.Render(context);
+            }
         }
     }
 }

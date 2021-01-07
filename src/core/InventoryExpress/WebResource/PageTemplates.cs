@@ -1,5 +1,6 @@
 ﻿using InventoryExpress.Model;
 using InventoryExpress.WebControl;
+using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Attribute;
 using WebExpress.UI.WebControl;
@@ -39,8 +40,14 @@ namespace InventoryExpress.WebResource
             base.Process();
 
             var grid = new ControlPanelGrid() { Fluid = TypePanelContainer.Fluid };
+            var list = null as ICollection<Template>;
 
-            foreach (var template in ViewModel.Instance.Templates.OrderBy(x => x.Name))
+            lock (ViewModel.Instance.Database)
+            {
+                list = ViewModel.Instance.Templates.OrderBy(x => x.Name).ToList();
+            }
+
+            foreach (var template in list)
             {
                 var card = new ControlCardTemplate()
                 {

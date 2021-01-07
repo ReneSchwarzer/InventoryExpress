@@ -32,26 +32,29 @@ namespace InventoryExpress.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var guid = context.Page.GetParamValue("ManufacturerID");
-            var manufactur = ViewModel.Instance.Manufacturers.Where(x => x.Guid == guid).FirstOrDefault();
-
-            Add(new ControlListItem(new ControlAttribute()
+            lock (ViewModel.Instance.Database)
             {
-                Name = context.Page.I18N("inventoryexpress.manufacturer.creationdate.label") + ":",
-                Icon = new PropertyIcon(TypeIcon.CalendarPlus),
-                Value = manufactur?.Created.ToString(context.Culture.DateTimeFormat.ShortDatePattern),
-                TextColor = new PropertyColorText(TypeColorText.Secondary)
-            }));
+                var guid = context.Page.GetParamValue("ManufacturerID");
+                var manufactur = ViewModel.Instance.Manufacturers.Where(x => x.Guid == guid).FirstOrDefault();
 
-            Add(new ControlListItem(new ControlAttribute()
-            {
-                Name = context.Page.I18N("inventoryexpress.manufacturer.updatedate.label") + ":",
-                Icon = new PropertyIcon(TypeIcon.Save),
-                Value = manufactur?.Updated.ToString(context.Culture.DateTimeFormat.ShortDatePattern + " " + context.Culture.DateTimeFormat.ShortTimePattern),
-                TextColor = new PropertyColorText(TypeColorText.Secondary)
-            }));
+                Add(new ControlListItem(new ControlAttribute()
+                {
+                    Name = context.Page.I18N("inventoryexpress.manufacturer.creationdate.label") + ":",
+                    Icon = new PropertyIcon(TypeIcon.CalendarPlus),
+                    Value = manufactur?.Created.ToString(context.Culture.DateTimeFormat.ShortDatePattern),
+                    TextColor = new PropertyColorText(TypeColorText.Secondary)
+                }));
 
-            return base.Render(context);
+                Add(new ControlListItem(new ControlAttribute()
+                {
+                    Name = context.Page.I18N("inventoryexpress.manufacturer.updatedate.label") + ":",
+                    Icon = new PropertyIcon(TypeIcon.Save),
+                    Value = manufactur?.Updated.ToString(context.Culture.DateTimeFormat.ShortDatePattern + " " + context.Culture.DateTimeFormat.ShortTimePattern),
+                    TextColor = new PropertyColorText(TypeColorText.Secondary)
+                }));
+
+                return base.Render(context);
+            }
         }
     }
 }

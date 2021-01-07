@@ -28,21 +28,24 @@ namespace InventoryExpress.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var guid = context.Page.GetParamValue("ManufacturerID");
-            var manufactur = ViewModel.Instance.Manufacturers.Where(x => x.Guid == guid).FirstOrDefault();
-            var media = ViewModel.Instance.Media.Where(x => x.Id == (manufactur != null ? manufactur.MediaId : null)).FirstOrDefault();
-            var image = media != null ? context.Uri.Root.Append("media").Append(media.Guid) : null;
-
-            Uri = context.Uri.Append("media");
-            
-            Content.Add(new ControlImage()
+            lock (ViewModel.Instance.Database)
             {
-                Uri = image == null ? context.Uri.Root.Append("/assets/img/inventoryexpress.svg") : image,
-                Width = 180,
-                Margin = new PropertySpacingMargin(PropertySpacing.Space.Two)
-            });
+                var guid = context.Page.GetParamValue("ManufacturerID");
+                var manufactur = ViewModel.Instance.Manufacturers.Where(x => x.Guid == guid).FirstOrDefault();
+                var media = ViewModel.Instance.Media.Where(x => x.Id == (manufactur != null ? manufactur.MediaId : null)).FirstOrDefault();
+                var image = media != null ? context.Uri.Root.Append("media").Append(media.Guid) : null;
 
-            return base.Render(context);
+                Uri = context.Uri.Append("media");
+
+                Content.Add(new ControlImage()
+                {
+                    Uri = image == null ? context.Uri.Root.Append("/assets/img/inventoryexpress.svg") : image,
+                    Width = 180,
+                    Margin = new PropertySpacingMargin(PropertySpacing.Space.Two)
+                });
+
+                return base.Render(context);
+            }
         }
     }
 }

@@ -42,7 +42,7 @@ namespace InventoryExpress.WebResource
         /// <returns>Die Antwort</returns>
         public override Response Process(Request request)
         {
-            lock (Context)
+            lock (ViewModel.Instance.Database)
             {
                 var guid = GetParamValue("MediaID").ToLower();
                 var media = ViewModel.Instance.Media.Where(x => x.Guid.ToLower() == guid).FirstOrDefault();

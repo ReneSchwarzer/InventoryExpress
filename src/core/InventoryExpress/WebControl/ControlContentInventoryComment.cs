@@ -31,49 +31,52 @@ namespace InventoryExpress.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var id = context.Page.GetParamValue("InventoryID");
-            var inventory = ViewModel.Instance.Inventories.OrderByDescending(x => x.Created).Where(x => x.Guid.Equals(id)).FirstOrDefault();
-
-            var list = new ControlList()
+            lock (ViewModel.Instance.Database)
             {
-                Layout = TypeLayoutList.Flush,
-                Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.Five, PropertySpacing.Space.None)
-            };
+                var id = context.Page.GetParamValue("InventoryID");
+                var inventory = ViewModel.Instance.Inventories.OrderByDescending(x => x.Created).Where(x => x.Guid.Equals(id)).FirstOrDefault();
 
-            foreach (var comment in ViewModel.Instance.InventoryComments.Where(x => x.InventoryId == inventory.Id))
-            {
-                list.Add(new ControlListItem(new ControlTimelineComment()
+                var list = new ControlList()
                 {
-                    Post = comment.Comment,
-                    Timestamp = comment.Created,
-                    Likes = -1
-                }));
-            }
+                    Layout = TypeLayoutList.Flush,
+                    Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.None, PropertySpacing.Space.Five, PropertySpacing.Space.None)
+                };
 
-            var form = new ControlFormularComment("form_comment")
-            {
-                RedirectUri = context.Uri
-            };
-
-            form.ProcessFormular += (s, e) =>
+                foreach (var comment in ViewModel.Instance.InventoryComments.Where(x => x.InventoryId == inventory.Id))
+                {
+                    list.Add(new ControlListItem(new ControlTimelineComment()
                     {
-                        if (!string.IsNullOrWhiteSpace(form.Comment.Value))
+                        Post = comment.Comment,
+                        Timestamp = comment.Created,
+                        Likes = -1
+                    }));
+                }
+
+                var form = new ControlFormularComment("form_comment")
+                {
+                    RedirectUri = context.Uri
+                };
+
+                form.ProcessFormular += (s, e) =>
                         {
-                            ViewModel.Instance.InventoryComments.Add(new InventoryComment()
+                            if (!string.IsNullOrWhiteSpace(form.Comment.Value))
                             {
-                                Inventory = inventory,
-                                Comment = form.Comment.Value,
-                                Guid = Guid.NewGuid().ToString()
-                            });
+                                ViewModel.Instance.InventoryComments.Add(new InventoryComment()
+                                {
+                                    Inventory = inventory,
+                                    Comment = form.Comment.Value,
+                                    Guid = Guid.NewGuid().ToString()
+                                });
 
-                            ViewModel.Instance.SaveChanges();
-                        }
-                    };
+                                ViewModel.Instance.SaveChanges();
+                            }
+                        };
 
-            list.Add(new ControlListItem(form));
-            Content.Add(list);
+                list.Add(new ControlListItem(form));
+                Content.Add(list);
 
-            return base.Render(context);
+                return base.Render(context);
+            }
         }
     }
 }

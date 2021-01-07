@@ -39,7 +39,7 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Die GUID
         /// </summary>
-        [Column("GUID")]
+        [StringLength(36), Column("GUID")]
         public string Guid { get; set; }
 
         /// <summary>

@@ -30,41 +30,44 @@ namespace InventoryExpress.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var guid = context.Page.GetParamValue("MediaID");
-            var media = ViewModel.Instance.Media.Where(x => x.Guid == guid).FirstOrDefault();
-            var form = new ControlFormular("del") { EnableSubmitAndNextButton = false, EnableCancelButton = false, RedirectUri = Uri };
-            form.SubmitButton.Text = context.Page.I18N("inventoryexpress.delete.label");
-            form.SubmitButton.Icon = new PropertyIcon(TypeIcon.TrashAlt);
-            form.SubmitButton.Color = new PropertyColorButton(TypeColorButton.Danger);
-            form.ProcessFormular += (s, e) =>
+            lock (ViewModel.Instance.Database)
             {
-                if (media != null)
+                var guid = context.Page.GetParamValue("MediaID");
+                var media = ViewModel.Instance.Media.Where(x => x.Guid == guid).FirstOrDefault();
+                var form = new ControlFormular("del") { EnableSubmitAndNextButton = false, EnableCancelButton = false, RedirectUri = Uri };
+                form.SubmitButton.Text = context.Page.I18N("inventoryexpress.delete.label");
+                form.SubmitButton.Icon = new PropertyIcon(TypeIcon.TrashAlt);
+                form.SubmitButton.Color = new PropertyColorButton(TypeColorButton.Danger);
+                form.ProcessFormular += (s, e) =>
                 {
-                    ViewModel.Instance.Media.Remove(media);
-                    ViewModel.Instance.SaveChanges();
+                    if (media != null)
+                    {
+                        ViewModel.Instance.Media.Remove(media);
+                        ViewModel.Instance.SaveChanges();
 
-                    context.Page.Redirecting(context.Uri);
-                }
-            };
+                        context.Page.Redirecting(context.Uri);
+                    }
+                };
 
-            Text = context.Page.I18N("inventoryexpress.delete.label");
-            Icon = new PropertyIcon(TypeIcon.Trash);
-            BackgroundColor = new PropertyColorButton(TypeColorButton.Danger);
-            Value = media?.Created.ToString(context.Page.Culture.DateTimeFormat.ShortDatePattern);
-            Active = media != null ? TypeActive.None : TypeActive.Disabled;
+                Text = context.Page.I18N("inventoryexpress.delete.label");
+                Icon = new PropertyIcon(TypeIcon.Trash);
+                BackgroundColor = new PropertyColorButton(TypeColorButton.Danger);
+                Value = media?.Created.ToString(context.Page.Culture.DateTimeFormat.ShortDatePattern);
+                Active = media != null ? TypeActive.None : TypeActive.Disabled;
 
-            Modal = new ControlModal
-            (
-                "delete",
-                context.Page.I18N("inventoryexpress.media.delete.label"),
-                new ControlText()
-                {
-                    Text = context.Page.I18N("inventoryexpress.media.delete.description")
-                },
-                form
-            );
+                Modal = new ControlModal
+                (
+                    "delete",
+                    context.Page.I18N("inventoryexpress.media.delete.label"),
+                    new ControlText()
+                    {
+                        Text = context.Page.I18N("inventoryexpress.media.delete.description")
+                    },
+                    form
+                );
 
-            return base.Render(context);
+                return base.Render(context);
+            }
         }
     }
 }

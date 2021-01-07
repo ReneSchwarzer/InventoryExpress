@@ -30,40 +30,43 @@ namespace InventoryExpress.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var guid = context.Page.GetParamValue("SupplierID");
-            var supplier = ViewModel.Instance.Suppliers.Where(x => x.Guid == guid).FirstOrDefault();
-            var form = new ControlFormular("del") { EnableSubmitAndNextButton = false, EnableCancelButton = false, RedirectUri = Uri };
-            form.SubmitButton.Text = context.Page.I18N("inventoryexpress.delete.label");
-            form.SubmitButton.Icon = new PropertyIcon(TypeIcon.TrashAlt);
-            form.SubmitButton.Color = new PropertyColorButton(TypeColorButton.Danger);
-            form.ProcessFormular += (s, e) =>
+            lock (ViewModel.Instance.Database)
             {
-                if (supplier != null)
+                var guid = context.Page.GetParamValue("SupplierID");
+                var supplier = ViewModel.Instance.Suppliers.Where(x => x.Guid == guid).FirstOrDefault();
+                var form = new ControlFormular("del") { EnableSubmitAndNextButton = false, EnableCancelButton = false, RedirectUri = Uri };
+                form.SubmitButton.Text = context.Page.I18N("inventoryexpress.delete.label");
+                form.SubmitButton.Icon = new PropertyIcon(TypeIcon.TrashAlt);
+                form.SubmitButton.Color = new PropertyColorButton(TypeColorButton.Danger);
+                form.ProcessFormular += (s, e) =>
                 {
-                    ViewModel.Instance.Suppliers.Remove(supplier);
-                    ViewModel.Instance.SaveChanges();
+                    if (supplier != null)
+                    {
+                        ViewModel.Instance.Suppliers.Remove(supplier);
+                        ViewModel.Instance.SaveChanges();
 
-                    context.Page.Redirecting(context.Uri.Take(-1));
-                }
-            };
+                        context.Page.Redirecting(context.Uri.Take(-1));
+                    }
+                };
 
-            Text = context.Page.I18N("inventoryexpress.delete.label");
-            Icon = new PropertyIcon(TypeIcon.Trash);
-            BackgroundColor = new PropertyColorButton(TypeColorButton.Danger);
-            Value = supplier?.Created.ToString(context.Page.Culture.DateTimeFormat.ShortDatePattern);
+                Text = context.Page.I18N("inventoryexpress.delete.label");
+                Icon = new PropertyIcon(TypeIcon.Trash);
+                BackgroundColor = new PropertyColorButton(TypeColorButton.Danger);
+                Value = supplier?.Created.ToString(context.Page.Culture.DateTimeFormat.ShortDatePattern);
 
-            Modal = new ControlModal
-            (
-                "delete",
-                context.Page.I18N("inventoryexpress.supplier.delete.label"),
-                new ControlText()
-                {
-                    Text = context.Page.I18N("inventoryexpress.supplier.delete.description")
-                },
-                form
-            );
+                Modal = new ControlModal
+                (
+                    "delete",
+                    context.Page.I18N("inventoryexpress.supplier.delete.label"),
+                    new ControlText()
+                    {
+                        Text = context.Page.I18N("inventoryexpress.supplier.delete.description")
+                    },
+                    form
+                );
 
-            return base.Render(context);
+                return base.Render(context);
+            }
         }
     }
 }

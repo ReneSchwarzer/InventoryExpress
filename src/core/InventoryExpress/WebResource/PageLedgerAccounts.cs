@@ -1,5 +1,6 @@
 ﻿using InventoryExpress.Model;
 using InventoryExpress.WebControl;
+using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Attribute;
 using WebExpress.UI.WebControl;
@@ -38,8 +39,14 @@ namespace InventoryExpress.WebResource
             base.Process();
 
             var grid = new ControlPanelGrid() { Fluid = TypePanelContainer.Fluid };
+            var list = null as ICollection<LedgerAccount>;
 
-            foreach (var gLAccount in ViewModel.Instance.LedgerAccounts.OrderBy(x => x.Name))
+            lock (ViewModel.Instance.Database)
+            {
+                list = ViewModel.Instance.LedgerAccounts.OrderBy(x => x.Name).ToList();
+            }
+
+            foreach (var gLAccount in list)
             {
                 var card = new ControlCardLedgerAccount()
                 {

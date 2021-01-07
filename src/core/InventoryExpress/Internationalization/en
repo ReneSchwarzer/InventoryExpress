@@ -247,6 +247,13 @@ inventoryexpress.template.updatedate.description=
 inventoryexpress.template.validation.name.invalid=Enter a valid name!
 inventoryexpress.template.validation.name.used=The template is already in use. Enter a different name!
 
+inventoryexpress.settings.label=Settings
+inventoryexpress.settings.submit.label=Save
+inventoryexpress.settings.currency.label=Currency
+inventoryexpress.settings.currency.description=
+inventoryexpress.settings.currency.validation.null=No currency has been specified!
+inventoryexpress.settings.currency.validation.tolong=The currency consists of too many characters!
+
 inventoryexpress.condition.label=Condition
 inventoryexpress.condition.description=The condition of the inventory item.
 

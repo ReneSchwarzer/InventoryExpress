@@ -80,6 +80,11 @@ namespace InventoryExpress.Model
         public DbSet<Media> Media { get; set; }
 
         /// <summary>
+        /// Liefert oder setzt die Medien
+        /// </summary>
+        public DbSet<Setting> Settings { get; set; }
+
+        /// <summary>
         /// Konstruktor
         /// </summary>
         internal DB()
@@ -717,6 +722,17 @@ namespace InventoryExpress.Model
                     .WithMany(p => p.TemplateAttributes)
                     .HasForeignKey(d => d.TemplateId)
                     .OnDelete(DeleteBehavior.ClientSetNull);
+            });
+
+            modelBuilder.Entity<Setting>(entity =>
+            {
+                entity.ToTable("Setting");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.Currency)
+                    .IsRequired()
+                    .HasColumnType("VARCHAR (10)");
             });
         }
 

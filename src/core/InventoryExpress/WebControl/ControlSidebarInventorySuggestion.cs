@@ -28,29 +28,32 @@ namespace InventoryExpress.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var guid = context.Page.GetParamValue("InventoryID");
-            var inventories = ViewModel.Instance.Inventories.OrderBy(x => x.Name).ToList();
-
-            var index = inventories.FindIndex(x => x.Guid == guid);
-            var from = index - 10 >= 0 ? index - 10 : 0;
-            var till = index + 10 <= inventories.Count ? index + 10 : inventories.Count;
-
-            Layout = TypeLayoutTab.Pill;
-            Orientation = TypeOrientationTab.Vertical;
-            Margin = new PropertySpacingMargin(PropertySpacing.Space.Two);
-
-            for (int i = from; i < till; i++)
+            lock (ViewModel.Instance.Database)
             {
-                var inventory = inventories[i];
-                Items.Add(new ControlNavigationItemLink()
-                {
-                    Text = inventory?.Name,
-                    Uri = context.Uri.Take(-1).Append(inventory.Guid),
-                    Active = inventory.Guid == guid ? TypeActive.Active : TypeActive.None
-                });
-            }
+                var guid = context.Page.GetParamValue("InventoryID");
+                var inventories = ViewModel.Instance.Inventories.OrderBy(x => x.Name).ToList();
 
-            return base.Render(context);
+                var index = inventories.FindIndex(x => x.Guid == guid);
+                var from = index - 10 >= 0 ? index - 10 : 0;
+                var till = index + 10 <= inventories.Count ? index + 10 : inventories.Count;
+
+                Layout = TypeLayoutTab.Pill;
+                Orientation = TypeOrientationTab.Vertical;
+                Margin = new PropertySpacingMargin(PropertySpacing.Space.Two);
+
+                for (int i = from; i < till; i++)
+                {
+                    var inventory = inventories[i];
+                    Items.Add(new ControlNavigationItemLink()
+                    {
+                        Text = inventory?.Name,
+                        Uri = context.Uri.Take(-1).Append(inventory.Guid),
+                        Active = inventory.Guid == guid ? TypeActive.Active : TypeActive.None
+                    });
+                }
+
+                return base.Render(context);
+            }
         }
     }
 }
