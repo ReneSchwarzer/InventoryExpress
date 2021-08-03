@@ -8,25 +8,22 @@ namespace InventoryExpress.Model
     /// <summary>
     /// Inventar
     /// </summary>
-    [Table("INVENTORY")]
     public class Inventory : ItemTag
     {
         /// <summary>
         /// Der Anschaffungswert
         /// </summary>
-        [Column("COSTVALUE")]
         public decimal CostValue { get; set; }
 
         /// <summary>
         /// Die ID der Vorlage
         /// </summary>
-        [Column("TEMPLATEID")]
         public int? TemplateId { get; set; }
 
         /// <summary>
         /// Das Template
         /// </summary>
-        public virtual Template Template { get; set; }
+        public Template Template { get; set; }
 
         /// <summary>
         /// Die Zuschreibungen
@@ -41,19 +38,16 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Das Anschaffungsdatum
         /// </summary>
-        [Column("PURCHASEDATE")]
         public DateTime? PurchaseDate { get; set; }
 
         /// <summary>
         /// Das Abgangsdatum
         /// </summary>
-        [Column("DERECOGNITIONDATE")]
         public DateTime? DerecognitionDate { get; set; }
 
         /// <summary>
         /// Die ID des Standortes
         /// </summary>
-        [Column("LOCATIONID")]
         public int? LocationId { get; set; }
 
         /// <summary>
@@ -64,68 +58,62 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Die ID der Kostenstelle
         /// </summary>
-        [Column("COSTCENTERID")]
         public int? CostCenterId { get; set; }
 
         /// <summary>
         /// Die Kostenstelle
         /// </summary>
-        public virtual CostCenter CostCenter { get; set; }
+        public CostCenter CostCenter { get; set; }
 
         /// <summary>
         /// Die ID des Herstellers
         /// </summary>
-        [Column("MANUFACTURERID")]
         public int? ManufacturerId { get; set; }
 
         /// <summary>
         /// Der Hersteller
         /// </summary>
-        public virtual Manufacturer Manufacturer { get; set; }
+        public Manufacturer Manufacturer { get; set; }
 
         /// <summary>
         /// Die ID des Zustandes
         /// </summary>
-        [Column("CONDITIONID")]
         public int? ConditionId { get; set; }
 
         /// <summary>
         /// Der Zustand
         /// </summary>
-        public virtual Condition Condition { get; set; }
+        public Condition Condition { get; set; }
 
         /// <summary>
         /// Die ID des Lieferanten
         /// </summary>
-        [Column("SUPPLIERID")]
         public int? SupplierId { get; set; }
 
         /// <summary>
         /// Der Lieferant
         /// </summary>
-        public virtual Supplier Supplier { get; set; }
+        public Supplier Supplier { get; set; }
 
         /// <summary>
         /// Die ID des Sachkontos
         /// </summary>
-        [Column("LEDGERACCOUNTID")]
         public int? LedgerAccountId { get; set; }
 
         /// <summary>
         /// Das Sachkonto
         /// </summary>
-        public virtual LedgerAccount LedgerAccount { get; set; }
+        public LedgerAccount LedgerAccount { get; set; }
 
         /// <summary>
         /// Die ID übergeordneten Inventargegenstandes
         /// </summary>
-        [Column("PARENTID")]
         public int? ParentId { get; set; }
 
         /// <summary>
         /// Der übergeordnete Inventargegenstand
         /// </summary>
-        public virtual Inventory Parent { get; set; }
+        public Inventory Parent { get; set; }
 
         public virtual ICollection<InventoryAttribute> InventoryAttributes { get; set; }
         public virtual ICollection<InventoryMedia> InventoryMedia { get; set; }
@@ -139,12 +127,6 @@ namespace InventoryExpress.Model
         public Inventory()
             : base()
         {
-            InventoryAttributes = new HashSet<InventoryAttribute>();
-            InventoryMedia = new HashSet<InventoryMedia>();
-            InventoryComments = new HashSet<InventoryComment>();
-            InventoryJournals = new HashSet<InventoryJournal>();
-            Inventories = new HashSet<Inventory>();
-
             PurchaseDate = DateTime.Today;
         }
     }

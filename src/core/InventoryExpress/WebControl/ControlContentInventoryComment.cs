@@ -21,7 +21,7 @@ namespace InventoryExpress.WebControl
         public ControlContentInventoryComment()
         {
             Margin = new PropertySpacingMargin(PropertySpacing.Space.Two);
-            BackgroundColor = new PropertyColorBackground(TypeColorBackground.Info);
+            //BackgroundColor = new PropertyColorBackground(TypeColorBackground.Info);
         }
 
         /// <summary>

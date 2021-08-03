@@ -8,7 +8,7 @@ namespace InventoryExpress.WebControl
     public class ControlFormularSettings : ControlFormular
     {
         /// <summary>
-        /// Liefert oder setzt den Kommentar
+        /// Liefert oder setzt die Währung
         /// </summary>
         public ControlFormularItemInputTextBox Currency { get; set; }
 
@@ -39,7 +39,7 @@ namespace InventoryExpress.WebControl
 
             Currency = new ControlFormularItemInputTextBox("currency")
             {
-                Name = "comment",
+                Name = "currency",
                 Label = "inventoryexpress.settings.currency.label",
                 Help = "inventoryexpress.settings.currency.description",
                 Icon = new PropertyIcon(TypeIcon.EuroSign),

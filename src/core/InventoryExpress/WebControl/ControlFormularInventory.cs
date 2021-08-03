@@ -356,43 +356,43 @@ namespace InventoryExpress.WebControl
         /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         public override void PreProcess(RenderContext context)
         {
-            if (context.Page.HasParam(Template.Name))
-            {
-                var template = context.Page.GetParamValue(Template.Name);
-                foreach (var t in ViewModel.Instance.Templates.Where(x => x.Guid == template))
-                {
-                    var attributes = ViewModel.Instance.TemplateAttributes.Where(x => x.TemplateId == t.Id)
-                        .Join(ViewModel.Instance.Attributes, x => x.AttributeId, y => y.Id, (x, y) => y);
+            //if (context.Page.HasParam(Template.Name))
+            //{
+            //    var template = context.Page.GetParamValue(Template.Name);
+            //    foreach (var t in ViewModel.Instance.Templates.Where(x => x.Guid == template))
+            //    {
+            //        var attributes = ViewModel.Instance.TemplateAttributes.Where(x => x.TemplateId == t.Id)
+            //            .Join(ViewModel.Instance.Attributes, x => x.AttributeId, y => y.Id, (x, y) => y);
 
-                    foreach (var attribute in attributes)
-                    {
-                        Attributes.Items.Add(new ControlFormularItemInputTextBox()
-                        {
-                            Name = "attribute_" + attribute.Guid,
-                            Label = attribute.Name,
-                            Help = attribute.Description
-                        });
-                    }
-                }
-            }
-            else
-            {
-                foreach (var t in ViewModel.Instance.Templates.Where(x => x.Guid == Template.Value))
-                {
-                    var attributes = ViewModel.Instance.TemplateAttributes.Where(x => x.TemplateId == t.Id)
-                        .Join(ViewModel.Instance.Attributes, x => x.AttributeId, y => y.Id, (x, y) => y);
+            //        foreach (var attribute in attributes)
+            //        {
+            //            Attributes.Items.Add(new ControlFormularItemInputTextBox()
+            //            {
+            //                Name = "attribute_" + attribute.Guid,
+            //                Label = attribute.Name,
+            //                Help = attribute.Description
+            //            });
+            //        }
+            //    }
+            //}
+            //else
+            //{
+            //    foreach (var t in ViewModel.Instance.Templates.Where(x => x.Guid == Template.Value))
+            //    {
+            //        var attributes = ViewModel.Instance.TemplateAttributes.Where(x => x.TemplateId == t.Id)
+            //            .Join(ViewModel.Instance.Attributes, x => x.AttributeId, y => y.Id, (x, y) => y);
 
-                    foreach (var attribute in attributes)
-                    {
-                        Attributes.Items.Add(new ControlFormularItemInputTextBox()
-                        {
-                            Name = "attribute_" + attribute.Guid,
-                            Label = attribute.Name,
-                            Help = attribute.Description
-                        });
-                    }
-                }
-            }
+            //        foreach (var attribute in attributes)
+            //        {
+            //            Attributes.Items.Add(new ControlFormularItemInputTextBox()
+            //            {
+            //                Name = "attribute_" + attribute.Guid,
+            //                Label = attribute.Name,
+            //                Help = attribute.Description
+            //            });
+            //        }
+            //    }
+            //}
         }
 
         /// <summary>

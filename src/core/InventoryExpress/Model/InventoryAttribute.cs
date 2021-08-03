@@ -10,26 +10,30 @@ namespace InventoryExpress.Model
     /// <summary>
     /// Attribute eines Inventars
     /// </summary>
-    [Table("INVENTORYATTRIBUTE")]
     public partial class InventoryAttribute
     {
         public int InventoryId { get; set; }
+        public Inventory Inventory { get; set; }
 
         public int AttributeId { get; set; }
+        public Attribute Attribute { get; set; }
 
         /// <summary>
         /// Der Wert
         /// </summary>
-        [Column("VALUE")]
         public string Value { get; set; }
 
         /// <summary>
         /// Der Zeitstempel der Erstellung
         /// </summary>
-        [Column("CREATED")]
         public DateTime Created { get; set; }
 
-        public virtual Attribute Attribute { get; set; }
-        public virtual Inventory Inventory { get; set; }
+        /// <summary>
+        /// Konstruktor
+        /// </summary>
+        public InventoryAttribute()
+            : base()
+        {
+        }
     }
 }

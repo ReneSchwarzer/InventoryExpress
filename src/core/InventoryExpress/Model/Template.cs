@@ -6,7 +6,6 @@ namespace InventoryExpress.Model
     /// <summary>
     /// Vorlage
     /// </summary>
-    [Table("TEMPLATE")]
     public class Template : ItemTag
     {
         /// <summary>
@@ -15,7 +14,6 @@ namespace InventoryExpress.Model
         public virtual ICollection<TemplateAttribute> TemplateAttributes { get; set; }
 
         public virtual ICollection<Inventory> Inventories { get; set; }
-        
 
         /// <summary>
         /// Konstruktor
@@ -23,8 +21,6 @@ namespace InventoryExpress.Model
         public Template()
             : base()
         {
-            Inventories = new HashSet<Inventory>();
-            TemplateAttributes = new HashSet<TemplateAttribute>();
         }
     }
 }

@@ -5,11 +5,12 @@
     <TargetFramework>net5.0</TargetFramework>
     <Version>1.0.0.0</Version>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <PackageLicenseExpression>GNU General Public License v3.0</PackageLicenseExpression>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/ReneSchwarzer/InventoryExpress.git</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\WebExpress.Agent\src\core\WebExpress.Agent\WebExpress.Agent.csproj" />
     <ProjectReference Include="..\..\..\..\WebExpress\core\WebExpress.UI\WebExpress.UI.csproj" />
     <ProjectReference Include="..\..\..\..\WebExpress\core\WebExpress\WebExpress.csproj" />
     <ProjectReference Include="..\InventoryExpress\InventoryExpress.csproj" />

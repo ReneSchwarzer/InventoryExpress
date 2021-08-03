@@ -6,7 +6,6 @@ namespace InventoryExpress.Model
     /// <summary>
     /// Sachkonto
     /// </summary>
-    [Table("LEDGERACCOUNT")]
     public class LedgerAccount : ItemTag
     {
         public virtual ICollection<Inventory> Inventories { get; set; }
@@ -17,7 +16,6 @@ namespace InventoryExpress.Model
         public LedgerAccount()
             : base()
         {
-            Inventories = new HashSet<Inventory>();
         }
     }
 }

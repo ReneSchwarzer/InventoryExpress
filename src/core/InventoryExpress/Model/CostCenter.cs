@@ -6,7 +6,6 @@ namespace InventoryExpress.Model
     /// <summary>
     /// Kostenstelle
     /// </summary>
-    [Table("COSTCENTER")]
     public class CostCenter : ItemTag
     {
         public virtual ICollection<Inventory> Inventories { get; set; }
@@ -17,7 +16,6 @@ namespace InventoryExpress.Model
         public CostCenter()
             : base()
         {
-            Inventories = new HashSet<Inventory>();
         }
     }
 }

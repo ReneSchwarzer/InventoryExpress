@@ -1,4 +1,6 @@
 ﻿using InventoryExpress.Model;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Attribute;
 using WebExpress.Html;
@@ -100,12 +102,12 @@ namespace InventoryExpress.WebControl
                     TextColor = new PropertyColorText(TypeColorText.Secondary)
                 }));
 
-                foreach (var v in inventory?.InventoryAttributes)
+                foreach (var v in inventory?.InventoryAttributes != null ? inventory?.InventoryAttributes : new List<InventoryAttribute>())
                 {
                     Add(new ControlListItem(new ControlAttribute()
                     {
-                        Name = "???:",
-                        Icon = new PropertyIcon(TypeIcon.MapMarker),
+                        Name = v.Attribute.Name + ":",
+                        Icon = new PropertyIcon(TypeIcon.Cube),
                         Value = v.Value,
                         TextColor = new PropertyColorText(TypeColorText.Secondary)
                     }));

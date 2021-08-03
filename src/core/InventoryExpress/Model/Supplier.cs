@@ -18,7 +18,6 @@ namespace InventoryExpress.Model
         public Supplier()
             : base()
         {
-            Inventories = new HashSet<Inventory>();
         }
     }
 }

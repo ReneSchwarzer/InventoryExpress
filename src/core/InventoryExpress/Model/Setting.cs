@@ -6,7 +6,6 @@ namespace InventoryExpress.Model
     /// <summary>
     /// Einstellungen
     /// </summary>
-    [Table("SETTING")]
     public class Setting
     {
         /// <summary>
@@ -18,7 +17,6 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Die Währung
         /// </summary>
-        [StringLength(10), Column("CURRENCY")]
         public string Currency { get; set; }
 
         /// <summary>

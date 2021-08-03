@@ -6,11 +6,13 @@ namespace InventoryExpress.Model
     /// <summary>
     /// Vorlagenattribute
     /// </summary>
-    [Table("ATTRIBUTE")]
     public class Attribute : Item
     {
-        public virtual ICollection<InventoryAttribute> InventoryAttributes { get; set; }
+        /// <summary>
+        /// Liefert oder setzt die Attribute
+        /// </summary>
         public virtual ICollection<TemplateAttribute> TemplateAttributes { get; set; }
+        public virtual ICollection<InventoryAttribute> InventoryAttributes { get; set; }
 
         /// <summary>
         /// Konstruktor
@@ -18,8 +20,8 @@ namespace InventoryExpress.Model
         public Attribute()
             : base()
         {
-            InventoryAttributes = new HashSet<InventoryAttribute>();
-            TemplateAttributes = new HashSet<TemplateAttribute>();
+            //InventoryAttributes = new HashSet<InventoryAttribute>();
+            //TemplateAttributes = new HashSet<TemplateAttribute>();
         }
     }
 }

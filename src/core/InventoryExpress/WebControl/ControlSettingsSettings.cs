@@ -38,7 +38,7 @@ namespace InventoryExpress.WebControl
         {
             Text = context.I18N("inventoryexpress.settings.label");
             Uri = context.Page.Uri.Root.Append("settings");
-            Active = context.Page is IPageTemplate ? TypeActive.Active : TypeActive.None;
+            Active = context.Page is IPageSetting ? TypeActive.Active : TypeActive.None;
             Icon = new PropertyIcon(TypeIcon.Cog);
 
             return base.Render(context);

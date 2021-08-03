@@ -15,43 +15,36 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Liefert oder setzt den Namen
         /// </summary>
-        [StringLength(64), Required, Column("NAME")]
         public string Name { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Beschreibung
         /// </summary>
-        [Column("DESCRIPTION")]
         public string Description { get; set; }
 
         /// <summary>
         /// Der Zeitstempel der Erstellung
         /// </summary>
-        [Column("CREATED")]
         public DateTime Created { get; set; }
 
         /// <summary>
         /// Der Zeitstempel der letzten Änderung
         /// </summary>
-        [Column("UPDATED")]
         public DateTime Updated { get; set; }
 
         /// <summary>
         /// Die GUID
         /// </summary>
-        [StringLength(36), Column("GUID")]
         public string Guid { get; set; }
 
         /// <summary>
         /// Das Bild
         /// </summary>
-        [Column("MEDIAID")]
-        public int? MediaId { get; set; }
+          public int? MediaId { get; set; }
 
         /// <summary>
         /// Das Bild
         /// </summary>
-        [ForeignKey("MediaId")]
         public virtual Media Media { get; set; }
 
         /// <summary>

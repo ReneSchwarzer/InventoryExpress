@@ -8,7 +8,6 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Die Postleitzahl
         /// </summary>
-        [StringLength(256), Column("TAG")]
         public string Tag { get; set; }
 
         /// <summary>

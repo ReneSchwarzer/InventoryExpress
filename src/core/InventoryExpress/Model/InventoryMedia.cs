@@ -10,7 +10,6 @@ namespace InventoryExpress.Model
     /// <summary>
     /// Medien eines Inventargegenstandes
     /// </summary>
-    [Table("INVENTORYMEDIA")]
     public partial class InventoryMedia
     {
         public int InventoryId { get; set; }
@@ -20,7 +19,6 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Der Zeitstempel der Erstellung
         /// </summary>
-        [Column("CREATED")]
         public DateTime Created { get; set; }
 
         public virtual Media Media { get; set; }
