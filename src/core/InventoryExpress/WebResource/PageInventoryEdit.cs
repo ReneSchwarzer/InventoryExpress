@@ -63,7 +63,7 @@ namespace InventoryExpress.WebResource
                     var template = ViewModel.Instance.Templates.Where(x => x.Guid == templateGUID).FirstOrDefault();
 
                     // nur gefüllte Attribute übernehmen
-                    attributes.AddRange(ViewModel.Instance.InventoryAttributes.Where(x => !string.IsNullOrWhiteSpace(x.Value)));
+                    attributes.AddRange(ViewModel.Instance.InventoryAttributes.Where(x => x.InventoryId == inventory.Id && !string.IsNullOrWhiteSpace(x.Value)));
 
                     // Template-Attribute übernehmen
                     foreach (var ta in ViewModel.Instance.TemplateAttributes.Where(x => x.TemplateId == template.Id))

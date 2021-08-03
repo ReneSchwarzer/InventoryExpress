@@ -102,11 +102,15 @@ namespace InventoryExpress.WebControl
                     TextColor = new PropertyColorText(TypeColorText.Secondary)
                 }));
 
-                foreach (var v in inventory?.InventoryAttributes != null ? inventory?.InventoryAttributes : new List<InventoryAttribute>())
+                var inventoryAttributes = ViewModel.Instance.InventoryAttributes.Where(x => x.InventoryId == inventory.Id).ToList();
+
+                foreach (var v in inventoryAttributes)
                 {
+                    var att = ViewModel.Instance.Attributes.Where(x => x.Id == v.AttributeId).FirstOrDefault();
+
                     Add(new ControlListItem(new ControlAttribute()
                     {
-                        Name = v.Attribute.Name + ":",
+                        Name = att?.Name + ":",
                         Icon = new PropertyIcon(TypeIcon.Cube),
                         Value = v.Value,
                         TextColor = new PropertyColorText(TypeColorText.Secondary)
