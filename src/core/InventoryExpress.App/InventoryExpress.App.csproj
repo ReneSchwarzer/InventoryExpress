@@ -10,7 +10,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\WebExpress.Agent\src\core\WebExpress.Agent\WebExpress.Agent.csproj" />
     <ProjectReference Include="..\..\..\..\WebExpress\core\WebExpress.UI\WebExpress.UI.csproj" />
     <ProjectReference Include="..\..\..\..\WebExpress\core\WebExpress\WebExpress.csproj" />
     <ProjectReference Include="..\InventoryExpress\InventoryExpress.csproj" />
