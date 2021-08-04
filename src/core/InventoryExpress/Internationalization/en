@@ -20,6 +20,10 @@ inventoryexpress.inventory.edit.label=Edit inventory item
 inventoryexpress.inventory.edit.display={0}
 inventoryexpress.inventory.media.label=Edit image
 inventoryexpress.inventory.media.display=Image
+inventoryexpress.inventory.attachment.label=Edit attachments
+inventoryexpress.inventory.attachment.display=Attachments 
+inventoryexpress.inventory.attachment.function=Attachments
+inventoryexpress.inventory.attachment.back=Back 
 inventoryexpress.inventory.delete.label=Deleting inventory
 inventoryexpress.inventory.delete.description=Are you sure you want to delete the inventory?
 inventoryexpress.inventory.name.label=Name:
@@ -66,8 +70,13 @@ inventoryexpress.inventory.details.totalacquisitioncosts.label=Total acquisition
 
 inventoryexpress.media.form.image.label=Image
 inventoryexpress.media.form.image.description=
+inventoryexpress.media.form.file.label=Document
+inventoryexpress.media.form.file.description=
 inventoryexpress.media.delete.label=Delete image
-inventoryexpress.media.delete.description==Are you sure you want to delete the image?
+inventoryexpress.media.delete.description=Are you sure you want to delete the image?
+inventoryexpress.media.file.delete.label=Delete document
+inventoryexpress.media.file.delete.description=Are you sure you want to delete the document?
+inventoryexpress.media.file.add.label=Insert document
 inventoryexpress.media.creationdate.label=Creation date
 inventoryexpress.media.updatedate.label=Last update
 inventoryexpress.media.size.label=Size

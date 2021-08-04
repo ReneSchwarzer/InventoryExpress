@@ -151,16 +151,15 @@ CREATE TABLE InventoryAttribute
 (
     InventoryID 	    INTEGER			NOT NULL REFERENCES Inventory (ID),
     AttributeID 	    INTEGER			NOT NULL REFERENCES Attribute (ID),
-    Value 		        TEXT
+    Value 		        TEXT,
     Created 	        TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	PRIMARY KEY (InventoryID, AtrtributeID)
 );
 
-CREATE TABLE InventoryMedia     
+CREATE TABLE InventoryAttachment     
 (
     InventoryID 	    INTEGER			NOT NULL REFERENCES Inventory (ID),
     MediaID 	        INTEGER			NOT NULL REFERENCES Media (ID),
-    Value 		        TEXT
     Created 	        TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	PRIMARY KEY (InventoryID, MediaID)
 );

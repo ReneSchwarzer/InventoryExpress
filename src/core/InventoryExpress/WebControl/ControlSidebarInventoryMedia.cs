@@ -12,6 +12,8 @@ namespace InventoryExpress.WebControl
     [Section(Section.SidebarPreferences)]
     [Application("InventoryExpress")]
     [Context("inventorydetails")]
+    [Context("attachment")]
+    [Context("inventoryedit")]
     public sealed class ControlSidebarInventoryMedia : ControlLink, IComponent
     {
         /// <summary>

@@ -116,7 +116,7 @@ namespace InventoryExpress.Model
         public Inventory Parent { get; set; }
 
         public virtual ICollection<InventoryAttribute> InventoryAttributes { get; set; }
-        public virtual ICollection<InventoryMedia> InventoryMedia { get; set; }
+        public virtual ICollection<InventoryAttachment> InventoryMedia { get; set; }
         public virtual ICollection<InventoryComment> InventoryComments { get; set; }
         public virtual ICollection<InventoryJournal> InventoryJournals { get; set; }
         public virtual ICollection<Inventory> Inventories { get; set; }

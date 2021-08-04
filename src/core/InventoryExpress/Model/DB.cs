@@ -15,9 +15,9 @@ namespace InventoryExpress.Model
         public DbSet<InventoryAttribute> InventoryAttributes { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Medien der Inventargegenstände
+        /// Liefert oder setzt die Datei-Anhänge der Inventargegenstände
         /// </summary>
-        public DbSet<InventoryMedia> InventoryMedia { get; set; }
+        public DbSet<InventoryAttachment> InventoryAttachment { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Kommentare der Inventargegenstände

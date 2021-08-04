@@ -12,6 +12,8 @@ namespace InventoryExpress.WebControl
     [Section(Section.SidebarPrimary)]
     [Application("InventoryExpress")]
     [Context("inventorydetails")]
+    [Context("attachment")]
+    [Context("inventoryedit")]
     public sealed class ControlSidebarInventorySuggestion : ControlNavigation, IComponent
     {
         /// <summary>
@@ -34,8 +36,8 @@ namespace InventoryExpress.WebControl
                 var inventories = ViewModel.Instance.Inventories.OrderBy(x => x.Name).ToList();
 
                 var index = inventories.FindIndex(x => x.Guid == guid);
-                var from = index - 10 >= 0 ? index - 10 : 0;
-                var till = index + 10 <= inventories.Count ? index + 10 : inventories.Count;
+                var from = index - 30 >= 0 ? index - 30 : 0;
+                var till = index + 30 <= inventories.Count ? index + 30 : inventories.Count;
 
                 Layout = TypeLayoutTab.Pill;
                 Orientation = TypeOrientationTab.Vertical;
@@ -47,7 +49,7 @@ namespace InventoryExpress.WebControl
                     Items.Add(new ControlNavigationItemLink()
                     {
                         Text = inventory?.Name,
-                        Uri = context.Uri.Take(-1).Append(inventory.Guid),
+                        Uri = context.Uri.Root.Append(inventory.Guid),
                         Active = inventory.Guid == guid ? TypeActive.Active : TypeActive.None
                     });
                 }

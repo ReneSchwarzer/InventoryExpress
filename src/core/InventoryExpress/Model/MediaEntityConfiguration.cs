@@ -24,6 +24,9 @@ namespace InventoryExpress.Model
             builder.Property(e => e.Tag)
                    .HasColumnName("Tag")
                    .HasColumnType("VARCHAR (256)");
+            
+            builder.Property(e => e.Data)
+                   .HasColumnName("Data");
 
             builder.Property(e => e.Created)
                    .HasColumnName("Created")
