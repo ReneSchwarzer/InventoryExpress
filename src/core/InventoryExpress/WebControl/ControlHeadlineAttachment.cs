@@ -10,10 +10,10 @@ using WebExpress.WebApp.Components;
 
 namespace InventoryExpress.WebControl
 {
-    [Section(Section.HeadlinePrimary)]
+    [Section(Section.HeadlineSecondary)]
     [Application("InventoryExpress")]
     [Context("inventorydetails")]
-    public sealed class ControlHeadlineAttachment : ControlLink, IComponent
+    public sealed class ControlHeadlineAttachment : ControlButtonLink, IComponent
     {
         /// <summary>
         /// Konstruktor
@@ -22,6 +22,8 @@ namespace InventoryExpress.WebControl
         {
             Margin = new PropertySpacingMargin(PropertySpacing.Space.Two);
             Icon = new PropertyIcon(TypeIcon.PaperClip);
+            Outline = true;
+            BackgroundColor = new PropertyColorButton(TypeColorButton.Secondary);
         }
 
         /// <summary>
@@ -31,7 +33,14 @@ namespace InventoryExpress.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            Text = context.Page.I18N("inventoryexpress.inventory.attachment.function");
+            var guid = context.Page.GetParamValue("InventoryID");
+            var count = (from i in ViewModel.Instance.Inventories
+                         join a in ViewModel.Instance.InventoryAttachment
+                         on i.Id equals a.InventoryId
+                         where i.Guid == guid
+                         select a).Count();
+
+            Text = context.Page.I18N("inventoryexpress.inventory.attachment.function") + $" ({ count })";
             Uri = context.Uri.Append("attachments");
 
             return base.Render(context);

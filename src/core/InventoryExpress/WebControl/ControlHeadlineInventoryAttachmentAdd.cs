@@ -13,7 +13,7 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebControl
 {
-    [Section(Section.HeadlineSecondary)]
+    [Section(Section.MoreSecondary)]
     [Application("InventoryExpress")]
     [Context("attachment")]
     public sealed class ControlHeadlineInventoryAttachmentAdd : ControlButtonLink, IComponent

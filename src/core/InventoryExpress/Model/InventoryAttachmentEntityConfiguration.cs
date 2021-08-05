@@ -23,12 +23,12 @@ namespace InventoryExpress.Model
             builder.HasOne(d => d.Media)
                 .WithMany(p => p.InventoryAttachment)
                 .HasForeignKey(d => d.MediaId)
-                .OnDelete(DeleteBehavior.ClientSetNull);
+                .OnDelete(DeleteBehavior.ClientCascade);
 
             builder.HasOne(d => d.Inventory)
                 .WithMany(p => p.InventoryMedia)
                 .HasForeignKey(d => d.InventoryId)
-                .OnDelete(DeleteBehavior.ClientSetNull);
+                .OnDelete(DeleteBehavior.ClientCascade);
         }
     }
 }

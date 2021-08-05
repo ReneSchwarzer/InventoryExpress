@@ -149,8 +149,8 @@ CREATE TABLE Inventory
 
 CREATE TABLE InventoryAttribute     
 (
-    InventoryID 	    INTEGER			NOT NULL REFERENCES Inventory (ID),
-    AttributeID 	    INTEGER			NOT NULL REFERENCES Attribute (ID),
+    InventoryID 	    INTEGER			NOT NULL REFERENCES Inventory (ID) ON DELETE CASCADE,
+    AttributeID 	    INTEGER			NOT NULL REFERENCES Attribute (ID) ON DELETE CASCADE,
     Value 		        TEXT,
     Created 	        TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	PRIMARY KEY (InventoryID, AtrtributeID)
@@ -158,8 +158,8 @@ CREATE TABLE InventoryAttribute
 
 CREATE TABLE InventoryAttachment     
 (
-    InventoryID 	    INTEGER			NOT NULL REFERENCES Inventory (ID),
-    MediaID 	        INTEGER			NOT NULL REFERENCES Media (ID),
+    InventoryID 	    INTEGER			NOT NULL REFERENCES Inventory (ID) ON DELETE CASCADE,
+    MediaID 	        INTEGER			NOT NULL REFERENCES Media (ID) ON DELETE CASCADE,
     Created 	        TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	PRIMARY KEY (InventoryID, MediaID)
 );
@@ -167,7 +167,7 @@ CREATE TABLE InventoryAttachment
 CREATE TABLE InventoryComment    
 (
     ID                  INTEGER			PRIMARY KEY AUTOINCREMENT NOT NULL,
-    InventoryID 	    INTEGER			NOT NULL REFERENCES Inventory (ID),
+    InventoryID 	    INTEGER			NOT NULL REFERENCES Inventory (ID) ON DELETE CASCADE,
     Comment 		    TEXT,
     Created 	        TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
     Updated 	        TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
@@ -177,7 +177,7 @@ CREATE TABLE InventoryComment
 CREATE TABLE InventoryJournal    
 (
     ID                  INTEGER			PRIMARY KEY AUTOINCREMENT NOT NULL,
-    InventoryID 	    INTEGER			NOT NULL REFERENCES Inventory (ID),
+    InventoryID 	    INTEGER			NOT NULL REFERENCES Inventory (ID) ON DELETE CASCADE,
     Action 		        VARCHAR(256),
     ActionParam 	    VARCHAR(256),
     Created 	        TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL,

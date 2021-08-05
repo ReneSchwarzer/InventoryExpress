@@ -67,6 +67,7 @@ inventoryexpress.inventory.validation.costvalue.negativ=The acquisition value mu
 inventoryexpress.inventory.validation.costvalue.invalid=The acquisition value is not a valid number!
 inventoryexpress.inventory.details.count.label=Number of inventory items:
 inventoryexpress.inventory.details.totalacquisitioncosts.label=Total acquisition costs:
+inventoryexpress.inventory.more=...
 
 inventoryexpress.media.form.image.label=Image
 inventoryexpress.media.form.image.description=

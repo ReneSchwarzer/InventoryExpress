@@ -67,6 +67,7 @@ inventoryexpress.inventory.validation.costvalue.negativ=Der Anschaffungswert dar
 inventoryexpress.inventory.validation.costvalue.invalid=Der Anschaffungswert ist keine gültige Zahl!
 inventoryexpress.inventory.details.count.label=Anzahl der Inventargegenstände:
 inventoryexpress.inventory.details.totalacquisitioncosts.label=Gesamtanschaffungskosten:
+inventoryexpress.inventory.more=...
 
 inventoryexpress.media.form.image.label=Bild
 inventoryexpress.media.form.image.description=

@@ -10,11 +10,11 @@ using WebExpress.WebApp.Components;
 
 namespace InventoryExpress.WebControl
 {
-    [Section(Section.HeadlinePrimary)]
+    [Section(Section.HeadlinePrologue)]
     [Application("InventoryExpress")]
     [Context("attachment")]
     [Context("inventoryedit")]
-    public sealed class ControlHeadlineBack : ControlLink, IComponent
+    public sealed class ControlHeadlineBack : ControlButtonLink, IComponent
     {
         /// <summary>
         /// Konstruktor
@@ -23,6 +23,8 @@ namespace InventoryExpress.WebControl
         {
             Margin = new PropertySpacingMargin(PropertySpacing.Space.Two);
             Icon = new PropertyIcon(TypeIcon.ArrowLeft);
+            Outline = true;
+            BackgroundColor = new PropertyColorButton(TypeColorButton.Secondary);
         }
 
         /// <summary>

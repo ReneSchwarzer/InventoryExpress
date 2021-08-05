@@ -30,7 +30,7 @@ namespace InventoryExpress.Model
             builder.HasOne(d => d.Inventory)
                 .WithMany(p => p.InventoryComments)
                 .HasForeignKey(d => d.InventoryId)
-                .OnDelete(DeleteBehavior.ClientSetNull);
+                .OnDelete(DeleteBehavior.ClientCascade);
         }
     }
 }
