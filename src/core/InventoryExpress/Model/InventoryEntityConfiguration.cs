@@ -90,27 +90,33 @@ namespace InventoryExpress.Model
 
             builder.HasOne(d => d.Condition)
                    .WithMany(p => p.Inventories)
-                   .HasForeignKey(d => d.ConditionId);
+                   .HasForeignKey(d => d.ConditionId)
+                   .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(d => d.CostCenter)
                    .WithMany(p => p.Inventories)
-                   .HasForeignKey(d => d.CostCenterId);
+                   .HasForeignKey(d => d.CostCenterId)
+                   .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(d => d.LedgerAccount)
                    .WithMany(p => p.Inventories)
-                   .HasForeignKey(d => d.LedgerAccountId);
+                   .HasForeignKey(d => d.LedgerAccountId)
+                   .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(d => d.Location)
                    .WithMany(p => p.Inventories)
-                   .HasForeignKey(d => d.LocationId);
+                   .HasForeignKey(d => d.LocationId)
+                   .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(d => d.Manufacturer)
                    .WithMany(p => p.Inventories)
-                   .HasForeignKey(d => d.ManufacturerId);
+                   .HasForeignKey(d => d.ManufacturerId)
+                   .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(d => d.Parent)
                    .WithMany(p => p.Inventories)
-                   .HasForeignKey(d => d.ParentId);
+                   .HasForeignKey(d => d.ParentId)
+                    .OnDelete(DeleteBehavior.SetNull);
 
             builder.HasOne(d => d.Media)
                    .WithMany(p => p.Inventories)
@@ -119,11 +125,13 @@ namespace InventoryExpress.Model
 
             builder.HasOne(d => d.Supplier)
                    .WithMany(p => p.Inventories)
-                   .HasForeignKey(d => d.SupplierId);
+                   .HasForeignKey(d => d.SupplierId)
+                   .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(d => d.Template)
                    .WithMany(p => p.Inventories)
-                   .HasForeignKey(d => d.TemplateId);
+                   .HasForeignKey(d => d.TemplateId)
+                   .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

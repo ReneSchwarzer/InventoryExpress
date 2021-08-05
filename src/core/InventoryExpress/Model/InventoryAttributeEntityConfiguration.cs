@@ -33,12 +33,12 @@ namespace InventoryExpress.Model
             builder.HasOne(d => d.Attribute)
                    .WithMany(p => p.InventoryAttributes)
                    .HasForeignKey(d => d.AttributeId)
-                   .OnDelete(DeleteBehavior.ClientCascade);
+                   .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne(d => d.Inventory)
                    .WithMany(p => p.InventoryAttributes)
                    .HasForeignKey(d => d.InventoryId)
-                   .OnDelete(DeleteBehavior.ClientCascade);
+                   .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

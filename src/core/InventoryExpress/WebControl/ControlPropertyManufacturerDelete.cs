@@ -1,4 +1,5 @@
 ﻿using InventoryExpress.Model;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using WebExpress.Attribute;
 using WebExpress.Html;
@@ -35,6 +36,7 @@ namespace InventoryExpress.WebControl
                 var guid = context.Page.GetParamValue("ManufacturerID");
                 var manufactur = ViewModel.Instance.Manufacturers.Where(x => x.Guid == guid).FirstOrDefault();
                 var form = new ControlFormular("del") { EnableSubmitAndNextButton = false, EnableCancelButton = false, RedirectUri = Uri };
+                
                 form.SubmitButton.Text = context.Page.I18N("inventoryexpress.delete.label");
                 form.SubmitButton.Icon = new PropertyIcon(TypeIcon.TrashAlt);
                 form.SubmitButton.Color = new PropertyColorButton(TypeColorButton.Danger);
@@ -42,10 +44,17 @@ namespace InventoryExpress.WebControl
                 {
                     if (manufactur != null)
                     {
-                        ViewModel.Instance.Manufacturers.Remove(manufactur);
-                        ViewModel.Instance.SaveChanges();
-
-                        context.Page.Redirecting(context.Uri.Take(-1));
+                        try
+                        {
+                            ViewModel.Instance.Manufacturers.Remove(manufactur);
+                            ViewModel.Instance.SaveChanges();
+                            
+                            context.Page.Redirecting(context.Uri.Take(-1));
+                        }
+                        catch (DbUpdateException ex)
+                        {
+                            //context.Page.AddMessage(context.Page.I18N("inventoryexpress.manufacturer.delete.error", MessageType.Error));
+                        }
                     }
                 };
 
