@@ -33,15 +33,18 @@ namespace InventoryExpress.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var guid = context.Page.GetParamValue("InventoryID");
-            var count = (from i in ViewModel.Instance.Inventories
-                         join a in ViewModel.Instance.InventoryAttachment
-                         on i.Id equals a.InventoryId
-                         where i.Guid == guid
-                         select a).Count();
+            lock (ViewModel.Instance.Database)
+            {
+                var guid = context.Page.GetParamValue("InventoryID");
+                var count = (from i in ViewModel.Instance.Inventories
+                             join a in ViewModel.Instance.InventoryAttachment
+                             on i.Id equals a.InventoryId
+                             where i.Guid == guid
+                             select a).Count();
 
-            Text = context.Page.I18N("inventoryexpress.inventory.attachment.function") + $" ({ count })";
-            Uri = context.Uri.Append("attachments");
+                Text = context.Page.I18N("inventoryexpress.inventory.attachment.function") + $" ({ count })";
+                Uri = context.Uri.Append("attachments");
+            }
 
             return base.Render(context);
         }
