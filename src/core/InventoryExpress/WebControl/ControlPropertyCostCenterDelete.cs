@@ -33,7 +33,7 @@ namespace InventoryExpress.WebControl
             lock (ViewModel.Instance.Database)
             {
                 var guid = context.Page.GetParamValue("CostCenterID");
-                var costCenter = ViewModel.Instance.LedgerAccounts.Where(x => x.Guid == guid).FirstOrDefault();
+                var costCenter = ViewModel.Instance.CostCenters.Where(x => x.Guid == guid).FirstOrDefault();
                 var form = new ControlFormular("del") { EnableSubmitAndNextButton = false, EnableCancelButton = false, RedirectUri = Uri };
                 form.SubmitButton.Text = context.Page.I18N("inventoryexpress.delete.label");
                 form.SubmitButton.Icon = new PropertyIcon(TypeIcon.TrashAlt);
@@ -42,7 +42,7 @@ namespace InventoryExpress.WebControl
                 {
                     if (costCenter != null)
                     {
-                        ViewModel.Instance.LedgerAccounts.Remove(costCenter);
+                        ViewModel.Instance.CostCenters.Remove(costCenter);
                         ViewModel.Instance.SaveChanges();
 
                         context.Page.Redirecting(context.Uri.Take(-1));
