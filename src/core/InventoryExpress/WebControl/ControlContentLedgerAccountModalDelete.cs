@@ -10,17 +10,20 @@ using WebExpress.WebApp.Components;
 
 namespace InventoryExpress.WebControl
 {
-    [Section(Section.PropertySecondary)]
+    /// <summary>
+    /// Modal zum Löschen eines Sachkontos. Wird von der Komponetne ControlMoreLedgerAccountDelete aufgerufen
+    /// </summary>
+    [Section(Section.ContentSecondary)]
     [Application("InventoryExpress")]
     [Context("ledgeraccountedit")]
-    public sealed class ControlPropertyLedgerAccountDelete : ControlButtonLink, IComponent
+    public sealed class ControlContentLedgerAccountModalDelete : ControlModal, IComponent
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public ControlPropertyLedgerAccountDelete()
+        public ControlContentLedgerAccountModalDelete()
+           : base("del_ledgeraccount_modal")
         {
-            Margin = new PropertySpacingMargin(PropertySpacing.Space.Two);
         }
 
         /// <summary>
@@ -34,7 +37,8 @@ namespace InventoryExpress.WebControl
             {
                 var guid = context.Page.GetParamValue("LedgerAccountID");
                 var ledgerAccount = ViewModel.Instance.LedgerAccounts.Where(x => x.Guid == guid).FirstOrDefault();
-                var form = new ControlFormular("del") { EnableSubmitAndNextButton = false, EnableCancelButton = false, RedirectUri = Uri };
+                var form = new ControlFormular("del_form") { EnableSubmitAndNextButton = false, EnableCancelButton = false, RedirectUri = context.Page.Uri };
+
                 form.SubmitButton.Text = context.Page.I18N("inventoryexpress.delete.label");
                 form.SubmitButton.Icon = new PropertyIcon(TypeIcon.TrashAlt);
                 form.SubmitButton.Color = new PropertyColorButton(TypeColorButton.Danger);
@@ -49,21 +53,12 @@ namespace InventoryExpress.WebControl
                     }
                 };
 
-                Text = context.Page.I18N("inventoryexpress.delete.label");
-                Icon = new PropertyIcon(TypeIcon.Trash);
-                BackgroundColor = new PropertyColorButton(TypeColorButton.Danger);
-                Value = ledgerAccount?.Created.ToString(context.Page.Culture.DateTimeFormat.ShortDatePattern);
-
-                Modal = new ControlModal
-                (
-                    "delete",
-                    context.Page.I18N("inventoryexpress.ledgeraccount.delete.label"),
-                    new ControlText()
-                    {
-                        Text = context.Page.I18N("inventoryexpress.ledgeraccount.delete.description")
-                    },
-                    form
-                );
+                Header = context.Page.I18N("inventoryexpress.ledgeraccount.delete.label");
+                Content.Add(new ControlText()
+                {
+                    Text = context.Page.I18N("inventoryexpress.ledgeraccount.delete.description")
+                });
+                Content.Add(form);
 
                 return base.Render(context);
             }

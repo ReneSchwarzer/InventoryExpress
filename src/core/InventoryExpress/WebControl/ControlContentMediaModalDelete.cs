@@ -10,17 +10,20 @@ using WebExpress.WebApp.Components;
 
 namespace InventoryExpress.WebControl
 {
-    [Section(Section.PropertySecondary)]
+    /// <summary>
+    /// Modal zum Löschen eines Dokumentes. Wird von der Komponetne ControlMoreMediaDelete aufgerufen
+    /// </summary>
+    [Section(Section.ContentSecondary)]
     [Application("InventoryExpress")]
     [Context("media")]
-    public sealed class ControlPropertyMediaDelete : ControlButtonLink, IComponent
+    public sealed class ControlContentMediaModalDelete : ControlModal, IComponent
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public ControlPropertyMediaDelete()
+        public ControlContentMediaModalDelete()
+           : base("del_media_modal")
         {
-            Margin = new PropertySpacingMargin(PropertySpacing.Space.Two);
         }
 
         /// <summary>
@@ -34,7 +37,8 @@ namespace InventoryExpress.WebControl
             {
                 var guid = context.Page.GetParamValue("MediaID");
                 var media = ViewModel.Instance.Media.Where(x => x.Guid == guid).FirstOrDefault();
-                var form = new ControlFormular("del") { EnableSubmitAndNextButton = false, EnableCancelButton = false, RedirectUri = Uri };
+                var form = new ControlFormular("del_form") { EnableSubmitAndNextButton = false, EnableCancelButton = false, RedirectUri = context.Page.Uri };
+
                 form.SubmitButton.Text = context.Page.I18N("inventoryexpress.delete.label");
                 form.SubmitButton.Icon = new PropertyIcon(TypeIcon.TrashAlt);
                 form.SubmitButton.Color = new PropertyColorButton(TypeColorButton.Danger);
@@ -49,22 +53,12 @@ namespace InventoryExpress.WebControl
                     }
                 };
 
-                Text = context.Page.I18N("inventoryexpress.delete.label");
-                Icon = new PropertyIcon(TypeIcon.Trash);
-                BackgroundColor = new PropertyColorButton(TypeColorButton.Danger);
-                Value = media?.Created.ToString(context.Page.Culture.DateTimeFormat.ShortDatePattern);
-                Active = media != null ? TypeActive.None : TypeActive.Disabled;
-
-                Modal = new ControlModal
-                (
-                    "delete",
-                    context.Page.I18N("inventoryexpress.media.delete.label"),
-                    new ControlText()
-                    {
-                        Text = context.Page.I18N("inventoryexpress.media.delete.description")
-                    },
-                    form
-                );
+                Header = context.Page.I18N("inventoryexpress.media.delete.label");
+                Content.Add(new ControlText()
+                {
+                    Text = context.Page.I18N("inventoryexpress.media.delete.description")
+                });
+                Content.Add(form);
 
                 return base.Render(context);
             }

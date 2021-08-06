@@ -11,14 +11,13 @@ namespace InventoryExpress.WebControl
 {
     [Section(Section.MoreSecondary)]
     [Application("InventoryExpress")]
-    [Context("inventorydetails")]
-    public sealed class ControlMoreInventoryDelete : ControlDropdownItemLink, IComponent
+    [Context("templateedit")]
+    public sealed class ControlMoreTemplateDelete : ControlDropdownItemLink, IComponent
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public ControlMoreInventoryDelete()
-           : base("del")
+        public ControlMoreTemplateDelete()
         {
             TextColor = new PropertyColorText(TypeColorText.Danger);
             Uri = new UriFragment();
@@ -34,7 +33,7 @@ namespace InventoryExpress.WebControl
             Text = context.Page.I18N("inventoryexpress.delete.label");
             Icon = new PropertyIcon(TypeIcon.Trash);
 
-            OnClick = $"$('#del_inventory_modal').modal('show');";
+            OnClick = $"$('#del_template_modal').modal('show');";
 
             return base.Render(context);
         }

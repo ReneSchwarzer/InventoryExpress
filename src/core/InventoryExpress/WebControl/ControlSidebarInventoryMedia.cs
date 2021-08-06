@@ -37,7 +37,7 @@ namespace InventoryExpress.WebControl
                 var media = ViewModel.Instance.Media.Where(x => x.Id == (inventory != null ? inventory.MediaId : null)).FirstOrDefault();
                 var image = media != null ? context.Uri.Root.Append("media").Append(media.Guid) : null;
 
-                Uri = context.Uri.Append("media");
+                Uri = context.Uri.Root.Append(guid).Append("media");
 
                 Content.Add(new ControlImage()
                 {

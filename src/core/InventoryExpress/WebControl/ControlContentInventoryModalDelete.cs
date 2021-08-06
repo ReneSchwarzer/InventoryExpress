@@ -11,7 +11,7 @@ using WebExpress.WebApp.Components;
 namespace InventoryExpress.WebControl
 {
     /// <summary>
-    /// Modal zum löschen eines Inventargegenstandes. Wird von der Komponetne ControlMoreInventoryDelete aufgerufen
+    /// Modal zum Löschen eines Inventargegenstandes. Wird von der Komponetne ControlMoreInventoryDelete aufgerufen
     /// </summary>
     [Section(Section.ContentSecondary)]
     [Application("InventoryExpress")]

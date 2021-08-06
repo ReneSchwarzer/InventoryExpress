@@ -1,26 +1,26 @@
-﻿using InventoryExpress.Model;
-using System.Linq;
-using WebExpress.Attribute;
+﻿using WebExpress.Attribute;
 using WebExpress.Html;
 using WebExpress.Internationalization;
 using WebExpress.UI.Attribute;
 using WebExpress.UI.Component;
 using WebExpress.UI.WebControl;
+using WebExpress.Uri;
 using WebExpress.WebApp.Components;
 
 namespace InventoryExpress.WebControl
 {
-    [Section(Section.PropertyPreferences)]
+    [Section(Section.MoreSecondary)]
     [Application("InventoryExpress")]
-    [Context("template")]
-    public sealed class ControlPropertyTemplateAdd : ControlButtonLink, IComponent
+    [Context("locationedit")]
+    public sealed class ControlMoreLocationDelete : ControlDropdownItemLink, IComponent
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public ControlPropertyTemplateAdd()
+        public ControlMoreLocationDelete()
         {
-            Margin = new PropertySpacingMargin(PropertySpacing.Space.Two);
+            TextColor = new PropertyColorText(TypeColorText.Danger);
+            Uri = new UriFragment();
         }
 
         /// <summary>
@@ -30,10 +30,10 @@ namespace InventoryExpress.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            Text = context.Page.I18N("inventoryexpress.add.label");
-            Icon = new PropertyIcon(TypeIcon.Plus);
-            BackgroundColor = new PropertyColorButton(TypeColorButton.Success);
-            Uri = context.Uri.Append("add");
+            Text = context.Page.I18N("inventoryexpress.delete.label");
+            Icon = new PropertyIcon(TypeIcon.Trash);
+
+            OnClick = $"$('#del_location_modal').modal('show');";
 
             return base.Render(context);
         }

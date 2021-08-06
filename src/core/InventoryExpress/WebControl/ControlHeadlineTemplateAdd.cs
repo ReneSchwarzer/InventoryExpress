@@ -1,27 +1,26 @@
-﻿using WebExpress.Attribute;
+﻿using InventoryExpress.Model;
+using System.Linq;
+using WebExpress.Attribute;
 using WebExpress.Html;
 using WebExpress.Internationalization;
 using WebExpress.UI.Attribute;
 using WebExpress.UI.Component;
 using WebExpress.UI.WebControl;
-using WebExpress.Uri;
 using WebExpress.WebApp.Components;
 
 namespace InventoryExpress.WebControl
 {
-    [Section(Section.MoreSecondary)]
+    [Section(Section.HeadlineSecondary)]
     [Application("InventoryExpress")]
-    [Context("inventorydetails")]
-    public sealed class ControlMoreInventoryDelete : ControlDropdownItemLink, IComponent
+    [Context("template")]
+    public sealed class ControlHeadlineTemplateAdd : ControlButtonLink, IComponent
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public ControlMoreInventoryDelete()
-           : base("del")
+        public ControlHeadlineTemplateAdd()
         {
-            TextColor = new PropertyColorText(TypeColorText.Danger);
-            Uri = new UriFragment();
+            Margin = new PropertySpacingMargin(PropertySpacing.Space.Two);
         }
 
         /// <summary>
@@ -31,10 +30,10 @@ namespace InventoryExpress.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            Text = context.Page.I18N("inventoryexpress.delete.label");
-            Icon = new PropertyIcon(TypeIcon.Trash);
-
-            OnClick = $"$('#del_inventory_modal').modal('show');";
+            Text = context.Page.I18N("inventoryexpress.add.label");
+            Icon = new PropertyIcon(TypeIcon.Plus);
+            BackgroundColor = new PropertyColorButton(TypeColorButton.Primary);
+            Uri = context.Uri.Append("add");
 
             return base.Render(context);
         }

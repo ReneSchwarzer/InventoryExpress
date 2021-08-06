@@ -10,17 +10,20 @@ using WebExpress.WebApp.Components;
 
 namespace InventoryExpress.WebControl
 {
-    [Section(Section.PropertySecondary)]
+    /// <summary>
+    /// Modal zum Löschen einer Vorlage. Wird von der Komponetne ControlMoreTemplateDelete aufgerufen
+    /// </summary>
+    [Section(Section.ContentSecondary)]
     [Application("InventoryExpress")]
     [Context("templateedit")]
-    public sealed class ControlPropertyTemplateDelete : ControlButtonLink, IComponent
+    public sealed class ControlContentTemplateModalDelete : ControlModal, IComponent
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public ControlPropertyTemplateDelete()
+        public ControlContentTemplateModalDelete()
+           : base("del_template_modal")
         {
-            Margin = new PropertySpacingMargin(PropertySpacing.Space.Two);
         }
 
         /// <summary>
@@ -34,7 +37,8 @@ namespace InventoryExpress.WebControl
             {
                 var guid = context.Page.GetParamValue("TemplateID");
                 var template = ViewModel.Instance.Templates.Where(x => x.Guid == guid).FirstOrDefault();
-                var form = new ControlFormular("del") { EnableSubmitAndNextButton = false, EnableCancelButton = false, RedirectUri = Uri };
+                var form = new ControlFormular("del_form") { EnableSubmitAndNextButton = false, EnableCancelButton = false, RedirectUri = context.Page.Uri };
+
                 form.SubmitButton.Text = context.Page.I18N("inventoryexpress.delete.label");
                 form.SubmitButton.Icon = new PropertyIcon(TypeIcon.TrashAlt);
                 form.SubmitButton.Color = new PropertyColorButton(TypeColorButton.Danger);
@@ -49,21 +53,12 @@ namespace InventoryExpress.WebControl
                     }
                 };
 
-                Text = context.Page.I18N("inventoryexpress.delete.label");
-                Icon = new PropertyIcon(TypeIcon.Trash);
-                BackgroundColor = new PropertyColorButton(TypeColorButton.Danger);
-                Value = template?.Created.ToString(context.Page.Culture.DateTimeFormat.ShortDatePattern);
-
-                Modal = new ControlModal
-                (
-                    "delete",
-                    context.Page.I18N("inventoryexpress.template.delete.label"),
-                    new ControlText()
-                    {
-                        Text = context.Page.I18N("inventoryexpress.template.delete.description")
-                    },
-                    form
-                );
+                Header = context.Page.I18N("inventoryexpress.template.delete.label");
+                Content.Add(new ControlText()
+                {
+                    Text = context.Page.I18N("inventoryexpress.template.delete.description")
+                });
+                Content.Add(form);
 
                 return base.Render(context);
             }

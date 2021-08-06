@@ -11,17 +11,20 @@ using WebExpress.WebApp.Components;
 
 namespace InventoryExpress.WebControl
 {
-    [Section(Section.PropertySecondary)]
+    /// <summary>
+    /// Modal zum Löschen eines Herstellers. Wird von der Komponetne ControlMoreManufacturerDelete aufgerufen
+    /// </summary>
+    [Section(Section.ContentSecondary)]
     [Application("InventoryExpress")]
     [Context("manufactureredit")]
-    public sealed class ControlPropertyManufacturerDelete : ControlButtonLink, IComponent
+    public sealed class ControlContentManufacturerModalDelete : ControlModal, IComponent
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public ControlPropertyManufacturerDelete()
+        public ControlContentManufacturerModalDelete()
+           : base("del_manufacturer_modal")
         {
-            Margin = new PropertySpacingMargin(PropertySpacing.Space.Two);
         }
 
         /// <summary>
@@ -35,8 +38,8 @@ namespace InventoryExpress.WebControl
             {
                 var guid = context.Page.GetParamValue("ManufacturerID");
                 var manufactur = ViewModel.Instance.Manufacturers.Where(x => x.Guid == guid).FirstOrDefault();
-                var form = new ControlFormular("del") { EnableSubmitAndNextButton = false, EnableCancelButton = false, RedirectUri = Uri };
-                
+                var form = new ControlFormular("del_form") { EnableSubmitAndNextButton = false, EnableCancelButton = false, RedirectUri = context.Page.Uri };
+
                 form.SubmitButton.Text = context.Page.I18N("inventoryexpress.delete.label");
                 form.SubmitButton.Icon = new PropertyIcon(TypeIcon.TrashAlt);
                 form.SubmitButton.Color = new PropertyColorButton(TypeColorButton.Danger);
@@ -48,31 +51,22 @@ namespace InventoryExpress.WebControl
                         {
                             ViewModel.Instance.Manufacturers.Remove(manufactur);
                             ViewModel.Instance.SaveChanges();
-                            
+
                             context.Page.Redirecting(context.Uri.Take(-1));
                         }
-                        catch (DbUpdateException ex)
+                        catch (DbUpdateException /*ex*/)
                         {
                             //context.Page.AddMessage(context.Page.I18N("inventoryexpress.manufacturer.delete.error", MessageType.Error));
                         }
                     }
                 };
 
-                Text = context.Page.I18N("inventoryexpress.delete.label");
-                Icon = new PropertyIcon(TypeIcon.Trash);
-                BackgroundColor = new PropertyColorButton(TypeColorButton.Danger);
-                Value = manufactur?.Created.ToString(context.Page.Culture.DateTimeFormat.ShortDatePattern);
-
-                Modal = new ControlModal
-                (
-                    "delete",
-                    context.Page.I18N("inventoryexpress.manufacturer.delete.label"),
-                    new ControlText()
-                    {
-                        Text = context.Page.I18N("inventoryexpress.manufacturer.delete.description")
-                    },
-                    form
-                );
+                Header = context.Page.I18N("inventoryexpress.manufacturer.delete.label");
+                Content.Add(new ControlText()
+                {
+                    Text = context.Page.I18N("inventoryexpress.manufacturer.delete.description")
+                });
+                Content.Add(form);
 
                 return base.Render(context);
             }
