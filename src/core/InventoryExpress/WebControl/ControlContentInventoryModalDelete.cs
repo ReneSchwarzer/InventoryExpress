@@ -22,7 +22,7 @@ namespace InventoryExpress.WebControl
         /// Konstruktor
         /// </summary>
         public ControlContentInventoryModalDelete()
-           : base("del_modal")
+           : base("del_inventory_modal")
         {
         }
 
