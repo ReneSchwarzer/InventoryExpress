@@ -16,6 +16,7 @@ namespace InventoryExpress.WebResource
     [Module("InventoryExpress")]
     [Context("general")]
     [Context("media")]
+    [Context("mediaedit")]
     public sealed class PageTemplateMedia : PageTemplateWebApp, IPageTemplate
     {
         /// <summary>
@@ -51,7 +52,6 @@ namespace InventoryExpress.WebResource
             Form = new ControlFormularMedia("media")
             {
                 RedirectUri = Uri,
-                EnableCancelButton = true,
                 BackUri = Uri.Take(-1),
             };
 

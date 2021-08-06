@@ -40,7 +40,6 @@ namespace InventoryExpress.WebResource
             form = new ControlFormularManufacturer(this)
             {
                 RedirectUri = Uri.Take(-1),
-                EnableCancelButton = true,
                 BackUri = Uri.Take(-1),
                 Edit = true
             };

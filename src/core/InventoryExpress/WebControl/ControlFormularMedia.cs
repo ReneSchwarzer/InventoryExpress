@@ -1,5 +1,6 @@
 ﻿using WebExpress.Html;
 using WebExpress.UI.WebControl;
+using WebExpress.WebApp.WebResource;
 
 namespace InventoryExpress.WebControl
 {
@@ -31,16 +32,15 @@ namespace InventoryExpress.WebControl
         private void Init()
         {
             Name = "media";
-            EnableCancelButton = true;
+            EnableCancelButton = false;
             Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Three, PropertySpacing.Space.None, PropertySpacing.Space.None);
+            BackgroundColor = LayoutSchema.FormularBackground;
             Layout = TypeLayoutFormular.Vertical;
 
             Image = new ControlFormularItemInputFile()
             {
                 Name = "image",
-                //Label = "inventoryexpress.media.form.image.label",
                 Help = "inventoryexpress.media.form.image.description",
-                //Icon = new PropertyIcon(TypeIcon.Image),
                 AcceptFile = new string[] { "image/*" },
                 Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.None, PropertySpacing.Space.None, PropertySpacing.Space.Three)
             };

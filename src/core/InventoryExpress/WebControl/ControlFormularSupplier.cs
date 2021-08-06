@@ -1,6 +1,7 @@
 ﻿using WebExpress.WebResource;
 using WebExpress.UI.WebControl;
 using WebExpress.Html;
+using WebExpress.WebApp.WebResource;
 
 namespace InventoryExpress.WebControl
 {
@@ -64,6 +65,7 @@ namespace InventoryExpress.WebControl
             Name = "supplier";
             EnableCancelButton = false;
             Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Three, PropertySpacing.Space.None, PropertySpacing.Space.None);
+            BackgroundColor = LayoutSchema.FormularBackground;
             Layout = TypeLayoutFormular.Horizontal;
 
             SupplierName = new ControlFormularItemInputTextBox()

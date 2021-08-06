@@ -2,6 +2,7 @@
 using WebExpress.Html;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
+using WebExpress.WebApp.WebResource;
 
 namespace InventoryExpress.WebControl
 {
@@ -32,6 +33,7 @@ namespace InventoryExpress.WebControl
             Name = "form_comment";
             EnableCancelButton = true;
             Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Three, PropertySpacing.Space.Five, PropertySpacing.Space.None);
+            BackgroundColor = LayoutSchema.FormularBackground;
             Layout = TypeLayoutFormular.Vertical;
             SubmitButton.Icon = new PropertyIcon(TypeIcon.Save);
             SubmitButton.Text = context.I18N("inventoryexpress.settings.submit.label");

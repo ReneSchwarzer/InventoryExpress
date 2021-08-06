@@ -3,7 +3,14 @@ plugin.name=Plugin Inventory Express
 plugin.description=
 
 app.name=Inventory Express
-app.description=
+app.description=Die Inventardatenbank für private Zwecke.
+app.privacypolicy.label=Datenschutzrichtlinie
+app.privacypolicy.description=Die während der Nutzung eingegebenen Daten werden lokal auf Ihrem Gerät gespeichert. Sie behalten jederzeit die Datenhoheit. Die Daten werden zu keiner Zeit an Dritte übermittelt. Persönliche Informationen und Standortinformationen werden nicht erhoben.
+app.disclaimer.label=Haftungsausschluss
+app.disclaimer.description=Die Haftung für Schäden durch Sachmängel wird ausgeschlossen. Die Haftung auf Schadensersatz wegen Körperverletzung sowie bei grober Fahrlässigkeit oder Vorsatz bleibt unberührt.
+app.about=Informationen über Inventory Express
+app.version.label=Version
+app.contact.label=Kontakt
 
 module.name=Modul Inventory Express
 module.description=

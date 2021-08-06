@@ -3,6 +3,7 @@ using InventoryExpress.Model;
 using System.Linq;
 using WebExpress.Html;
 using WebExpress.UI.WebControl;
+using WebExpress.WebApp.WebResource;
 
 namespace InventoryExpress.WebControl
 {
@@ -56,6 +57,7 @@ namespace InventoryExpress.WebControl
             Name = "template";
             EnableCancelButton = false;
             Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Three, PropertySpacing.Space.None, PropertySpacing.Space.None);
+            BackgroundColor = LayoutSchema.FormularBackground;
             Layout = TypeLayoutFormular.Horizontal;
 
             TemplateName = new ControlFormularItemInputTextBox()

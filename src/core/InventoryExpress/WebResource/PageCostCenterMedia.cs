@@ -16,6 +16,7 @@ namespace InventoryExpress.WebResource
     [Module("InventoryExpress")]
     [Context("general")]
     [Context("media")]
+    [Context("mediaedit")]
     public sealed class PageCostCenterMedia : PageTemplateWebApp, IPageCostCenter
     {
         /// <summary>
@@ -51,7 +52,6 @@ namespace InventoryExpress.WebResource
             Form = new ControlFormularMedia("media")
             {
                 RedirectUri = Uri,
-                EnableCancelButton = true,
                 BackUri = Uri.Take(-1)
             };
 
@@ -82,14 +82,6 @@ namespace InventoryExpress.WebResource
 
             Form.Image.Validation += (s, e) =>
             {
-                //if (e.Value.Count() < 1)
-                //{
-                //    e.Results.Add(new ValidationResult() { Text = "Geben Sie einen gültigen Namen ein!", Type = TypesInputValidity.Error });
-                //}
-                //else if (!manufactur.Name.Equals(e.Value, StringComparison.InvariantCultureIgnoreCase) && ViewModel.Instance.Suppliers.Where(x => x.Name.Equals(e.Value)).Count() > 0)
-                //{
-                //    e.Results.Add(new ValidationResult() { Text = "Der Hersteller wird bereits verwendet. Geben Sie einen anderen Namen an!", Type = TypesInputValidity.Error });
-                //}
             };
 
             Form.ProcessFormular += (s, e) =>

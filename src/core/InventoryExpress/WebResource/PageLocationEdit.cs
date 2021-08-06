@@ -42,7 +42,6 @@ namespace InventoryExpress.WebResource
             {
                 RedirectUri = Uri.Take(-1),
                 Edit = true,
-                EnableCancelButton = true,
                 BackUri = Uri.Take(-1),
             };
         }

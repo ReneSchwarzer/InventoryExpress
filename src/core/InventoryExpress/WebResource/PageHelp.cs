@@ -1,5 +1,8 @@
-﻿using WebExpress.Attribute;
+﻿using System.Reflection;
+using WebExpress.Attribute;
+using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
+using WebExpress.Uri;
 using WebExpress.WebApp.WebResource;
 
 namespace InventoryExpress.WebResource
@@ -34,29 +37,88 @@ namespace InventoryExpress.WebResource
         {
             base.Process();
 
-            Content.Primary.Add(new ControlText()
+            Content.Primary.Add(new ControlImage()
             {
-                Text = "Die Inventardatenbank für private Zwecke.",
+                Uri = Uri.Root.Append("assets/img/inventoryexpress.svg"),
+                Width = 200,
+                Height = 200,
+                HorizontalAlignment = TypeHorizontalAlignment.Right
+            });
+
+            var card = new ControlPanelCard();
+
+            card.Add(new ControlText()
+            {
+                Text = this.I18N("app.name"),
+                Format = TypeFormatText.H3
+            });
+
+            card.Add(new ControlText()
+            {
+                Text = this.I18N("app.description"),
                 Format = TypeFormatText.Paragraph
             });
 
-            Content.Primary.Add(new ControlText()
+            card.Add(new ControlText()
             {
-                Text = "Mit InventoryExpress verwalten Sie ihren persönlichen Besitz.InventoryExpress ist für den privaten Bereich ausgelegt. Verwalten Sie zum Beispiel Ihre Sammlerobjekte oder Haushaltsgegenstände und behalten Sie somit einen Überblick über Ihre Anschaffungen.",
+                Text = this.I18N("app.privacypolicy.label"),
+                Format = TypeFormatText.H3
+            });
+
+            card.Add(new ControlText()
+            {
+                Text = this.I18N("app.privacypolicy.description"),
                 Format = TypeFormatText.Paragraph
             });
 
-            Content.Primary.Add(new ControlText()
+            card.Add(new ControlText()
             {
-                Text = "Datenschutzrichtlinie: Die während der Nutzung eingegebenen Daten werden lokal auf Ihrem Gerät als Dateien gespeichert und über die Cloud gesichert.Sie behalten jederzeit die Datenhoheit.Die Daten werden zu keiner Zeit an Dritte übermittelt.Persönliche Informationen und Standortinformationen werden nicht erhoben.",
+                Text = this.I18N("app.disclaimer.label"),
+                Format = TypeFormatText.H3
+            });
+
+            card.Add(new ControlText()
+            {
+                Text = this.I18N("app.disclaimer.description"),
                 Format = TypeFormatText.Paragraph
             });
 
-            Content.Primary.Add(new ControlText()
+            card.Add(new ControlText()
             {
-                Text = "Haftungsausschluss: Die Haftung für Schäden durch Sachmängel wird ausgeschlossen.Die Haftung auf Schadensersatz wegen Körperverletzung sowie bei grober Fahrlässigkeit oder Vorsatz bleibt unberührt.",
-                Format = TypeFormatText.Paragraph
+                Text = this.I18N("app.about"),
+                Format = TypeFormatText.H3
             });
+
+            card.Add(new ControlText()
+            {
+                Text = this.I18N("app.version.label"),
+                TextColor = new PropertyColorText(TypeColorText.Primary)
+            });
+
+            card.Add(new ControlText()
+            {
+                Text = string.Format("{0}", Context.Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion),
+                TextColor = new PropertyColorText(TypeColorText.Dark)
+            });
+
+            card.Add(new ControlText()
+            {
+                Text = this.I18N("app.contact.label"),
+                TextColor = new PropertyColorText(TypeColorText.Primary)
+            });
+
+            card.Add(new ControlLink()
+            {
+                Text = string.Format("rene_schwarzer@hotmail.de"),
+                Uri = new UriAbsolute()
+                {
+                    Scheme = UriScheme.Mailto,
+                    Authority = new UriAuthority("rene_schwarzer@hotmail.de")
+                },
+                TextColor = new PropertyColorText(TypeColorText.Dark)
+            });
+
+            Content.Primary.Add(card);
         }
     }
 }

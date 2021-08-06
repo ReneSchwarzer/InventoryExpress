@@ -1,6 +1,4 @@
-﻿using InventoryExpress.Model;
-using System.Linq;
-using WebExpress.Attribute;
+﻿using WebExpress.Attribute;
 using WebExpress.Html;
 using WebExpress.Internationalization;
 using WebExpress.UI.Attribute;
@@ -14,6 +12,13 @@ namespace InventoryExpress.WebControl
     [Application("InventoryExpress")]
     [Context("attachment")]
     [Context("inventoryedit")]
+    [Context("costcenteredit")]
+    [Context("ledgeraccountedit")]
+    [Context("locationedit")]
+    [Context("manufactureredit")]
+    [Context("supplieredit")]
+    [Context("templateedit")]
+    [Context("mediaedit")]
     public sealed class ControlHeadlineBack : ControlButtonLink, IComponent
     {
         /// <summary>
