@@ -1,0 +1,1251 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <Version>1.0.0.0</Version>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/ReneSchwarzer/InventoryExpress.git</RepositoryUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\WebExpress\core\WebExpress.UI\WebExpress.UI.csproj" />
+    <ProjectReference Include="..\..\..\..\WebExpress\core\WebExpress\WebExpress.csproj" />
+    <ProjectReference Include="..\InventoryExpress\InventoryExpress.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Assets\db\inventory.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Config\webexpress.config.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\00f2342e-99c5-4cc0-97dd-52882e6eb2f4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\0155bff8-91ee-4607-9f4e-e6905270d2cd.manufacturer">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\025a41ac-b4e8-4e97-9d48-4a2a28b0302e.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\04067a4a-1c8b-4321-a7a8-b1fcc2622ae2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\041d8dcd-1741-4e21-87cc-9a1349f36398.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\04f34e0a-9769-43bf-935f-80e5239f7c39.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\06f669cb-be51-4184-a7c3-9ea34a26e5fc.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\07665cb9-fb82-4a55-a88b-83e136f5fc1b.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\07eb1196-538d-4b22-b9e9-12f9e2cce6f3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\18851285-361c-45ff-a437-eee57721a7fb.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\08851285-361c-45ff-b437-eee57721a7fb.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\08f0f653-274c-4b02-b70d-40f91b3105ad.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\094c3e76-bf00-45d1-9169-93ad24f3a673.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\09643655-27ce-4e78-a565-3838cca58ded.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\0a02f266-e261-447d-a8d0-542130f43473.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\0b55d9d2-5bba-474c-9dc7-b4b56869bc08.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\0c485b2f-3e4d-4c6f-8a2a-c4aded11056b.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\0d2dc67d-5608-4432-b206-96d29df47fc5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\0dee62c8-8476-4831-81b6-4401ece62b56.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\0f562586-ef27-4d19-92d0-7baa7b60f030.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\10e89cd7-66be-4cc9-8762-4ba246304232.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\10ec250c-4031-4242-817e-ecea7d38b7b7.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\112083c1-cbc5-40ee-aee9-2b91b5737cd0.manufacturer">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\11a51536-3fdd-4f29-99cc-fcd9a15b4f3f.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\12511c7a-cabb-40db-af25-2df127ba0ca7.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\1253a31c-6ac7-4548-975a-5951ecf6acb3.manufacturer">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\12641f83-6ba0-414d-827e-c85774ae8ba5.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\1273aa17-941b-49bc-905c-b1c54f33ce66.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\12eee95e-da11-4e66-ae11-ae8ea0ff7650.supplier">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\132083c1-cbc5-4011-aee9-2b91b5737cd6.location">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\132083c1-cbca-4011-aee9-2b91b5737622.supplier">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\1377001d-e6cc-489f-9423-b4ca0cb59c4e.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\13ab85d4-30d9-4442-ae0e-3d25cfcbf4f4.supplier">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\14207e32-f390-456a-a8f8-18278e3c8a5d.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\14a76045-d006-48d8-885a-c251e86a7774.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\1582af91-dc1d-4806-91f2-07db2de527e3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\15add3a8-b791-4fb3-94ec-675d280dc95a.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\1606738d-515a-4f9c-8461-f34a6bf1e718.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\168b15f5-9fbc-4949-979a-b15783bed6b2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\169cf248-4008-44a0-ae6b-94271c1304f1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\16cb586d-babb-4889-8d4e-989ea63da2a2.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\175083c1-cbca-5011-bce9-2b91b573728b.supplier">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\1807025a-7642-441e-ab19-6f58c76f74e4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\188f5196-f96d-4f2a-9bcf-e6bee7b5bb6c.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\192da25a-6bf2-4f48-8f43-f080b40a229a.manufacturer">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\197ed281-b943-4d34-adf6-d9a52edb6fbb.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\1a4e52b0-7ee4-457c-babb-320ff0479aa1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\1a4e5798-4874-453f-8209-9c1b1cd5d6c2.manufacturer">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\1b2083c1-cac5-40ab-aee9-22a1b571b73a.manufacturer">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\1b3444b9-0e9f-4a82-b7a6-59ba40758179.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\1c2b59ac-c6c4-4a8b-a74f-7cc7f3ced944.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\1e2a275f-683f-4088-b6cc-6ed615562d74.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\1e717569-e79e-436a-a29e-37f7fcd2eaa9.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\1f1fccfe-e279-4f54-8099-34d9308ed846.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\1f50ad8e-d8fa-4f2a-9335-05b0806b0bff.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\21f9ede1-5768-4e0b-a6d8-baa31256ecfc.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\22ee77cf-58b8-4174-ad8e-6db9cdc275b3.template">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\231782c9-7bd9-4af5-bd03-fd77cac45d54.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\236710ce-5fcf-4c9e-b28c-b2bcdfd1c265.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\244ed73d-75b0-4239-9c4c-db7472090e9c.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\24b2c46b-33eb-45fa-a9be-7ed16ec153a6.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\24bd529c-7877-49d2-84e1-4ee458c8efae.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\25123284-e6ab-4523-a19d-e8f1bed47bac.template">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\251cbf0a-2c9c-4af2-a43c-d79b12994bb9.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\25524a4d-cbbe-4689-a8ea-85b2d66202f5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\26568ff6-f573-4cb3-8bcd-c6b31a9bc136.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\2690dbc9-adc1-457d-aee3-8f6ebc9a3c7a.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\26e3bfd1-3fab-4589-9a77-cdf948e9c464.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\2740ee22-3ccc-4a87-8789-433a09620e06.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\279f075e-bb2c-4fab-bb0d-b30e19ba4e5f.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\27afe264-6cc3-469f-9e5b-520dae36a758.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\2838bd0c-ba85-43af-8870-bcd795305ab3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\28584d29-7fad-4abf-adb5-38d0062fb053.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\291d55bf-5d83-4fbf-bf18-a62d3276951a.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\292cbe95-90bc-4ca6-b2f8-0dea5f6299d0.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\2958514e-5473-4fb3-bab9-ca8ccba7c1dd.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\2996db7d-d9e9-4b13-8b7f-141f11937587.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\2c95a974-a74b-4b8f-aa83-9e7445e2a777.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\2da0c57e-0bb2-4752-bf9e-9b7e353af8b4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\2de97ad9-ec14-4011-8908-4adf85b83125.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\2eadd01f-35ca-4db4-95ee-77bd6f8c5a19.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\3033c204-bcda-411e-9585-aeee6ef4974c.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\30fe8e34-8be9-4dad-b816-0106fe7ae65c.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\32bc9fba-8f28-4eca-a569-6d2314455c45.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\32d354dd-556e-4e2b-b525-849590373ff3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\32fca319-1071-4dd1-b00b-936917b03153.manufacturer">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\330fa5bf-3cfd-42ae-b0d3-e6083a70a963.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\34916559-37af-4e01-837f-8bdec1ce5efd.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\357a84c3-a2d8-4d26-aba5-3cb9c7a0cc41.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\366ebdac-2668-4c28-9e4a-62625370aa0c.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\36f03421-d41c-4ad8-93fd-13931ac1763e.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\3936c9f9-9bbf-4bba-97cd-b8327de09c3b.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\394dd9a2-df55-4249-a1cc-6cb512a2c0ef.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\39674322-0b14-4b1a-bdff-df45b819c6c3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\39cbc278-5a08-4384-b130-914606a461f5.manufacturer">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\3a0c6422-ed2f-4a24-a707-6cc643a9fe7e.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\3bd69d40-4ad5-4f38-965f-1fa8dc4684e2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\3c8ee074-ecd1-4478-8939-bfaa56929dd0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\3df0dc98-4b23-4e25-80b1-7ced00ebaf36.manufacturer">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\3dfabbab-dbbb-4721-9e48-6681ed5ac3d7.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\3fb9f275-84ed-470e-b1c1-5db593764ae7.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\4000e9d2-26b4-4a62-a6ed-0faeaf855425.attribute">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\404ccd8d-0c4a-4c66-99e4-ab83d553ae01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\40670bb0-1392-4a67-9519-7f896ec52704.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\41234577-9d42-41bb-a1a7-f7d97293a59f.manufacturer">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\414ffcdd-9d10-48ad-bf2b-7dd9ad641393.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\43ea1b8d-a6c5-4f0c-a37f-1e4005082eae.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\44c28ef8-65be-493c-b4bd-7f1c4d44d19f.template">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\45320414-9786-4a30-af13-fb4ead84ed5a.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\46C54745-30C1-1149-BDEE-3BC993717B5B.attribute">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\46C54745-30C1-1649-BDEE-3BC993717B31.attribute">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\478b01ec-3dd6-405a-8329-48914e94c19c.template">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\47c44d6f-b28d-4b7f-a881-f1c251167005.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\486b04d4-5413-4af0-9a77-44b711964feb.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\49ae7d69-b838-4261-ba8a-e0fd688ab50a.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\4a3502a6-3c8d-409f-90f3-ba332d00a92c.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\4a61516e-b236-45ad-9726-9c8cfec5688f.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\4bdf7dee-38ab-4a94-bcd6-7e6c6a59e6fe.manufacturer">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\4d2061e3-7f57-4203-8f4a-4c91e1d62008.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\4d7ab70e-b4cf-47e5-9a20-999277558bac.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\4db10d5c-5cf7-492b-8638-837ed2974d46.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\4db5c59f-fa52-445f-be5e-f34bd2902408.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\4dbaa88d-c2aa-466e-977f-374709c82876.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\4f488e3a-6395-495f-aa88-f03d24bdf26c.attribute">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\4f7b5f8b-0333-4050-b1fc-1b13899cfec8.template">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\5023c665-b502-4ca6-a90f-634111332cd1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\503d4d78-6610-4d94-8fa6-7dc4ced47051.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\505dec72-bcd3-421c-908a-81e2bd40d602.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\514f115c-fad1-461f-8f85-fdb593f4b5d6.manufacturer">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\5246d3a2-ef84-4578-92f8-96756c591fef.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\525088e4-28df-404e-b062-18d3faf5872b.manufacturer">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\52df44d7-558d-4ab6-a372-666e77d1303d.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\536ca3e0-fa4f-444b-8551-99a633658ea9.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\53e942e4-3ffd-4240-850e-5900fefecb4f.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\543a12dc-226f-446e-8756-e72e17b4d1c5.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\54b1794d-f9a6-4625-8c09-f4f0e685a377.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\562083c1-cbc5-4011-aee9-2b91b5737aa2.supplier">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\5791ae32-6974-4b91-b653-61a3fd8d36d4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\581c7bf3-9e18-4dcb-a160-77e8a9dd42b3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\584c7ef4-6a8e-4369-8953-381a3e61193d.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\5a3bb288-917c-49d8-9eeb-c3ba078b4d61.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\5a876c23-cdf6-4d2f-9597-93c9552cd5f9.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\5b0c2c80-cabc-4c28-90fb-fbc7bf577a83.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\5b86cdf2-732f-4e97-ad1a-e7082a5fd0c1.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\5c40bbd8-0b51-4c58-9d94-9eef9de78975.location">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\5d1bd37f-cd21-47a6-ae1d-6f062c0cbf6e.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\5e6b3c2b-1fd9-4d96-8dcc-ef3c498064f2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\5edc52db-5cc9-448d-bc3b-5d4f4a47aba6.manufacturer">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\6043f960-1813-472c-b7ef-8dcd489da588.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\6048b060-6ef4-431e-847d-e803cccb808b.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\6090d67b-fc78-43eb-9634-1a1477276199.attribute">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\610366c9-e762-4452-b278-44d44d18aac7.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\63cd67c5-fd00-405f-bb8b-563885e96428.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\649ac41c-5fc0-4bd5-a77b-75e84c275618.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\662083c1-cbca-4011-aee9-2b91b5737cc2.supplier">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\66642a65-4795-4109-b5cb-b57d10165675.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\66c7fb16-74c4-44c5-955f-0ecaf00fd715.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\66e2c224-8b9e-40c3-870f-373279e84062.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\672083c1-cbca-4011-bee9-2b91b5737ec2.supplier">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\675083c1-cbca-5011-bce9-2b916473728b.supplier">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\675083c1-cbca-5011-bce9-2b91b573728a.supplier">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\67cde9b8-3d5b-4fcf-9773-8de93369e56a.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\68c9ea4c-b54b-49af-840c-f69f4812f196.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\68f806f1-1ec9-4844-9642-4bd28be60c19.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\6932cb55-0ae3-49ff-b059-928de7334b46.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\6a21a521-4e13-43af-8ab5-42f1dc86aad3.manufacturer">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\6ad810bf-ae14-4aa4-870d-c36246b12ed9.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\6b280407-f231-49e4-a1f4-e287751f0fd6.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\6c0555fb-dd5a-401e-8d95-b7c490fcdf0f.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\6c7b463b-ea82-4685-b75b-a3e03dee4162.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\6cd4567c-a92d-4fa6-8138-97b199fde15c.location">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\6d21203a-93a8-4ecb-8f19-9fbf14193385.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\6e05b19f-2093-4df3-9f29-b6f6e5ce98dc.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\6fbfba09-96b9-4d25-8702-ed8f00c81fd6.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\701666b0-200f-4626-a28e-ba99787965fa.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\703929c3-ddcc-4863-a155-3068cd00c4c9.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\7158befd-a8dc-4be0-ad8f-17278dd247c4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\71a598ee-0930-4bbd-b122-fa612cd48b22.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\73cdf914-8607-4ab4-b622-a0265aa3a8f5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\741b5cef-94d8-4063-9eb6-cafcf46a780f.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\7463984b-d631-4974-b406-42d4e4d95f6e.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\74791378-cec3-4d81-8e0f-dd9c2aab2cc0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\74db6847-0480-4df0-846a-f06b2f7b48fa.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\74de30c7-e90b-43de-ae84-35cf912cf5e2.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\755083c1-caca-5011-bbe9-2bb1647372ab.supplier">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\7562083c1-aec5-4011-aee9-2b91b5737479.supplier">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\75a083c1-caca-5011-bbe9-2ee16473712b.supplier">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\762083c1-cbc5-40ee-aee9-2b91b5737c6e.manufacturer">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\772083c1-cbc5-40ab-aee9-2b91b5737731.manufacturer">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\77584222-b8bc-4420-980b-037e236885c6.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\783cd906-15f0-46a0-85b6-d07a2a71a072.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\7873b6b3-dff7-423e-8c9c-b87afec041fc.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\788d5824-2c23-4d85-bdb1-f79bb3c93645.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\78e8271a-786e-4024-9efe-9e772aea0522.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\792db1c6-a66e-4dcc-978d-d2858174f447.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\7a2083c1-cac5-40ab-aee9-efa1b571b729.manufacturer">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\7a684f0b-f43e-42e1-aff5-d1f9113661f2.manufacturer">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\7AC54745-30C1-1149-8DEE-3BC993717B55.attribute">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\7b2083c1-cac5-40ab-aee9-22a1b571b731.manufacturer">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\7c0a1501-ad39-49dc-a676-73cfc3c1a2b8.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\7c2083c1-cac5-40ab-aee9-25a1b571b73e.manufacturer">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\7c96548f-9288-410b-95c7-cdc036e05935.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\7d835a33-b752-4c38-a6d5-e964d4c9a9f2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\7dbb88cf-3acd-48e0-9248-2fba3755e92b.template">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\7ee2ff91-6f93-471c-b279-3b70aca1cacc.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\8165b36f-89b0-4a30-b664-91273e544495.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\82522f81-b8c5-4373-a23b-04e7af6fdba6.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\834e8151-11c8-4315-a49a-7b4728080867.template">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\84427490-c71d-43a7-ab99-c126f3ca37db.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\85b6fa77-89a2-4e9c-a98b-899bdd6a9f6c.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\865f1778-4af7-41ff-b353-75492d27caf6.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\86631d97-9c59-4aae-bace-9af1a0d35a7c.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\86C54745-30C1-1149-8DEE-A3C193717B5C.attribute">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\86e0bd13-33ef-463a-a64d-98d45ce46304.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\86f74116-715d-4fac-bc42-1d922c80ae67.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\871161fb-5e55-4b6c-af68-3ae8fa1960b8.manufacturer">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\881368da-13a9-45fb-bdca-848a61a17288.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\882ceb26-7655-497a-ad78-bf83e47ee151.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\88c79746-3f2b-409b-8e04-48472350a3bc.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\8982054f-372b-492b-98a2-dc221e2a774e.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\899b2ec6-124c-4d90-a35f-0873b72edea0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\8a2083c1-cac5-40ab-aee9-22a1b571ba41.manufacturer">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\8a7e521a-8a4d-4499-89e7-639de4915896.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\8AC54745-30C1-1149-8DEE-A3C993717B55.attribute">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\8acc8e38-4e34-4ff4-8bbc-2b137a3c041a.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\8ade4246-d7b1-4be1-82a5-8eef69ce197c.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\8ae75b24-ea23-43cb-afb8-1f35fc1e802e.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\8b4d0728-8039-4b66-bd8a-64defb83b889.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\8b9fee03-27ec-47e6-91f8-668ae4a900f1.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\8c77edfb-1b2a-448d-9b6f-ce29b5c9017f.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\8cf99ac9-268c-4d70-b69c-f880b22d80a7.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\8dc87b5b-497d-4670-bd36-556221ad418a.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\8dd30e10-2f97-48e7-b3d7-1fc731212007.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\8e31de69-5aa3-4262-a05e-17537c9cbd5b.manufacturer">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\8e443ebd-02c7-4f23-ba14-cab2cd9a12db.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\8e6454e1-1c66-45e8-a2a3-308ba021f0ec.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\8e68af3c-6ccb-4fe3-b3bf-54fa10e0cd08.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\8eb50c15-8c7e-4f28-9bcf-114413b8faef.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\91cc7c99-eaf4-4a2b-b406-73fe2e3e6414.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\91f46419-6394-435a-b1a5-e68774179030.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\9223ccd1-e153-4412-a956-b3a8033c35f6.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\93311bea-f1f8-49a6-bee9-7c8db22e80ca.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\9370e194-07e6-45a6-869f-8ffd482f3da8.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\938d5752-0db9-49c7-af71-74b0ae8fce5b.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\94b917af-b8a3-4656-829b-fe0d3bfead77.manufacturer">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\957b156e-3f33-498c-a9c8-406ded82840a.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\9755eaf5-a830-479a-bbf9-12f67e5b85dd.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\98196d15-344d-4be5-b423-35272e2b3d33.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\98254be7-1aa1-4fc3-a6c9-4a7b1730ca14.template">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\983d3f42-043b-434e-b047-33bc8a3de1d0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\9853bb94-d635-471f-942d-23289118b07d.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\986fe416-a0b2-4339-8ff9-5934668154a8.manufacturer">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\995c86d1-4f23-4273-ae97-a408f20a8b2d.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\9b5ec4c2-eb84-44f2-9f8e-19cc1d3d71cb.manufacturer">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\9b99bbe1-1dc1-42d7-acc8-50df5467897b.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\9bd2ec7f-79e5-42cf-bf25-d8707db55122.template">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\9c846deb-cbee-48c2-989f-db36679816db.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\9dffc49e-ff0a-4437-9ab4-470b989e886e.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\a03714fb-b5ca-4bd3-8341-62a7ca49aec8.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\a0f2feaf-fa6a-4094-800b-e06dcf46cdb8.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\a153c5e4-4438-441a-a052-160886b66376.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\a3764b82-a153-4b19-a030-f788ad438500.attribute">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\a3e977a9-8f0a-473d-8363-7c5e521c2446.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\a50c2ec8-bfdc-419c-9103-c0c452eb7d4d.location">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\A54083c1-cbc5-4011-aee9-2b91b5737aea.state">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\A6C54745-60C1-1649-54EE-3BC993717B31.attribute">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\A6C54745-6531-1649-54EE-3BC99371754.attribute">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\A711BFAD-78B6-4a19-A6F8-8FB9FAE24F5D.template">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\a7bcd1b3-de8b-4782-86a8-3fbabedb69bd.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\a7e95a79-c853-4d79-8c07-20b415d00d76.manufacturer">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\a8a137ed-bd82-4b7a-bde2-85e43f4d59a3.location">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\a8ffbe6e-55dc-47d8-b281-8138adc99b2e.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\a9f0e00c-cf52-481b-92d0-722cc09cd723.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\aab06185-f143-42d2-afc9-e8ef54ab8c20.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\ab7ae9ac-c5c0-4e9a-b41a-601def4b6cc5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\ab8268c3-d472-4e67-8c3b-394df9845629.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\ac2083c1-cbc5-4011-aee9-2b91b5737cd6.costcenter">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\ac63200e-beb3-4272-865e-bc8982a2a865.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\ac8022c6-8f44-4e5e-bc67-d5fcda86aa32.manufacturer">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\acda84ab-d2c9-4c60-bb88-b214a17d09b4.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\adef9b88-bc36-4000-b37a-674ffebeab8d.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\af682f64-a5ae-433f-ab58-9cd7a39a7467.attribute">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\afa3b6b4-16cc-4cbf-bc3b-c6aa413f527e.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\b010b35f-7771-49be-a8a7-18e8a4871a66.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\b0214483-88d7-4e83-b1cc-f94cf7e8d80e.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\b0bc492b-fdf5-4cda-abd3-98ea37b007e9.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\b2170a3c-a0b2-4760-9e5f-db8edfd5a131.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\B23083c1-cbc5-4011-aee9-Ab91b5737123.state">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\b2e1d654-b0b6-4a46-a358-938fb8a08c9f.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\b406ebc0-4a5b-44e5-bd80-9d9a7f147427.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\B4C54745-30C1-1149-5DEE-3BC993717A59.attribute">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\b513a906-32ae-4073-bddc-7c319384d99c.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\b5bc5f99-be67-4472-a4c2-5ba4f68547d2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\b6c14898-a6de-4c55-bfe2-3a450364a4ba.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\B6C56745-60C1-1649-24EE-3BC993717B3C.attribute">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\b75088de-b795-48be-9dea-daf584161065.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\b7cf111e-3ad8-44a2-a510-3b0e9dbfbd8a.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\ba2083c1-cac5-40ab-aee9-22512571ba41.manufacturer">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\ba3bfb79-ed4f-492c-ba6b-0034c35619af.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\ba510ad9-adf4-461b-b38a-4c5b4aa6775e.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\bb29842a-7f4f-4f13-b7d4-009b8f7b4bfe.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\bb99e53a-4961-4637-93e6-b0040fe5fa4d.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\bc7032ec-96f7-4b6f-b5f8-ce3fdabef237.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\bcb11b2b-55fa-4ab5-972f-9b493531afec.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\bcc1350b-be69-4446-ae0a-a07622851d1f.manufacturer">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\bd00d93c-9284-4cff-8dac-fc3a0016310d.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\bd2cc7c8-22a3-4934-aff5-276fe14bac2d.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\bdee90a0-b123-42e2-80ff-f556d852aad0.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\be21d317-167b-4cc0-9de0-6962b1680ba7.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\c0d5966e-f4f7-40cb-a665-c5cc4947df16.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\c1232448-53b1-496f-878a-e59f93febb5e.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\c14a784f-4c56-4cbc-930b-381161054d6e.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\c1627ffd-b391-4f26-8ca8-e3855f517201.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\C23083c1-cbc5-4011-aee9-Ab91b5737123.state">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\c2a8eb31-3bbd-4052-b944-30890ad29e35.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\c2ae073e-1197-4e92-854f-a1570c598cfd.manufacturer">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\c343ac50-c851-4178-b579-82f3a9e57b6c.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\c3470dc9-99a6-45b7-adcc-ddbcb7616b3c.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\c3843a56-98c8-4f2e-b6bb-11401cd61396.supplier">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\c461cf6a-1c04-4f5d-bb9c-ad97165ac245.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\c6edc567-1cf2-4651-b21a-03cd656a1251.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\c8e3b4c4-620e-4048-b23d-e7cd5bc44ab7.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\c91cf740-22dc-4a2c-94d6-acc7ef6c37c0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\c9934873-1059-4a46-8994-58085e53d8b4.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\ca2083c1-aac5-40ab-4a29-22512571ba41.manufacturer">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\ca2087c1-aac5-40ab-4a29-2251a571ba41.manufacturer">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\CA3083c1-cbc5-4011-a1e9-Ab91b5737125.state">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\cba03e46-4304-4573-a50a-e7cc1b5ec58e.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\cf320054-19ff-4417-a7c8-8a0464788cbe.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\d0848735-08e5-40de-aa9b-5840377f4b0f.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\d0b5f54d-73f9-42ea-9945-589f2a429f26.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\d14815c1-6e53-41bb-af00-c1b76455c7ab.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\d1e4c849-9498-4303-990b-fef4ff9aa89e.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\d206e2ee-5a9c-443a-b1ed-af96084e7054.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\d2b28a31-d866-4d13-87d7-53bac995a693.location">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\d2f052dc-d33c-4a6c-a91c-c828372fff4b.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\d36fe289-9b3a-47f2-b1fa-b17e6d967a96.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\d415886f-f8da-4bad-8de3-4afead8245ab.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\d4e8a3c5-1e03-4252-aade-5210059c0b13.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\D6C54745-60C1-1649-54EE-3BC993717B6.attribute">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\D711BFAD-78B6-4a17-A6F8-8FB9FAE24F5A.template">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\d71b6804-0f37-4854-be89-eee9983f3fa3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\d8216ebb-87b8-40d9-9669-bedaedd405ff.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\d95055cc-ea97-41f7-8e61-7a363546d024.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\DA3083c1-cbc5-4011-a1e9-Ab91b5737125.state">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\da870628-5cc2-42f9-986e-9750e77029a5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\db0418d7-be0f-4059-a37a-3b6bfe9bab21.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\db0bb2e7-7052-471b-9d7e-14bf005a5777.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\db442bb6-3fcf-4ee7-be92-bbc078c22764.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\db5507a8-90d5-4abf-861d-a6715f6338cf.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\db97b7cd-98b3-4c4b-9b34-f95957c17a4b.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\dd21c3ce-3bef-4a40-bd78-f721d844ec4c.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\dd2565a2-c30c-4924-a7a3-881c581db6a5.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\dd4325a5-9ce0-4553-a079-567a7e3fd5b4.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\de3dc77e-1648-4a14-b72a-c3ec9e156646.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\dee3ecb6-6f8f-4383-81d1-651b6dd41fe2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\e01aa953-70ee-4e32-86c0-6987d5f39b70.manufacturer">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\e175db68-9f6b-40b0-b2cb-2cdd2c20e2c2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\e19a0931-6ad1-4ef3-a0e5-56ba7656ebfb.location">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\e1aaf6bf-55d0-4a98-8505-86bf53a35bef.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\e1d9981f-bd05-406c-b409-0f1451ea836e.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\e3faaef0-9c92-485e-bb9c-1a682adb8bbc.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\e47a952c-5fad-4fda-b592-6498d99570f1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\e48bdb8e-ef81-4c4d-859d-6de11a69e88b.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\e49cbba4-4291-40a8-ba33-f33876fc93cf.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\e4b420db-e94f-48de-89c9-e5a1f98337c3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\E54D83c1-cbc5-4011-aee9-2b91b5737aeD.glaccount">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\e55d03b2-8d60-426a-953b-1b865ec7c51c.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\e561b740-3ee2-46af-bef8-bf61d3c4bf75.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\e6dfced1-2ecf-4751-b7da-7d5c1cc812ff.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\e70f5760-9790-42b4-ae6f-0a1a2f6bdcc7.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\e7f8bce0-ba5b-413a-baac-e3dd6d500c9b.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\e8becbb2-0a5b-4d78-8cb2-a991e88db488.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\e8f0cc71-0435-4700-866c-6b72eadcfe7d.template">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\EA3083c1-cbc5-4011-a1e9-Ab91b5737125.state">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\ea3d37c5-90ca-4f3a-8f7a-f4f5a79ac8d7.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\eafc0e27-639f-4acc-8daa-407486ddbeb0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\eb98470d-e5d2-4481-a73a-47236323946d.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\EBC54745-30C1-1149-BDEE-3BC993717BFA.attribute">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\ec776cad-b6ab-4ade-9de2-047d2db65a11.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\ecd81979-b720-41a6-8df1-0f873a5986c0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\ed182c13-bb8c-4251-927b-fcf3f95f7e61.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\ee2083c1-cbc5-4011-aee9-2b91b5737cd2.costcenter">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\ef10794b-720d-4a7b-983d-c27bb43c08ab.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\ef86a171-1f9d-4b3b-b9a4-342ec76e2db1.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\efbbf34e-0f68-4e67-8eea-53179b30491c.manufacturer">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\eff73b4f-dbd9-4040-a993-50fbc4b37daa.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\f067094c-b7ca-4a9a-b053-b549609b305a.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\f0e071c3-6d55-4b63-b0e8-86d84b2cd1b9.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\f12d5489-c813-4220-8e6f-cac590ca548b.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\f15c1fdd-71c5-4676-97ff-b02a0bf2cf61.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\f22c4020-3596-4bbf-9541-c9aa869b0915.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\f26ef9b1-e41c-41b5-84f3-e8f21986ee9d.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\f30dc34f-baa8-446d-881e-9e34cd7b1273.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\f4afa36a-8913-4f93-b1b3-00c6f97806c1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\f4e87b94-bc75-4042-94d4-5d2ef1868ee9.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\f551b2bc-9c43-476e-a3d1-b4b3fa04ffa5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\F6C54745-30C1-1149-4532-3BC993717B5A.attribute">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\f84a01d4-1c5a-4827-a0ba-af36db0ee89e.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\f90b1e05-4889-4c2b-afd2-17a8826028a0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\fb2b006f-3894-4b8a-b057-ff8e81fbee12.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\fb4f9d6f-8a17-43cb-bf0e-79b324398a75.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\fdb3ba26-f18c-49c6-ae72-86bed34e4017.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\fea8afa6-087b-46ac-a961-00c28f3506d3.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\fee231be-315f-41fb-9f7c-85a90668828b.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\ff28712a-0a2c-4bef-9321-53a05788116f.inventory">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\ffbf8091-351a-4645-a887-396863293fea.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
