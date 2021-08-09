@@ -1,5 +1,4 @@
 ﻿using InventoryExpress.Model;
-using Microsoft.EntityFrameworkCore.Internal;
 using System.Linq;
 using WebExpress.Html;
 using WebExpress.UI.WebControl;
@@ -137,11 +136,14 @@ namespace InventoryExpress.WebControl
                 Value = null
             });
 
-            Manufacturer.Items.AddRange(ViewModel.Instance.Manufacturers.OrderBy(x => x.Name).Select(x => new ControlFormularItemInputComboBoxItem()
+            lock (ViewModel.Instance.Database)
             {
-                Text = x.Name,
-                Value = x.Guid
-            }));
+                Manufacturer.Items.AddRange(ViewModel.Instance.Manufacturers.OrderBy(x => x.Name).Select(x => new ControlFormularItemInputComboBoxItem()
+                {
+                    Text = x.Name,
+                    Value = x.Guid
+                }));
+            }
 
             Location = new ControlFormularItemInputComboBox()
             {
@@ -157,11 +159,14 @@ namespace InventoryExpress.WebControl
                 Value = null
             });
 
-            Location.Items.AddRange(ViewModel.Instance.Locations.OrderBy(x => x.Name).Select(x => new ControlFormularItemInputComboBoxItem()
+            lock (ViewModel.Instance.Database)
             {
-                Text = x.Name,
-                Value = x.Guid
-            }));
+                Location.Items.AddRange(ViewModel.Instance.Locations.OrderBy(x => x.Name).Select(x => new ControlFormularItemInputComboBoxItem()
+                {
+                    Text = x.Name,
+                    Value = x.Guid
+                }));
+            }
 
             Supplier = new ControlFormularItemInputComboBox()
             {
@@ -177,11 +182,14 @@ namespace InventoryExpress.WebControl
                 Value = null
             });
 
-            Supplier.Items.AddRange(ViewModel.Instance.Suppliers.OrderBy(x => x.Name).Select(x => new ControlFormularItemInputComboBoxItem()
+            lock (ViewModel.Instance.Database)
             {
-                Text = x.Name,
-                Value = x.Guid
-            }));
+                Supplier.Items.AddRange(ViewModel.Instance.Suppliers.OrderBy(x => x.Name).Select(x => new ControlFormularItemInputComboBoxItem()
+                {
+                    Text = x.Name,
+                    Value = x.Guid
+                }));
+            }
 
             LedgerAccount = new ControlFormularItemInputComboBox()
             {
@@ -197,11 +205,14 @@ namespace InventoryExpress.WebControl
                 Value = null
             });
 
-            LedgerAccount.Items.AddRange(ViewModel.Instance.LedgerAccounts.OrderBy(x => x.Name).Select(x => new ControlFormularItemInputComboBoxItem()
+            lock (ViewModel.Instance.Database)
             {
-                Text = x.Name,
-                Value = x.Guid
-            }));
+                LedgerAccount.Items.AddRange(ViewModel.Instance.LedgerAccounts.OrderBy(x => x.Name).Select(x => new ControlFormularItemInputComboBoxItem()
+                {
+                    Text = x.Name,
+                    Value = x.Guid
+                }));
+            }
 
             CostCenter = new ControlFormularItemInputComboBox()
             {
@@ -217,11 +228,14 @@ namespace InventoryExpress.WebControl
                 Value = null
             });
 
-            CostCenter.Items.AddRange(ViewModel.Instance.CostCenters.OrderBy(x => x.Name).Select(x => new ControlFormularItemInputComboBoxItem()
+            lock (ViewModel.Instance.Database)
             {
-                Text = x.Name,
-                Value = x.Guid
-            }));
+                CostCenter.Items.AddRange(ViewModel.Instance.CostCenters.OrderBy(x => x.Name).Select(x => new ControlFormularItemInputComboBoxItem()
+                {
+                    Text = x.Name,
+                    Value = x.Guid
+                }));
+            }
 
             Condition = new ControlFormularItemInputComboBox()
             {
@@ -237,11 +251,14 @@ namespace InventoryExpress.WebControl
                 Value = null
             });
 
-            Condition.Items.AddRange(ViewModel.Instance.Conditions.OrderBy(x => x.Grade).Select(x => new ControlFormularItemInputComboBoxItem()
+            lock (ViewModel.Instance.Database)
             {
-                Text = string.Format("{0} - {1}", x.Grade, x.Name),
-                Value = x.Guid
-            }));
+                Condition.Items.AddRange(ViewModel.Instance.Conditions.OrderBy(x => x.Grade).Select(x => new ControlFormularItemInputComboBoxItem()
+                {
+                    Text = string.Format("{0} - {1}", x.Grade, x.Name),
+                    Value = x.Guid
+                }));
+            }
 
             Parent = new ControlFormularItemInputComboBox()
             {
@@ -257,11 +274,14 @@ namespace InventoryExpress.WebControl
                 Value = null
             });
 
-            Parent.Items.AddRange(ViewModel.Instance.Inventories.OrderBy(x => x.Name).Select(x => new ControlFormularItemInputComboBoxItem()
+            lock (ViewModel.Instance.Database)
             {
-                Text = x.Name,
-                Value = x.Guid
-            }));
+                Parent.Items.AddRange(ViewModel.Instance.Inventories.OrderBy(x => x.Name).Select(x => new ControlFormularItemInputComboBoxItem()
+                {
+                    Text = x.Name,
+                    Value = x.Guid
+                }));
+            }
 
             Template = new ControlFormularItemInputComboBox()
             {
@@ -278,11 +298,14 @@ namespace InventoryExpress.WebControl
                 Value = null
             });
 
-            Template.Items.AddRange(ViewModel.Instance.Templates.OrderBy(x => x.Name).Select(x => new ControlFormularItemInputComboBoxItem()
+            lock (ViewModel.Instance.Database)
             {
-                Text = x.Name,
-                Value = x.Guid
-            }));
+                Template.Items.AddRange(ViewModel.Instance.Templates.OrderBy(x => x.Name).Select(x => new ControlFormularItemInputComboBoxItem()
+                {
+                    Text = x.Name,
+                    Value = x.Guid
+                }));
+            }
 
             Attributes = new ControlFormularItemGroupVertical()
             {
@@ -356,43 +379,6 @@ namespace InventoryExpress.WebControl
         /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
         public override void PreProcess(RenderContext context)
         {
-            //if (context.Page.HasParam(Template.Name))
-            //{
-            //    var template = context.Page.GetParamValue(Template.Name);
-            //    foreach (var t in ViewModel.Instance.Templates.Where(x => x.Guid == template))
-            //    {
-            //        var attributes = ViewModel.Instance.TemplateAttributes.Where(x => x.TemplateId == t.Id)
-            //            .Join(ViewModel.Instance.Attributes, x => x.AttributeId, y => y.Id, (x, y) => y);
-
-            //        foreach (var attribute in attributes)
-            //        {
-            //            Attributes.Items.Add(new ControlFormularItemInputTextBox()
-            //            {
-            //                Name = "attribute_" + attribute.Guid,
-            //                Label = attribute.Name,
-            //                Help = attribute.Description
-            //            });
-            //        }
-            //    }
-            //}
-            //else
-            //{
-            //    foreach (var t in ViewModel.Instance.Templates.Where(x => x.Guid == Template.Value))
-            //    {
-            //        var attributes = ViewModel.Instance.TemplateAttributes.Where(x => x.TemplateId == t.Id)
-            //            .Join(ViewModel.Instance.Attributes, x => x.AttributeId, y => y.Id, (x, y) => y);
-
-            //        foreach (var attribute in attributes)
-            //        {
-            //            Attributes.Items.Add(new ControlFormularItemInputTextBox()
-            //            {
-            //                Name = "attribute_" + attribute.Guid,
-            //                Label = attribute.Name,
-            //                Help = attribute.Description
-            //            });
-            //        }
-            //    }
-            //}
         }
 
         /// <summary>

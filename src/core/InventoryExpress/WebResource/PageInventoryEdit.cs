@@ -40,7 +40,6 @@ namespace InventoryExpress.WebResource
 
             lock (ViewModel.Instance.Database)
             {
-
                 var guid = GetParamValue("InventoryID");
                 var inventory = ViewModel.Instance.Inventories.Where(x => x.Guid == guid).FirstOrDefault();
                 var attributesForm = new List<ControlFormularItemInputTextBox>();
@@ -66,28 +65,31 @@ namespace InventoryExpress.WebResource
                     attributes.AddRange(ViewModel.Instance.InventoryAttributes.Where(x => x.InventoryId == inventory.Id && !string.IsNullOrWhiteSpace(x.Value)));
 
                     // Template-Attribute übernehmen
-                    foreach (var ta in ViewModel.Instance.TemplateAttributes.Where(x => x.TemplateId == template.Id))
+                    if (template != null)
                     {
-                        var att = ViewModel.Instance.Attributes.Where(x => x.Id == ta.AttributeId).FirstOrDefault();
-
-                        if (attributes.Find
-                            (
-                                f =>
-                                f.Attribute.Name.Equals
-                                (
-                                    att?.Name,
-                                    StringComparison.OrdinalIgnoreCase
-                                )
-                            ) == null)
+                        foreach (var ta in ViewModel.Instance.TemplateAttributes.Where(x => x.TemplateId == template.Id))
                         {
-                            attributes.Add(new InventoryAttribute()
+                            var att = ViewModel.Instance.Attributes.Where(x => x.Id == ta.AttributeId).FirstOrDefault();
+
+                            if (attributes.Find
+                                (
+                                    f =>
+                                    f.Attribute.Name.Equals
+                                    (
+                                        att?.Name,
+                                        StringComparison.OrdinalIgnoreCase
+                                    )
+                                ) == null)
                             {
-                                AttributeId = ta.AttributeId,
-                                InventoryId = inventory.Id,
-                                Attribute = att,
-                                Inventory = inventory,
-                                Created = DateTime.Now
-                            });
+                                attributes.Add(new InventoryAttribute()
+                                {
+                                    AttributeId = ta.AttributeId,
+                                    InventoryId = inventory.Id,
+                                    Attribute = att,
+                                    Inventory = inventory,
+                                    Created = DateTime.Now
+                                });
+                            }
                         }
                     }
 
