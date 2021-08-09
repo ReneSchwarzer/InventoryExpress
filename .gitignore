@@ -159,6 +159,9 @@ ClientBin/
 *.dbproj.schemaview
 *.pfx
 *.publishsettings
+.dtbcache.v2
+.vs/
+*.db.template
 node_modules/
 
 # RIA/Silverlight projects
