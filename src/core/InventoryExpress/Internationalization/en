@@ -270,6 +270,7 @@ inventoryexpress.settings.currency.label=Currency
 inventoryexpress.settings.currency.description=
 inventoryexpress.settings.currency.validation.null=No currency has been specified!
 inventoryexpress.settings.currency.validation.tolong=The currency consists of too many characters!
+inventoryexpress.settings.systeminformation.label=System information
 
 inventoryexpress.condition.label=Condition
 inventoryexpress.condition.description=The condition of the inventory item.

@@ -14,7 +14,7 @@ namespace InventoryExpress.WebResource
     [Path("/")]
     [Module("InventoryExpress")]
     [Context("admin")]
-    public sealed class PageSettings : PageTemplateWebApp, IPageInventory
+    public sealed class PageSettingCurrency : PageTemplateWebAppSetting, IPageInventory
     {
         /// <summary>
         /// Formular
@@ -24,7 +24,7 @@ namespace InventoryExpress.WebResource
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public PageSettings()
+        public PageSettingCurrency()
         {
         }
 

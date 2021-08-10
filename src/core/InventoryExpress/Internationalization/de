@@ -270,6 +270,7 @@ inventoryexpress.settings.currency.label=Währung
 inventoryexpress.settings.currency.description=
 inventoryexpress.settings.currency.validation.null=Es wurde keine Währung angegeben!
 inventoryexpress.settings.currency.validation.tolong=Die Währung besteht aus zu vielen Zeichen!
+inventoryexpress.settings.systeminformation.label=Systeminformationen
 
 inventoryexpress.condition.label=Zustand
 inventoryexpress.condition.description=Der Zustand des Inventargegenstandes.
