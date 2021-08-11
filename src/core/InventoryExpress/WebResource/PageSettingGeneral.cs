@@ -4,6 +4,7 @@ using System.Linq;
 using WebExpress.Attribute;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
+using WebExpress.WebApp.Attribute;
 using WebExpress.WebApp.WebResource;
 
 namespace InventoryExpress.WebResource
@@ -12,9 +13,10 @@ namespace InventoryExpress.WebResource
     [Title("inventoryexpress.settings.label")]
     [Segment("settings", "inventoryexpress.settings.label")]
     [Path("/")]
+    [SettingGroup("inventoryexpress.settings.general.label")]
     [Module("InventoryExpress")]
     [Context("admin")]
-    public sealed class PageSettingCurrency : PageTemplateWebAppSetting, IPageInventory
+    public sealed class PageSettingGeneral : PageTemplateWebAppSetting, IPageInventory
     {
         /// <summary>
         /// Formular
@@ -24,7 +26,7 @@ namespace InventoryExpress.WebResource
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public PageSettingCurrency()
+        public PageSettingGeneral()
         {
         }
 

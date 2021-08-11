@@ -10,6 +10,7 @@ namespace InventoryExpress.WebResource
     [Segment("systeminformation", "inventoryexpress.settings.systeminformation.label")]
     [Path("/setting")]
     [SettingIcon(TypeIcon.InfoCircle)]
+    [SettingGroup("inventoryexpress.settings.system.label")]
     [Module("InventoryExpress")]
     [Context("admin")]
     public sealed class PageSettingSystemInformation : PageTemplateWebAppSettingSystemInformation, IPageInventory
