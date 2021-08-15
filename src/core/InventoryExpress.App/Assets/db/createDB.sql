@@ -201,6 +201,79 @@ CREATE TABLE Setting
     Currency           VARCHAR(10)      
 );
 
+-- View
+/*CREATE VIEW Inventory_View AS
+WITH RECURSIVE cte_inventory 
+(
+    ID,
+    TemplateID,
+    LocationID,
+    CostCenterID,
+    ManufacturerID,
+    ConditionID,
+    SupplierID,
+    LedgerAccountID,
+    MediaID,
+    ParentID,
+    Name,
+    CostValue,
+    PurchaseDate,
+    DerecognitionDate,
+    Description,
+    Tag,
+    Created,
+    Updated,
+    Guid
+)
+AS (
+    SELECT i.ID,
+           i.TemplateID,
+           i.LocationID,
+           i.CostCenterID,
+           i.ManufacturerID,
+           i.ConditionID,
+           i.SupplierID,
+           i.LedgerAccountID,
+           i.MediaID,
+           i.ParentID,
+           i.Name,
+           i.CostValue,
+           i.PurchaseDate,
+           i.DerecognitionDate,
+           i.Description,
+           i.Tag,
+           i.Created,
+           i.Updated,
+           i.Guid
+      FROM inventory 
+    UNION ALL
+    SELECT i.ID,
+           i.TemplateID,
+           i.LocationID,
+           i.CostCenterID,
+           i.ManufacturerID,
+           i.ConditionID,
+           i.SupplierID,
+           i.LedgerAccountID,
+           i.MediaID,
+           i.ParentID,
+           i.Name,
+           i.CostValue,
+           i.PurchaseDate,
+           i.DerecognitionDate,
+           i.Description,
+           i.Tag,
+           i.Created,
+           i.Updated,
+           i.Guid
+      FROM inventory i
+           JOIN
+           cte_inventory c ON c.id = i.parentid
+)
+
+SELECT * FROM cte_inventory;
+*/
+
 -- Example
 INSERT INTO Setting (Currency) VALUES ('€');
 
