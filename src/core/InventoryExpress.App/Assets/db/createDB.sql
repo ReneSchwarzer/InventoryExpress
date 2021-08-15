@@ -118,22 +118,22 @@ CREATE TABLE Ascription
 
 CREATE TABLE TemplateAttribute     
 (
-    TemplateID          INTEGER			NOT NULL REFERENCES Template (ID),
-    AttributeID         INTEGER			NOT NULL REFERENCES Attribute (ID),
+    TemplateID          INTEGER			NOT NULL REFERENCES Template (ID) ON DELETE CASCADE,
+    AttributeID         INTEGER			NOT NULL REFERENCES Attribute (ID) ON DELETE CASCADE,
     Created 	        TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
-	PRIMARY KEY (TemplateID, AtrtributeID)
+	PRIMARY KEY (TemplateID, AttributeID)
 );
 
 CREATE TABLE Inventory     
 (
     ID                  INTEGER			PRIMARY KEY AUTOINCREMENT NOT NULL,
-	TemplateID	        INTEGER      	REFERENCES Template (ID) ON DELETE NO ACTION,
-	LocationID	        INTEGER      	REFERENCES Location (ID) ON DELETE NO ACTION,
-	CostCenterID 	    INTEGER      	REFERENCES CostCenter (ID) ON DELETE NO ACTION,
-	ManufacturerID      INTEGER      	REFERENCES Manufacturer (ID) ON DELETE NO ACTION,
-	ConditionID  		INTEGER      	REFERENCES Condition (ID) ON DELETE NO ACTION,
-	SupplierID 	        INTEGER      	REFERENCES Supplier (ID) ON DELETE NO ACTION,
-	LedgerAccountID     INTEGER      	REFERENCES LedgerAccount (ID) ON DELETE NO ACTION,
+	TemplateID	        INTEGER      	REFERENCES Template (ID) ON DELETE SET NULL,
+	LocationID	        INTEGER      	REFERENCES Location (ID) ON DELETE SET NULL,
+	CostCenterID 	    INTEGER      	REFERENCES CostCenter (ID) ON DELETE SET NULL,
+	ManufacturerID      INTEGER      	REFERENCES Manufacturer (ID) ON DELETE SET NULL,
+	ConditionID  		INTEGER      	REFERENCES Condition (ID) ON DELETE SET NULL,
+	SupplierID 	        INTEGER      	REFERENCES Supplier (ID) ON DELETE SET NULL,
+	LedgerAccountID     INTEGER      	REFERENCES LedgerAccount (ID) ON DELETE SET NULL,
     ParentID            INTEGER         REFERENCES Inventory (ID) ON DELETE SET NULL,
     MediaID             INTEGER         REFERENCES Media (ID) ON DELETE SET NULL,
 	Name 		        VARCHAR(64)     UNIQUE NOT NULL,
@@ -153,7 +153,7 @@ CREATE TABLE InventoryAttribute
     AttributeID 	    INTEGER			NOT NULL REFERENCES Attribute (ID) ON DELETE CASCADE,
     Value 		        TEXT,
     Created 	        TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
-	PRIMARY KEY (InventoryID, AtrtributeID)
+	PRIMARY KEY (InventoryID, AttributeID)
 );
 
 CREATE TABLE InventoryAttachment     
@@ -200,79 +200,6 @@ CREATE TABLE Setting
     ID                 INTEGER			PRIMARY KEY AUTOINCREMENT NOT NULL,
     Currency           VARCHAR(10)      
 );
-
--- View
-/*CREATE VIEW Inventory_View AS
-WITH RECURSIVE cte_inventory 
-(
-    ID,
-    TemplateID,
-    LocationID,
-    CostCenterID,
-    ManufacturerID,
-    ConditionID,
-    SupplierID,
-    LedgerAccountID,
-    MediaID,
-    ParentID,
-    Name,
-    CostValue,
-    PurchaseDate,
-    DerecognitionDate,
-    Description,
-    Tag,
-    Created,
-    Updated,
-    Guid
-)
-AS (
-    SELECT i.ID,
-           i.TemplateID,
-           i.LocationID,
-           i.CostCenterID,
-           i.ManufacturerID,
-           i.ConditionID,
-           i.SupplierID,
-           i.LedgerAccountID,
-           i.MediaID,
-           i.ParentID,
-           i.Name,
-           i.CostValue,
-           i.PurchaseDate,
-           i.DerecognitionDate,
-           i.Description,
-           i.Tag,
-           i.Created,
-           i.Updated,
-           i.Guid
-      FROM inventory 
-    UNION ALL
-    SELECT i.ID,
-           i.TemplateID,
-           i.LocationID,
-           i.CostCenterID,
-           i.ManufacturerID,
-           i.ConditionID,
-           i.SupplierID,
-           i.LedgerAccountID,
-           i.MediaID,
-           i.ParentID,
-           i.Name,
-           i.CostValue,
-           i.PurchaseDate,
-           i.DerecognitionDate,
-           i.Description,
-           i.Tag,
-           i.Created,
-           i.Updated,
-           i.Guid
-      FROM inventory i
-           JOIN
-           cte_inventory c ON c.id = i.parentid
-)
-
-SELECT * FROM cte_inventory;
-*/
 
 -- Example
 INSERT INTO Setting (Currency) VALUES ('€');

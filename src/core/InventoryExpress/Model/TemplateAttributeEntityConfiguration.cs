@@ -24,12 +24,12 @@ namespace InventoryExpress.Model
             builder.HasOne(d => d.Attribute)
                 .WithMany(p => p.TemplateAttributes)
                 .HasForeignKey(d => d.AttributeId)
-                .OnDelete(DeleteBehavior.ClientSetNull);
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne(d => d.Template)
                 .WithMany(p => p.TemplateAttributes)
                 .HasForeignKey(d => d.TemplateId)
-                .OnDelete(DeleteBehavior.ClientSetNull);
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
