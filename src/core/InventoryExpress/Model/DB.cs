@@ -85,6 +85,11 @@ namespace InventoryExpress.Model
         public DbSet<Setting> Settings { get; set; }
 
         /// <summary>
+        /// Liefert oder setzt die Datenquelle
+        /// </summary>
+        public string DataSource { get; private set; } = "Assets/db/inventory.db";
+
+        /// <summary>
         /// Konstruktor
         /// </summary>
         internal DB()
@@ -97,7 +102,7 @@ namespace InventoryExpress.Model
         /// <param name="optionsBuilder"></param>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite(@"Data Source=Assets/db/inventory.db;");
+            optionsBuilder.UseSqlite($"Data Source={ DataSource };");
         }
 
         /// <summary>

@@ -36,8 +36,8 @@ namespace InventoryExpress.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            Text = context.I18N("inventoryexpress.settings.label");
-            Uri = context.Page.Uri.Root.Append("settings");
+            Text = context.I18N("inventoryexpress.setting.label");
+            Uri = context.Page.Uri.Root.Append("setting");
             Active = context.Page is IPageSetting ? TypeActive.Active : TypeActive.None;
             Icon = new PropertyIcon(TypeIcon.Cog);
 

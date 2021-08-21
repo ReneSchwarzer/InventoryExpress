@@ -17,6 +17,7 @@ namespace InventoryExpress.WebResource
     [Context("general")]
     [Context("media")]
     [Context("mediaedit")]
+    [Context("supplieredit")]
     public sealed class PageSupplierMedia : PageTemplateWebApp, IPageSupplier
     {
         /// <summary>

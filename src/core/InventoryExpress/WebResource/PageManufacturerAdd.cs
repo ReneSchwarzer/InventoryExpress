@@ -16,6 +16,7 @@ namespace InventoryExpress.WebResource
     [Path("/Manufacturer")]
     [Module("InventoryExpress")]
     [Context("general")]
+    [Context("manufactureradd")]
     public sealed class PageManufacturerAdd : PageTemplateWebApp, IPageManufacturer
     {
         /// <summary>

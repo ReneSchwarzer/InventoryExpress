@@ -7,6 +7,10 @@
 *.user
 *.sln.docstates
 
+# Versteckte Dateien
+.*
+!/.gitignore
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
@@ -26,6 +30,7 @@ data/
 # MSTest test Results
 [Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*
+*.testlog
 
 #NUNIT
 *.VisualState.xml

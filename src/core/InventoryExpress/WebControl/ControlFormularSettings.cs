@@ -1,5 +1,4 @@
-﻿using InventoryExpress.Model;
-using WebExpress.Html;
+﻿using WebExpress.Html;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebResource;
@@ -36,18 +35,18 @@ namespace InventoryExpress.WebControl
             BackgroundColor = LayoutSchema.FormularBackground;
             Layout = TypeLayoutFormular.Vertical;
             SubmitButton.Icon = new PropertyIcon(TypeIcon.Save);
-            SubmitButton.Text = context.I18N("inventoryexpress.settings.submit.label");
+            SubmitButton.Text = context.I18N("inventoryexpress.setting.submit.label");
             EnableCancelButton = false;
 
             Currency = new ControlFormularItemInputTextBox("currency")
             {
                 Name = "currency",
-                Label = "inventoryexpress.settings.currency.label",
-                Help = "inventoryexpress.settings.currency.description",
+                Label = "inventoryexpress.setting.currency.label",
+                Help = "inventoryexpress.setting.currency.description",
                 Icon = new PropertyIcon(TypeIcon.EuroSign),
                 Format = TypesEditTextFormat.Default
             };
-            
+
             Add(Currency);
         }
 

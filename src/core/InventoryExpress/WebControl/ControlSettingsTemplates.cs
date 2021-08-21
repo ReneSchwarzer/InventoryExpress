@@ -37,7 +37,7 @@ namespace InventoryExpress.WebControl
         public override IHtmlNode Render(RenderContext context)
         {
             Text = context.I18N("inventoryexpress.templates.label");
-            Uri = context.Page.Uri.Root.Append("templates");
+            Uri = context.Page.Uri.Root.Append("setting").Append("templates");
             Active = context.Page is IPageTemplate ? TypeActive.Active : TypeActive.None;
             Icon = new PropertyIcon(TypeIcon.Clone);
 

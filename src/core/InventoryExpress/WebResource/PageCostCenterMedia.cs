@@ -17,6 +17,7 @@ namespace InventoryExpress.WebResource
     [Context("general")]
     [Context("media")]
     [Context("mediaedit")]
+    [Context("costcenteredit")]
     public sealed class PageCostCenterMedia : PageTemplateWebApp, IPageCostCenter
     {
         /// <summary>

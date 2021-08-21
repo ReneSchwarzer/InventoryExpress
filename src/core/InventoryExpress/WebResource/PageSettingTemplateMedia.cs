@@ -6,19 +6,21 @@ using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebResource;
 using WebExpress.Attribute;
 using WebExpress.Message;
+using WebExpress.WebApp.Attribute;
 
 namespace InventoryExpress.WebResource
 {
-    [ID("LedgerAccountMedia")]
-    [Title("inventoryexpress.ledgeraccount.media.label")]
-    [Segment("media", "inventoryexpress.ledgeraccount.media.display")]
-    [Path("/LedgerAccount/LedgerAccountEdit")]
+    [ID("SettingTemplateMedia")]
+    [Title("inventoryexpress.template.media.label")]
+    [Segment("media", "inventoryexpress.template.media.display")]
+    [Path("/SettingGeneral/SettingTemplate/SettingTemplateEdit")]
     [Module("InventoryExpress")]
+    [SettingHide()]
+    [SettingContext("inventoryexpress.setting.general.label")]
     [Context("general")]
     [Context("media")]
     [Context("mediaedit")]
-    [Context("ledgeraccountedit")]
-    public sealed class PageLedgerAccountMedia : PageTemplateWebApp, IPageLedgerAccount
+    public sealed class PageSettingTemplateMedia : PageTemplateWebAppSetting, IPageTemplate
     {
         /// <summary>
         /// Formular
@@ -26,9 +28,9 @@ namespace InventoryExpress.WebResource
         private ControlFormularMedia Form { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt das Sachkonto
+        /// Liefert oder setzt die Vorlage
         /// </summary>
-        private LedgerAccount LedgerAccount { get; set; }
+        private Template Template { get; set; }
 
         /// <summary>
         /// Liefert oder setzt das Bild
@@ -38,7 +40,7 @@ namespace InventoryExpress.WebResource
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public PageLedgerAccountMedia()
+        public PageSettingTemplateMedia()
         {
             
         }
@@ -53,12 +55,12 @@ namespace InventoryExpress.WebResource
             Form = new ControlFormularMedia("media")
             {
                 RedirectUri = Uri,
-                BackUri = Uri.Take(-1)
+                BackUri = Uri.Take(-1),
             };
 
-            var guid = GetParamValue("LedgerAccountID");
-            LedgerAccount = ViewModel.Instance.LedgerAccounts.Where(x => x.Guid == guid).FirstOrDefault();
-            Media = ViewModel.Instance.Media.Where(x => x.Id == LedgerAccount.MediaId).FirstOrDefault();
+            var guid = GetParamValue("TemplateID");
+            Template = ViewModel.Instance.Templates.Where(x => x.Guid == guid).FirstOrDefault();
+            Media = ViewModel.Instance.Media.Where(x => x.Id == Template.MediaId).FirstOrDefault();
 
             AddParam("MediaID", Media?.Guid, ParameterScope.Local);
         }
@@ -100,7 +102,7 @@ namespace InventoryExpress.WebResource
                     // Image speichern
                     if (Media == null)
                     {
-                        LedgerAccount.Media = new Media() 
+                        Template.Media = new Media() 
                         { 
                             Name = file.Value, 
                             Data = file.Data,
@@ -122,11 +124,20 @@ namespace InventoryExpress.WebResource
 
                 if (Form.Tag.Value != Media?.Tag)
                 {
-                    LedgerAccount.Media.Tag = Form.Tag.Value;
+                    Template.Media.Tag = Form.Tag.Value;
                 }
 
                 ViewModel.Instance.SaveChanges();
             };
+        }
+
+        /// <summary>
+        /// In String konvertieren
+        /// </summary>
+        /// <returns>Das Objekt als String</returns>
+        public override string ToString()
+        {
+            return base.ToString();
         }
     }
 }

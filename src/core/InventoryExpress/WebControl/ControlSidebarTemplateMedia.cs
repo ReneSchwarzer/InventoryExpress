@@ -9,7 +9,7 @@ using WebExpress.WebApp.Components;
 
 namespace InventoryExpress.WebControl
 {
-    [Section(Section.SidebarPreferences)]
+    [Section(Section.SidebarHeader)]
     [Application("InventoryExpress")]
     [Context("templateedit")]
     public sealed class ControlSidebarTemplateMedia : ControlLink, IComponent

@@ -78,7 +78,7 @@ namespace InventoryExpress.WebResource
             table.AddColumn(context.I18N("inventoryexpress.media.form.file.label"));
             table.AddColumn(context.I18N("inventoryexpress.media.size.label"));
             table.AddColumn(context.I18N("inventoryexpress.media.updatedate.label"));
-            table.AddColumn("...");
+            table.AddColumn(context.I18N("inventoryexpress.media.action.label"));
 
             var CreateForm = new Func<string, ControlFormular>((guid) => 
             {

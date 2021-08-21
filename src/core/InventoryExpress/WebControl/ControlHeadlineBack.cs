@@ -18,6 +18,7 @@ namespace InventoryExpress.WebControl
     [Context("manufactureredit")]
     [Context("supplieredit")]
     [Context("templateedit")]
+    [Context("templateadd")]
     [Context("mediaedit")]
     public sealed class ControlHeadlineBack : ControlButtonLink, IComponent
     {

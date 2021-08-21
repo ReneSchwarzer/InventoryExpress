@@ -5,12 +5,14 @@ using WebExpress.WebApp.WebResource;
 
 namespace InventoryExpress.WebResource
 {
-    [ID("SystemInformation")]
-    [Title("inventoryexpress.settings.systeminformation.label")]
-    [Segment("systeminformation", "inventoryexpress.settings.systeminformation.label")]
-    [Path("/setting")]
+    [ID("SettingSystemInformation")]
+    [Title("inventoryexpress.setting.systeminformation.label")]
+    [Segment("systeminformation", "inventoryexpress.setting.systeminformation.label")]
+    [Path("/SettingGeneral")]
+    [SettingSection(SettingSection.Secondary)]
     [SettingIcon(TypeIcon.InfoCircle)]
-    [SettingGroup("inventoryexpress.settings.system.label")]
+    [SettingGroup("inventoryexpress.setting.system.label")]
+    [SettingContext("inventoryexpress.setting.general.label")]
     [Module("InventoryExpress")]
     [Context("admin")]
     public sealed class PageSettingSystemInformation : PageTemplateWebAppSettingSystemInformation, IPageInventory

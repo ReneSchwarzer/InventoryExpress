@@ -75,6 +75,8 @@ inventoryexpress.inventory.validation.costvalue.invalid=Der Anschaffungswert ist
 inventoryexpress.inventory.details.count.label=Anzahl der Inventargegenstände:
 inventoryexpress.inventory.details.totalacquisitioncosts.label=Gesamtanschaffungskosten:
 inventoryexpress.inventory.more=...
+inventoryexpress.inventory.metadata.created=Erstellt am {0}.
+inventoryexpress.inventory.metadata.lastchange=Zuletzt geändert am {0}.
 
 inventoryexpress.media.form.image.label=Bild
 inventoryexpress.media.form.image.description=
@@ -88,6 +90,7 @@ inventoryexpress.media.file.add.label=Dokument hinzufügen
 inventoryexpress.media.creationdate.label=Erstellungsdatum
 inventoryexpress.media.updatedate.label=Letzte Aktualisierung
 inventoryexpress.media.size.label=Dateigröße
+inventoryexpress.media.action.label=Aktionen
 
 inventoryexpress.costcenters.label=Kostenstellen
 inventoryexpress.costcenter.label=Kostenstelle
@@ -264,18 +267,32 @@ inventoryexpress.template.updatedate.description=
 inventoryexpress.template.validation.name.invalid=Geben Sie einen gültigen Namen ein!
 inventoryexpress.template.validation.name.used=Die Vorlage wird bereits verwendet. Geben Sie einen anderen Namen an!
 
-inventoryexpress.settings.label=Einstellungen
-inventoryexpress.settings.submit.label=Speichern
-inventoryexpress.settings.currency.label=Währung
-inventoryexpress.settings.currency.description=
-inventoryexpress.settings.currency.validation.null=Es wurde keine Währung angegeben!
-inventoryexpress.settings.currency.validation.tolong=Die Währung besteht aus zu vielen Zeichen!
-inventoryexpress.settings.systeminformation.label=Systeminformationen
-inventoryexpress.settings.general.label=Allgemein
-inventoryexpress.settings.system.label=System
+inventoryexpress.setting.label=Einstellungen
+inventoryexpress.setting.submit.label=Speichern
+inventoryexpress.setting.currency.label=Währung
+inventoryexpress.setting.currency.description=
+inventoryexpress.setting.currency.validation.null=Es wurde keine Währung angegeben!
+inventoryexpress.setting.currency.validation.tolong=Die Währung besteht aus zu vielen Zeichen!
+inventoryexpress.setting.systeminformation.label=Systeminformationen
+inventoryexpress.setting.general.label=Allgemein
+inventoryexpress.setting.data.label=Daten
+inventoryexpress.setting.system.label=System
+inventoryexpress.setting.database.label=Datenbank
+inventoryexpress.setting.database.description=Konfiguration der Datenbank
+inventoryexpress.setting.database.info.label=Datenbank Info
+inventoryexpress.setting.database.provider.label=Name des Providers:
+inventoryexpress.setting.database.datasource.label=Datenbankquelle:
+inventoryexpress.setting.database.filesize.label=Dateigröße:
 
 inventoryexpress.condition.label=Zustand
 inventoryexpress.condition.description=Der Zustand des Inventargegenstandes.
+inventoryexpress.condition.name.label=Name
+inventoryexpress.condition.description.label=Beschreibung
+inventoryexpress.condition.order.label=Reihenfolge
+inventoryexpress.condition.action.label=Aktionen
+inventoryexpress.condition.add.label=Zustand hinzufügen
+
+inventoryexpress.attribute.label=Attribute
 
 inventoryexpress.parent.label=Zugehörigkeit zu
 inventoryexpress.parent.description=Die Zugehörigkeit zu einem anderen Inventargegenstand.

@@ -22,7 +22,6 @@ namespace InventoryExpress.WebControl
         {
             Layout = TypeLayoutList.Flush;
             Margin = new PropertySpacingMargin(PropertySpacing.Space.Two);
-
         }
 
         /// <summary>

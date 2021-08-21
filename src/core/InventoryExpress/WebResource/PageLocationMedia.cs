@@ -17,6 +17,7 @@ namespace InventoryExpress.WebResource
     [Context("general")]
     [Context("media")]
     [Context("mediaedit")]
+    [Context("locationedit")]
     public sealed class PageLocationMedia : PageTemplateWebApp, IPageLocation
     {
         /// <summary>

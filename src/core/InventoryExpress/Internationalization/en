@@ -75,6 +75,8 @@ inventoryexpress.inventory.validation.costvalue.invalid=The acquisition value is
 inventoryexpress.inventory.details.count.label=Number of inventory items:
 inventoryexpress.inventory.details.totalacquisitioncosts.label=Total acquisition costs:
 inventoryexpress.inventory.more=...
+inventoryexpress.inventory.metadata.created=Created on {0}.
+inventoryexpress.inventory.metadata.lastchange=Last modified on {0}.
 
 inventoryexpress.media.form.image.label=Image
 inventoryexpress.media.form.image.description=
@@ -88,6 +90,7 @@ inventoryexpress.media.file.add.label=Insert document
 inventoryexpress.media.creationdate.label=Creation date
 inventoryexpress.media.updatedate.label=Last update
 inventoryexpress.media.size.label=Size
+inventoryexpress.media.action.label=Action
 
 inventoryexpress.costcenters.label=Cost centers
 inventoryexpress.costcenter.label=Cost center
@@ -264,18 +267,32 @@ inventoryexpress.template.updatedate.description=
 inventoryexpress.template.validation.name.invalid=Enter a valid name!
 inventoryexpress.template.validation.name.used=The template is already in use. Enter a different name!
 
-inventoryexpress.settings.label=Settings
-inventoryexpress.settings.submit.label=Save
-inventoryexpress.settings.currency.label=Currency
-inventoryexpress.settings.currency.description=
-inventoryexpress.settings.currency.validation.null=No currency has been specified!
-inventoryexpress.settings.currency.validation.tolong=The currency consists of too many characters!
-inventoryexpress.settings.systeminformation.label=System information
-inventoryexpress.settings.general.label=General
-inventoryexpress.settings.system.label=System
+inventoryexpress.setting.label=Settings
+inventoryexpress.setting.submit.label=Save
+inventoryexpress.setting.currency.label=Currency
+inventoryexpress.setting.currency.description=
+inventoryexpress.setting.currency.validation.null=No currency has been specified!
+inventoryexpress.setting.currency.validation.tolong=The currency consists of too many characters!
+inventoryexpress.setting.systeminformation.label=System information
+inventoryexpress.setting.general.label=General
+inventoryexpress.setting.data.label=Data
+inventoryexpress.setting.system.label=System
+inventoryexpress.setting.database.label=Database
+inventoryexpress.setting.database.description=Configuration of the database
+inventoryexpress.setting.database.info.label=Database information
+inventoryexpress.setting.database.provider.label=Provider name:
+inventoryexpress.setting.database.datasource.label=Data source:
+inventoryexpress.setting.database.filesize.label=File size:
 
 inventoryexpress.condition.label=Condition
 inventoryexpress.condition.description=The condition of the inventory item.
+inventoryexpress.condition.name.label=Name
+inventoryexpress.condition.description.label=Description
+inventoryexpress.condition.order.label=Order
+inventoryexpress.condition.action.label=Action
+inventoryexpress.condition.add.label=Add condition
+
+inventoryexpress.attribute.label=Attributes
 
 inventoryexpress.parent.label=Membership of
 inventoryexpress.parent.description=Belonging to another inventory item.

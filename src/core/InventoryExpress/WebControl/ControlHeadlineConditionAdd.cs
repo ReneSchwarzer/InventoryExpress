@@ -1,26 +1,29 @@
 ﻿using InventoryExpress.Model;
+using System;
 using System.Linq;
 using WebExpress.Attribute;
 using WebExpress.Html;
+using WebExpress.Internationalization;
+using WebExpress.Message;
 using WebExpress.UI.Attribute;
 using WebExpress.UI.Component;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.Components;
+using WebExpress.WebResource;
 
 namespace InventoryExpress.WebControl
 {
-    [Section(Section.SidebarHeader)]
+    [Section(Section.HeadlineSecondary)]
     [Application("InventoryExpress")]
-    [Context("inventorydetails")]
-    [Context("attachment")]
-    [Context("inventoryedit")]
-    public sealed class ControlSidebarInventoryMedia : ControlLink, IComponent
+    [Context("condition")]
+    public sealed class ControlHeadlineConditionAdd : ControlButtonLink, IComponent
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public ControlSidebarInventoryMedia()
+        public ControlHeadlineConditionAdd()
         {
+            Margin = new PropertySpacingMargin(PropertySpacing.Space.Two);
         }
 
         /// <summary>
@@ -34,17 +37,17 @@ namespace InventoryExpress.WebControl
             {
                 var guid = context.Page.GetParamValue("InventoryID");
                 var inventory = ViewModel.Instance.Inventories.Where(x => x.Guid == guid).FirstOrDefault();
-                var media = ViewModel.Instance.Media.Where(x => x.Id == (inventory != null ? inventory.MediaId : null)).FirstOrDefault();
-                var image = media != null ? context.Uri.Root.Append("media").Append(media.Guid) : null;
+                
+                Text = context.Page.I18N("inventoryexpress.condition.add.label");
+                Icon = new PropertyIcon(TypeIcon.Plus);
+                BackgroundColor = new PropertyColorButton(TypeColorButton.Primary);
+                Value = inventory?.Created.ToString(context.Page.Culture.DateTimeFormat.ShortDatePattern);
 
-                Uri = context.Uri.Root.Append(guid).Append("media");
-
-                Content.Add(new ControlImage()
-                {
-                    Uri = image == null ? context.Uri.Root.Append("/assets/img/inventoryexpress.svg") : image,
-                    Width = 180,
-                    Margin = new PropertySpacingMargin(PropertySpacing.Space.Two)
-                });
+                Modal = new ControlModalFormularCondition
+                (
+                    //"add",
+                    //context.Page.I18N("inventoryexpress.condition.add.label")
+                );
 
                 return base.Render(context);
             }

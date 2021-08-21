@@ -9,11 +9,14 @@ using WebExpress.WebApp.WebResource;
 
 namespace InventoryExpress.WebResource
 {
-    [ID("Settings")]
-    [Title("inventoryexpress.settings.label")]
-    [Segment("settings", "inventoryexpress.settings.label")]
+    [ID("SettingGeneral")]
+    [Title("inventoryexpress.setting.label")]
+    [Segment("setting", "inventoryexpress.setting.label")]
     [Path("/")]
-    [SettingGroup("inventoryexpress.settings.general.label")]
+    [SettingSection(SettingSection.Preferences)]
+    [SettingIcon(TypeIcon.Wrench)]
+    [SettingGroup("inventoryexpress.setting.general.label")]
+    [SettingContext("inventoryexpress.setting.general.label")]
     [Module("InventoryExpress")]
     [Context("admin")]
     public sealed class PageSettingGeneral : PageTemplateWebAppSetting, IPageInventory

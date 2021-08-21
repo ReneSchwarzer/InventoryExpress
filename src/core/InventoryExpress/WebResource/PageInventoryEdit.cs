@@ -175,6 +175,7 @@ namespace InventoryExpress.WebResource
                     inventory.DerecognitionDate = !string.IsNullOrWhiteSpace(Form.DerecognitionDate.Value) ? Convert.ToDateTime(Form.DerecognitionDate.Value, Culture) : null;
                     inventory.Tag = Form.Tag.Value;
                     inventory.Description = Form.Description.Value;
+                    inventory.Updated = DateTime.Now;
 
                     // Attribute ermitteln
                     foreach (var attribute in attributes)

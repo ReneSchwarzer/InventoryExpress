@@ -17,6 +17,7 @@ namespace InventoryExpress.WebResource
     [Context("general")]
     [Context("media")]
     [Context("mediaedit")]
+    [Context("inventoryedit")]
     public sealed class PageInventoryMedia : PageTemplateWebApp, IPageInventory
     {
         /// <summary>
