@@ -1,13 +1,13 @@
-﻿using InventoryExpress.WebControl;
-using InventoryExpress.Model;
+﻿using InventoryExpress.Model;
+using InventoryExpress.WebControl;
 using System;
 using System.Linq;
-using WebExpress.UI.WebControl;
-using WebExpress.WebApp.WebResource;
 using WebExpress.Attribute;
-using WebExpress.Message;
 using WebExpress.Internationalization;
+using WebExpress.Message;
+using WebExpress.UI.WebControl;
 using WebExpress.WebApp.Attribute;
+using WebExpress.WebApp.WebResource;
 
 namespace InventoryExpress.WebResource
 {
@@ -45,8 +45,25 @@ namespace InventoryExpress.WebResource
             {
                 RedirectUri = Uri.Take(-1),
                 EnableCancelButton = false,
-                BackUri = Uri.Take(-1)                
+                BackUri = Uri.Take(-1)
             };
+
+            lock (ViewModel.Instance.Database)
+            {
+                foreach (var v in ViewModel.Instance.Attributes)
+                {
+                    form.Attributes.Options.Add(new ControlFormularItemInputMoveSelectorItem()
+                    {
+                        ID = v.Guid,
+                        Value = v.Name
+                    });
+                }
+
+                form.TemplateName.Value = string.Empty;
+                form.Attributes.Value = string.Join(";", ViewModel.Instance.Attributes);
+                form.Description.Value = string.Empty;
+                form.Tag.Value = string.Empty;
+            }
         }
 
         /// <summary>
@@ -56,15 +73,13 @@ namespace InventoryExpress.WebResource
         {
             base.Process();
 
-            Content.Primary.Add(form);
-
             form.TemplateName.Validation += (s, e) =>
             {
                 if (e.Value.Count() < 1)
                 {
                     e.Results.Add(new ValidationResult() { Text = this.I18N("inventoryexpress.template.validation.name.invalid"), Type = TypesInputValidity.Error });
                 }
-                else if (ViewModel.Instance.Templates.Where(x => x.Name.Equals(e.Value)).Count() > 0)
+                else if (ViewModel.Instance.Templates.Where(x => x.Name.Equals(e.Value)).Any())
                 {
                     e.Results.Add(new ValidationResult() { Text = this.I18N("inventoryexpress.template.validation.name.used"), Type = TypesInputValidity.Error });
                 }
@@ -104,9 +119,26 @@ namespace InventoryExpress.WebResource
                     }
                 }
 
-                ViewModel.Instance.Templates.Add(template);
-                ViewModel.Instance.SaveChanges();
+                var newAttributes = form.Attributes.Value?.Split(";", StringSplitOptions.RemoveEmptyEntries);
+
+                lock (ViewModel.Instance.Database)
+                {
+                    ViewModel.Instance.Templates.Add(template);
+                    ViewModel.Instance.SaveChanges();
+                    
+                    // verknüpfe Attribute
+                    foreach (var newItems in newAttributes.Join(ViewModel.Instance.Attributes, x => x, y => y.Guid, (x, y) => y))
+                    {
+                        ViewModel.Instance.TemplateAttributes.Add(new TemplateAttribute() { TemplateId = template.Id, AttributeId = newItems.Id });
+                    }
+
+                    ViewModel.Instance.SaveChanges();
+                }
+
+                form.Reset();
             };
+
+            Content.Primary.Add(form);
         }
     }
 }

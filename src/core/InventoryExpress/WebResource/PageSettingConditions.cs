@@ -85,7 +85,6 @@ namespace InventoryExpress.WebResource
                         {
                             Text = context.I18N("inventoryexpress.condition.edit.label"),
                             Uri = new UriFragment(),
-                            //Icon = new PropertyIcon(TypeIcon.Edit),
                             Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.Null),
                             Modal = new ControlModalFormularConditionEdit(condition.Guid) { Item = condition }
                         },

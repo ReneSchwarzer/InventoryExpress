@@ -10,13 +10,13 @@ namespace InventoryExpress.WebControl
 {
     [Section(Section.HeadlineSecondary)]
     [Application("InventoryExpress")]
-    [Context("condition")]
-    public sealed class ControlHeadlineConditionAdd : ControlButtonLink, IComponent
+    [Context("attribute")]
+    public sealed class ControlHeadlineAttributeAdd : ControlButtonLink, IComponent
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public ControlHeadlineConditionAdd()
+        public ControlHeadlineAttributeAdd()
         {
             Margin = new PropertySpacingMargin(PropertySpacing.Space.Two);
         }
@@ -28,11 +28,11 @@ namespace InventoryExpress.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            Text = context.Page.I18N("inventoryexpress.condition.add.label");
+            Text = context.Page.I18N("inventoryexpress.attribute.add.label");
             Icon = new PropertyIcon(TypeIcon.Plus);
             BackgroundColor = new PropertyColorButton(TypeColorButton.Primary);
 
-            Modal = new ControlModalFormularConditionEdit();
+            Modal = new ControlModalFormularAttributeEdit();
 
             return base.Render(context);
         }

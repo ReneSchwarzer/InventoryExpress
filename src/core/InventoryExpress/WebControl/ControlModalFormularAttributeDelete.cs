@@ -1,0 +1,65 @@
+﻿using InventoryExpress.Model;
+using System;
+using System.Linq;
+using WebExpress.Html;
+using WebExpress.Internationalization;
+using WebExpress.UI.WebControl;
+
+namespace InventoryExpress.WebControl
+{
+    public class ControlModalFormularAttributeDelete : ControlModalForm
+    {
+        /// <summary>
+        /// Konstruktor
+        /// </summary>
+        /// <param name="id">Die ID</param>
+        public ControlModalFormularAttributeDelete(string id = null)
+            : base("delete_" + id)
+        {
+            Init();
+        }
+
+        /// <summary>
+        /// Das zu löschende Attribut
+        /// </summary>
+        public Model.Attribute Item { get; set; }
+
+        /// <summary>
+        /// Initialisierung
+        /// </summary>
+        private void Init()
+        {
+            Formular.ProcessFormular += (s, e) =>
+            {
+                lock (ViewModel.Instance.Database)
+                {
+                    if (Item != null)
+                    {
+                        // Aus DB löschen
+                        ViewModel.Instance.Attributes.Remove(Item);
+                    }
+
+                    ViewModel.Instance.SaveChanges();
+                }
+            };
+        }
+
+        /// <summary>
+        /// In HTML konvertieren
+        /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        /// <returns>Das Control als HTML</returns>
+        public override IHtmlNode Render(RenderContext context)
+        {
+            Header = context.Page.I18N("inventoryexpress.attribute.delete.header");
+
+            Formular.SubmitButton.Text = context.Page.I18N("inventoryexpress.attribute.delete.label");
+            Formular.SubmitButton.Icon = new PropertyIcon(TypeIcon.TrashAlt);
+            Formular.SubmitButton.Color = new PropertyColorButton(TypeColorButton.Danger);
+            Formular.RedirectUri = context.Uri;
+            Formular.Add(new ControlFormularItemStaticText() { Text = string.Format(context.I18N("inventoryexpress.attribute.delete.description"), Item.Name) });
+
+            return base.Render(context);
+        }
+    }
+}
