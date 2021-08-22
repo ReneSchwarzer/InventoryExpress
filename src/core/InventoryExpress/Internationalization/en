@@ -291,6 +291,16 @@ inventoryexpress.condition.description.label=Description
 inventoryexpress.condition.order.label=Order
 inventoryexpress.condition.action.label=Action
 inventoryexpress.condition.add.label=Add condition
+inventoryexpress.condition.edit.label=Edit
+inventoryexpress.condition.delete.label=Delete
+inventoryexpress.condition.delete.header=Confirm delete
+inventoryexpress.condition.delete.description=Are you sure you want to delete the state '{0}'?
+inventoryexpress.condition.form.name.label=Name
+inventoryexpress.condition.form.name.description=The name of the condition.
+inventoryexpress.condition.form.name.validation.empty=You must specify a name.
+inventoryexpress.condition.form.name.validation.inuse=The name is already taken.
+inventoryexpress.condition.form.description.label=Description
+inventoryexpress.condition.form.description.description=
 
 inventoryexpress.attribute.label=Attributes
 

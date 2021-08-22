@@ -291,6 +291,16 @@ inventoryexpress.condition.description.label=Beschreibung
 inventoryexpress.condition.order.label=Reihenfolge
 inventoryexpress.condition.action.label=Aktionen
 inventoryexpress.condition.add.label=Zustand hinzufügen
+inventoryexpress.condition.edit.label=Bearbeiten
+inventoryexpress.condition.delete.label=Löschen
+inventoryexpress.condition.delete.header=Löschen bestätigen
+inventoryexpress.condition.delete.description=Möchten Sie den Zustand '{0}' wirklich löschen?
+inventoryexpress.condition.form.name.label=Name
+inventoryexpress.condition.form.name.description=Der Name des Zustandes.
+inventoryexpress.condition.form.name.validation.empty=Sie müssen ein Name angeben.
+inventoryexpress.condition.form.name.validation.inuse=Der Name ist bereits vergeben.
+inventoryexpress.condition.form.description.label=Beschreibung
+inventoryexpress.condition.form.description.description=
 
 inventoryexpress.attribute.label=Attribute
 

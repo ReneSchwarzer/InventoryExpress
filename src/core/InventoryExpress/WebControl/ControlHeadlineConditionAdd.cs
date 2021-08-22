@@ -43,7 +43,7 @@ namespace InventoryExpress.WebControl
                 BackgroundColor = new PropertyColorButton(TypeColorButton.Primary);
                 Value = inventory?.Created.ToString(context.Page.Culture.DateTimeFormat.ShortDatePattern);
 
-                Modal = new ControlModalFormularCondition
+                Modal = new ControlModalFormularConditionEdit
                 (
                     //"add",
                     //context.Page.I18N("inventoryexpress.condition.add.label")

@@ -105,8 +105,11 @@ namespace InventoryExpress.WebResource
                     }
                 }
 
-                ViewModel.Instance.Locations.Add(location);
-                ViewModel.Instance.SaveChanges();
+                lock (ViewModel.Instance.Database)
+                {
+                    ViewModel.Instance.Locations.Add(location);
+                    ViewModel.Instance.SaveChanges();
+                }
             };
         }
     }
