@@ -109,7 +109,7 @@ namespace InventoryExpress.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            Header = context.Page.I18N("inventoryexpress.condition.add.label");
+            Header = context.Page.I18N(Item == null? "inventoryexpress.condition.add.header" : "inventoryexpress.condition.edit.header");
             Formular.RedirectUri = context.Uri;
 
             ConditionName.Validation += (s, e) =>
