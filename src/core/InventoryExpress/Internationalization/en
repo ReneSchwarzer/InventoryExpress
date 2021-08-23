@@ -337,3 +337,7 @@ inventoryexpress.edit.label=Edit
 inventoryexpress.delete.label=Delete
 inventoryexpress.print.label=Print
 inventoryexpress.print.Description=Prints the current item.
+
+inventoryexpress.footer.version.label={0} version {1} created with {2} version {3}.
+inventoryexpress.footer.licence.label=Lizenz MIT
+inventoryexpress.footer.licence.uri=https://github.com/ReneSchwarzer/WebExpress/blob/master/LICENSE

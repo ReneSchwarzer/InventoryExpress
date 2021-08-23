@@ -1,6 +1,8 @@
-﻿using InventoryExpress.Model;
+﻿using System.Linq;
 using WebExpress.Attribute;
 using WebExpress.Html;
+using WebExpress.Internationalization;
+using WebExpress.Plugin;
 using WebExpress.UI.Attribute;
 using WebExpress.UI.Component;
 using WebExpress.UI.WebControl;
@@ -10,12 +12,12 @@ namespace InventoryExpress.WebControl
 {
     [Section(Section.FooterPrimary)]
     [Application("InventoryExpress")]
-    public sealed class ControlFooterPrimary : ControlText, IComponent
+    public sealed class ControlFooterVersion : ControlText, IComponent
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public ControlFooterPrimary()
+        public ControlFooterVersion()
             : base()
         {
             Init();
@@ -26,7 +28,6 @@ namespace InventoryExpress.WebControl
         /// </summary>
         private void Init()
         {
-            Text = string.Format("{0}", ViewModel.Instance.Now);
             TextColor = new PropertyColorText(TypeColorText.Muted);
             Format = TypeFormatText.Center;
             Size = new PropertySizeText(TypeSizeText.Small);
@@ -39,6 +40,18 @@ namespace InventoryExpress.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
+            var webexpress = PluginManager.Plugins.Where(x => x.PluginID == "webexpress").FirstOrDefault();
+            var inventoryExpress = PluginManager.Plugins.Where(x => x.Assembly == GetType().Assembly).FirstOrDefault();
+
+            Text = string.Format
+            (
+                context.I18N("inventoryexpress.footer.version.label"),
+                inventoryExpress?.PluginName,
+                inventoryExpress?.Version,
+                webexpress?.PluginName,
+                webexpress?.Version
+            );
+
             return base.Render(context);
         }
     }

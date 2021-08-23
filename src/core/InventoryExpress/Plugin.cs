@@ -6,7 +6,7 @@ using WebExpress.Plugin;
 namespace InventoryExpress
 {
     [ID("InventoryExpress")]
-    [Name("plugin.name")]
+    [Name("InventoryExpress")]
     [Description("plugin.description")]
     [Icon("/assets/img/Logo.png")]
     public sealed class Plugin : IPlugin
