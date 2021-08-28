@@ -4,9 +4,9 @@ using WebExpress.Attribute;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.Attribute;
-using WebExpress.WebApp.WebResource;
+using WebExpress.WebApp.WebResource.PageSetting;
 
-namespace InventoryExpress.WebResource
+namespace InventoryExpress.WebResource.PageSetting
 {
     [ID("SettingDatabase")]
     [Title("inventoryexpress.setting.database.label")]
@@ -18,7 +18,7 @@ namespace InventoryExpress.WebResource
     [SettingContext("inventoryexpress.setting.general.label")]
     [Module("InventoryExpress")]
     [Context("admin")]
-    public sealed class PageSettingDatabase : PageTemplateWebAppSetting, IPageInventory
+    public sealed class PageSettingDatabase : PageTemplateWebAppSetting
     {
         /// <summary>
         /// Konstruktor

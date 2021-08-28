@@ -7,27 +7,27 @@ using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
 using WebExpress.Uri;
 using WebExpress.WebApp.Attribute;
-using WebExpress.WebApp.WebResource;
+using WebExpress.WebApp.WebResource.PageSetting;
 
-namespace InventoryExpress.WebResource
+namespace InventoryExpress.WebResource.PageSetting
 {
-    [ID("SettingAttribute")]
-    [Title("inventoryexpress.attribute.label")]
-    [Segment("attribute", "inventoryexpress.attribute.label")]
+    [ID("SettingCondition")]
+    [Title("inventoryexpress.condition.label")]
+    [Segment("condition", "inventoryexpress.condition.label")]
     [Path("/SettingGeneral")]
     [SettingSection(SettingSection.Primary)]
-    [SettingIcon(TypeIcon.Cubes)]
+    [SettingIcon(TypeIcon.StarHalf)]
     [SettingGroup("inventoryexpress.setting.data.label")]
     [SettingContext("inventoryexpress.setting.general.label")]
     [Module("InventoryExpress")]
     [Context("general")]
-    [Context("attribute")]
-    public sealed class PageSettingAttributes : PageTemplateWebAppSetting, IPageTemplate
+    [Context("condition")]
+    public sealed class PageSettingConditions : PageTemplateWebAppSetting
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public PageSettingAttributes()
+        public PageSettingConditions()
         {
         }
 
@@ -55,37 +55,38 @@ namespace InventoryExpress.WebResource
 
             table.AddColumn(context.I18N("inventoryexpress.condition.name.label"));
             table.AddColumn(context.I18N("inventoryexpress.condition.description.label"));
+            table.AddColumn(context.I18N("inventoryexpress.condition.order.label"));
             table.AddColumn("");
 
-            var attributes = new List<Attribute>();
+            var conditions = new List<Condition>();
 
             lock (ViewModel.Instance.Database)
             {
-                attributes.AddRange(ViewModel.Instance.Attributes);
+                conditions.AddRange(ViewModel.Instance.Conditions);
             }
 
-            foreach (var attribute in attributes.OrderBy(x => x.Name))
+            foreach (var condition in conditions.OrderBy(x => x.Grade))
             {
                 var inuse = false;
 
                 lock (ViewModel.Instance.Database)
                 {
-                    inuse = ViewModel.Instance.InventoryAttributes.Where(x => x.AttributeId == attribute.Id).Any() ||
-                            ViewModel.Instance.TemplateAttributes.Where(x => x.AttributeId == attribute.Id).Any();
+                    inuse = ViewModel.Instance.Inventories.Where(x => x.ConditionId == condition.Id).Any();
                 }
 
                 table.AddRow
                 (
-                    new ControlText() { Text = attribute.Name },
-                    new ControlText() { Text = attribute.Description },
+                    new ControlText() { Text = condition.Name },
+                    new ControlText() { Text = condition.Description },
+                    new ControlText() { Text = condition.Grade.ToString() },
                     new ControlPanelFlexbox
                     (
                         new ControlLink()
                         {
-                            Text = context.I18N("inventoryexpress.attribute.edit.label"),
+                            Text = context.I18N("inventoryexpress.condition.edit.label"),
                             Uri = new UriFragment(),
                             Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.Null),
-                            Modal = new ControlModalFormularAttributeEdit(attribute.Guid) { Item = attribute }
+                            Modal = new ControlModalFormularConditionEdit(condition.Guid) { Item = condition }
                         },
                         new ControlText()
                         {
@@ -96,18 +97,18 @@ namespace InventoryExpress.WebResource
                             inuse ?
                             new ControlText()
                             {
-                                Text = context.I18N("inventoryexpress.attribute.delete.label"),
+                                Text = context.I18N("inventoryexpress.condition.delete.label"),
                                 TextColor = new PropertyColorText(TypeColorText.Muted),
                                 Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.Null)
                             }
                             :
                             new ControlLink()
                             {
-                                Text = context.I18N("inventoryexpress.attribute.delete.label"),
+                                Text = context.I18N("inventoryexpress.condition.delete.label"),
                                 TextColor = new PropertyColorText(TypeColorText.Danger),
                                 Uri = new UriFragment(),
                                 Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.Null),
-                                Modal = new ControlModalFormularAttributeDelete(attribute.Guid) { Item = attribute }
+                                Modal = new ControlModalFormularConditionDelete(condition.Guid) { Item = condition }
                             }
                         )
                     )

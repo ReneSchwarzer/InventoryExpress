@@ -5,9 +5,9 @@ using System.Linq;
 using WebExpress.Attribute;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.Attribute;
-using WebExpress.WebApp.WebResource;
+using WebExpress.WebApp.WebResource.PageSetting;
 
-namespace InventoryExpress.WebResource
+namespace InventoryExpress.WebResource.PageSetting
 {
     [ID("SettingTemplate")]
     [Title("inventoryexpress.templates.label")]
@@ -20,7 +20,7 @@ namespace InventoryExpress.WebResource
     [Module("InventoryExpress")]
     [Context("general")]
     [Context("template")]
-    public sealed class PageSettingTemplates : PageTemplateWebAppSetting, IPageTemplate
+    public sealed class PageSettingTemplates : PageTemplateWebAppSetting
     {
         /// <summary>
         /// Konstruktor

@@ -7,9 +7,9 @@ using WebExpress.Internationalization;
 using WebExpress.Message;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.Attribute;
-using WebExpress.WebApp.WebResource;
+using WebExpress.WebApp.WebResource.PageSetting;
 
-namespace InventoryExpress.WebResource
+namespace InventoryExpress.WebResource.PageSetting
 {
     [ID("SettingTemplateAdd")]
     [Title("inventoryexpress.template.add.label")]
@@ -20,7 +20,7 @@ namespace InventoryExpress.WebResource
     [Module("InventoryExpress")]
     [Context("general")]
     [Context("templateadd")]
-    public sealed class PageSettingTemplateAdd : PageTemplateWebAppSetting, IPageTemplate
+    public sealed class PageSettingTemplateAdd : PageTemplateWebAppSetting
     {
         /// <summary>
         /// Formular
@@ -125,7 +125,7 @@ namespace InventoryExpress.WebResource
                 {
                     ViewModel.Instance.Templates.Add(template);
                     ViewModel.Instance.SaveChanges();
-                    
+
                     // verknüpfe Attribute
                     foreach (var newItems in newAttributes.Join(ViewModel.Instance.Attributes, x => x, y => y.Guid, (x, y) => y))
                     {

@@ -1,14 +1,14 @@
-﻿using InventoryExpress.WebControl;
-using InventoryExpress.Model;
+﻿using InventoryExpress.Model;
+using InventoryExpress.WebControl;
 using System;
 using System.Linq;
-using WebExpress.UI.WebControl;
-using WebExpress.WebApp.WebResource;
 using WebExpress.Attribute;
 using WebExpress.Message;
+using WebExpress.UI.WebControl;
 using WebExpress.WebApp.Attribute;
+using WebExpress.WebApp.WebResource.PageSetting;
 
-namespace InventoryExpress.WebResource
+namespace InventoryExpress.WebResource.PageSetting
 {
     [ID("SettingTemplateMedia")]
     [Title("inventoryexpress.template.media.label")]
@@ -20,7 +20,7 @@ namespace InventoryExpress.WebResource
     [Context("general")]
     [Context("media")]
     [Context("mediaedit")]
-    public sealed class PageSettingTemplateMedia : PageTemplateWebAppSetting, IPageTemplate
+    public sealed class PageSettingTemplateMedia : PageTemplateWebAppSetting
     {
         /// <summary>
         /// Formular
@@ -42,7 +42,7 @@ namespace InventoryExpress.WebResource
         /// </summary>
         public PageSettingTemplateMedia()
         {
-            
+
         }
 
         /// <summary>
@@ -72,9 +72,9 @@ namespace InventoryExpress.WebResource
         {
             base.Process();
 
-            Content.Preferences.Add(new ControlImage() 
-            { 
-                Uri = Media != null? Uri.Root.Append($"media/{Media.Guid}") : Uri.Root.Append("/assets/img/inventoryexpress.svg"),
+            Content.Preferences.Add(new ControlImage()
+            {
+                Uri = Media != null ? Uri.Root.Append($"media/{Media.Guid}") : Uri.Root.Append("/assets/img/inventoryexpress.svg"),
                 Width = 400,
                 Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.None, PropertySpacing.Space.None, PropertySpacing.Space.Three)
             });
@@ -102,9 +102,9 @@ namespace InventoryExpress.WebResource
                     // Image speichern
                     if (Media == null)
                     {
-                        Template.Media = new Media() 
-                        { 
-                            Name = file.Value, 
+                        Template.Media = new Media()
+                        {
+                            Name = file.Value,
                             Data = file.Data,
                             Tag = Form.Tag.Value,
                             Created = DateTime.Now,

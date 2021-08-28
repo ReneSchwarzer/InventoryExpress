@@ -5,9 +5,9 @@ using WebExpress.Attribute;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.Attribute;
-using WebExpress.WebApp.WebResource;
+using WebExpress.WebApp.WebResource.PageSetting;
 
-namespace InventoryExpress.WebResource
+namespace InventoryExpress.WebResource.PageSetting
 {
     [ID("SettingGeneral")]
     [Title("inventoryexpress.setting.label")]
@@ -19,7 +19,7 @@ namespace InventoryExpress.WebResource
     [SettingContext("inventoryexpress.setting.general.label")]
     [Module("InventoryExpress")]
     [Context("admin")]
-    public sealed class PageSettingGeneral : PageTemplateWebAppSetting, IPageInventory
+    public sealed class PageSettingGeneral : PageTemplateWebAppSetting
     {
         /// <summary>
         /// Formular

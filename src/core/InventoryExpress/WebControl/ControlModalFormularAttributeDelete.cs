@@ -1,13 +1,12 @@
 ﻿using InventoryExpress.Model;
-using System;
-using System.Linq;
 using WebExpress.Html;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
+using WebExpress.WebApp.WebControl;
 
 namespace InventoryExpress.WebControl
 {
-    public class ControlModalFormularAttributeDelete : ControlModalForm
+    public class ControlModalFormularAttributeDelete : ControlModalFormDelete
     {
         /// <summary>
         /// Konstruktor
@@ -29,7 +28,7 @@ namespace InventoryExpress.WebControl
         /// </summary>
         private void Init()
         {
-            Formular.ProcessFormular += (s, e) =>
+            Delete += (s, e) =>
             {
                 lock (ViewModel.Instance.Database)
                 {
@@ -52,12 +51,7 @@ namespace InventoryExpress.WebControl
         public override IHtmlNode Render(RenderContext context)
         {
             Header = context.Page.I18N("inventoryexpress.attribute.delete.header");
-
-            Formular.SubmitButton.Text = context.Page.I18N("inventoryexpress.attribute.delete.label");
-            Formular.SubmitButton.Icon = new PropertyIcon(TypeIcon.TrashAlt);
-            Formular.SubmitButton.Color = new PropertyColorButton(TypeColorButton.Danger);
-            Formular.RedirectUri = context.Uri;
-            Formular.Add(new ControlFormularItemStaticText() { Text = string.Format(context.I18N("inventoryexpress.attribute.delete.description"), Item.Name) });
+            Content = new ControlFormularItemStaticText() { Text = string.Format(context.I18N("inventoryexpress.attribute.delete.description"), Item.Name) };
 
             return base.Render(context);
         }

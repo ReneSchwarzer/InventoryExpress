@@ -283,6 +283,7 @@ inventoryexpress.setting.database.info.label=Database information
 inventoryexpress.setting.database.provider.label=Provider name:
 inventoryexpress.setting.database.datasource.label=Data source:
 inventoryexpress.setting.database.filesize.label=File size:
+inventoryexpress.setting.log.label=Log
 
 inventoryexpress.condition.label=Condition
 inventoryexpress.condition.description=The condition of the inventory item.
