@@ -7,7 +7,7 @@ using WebExpress.WebApp.WebControl;
 
 namespace InventoryExpress.WebControl
 {
-    public class ControlModalFormularConditionDelete : ControlModalFormDelete
+    public class ControlModalFormularConditionDelete : ControlModalFormConfirmDelete
     {
         /// <summary>
         /// Konstruktor
@@ -29,7 +29,7 @@ namespace InventoryExpress.WebControl
         /// </summary>
         private void Init()
         {
-            Delete += (s, e) =>
+            Confirm += (s, e) =>
             {
                 lock (ViewModel.Instance.Database)
                 {
