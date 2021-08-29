@@ -158,8 +158,36 @@ namespace InventoryExpress.WebResource
                     }
                 };
 
+                // Ermittlung der geänderten Werte
+                var comparison = new Action<string, string, string, List<Tuple<string, string, string, bool>>, bool>((name, orgValue, newValue, list, apply) =>
+                {
+                    if (orgValue != newValue)
+                    {
+                        list.Add(new Tuple<string, string, string, bool>(name, orgValue, newValue, apply));
+                    }
+
+                    return;
+                });
+
                 Form.ProcessFormular += (s, e) =>
                 {
+                    // Geänderte Werte ermitteln
+                    var changed = new List<Tuple<string, string, string, bool>>();
+                    comparison("inventoryexpress.inventory.name.label", inventory.Name, Form.InventoryName?.Value, changed, true);
+                    comparison("inventoryexpress.inventory.manufacturers.label", inventory.Manufacturer?.Name, ViewModel.Instance.Manufacturers.Where(x => x.Guid == Form.Manufacturer.Value).FirstOrDefault()?.Name, changed, true);
+                    comparison("inventoryexpress.inventory.location.label", inventory.Location?.Name, ViewModel.Instance.Locations.Where(x => x.Guid == Form.Location.Value).FirstOrDefault()?.Name, changed, true);
+                    comparison("inventoryexpress.inventory.supplier.label", inventory.Supplier?.Name, ViewModel.Instance.Suppliers.Where(x => x.Guid == Form.Supplier.Value).FirstOrDefault()?.Name, changed, true);
+                    comparison("inventoryexpress.inventory.ledgeraccount.label", inventory.LedgerAccount?.Name, ViewModel.Instance.LedgerAccounts.Where(x => x.Guid == Form.LedgerAccount.Value).FirstOrDefault()?.Name, changed, true);
+                    comparison("inventoryexpress.inventory.costcenter.label", inventory.CostCenter?.Name, ViewModel.Instance.CostCenters.Where(x => x.Guid == Form.CostCenter.Value).FirstOrDefault()?.Name, changed, true);
+                    comparison("inventoryexpress.inventory.condition.label", inventory.Condition?.Name, ViewModel.Instance.Conditions.Where(x => x.Guid == Form.Condition.Value).FirstOrDefault()?.Name, changed, true);
+                    comparison("inventoryexpress.inventory.parent.label", inventory.Parent?.Name, ViewModel.Instance.Inventories.Where(x => x.Guid == Form.Parent.Value).FirstOrDefault()?.Name, changed, true);
+                    comparison("inventoryexpress.inventory.template.label", inventory.Template?.Name, ViewModel.Instance.Templates.Where(x => x.Guid == Form.Template.Value).FirstOrDefault()?.Name, changed, true);
+                    comparison("inventoryexpress.inventory.costvalue.label", inventory.CostValue.ToString(), !string.IsNullOrWhiteSpace(Form.CostValue.Value) ? Convert.ToDecimal(Form.CostValue.Value, Culture).ToString() : "0", changed, true);
+                    comparison("inventoryexpress.inventory.purchasedate.label", inventory.PurchaseDate?.ToString(), !string.IsNullOrWhiteSpace(Form.PurchaseDate.Value) ? Convert.ToDateTime(Form.PurchaseDate.Value, Culture) .ToString(): null, changed, true);
+                    comparison("inventoryexpress.inventory.derecognitiondate.label", inventory.DerecognitionDate?.ToString(), !string.IsNullOrWhiteSpace(Form.DerecognitionDate.Value) ? Convert.ToDateTime(Form.DerecognitionDate.Value, Culture).ToString() : null, changed, true);
+                    comparison("inventoryexpress.inventory.tags.label", inventory.Tag, Form.Tag?.Value, changed, true);
+                    comparison("inventoryexpress.inventory.description.label", inventory.Description, Form.Description?.Value, changed, false);
+
                     // Neues Inventarobjekt erstellen und speichern
                     inventory.Name = Form.InventoryName.Value;
                     inventory.Manufacturer = ViewModel.Instance.Manufacturers.Where(x => x.Guid == Form.Manufacturer.Value).FirstOrDefault();
@@ -205,13 +233,33 @@ namespace InventoryExpress.WebResource
                             }
                         }
                     }
+                    
+                    ViewModel.Instance.SaveChanges();
+
+                    var journal = new InventoryJournal()
+                    {
+                        InventoryId = inventory.Id,
+                        Action = "inventoryexpress.journal.action.inventory.edit",
+                        Created = DateTime.Now,
+                        Guid = Guid.NewGuid().ToString()
+                    };
+
+                    ViewModel.Instance.InventoryJournals.Add(journal);
+                    ViewModel.Instance.SaveChanges();
+
+                    ViewModel.Instance.InventoryJournalParameters.AddRange(changed.Select(x => new InventoryJournalParameter()
+                    {
+                        InventoryJournalId = journal.Id,
+                        Name = x.Item1,
+                        OldValue = x.Item4 ? x.Item2?.Length > 15 ? $" { x.Item2?.Substring(0, 15) }..." : x.Item2 : "...",
+                        NewValue = x.Item4 ? x.Item3?.Length > 15 ? $" { x.Item3?.Substring(0, 15) }..." : x.Item3 : "...",
+                        Guid = Guid.NewGuid().ToString()
+                    }));
 
                     ViewModel.Instance.SaveChanges();
                 };
 
                 // Attribute im Formular erstellen
-                
-
                 Content.Primary.Add(Form);
                 Uri.Display = GetParamValue("InventoryID").Split('-').LastOrDefault();
             }

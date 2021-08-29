@@ -98,6 +98,17 @@ namespace InventoryExpress.WebResource
 
                     ViewModel.Instance.Inventories.Add(inventory);
                     ViewModel.Instance.SaveChanges();
+
+                    var journal = new InventoryJournal()
+                    {
+                        InventoryId = inventory.Id,
+                        Action = "inventoryexpress.journal.action.inventory.add",
+                        Created = DateTime.Now,
+                        Guid = Guid.NewGuid().ToString()
+                    };
+
+                    ViewModel.Instance.InventoryJournals.Add(journal);
+                    ViewModel.Instance.SaveChanges();
                 }
             };
         }

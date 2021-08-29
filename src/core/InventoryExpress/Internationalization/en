@@ -20,17 +20,21 @@ org.WebExpress.Inventory=Inventory
 inventoryexpress.inventories.label=Inventories
 inventoryexpress.inventory.label=Inventoriy
 inventoryexpress.inventory.description=The inventory item
-inventoryexpress.inventory.name.label=Name
+inventoryexpress.inventory.name.label=Name:
 inventoryexpress.inventory.name.description=The name of the inventory item.
 inventoryexpress.inventory.add.label=Add inventory item
 inventoryexpress.inventory.edit.label=Edit inventory item
 inventoryexpress.inventory.edit.display={0}
 inventoryexpress.inventory.media.label=Edit image
 inventoryexpress.inventory.media.display=Image
-inventoryexpress.inventory.attachment.label=Edit attachments
+inventoryexpress.inventory.attachment.label=Attachment
+inventoryexpress.inventory.attachment.header=Edit attachments
 inventoryexpress.inventory.attachment.display=Attachments 
 inventoryexpress.inventory.attachment.function=Attachments
 inventoryexpress.inventory.attachment.back=Back 
+inventoryexpress.inventory.journal.label=Journal
+inventoryexpress.inventory.journal.display=Journal 
+inventoryexpress.inventory.journal.function=Journal 
 inventoryexpress.inventory.delete.label=Deleting inventory
 inventoryexpress.inventory.delete.description=Are you sure you want to delete the inventory?
 inventoryexpress.inventory.name.label=Name:
@@ -325,8 +329,18 @@ inventoryexpress.attribute.form.name.validation.inuse=The name is already taken.
 inventoryexpress.attribute.form.description.label=Description
 inventoryexpress.attribute.form.description.description=
 
+inventoryexpress.journal.action.inventory.add=The inventory item has been created.
+inventoryexpress.journal.action.inventory.edit=The inventory item has been changed.
+
 inventoryexpress.parent.label=Membership of
 inventoryexpress.parent.description=Belonging to another inventory item.
+
+inventoryexpress.journal.action.inventory.media.add=An image has been added to the inventory item.
+inventoryexpress.journal.action.inventory.media.edit=The image of the inventory item has been changed.
+inventoryexpress.journal.action.inventory.media.del=The image of the inventory item has been deleted.
+inventoryexpress.journal.action.inventory.attachment.add=An attachment has been added to the inventory item.
+inventoryexpress.journal.action.inventory.attachment.edit=An attachment of the inventory item has been changed.
+inventoryexpress.journal.action.inventory.attachment.del=An attachment of the inventory item has been deleted.
 
 inventoryexpress.tags.label=Tags
 inventoryexpress.tags.description=

@@ -1,10 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InventoryExpress.Model
 {
@@ -29,11 +24,6 @@ namespace InventoryExpress.Model
         public string Action { get; set; }
 
         /// <summary>
-        /// Parameter der Aktion
-        /// </summary>
-        public string ActionParam { get; set; }
-
-        /// <summary>
         /// Der Zeitstempel der Erstellung
         /// </summary>
         public DateTime Created { get; set; }
@@ -43,6 +33,14 @@ namespace InventoryExpress.Model
         /// </summary>
         public string Guid { get; set; }
 
+        /// <summary>
+        /// Verweis auf den zugehörige Inventargegenstand
+        /// </summary>
         public virtual Inventory Inventory { get; set; }
+
+        /// <summary>
+        /// Verweis auf die Parameter
+        /// </summary>
+        public virtual ICollection<InventoryJournalParameter> InventoryJournalParameters { get; set; }
     }
 }

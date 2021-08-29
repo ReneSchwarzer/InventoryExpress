@@ -1,11 +1,11 @@
-﻿using InventoryExpress.WebControl;
-using InventoryExpress.Model;
+﻿using InventoryExpress.Model;
+using InventoryExpress.WebControl;
 using System;
 using System.Linq;
-using WebExpress.UI.WebControl;
-using WebExpress.WebApp.WebResource;
 using WebExpress.Attribute;
 using WebExpress.Message;
+using WebExpress.UI.WebControl;
+using WebExpress.WebApp.WebResource;
 
 namespace InventoryExpress.WebResource
 {
@@ -40,7 +40,7 @@ namespace InventoryExpress.WebResource
         /// </summary>
         public PageInventoryMedia()
         {
-            
+
         }
 
         /// <summary>
@@ -61,6 +61,15 @@ namespace InventoryExpress.WebResource
             Media = ViewModel.Instance.Media.Where(x => x.Id == Inventory.MediaId).FirstOrDefault();
 
             AddParam("MediaID", Media?.Guid, ParameterScope.Local);
+
+            Form.InitializeFormular += (s, e) =>
+            {
+                
+            };
+
+            Form.Image.Validation += (s, e) =>
+            {
+            };
         }
 
         /// <summary>
@@ -70,9 +79,9 @@ namespace InventoryExpress.WebResource
         {
             base.Process();
 
-            Content.Preferences.Add(new ControlImage() 
-            { 
-                Uri = Media != null? Uri.Root.Append($"media/{Media.Guid}") : Uri.Root.Append("/assets/img/inventoryexpress.svg"),
+            Content.Preferences.Add(new ControlImage()
+            {
+                Uri = Media != null ? Uri.Root.Append($"media/{Media.Guid}") : Uri.Root.Append("/assets/img/inventoryexpress.svg"),
                 Width = 400,
                 Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.None, PropertySpacing.Space.None, PropertySpacing.Space.Three)
             });
@@ -81,34 +90,36 @@ namespace InventoryExpress.WebResource
 
             Form.Tag.Value = Media?.Tag;
 
-            Form.Image.Validation += (s, e) =>
-            {
-                //if (e.Value.Count() < 1)
-                //{
-                //    e.Results.Add(new ValidationResult() { Text = "Geben Sie einen gültigen Namen ein!", Type = TypesInputValidity.Error });
-                //}
-                //else if (!manufactur.Name.Equals(e.Value, StringComparison.InvariantCultureIgnoreCase) && ViewModel.Instance.Suppliers.Where(x => x.Name.Equals(e.Value)).Count() > 0)
-                //{
-                //    e.Results.Add(new ValidationResult() { Text = "Der Hersteller wird bereits verwendet. Geben Sie einen anderen Namen an!", Type = TypesInputValidity.Error });
-                //}
-            };
+            var oldTag = Media?.Tag;
 
             Form.ProcessFormular += (s, e) =>
             {
+                var journal = new InventoryJournal()
+                {
+                    InventoryId = Inventory.Id,
+                    Action = "inventoryexpress.journal.action.inventory.media.edit",
+                    Created = DateTime.Now,
+                    Guid = Guid.NewGuid().ToString()
+                };
+
                 if (GetParam(Form.Image.Name) is ParameterFile file)
                 {
                     // Image speichern
                     if (Media == null)
                     {
-                        Inventory.Media = new Media() 
-                        { 
-                            Name = file.Value, 
+                        Inventory.Media = new Media()
+                        {
+                            Name = file.Value,
                             Data = file.Data,
                             Tag = Form.Tag.Value,
                             Created = DateTime.Now,
                             Updated = DateTime.Now,
                             Guid = Guid.NewGuid().ToString()
                         };
+
+                        ViewModel.Instance.SaveChanges();
+
+                        journal.Action = "inventoryexpress.journal.action.inventory.media.add";
                     }
                     else
                     {
@@ -117,12 +128,38 @@ namespace InventoryExpress.WebResource
                         Media.Data = file.Data;
                         Media.Tag = Form.Tag.Value;
                         Media.Updated = DateTime.Now;
+
+                        ViewModel.Instance.SaveChanges();
+
+                        ViewModel.Instance.InventoryJournalParameters.Add(new InventoryJournalParameter()
+                        {
+                            InventoryJournal = journal,
+                            Name = "inventoryexpress.media.form.image.label",
+                            OldValue = "...",
+                            NewValue = "...",
+                            Guid = Guid.NewGuid().ToString()
+                        });
                     }
                 }
+
+                ViewModel.Instance.InventoryJournals.Add(journal);
+                ViewModel.Instance.SaveChanges();
 
                 if (Form.Tag.Value != Media?.Tag)
                 {
                     Inventory.Media.Tag = Form.Tag.Value;
+                }
+
+                if (!string.IsNullOrWhiteSpace(oldTag) && oldTag != Media?.Tag)
+                {
+                    ViewModel.Instance.InventoryJournalParameters.Add(new InventoryJournalParameter()
+                    {
+                        InventoryJournal = journal,
+                        Name = "inventoryexpress.inventory.tags.label",
+                        OldValue = oldTag,
+                        NewValue = Media?.Tag,
+                        Guid = Guid.NewGuid().ToString()
+                    });
                 }
 
                 ViewModel.Instance.SaveChanges();

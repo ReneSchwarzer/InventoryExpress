@@ -1,13 +1,13 @@
-﻿using InventoryExpress.WebControl;
-using InventoryExpress.Model;
+﻿using InventoryExpress.Model;
+using InventoryExpress.WebControl;
 using System;
-using System.Linq;
-using WebExpress.UI.WebControl;
-using WebExpress.WebApp.WebResource;
-using WebExpress.Attribute;
-using WebExpress.Message;
 using System.Collections.Generic;
+using System.Linq;
+using WebExpress.Attribute;
 using WebExpress.Internationalization;
+using WebExpress.UI.WebControl;
+using WebExpress.WebApp.WebControl;
+using WebExpress.WebApp.WebResource;
 
 namespace InventoryExpress.WebResource
 {
@@ -20,11 +20,6 @@ namespace InventoryExpress.WebResource
     [Context("attachment")]
     public sealed class PageInventoryAttachments : PageTemplateWebApp, IPageInventory
     {
-        /// <summary>
-        /// Formular
-        /// </summary>
-        private ControlFormularFileUpload Form { get; set; }
-
         /// <summary>
         /// Liefert oder setzt das Inventar
         /// </summary>
@@ -40,7 +35,7 @@ namespace InventoryExpress.WebResource
         /// </summary>
         public PageInventoryAttachments()
         {
-            
+
         }
 
         /// <summary>
@@ -80,19 +75,16 @@ namespace InventoryExpress.WebResource
             table.AddColumn(context.I18N("inventoryexpress.media.updatedate.label"));
             table.AddColumn(context.I18N("inventoryexpress.media.action.label"));
 
-            var CreateForm = new Func<string, ControlFormular>((guid) => 
+            var CreateDelteMordalForm = new Func<string, ControlModalFormConfirmDelete>((guid) =>
             {
-                var form = new ControlFormular("del_" + guid)
+                var form = new ControlModalFormConfirmDelete("del_" + guid)
                 {
-                    EnableSubmitAndNextButton = false,
-                    EnableCancelButton = false,
+                    Header = context.Page.I18N("inventoryexpress.media.file.delete.label"),
+                    Content = new ControlFormularItemStaticText() { Text = context.Page.I18N("inventoryexpress.media.file.delete.description") },
                     RedirectUri = Uri
                 };
 
-                form.SubmitButton.Text = context.Page.I18N("inventoryexpress.delete.label");
-                form.SubmitButton.Icon = new PropertyIcon(TypeIcon.TrashAlt);
-                form.SubmitButton.Color = new PropertyColorButton(TypeColorButton.Danger);
-                form.ProcessFormular += (s, e) =>
+                form.Confirm += (s, e) =>
                 {
                     if (Inventory != null)
                     {
@@ -103,12 +95,32 @@ namespace InventoryExpress.WebResource
                                           Media.Guid == guid
                                     select new { Attachment, Media }).FirstOrDefault();
 
+                        var filename = item.Media?.Name;
+
                         ViewModel.Instance.InventoryAttachment.Remove(item.Attachment);
                         ViewModel.Instance.Media.Remove(item.Media);
-                        
+
                         ViewModel.Instance.SaveChanges();
 
-                        context.Page.Redirecting(context.Uri);
+                        var journal = new InventoryJournal()
+                        {
+                            InventoryId = Inventory.Id,
+                            Action = "inventoryexpress.journal.action.inventory.attachment.del",
+                            Created = DateTime.Now,
+                            Guid = Guid.NewGuid().ToString()
+                        };
+
+                        ViewModel.Instance.InventoryJournalParameters.Add(new InventoryJournalParameter()
+                        {
+                            InventoryJournal = journal,
+                            Name = "inventoryexpress.media.form.file.label",
+                            OldValue = filename,
+                            NewValue = "🗑",
+                            Guid = Guid.NewGuid().ToString()
+                        });
+
+                        ViewModel.Instance.InventoryJournals.Add(journal);
+                        ViewModel.Instance.SaveChanges();
                     }
                 };
 
@@ -125,16 +137,7 @@ namespace InventoryExpress.WebResource
                     new ControlButtonLink()
                     {
                         Icon = new PropertyIcon(TypeIcon.TrashAlt),
-                        Modal = new ControlModal
-                        (
-                            "delete" + row.Media.Guid,
-                            context.Page.I18N("inventoryexpress.media.file.delete.label"),
-                            new ControlText()
-                            {
-                                Text = context.Page.I18N("inventoryexpress.media.file.delete.description")
-                            },
-                            CreateForm(row.Media.Guid)
-                        )
+                        Modal = CreateDelteMordalForm(row.Media.Guid)
                     }
                 });
             }

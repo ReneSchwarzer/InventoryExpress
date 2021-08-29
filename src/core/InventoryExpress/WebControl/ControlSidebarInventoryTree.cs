@@ -14,6 +14,7 @@ namespace InventoryExpress.WebControl
     [Application("InventoryExpress")]
     [Context("inventorydetails")]
     [Context("attachment")]
+    [Context("journal")]
     [Context("inventoryedit")]
     public sealed class ControlSidebarInventoryTree : ControlTree, IComponent
     {

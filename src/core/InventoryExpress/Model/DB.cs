@@ -28,6 +28,11 @@ namespace InventoryExpress.Model
         /// Liefert oder setzt das Journal der Inventargegenstände
         /// </summary>
         public DbSet<InventoryJournal> InventoryJournals { get; set; }
+        
+        /// <summary>
+        /// Liefert oder setzt die Journal-Parameter der Inventargegenstände
+        /// </summary>
+        public DbSet<InventoryJournalParameter> InventoryJournalParameters { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Zustände

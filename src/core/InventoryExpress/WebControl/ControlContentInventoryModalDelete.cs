@@ -7,6 +7,7 @@ using WebExpress.UI.Attribute;
 using WebExpress.UI.Component;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.Components;
+using WebExpress.WebApp.WebControl;
 
 namespace InventoryExpress.WebControl
 {
@@ -16,13 +17,13 @@ namespace InventoryExpress.WebControl
     [Section(Section.ContentSecondary)]
     [Application("InventoryExpress")]
     [Context("inventorydetails")]
-    public sealed class ControlContentInventoryModalDelete : ControlModal, IComponent
+    public sealed class ControlContentInventoryModalDelete : ControlModalFormConfirmDelete, IComponent
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
         public ControlContentInventoryModalDelete()
-           : base("del_inventory_modal")
+           : base("del_inventory")
         {
         }
 
@@ -33,42 +34,30 @@ namespace InventoryExpress.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            lock (ViewModel.Instance.Database)
+            Confirm += (s, e) =>
             {
-                var guid = context.Page.GetParamValue("InventoryID");
-                var inventory = ViewModel.Instance.Inventories.Where(x => x.Guid == guid).FirstOrDefault();
-                var form = new ControlFormular("del_form") { EnableSubmitAndNextButton = false, EnableCancelButton = false, RedirectUri = context.Page.Uri };
-
-                form.SubmitButton.Text = context.Page.I18N("inventoryexpress.delete.label");
-                form.SubmitButton.Icon = new PropertyIcon(TypeIcon.TrashAlt);
-                form.SubmitButton.Color = new PropertyColorButton(TypeColorButton.Danger);
-                form.ProcessFormular += (s, e) =>
+                lock (ViewModel.Instance.Database)
                 {
-                    if (inventory != null)
-                    {
-                        var media = from a in ViewModel.Instance.InventoryAttachment
-                                    join m in ViewModel.Instance.Media
-                                    on a.MediaId equals m.Id
-                                    where a.InventoryId == inventory.Id
-                                    select m;
+                    var guid = context.Page.GetParamValue("InventoryID");
+                    var inventory = ViewModel.Instance.Inventories.Where(x => x.Guid == guid).FirstOrDefault();
 
-                        ViewModel.Instance.Media.RemoveRange(media);
-                        ViewModel.Instance.Inventories.Remove(inventory);
-                        ViewModel.Instance.SaveChanges();
+                    var media = from a in ViewModel.Instance.InventoryAttachment
+                                join m in ViewModel.Instance.Media
+                                on a.MediaId equals m.Id
+                                where a.InventoryId == inventory.Id
+                                select m;
 
-                        context.Page.Redirecting(context.Uri.Take(-1));
-                    }
-                };
+                    ViewModel.Instance.Media.RemoveRange(media);
+                    ViewModel.Instance.Inventories.Remove(inventory);
+                    ViewModel.Instance.SaveChanges();
+                }
+            };
 
-                Header = context.Page.I18N("inventoryexpress.inventory.delete.label");
-                Content.Add(new ControlText()
-                {
-                    Text = context.Page.I18N("inventoryexpress.inventory.delete.description")
-                });
-                Content.Add(form);
+            Header = context.Page.I18N("inventoryexpress.inventory.delete.label");
+            Content = new ControlFormularItemStaticText() { Text = context.I18N("inventoryexpress.inventory.delete.description") };
+            RedirectUri = context.Uri.Take(-1);
 
-                return base.Render(context);
-            }
+            return base.Render(context);
         }
     }
 }

@@ -13,6 +13,7 @@ namespace InventoryExpress.WebControl
     [Application("InventoryExpress")]
     [Context("inventorydetails")]
     [Context("attachment")]
+    [Context("journal")]
     [Context("inventoryedit")]
     public sealed class ControlSidebarInventoryMedia : ControlLink, IComponent
     {

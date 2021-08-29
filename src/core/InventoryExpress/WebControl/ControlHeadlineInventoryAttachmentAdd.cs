@@ -9,6 +9,7 @@ using WebExpress.UI.Attribute;
 using WebExpress.UI.Component;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.Components;
+using WebExpress.WebApp.WebControl;
 using WebExpress.WebResource;
 
 namespace InventoryExpress.WebControl
@@ -37,9 +38,12 @@ namespace InventoryExpress.WebControl
             {
                 var guid = context.Page.GetParamValue("InventoryID");
                 var inventory = ViewModel.Instance.Inventories.Where(x => x.Guid == guid).FirstOrDefault();
-                var form = new ControlFormularFileUpload("add") { EnableSubmitAndNextButton = false, EnableCancelButton = false, RedirectUri = Uri };
-                
-                form.ProcessFormular += (s, e) =>
+                var form = new ControlModalFormFileUpload("add") 
+                { 
+                    Header = context.Page.I18N("inventoryexpress.media.file.add.label") 
+                };
+
+                form.Upload += (s, e) =>
                 {
                     if ((context.Page as Resource).GetParam(form.File.Name) is ParameterFile file)
                     {
@@ -72,7 +76,26 @@ namespace InventoryExpress.WebControl
                             ViewModel.Instance.InventoryAttachment.Add(attachment);
                             ViewModel.Instance.SaveChanges();
 
-                            context.Page.Redirecting(context.Uri);
+                            var journal = new InventoryJournal()
+                            {
+                                InventoryId = inventory.Id,
+                                Action = "inventoryexpress.journal.action.inventory.attachment.add",
+                                Created = DateTime.Now,
+                                Guid = Guid.NewGuid().ToString()
+                            };
+                            
+                            ViewModel.Instance.InventoryJournals.Add(journal);
+
+                            ViewModel.Instance.InventoryJournalParameters.Add(new InventoryJournalParameter()
+                            {
+                                InventoryJournal = journal,
+                                Name = "inventoryexpress.inventory.attachment.label",
+                                OldValue = "🖳",
+                                NewValue = media.Name,
+                                Guid = Guid.NewGuid().ToString()
+                            });
+                                                        
+                            ViewModel.Instance.SaveChanges();
                         }
                     }
                 };
@@ -82,12 +105,7 @@ namespace InventoryExpress.WebControl
                 BackgroundColor = new PropertyColorButton(TypeColorButton.Primary);
                 Value = inventory?.Created.ToString(context.Page.Culture.DateTimeFormat.ShortDatePattern);
 
-                Modal = new ControlModal
-                (
-                    "add",
-                    context.Page.I18N("inventoryexpress.media.file.add.label"),
-                    form
-                );
+                Modal = form;
 
                 return base.Render(context);
             }

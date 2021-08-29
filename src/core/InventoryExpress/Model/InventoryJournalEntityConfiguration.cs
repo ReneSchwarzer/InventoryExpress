@@ -14,7 +14,6 @@ namespace InventoryExpress.Model
             builder.Property(e => e.InventoryId).HasColumnName("InventoryID");
 
             builder.Property(e => e.Action).HasColumnType("VARCHAR (256)");
-            builder.Property(e => e.ActionParam).HasColumnType("VARCHAR (256)");
 
             builder.Property(e => e.Created)
                 .IsRequired()

@@ -179,8 +179,17 @@ CREATE TABLE InventoryJournal
     ID                  INTEGER			PRIMARY KEY AUTOINCREMENT NOT NULL,
     InventoryID 	    INTEGER			NOT NULL REFERENCES Inventory (ID) ON DELETE CASCADE,
     Action 		        VARCHAR(256),
-    ActionParam 	    VARCHAR(256),
     Created 	        TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    Guid                CHAR (36)       UNIQUE  NOT NULL
+);
+
+CREATE TABLE InventoryJournalParameter   
+(
+    ID                  INTEGER			PRIMARY KEY AUTOINCREMENT NOT NULL,
+    InventoryJournalID 	INTEGER			NOT NULL REFERENCES InventoryJournal (ID) ON DELETE CASCADE,
+    Name        	    VARCHAR(256),
+    OldValue            VARCHAR(256),
+    NewValue            VARCHAR(256),
     Guid                CHAR (36)       UNIQUE  NOT NULL
 );
 
