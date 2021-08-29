@@ -1,9 +1,9 @@
 ﻿# Deutsch
-plugin.name=Plugin Inventory Express
-plugin.description=
+plugin.name=Inventory Express
+plugin.description=Die Inventardatenbank für vielfältige Zwecke.
 
 app.name=Inventory Express
-app.description=Die Inventardatenbank für private Zwecke.
+app.description=Die Inventardatenbank für vielfältige Zwecke.
 app.privacypolicy.label=Datenschutzrichtlinie
 app.privacypolicy.description=Die während der Nutzung eingegebenen Daten werden lokal auf Ihrem Gerät gespeichert. Sie behalten jederzeit die Datenhoheit. Die Daten werden zu keiner Zeit an Dritte übermittelt. Persönliche Informationen und Standortinformationen werden nicht erhoben.
 app.disclaimer.label=Haftungsausschluss
@@ -12,8 +12,8 @@ app.about=Informationen über Inventory Express
 app.version.label=Version
 app.contact.label=Kontakt
 
-module.name=Modul Inventory Express
-module.description=
+module.name=InventoryExpress Core
+module.description=Enthält die Grundfunktionalitäten.
 
 org.WebExpress.Inventory=Inventar
 
@@ -284,6 +284,7 @@ inventoryexpress.setting.database.provider.label=Name des Providers:
 inventoryexpress.setting.database.datasource.label=Datenbankquelle:
 inventoryexpress.setting.database.filesize.label=Dateigröße:
 inventoryexpress.setting.log.label=Log
+inventoryexpress.setting.plugin.label=Plugins
 
 inventoryexpress.condition.label=Zustand
 inventoryexpress.condition.description=Der Zustand des Inventargegenstandes.

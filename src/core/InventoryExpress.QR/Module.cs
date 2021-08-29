@@ -1,14 +1,14 @@
 ﻿using WebExpress.Attribute;
 using WebExpress.Module;
 
-namespace InventoryExpress
+namespace InventoryExpress.QR
 {
-    [ID("InventoryExpress")]
+    [ID("InventoryExpress.QR")]
     [Name("module.name")]
     [Description("module.description")]
     [Icon("/assets/img/Logo.png")]
     [AssetPath("/")]
-    [ContextPath("/")]
+    [ContextPath("/qr")]
     [Application("InventoryExpress")]
     public sealed class Module : IModule
     {

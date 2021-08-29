@@ -2,12 +2,12 @@
 using WebExpress.Attribute;
 using WebExpress.Plugin;
 
-namespace InventoryExpress.QR
+namespace InventoryExpress
 {
-    [ID("InventoryExpress")]
-    [Name("InventoryExpress")]
+    [ID("InventoryExpress.QR")]
+    [Name("plugin.name")]
     [Description("plugin.description")]
-    [Icon("/assets/img/Logo.png")]
+    [Icon("/assets/img/qr.svg")]
     public sealed class Plugin : IPlugin
     {
         /// <summary>

@@ -1,6 +1,6 @@
 ﻿# Englisch
-plugin.name=Plugin Inventory Express
-plugin.description=
+plugin.name=Inventory Express
+plugin.description=The inventory database for a variety of purposes.
 
 app.name=Inventory Express
 app.description=The inventory database for private use.
@@ -12,8 +12,8 @@ app.about=About Inventory Express
 app.version.label=Version
 app.contact.label=Contact
 
-module.name=Modul Inventory Express
-module.description=
+module.name=InventoryExpress Core
+module.description=Contains the basic functionalities.
 
 org.WebExpress.Inventory=Inventory
 
@@ -284,6 +284,7 @@ inventoryexpress.setting.database.provider.label=Provider name:
 inventoryexpress.setting.database.datasource.label=Data source:
 inventoryexpress.setting.database.filesize.label=File size:
 inventoryexpress.setting.log.label=Log
+inventoryexpress.setting.plugin.label=Plugins
 
 inventoryexpress.condition.label=Condition
 inventoryexpress.condition.description=The condition of the inventory item.

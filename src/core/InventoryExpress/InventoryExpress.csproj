@@ -6,6 +6,10 @@
     <AssemblyVersion>1.1.0.0</AssemblyVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/ReneSchwarzer/InventoryExpress.git</RepositoryUrl>
+    <Authors>rene_schwarzer@hotmail.de</Authors>
+    <Description>Eine Inventardatenbank für vielfältige Zwecke.</Description>
+    <AssemblyName>InventoryExpress</AssemblyName>
+    <RootNamespace>QRInventoryExpress</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
