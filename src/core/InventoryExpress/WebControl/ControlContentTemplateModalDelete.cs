@@ -7,6 +7,7 @@ using WebExpress.UI.Attribute;
 using WebExpress.UI.Component;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.Components;
+using WebExpress.WebApp.WebControl;
 
 namespace InventoryExpress.WebControl
 {
@@ -16,13 +17,13 @@ namespace InventoryExpress.WebControl
     [Section(Section.ContentSecondary)]
     [Application("InventoryExpress")]
     [Context("templateedit")]
-    public sealed class ControlContentTemplateModalDelete : ControlModal, IComponent
+    public sealed class ControlContentTemplateModalDelete : ControlModalFormConfirmDelete, IComponent
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
         public ControlContentTemplateModalDelete()
-           : base("del_template_modal")
+           : base("del_template")
         {
         }
 
@@ -33,35 +34,26 @@ namespace InventoryExpress.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            lock (ViewModel.Instance.Database)
+            Confirm += (s, e) =>
             {
-                var guid = context.Page.GetParamValue("TemplateID");
-                var template = ViewModel.Instance.Templates.Where(x => x.Guid == guid).FirstOrDefault();
-                var form = new ControlFormular("del_form") { EnableSubmitAndNextButton = false, EnableCancelButton = false, RedirectUri = context.Page.Uri };
-
-                form.SubmitButton.Text = context.Page.I18N("inventoryexpress.delete.label");
-                form.SubmitButton.Icon = new PropertyIcon(TypeIcon.TrashAlt);
-                form.SubmitButton.Color = new PropertyColorButton(TypeColorButton.Danger);
-                form.ProcessFormular += (s, e) =>
+                lock (ViewModel.Instance.Database)
                 {
+                    var guid = context.Page.GetParamValue("TemplateID");
+                    var template = ViewModel.Instance.Templates.Where(x => x.Guid == guid).FirstOrDefault();
+
                     if (template != null)
                     {
                         ViewModel.Instance.Templates.Remove(template);
                         ViewModel.Instance.SaveChanges();
-
-                        context.Page.Redirecting(context.Uri.Take(-1));
                     }
-                };
+                }
+            };
 
-                Header = context.Page.I18N("inventoryexpress.template.delete.label");
-                Content.Add(new ControlText()
-                {
-                    Text = context.Page.I18N("inventoryexpress.template.delete.description")
-                });
-                Content.Add(form);
+            Header = context.Page.I18N("inventoryexpress.template.delete.label");
+            Content = new ControlFormularItemStaticText() { Text = context.I18N("inventoryexpress.template.delete.description") };
+            RedirectUri = context.Uri.Take(-1);
 
-                return base.Render(context);
-            }
+            return base.Render(context);
         }
     }
 }

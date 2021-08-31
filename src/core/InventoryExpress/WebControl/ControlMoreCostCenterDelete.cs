@@ -33,7 +33,7 @@ namespace InventoryExpress.WebControl
             Text = context.Page.I18N("inventoryexpress.delete.label");
             Icon = new PropertyIcon(TypeIcon.Trash);
 
-            OnClick = $"$('#del_costcenter_modal').modal('show');";
+            OnClick = $"$('#modal_del_costcenter').modal('show');";
 
             return base.Render(context);
         }
