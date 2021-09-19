@@ -99,6 +99,23 @@ namespace InventoryExpress.WebResource
                     ViewModel.Instance.Inventories.Add(inventory);
                     ViewModel.Instance.SaveChanges();
 
+                    // neue Tags ermitteln
+                    var newTags = form.Tag.Value.Split(';');
+
+                    foreach (var n in newTags)
+                    {
+                        var tag = ViewModel.Instance.Tags.Where(x => x.Label.ToLower() == n.ToLower()).FirstOrDefault();
+                        if (tag == null)
+                        {
+                            // Tag in DB neu Anlegen
+                            tag = new Tag() { Label = n };
+                            ViewModel.Instance.Tags.Add(tag);
+                            ViewModel.Instance.SaveChanges();
+                        }
+                        ViewModel.Instance.InventoryTag.Add(new InventoryTag() { InventoryId = inventory.Id, TagId = tag.Id });
+                        ViewModel.Instance.SaveChanges();
+                    }
+
                     var journal = new InventoryJournal()
                     {
                         InventoryId = inventory.Id,

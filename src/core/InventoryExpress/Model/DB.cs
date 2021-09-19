@@ -35,6 +35,11 @@ namespace InventoryExpress.Model
         public DbSet<InventoryJournalParameter> InventoryJournalParameters { get; set; }
 
         /// <summary>
+        /// Liefert oder setzt die Schlagwörter der Inventargegenstände
+        /// </summary>
+        public DbSet<InventoryTag> InventoryTag{ get; set; }
+
+        /// <summary>
         /// Liefert oder setzt die Zustände
         /// </summary>
         public DbSet<Condition> Conditions { get; set; }
@@ -83,6 +88,11 @@ namespace InventoryExpress.Model
         /// Liefert oder setzt die Medien
         /// </summary>
         public DbSet<Media> Media { get; set; }
+
+        /// <summary>
+        /// Liefert oder setzt die Schlagwörter
+        /// </summary>
+        public DbSet<Tag> Tags { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Medien

@@ -42,6 +42,11 @@ namespace InventoryExpress.WebResource
             {
                 var guid = GetParamValue("InventoryID");
                 var inventory = ViewModel.Instance.Inventories.Where(x => x.Guid == guid).FirstOrDefault();
+                var tags = from i in ViewModel.Instance.InventoryTag
+                           join t in ViewModel.Instance.Tags
+                           on i.TagId equals t.Id
+                           where i.InventoryId == inventory.Id
+                           select t;
                 var attributesForm = new List<ControlFormularItemInputTextBox>();
                 var attributes = new List<InventoryAttribute>();
 
@@ -52,7 +57,7 @@ namespace InventoryExpress.WebResource
                     EnableCancelButton = true,
                     BackUri = Uri.Take(-1)
                 };
- 
+
                 Form.InitializeFormular += (s, e) =>
                 {
                     var templateGUID = HasParam(Form.Template?.Name) ?
@@ -148,7 +153,7 @@ namespace InventoryExpress.WebResource
                     Form.CostValue.Value = inventory.CostValue.ToString(Culture);
                     Form.PurchaseDate.Value = inventory.PurchaseDate.HasValue ? inventory.PurchaseDate.Value.ToString(Culture.DateTimeFormat.ShortDatePattern) : null;
                     Form.DerecognitionDate.Value = inventory.DerecognitionDate.HasValue ? inventory.DerecognitionDate.Value.ToString(Culture.DateTimeFormat.ShortDatePattern) : null;
-                    Form.Tag.Value = inventory?.Tag;
+                    Form.Tag.Value = string.Join(";", tags.Select(x => x.Label));
                     Form.Description.Value = inventory?.Description;
 
                     // Attribute ermitteln
@@ -183,7 +188,7 @@ namespace InventoryExpress.WebResource
                     comparison("inventoryexpress.inventory.parent.label", inventory.Parent?.Name, ViewModel.Instance.Inventories.Where(x => x.Guid == Form.Parent.Value).FirstOrDefault()?.Name, changed, true);
                     comparison("inventoryexpress.inventory.template.label", inventory.Template?.Name, ViewModel.Instance.Templates.Where(x => x.Guid == Form.Template.Value).FirstOrDefault()?.Name, changed, true);
                     comparison("inventoryexpress.inventory.costvalue.label", inventory.CostValue.ToString(), !string.IsNullOrWhiteSpace(Form.CostValue.Value) ? Convert.ToDecimal(Form.CostValue.Value, Culture).ToString() : "0", changed, true);
-                    comparison("inventoryexpress.inventory.purchasedate.label", inventory.PurchaseDate?.ToString(), !string.IsNullOrWhiteSpace(Form.PurchaseDate.Value) ? Convert.ToDateTime(Form.PurchaseDate.Value, Culture) .ToString(): null, changed, true);
+                    comparison("inventoryexpress.inventory.purchasedate.label", inventory.PurchaseDate?.ToString(), !string.IsNullOrWhiteSpace(Form.PurchaseDate.Value) ? Convert.ToDateTime(Form.PurchaseDate.Value, Culture).ToString() : null, changed, true);
                     comparison("inventoryexpress.inventory.derecognitiondate.label", inventory.DerecognitionDate?.ToString(), !string.IsNullOrWhiteSpace(Form.DerecognitionDate.Value) ? Convert.ToDateTime(Form.DerecognitionDate.Value, Culture).ToString() : null, changed, true);
                     comparison("inventoryexpress.inventory.tags.label", inventory.Tag, Form.Tag?.Value, changed, true);
                     comparison("inventoryexpress.inventory.description.label", inventory.Description, Form.Description?.Value, changed, false);
@@ -220,7 +225,7 @@ namespace InventoryExpress.WebResource
                                 // Hinzufügen
                                 ViewModel.Instance.InventoryAttributes.Add(attribute);
                             }
-                            
+
                             // Update
                             ViewModel.Instance.SaveChanges();
                         }
@@ -233,7 +238,7 @@ namespace InventoryExpress.WebResource
                             }
                         }
                     }
-                    
+
                     ViewModel.Instance.SaveChanges();
 
                     var journal = new InventoryJournal()
@@ -257,6 +262,45 @@ namespace InventoryExpress.WebResource
                     }));
 
                     ViewModel.Instance.SaveChanges();
+
+                    // neue Tags ermitteln
+                    var newTags = Form.Tag.Value.Split(';').Except(tags.Select(x => x.Label));
+
+                    foreach (var n in newTags)
+                    {
+                        var tag = ViewModel.Instance.Tags.Where(x => x.Label.ToLower() == n.ToLower()).FirstOrDefault();
+                        if (tag == null)
+                        {
+                            // Tag in DB neu Anlegen
+                            tag = new Tag() { Label = n };
+                            ViewModel.Instance.Tags.Add(tag);
+                            ViewModel.Instance.SaveChanges();
+                        }
+                        ViewModel.Instance.InventoryTag.Add(new InventoryTag() { InventoryId = inventory.Id, TagId = tag.Id });
+                        ViewModel.Instance.SaveChanges();
+                    }
+
+                    // zu entfernende Tags
+                    var removeTags = tags.Select(x => x.Label).ToList().Except(Form.Tag.Value.Split(';'));
+                    foreach (var r in removeTags)
+                    {
+                        var inventoryTag = from i in ViewModel.Instance.InventoryTag
+                                           join t in ViewModel.Instance.Tags
+                                           on i.TagId equals t.Id
+                                           where i.InventoryId == inventory.Id && t.Label.ToLower() == r.ToLower()
+                                           select i;
+
+                        ViewModel.Instance.InventoryTag.RemoveRange(inventoryTag);
+                        ViewModel.Instance.SaveChanges();
+
+                        var tag = ViewModel.Instance.Tags.Where(x => x.Label.ToLower() == r.ToLower()).FirstOrDefault();
+
+                        if (tag != null && !ViewModel.Instance.InventoryTag.Where(x => x.TagId == tag.Id).Any())
+                        {
+                            ViewModel.Instance.Tags.Remove(tag);
+                            ViewModel.Instance.SaveChanges();
+                        }
+                    }
                 };
 
                 // Attribute im Formular erstellen

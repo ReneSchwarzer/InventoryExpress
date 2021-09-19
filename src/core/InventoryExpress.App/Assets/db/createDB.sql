@@ -116,6 +116,12 @@ CREATE TABLE Ascription
     Guid                CHAR(36)        UNIQUE NOT NULL
 );
 
+CREATE TABLE Tag 
+(
+    ID 			        INTEGER			PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Label               VARCHAR(64)     UNIQUE NOT NULL
+);
+
 CREATE TABLE TemplateAttribute     
 (
     TemplateID          INTEGER			NOT NULL REFERENCES Template (ID) ON DELETE CASCADE,
@@ -193,6 +199,13 @@ CREATE TABLE InventoryJournalParameter
     Guid                CHAR (36)       UNIQUE  NOT NULL
 );
 
+CREATE TABLE InventoryTag    
+(
+    InventoryID 	    INTEGER			NOT NULL REFERENCES Inventory (ID) ON DELETE CASCADE,
+    TagID 	            INTEGER			NOT NULL REFERENCES Tag (ID) ON DELETE CASCADE,
+	PRIMARY KEY (InventoryID, TagID)
+);
+
 CREATE TABLE Media 
 (
     ID                  INTEGER			PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -203,6 +216,7 @@ CREATE TABLE Media
     Updated 	        TIMESTAMP 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
     Guid                CHAR(36)        UNIQUE NOT NULL
 );
+
 
 CREATE TABLE Setting
 (

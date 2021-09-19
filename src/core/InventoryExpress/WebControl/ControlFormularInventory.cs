@@ -76,7 +76,7 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Liefert oder setzt die Schlagwörter
         /// </summary>
-        public ControlFormularItemInputTextBox Tag { get; set; }
+        public ControlFormularItemInputTag Tag { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Beschreibung
@@ -336,7 +336,7 @@ namespace InventoryExpress.WebControl
                 Icon = new PropertyIcon(TypeIcon.CalendarMinus)
             };
 
-            Tag = new ControlFormularItemInputTextBox()
+            Tag = new ControlFormularItemInputTag("tags")
             {
                 Name = "tag",
                 Label = "inventoryexpress.inventory.tags.label",

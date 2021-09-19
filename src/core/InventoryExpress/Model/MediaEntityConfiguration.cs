@@ -10,9 +10,6 @@ namespace InventoryExpress.Model
     {
         public void Configure(EntityTypeBuilder<Media> builder)
         {
-            //entity.HasIndex(e => e.Guid, "IX_Media_Guid")
-            //    .IsUnique();
-
             builder.Property(e => e.Id)
                    .HasColumnName("ID");
 

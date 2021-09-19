@@ -39,4 +39,8 @@
     <ProjectReference Include="..\..\..\..\WebExpress\core\WebExpress\WebExpress.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="WebResource\API\" />
+  </ItemGroup>
+
 </Project>
