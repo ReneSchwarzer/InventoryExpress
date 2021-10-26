@@ -4,6 +4,7 @@ using WebExpress.Html;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebControl;
+using WebExpress.WebPage;
 
 namespace InventoryExpress.WebControl
 {

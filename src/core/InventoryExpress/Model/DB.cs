@@ -28,7 +28,7 @@ namespace InventoryExpress.Model
         /// Liefert oder setzt das Journal der Inventargegenstände
         /// </summary>
         public DbSet<InventoryJournal> InventoryJournals { get; set; }
-        
+
         /// <summary>
         /// Liefert oder setzt die Journal-Parameter der Inventargegenstände
         /// </summary>
@@ -37,7 +37,7 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Liefert oder setzt die Schlagwörter der Inventargegenstände
         /// </summary>
-        public DbSet<InventoryTag> InventoryTag{ get; set; }
+        public DbSet<InventoryTag> InventoryTag { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Zustände
@@ -73,7 +73,7 @@ namespace InventoryExpress.Model
         /// Liefert oder setzt die Vorlagen
         /// </summary>
         public DbSet<Template> Templates { get; set; }
-        
+
         /// <summary>
         /// Liefert oder setzt die Vorlagenattribute
         /// </summary>

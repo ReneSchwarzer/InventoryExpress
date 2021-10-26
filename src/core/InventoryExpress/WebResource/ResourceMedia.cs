@@ -2,6 +2,7 @@
 using System.Linq;
 using WebExpress.Attribute;
 using WebExpress.Message;
+using WebExpress.WebResource;
 
 namespace InventoryExpress.WebResource
 {
@@ -13,8 +14,8 @@ namespace InventoryExpress.WebResource
     [SegmentGuid("MediaID", "")]
     [Path("/media")]
     [IncludeSubPaths(false)]
-    [Module("InventoryExpress")]
-    public sealed class ResourceMedia : WebExpress.WebResource.ResourceBinary
+    [Module("inventoryexpress")]
+    public sealed class ResourceMedia : ResourceBinary
     {
         /// <summary>
         /// Konstruktor
@@ -26,13 +27,10 @@ namespace InventoryExpress.WebResource
         /// <summary>
         /// Initialisierung
         /// </summary>
-        public override void Initialization()
+        /// <param name="context">Der Kontext</param>
+        public override void Initialization(IResourceContext context)
         {
-            lock (Context)
-            {
-                base.Initialization();
-                
-            }
+            base.Initialization(context);
         }
 
         /// <summary>
@@ -44,7 +42,7 @@ namespace InventoryExpress.WebResource
         {
             lock (ViewModel.Instance.Database)
             {
-                var guid = GetParamValue("MediaID").ToLower();
+                var guid = request.GetParameter("MediaID")?.Value.ToLower();
                 var media = ViewModel.Instance.Media.Where(x => x.Guid.ToLower() == guid).FirstOrDefault();
 
                 Data = media?.Data;
@@ -110,7 +108,7 @@ namespace InventoryExpress.WebResource
                         break;
                 }
 
-                Context.Log.Debug(request.Client + ": Datei '" + request.URL + "' wurde geladen.");
+                Context.Log.Debug(request.Client + ": Datei '" + request.Uri + "' wurde geladen.");
 
                 return response;
             }

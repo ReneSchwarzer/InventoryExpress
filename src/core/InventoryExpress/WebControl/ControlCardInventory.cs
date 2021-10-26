@@ -2,6 +2,7 @@
 using System.Linq;
 using WebExpress.Html;
 using WebExpress.UI.WebControl;
+using WebExpress.WebPage;
 
 namespace InventoryExpress.WebControl
 {
@@ -10,25 +11,131 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Liefert oder setzt das Inventarelement
         /// </summary>
-        public Inventory Inventory { get; set; }
+        private Inventory Inventory { get; set; }
+
+        /// <summary>
+        /// Liefert das Bild
+        /// </summary>
+        private ControlPanelMedia Media { get; } = new ControlPanelMedia()
+        {
+            ImageWidth = 100
+        };
+
+        /// <summary>
+        /// Liefert den Link
+        /// </summary>
+        private ControlLink MediaLink { get; } = new ControlLink()
+        {
+            TextColor = new PropertyColorText(TypeColorText.Dark)
+        };
+
+        /// <summary>
+        /// Liefert das Herstellerattribut
+        /// </summary>
+        private ControlLink Template { get; } = new ControlLink()
+        {
+            TextColor = new PropertyColorText(TypeColorText.Dark)
+        };
+
+        /// <summary>
+        /// Liefert das Herstellerattribut
+        /// </summary>
+        private ControlAttribute Manufacturer { get; } = new ControlAttribute()
+        {
+            Icon = new PropertyIcon(TypeIcon.Industry),
+            Padding = new PropertySpacingPadding(PropertySpacing.Space.Two),
+            TextColor = new PropertyColorText(TypeColorText.Secondary)
+        };
+
+        /// <summary>
+        /// Liefert das Standortattribut
+        /// </summary>
+        private ControlAttribute Location { get; } = new ControlAttribute()
+        {
+            Icon = new PropertyIcon(TypeIcon.Map),
+            Padding = new PropertySpacingPadding(PropertySpacing.Space.Two),
+            TextColor = new PropertyColorText(TypeColorText.Secondary)
+        };
+
+        /// <summary>
+        /// Liefert das Lieferantenattribut
+        /// </summary>
+        private ControlAttribute Supplier { get; } = new ControlAttribute()
+        {
+            Icon = new PropertyIcon(TypeIcon.Truck),
+            Padding = new PropertySpacingPadding(PropertySpacing.Space.Two),
+            TextColor = new PropertyColorText(TypeColorText.Secondary)
+        };
+
+        /// <summary>
+        /// Liefert das Sachkontoattribut
+        /// </summary>
+        private ControlAttribute LedgerAccount { get; } = new ControlAttribute()
+        {
+            Icon = new PropertyIcon(TypeIcon.At),
+            Padding = new PropertySpacingPadding(PropertySpacing.Space.Two),
+            TextColor = new PropertyColorText(TypeColorText.Secondary)
+        };
+
+        /// <summary>
+        /// Liefert das Kostenstellenattribut
+        /// </summary>
+        private ControlAttribute CostCenter { get; } = new ControlAttribute()
+        {
+            Icon = new PropertyIcon(TypeIcon.ShoppingBag),
+            Padding = new PropertySpacingPadding(PropertySpacing.Space.Two),
+            TextColor = new PropertyColorText(TypeColorText.Secondary)
+        };
+
+        /// <summary>
+        /// Liefert das Zustandsattribut
+        /// </summary>
+        private ControlAttribute Condition { get; } = new ControlAttribute()
+        {
+            Icon = new PropertyIcon(TypeIcon.Star),
+            Padding = new PropertySpacingPadding(PropertySpacing.Space.Two),
+            TextColor = new PropertyColorText(TypeColorText.Secondary)
+        };
 
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="id">Die ID</param>
-        public ControlCardInventory(string id = null)
-            : base(id)
+        /// <param name="inventory">Der Invntargegenstand</param>
+        public ControlCardInventory(Inventory inventory)
         {
-            Init();
-        }
 
-        /// <summary>
-        /// Initialisierung
-        /// </summary>
-        private void Init()
-        {
+
+            Inventory = inventory;
+
             Margin = new PropertySpacingMargin(PropertySpacing.Space.Two);
             BackgroundColor = new PropertyColorBackground(TypeColorBackground.Light);
+
+            MediaLink.Text = Inventory.Name;
+            Media.Title = MediaLink;
+
+            //Media.Content.Add(new ControlText()
+            //{
+            //    Text = Inventory.Description,
+            //    Format = TypeFormatText.Paragraph
+            //});
+
+            Media.Content.Add(Template);
+
+            var flex = new ControlPanelFlexbox
+            (
+                Manufacturer,
+                Location,
+                Supplier,
+                LedgerAccount,
+                CostCenter,
+                Condition
+            )
+            {
+                Direction = TypeDirection.Horizontal
+            };
+
+            Media.Content.Add(flex);
+            Content.Add(Media);
         }
 
         /// <summary>
@@ -40,7 +147,7 @@ namespace InventoryExpress.WebControl
         {
             lock (ViewModel.Instance.Database)
             {
-                var image = ViewModel.Instance.Media.Where(x => x.Id == Inventory.MediaId).Select(x => context.Page.Uri.Root.Append("media/" + x.Guid)).FirstOrDefault();
+                var image = ViewModel.Instance.Media.Where(x => x.Id == Inventory.MediaId).Select(x => context.Request.Uri.Root.Append("media/" + x.Guid)).FirstOrDefault();
                 var manufacturer = ViewModel.Instance.Manufacturers.Where(x => x.Id == Inventory.ManufacturerId).FirstOrDefault();
                 var location = ViewModel.Instance.Locations.Where(x => x.Id == Inventory.LocationId).FirstOrDefault();
                 var supplier = ViewModel.Instance.Suppliers.Where(x => x.Id == Inventory.SupplierId).FirstOrDefault();
@@ -49,102 +156,32 @@ namespace InventoryExpress.WebControl
                 var condition = ViewModel.Instance.Conditions.Where(x => x.Id == Inventory.ConditionId)?.FirstOrDefault();
                 var template = ViewModel.Instance.Templates.Where(x => x.Id == Inventory.TemplateId)?.FirstOrDefault();
 
-                var media = new ControlPanelMedia()
-                {
-                    Image = image == null ? context.Page.Uri.Root.Append("/assets/img/inventoryexpress.svg") : image,
-                    ImageWidth = 100,
-                    Title = new ControlLink()
-                    {
-                        Text = Inventory.Name,
-                        Uri = context.Page.Uri.Root.Append(Inventory.Guid),
-                        TextColor = new PropertyColorText(TypeColorText.Primary)
-                    }
-                };
+                Media.Image = image == null ? context.Request.Uri.Root.Append("/assets/img/inventoryexpress.svg") : image;
+                MediaLink.Uri = context.Request.Uri.Root.Append(Inventory.Guid);
 
-                media.Content.Add(new ControlLink()
-                {
-                    Text = template?.Name,
-                    //Url = "/" + Inventory.ID,
-                    TextColor = new PropertyColorText(TypeColorText.Dark)
-                });
+                Template.Text = template?.Name;
+                //Template.Uri = ;
 
-                var flex = new ControlPanelFlexbox()
-                {
-                    Direction = TypeDirection.Horizontal
-                };
+                Manufacturer.Enable = manufacturer != null;
+                Manufacturer.Name = manufacturer?.Name;
 
-                if (manufacturer != null)
-                {
-                    flex.Content.Add(new ControlAttribute()
-                    {
-                        Icon = new PropertyIcon(TypeIcon.Industry),
-                        Padding = new PropertySpacingPadding(PropertySpacing.Space.Two),
-                        TextColor = new PropertyColorText(TypeColorText.Secondary),
-                        Name = manufacturer.Name
-                    });
-                }
+                Location.Enable = location != null;
+                Location.Name = location?.Name;
 
-                if (location != null)
-                {
-                    flex.Content.Add(new ControlAttribute()
-                    {
-                        Icon = new PropertyIcon(TypeIcon.Map),
-                        Padding = new PropertySpacingPadding(PropertySpacing.Space.Two),
-                        TextColor = new PropertyColorText(TypeColorText.Secondary),
-                        Name = location.Name
-                    });
-                }
+                Supplier.Enable = supplier != null;
+                Supplier.Name = supplier?.Name;
 
-                if (supplier != null)
-                {
-                    flex.Content.Add(new ControlAttribute()
-                    {
-                        Icon = new PropertyIcon(TypeIcon.Truck),
-                        Padding = new PropertySpacingPadding(PropertySpacing.Space.Two),
-                        TextColor = new PropertyColorText(TypeColorText.Secondary),
-                        Name = supplier.Name
-                    });
-                }
+                LedgerAccount.Enable = ledgerAccount != null;
+                LedgerAccount.Name = ledgerAccount?.Name;
 
-                if (ledgerAccount != null)
-                {
-                    flex.Content.Add(new ControlAttribute()
-                    {
-                        Icon = new PropertyIcon(TypeIcon.At),
-                        Padding = new PropertySpacingPadding(PropertySpacing.Space.Two),
-                        TextColor = new PropertyColorText(TypeColorText.Secondary),
-                        Name = ledgerAccount.Name
-                    });
-                }
+                CostCenter.Enable = costCenter != null;
+                CostCenter.Name = costCenter?.Name;
 
-                if (costCenter != null)
-                {
-                    flex.Content.Add(new ControlAttribute()
-                    {
-                        Icon = new PropertyIcon(TypeIcon.ShoppingBag),
-                        Padding = new PropertySpacingPadding(PropertySpacing.Space.Two),
-                        TextColor = new PropertyColorText(TypeColorText.Secondary),
-                        Name = costCenter.Name
-                    });
-                }
-
-                if (condition != null)
-                {
-                    flex.Content.Add(new ControlAttribute()
-                    {
-                        Icon = new PropertyIcon(TypeIcon.Star),
-                        Name = condition.Name,
-                        Padding = new PropertySpacingPadding(PropertySpacing.Space.Two),
-                        TextColor = new PropertyColorText(TypeColorText.Secondary)
-                    });
-                }
-
-                media.Content.Add(flex);
-
-                Content.Add(media);
-
-                return base.Render(context);
+                Condition.Enable = condition != null;
+                Condition.Name = condition?.Name;
             }
+
+            return base.Render(context);
         }
     }
 }

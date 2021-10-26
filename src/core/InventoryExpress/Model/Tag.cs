@@ -7,7 +7,7 @@ namespace InventoryExpress.Model
     /// <summary>
     /// Ein Schlüsselwort
     /// </summary>
-    public class Tag 
+    public class Tag
     {
         /// <summary>
         /// Die ID

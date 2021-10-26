@@ -1,4 +1,5 @@
 ﻿using WebExpress.Attribute;
+using WebExpress.WebResource;
 
 namespace InventoryExpress.WebResource
 {
@@ -10,7 +11,7 @@ namespace InventoryExpress.WebResource
     [Segment("assets", "")]
     [Path("/")]
     [IncludeSubPaths(true)]
-    [Module("InventoryExpress")]
+    [Module("inventoryexpress")]
     public sealed class ResourceAsset : WebExpress.WebResource.ResourceAsset
     {
         /// <summary>
@@ -23,9 +24,10 @@ namespace InventoryExpress.WebResource
         /// <summary>
         /// Initialisierung
         /// </summary>
-        public override void Initialization()
+        /// <param name="context">Der Kontext</param>
+        public override void Initialization(IResourceContext context)
         {
-            base.Initialization();
+            base.Initialization(context);
         }
     }
 }

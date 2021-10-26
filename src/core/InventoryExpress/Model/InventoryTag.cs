@@ -9,7 +9,7 @@
         /// Das Inventar
         /// </summary>
         public int InventoryId { get; set; }
-        
+
         /// <summary>
         /// Die ID des Schlüsselwortes
         /// </summary>

@@ -1,46 +1,90 @@
-﻿using WebExpress.Html;
-using WebExpress.UI.WebControl;
-using WebExpress.WebApp.WebResource;
-using WebExpress.WebResource;
+﻿using WebExpress.UI.WebControl;
+using WebExpress.WebApp.WebPage;
+using WebExpress.WebPage;
 
 namespace InventoryExpress.WebControl
 {
     public class ControlFormularManufacturer : ControlFormular
     {
         /// <summary>
-        /// Liefert oder setzt den Namen des Herstellers
+        /// Liefert den Namen des Herstellers
         /// </summary>
-        public ControlFormularItemInputTextBox ManufacturerName { get; set; }
+        public ControlFormularItemInputTextBox ManufacturerName { get; } = new ControlFormularItemInputTextBox()
+        {
+            Name = "name",
+            Label = "inventoryexpress.manufacturer.form.name.label",
+            Help = "inventoryexpress.manufacturer.form.name.description",
+            Icon = new PropertyIcon(TypeIcon.Font)
+        };
 
         /// <summary>
-        /// Liefert oder setzt die Beschreibung
+        /// Liefert die Beschreibung
         /// </summary>
-        public ControlFormularItemInputTextBox Description { get; set; }
+        public ControlFormularItemInputTextBox Description { get; } = new ControlFormularItemInputTextBox("note")
+        {
+            Name = "description",
+            Label = "inventoryexpress.manufacturer.form.description.label",
+            Help = "inventoryexpress.manufacturer.form.description.description",
+            Format = TypesEditTextFormat.Wysiwyg,
+            Icon = new PropertyIcon(TypeIcon.CommentAlt),
+            Rows = 10
+        };
 
         /// <summary>
-        /// Liefert oder setzt die Aaddresse
+        /// Liefert die Aaddresse
         /// </summary>
-        public ControlFormularItemInputTextBox Address { get; set; }
+        public ControlFormularItemInputTextBox Address { get; } = new ControlFormularItemInputTextBox("adress")
+        {
+            Name = "adress",
+            Label = "inventoryexpress.manufacturer.form.adress.label",
+            Help = "inventoryexpress.manufacturer.form.adress.description",
+            Icon = new PropertyIcon(TypeIcon.Home)
+        };
 
         /// <summary>
-        /// Liefert oder setzt die Postleitzahl
+        /// Liefert die Postleitzahl
         /// </summary>
-        public ControlFormularItemInputTextBox Zip { get; set; }
+        public ControlFormularItemInputTextBox Zip { get; } = new ControlFormularItemInputTextBox("zip")
+        {
+            Name = "zip",
+            Label = "inventoryexpress.manufacturer.form.zip.label",
+            Help = "inventoryexpress.manufacturer.form.zip.description",
+            Icon = new PropertyIcon(TypeIcon.MapMarker)
+        };
 
         /// <summary>
-        /// Liefert oder setzt den Ort
+        /// Liefert den Ort
         /// </summary>
-        public ControlFormularItemInputTextBox Place { get; set; }
+        public ControlFormularItemInputTextBox Place { get; } = new ControlFormularItemInputTextBox("place")
+        {
+            Name = "place",
+            Label = "inventoryexpress.manufacturer.form.place.label",
+            Help = "inventoryexpress.manufacturer.form.place.description",
+            Icon = new PropertyIcon(TypeIcon.City)
+        };
 
         /// <summary>
-        /// Liefert oder setzt das Bild
+        /// Liefert das Bild
         /// </summary>
-        public ControlFormularItemInputFile Image { get; set; }
+        public ControlFormularItemInputFile Image { get; } = new ControlFormularItemInputFile()
+        {
+            Name = "image",
+            Label = "inventoryexpress.manufacturer.form.image.label",
+            Help = "inventoryexpress.manufacturer.form.image.description",
+            Icon = new PropertyIcon(TypeIcon.Image),
+            AcceptFile = new string[] { "image/*" }
+        };
 
         /// <summary>
-        /// Liefert oder setzt die Schlagwörter
+        /// Liefert die Schlagwörter
         /// </summary>
-        public ControlFormularItemInputTag Tag { get; set; }
+        public ControlFormularItemInputTag Tag { get; } = new ControlFormularItemInputTag("tags")
+        {
+            Name = "tag",
+            Label = "inventoryexpress.manufacturer.form.tag.label",
+            Help = "inventoryexpress.manufacturer.form.tag.description",
+            Icon = new PropertyIcon(TypeIcon.Tag)
+        };
 
         /// <summary>
         /// Bestimmt, ob das Formular zum Bearbeiten oder zum Neuanlegen verwendet werden soll.
@@ -54,87 +98,12 @@ namespace InventoryExpress.WebControl
         public ControlFormularManufacturer(IPage page, string id = null)
             : base(id)
         {
-            Init();
-        }
-
-        /// <summary>
-        /// Initialisierung
-        /// </summary>
-        private void Init()
-        {
             Name = "manufacturer";
             EnableCancelButton = false;
             Margin = new PropertySpacingMargin(PropertySpacing.Space.Three);
             BackgroundColor = LayoutSchema.FormularBackground;
             Layout = TypeLayoutFormular.Horizontal;
 
-            ManufacturerName = new ControlFormularItemInputTextBox()
-            {
-                Name = "name",
-                Label = "inventoryexpress.manufacturer.form.name.label",
-                Help = "inventoryexpress.manufacturer.form.name.description",
-                Icon = new PropertyIcon(TypeIcon.Font)
-            };
-
-            Description = new ControlFormularItemInputTextBox("note")
-            {
-                Name = "description",
-                Label = "inventoryexpress.manufacturer.form.description.label",
-                Help = "inventoryexpress.manufacturer.form.description.description",
-                Format = TypesEditTextFormat.Wysiwyg,
-                Icon = new PropertyIcon(TypeIcon.CommentAlt),
-                Rows = 10
-            };
-
-            Address = new ControlFormularItemInputTextBox("adress")
-            {
-                Name = "adress",
-                Label = "inventoryexpress.manufacturer.form.adress.label",
-                Help = "inventoryexpress.manufacturer.form.adress.description",
-                Icon = new PropertyIcon(TypeIcon.Home)
-            };
-
-            Zip = new ControlFormularItemInputTextBox("zip")
-            {
-                Name = "zip",
-                Label = "inventoryexpress.manufacturer.form.zip.label",
-                Help = "inventoryexpress.manufacturer.form.zip.description",
-                Icon = new PropertyIcon(TypeIcon.MapMarker)
-            };
-
-            Place = new ControlFormularItemInputTextBox("place")
-            {
-                Name = "place",
-                Label = "inventoryexpress.manufacturer.form.place.label",
-                Help = "inventoryexpress.manufacturer.form.place.description",
-                Icon = new PropertyIcon(TypeIcon.City)
-            };
-
-            Image = new ControlFormularItemInputFile()
-            {
-                Name = "image",
-                Label = "inventoryexpress.manufacturer.form.image.label",
-                Help = "inventoryexpress.manufacturer.form.image.description",
-                Icon = new PropertyIcon(TypeIcon.Image),
-                AcceptFile = new string[] { "image/*" }
-            };
-
-            Tag = new ControlFormularItemInputTag("tags")
-            {
-                Name = "tag",
-                Label = "inventoryexpress.manufacturer.form.tag.label",
-                Help = "inventoryexpress.manufacturer.form.tag.description",
-                Icon = new PropertyIcon(TypeIcon.Tag)
-            };
-        }
-
-        /// <summary>
-        /// In HTML konvertieren
-        /// </summary>
-        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
-        /// <returns>Das Control als HTML</returns>
-        public override IHtmlNode Render(RenderContext context)
-        {
             var group = new ControlFormularItemGroupColumnVertical() { Distribution = new int[] { 33 } };
             group.Items.Add(Zip);
             group.Items.Add(Place);
@@ -150,8 +119,6 @@ namespace InventoryExpress.WebControl
             }
 
             Add(Tag);
-
-            return base.Render(context);
         }
     }
 }

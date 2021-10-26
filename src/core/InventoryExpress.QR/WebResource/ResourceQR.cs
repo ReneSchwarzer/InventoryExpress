@@ -32,10 +32,9 @@ namespace InventoryExpress.QR.WebResource
         /// <returns>Die Antwort</returns>
         public override Response Process(Request request)
         {
-            var id = GetParamValue("InventoryID");
+            var id = request.GetParameter("InventoryID")?.Value;
 
-            var app = ApplicationManager.GetApplcation(Context.ApplicationID);
-            var link = $"{ ApplicationManager.Context.Uri.ToString().TrimEnd('/') }/{ app.ContextPath.Append(id).ToString().TrimStart('/')}";
+            var link = $"{ ApplicationManager.Context.Uri.ToString().TrimEnd('/') }/{ Context.Application.ContextPath.Append(id).ToString().TrimStart('/')}";
 
             var qrGenerator = new QRCodeGenerator();
             var qrCode = qrGenerator.CreateQrCode(link, QRCodeGenerator.ECCLevel.Q);

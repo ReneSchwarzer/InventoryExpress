@@ -3,11 +3,22 @@ using WebExpress.Html;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebControl;
+using WebExpress.WebPage;
 
 namespace InventoryExpress.WebControl
 {
     public class ControlModalFormularAttributeDelete : ControlModalFormConfirmDelete
     {
+        /// <summary>
+        /// Das zu löschende Attribut
+        /// </summary>
+        public Attribute Item { get; set; }
+
+        /// <summary>
+        /// Liefert den Text des Contentbereiches
+        /// </summary>
+        protected ControlFormularItemStaticText ContextText { get; } = new ControlFormularItemStaticText();
+
         /// <summary>
         /// Konstruktor
         /// </summary>
@@ -15,32 +26,27 @@ namespace InventoryExpress.WebControl
         public ControlModalFormularAttributeDelete(string id = null)
             : base("delete_" + id)
         {
-            Init();
+            Header = "inventoryexpress.attribute.delete.header";
+            Content = ContextText;
         }
 
         /// <summary>
-        /// Das zu löschende Attribut
+        /// Löst das Confirm-Event aus
         /// </summary>
-        public Model.Attribute Item { get; set; }
-
-        /// <summary>
-        /// Initialisierung
-        /// </summary>
-        private void Init()
+        protected override void OnConfirm()
         {
-            Confirm += (s, e) =>
-            {
-                lock (ViewModel.Instance.Database)
-                {
-                    if (Item != null)
-                    {
-                        // Aus DB löschen
-                        ViewModel.Instance.Attributes.Remove(Item);
-                    }
+            base.OnConfirm();
 
-                    ViewModel.Instance.SaveChanges();
+            lock (ViewModel.Instance.Database)
+            {
+                if (Item != null)
+                {
+                    // Aus DB löschen
+                    ViewModel.Instance.Attributes.Remove(Item);
                 }
-            };
+
+                ViewModel.Instance.SaveChanges();
+            }
         }
 
         /// <summary>
@@ -50,8 +56,7 @@ namespace InventoryExpress.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            Header = context.Page.I18N("inventoryexpress.attribute.delete.header");
-            Content = new ControlFormularItemStaticText() { Text = string.Format(context.I18N("inventoryexpress.attribute.delete.description"), Item.Name) };
+            ContextText.Text = string.Format(context.I18N("inventoryexpress.attribute.delete.description"), Item.Name);
 
             return base.Render(context);
         }

@@ -4,6 +4,7 @@ using System.Linq;
 using WebExpress.Html;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
+using WebExpress.WebPage;
 
 namespace InventoryExpress.WebControl
 {
@@ -109,7 +110,7 @@ namespace InventoryExpress.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            Header = context.Page.I18N(Item == null? "inventoryexpress.condition.add.header" : "inventoryexpress.condition.edit.header");
+            Header = context.Page.I18N(Item == null ? "inventoryexpress.condition.add.header" : "inventoryexpress.condition.edit.header");
             Formular.RedirectUri = context.Uri;
 
             ConditionName.Validation += (s, e) =>

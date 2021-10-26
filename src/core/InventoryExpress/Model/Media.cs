@@ -9,7 +9,7 @@ namespace InventoryExpress.Model
     /// Mediendateien
     /// </summary>
     [Table("MEDIA")]
-    public class Media 
+    public class Media
     {
         /// <summary>
         /// Die ID

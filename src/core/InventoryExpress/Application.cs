@@ -9,6 +9,7 @@ namespace InventoryExpress
     [Icon("/assets/img/inventoryexpress.svg")]
     [AssetPath("/")]
     [ContextPath("/ix")]
+    [Option("webexpress.webapp.*")]
     public sealed class Application : IApplication
     {
         /// <summary>

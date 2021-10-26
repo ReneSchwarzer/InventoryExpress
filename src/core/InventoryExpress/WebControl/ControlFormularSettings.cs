@@ -1,63 +1,59 @@
-﻿using WebExpress.Html;
-using WebExpress.Internationalization;
+﻿using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
-using WebExpress.WebApp.WebResource;
+using WebExpress.WebApp.WebPage;
 
 namespace InventoryExpress.WebControl
 {
     public class ControlFormularSettings : ControlFormular
     {
         /// <summary>
-        /// Liefert oder setzt die Währung
+        /// Liefert die Währung
         /// </summary>
-        public ControlFormularItemInputTextBox Currency { get; set; }
+        public ControlFormularItemInputTextBox Currency { get; } = new ControlFormularItemInputTextBox("currency")
+        {
+            Name = "currency",
+            Label = "inventoryexpress.setting.currency.label",
+            Help = "inventoryexpress.setting.currency.description",
+            Icon = new PropertyIcon(TypeIcon.EuroSign),
+            Format = TypesEditTextFormat.Default
+        };
 
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="id">Die ID</param>
+        /// <param name="id">Die Formular-ID</param>
         public ControlFormularSettings(string id = null)
             : base(id)
         {
-        }
-
-        /// <summary>
-        /// Initialisiert das Formular
-        /// </summary>
-        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
-        public override void Initialize(RenderContext context)
-        {
-            base.Initialize(context);
-
             Name = "form_comment";
             EnableCancelButton = true;
             Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Three, PropertySpacing.Space.Five, PropertySpacing.Space.None);
             BackgroundColor = LayoutSchema.FormularBackground;
             Layout = TypeLayoutFormular.Vertical;
             SubmitButton.Icon = new PropertyIcon(TypeIcon.Save);
-            SubmitButton.Text = context.I18N("inventoryexpress.setting.submit.label");
+            SubmitButton.Text = "inventoryexpress.setting.submit.label";
             EnableCancelButton = false;
 
-            Currency = new ControlFormularItemInputTextBox("currency")
-            {
-                Name = "currency",
-                Label = "inventoryexpress.setting.currency.label",
-                Help = "inventoryexpress.setting.currency.description",
-                Icon = new PropertyIcon(TypeIcon.EuroSign),
-                Format = TypesEditTextFormat.Default
-            };
+            Currency.Validation += CurrencyValidation;
 
             Add(Currency);
         }
 
         /// <summary>
-        /// In HTML konvertieren
+        /// Validierung der Währungsangabe
         /// </summary>
-        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
-        /// <returns>Das Control als HTML</returns>
-        public override IHtmlNode Render(RenderContext context)
+        /// <param name="sender">Der Auslöser</param>
+        /// <param name="e">Die Eventargumente</param>
+        private void CurrencyValidation(object sender, ValidationEventArgs e)
         {
-            return base.Render(context);
+            if (string.IsNullOrWhiteSpace(e.Value))
+            {
+                e.Results.Add(new ValidationResult() { Text = e.Context.I18N("inventoryexpress.setting.currency.validation.null"), Type = TypesInputValidity.Error });
+            }
+            else if (e.Value.Length > 10)
+            {
+                e.Results.Add(new ValidationResult() { Text = e.Context.I18N("inventoryexpress.setting.currency.validation.tolong"), Type = TypesInputValidity.Error });
+            }
         }
     }
 }

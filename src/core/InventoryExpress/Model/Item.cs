@@ -40,7 +40,7 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Das Bild
         /// </summary>
-          public int? MediaId { get; set; }
+        public int? MediaId { get; set; }
 
         /// <summary>
         /// Das Bild

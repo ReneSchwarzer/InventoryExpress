@@ -32,4 +32,8 @@
     <ProjectReference Include="..\InventoryExpress\InventoryExpress.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="WebPage\" />
+  </ItemGroup>
+
 </Project>

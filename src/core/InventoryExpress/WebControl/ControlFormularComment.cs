@@ -1,7 +1,6 @@
-﻿using InventoryExpress.Model;
-using WebExpress.Html;
-using WebExpress.Internationalization;
+﻿using WebExpress.Html;
 using WebExpress.UI.WebControl;
+using WebExpress.WebPage;
 
 namespace InventoryExpress.WebControl
 {
@@ -10,7 +9,14 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Liefert oder setzt den Kommentar
         /// </summary>
-        public ControlFormularItemInputTextBox Comment { get; set; }
+        public ControlFormularItemInputTextBox Comment { get; } = new ControlFormularItemInputTextBox("comment")
+        {
+            Name = "comment",
+            Label = "inventoryexpress.inventory.comment.label",
+            Help = "inventoryexpress.inventory.comment.description",
+            Icon = new PropertyIcon(TypeIcon.Comment),
+            Format = TypesEditTextFormat.Wysiwyg
+        };
 
         /// <summary>
         /// Konstruktor
@@ -19,6 +25,15 @@ namespace InventoryExpress.WebControl
         public ControlFormularComment(string id = null)
             : base(id)
         {
+            Add(Comment);
+
+            Name = "form_comment";
+            EnableCancelButton = true;
+            Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Three, PropertySpacing.Space.Five, PropertySpacing.Space.None);
+            Layout = TypeLayoutFormular.Vertical;
+            SubmitButton.Icon = new PropertyIcon(TypeIcon.PaperPlane);
+            SubmitButton.Text = "inventoryexpress.inventory.comment.submit";
+            EnableCancelButton = false;
         }
 
         /// <summary>
@@ -28,26 +43,6 @@ namespace InventoryExpress.WebControl
         public override void Initialize(RenderContext context)
         {
             base.Initialize(context);
-
-            Name = "form_comment";
-            EnableCancelButton = true;
-            Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Three, PropertySpacing.Space.Five, PropertySpacing.Space.None);
-            Layout = TypeLayoutFormular.Vertical;
-            SubmitButton.Icon = new PropertyIcon(TypeIcon.PaperPlane);
-            SubmitButton.Text = context.I18N("inventoryexpress.inventory.comment.submit");
-            EnableCancelButton = false;
-            //RedirectUri = context.Uri;
-
-            Comment = new ControlFormularItemInputTextBox("comment")
-            {
-                Name = "comment",
-                Label = "inventoryexpress.inventory.comment.label",
-                Help = "inventoryexpress.inventory.comment.description",
-                Icon = new PropertyIcon(TypeIcon.Comment),
-                Format = TypesEditTextFormat.Wysiwyg
-            };
-            
-            Add(Comment);
         }
 
         /// <summary>

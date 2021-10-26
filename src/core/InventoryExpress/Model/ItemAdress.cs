@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace InventoryExpress.Model
+﻿namespace InventoryExpress.Model
 {
     public class ItemAaddress : ItemTag
     {
