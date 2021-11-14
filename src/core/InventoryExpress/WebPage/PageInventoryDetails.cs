@@ -66,7 +66,7 @@ namespace InventoryExpress.WebPage
                                     )
                                  select media;
 
-                context.Request.Uri.Display = inventory?.Name;
+                context.Uri.Display = inventory?.Name;
                 Title = inventory?.Name;
                 Description.Text = inventory?.Description;
 

@@ -1,4 +1,5 @@
 ﻿using InventoryExpress.Model;
+using InventoryExpress.Model.Entity;
 using System.Linq;
 using WebExpress.Html;
 using WebExpress.UI.WebControl;
@@ -147,7 +148,7 @@ namespace InventoryExpress.WebControl
         {
             lock (ViewModel.Instance.Database)
             {
-                var image = ViewModel.Instance.Media.Where(x => x.Id == Inventory.MediaId).Select(x => context.Request.Uri.Root.Append("media/" + x.Guid)).FirstOrDefault();
+                var image = ViewModel.Instance.Media.Where(x => x.Id == Inventory.MediaId).Select(x => context.Uri.Root.Append("media/" + x.Guid)).FirstOrDefault();
                 var manufacturer = ViewModel.Instance.Manufacturers.Where(x => x.Id == Inventory.ManufacturerId).FirstOrDefault();
                 var location = ViewModel.Instance.Locations.Where(x => x.Id == Inventory.LocationId).FirstOrDefault();
                 var supplier = ViewModel.Instance.Suppliers.Where(x => x.Id == Inventory.SupplierId).FirstOrDefault();
@@ -156,8 +157,8 @@ namespace InventoryExpress.WebControl
                 var condition = ViewModel.Instance.Conditions.Where(x => x.Id == Inventory.ConditionId)?.FirstOrDefault();
                 var template = ViewModel.Instance.Templates.Where(x => x.Id == Inventory.TemplateId)?.FirstOrDefault();
 
-                Media.Image = image == null ? context.Request.Uri.Root.Append("/assets/img/inventoryexpress.svg") : image;
-                MediaLink.Uri = context.Request.Uri.Root.Append(Inventory.Guid);
+                Media.Image = image ?? context.Uri.Root.Append("/assets/img/inventoryexpress.svg");
+                MediaLink.Uri = context.Uri.Root.Append(Inventory.Guid);
 
                 Template.Text = template?.Name;
                 //Template.Uri = ;

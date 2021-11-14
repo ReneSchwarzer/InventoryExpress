@@ -11,8 +11,8 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemInputTextBox CostCenterName { get; } = new ControlFormularItemInputTextBox()
         {
             Name = "name",
-            Label = "inventoryexpress.costcenter.form.name.label",
-            Help = "inventoryexpress.costcenter.form.name.description",
+            Label = "inventoryexpress:inventoryexpress.costcenter.form.name.label",
+            Help = "inventoryexpress:inventoryexpress.costcenter.form.name.description",
             Icon = new PropertyIcon(TypeIcon.Font)
         };
 
@@ -22,8 +22,8 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemInputTextBox Description { get; } = new ControlFormularItemInputTextBox("note")
         {
             Name = "description",
-            Label = "inventoryexpress.costcenter.form.description.label",
-            Help = "inventoryexpress.costcenter.form.description.description",
+            Label = "inventoryexpress:inventoryexpress.costcenter.form.description.label",
+            Help = "inventoryexpress:inventoryexpress.costcenter.form.description.description",
             Format = TypesEditTextFormat.Wysiwyg,
             Icon = new PropertyIcon(TypeIcon.CommentAlt)
         };
@@ -34,8 +34,8 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemInputFile Image { get; } = new ControlFormularItemInputFile()
         {
             Name = "image",
-            Label = "inventoryexpress.costcenter.form.image.label",
-            Help = "inventoryexpress.costcenter.form.image.description",
+            Label = "inventoryexpress:inventoryexpress.costcenter.form.image.label",
+            Help = "inventoryexpress:inventoryexpress.costcenter.form.image.description",
             Icon = new PropertyIcon(TypeIcon.Image),
             AcceptFile = new string[] { "image/*" }
         };
@@ -46,8 +46,8 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemInputTag Tag { get; } = new ControlFormularItemInputTag("tags")
         {
             Name = "tag",
-            Label = "inventoryexpress.costcenter.form.tag.label",
-            Help = "inventoryexpress.costcenter.form.tag.description",
+            Label = "inventoryexpress:inventoryexpress.costcenter.form.tag.label",
+            Help = "inventoryexpress:inventoryexpress.costcenter.form.tag.description",
             Icon = new PropertyIcon(TypeIcon.Tag)
         };
 

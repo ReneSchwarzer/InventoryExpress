@@ -1,4 +1,5 @@
 ﻿using InventoryExpress.Model;
+using InventoryExpress.Model.Entity;
 using InventoryExpress.WebControl;
 using System;
 using System.Linq;
@@ -60,8 +61,8 @@ namespace InventoryExpress.WebPageSetting
 
             var visualTree = context.VisualTree;
 
-            form.RedirectUri = context.Request.Uri.Take(-1);
-            form.BackUri = context.Request.Uri.Take(-1);
+            form.RedirectUri = context.Uri.Take(-1);
+            form.BackUri = context.Uri.Take(-1);
 
             lock (ViewModel.Instance.Database)
             {
@@ -84,11 +85,11 @@ namespace InventoryExpress.WebPageSetting
             {
                 if (e.Value.Count() < 1)
                 {
-                    e.Results.Add(new ValidationResult() { Text = this.I18N("inventoryexpress.template.validation.name.invalid"), Type = TypesInputValidity.Error });
+                    e.Results.Add(new ValidationResult() { Text = this.I18N("inventoryexpress:inventoryexpress.template.validation.name.invalid"), Type = TypesInputValidity.Error });
                 }
                 else if (ViewModel.Instance.Templates.Where(x => x.Name.Equals(e.Value)).Any())
                 {
-                    e.Results.Add(new ValidationResult() { Text = this.I18N("inventoryexpress.template.validation.name.used"), Type = TypesInputValidity.Error });
+                    e.Results.Add(new ValidationResult() { Text = this.I18N("inventoryexpress:inventoryexpress.template.validation.name.used"), Type = TypesInputValidity.Error });
                 }
             };
 

@@ -1,4 +1,5 @@
 ﻿using QRCoder;
+using System.IO;
 using System.Text;
 using WebExpress.Application;
 using WebExpress.Attribute;
@@ -34,7 +35,7 @@ namespace InventoryExpress.QR.WebResource
         {
             var id = request.GetParameter("InventoryID")?.Value;
 
-            var link = $"{ ApplicationManager.Context.Uri.ToString().TrimEnd('/') }/{ Context.Application.ContextPath.Append(id).ToString().TrimStart('/')}";
+            var link = $"{ request.BaseUri.ToString().TrimEnd('/') }/{ Context.Application.ContextPath.Append(id).ToString().TrimStart('/')}";
 
             var qrGenerator = new QRCodeGenerator();
             var qrCode = qrGenerator.CreateQrCode(link, QRCodeGenerator.ECCLevel.Q);
@@ -66,8 +67,8 @@ namespace InventoryExpress.QR.WebResource
             Data = Encoding.UTF8.GetBytes(svg.ToString());
 
             var response = base.Process(request);
-            response.HeaderFields.CacheControl = "no-cache";
-            response.HeaderFields.ContentType = "image/svg+xml";
+            response.Header.CacheControl = "no-cache";
+            response.Header.ContentType = "image/svg+xml";
 
             return response;
         }

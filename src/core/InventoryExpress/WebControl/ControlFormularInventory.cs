@@ -2,7 +2,6 @@
 using System.Linq;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebPage;
-using WebExpress.WebPage;
 
 namespace InventoryExpress.WebControl
 {
@@ -14,8 +13,8 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemInputTextBox InventoryName { get; } = new ControlFormularItemInputTextBox()
         {
             Name = "name",
-            Label = "inventoryexpress.inventory.name.label",
-            Help = "inventoryexpress.inventory.name.description",
+            Label = "inventoryexpress:inventoryexpress.inventory.name.label",
+            Help = "inventoryexpress:inventoryexpress.inventory.name.description",
             Icon = new PropertyIcon(TypeIcon.Font),
             Format = TypesEditTextFormat.Default
         };
@@ -26,8 +25,8 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemInputComboBox Manufacturer { get; } = new ControlFormularItemInputComboBox()
         {
             Name = "manufacturer",
-            Label = "inventoryexpress.inventory.manufacturers.label",
-            Help = "inventoryexpress.inventory.manufacturer.description",
+            Label = "inventoryexpress:inventoryexpress.inventory.manufacturers.label",
+            Help = "inventoryexpress:inventoryexpress.inventory.manufacturer.description",
             Icon = new PropertyIcon(TypeIcon.Industry)
         };
 
@@ -37,8 +36,8 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemInputComboBox Location { get; } = new ControlFormularItemInputComboBox()
         {
             Name = "location",
-            Label = "inventoryexpress.inventory.location.label",
-            Help = "inventoryexpress.inventory.location.description",
+            Label = "inventoryexpress:inventoryexpress.inventory.location.label",
+            Help = "inventoryexpress:inventoryexpress.inventory.location.description",
             Icon = new PropertyIcon(TypeIcon.Map)
         };
 
@@ -48,8 +47,8 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemInputComboBox Supplier { get; } = new ControlFormularItemInputComboBox()
         {
             Name = "supplier",
-            Label = "inventoryexpress.inventory.supplier.label",
-            Help = "inventoryexpress.inventory.supplier.description",
+            Label = "inventoryexpress:inventoryexpress.inventory.supplier.label",
+            Help = "inventoryexpress:inventoryexpress.inventory.supplier.description",
             Icon = new PropertyIcon(TypeIcon.Truck)
         };
 
@@ -59,8 +58,8 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemInputComboBox LedgerAccount { get; } = new ControlFormularItemInputComboBox()
         {
             Name = "ledgeraccount",
-            Label = "inventoryexpress.inventory.ledgeraccount.label",
-            Help = "inventoryexpress.inventory.ledgeraccount.description",
+            Label = "inventoryexpress:inventoryexpress.inventory.ledgeraccount.label",
+            Help = "inventoryexpress:inventoryexpress.inventory.ledgeraccount.description",
             Icon = new PropertyIcon(TypeIcon.At)
         };
 
@@ -70,8 +69,8 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemInputComboBox CostCenter { get; } = new ControlFormularItemInputComboBox()
         {
             Name = "costcenter",
-            Label = "inventoryexpress.inventory.costcenter.label",
-            Help = "inventoryexpress.inventory.costcenter.description",
+            Label = "inventoryexpress:inventoryexpress.inventory.costcenter.label",
+            Help = "inventoryexpress:inventoryexpress.inventory.costcenter.description",
             Icon = new PropertyIcon(TypeIcon.ShoppingBag)
         };
 
@@ -81,8 +80,8 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemInputComboBox Condition { get; } = new ControlFormularItemInputComboBox()
         {
             Name = "condition",
-            Label = "inventoryexpress.inventory.condition.label",
-            Help = "inventoryexpress.inventory.condition.description",
+            Label = "inventoryexpress:inventoryexpress.inventory.condition.label",
+            Help = "inventoryexpress:inventoryexpress.inventory.condition.description",
             Icon = new PropertyIcon(TypeIcon.Star)
         };
 
@@ -92,8 +91,8 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemInputComboBox Parent { get; } = new ControlFormularItemInputComboBox()
         {
             Name = "parent",
-            Label = "inventoryexpress.inventory.parent.label",
-            Help = "inventoryexpress.inventory.parent.description",
+            Label = "inventoryexpress:inventoryexpress.inventory.parent.label",
+            Help = "inventoryexpress:inventoryexpress.inventory.parent.description",
             Icon = new PropertyIcon(TypeIcon.Link)
         };
 
@@ -103,8 +102,8 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemInputComboBox Template { get; } = new ControlFormularItemInputComboBox()
         {
             Name = "template",
-            Label = "inventoryexpress.inventory.template.label",
-            Help = "inventoryexpress.inventory.template.description",
+            Label = "inventoryexpress:inventoryexpress.inventory.template.label",
+            Help = "inventoryexpress:inventoryexpress.inventory.template.description",
             Icon = new PropertyIcon(TypeIcon.Clone),
             OnChange = new PropertyOnChange(TypeOnChange.Submit)
         };
@@ -120,8 +119,8 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemInputTextBox CostValue { get; } = new ControlFormularItemInputTextBox()
         {
             Name = "costvalue",
-            Label = "inventoryexpress.inventory.costvalue.label",
-            Help = "inventoryexpress.inventory.costvalue.description",
+            Label = "inventoryexpress:inventoryexpress.inventory.costvalue.label",
+            Help = "inventoryexpress:inventoryexpress.inventory.costvalue.description",
             Icon = new PropertyIcon(TypeIcon.EuroSign)
         };
 
@@ -131,8 +130,8 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemInputDatepicker PurchaseDate { get; } = new ControlFormularItemInputDatepicker("purchasedate")
         {
             Name = "purchasedate",
-            Label = "inventoryexpress.inventory.purchasedate.label",
-            Help = "inventoryexpress.inventory.purchasedate.description",
+            Label = "inventoryexpress:inventoryexpress.inventory.purchasedate.label",
+            Help = "inventoryexpress:inventoryexpress.inventory.purchasedate.description",
             Icon = new PropertyIcon(TypeIcon.CalendarPlus)
         };
 
@@ -142,8 +141,8 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemInputDatepicker DerecognitionDate { get; } = new ControlFormularItemInputDatepicker("derecognitiondate")
         {
             Name = "derecognitiondate",
-            Label = "inventoryexpress.inventory.derecognitiondate.label",
-            Help = "inventoryexpress.inventory.derecognitiondate.description",
+            Label = "inventoryexpress:inventoryexpress.inventory.derecognitiondate.label",
+            Help = "inventoryexpress:inventoryexpress.inventory.derecognitiondate.description",
             Icon = new PropertyIcon(TypeIcon.CalendarMinus)
         };
 
@@ -153,8 +152,8 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemInputTag Tag { get; } = new ControlFormularItemInputTag("tags")
         {
             Name = "tag",
-            Label = "inventoryexpress.inventory.tags.label",
-            Help = "inventoryexpress.inventory.tags.description",
+            Label = "inventoryexpress:inventoryexpress.inventory.tags.label",
+            Help = "inventoryexpress:inventoryexpress.inventory.tags.description",
             Icon = new PropertyIcon(TypeIcon.Tag)
         };
 
@@ -164,8 +163,8 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemInputTextBox Description { get; } = new ControlFormularItemInputTextBox("note")
         {
             Name = "description",
-            Label = "inventoryexpress.inventory.description.label",
-            Help = "inventoryexpress.inventory.description.description",
+            Label = "inventoryexpress:inventoryexpress.inventory.description.label",
+            Help = "inventoryexpress:inventoryexpress.inventory.description.description",
             Format = TypesEditTextFormat.Wysiwyg,
             Icon = new PropertyIcon(TypeIcon.CommentAlt),
             Rows = 10,
@@ -213,7 +212,7 @@ namespace InventoryExpress.WebControl
         /// Initialisiert das Formular
         /// </summary>
         /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
-        public override void Initialize(RenderContext context)
+        public override void Initialize(RenderContextFormular context)
         {
             base.Initialize(context);
 

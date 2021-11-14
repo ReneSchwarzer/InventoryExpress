@@ -1,4 +1,5 @@
 ﻿using InventoryExpress.Model;
+using InventoryExpress.Model.Entity;
 using System.Linq;
 using WebExpress.Html;
 using WebExpress.UI.WebControl;
@@ -41,16 +42,16 @@ namespace InventoryExpress.WebControl
         {
             lock (ViewModel.Instance.Database)
             {
-                var image = ViewModel.Instance.Media.Where(x => x.Id == Location.MediaId).Select(x => context.Request.Uri.Root.Append("media/" + x.Guid)).FirstOrDefault();
+                var image = ViewModel.Instance.Media.Where(x => x.Id == Location.MediaId).Select(x => context.Uri.Root.Append("media/" + x.Guid)).FirstOrDefault();
 
                 var media = new ControlPanelMedia()
                 {
-                    Image = image == null ? context.Request.Uri.Root.Append("/assets/img/inventoryexpress.svg") : image,
+                    Image = image ?? context.Uri.Root.Append("/assets/img/inventoryexpress.svg"),
                     ImageWidth = 100,
                     Title = new ControlLink()
                     {
                         Text = Location.Name,
-                        Uri = context.Request.Uri.Append(Location.Guid),
+                        Uri = context.Uri.Append(Location.Guid),
                         TextColor = new PropertyColorText(TypeColorText.Dark)
                     }
                 };

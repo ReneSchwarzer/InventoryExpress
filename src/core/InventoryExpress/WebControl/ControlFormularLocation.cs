@@ -11,8 +11,8 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemInputTextBox LocationName { get; } = new ControlFormularItemInputTextBox()
         {
             Name = "name",
-            Label = "inventoryexpress.location.form.name.label",
-            Help = "inventoryexpress.location.form.name.description",
+            Label = "inventoryexpress:inventoryexpress.location.form.name.label",
+            Help = "inventoryexpress:inventoryexpress.location.form.name.description",
             Icon = new PropertyIcon(TypeIcon.Font)
         };
 
@@ -22,8 +22,8 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemInputTextBox Description { get; } = new ControlFormularItemInputTextBox("note")
         {
             Name = "description",
-            Label = "inventoryexpress.location.form.description.label",
-            Help = "inventoryexpress.location.form.description.description",
+            Label = "inventoryexpress:inventoryexpress.location.form.description.label",
+            Help = "inventoryexpress:inventoryexpress.location.form.description.description",
             Format = TypesEditTextFormat.Wysiwyg,
             Icon = new PropertyIcon(TypeIcon.CommentAlt),
             Rows = 10
@@ -35,8 +35,8 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemInputTextBox Address { get; } = new ControlFormularItemInputTextBox("adress")
         {
             Name = "adress",
-            Label = "inventoryexpress.location.form.adress.label",
-            Help = "inventoryexpress.location.form.adress.description",
+            Label = "inventoryexpress:inventoryexpress.location.form.adress.label",
+            Help = "inventoryexpress:inventoryexpress.location.form.adress.description",
             Icon = new PropertyIcon(TypeIcon.Home)
         };
 
@@ -46,8 +46,8 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemInputTextBox Zip { get; } = new ControlFormularItemInputTextBox("zip")
         {
             Name = "zip",
-            Label = "inventoryexpress.location.form.zip.label",
-            Help = "inventoryexpress.location.form.zip.description",
+            Label = "inventoryexpress:inventoryexpress.location.form.zip.label",
+            Help = "inventoryexpress:inventoryexpress.location.form.zip.description",
             Icon = new PropertyIcon(TypeIcon.MapMarker)
         };
 
@@ -57,8 +57,8 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemInputTextBox Place { get; } = new ControlFormularItemInputTextBox("place")
         {
             Name = "place",
-            Label = "inventoryexpress.location.form.place.label",
-            Help = "inventoryexpress.location.form.place.description",
+            Label = "inventoryexpress:inventoryexpress.location.form.place.label",
+            Help = "inventoryexpress:inventoryexpress.location.form.place.description",
             Icon = new PropertyIcon(TypeIcon.City)
         };
 
@@ -68,8 +68,8 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemInputTextBox Building { get; } = new ControlFormularItemInputTextBox("building")
         {
             Name = "building",
-            Label = "inventoryexpress.location.form.building.label",
-            Help = "inventoryexpress.location.form.building.description",
+            Label = "inventoryexpress:inventoryexpress.location.form.building.label",
+            Help = "inventoryexpress:inventoryexpress.location.form.building.description",
             Icon = new PropertyIcon(TypeIcon.Building)
         };
 
@@ -79,8 +79,8 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemInputTextBox Room { get; } = new ControlFormularItemInputTextBox("room")
         {
             Name = "room",
-            Label = "inventoryexpress.location.form.room.label",
-            Help = "inventoryexpress.location.form.room.description",
+            Label = "inventoryexpress:inventoryexpress.location.form.room.label",
+            Help = "inventoryexpress:inventoryexpress.location.form.room.description",
             Icon = new PropertyIcon(TypeIcon.DoorOpen)
         };
 
@@ -90,8 +90,8 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemInputFile Image { get; } = new ControlFormularItemInputFile()
         {
             Name = "image",
-            Label = "inventoryexpress.location.form.image.label",
-            Help = "inventoryexpress.location.form.image.description",
+            Label = "inventoryexpress:inventoryexpress.location.form.image.label",
+            Help = "inventoryexpress:inventoryexpress.location.form.image.description",
             Icon = new PropertyIcon(TypeIcon.Image),
             AcceptFile = new string[] { "image/*" }
         };
@@ -102,8 +102,8 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemInputTag Tag { get; } = new ControlFormularItemInputTag("tags")
         {
             Name = "tag",
-            Label = "inventoryexpress.location.form.tag.label",
-            Help = "inventoryexpress.location.form.tag.description",
+            Label = "inventoryexpress:inventoryexpress.location.form.tag.label",
+            Help = "inventoryexpress:inventoryexpress.location.form.tag.description",
             Icon = new PropertyIcon(TypeIcon.Tag)
         };
 

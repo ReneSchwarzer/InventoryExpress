@@ -25,7 +25,7 @@ namespace InventoryExpress.WebComponent
         {
             TextColor = new PropertyColorText(TypeColorText.Secondary),
             Icon = new PropertyIcon(TypeIcon.CalendarPlus),
-            Name = "inventoryexpress.costcenter.creationdate.label"
+            Name = "inventoryexpress:inventoryexpress.costcenter.creationdate.label"
         };
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace InventoryExpress.WebComponent
         {
             TextColor = new PropertyColorText(TypeColorText.Secondary),
             Icon = new PropertyIcon(TypeIcon.Save),
-            Name = "inventoryexpress.costcenter.updatedate.label"
+            Name = "inventoryexpress:inventoryexpress.costcenter.updatedate.label"
         };
 
         /// <summary>

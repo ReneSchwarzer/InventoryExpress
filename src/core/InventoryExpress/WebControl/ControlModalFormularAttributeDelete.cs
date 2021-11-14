@@ -1,4 +1,5 @@
 ﻿using InventoryExpress.Model;
+using InventoryExpress.Model.Entity;
 using WebExpress.Html;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
@@ -26,7 +27,7 @@ namespace InventoryExpress.WebControl
         public ControlModalFormularAttributeDelete(string id = null)
             : base("delete_" + id)
         {
-            Header = "inventoryexpress.attribute.delete.header";
+            Header = "inventoryexpress:inventoryexpress.attribute.delete.header";
             Content = ContextText;
         }
 
@@ -56,7 +57,7 @@ namespace InventoryExpress.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            ContextText.Text = string.Format(context.I18N("inventoryexpress.attribute.delete.description"), Item.Name);
+            ContextText.Text = string.Format(context.I18N("inventoryexpress:inventoryexpress.attribute.delete.description"), Item.Name);
 
             return base.Render(context);
         }

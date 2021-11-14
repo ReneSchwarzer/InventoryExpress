@@ -11,7 +11,7 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemInputFile Image { get; } = new ControlFormularItemInputFile()
         {
             Name = "image",
-            Help = "inventoryexpress.media.form.image.description",
+            Help = "inventoryexpress:inventoryexpress.media.form.image.description",
             AcceptFile = new string[] { "image/*" },
             Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.None, PropertySpacing.Space.None, PropertySpacing.Space.Three)
         };
@@ -22,8 +22,8 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemInputTag Tag { get; } = new ControlFormularItemInputTag("tags")
         {
             Name = "tag",
-            Label = "inventoryexpress.manufacturer.form.tag.label",
-            Help = "inventoryexpress.manufacturer.form.tag.description",
+            Label = "inventoryexpress:inventoryexpress.manufacturer.form.tag.label",
+            Help = "inventoryexpress:inventoryexpress.manufacturer.form.tag.description",
             Icon = new PropertyIcon(TypeIcon.Tag)
         };
 

@@ -1,4 +1,5 @@
 ﻿using InventoryExpress.Model;
+using InventoryExpress.Model.Entity;
 using System;
 using System.Linq;
 using WebExpress.Attribute;
@@ -87,7 +88,7 @@ namespace InventoryExpress.WebComponent
                             var journal = new InventoryJournal()
                             {
                                 InventoryId = inventory.Id,
-                                Action = "inventoryexpress.journal.action.inventory.attachment.add",
+                                Action = "inventoryexpress:inventoryexpress.journal.action.inventory.attachment.add",
                                 Created = DateTime.Now,
                                 Guid = Guid.NewGuid().ToString()
                             };
@@ -97,7 +98,7 @@ namespace InventoryExpress.WebComponent
                             ViewModel.Instance.InventoryJournalParameters.Add(new InventoryJournalParameter()
                             {
                                 InventoryJournal = journal,
-                                Name = "inventoryexpress.inventory.attachment.label",
+                                Name = "inventoryexpress:inventoryexpress.inventory.attachment.label",
                                 OldValue = "🖳",
                                 NewValue = media.Name,
                                 Guid = Guid.NewGuid().ToString()

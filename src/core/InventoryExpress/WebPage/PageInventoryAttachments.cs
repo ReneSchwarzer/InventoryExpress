@@ -1,4 +1,5 @@
 ﻿using InventoryExpress.Model;
+using InventoryExpress.Model.Entity;
 using System;
 using System.Linq;
 using WebExpress.Attribute;

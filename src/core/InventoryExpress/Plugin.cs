@@ -1,4 +1,5 @@
 ﻿using InventoryExpress.Model;
+using System.Linq;
 using WebExpress.Attribute;
 using WebExpress.Plugin;
 
@@ -23,8 +24,12 @@ namespace InventoryExpress.QR
         /// <param name="context">Der Kontext, welcher für die Ausführung des Plugins gilt</param>
         public void Initialization(IPluginContext context)
         {
-            //ViewModel.Instance.Context = Context;
-            ViewModel.Instance.Init();
+            ViewModel.Instance.Initialization(context);
+
+            // Daten vorladen
+            //ViewModel.Instance.Inventories.ToList();
+            //ViewModel.Instance.Manufacturers.ToList();
+            //ViewModel.Instance.Suppliers.ToList();
         }
 
         /// <summary>
@@ -32,9 +37,6 @@ namespace InventoryExpress.QR
         /// </summary>
         public void Run()
         {
-            // <<<<<<<<<<<<<<<<<<<<<<<<<<< Nach dem Testen bitte löschen!!! 
-
-            // >>>>>>>>>>>>>>>>>>>>>>>>>>>
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
 ﻿using InventoryExpress.Model;
+using InventoryExpress.Model.Entity;
 using System;
 using System.Linq;
 using WebExpress.Attribute;
@@ -35,6 +36,7 @@ namespace InventoryExpress.WebComponent
         /// <param name="context">Der Kontext</param>
         public void Initialization(IComponentContext context)
         {
+            Header = "inventoryexpress:inventoryexpress.media.delete.label";
         }
 
         /// <summary>
@@ -78,7 +80,7 @@ namespace InventoryExpress.WebComponent
                 }
             };
 
-            Header = I18N(context.Culture, "inventoryexpress:inventoryexpress.media.delete.label");
+            
             Content = new ControlFormularItemStaticText() { Text = I18N(context.Culture, "inventoryexpress:inventoryexpress.media.delete.description") };
 
             return base.Render(context);

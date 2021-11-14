@@ -11,8 +11,8 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemInputTextBox LedgerAccountName { get; } = new ControlFormularItemInputTextBox()
         {
             Name = "name",
-            Label = "inventoryexpress.ledgeraccount.form.name.label",
-            Help = "inventoryexpress.ledgeraccount.form.name.description",
+            Label = "inventoryexpress:inventoryexpress.ledgeraccount.form.name.label",
+            Help = "inventoryexpress:inventoryexpress.ledgeraccount.form.name.description",
             Icon = new PropertyIcon(TypeIcon.Font)
         };
 
@@ -22,8 +22,8 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemInputTextBox Description { get; } = new ControlFormularItemInputTextBox("note")
         {
             Name = "description",
-            Label = "inventoryexpress.ledgeraccount.form.description.label",
-            Help = "inventoryexpress.ledgeraccount.form.description.description",
+            Label = "inventoryexpress:inventoryexpress.ledgeraccount.form.description.label",
+            Help = "inventoryexpress:inventoryexpress.ledgeraccount.form.description.description",
             Format = TypesEditTextFormat.Wysiwyg,
             Icon = new PropertyIcon(TypeIcon.CommentAlt)
         };
@@ -34,8 +34,8 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemInputFile Image { get; } = new ControlFormularItemInputFile()
         {
             Name = "image",
-            Label = "inventoryexpress.ledgeraccount.form.image.label",
-            Help = "inventoryexpress.ledgeraccount.form.image.description",
+            Label = "inventoryexpress:inventoryexpress.ledgeraccount.form.image.label",
+            Help = "inventoryexpress:inventoryexpress.ledgeraccount.form.image.description",
             Icon = new PropertyIcon(TypeIcon.Image),
             AcceptFile = new string[] { "image/*" }
         };
@@ -46,8 +46,8 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemInputTag Tag { get; } = new ControlFormularItemInputTag("tags")
         {
             Name = "tag",
-            Label = "inventoryexpress.ledgeraccount.form.tag.label",
-            Help = "inventoryexpress.ledgeraccount.form.tag.description",
+            Label = "inventoryexpress:inventoryexpress.ledgeraccount.form.tag.label",
+            Help = "inventoryexpress:inventoryexpress.ledgeraccount.form.tag.description",
             Icon = new PropertyIcon(TypeIcon.Tag)
         };
 

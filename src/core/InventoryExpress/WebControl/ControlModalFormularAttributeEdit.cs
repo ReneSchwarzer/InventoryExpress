@@ -8,7 +8,7 @@ using WebExpress.WebPage;
 
 namespace InventoryExpress.WebControl
 {
-    public class ControlModalFormularAttributeEdit : ControlModalForm
+    public class ControlModalFormularAttributeEdit : ControlModalFormular
     {
         /// <summary>
         /// Liefert oder setzt den Namen des Attributes
@@ -23,7 +23,7 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Der zu bearbeitende Status oder null, wenn bei Neuanlage
         /// </summary>
-        public Model.Attribute Item { get; set; }
+        public Model.Entity.Attribute Item { get; set; }
 
         /// <summary>
         /// Konstruktor
@@ -43,16 +43,16 @@ namespace InventoryExpress.WebControl
             AttributeName = new ControlFormularItemInputTextBox()
             {
                 Name = "name",
-                Label = "inventoryexpress.attribute.form.name.label",
-                Help = "inventoryexpress.attribute.form.name.description",
+                Label = "inventoryexpress:inventoryexpress.attribute.form.name.label",
+                Help = "inventoryexpress:inventoryexpress.attribute.form.name.description",
                 Icon = new PropertyIcon(TypeIcon.Font)
             };
 
             Description = new ControlFormularItemInputTextBox("note")
             {
                 Name = "description",
-                Label = "inventoryexpress.attribute.form.description.label",
-                Help = "inventoryexpress.attribute.form.description.description",
+                Label = "inventoryexpress:inventoryexpress.attribute.form.description.label",
+                Help = "inventoryexpress:inventoryexpress.attribute.form.description.description",
                 Format = TypesEditTextFormat.Wysiwyg,
                 Icon = new PropertyIcon(TypeIcon.CommentAlt),
                 Rows = 10
@@ -74,7 +74,7 @@ namespace InventoryExpress.WebControl
                     if (Item == null)
                     {
                         // Daten verarbeiten und neues Attribut anlegen
-                        var attribute = new Model.Attribute()
+                        var attribute = new Model.Entity.Attribute()
                         {
                             Name = AttributeName.Value,
                             Description = Description.Value,
@@ -109,7 +109,7 @@ namespace InventoryExpress.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            Header = context.Page.I18N(Item == null ? "inventoryexpress.attribute.add.header" : "inventoryexpress.attribute.edit.header");
+            Header = context.Page.I18N(Item == null ? "inventoryexpress:inventoryexpress.attribute.add.header" : "inventoryexpress:inventoryexpress.attribute.edit.header");
             Formular.RedirectUri = context.Uri;
 
             AttributeName.Validation += (s, e) =>
@@ -119,7 +119,7 @@ namespace InventoryExpress.WebControl
                     e.Results.Add(new ValidationResult()
                     {
                         Type = TypesInputValidity.Error,
-                        Text = context.Page.I18N("inventoryexpress.attribute.form.name.validation.empty")
+                        Text = context.Page.I18N("inventoryexpress:inventoryexpress.attribute.form.name.validation.empty")
                     });
                 }
 
@@ -130,7 +130,7 @@ namespace InventoryExpress.WebControl
                         e.Results.Add(new ValidationResult()
                         {
                             Type = TypesInputValidity.Error,
-                            Text = context.Page.I18N("inventoryexpress.attribute.form.name.validation.inuse")
+                            Text = context.Page.I18N("inventoryexpress:inventoryexpress.attribute.form.name.validation.inuse")
                         });
                     }
                 }

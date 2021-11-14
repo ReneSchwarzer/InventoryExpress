@@ -327,16 +327,18 @@ inventoryexpress.attribute.form.description.description=
 
 inventoryexpress.journal.action.inventory.add=The inventory item has been created.
 inventoryexpress.journal.action.inventory.edit=The inventory item has been changed.
-
-inventoryexpress.parent.label=Membership of
-inventoryexpress.parent.description=Belonging to another inventory item.
-
 inventoryexpress.journal.action.inventory.media.add=An image has been added to the inventory item.
 inventoryexpress.journal.action.inventory.media.edit=The image of the inventory item has been changed.
 inventoryexpress.journal.action.inventory.media.del=The image of the inventory item has been deleted.
 inventoryexpress.journal.action.inventory.attachment.add=An attachment has been added to the inventory item.
 inventoryexpress.journal.action.inventory.attachment.edit=An attachment of the inventory item has been changed.
 inventoryexpress.journal.action.inventory.attachment.del=An attachment of the inventory item has been deleted.
+
+inventoryexpress.export.label=Export
+inventoryexpress.export.help.label=Export the complete contents of the database to an XML file that can be imported on another instance. You can also use the export file as a backup.
+
+inventoryexpress.parent.label=Membership of
+inventoryexpress.parent.description=Belonging to another inventory item.
 
 inventoryexpress.tags.label=Tags
 inventoryexpress.tags.description=

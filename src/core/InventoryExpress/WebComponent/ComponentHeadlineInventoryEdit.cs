@@ -37,7 +37,7 @@ namespace InventoryExpress.WebComponent
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            Uri = context.Request.Uri.Append("edit");
+            Uri = context.Uri.Append("edit");
             Text = I18N(context.Culture, "inventoryexpress:inventoryexpress.edit.label");
             Icon = new PropertyIcon(TypeIcon.Edit);
             BackgroundColor = new PropertyColorButton(TypeColorButton.Primary);

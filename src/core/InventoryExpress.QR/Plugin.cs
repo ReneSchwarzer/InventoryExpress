@@ -23,8 +23,6 @@ namespace InventoryExpress
         /// <param name="context">Der Kontext, welcher für die Ausführung des Plugins gilt</param>
         public void Initialization(IPluginContext context)
         {
-            //ViewModel.Instance.Context = Context;
-            ViewModel.Instance.Init();
         }
 
         /// <summary>
@@ -32,9 +30,6 @@ namespace InventoryExpress
         /// </summary>
         public void Run()
         {
-            // <<<<<<<<<<<<<<<<<<<<<<<<<<< Nach dem Testen bitte löschen!!! 
-
-            // >>>>>>>>>>>>>>>>>>>>>>>>>>>
         }
 
         /// <summary>

@@ -23,7 +23,7 @@ namespace InventoryExpress.WebComponent
         {
             TextColor = new PropertyColorText(TypeColorText.Secondary),
             Icon = new PropertyIcon(TypeIcon.Link),
-            Name = "inventoryexpress.inventory.parent.label"
+            Name = "inventoryexpress:inventoryexpress.inventory.parent.label"
         };
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace InventoryExpress.WebComponent
         {
             TextColor = new PropertyColorText(TypeColorText.Secondary),
             Icon = new PropertyIcon(TypeIcon.Link),
-            Name = "inventoryexpress.inventory.child.label"
+            Name = "inventoryexpress:inventoryexpress.inventory.child.label"
         };
 
         /// <summary>

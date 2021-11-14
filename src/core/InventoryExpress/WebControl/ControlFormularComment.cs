@@ -12,8 +12,8 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemInputTextBox Comment { get; } = new ControlFormularItemInputTextBox("comment")
         {
             Name = "comment",
-            Label = "inventoryexpress.inventory.comment.label",
-            Help = "inventoryexpress.inventory.comment.description",
+            Label = "inventoryexpress:inventoryexpress.inventory.comment.label",
+            Help = "inventoryexpress:inventoryexpress.inventory.comment.description",
             Icon = new PropertyIcon(TypeIcon.Comment),
             Format = TypesEditTextFormat.Wysiwyg
         };
@@ -32,7 +32,7 @@ namespace InventoryExpress.WebControl
             Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Three, PropertySpacing.Space.Five, PropertySpacing.Space.None);
             Layout = TypeLayoutFormular.Vertical;
             SubmitButton.Icon = new PropertyIcon(TypeIcon.PaperPlane);
-            SubmitButton.Text = "inventoryexpress.inventory.comment.submit";
+            SubmitButton.Text = "inventoryexpress:inventoryexpress.inventory.comment.submit";
             EnableCancelButton = false;
         }
 
@@ -40,7 +40,7 @@ namespace InventoryExpress.WebControl
         /// Initialisiert das Formular
         /// </summary>
         /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
-        public override void Initialize(RenderContext context)
+        public override void Initialize(RenderContextFormular context)
         {
             base.Initialize(context);
         }

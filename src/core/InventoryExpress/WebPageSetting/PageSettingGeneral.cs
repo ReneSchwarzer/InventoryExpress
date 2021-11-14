@@ -1,4 +1,5 @@
 ﻿using InventoryExpress.Model;
+using InventoryExpress.Model.Entity;
 using InventoryExpress.WebControl;
 using System.Linq;
 using WebExpress.Attribute;
@@ -56,8 +57,8 @@ namespace InventoryExpress.WebPageSetting
 
             var setting = null as Setting;
 
-            Form.RedirectUri = context.Request.Uri;
-            Form.BackUri = context.Request.Uri.Take(-1);
+            Form.RedirectUri = context.Uri;
+            Form.BackUri = context.Uri.Take(-1);
 
             lock (ViewModel.Instance.Database)
             {

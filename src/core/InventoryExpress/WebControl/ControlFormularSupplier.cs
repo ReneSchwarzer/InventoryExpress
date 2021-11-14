@@ -12,8 +12,8 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemInputTextBox SupplierName { get; } = new ControlFormularItemInputTextBox()
         {
             Name = "name",
-            Label = "inventoryexpress.supplier.form.name.label",
-            Help = "inventoryexpress.supplier.form.name.description",
+            Label = "inventoryexpress:inventoryexpress.supplier.form.name.label",
+            Help = "inventoryexpress:inventoryexpress.supplier.form.name.description",
             Icon = new PropertyIcon(TypeIcon.Font)
         };
 
@@ -23,8 +23,8 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemInputTextBox Description { get; } = new ControlFormularItemInputTextBox("note")
         {
             Name = "description",
-            Label = "inventoryexpress.supplier.form.description.label",
-            Help = "inventoryexpress.supplier.form.description.description",
+            Label = "inventoryexpress:inventoryexpress.supplier.form.description.label",
+            Help = "inventoryexpress:inventoryexpress.supplier.form.description.description",
             Format = TypesEditTextFormat.Wysiwyg,
             Icon = new PropertyIcon(TypeIcon.CommentAlt),
             Rows = 10
@@ -36,8 +36,8 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemInputTextBox Address { get; } = new ControlFormularItemInputTextBox("adress")
         {
             Name = "adress",
-            Label = "inventoryexpress.supplier.form.adress.label",
-            Help = "inventoryexpress.supplier.form.adress.description",
+            Label = "inventoryexpress:inventoryexpress.supplier.form.adress.label",
+            Help = "inventoryexpress:inventoryexpress.supplier.form.adress.description",
             Icon = new PropertyIcon(TypeIcon.Home)
         };
 
@@ -47,8 +47,8 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemInputTextBox Zip { get; } = new ControlFormularItemInputTextBox("zip")
         {
             Name = "zip",
-            Label = "inventoryexpress.supplier.form.zip.label",
-            Help = "inventoryexpress.supplier.form.zip.description",
+            Label = "inventoryexpress:inventoryexpress.supplier.form.zip.label",
+            Help = "inventoryexpress:inventoryexpress.supplier.form.zip.description",
             Icon = new PropertyIcon(TypeIcon.MapMarker)
         };
 
@@ -58,8 +58,8 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemInputTextBox Place { get; } = new ControlFormularItemInputTextBox("place")
         {
             Name = "place",
-            Label = "inventoryexpress.supplier.form.place.label",
-            Help = "inventoryexpress.supplier.form.place.description",
+            Label = "inventoryexpress:inventoryexpress.supplier.form.place.label",
+            Help = "inventoryexpress:inventoryexpress.supplier.form.place.description",
             Icon = new PropertyIcon(TypeIcon.City)
         };
 
@@ -69,8 +69,8 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemInputFile Image { get; } = new ControlFormularItemInputFile()
         {
             Name = "image",
-            Label = "inventoryexpress.supplier.form.image.label",
-            Help = "inventoryexpress.supplier.form.image.description",
+            Label = "inventoryexpress:inventoryexpress.supplier.form.image.label",
+            Help = "inventoryexpress:inventoryexpress.supplier.form.image.description",
             Icon = new PropertyIcon(TypeIcon.Image),
             AcceptFile = new string[] { "image/*" }
         };
@@ -81,8 +81,8 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemInputTag Tag { get; } = new ControlFormularItemInputTag("tags")
         {
             Name = "tag",
-            Label = "inventoryexpress.supplier.form.tag.label",
-            Help = "inventoryexpress.supplier.form.tag.description",
+            Label = "inventoryexpress:inventoryexpress.supplier.form.tag.label",
+            Help = "inventoryexpress:inventoryexpress.supplier.form.tag.description",
             Icon = new PropertyIcon(TypeIcon.Tag)
         };
 

@@ -1,11 +1,14 @@
 ﻿using InventoryExpress.Model;
+using InventoryExpress.Model.Entity;
 using InventoryExpress.WebControl;
 using System;
 using System.Linq;
 using WebExpress.Attribute;
 using WebExpress.UI.WebControl;
+using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebResource;
+using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace InventoryExpress.WebPage
 {
@@ -45,10 +48,12 @@ namespace InventoryExpress.WebPage
 
             var guid = Guid.NewGuid().ToString();
 
-            var form = new ControlFormularInventory();
-            form.EnableCancelButton = true;
-            form.BackUri = context.Request.Uri.Take(-1);
-            form.RedirectUri = context.Request.Uri.Root.Append(guid).Append("edit");
+            var form = new ControlFormularInventory
+            {
+                EnableCancelButton = true,
+                BackUri = context.Uri.Take(-1),
+                RedirectUri = context.Uri.Root.Append(guid).Append("edit")
+            };
 
             visualTree.Content.Primary.Add(form);
 
@@ -56,11 +61,11 @@ namespace InventoryExpress.WebPage
             {
                 form.InventoryName.Validation += (s, e) =>
                 {
-                    if (e.Value.Count() < 1)
+                    if (e.Value.Length < 1)
                     {
                         e.Results.Add(new ValidationResult() { Text = "Geben Sie einen gültigen Namen ein!", Type = TypesInputValidity.Error });
                     }
-                    else if (ViewModel.Instance.Inventories.Where(x => x.Name.Equals(e.Value)).Count() > 0)
+                    else if (ViewModel.Instance.Inventories.Where(x => x.Name.Equals(e.Value)).Any())
                     {
                         e.Results.Add(new ValidationResult() { Text = "Der Name wird bereits verwendet. Geben Sie einen anderen Namen an!", Type = TypesInputValidity.Error });
                     }
@@ -121,6 +126,8 @@ namespace InventoryExpress.WebPage
 
                     ViewModel.Instance.InventoryJournals.Add(journal);
                     ViewModel.Instance.SaveChanges();
+
+                    NotificationManager.CreateNotification(context.Request, I18N("inventoryexpress:inventoryexpress.journal.action.inventory.add"), 15000);
                 }
             };
         }

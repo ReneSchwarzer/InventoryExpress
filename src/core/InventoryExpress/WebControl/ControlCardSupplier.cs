@@ -1,4 +1,5 @@
 ﻿using InventoryExpress.Model;
+using InventoryExpress.Model.Entity;
 using System.Linq;
 using WebExpress.Html;
 using WebExpress.UI.WebControl;
@@ -41,32 +42,29 @@ namespace InventoryExpress.WebControl
         {
             lock (ViewModel.Instance.Database)
             {
-                lock (ViewModel.Instance.Database)
+                var image = ViewModel.Instance.Media.Where(x => x.Id == Supplier.MediaId).Select(x => context.Uri.Root.Append("media/" + x.Guid)).FirstOrDefault();
+
+                var media = new ControlPanelMedia()
                 {
-                    var image = ViewModel.Instance.Media.Where(x => x.Id == Supplier.MediaId).Select(x => context.Request.Uri.Root.Append("media/" + x.Guid)).FirstOrDefault();
-
-                    var media = new ControlPanelMedia()
+                    Image = image ?? context.Uri.Root.Append("/assets/img/inventoryexpress.svg"),
+                    ImageWidth = 100,
+                    Title = new ControlLink()
                     {
-                        Image = image == null ? context.Request.Uri.Root.Append("/assets/img/inventoryexpress.svg") : image,
-                        ImageWidth = 100,
-                        Title = new ControlLink()
-                        {
-                            Text = Supplier.Name,
-                            Uri = context.Request.Uri.Append(Supplier.Guid),
-                            TextColor = new PropertyColorText(TypeColorText.Dark)
-                        }
-                    };
+                        Text = Supplier.Name,
+                        Uri = context.Uri.Append(Supplier.Guid),
+                        TextColor = new PropertyColorText(TypeColorText.Dark)
+                    }
+                };
 
-                    media.Content.Add(new ControlText()
-                    {
-                        Text = Supplier.Description,
-                        Format = TypeFormatText.Paragraph
-                    });
+                media.Content.Add(new ControlText()
+                {
+                    Text = Supplier.Description,
+                    Format = TypeFormatText.Paragraph
+                });
 
-                    Content.Add(media);
+                Content.Add(media);
 
-                    return base.Render(context);
-                }
+                return base.Render(context);
             }
         }
     }

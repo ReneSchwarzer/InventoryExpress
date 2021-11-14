@@ -1,4 +1,5 @@
 ﻿using InventoryExpress.Model;
+using InventoryExpress.Model.Entity;
 using InventoryExpress.WebControl;
 using System;
 using System.Linq;
@@ -55,18 +56,18 @@ namespace InventoryExpress.WebPage
 
             var visualTree = context.VisualTree;
 
-            form.RedirectUri = context.Request.Uri.Take(-1);
-            form.BackUri = context.Request.Uri.Take(-1);
+            form.RedirectUri = context.Uri.Take(-1);
+            form.BackUri = context.Uri.Take(-1);
 
             visualTree.Content.Primary.Add(form);
 
             form.CostCenterName.Validation += (s, e) =>
             {
-                if (e.Value.Count() < 1)
+                if (e.Value.Length < 1)
                 {
                     e.Results.Add(new ValidationResult() { Text = this.I18N("inventoryexpress.costcenter.validation.name.invalid"), Type = TypesInputValidity.Error });
                 }
-                else if (ViewModel.Instance.CostCenters.Where(x => x.Name.Equals(e.Value)).Count() > 0)
+                else if (ViewModel.Instance.CostCenters.Where(x => x.Name.Equals(e.Value)).Any())
                 {
                     e.Results.Add(new ValidationResult() { Text = this.I18N("inventoryexpress.costcenter.validation.name.used"), Type = TypesInputValidity.Error });
                 }

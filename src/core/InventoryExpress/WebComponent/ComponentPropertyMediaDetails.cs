@@ -23,7 +23,7 @@ namespace InventoryExpress.WebComponent
         {
             TextColor = new PropertyColorText(TypeColorText.Secondary),
             Icon = new PropertyIcon(TypeIcon.CalendarPlus),
-            Name = "inventoryexpress.media.creationdate.label"
+            Name = "inventoryexpress:inventoryexpress.media.creationdate.label"
         };
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace InventoryExpress.WebComponent
         {
             TextColor = new PropertyColorText(TypeColorText.Secondary),
             Icon = new PropertyIcon(TypeIcon.Save),
-            Name = "inventoryexpress.media.updatedate.label"
+            Name = "inventoryexpress:inventoryexpress.media.updatedate.label"
         };
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace InventoryExpress.WebComponent
         {
             TextColor = new PropertyColorText(TypeColorText.Secondary),
             Icon = new PropertyIcon(TypeIcon.Hdd),
-            Name = "inventoryexpress.media.size.label"
+            Name = "inventoryexpress:inventoryexpress.media.size.label"
         };
 
         /// <summary>

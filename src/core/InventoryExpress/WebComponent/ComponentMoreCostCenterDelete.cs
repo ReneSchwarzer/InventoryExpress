@@ -1,6 +1,5 @@
 ﻿using WebExpress.Attribute;
 using WebExpress.Html;
-using WebExpress.Internationalization;
 using WebExpress.UI.Attribute;
 using WebExpress.UI.WebComponent;
 using WebExpress.UI.WebControl;
@@ -30,6 +29,10 @@ namespace InventoryExpress.WebComponent
         /// <param name="context">Der Kontext</param>
         public void Initialization(IComponentContext context)
         {
+            Text = "inventoryexpress:inventoryexpress.delete.label";
+            Icon = new PropertyIcon(TypeIcon.Trash);
+
+            OnClick = $"$('#modal_del_costcenter').modal('show');";
         }
 
         /// <summary>
@@ -39,11 +42,6 @@ namespace InventoryExpress.WebComponent
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            Text = InternationalizationManager.I18N(context.Culture, "inventoryexpress:inventoryexpress.delete.label");
-            Icon = new PropertyIcon(TypeIcon.Trash);
-
-            OnClick = $"$('#modal_del_costcenter').modal('show');";
-
             return base.Render(context);
         }
     }

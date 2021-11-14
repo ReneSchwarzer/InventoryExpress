@@ -1,4 +1,5 @@
 ﻿using InventoryExpress.Model;
+using InventoryExpress.Model.Entity;
 using System;
 using System.Linq;
 using WebExpress.Html;
@@ -8,7 +9,7 @@ using WebExpress.WebPage;
 
 namespace InventoryExpress.WebControl
 {
-    public class ControlModalFormularConditionEdit : ControlModalForm
+    public class ControlModalFormularConditionEdit : ControlModalFormular
     {
         /// <summary>
         /// Liefert oder setzt den Namen des Zustandes
@@ -43,16 +44,16 @@ namespace InventoryExpress.WebControl
             ConditionName = new ControlFormularItemInputTextBox()
             {
                 Name = "name",
-                Label = "inventoryexpress.condition.form.name.label",
-                Help = "inventoryexpress.condition.form.name.description",
+                Label = "inventoryexpress:inventoryexpress.condition.form.name.label",
+                Help = "inventoryexpress:inventoryexpress.condition.form.name.description",
                 Icon = new PropertyIcon(TypeIcon.Font)
             };
 
             Description = new ControlFormularItemInputTextBox("note")
             {
                 Name = "description",
-                Label = "inventoryexpress.condition.form.description.label",
-                Help = "inventoryexpress.condition.form.description.description",
+                Label = "inventoryexpress:inventoryexpress.condition.form.description.label",
+                Help = "inventoryexpress:inventoryexpress.condition.form.description.description",
                 Format = TypesEditTextFormat.Wysiwyg,
                 Icon = new PropertyIcon(TypeIcon.CommentAlt),
                 Rows = 10
@@ -110,7 +111,7 @@ namespace InventoryExpress.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            Header = context.Page.I18N(Item == null ? "inventoryexpress.condition.add.header" : "inventoryexpress.condition.edit.header");
+            Header = context.Page.I18N(Item == null ? "inventoryexpress:inventoryexpress.condition.add.header" : "inventoryexpress:inventoryexpress.condition.edit.header");
             Formular.RedirectUri = context.Uri;
 
             ConditionName.Validation += (s, e) =>
@@ -120,7 +121,7 @@ namespace InventoryExpress.WebControl
                     e.Results.Add(new ValidationResult()
                     {
                         Type = TypesInputValidity.Error,
-                        Text = context.Page.I18N("inventoryexpress.condition.form.name.validation.empty")
+                        Text = context.Page.I18N("inventoryexpress:inventoryexpress.condition.form.name.validation.empty")
                     });
                 }
 
@@ -131,7 +132,7 @@ namespace InventoryExpress.WebControl
                         e.Results.Add(new ValidationResult()
                         {
                             Type = TypesInputValidity.Error,
-                            Text = context.Page.I18N("inventoryexpress.condition.form.name.validation.inuse")
+                            Text = context.Page.I18N("inventoryexpress:inventoryexpress.condition.form.name.validation.inuse")
                         });
                     }
                 }

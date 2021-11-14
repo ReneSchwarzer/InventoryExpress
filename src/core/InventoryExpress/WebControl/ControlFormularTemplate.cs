@@ -11,8 +11,8 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemInputTextBox TemplateName { get; } = new ControlFormularItemInputTextBox()
         {
             Name = "name",
-            Label = "inventoryexpress.template.form.name.label",
-            Help = "inventoryexpress.template.form.name.description",
+            Label = "inventoryexpress:inventoryexpress.template.form.name.label",
+            Help = "inventoryexpress:inventoryexpress.template.form.name.description",
             Icon = new PropertyIcon(TypeIcon.Font)
         };
 
@@ -22,8 +22,8 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemInputMoveSelector Attributes { get; } = new ControlFormularItemInputMoveSelector("attributes")
         {
             Name = "attributes",
-            Label = "inventoryexpress.template.form.unused.label",
-            Help = "inventoryexpress.template.form.unused.description",
+            Label = "inventoryexpress:inventoryexpress.template.form.unused.label",
+            Help = "inventoryexpress:inventoryexpress.template.form.unused.description",
             Icon = new PropertyIcon(TypeIcon.Cubes)
         };
 
@@ -33,8 +33,8 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemInputTextBox Description { get; } = new ControlFormularItemInputTextBox("note")
         {
             Name = "description",
-            Label = "inventoryexpress.template.form.description.label",
-            Help = "inventoryexpress.template.form.description.description",
+            Label = "inventoryexpress:inventoryexpress.template.form.description.label",
+            Help = "inventoryexpress:inventoryexpress.template.form.description.description",
             Format = TypesEditTextFormat.Wysiwyg,
             Icon = new PropertyIcon(TypeIcon.CommentAlt)
         };
@@ -45,8 +45,8 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemInputFile Image { get; } = new ControlFormularItemInputFile()
         {
             Name = "image",
-            Label = "inventoryexpress.template.form.image.label",
-            Help = "inventoryexpress.template.form.image.description",
+            Label = "inventoryexpress:inventoryexpress.template.form.image.label",
+            Help = "inventoryexpress:inventoryexpress.template.form.image.description",
             Icon = new PropertyIcon(TypeIcon.Image),
             AcceptFile = new string[] { "image/*" }
         };
@@ -57,8 +57,8 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemInputTag Tag { get; } = new ControlFormularItemInputTag("tags")
         {
             Name = "tag",
-            Label = "inventoryexpress.template.form.tag.label",
-            Help = "inventoryexpress.template.form.tag.description",
+            Label = "inventoryexpress:inventoryexpress.template.form.tag.label",
+            Help = "inventoryexpress:inventoryexpress.template.form.tag.description",
             Icon = new PropertyIcon(TypeIcon.Tag)
         };
 

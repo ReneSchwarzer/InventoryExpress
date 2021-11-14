@@ -1,4 +1,5 @@
 ﻿using InventoryExpress.Model;
+using InventoryExpress.Model.Entity;
 using InventoryExpress.WebControl;
 using System;
 using System.Linq;
@@ -44,18 +45,20 @@ namespace InventoryExpress.WebPage
         {
             base.Process(context);
 
-            var form = new ControlFormularManufacturer(this);
-            form.EnableCancelButton = true;
-            form.RedirectUri = context.Request.Uri.Take(-1);
-            form.BackUri = context.Request.Uri.Take(-1);
+            var form = new ControlFormularManufacturer(this)
+            {
+                EnableCancelButton = true,
+                RedirectUri = context.Uri.Take(-1),
+                BackUri = context.Uri.Take(-1)
+            };
 
             form.ManufacturerName.Validation += (s, e) =>
             {
-                if (e.Value.Count() < 1)
+                if (e.Value.Length < 1)
                 {
                     e.Results.Add(new ValidationResult() { Text = this.I18N("inventoryexpress.manufacturer.validation.name.invalid"), Type = TypesInputValidity.Error });
                 }
-                else if (ViewModel.Instance.Manufacturers.Where(x => x.Name.Equals(e.Value)).Count() > 0)
+                else if (ViewModel.Instance.Manufacturers.Where(x => x.Name.Equals(e.Value)).Any())
                 {
                     e.Results.Add(new ValidationResult() { Text = this.I18N("inventoryexpress.manufacturer.validation.name.used"), Type = TypesInputValidity.Error });
                 }
@@ -63,7 +66,7 @@ namespace InventoryExpress.WebPage
 
             form.Zip.Validation += (s, e) =>
             {
-                if (e.Value != null && e.Value.Count() >= 10)
+                if (e.Value != null && e.Value.Length >= 10)
                 {
                     e.Results.Add(new ValidationResult() { Text = this.I18N("inventoryexpress.manufacturer.validation.zip.tolong"), Type = TypesInputValidity.Error });
                 }

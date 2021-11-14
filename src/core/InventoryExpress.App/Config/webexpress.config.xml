@@ -4,7 +4,8 @@
     <!-- Loggingeinstellungen Off, Override, Append-->
     <log modus="Off" path="/var/log/" encoding="iso-8859-15" filename="inventory.log" timepattern="dd.MM.yyyy HH:mm:ss" />
 
-    <port>80</port>
+	<uri>http://+:80/</uri>
+	<uri>https://+:443/</uri>
     <connectionlimit>300</connectionlimit>
     <culture>de-DE</culture>
     <assets>./</assets>

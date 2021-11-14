@@ -21,7 +21,7 @@ namespace InventoryExpress.WebComponent
         private ControlAttribute CountAttribute { get; } = new ControlAttribute()
         {
             TextColor = new PropertyColorText(TypeColorText.Secondary),
-            Name = "inventoryexpress.inventory.details.count.label"
+            Name = "inventoryexpress:inventoryexpress.inventory.details.count.label"
         };
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace InventoryExpress.WebComponent
         {
             TextColor = new PropertyColorText(TypeColorText.Secondary),
             Icon = new PropertyIcon(TypeIcon.EuroSign),
-            Name = "inventoryexpress.inventory.details.totalacquisitioncosts.label"
+            Name = "inventoryexpress:inventoryexpress.inventory.details.totalacquisitioncosts.label"
         };
 
         /// <summary>

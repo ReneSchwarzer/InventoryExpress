@@ -40,7 +40,7 @@ namespace InventoryExpress.WebComponent
             Text = I18N(context.Culture, "inventoryexpress:inventoryexpress.add.label");
             Icon = new PropertyIcon(TypeIcon.Plus);
             BackgroundColor = new PropertyColorButton(TypeColorButton.Primary);
-            Uri = context.Request.Uri.Append("add");
+            Uri = context.Uri.Append("add");
 
             return base.Render(context);
         }

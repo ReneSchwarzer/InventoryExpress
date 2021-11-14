@@ -1,9 +1,6 @@
-﻿using InventoryExpress.Model;
+﻿using InventoryExpress.Session;
 using InventoryExpress.WebControl;
-using System.Collections.Generic;
-using System.Linq;
 using WebExpress.Attribute;
-using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebResource;
 
@@ -43,23 +40,18 @@ namespace InventoryExpress.WebPage
         {
             base.Process(context);
 
-            var grid = new ControlPanelGrid() { Fluid = TypePanelContainer.Fluid };
-            var list = null as ICollection<Inventory>;
+            var property = context.Request.Session.GetOrCreateProperty<SessionPropertyToggleStatus>();
 
-            lock (ViewModel.Instance.Database)
+            if (property.ViewList)
             {
-                list = ViewModel.Instance.Inventories.OrderBy(x => x.Name).ToList();
+                // Listenansicht
+                context.VisualTree.Content.Primary.Add(new ControlListInventories());
             }
-
-            foreach (var inventory in list)
+            else
             {
-                var card = new ControlCardInventory(inventory);
-
-                grid.Content.Add(card);
+                // Tabelarische Ansicht
+                context.VisualTree.Content.Primary.Add(new ControlTableInventories());
             }
-
-
-            context.VisualTree.Content.Primary.Add(grid);
         }
     }
 }

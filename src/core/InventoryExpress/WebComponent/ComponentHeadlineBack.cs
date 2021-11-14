@@ -51,7 +51,7 @@ namespace InventoryExpress.WebComponent
         public override IHtmlNode Render(RenderContext context)
         {
             Text = I18N(context.Culture, "inventoryexpress:inventoryexpress.inventory.attachment.back");
-            Uri = context.Request.Uri.Take(-1);
+            Uri = context.Uri.Take(-1);
 
             return base.Render(context);
         }

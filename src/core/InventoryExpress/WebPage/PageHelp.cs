@@ -44,7 +44,7 @@ namespace InventoryExpress.WebPage
 
             visualTree.Content.Primary.Add(new ControlImage()
             {
-                Uri = context.Request.Uri.Root.Append("assets/img/inventoryexpress.svg"),
+                Uri = context.Uri.Root.Append("assets/img/inventoryexpress.svg"),
                 Width = 200,
                 Height = 200,
                 HorizontalAlignment = TypeHorizontalAlignment.Right
@@ -54,49 +54,49 @@ namespace InventoryExpress.WebPage
 
             card.Add(new ControlText()
             {
-                Text = this.I18N("app.name"),
+                Text = this.I18N("inventoryexpress:app.name"),
                 Format = TypeFormatText.H3
             });
 
             card.Add(new ControlText()
             {
-                Text = this.I18N("app.description"),
+                Text = this.I18N("inventoryexpress:app.description"),
                 Format = TypeFormatText.Paragraph
             });
 
             card.Add(new ControlText()
             {
-                Text = this.I18N("app.privacypolicy.label"),
+                Text = this.I18N("inventoryexpress:app.privacypolicy.label"),
                 Format = TypeFormatText.H3
             });
 
             card.Add(new ControlText()
             {
-                Text = this.I18N("app.privacypolicy.description"),
+                Text = this.I18N("inventoryexpress:app.privacypolicy.description"),
                 Format = TypeFormatText.Paragraph
             });
 
             card.Add(new ControlText()
             {
-                Text = this.I18N("app.disclaimer.label"),
+                Text = this.I18N("inventoryexpress:app.disclaimer.label"),
                 Format = TypeFormatText.H3
             });
 
             card.Add(new ControlText()
             {
-                Text = this.I18N("app.disclaimer.description"),
+                Text = this.I18N("inventoryexpress:app.disclaimer.description"),
                 Format = TypeFormatText.Paragraph
             });
 
             card.Add(new ControlText()
             {
-                Text = this.I18N("app.about"),
+                Text = this.I18N("inventoryexpress:app.about"),
                 Format = TypeFormatText.H3
             });
 
             card.Add(new ControlText()
             {
-                Text = this.I18N("app.version.label"),
+                Text = this.I18N("inventoryexpress:app.version.label"),
                 TextColor = new PropertyColorText(TypeColorText.Primary)
             });
 
@@ -108,7 +108,7 @@ namespace InventoryExpress.WebPage
 
             card.Add(new ControlText()
             {
-                Text = this.I18N("app.contact.label"),
+                Text = this.I18N("inventoryexpress:app.contact.label"),
                 TextColor = new PropertyColorText(TypeColorText.Primary)
             });
 

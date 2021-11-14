@@ -1,4 +1,5 @@
 ﻿using InventoryExpress.Model;
+using InventoryExpress.Model.Entity;
 using System.Linq;
 using WebExpress.Html;
 using WebExpress.Internationalization;
@@ -66,8 +67,8 @@ namespace InventoryExpress.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            Header = context.Page.I18N("inventoryexpress.condition.delete.header");
-            Content = new ControlFormularItemStaticText() { Text = string.Format(context.I18N("inventoryexpress.condition.delete.description"), $"{ Item.Grade } - { Item.Name}") };
+            Header = context.Page.I18N("inventoryexpress:inventoryexpress.condition.delete.header");
+            Content = new ControlFormularItemStaticText() { Text = string.Format(context.I18N("inventoryexpress:inventoryexpress.condition.delete.description"), $"{ Item.Grade } - { Item.Name}") };
 
             return base.Render(context);
         }

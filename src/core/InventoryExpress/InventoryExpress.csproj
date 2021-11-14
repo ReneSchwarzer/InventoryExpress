@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <Version>1.1.0.0</Version>
     <AssemblyVersion>1.1.0.0</AssemblyVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -37,10 +37,6 @@
     <ProjectReference Include="..\..\..\..\WebExpress\core\WebExpress.UI\WebExpress.UI.csproj" />
     <ProjectReference Include="..\..\..\..\WebExpress\core\WebExpress.WebApp\WebExpress.WebApp.csproj" />
     <ProjectReference Include="..\..\..\..\WebExpress\core\WebExpress\WebExpress.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="WebResource\API\" />
   </ItemGroup>
 
 </Project>

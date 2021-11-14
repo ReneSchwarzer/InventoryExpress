@@ -1,4 +1,5 @@
 ﻿using InventoryExpress.Model;
+using InventoryExpress.Model.Entity;
 using System.Linq;
 using WebExpress.Html;
 using WebExpress.UI.WebControl;
@@ -60,10 +61,10 @@ namespace InventoryExpress.WebControl
         {
             lock (ViewModel.Instance.Database)
             {
-                var image = ViewModel.Instance.Media.Where(x => x.Id == CostCenter.MediaId).Select(x => context.Request.Uri.Root.Append("media/" + x.Guid)).FirstOrDefault();
+                var image = ViewModel.Instance.Media.Where(x => x.Id == CostCenter.MediaId).Select(x => context.Uri.Root.Append("media/" + x.Guid)).FirstOrDefault();
 
-                MediaLink.Uri = context.Request.Uri.Append(CostCenter.Guid);
-                Media.Image = image == null ? context.Request.Uri.Root.Append("/assets/img/inventoryexpress.svg") : image;
+                MediaLink.Uri = context.Uri.Append(CostCenter.Guid);
+                Media.Image = image ?? context.Uri.Root.Append("/assets/img/inventoryexpress.svg");
             }
 
             return base.Render(context);

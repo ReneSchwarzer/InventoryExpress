@@ -22,7 +22,7 @@ namespace InventoryExpress.WebComponent
         {
             TextColor = new PropertyColorText(TypeColorText.Secondary),
             Icon = new PropertyIcon(TypeIcon.Key),
-            Name = "inventoryexpress.inventory.inventorynumber.label"
+            Name = "inventoryexpress:inventoryexpress.inventory.inventorynumber.label"
         };
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace InventoryExpress.WebComponent
         {
             TextColor = new PropertyColorText(TypeColorText.Secondary),
             Icon = new PropertyIcon(TypeIcon.Industry),
-            Name = "inventoryexpress.inventory.manufacturers.label"
+            Name = "inventoryexpress:inventoryexpress.inventory.manufacturers.label"
         };
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace InventoryExpress.WebComponent
         {
             TextColor = new PropertyColorText(TypeColorText.Secondary),
             Icon = new PropertyIcon(TypeIcon.Map),
-            Name = "inventoryexpress.inventory.location.label"
+            Name = "inventoryexpress:inventoryexpress.inventory.location.label"
         };
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace InventoryExpress.WebComponent
         {
             TextColor = new PropertyColorText(TypeColorText.Secondary),
             Icon = new PropertyIcon(TypeIcon.Truck),
-            Name = "inventoryexpress.inventory.supplier.label"
+            Name = "inventoryexpress:inventoryexpress.inventory.supplier.label"
         };
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace InventoryExpress.WebComponent
         {
             TextColor = new PropertyColorText(TypeColorText.Secondary),
             Icon = new PropertyIcon(TypeIcon.At),
-            Name = "inventoryexpress.inventory.ledgeraccount.label"
+            Name = "inventoryexpress:inventoryexpress.inventory.ledgeraccount.label"
         };
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace InventoryExpress.WebComponent
         {
             TextColor = new PropertyColorText(TypeColorText.Secondary),
             Icon = new PropertyIcon(TypeIcon.ShoppingBag),
-            Name = "inventoryexpress.inventory.costcenter.label"
+            Name = "inventoryexpress:inventoryexpress.inventory.costcenter.label"
         };
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace InventoryExpress.WebComponent
         {
             TextColor = new PropertyColorText(TypeColorText.Secondary),
             Icon = new PropertyIcon(TypeIcon.Star),
-            Name = "inventoryexpress.inventory.condition.label"
+            Name = "inventoryexpress:inventoryexpress.inventory.condition.label"
         };
 
         /// <summary>
@@ -102,7 +102,7 @@ namespace InventoryExpress.WebComponent
         {
             TextColor = new PropertyColorText(TypeColorText.Secondary),
             Icon = new PropertyIcon(TypeIcon.EuroSign),
-            Name = "inventoryexpress.inventory.costvalue.label"
+            Name = "inventoryexpress:inventoryexpress.inventory.costvalue.label"
         };
 
         /// <summary>
@@ -112,7 +112,7 @@ namespace InventoryExpress.WebComponent
         {
             TextColor = new PropertyColorText(TypeColorText.Secondary),
             Icon = new PropertyIcon(TypeIcon.CalendarPlus),
-            Name = "inventoryexpress.inventory.purchasedate.label"
+            Name = "inventoryexpress:inventoryexpress.inventory.purchasedate.label"
         };
 
         /// <summary>
@@ -127,7 +127,7 @@ namespace InventoryExpress.WebComponent
         {
             TextColor = new PropertyColorText(TypeColorText.Secondary),
             Icon = new PropertyIcon(TypeIcon.CalendarMinus),
-            Name = "inventoryexpress.inventory.derecognitiondate.label"
+            Name = "inventoryexpress:inventoryexpress.inventory.derecognitiondate.label"
         };
 
         /// <summary>

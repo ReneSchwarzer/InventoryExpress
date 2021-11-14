@@ -334,6 +334,9 @@ inventoryexpress.journal.action.inventory.attachment.add=Es wurde eine Anlage de
 inventoryexpress.journal.action.inventory.attachment.edit=Es wurde eine Anlage des Inventargegenstandes geändert.
 inventoryexpress.journal.action.inventory.attachment.del=Es wurde eine Anlage des Inventargegenstandes gelöscht.
 
+inventoryexpress.export.label=Export
+inventoryexpress.export.help.label=Exportieren Sie den vollständigen Inhalt der Datenbank in einer XML-Datei, welche auf einer anderen Instanz importiert werden kann. Sie können die Exportdatei auch als Datensicherung verwenden.
+
 inventoryexpress.parent.label=Zugehörigkeit zu
 inventoryexpress.parent.description=Die Zugehörigkeit zu einem anderen Inventargegenstand.
 

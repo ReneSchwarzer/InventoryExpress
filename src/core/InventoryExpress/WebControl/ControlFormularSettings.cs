@@ -12,8 +12,8 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemInputTextBox Currency { get; } = new ControlFormularItemInputTextBox("currency")
         {
             Name = "currency",
-            Label = "inventoryexpress.setting.currency.label",
-            Help = "inventoryexpress.setting.currency.description",
+            Label = "inventoryexpress:inventoryexpress.setting.currency.label",
+            Help = "inventoryexpress:inventoryexpress.setting.currency.description",
             Icon = new PropertyIcon(TypeIcon.EuroSign),
             Format = TypesEditTextFormat.Default
         };
@@ -31,10 +31,10 @@ namespace InventoryExpress.WebControl
             BackgroundColor = LayoutSchema.FormularBackground;
             Layout = TypeLayoutFormular.Vertical;
             SubmitButton.Icon = new PropertyIcon(TypeIcon.Save);
-            SubmitButton.Text = "inventoryexpress.setting.submit.label";
+            SubmitButton.Text = "inventoryexpress:inventoryexpress.setting.submit.label";
             EnableCancelButton = false;
 
-            Currency.Validation += CurrencyValidation;
+            Currency.Validation += OnCurrencyValidation;
 
             Add(Currency);
         }
@@ -44,15 +44,15 @@ namespace InventoryExpress.WebControl
         /// </summary>
         /// <param name="sender">Der Auslöser</param>
         /// <param name="e">Die Eventargumente</param>
-        private void CurrencyValidation(object sender, ValidationEventArgs e)
+        private void OnCurrencyValidation(object sender, ValidationEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(e.Value))
             {
-                e.Results.Add(new ValidationResult() { Text = e.Context.I18N("inventoryexpress.setting.currency.validation.null"), Type = TypesInputValidity.Error });
+                e.Results.Add(new ValidationResult() { Text = e.Context.I18N("inventoryexpress:inventoryexpress.setting.currency.validation.null"), Type = TypesInputValidity.Error });
             }
             else if (e.Value.Length > 10)
             {
-                e.Results.Add(new ValidationResult() { Text = e.Context.I18N("inventoryexpress.setting.currency.validation.tolong"), Type = TypesInputValidity.Error });
+                e.Results.Add(new ValidationResult() { Text = e.Context.I18N("inventoryexpress:inventoryexpress.setting.currency.validation.tolong"), Type = TypesInputValidity.Error });
             }
         }
     }
