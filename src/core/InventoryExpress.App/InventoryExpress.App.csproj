@@ -1246,4 +1246,8 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Cert\" />
+  </ItemGroup>
+
 </Project>

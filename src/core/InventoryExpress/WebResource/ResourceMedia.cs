@@ -3,6 +3,7 @@ using System.Linq;
 using WebExpress.Attribute;
 using WebExpress.Message;
 using WebExpress.WebResource;
+using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace InventoryExpress.WebResource
 {
@@ -108,7 +109,7 @@ namespace InventoryExpress.WebResource
                         break;
                 }
 
-                Context.Log.Debug(request.Client + ": Datei '" + request.Uri + "' wurde geladen.");
+                Context.Log.Debug(message: I18N("webexpress:resource.file"), args: new object[] { request.RemoteEndPoint, request.Uri });
 
                 return response;
             }

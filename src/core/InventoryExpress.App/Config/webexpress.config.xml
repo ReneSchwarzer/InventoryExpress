@@ -4,10 +4,14 @@
     <!-- Loggingeinstellungen Off, Override, Append-->
     <log modus="Off" path="/var/log/" encoding="iso-8859-15" filename="inventory.log" timepattern="dd.MM.yyyy HH:mm:ss" />
 
-	<uri>http://*:80/</uri>
-	<uri>https://*:443/</uri>
-    <connectionlimit>300</connectionlimit>
+	<endpoint uri="http://localhost/"/>
+	
+	<limit>
+        <connectionlimit>300</connectionlimit>
+	</limit>
+	
     <culture>de-DE</culture>
+	
     <assets>./</assets>
     <contextpath></contextpath>
     <stagedirectory>./</stagedirectory>
