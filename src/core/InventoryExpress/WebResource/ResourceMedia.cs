@@ -1,4 +1,6 @@
 ﻿using InventoryExpress.Model;
+using System;
+using System.IO;
 using System.Linq;
 using WebExpress.Attribute;
 using WebExpress.Message;
@@ -45,11 +47,12 @@ namespace InventoryExpress.WebResource
             {
                 var guid = request.GetParameter("MediaID")?.Value.ToLower();
                 var media = ViewModel.Instance.Media.Where(x => x.Guid.ToLower() == guid).FirstOrDefault();
+                var path = Path.Combine(Context.Application.AssetPath, "media");
 
-                Data = media?.Data;
+                Data = File.ReadAllBytes(Path.Combine(path, guid));
 
                 var response = base.Process(request);
-                response.Header.CacheControl = "no-cache";
+                response.Header.CacheControl = "public, max-age=31536000";
 
                 var extension = System.IO.Path.GetExtension(media?.Name);
                 extension = !string.IsNullOrWhiteSpace(extension) ? extension.ToLower() : "";

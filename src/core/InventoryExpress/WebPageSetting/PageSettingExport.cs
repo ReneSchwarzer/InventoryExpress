@@ -1,21 +1,27 @@
-﻿using System.Threading;
+﻿using InventoryExpress.Model;
+using System;
+using System.IO;
+using System.Linq;
 using WebExpress.Attribute;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.Attribute;
 using WebExpress.WebApp.WebApiControl;
+using WebExpress.WebApp.WebControl;
+using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebApp.WebSettingPage;
+using WebExpress.WebPage;
 using WebExpress.WebResource;
 using WebExpress.WebTask;
 
 namespace InventoryExpress.WebPageSetting
 {
     [ID("SettingExport")]
-    [Title("inventoryexpress:inventoryexpress.export.label")]
-    [Segment("export", "inventoryexpress:inventoryexpress.export.label")]
+    [Title("inventoryexpress:inventoryexpress.importexport.label")]
+    [Segment("export", "inventoryexpress:inventoryexpress.importexport.label")]
     [Path("/Setting")]
     [SettingSection(SettingSection.Primary)]
-    [SettingIcon(TypeIcon.Download)]
+    [SettingIcon(TypeIcon.FileExport)]
     [SettingGroup("inventoryexpress:inventoryexpress.setting.data.label")]
     [SettingContext("webexpress.webapp:setting.tab.general.label")]
     [Module("inventoryexpress")]
@@ -25,18 +31,49 @@ namespace InventoryExpress.WebPageSetting
         /// <summary>
         /// Hilfetext der Seite
         /// </summary>
-        private ControlText Help { get; } = new ControlText()
+        private ControlText ExportHelp { get; } = new ControlText()
         {
             Text = "inventoryexpress:inventoryexpress.export.help.label",
             Margin = new PropertySpacingMargin(PropertySpacing.Space.Two)
         };
 
         /// <summary>
-        /// Das Uploadformular
+        /// Hilfetext der Seite
         /// </summary>
-        private ControlFormularInline Form { get; } = new ControlFormularInline("export")
+        private ControlText ImportHelp { get; } = new ControlText()
+        {
+            Text = "inventoryexpress:inventoryexpress.import.help.label",
+            Margin = new PropertySpacingMargin(PropertySpacing.Space.Two)
+        };
+
+        /// <summary>
+        /// Das Exportformular
+        /// </summary>
+        private ControlFormularInline ExportForm { get; } = new ControlFormularInline("export")
         {
             Margin = new PropertySpacingMargin(PropertySpacing.Space.Two)
+        };
+
+        /// <summary>
+        /// Die Importschaltfläche
+        /// </summary>
+        private ControlButton ImportButton { get; } = new ControlButton()
+        {
+            Margin = new PropertySpacingMargin(PropertySpacing.Space.Two),
+            Icon = new PropertyIcon(TypeIcon.Upload),
+            Text = "inventoryexpress:inventoryexpress.import.label",
+            BackgroundColor = new PropertyColorButton(TypeColorButton.Primary),
+            OnClick = $"$('#modal_import').modal('show');"
+        };
+
+        /// <summary>
+        /// Das Importformular
+        /// </summary>
+        private ControlModalFormFileUpload ImportForm { get; } = new ControlModalFormFileUpload("import")
+        {
+            Margin = new PropertySpacingMargin(PropertySpacing.Space.Two),
+            AcceptFile = new[] { ".zip" },
+            Header = "inventoryexpress:inventoryexpress.import.header"
         };
 
         /// <summary>
@@ -54,10 +91,21 @@ namespace InventoryExpress.WebPageSetting
         {
             base.Initialization(context);
 
-            Form.ProcessFormular += OnProcessFormular;
-            Form.SubmitButton.Text = "inventoryexpress:inventoryexpress.export.label";
-            Form.SubmitButton.Icon = new PropertyIcon(TypeIcon.Download);
-            Form.SubmitButton.Color = new PropertyColorButton(TypeColorButton.Primary);
+            ExportForm.ProcessFormular += OnProcessFormular;
+            ExportForm.SubmitButton.Text = "inventoryexpress:inventoryexpress.export.label";
+            ExportForm.SubmitButton.Icon = new PropertyIcon(TypeIcon.Download);
+            ExportForm.SubmitButton.Color = new PropertyColorButton(TypeColorButton.Primary);
+
+            ImportForm.Upload += ImportFormUpload;
+        }
+
+        /// <summary>
+        /// Wird aufgerufen, wenn eine Importdatei hochgeladen wurde.
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventargumente</param>
+        private void ImportFormUpload(object sender, FormularUploadEventArgs e)
+        {
 
         }
 
@@ -74,8 +122,7 @@ namespace InventoryExpress.WebPageSetting
             {
                 var task = TaskManager.CreateTask(id, OnTaskProcess, e.Context);
                 task.Process += OnTaskProcess;
-
-
+                task.Finish += OnTaskFinish;
 
                 task.Run();
             }
@@ -86,13 +133,24 @@ namespace InventoryExpress.WebPageSetting
         /// </summary>
         /// <param name="sender">Der Sender</param>
         /// <param name="e">Die Eventargumente</param>
-        private void OnTaskProcess(object sender, System.EventArgs e)
+        private void OnTaskProcess(object sender, EventArgs e)
         {
-            for (int i = 0; i < 100; i++)
-            {
-                (sender as Task).Progress = i;
-                Thread.Sleep(10000);
-            }
+            var file = Path.Combine(Path.GetTempPath(), $"{ Guid.NewGuid() }.zip");
+
+            ViewModel.Instance.Export(file, Context.Application.AssetPath, i => { (sender as Task).Progress = i; });
+        }
+
+        /// <summary>
+        /// Der Export-Task ist beendet
+        /// </summary>
+        /// <param name="sender">Der Sender</param>
+        /// <param name="e">Die Eventargumente</param>
+        private void OnTaskFinish(object sender, TaskEventArgs e)
+        {
+            var context = (sender as Task)?.Arguments?.Where(x => x is RenderContext).FirstOrDefault() as RenderContext;
+
+            var notification = NotificationManager.CreateNotification(context?.Request, "Export", 100000);
+            //notification.
         }
 
         /// <summary>
@@ -111,12 +169,13 @@ namespace InventoryExpress.WebPageSetting
                 Format = TypeFormatProgress.Animated
             };
 
-            context.VisualTree.Content.Preferences.Add(Help);
-            context.VisualTree.Content.Primary.Add(Form);
+            context.VisualTree.Content.Preferences.Add(ExportHelp);
+            context.VisualTree.Content.Primary.Add(ExportForm);
+            context.VisualTree.Content.Primary.Add(ImportHelp);
+            context.VisualTree.Content.Primary.Add(ImportButton);
             context.VisualTree.Content.Primary.Add(taskState);
 
-
-
+            context.VisualTree.Content.Secondary.Add(ImportForm);
         }
     }
 }

@@ -8,6 +8,7 @@
 	
 	<limit>
         <connectionlimit>300</connectionlimit>
+		<uploadlimit>3000000000</uploadlimit>
 	</limit>
 	
     <culture>de-DE</culture>

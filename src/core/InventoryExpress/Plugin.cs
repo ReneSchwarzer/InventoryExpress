@@ -24,12 +24,6 @@ namespace InventoryExpress.QR
         /// <param name="context">Der Kontext, welcher für die Ausführung des Plugins gilt</param>
         public void Initialization(IPluginContext context)
         {
-            ViewModel.Instance.Initialization(context);
-
-            // Daten vorladen
-            //ViewModel.Instance.Inventories.ToList();
-            //ViewModel.Instance.Manufacturers.ToList();
-            //ViewModel.Instance.Suppliers.ToList();
         }
 
         /// <summary>
@@ -44,7 +38,6 @@ namespace InventoryExpress.QR
         /// </summary>
         public void Dispose()
         {
-
         }
     }
 }

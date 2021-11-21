@@ -69,7 +69,7 @@ namespace InventoryExpress.WebPage
             lock (ViewModel.Instance.Database)
             {
                 var inventory = ViewModel.Instance.Inventories.Where(x => x.Guid == guid).FirstOrDefault();
-                var attachments = ViewModel.Instance.InventoryAttachment.Where(x => x.InventoryId == inventory.Id);
+                var attachments = ViewModel.Instance.InventoryAttachments.Where(x => x.InventoryId == inventory.Id);
 
                 var items = from Attachment in attachments
                             join Media in ViewModel.Instance.Media
@@ -101,7 +101,7 @@ namespace InventoryExpress.WebPage
 
                                 var filename = item.Media?.Name;
 
-                                ViewModel.Instance.InventoryAttachment.Remove(item.Attachment);
+                                ViewModel.Instance.InventoryAttachments.Remove(item.Attachment);
                                 ViewModel.Instance.Media.Remove(item.Media);
 
                                 ViewModel.Instance.SaveChanges();
@@ -137,7 +137,7 @@ namespace InventoryExpress.WebPage
                     table.AddRow(new Control[]
                     {
                         new ControlLink() { Text = row.Media.Name, Uri = context.Uri.Root.Append("media").Append(row.Media.Guid) },
-                        new ControlText() { Text = string.Format(new FileSizeFormatProvider() { Culture = Culture }, "{0:fs}", row.Media.Data.Length) },
+                        new ControlText() { /*Text = string.Format(new FileSizeFormatProvider() { Culture = Culture }, "{0:fs}", row.Media.Data.Length)*/ },
                         new ControlText() { Text = row.Media.Updated.ToString(Culture.DateTimeFormat.ShortDatePattern + " " + Culture.DateTimeFormat.ShortTimePattern) },
                         new ControlButtonLink()
                         {

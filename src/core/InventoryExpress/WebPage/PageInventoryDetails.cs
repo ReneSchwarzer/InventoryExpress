@@ -53,7 +53,7 @@ namespace InventoryExpress.WebPage
             lock (ViewModel.Instance.Database)
             {
                 var inventory = ViewModel.Instance.Inventories.Where(x => x.Guid.Equals(id)).FirstOrDefault();
-                var mediaItems = from attachment in ViewModel.Instance.InventoryAttachment
+                var mediaItems = from attachment in ViewModel.Instance.InventoryAttachments
                                  join media in ViewModel.Instance.Media
                                  on attachment.MediaId equals media.Id
                                  where

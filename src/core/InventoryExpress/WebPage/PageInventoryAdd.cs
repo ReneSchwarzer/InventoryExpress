@@ -112,7 +112,7 @@ namespace InventoryExpress.WebPage
                             ViewModel.Instance.Tags.Add(tag);
                             ViewModel.Instance.SaveChanges();
                         }
-                        ViewModel.Instance.InventoryTag.Add(new InventoryTag() { InventoryId = inventory.Id, TagId = tag.Id });
+                        ViewModel.Instance.InventoryTags.Add(new InventoryTag() { InventoryId = inventory.Id, TagId = tag.Id });
                         ViewModel.Instance.SaveChanges();
                     }
 

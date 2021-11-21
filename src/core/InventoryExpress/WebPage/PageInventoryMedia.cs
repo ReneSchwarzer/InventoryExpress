@@ -2,6 +2,7 @@
 using InventoryExpress.Model.Entity;
 using InventoryExpress.WebControl;
 using System;
+using System.IO;
 using System.Linq;
 using WebExpress.Attribute;
 using WebExpress.Message;
@@ -52,8 +53,6 @@ namespace InventoryExpress.WebPage
         public override void Initialization(IResourceContext context)
         {
             base.Initialization(context);
-
-
         }
 
         /// <summary>
@@ -123,7 +122,6 @@ namespace InventoryExpress.WebPage
                             Inventory.Media = new Media()
                             {
                                 Name = file.Value,
-                                Data = file.Data,
                                 Tag = Form.Tag.Value,
                                 Created = DateTime.Now,
                                 Updated = DateTime.Now,
@@ -132,17 +130,20 @@ namespace InventoryExpress.WebPage
 
                             ViewModel.Instance.SaveChanges();
 
+                            File.WriteAllBytes(Path.Combine(context.Application.AssetPath, Inventory.Media.Guid), file.Data);
+
                             journal.Action = "inventoryexpress.journal.action.inventory.media.add";
                         }
                         else
                         {
                             // Image ändern
                             Media.Name = file.Value;
-                            Media.Data = file.Data;
                             Media.Tag = Form.Tag.Value;
                             Media.Updated = DateTime.Now;
 
                             ViewModel.Instance.SaveChanges();
+
+                            File.WriteAllBytes(Path.Combine(context.Application.AssetPath, Media.Guid), file.Data);
 
                             ViewModel.Instance.InventoryJournalParameters.Add(new InventoryJournalParameter()
                             {

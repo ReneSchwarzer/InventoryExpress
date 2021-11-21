@@ -29,9 +29,6 @@ namespace InventoryExpress.Model.Configure
                    .HasColumnName("Tag")
                    .HasColumnType("VARCHAR(256)");
 
-            builder.Property(e => e.Data)
-                   .HasColumnName("Data");
-
             builder.Property(e => e.Created)
                    .HasColumnName("Created")
                    .IsRequired()
@@ -50,9 +47,6 @@ namespace InventoryExpress.Model.Configure
                    .HasColumnType("CHAR(36)");
 
             // Unique-Contraints
-            builder.HasIndex(e => e.Name)
-                   .IsUnique();
-
             builder.HasIndex(e => e.Guid)
                    .IsUnique();
         }

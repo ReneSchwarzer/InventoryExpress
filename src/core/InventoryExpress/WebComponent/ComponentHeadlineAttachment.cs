@@ -46,7 +46,7 @@ namespace InventoryExpress.WebComponent
             {
                 var guid = context.Request.GetParameter("InventoryID")?.Value;
                 var count = (from i in ViewModel.Instance.Inventories
-                             join a in ViewModel.Instance.InventoryAttachment
+                             join a in ViewModel.Instance.InventoryAttachments
                              on i.Id equals a.InventoryId
                              where i.Guid == guid
                              select a).Count();

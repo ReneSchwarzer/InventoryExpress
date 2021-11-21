@@ -7,7 +7,7 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Liefert oder setzt die Datenquelle
         /// </summary>
-        public string DataSource { get; protected set; }
+        public string DataSource { get; internal set; }
 
         /// <summary>
         /// Konstruktor
@@ -17,9 +17,9 @@ namespace InventoryExpress.Model
         }
 
         /// <summary>
-        /// 
+        /// Wird aufgerufen, wenn die DB configuriert werden soll
         /// </summary>
-        /// <param name="optionsBuilder"></param>
+        /// <param name="optionsBuilder">Der OptionsBuilder</param>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite($"Data Source={ DataSource };");

@@ -95,7 +95,7 @@ namespace InventoryExpress.WebControl
         /// Konstruktor
         /// </summary>
         /// <param name="id">Die ID</param>
-        public ControlFormularManufacturer(IPage page, string id = null)
+        public ControlFormularManufacturer(string id = null)
             : base(id)
         {
             Name = "manufacturer";

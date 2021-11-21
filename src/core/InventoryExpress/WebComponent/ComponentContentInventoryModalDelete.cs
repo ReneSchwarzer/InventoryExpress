@@ -50,7 +50,7 @@ namespace InventoryExpress.WebComponent
                     var guid = context.Request.GetParameter("InventoryID")?.Value;
                     var inventory = ViewModel.Instance.Inventories.Where(x => x.Guid == guid).FirstOrDefault();
 
-                    var media = from a in ViewModel.Instance.InventoryAttachment
+                    var media = from a in ViewModel.Instance.InventoryAttachments
                                 join m in ViewModel.Instance.Media
                                 on a.MediaId equals m.Id
                                 where a.InventoryId == inventory.Id

@@ -1,9 +1,6 @@
 ﻿using InventoryExpress.Model.Entity;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.IO;
-using System.IO.Compression;
-using System.Xml.Linq;
 using WebExpress.Plugin;
 
 namespace InventoryExpress.Model
@@ -23,7 +20,7 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Liefert oder setzt die Datei-Anhänge der Inventargegenstände
         /// </summary>
-        public DbSet<InventoryAttachment> InventoryAttachment { get; set; }
+        public DbSet<InventoryAttachment> InventoryAttachments { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Kommentare der Inventargegenstände
@@ -43,7 +40,7 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Liefert oder setzt die Schlagwörter der Inventargegenstände
         /// </summary>
-        public DbSet<InventoryTag> InventoryTag { get; set; }
+        public DbSet<InventoryTag> InventoryTags { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Zustände
@@ -145,9 +142,9 @@ namespace InventoryExpress.Model
         /// <param name="context">Der Kontext, welcher für die Ausführung des Plugins gilt</param>
         public void Initialization(IPluginContext context)
         {
-            //Database.EnsureCreated();
+            Database.EnsureCreated();
 
-            //Database.Migrate();
+            Database.Migrate();
         }
 
 
@@ -155,44 +152,52 @@ namespace InventoryExpress.Model
         /// Export der Daten
         /// </summary>
         /// <param name="fileName">Das Archive</param>
-        /// <returns></returns>
-        public void Export(string fileName)
+        /// <param name="dataPath">Das Verzeichnis, indem die Anhänge gespeichert werden</param>
+        /// <param name="progress">Der Fortschritt</param>
+        public void Export(string fileName, string dataPath, Action<int> progress)
         {
-            foreach(var v in CostCenters)
+            ImportExport.Export(fileName, dataPath, progress);
+        }
+
+        /// <summary>
+        /// Import der Daten
+        /// </summary>
+        /// <param name="fileName">Das Archive</param>
+        /// <param name="dataPath">Das Verzeichnis, indem die Anhänge gespeichert werden</param>
+        /// <param name="progress">Der Fortschritt</param>
+        public void Import(string fileName, string dataPath, Action<int> progress)
+        {
+            lock (Database)
             {
-                var xml = new XElement("costcenter");
-                xml.Add(new XAttribute("version", 1));
-                // Item
-                xml.Add(new XElement("guid", v.Guid));
-                xml.Add(new XElement("name", v.Name));
-                xml.Add(new XElement("description", v.Description));
-                xml.Add(new XElement("created", v.Created));
-                xml.Add(new XElement("updated", v.Updated));
-                xml.Add(new XElement("media", v.Media?.Guid));
-                // ItemTag
-                xml.Add(new XElement("tag", v.Tag));
+                Database.BeginTransaction();
+
+                Conditions.RemoveRange(Conditions);
+                Locations.RemoveRange(Locations);
+                Manufacturers.RemoveRange(Manufacturers);
+                Suppliers.RemoveRange(Suppliers);
+                LedgerAccounts.RemoveRange(LedgerAccounts);
+                CostCenters.RemoveRange(CostCenters);
+                Inventories.RemoveRange(Inventories);
+                InventoryAttributes.RemoveRange(InventoryAttributes);
+                InventoryAttachments.RemoveRange(InventoryAttachments);
+                InventoryComments.RemoveRange(InventoryComments);
+                InventoryJournals.RemoveRange(InventoryJournals);
+                InventoryJournalParameters.RemoveRange(InventoryJournalParameters);
+                InventoryTags.RemoveRange(InventoryTags);
+                Templates.RemoveRange(Templates);
+                TemplateAttributes.RemoveRange(TemplateAttributes);
+                Attributes.RemoveRange(Attributes);
+                Media.RemoveRange(Media);
+                Tags.RemoveRange(Tags);
+
+                Database.CommitTransaction();
+
+                //Database.ExecuteSqlCommand("vacum;");
+
+                SaveChanges();
             }
 
-
-            //xml.Add(new XElement("image", new XCData(ImageBase64)));
-
-
-            using var stream = File.OpenRead(fileName);
-            using var archive = new ZipArchive(stream, ZipArchiveMode.Create);
-
-            //foreach (var f in await ApplicationData.Current.LocalFolder.GetFilesAsync())
-            //{
-            //    var buffer = await FileIO.ReadBufferAsync(f);
-            //    var entry = archive.CreateEntry(f.Name, CompressionLevel.Optimal);
-            //    using (var entryStream = entry.Open())
-            //    {
-            //        using (var outputputStream = entryStream.AsOutputStream())
-            //        {
-            //            var b = WindowsRuntimeBufferExtensions.ToArray(buffer);
-            //            await entryStream.WriteAsync(b, 0, b.Length);
-            //        }
-            //    }
-            //}
+            ImportExport.Import(fileName, dataPath, progress);
         }
     }
 }

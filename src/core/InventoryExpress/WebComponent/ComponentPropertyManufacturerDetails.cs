@@ -22,7 +22,7 @@ namespace InventoryExpress.WebComponent
         {
             TextColor = new PropertyColorText(TypeColorText.Secondary),
             Icon = new PropertyIcon(TypeIcon.CalendarPlus),
-            Name = "inventoryexpress:inventoryexpress.manufactur.creationdate.label"
+            Name = "inventoryexpress:inventoryexpress.manufacturer.creationdate.label"
         };
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace InventoryExpress.WebComponent
         {
             TextColor = new PropertyColorText(TypeColorText.Secondary),
             Icon = new PropertyIcon(TypeIcon.Save),
-            Name = "inventoryexpress:inventoryexpress.manufactur.updatedate.label"
+            Name = "inventoryexpress:inventoryexpress.manufacturer.updatedate.label"
         };
 
         /// <summary>

@@ -2,6 +2,7 @@
 using InventoryExpress.Model.Entity;
 using InventoryExpress.WebControl;
 using System;
+using System.IO;
 using System.Linq;
 using WebExpress.Attribute;
 using WebExpress.Internationalization;
@@ -21,6 +22,14 @@ namespace InventoryExpress.WebPage
     public sealed class PageSupplierAdd : PageWebApp, IPageSupplier
     {
         /// <summary>
+        /// Liefert das Formular
+        /// </summary>
+        private ControlFormularSupplier Form { get; } = new ControlFormularSupplier("supplier")
+        {
+            Edit = false
+        };
+
+        /// <summary>
         /// Konstruktor
         /// </summary>
         public PageSupplierAdd()
@@ -34,6 +43,113 @@ namespace InventoryExpress.WebPage
         public override void Initialization(IResourceContext context)
         {
             base.Initialization(context);
+
+            Form.InitializeFormular += InitializeFormular;
+            Form.FillFormular += FillFormular;
+            Form.SupplierName.Validation += SupplierNameValidation;
+            Form.Zip.Validation += ZipValidation;
+            Form.ProcessFormular += ProcessFormular;
+        }
+
+        /// <summary>
+        /// Wird ausgelöst, wenn das Formular verarbeitet werden soll.
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventargumente/param>
+        private void ProcessFormular(object sender, FormularEventArgs e)
+        {
+            // Neuen Liferanten erstellen und speichern
+            var supplier = new Supplier()
+            {
+                Name = Form.SupplierName.Value,
+                Address = Form.Address.Value,
+                Zip = Form.Zip.Value,
+                Place = Form.Place.Value,
+                Tag = Form.Tag.Value,
+                Created = DateTime.Now,
+                Updated = DateTime.Now,
+                Guid = Guid.NewGuid().ToString()
+            };
+
+            if (e.Context.Request.GetParameter(Form.Image.Name) is ParameterFile file)
+            {
+                if (supplier.Media == null)
+                {
+                    supplier.Media = new Media()
+                    {
+                        Name = file.Value,
+                        Created = DateTime.Now,
+                        Updated = DateTime.Now,
+                        Guid = Guid.NewGuid().ToString()
+                    };
+                }
+                else
+                {
+                    supplier.Media.Name = file.Value;
+                    supplier.Media.Updated = DateTime.Now;
+                }
+
+                File.WriteAllBytes(Path.Combine(e.Context.Application.AssetPath, supplier.Media.Guid), file.Data);
+            }
+
+            lock (ViewModel.Instance.Database)
+            {
+                ViewModel.Instance.Suppliers.Add(supplier);
+                ViewModel.Instance.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// Wird ausgelöst, wenn das Feld Zip validiert werden soll.
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventargumente/param>
+        private void ZipValidation(object sender, ValidationEventArgs e)
+        {
+            if (e.Value != null && e.Value.Count() >= 10)
+            {
+                e.Results.Add(new ValidationResult() { Text = "inventoryexpress:inventoryexpress.supplier.validation.zip.tolong", Type = TypesInputValidity.Error });
+            }
+        }
+
+        /// <summary>
+        /// Wird ausgelöst, wenn das Feld SupplierName validiert werden soll.
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventargumente/param>
+        private void SupplierNameValidation(object sender, ValidationEventArgs e)
+        {
+            lock (ViewModel.Instance.Database)
+            {
+                if (e.Value.Length < 1)
+                {
+                    e.Results.Add(new ValidationResult() { Text = "inventoryexpress:inventoryexpress.supplier.validation.name.invalid", Type = TypesInputValidity.Error });
+                }
+                else if (ViewModel.Instance.Suppliers.Where(x => x.Name.Equals(e.Value)).Any())
+                {
+                    e.Results.Add(new ValidationResult() { Text = "inventoryexpress:inventoryexpress.supplier.validation.name.used", Type = TypesInputValidity.Error });
+                }
+            }
+        }
+
+        /// <summary>
+        /// Wird aufgerufen, wenn das Formular initialisiert wird
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventargumente</param>
+        private void InitializeFormular(object sender, FormularEventArgs e)
+        {
+            Form.RedirectUri = e.Context.Uri.Take(-1);
+            Form.BackUri = e.Context.Uri.Take(-1);
+        }
+
+        /// <summary>
+        /// Wird aufgerufen, wenn das Formular gefüllt werden soll
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventargumente</param>
+        private void FillFormular(object sender, FormularEventArgs e)
+        {
         }
 
         /// <summary>
@@ -44,66 +160,7 @@ namespace InventoryExpress.WebPage
         {
             base.Process(context);
 
-            var form = new ControlFormularSupplier(this)
-            {
-                EnableCancelButton = true,
-                RedirectUri = context.Uri.Take(-1),
-                BackUri = context.Uri.Take(-1)
-            };
-
-            form.SupplierName.Validation += (s, e) =>
-            {
-                if (e.Value.Length < 1)
-                {
-                    e.Results.Add(new ValidationResult() { Text = this.I18N("inventoryexpress.supplier.validation.name.invalid"), Type = TypesInputValidity.Error });
-                }
-                else if (ViewModel.Instance.Suppliers.Where(x => x.Name.Equals(e.Value)).Any())
-                {
-                    e.Results.Add(new ValidationResult() { Text = this.I18N("inventoryexpress.supplier.validation.name.used"), Type = TypesInputValidity.Error });
-                }
-            };
-
-            form.ProcessFormular += (s, e) =>
-            {
-                // Neuen Liferanten erstellen und speichern
-                var supplier = new Supplier()
-                {
-                    Name = form.SupplierName.Value,
-                    Address = form.Address.Value,
-                    Zip = form.Zip.Value,
-                    Place = form.Place.Value,
-                    Tag = form.Tag.Value,
-                    Created = DateTime.Now,
-                    Updated = DateTime.Now,
-                    Guid = Guid.NewGuid().ToString()
-                };
-
-                if (context.Request.GetParameter(form.Image.Name) is ParameterFile file)
-                {
-                    if (supplier.Media == null)
-                    {
-                        supplier.Media = new Media()
-                        {
-                            Name = file.Value,
-                            Data = file.Data,
-                            Created = DateTime.Now,
-                            Updated = DateTime.Now,
-                            Guid = Guid.NewGuid().ToString()
-                        };
-                    }
-                    else
-                    {
-                        supplier.Media.Name = file.Value;
-                        supplier.Media.Data = file.Data;
-                        supplier.Media.Updated = DateTime.Now;
-                    }
-                }
-
-                ViewModel.Instance.Suppliers.Add(supplier);
-                ViewModel.Instance.SaveChanges();
-            };
-
-            context.VisualTree.Content.Primary.Add(form);
+            context.VisualTree.Content.Primary.Add(Form);
         }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using InventoryExpress.Model;
+using System;
+using System.IO;
 using System.Linq;
 using WebExpress.Attribute;
 using WebExpress.Html;
@@ -80,13 +82,20 @@ namespace InventoryExpress.WebComponent
             {
                 var media = ViewModel.Instance.Media.Where(x => x.Guid == guid).FirstOrDefault();
 
+                if (media == null)
+                {
+                    return base.Render(context); 
+                }
+
                 CreationDateAttribute.Value = media?.Created.ToString(context.Culture.DateTimeFormat.ShortDatePattern);
                 UpdateDateAttribute.Value = media?.Updated.ToString
                 (
                     $"{ context.Culture.DateTimeFormat.ShortDatePattern } { context.Culture.DateTimeFormat.ShortTimePattern }"
                 );
 
-                SizeAttribute.Value = string.Format(new FileSizeFormatProvider() { Culture = context.Culture }, "{0:fs}", media?.Data.Length);
+                FileInfo fi = new FileInfo(Path.Combine(context.Application.AssetPath, "media", media?.Guid));
+
+                SizeAttribute.Value = string.Format(new FileSizeFormatProvider() { Culture = context.Culture }, "{0:fs}", fi.Length);
             }
 
             return base.Render(context);

@@ -23,12 +23,7 @@ namespace InventoryExpress.Model.Entity
         public string Name { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt den Namen
-        /// </summary>
-        public byte[] Data { get; set; }
-
-        /// <summary>
-        /// Die Postleitzahl
+        /// Die Schlagwörter
         /// </summary>
         public string Tag { get; set; }
 

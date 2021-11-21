@@ -2,6 +2,7 @@
 using InventoryExpress.Model.Entity;
 using InventoryExpress.WebControl;
 using System;
+using System.IO;
 using System.Linq;
 using WebExpress.Attribute;
 using WebExpress.Message;
@@ -110,20 +111,22 @@ namespace InventoryExpress.WebPageSetting
                             Template.Media = new Media()
                             {
                                 Name = file.Value,
-                                Data = file.Data,
                                 Tag = Form.Tag.Value,
                                 Created = DateTime.Now,
                                 Updated = DateTime.Now,
                                 Guid = Guid.NewGuid().ToString()
                             };
+
+                            File.WriteAllBytes(Path.Combine(context.Application.AssetPath, Template.Media.Guid), file.Data);
                         }
                         else
                         {
                             // Image ändern
                             Media.Name = file.Value;
-                            Media.Data = file.Data;
                             Media.Tag = Form.Tag.Value;
                             Media.Updated = DateTime.Now;
+
+                            File.WriteAllBytes(Path.Combine(context.Application.AssetPath, Media.Guid), file.Data);
                         }
                     }
 

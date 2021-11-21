@@ -54,7 +54,7 @@ namespace InventoryExpress.WebPage
             {
                 var guid = context.Request.GetParameter("InventoryID")?.Value;
                 var inventory = ViewModel.Instance.Inventories.Where(x => x.Guid == guid).FirstOrDefault();
-                var tags = from i in ViewModel.Instance.InventoryTag
+                var tags = from i in ViewModel.Instance.InventoryTags
                            join t in ViewModel.Instance.Tags
                            on i.TagId equals t.Id
                            where i.InventoryId == inventory.Id
@@ -288,7 +288,7 @@ namespace InventoryExpress.WebPage
                             ViewModel.Instance.Tags.Add(tag);
                             ViewModel.Instance.SaveChanges();
                         }
-                        ViewModel.Instance.InventoryTag.Add(new InventoryTag() { InventoryId = inventory.Id, TagId = tag.Id });
+                        ViewModel.Instance.InventoryTags.Add(new InventoryTag() { InventoryId = inventory.Id, TagId = tag.Id });
                         ViewModel.Instance.SaveChanges();
                     }
 
@@ -296,18 +296,18 @@ namespace InventoryExpress.WebPage
                     var removeTags = tags.Select(x => x.Label).ToList().Except(Form.Tag.Value.Split(';'));
                     foreach (var r in removeTags)
                     {
-                        var inventoryTag = from i in ViewModel.Instance.InventoryTag
+                        var inventoryTag = from i in ViewModel.Instance.InventoryTags
                                            join t in ViewModel.Instance.Tags
                                            on i.TagId equals t.Id
                                            where i.InventoryId == inventory.Id && t.Label.ToLower() == r.ToLower()
                                            select i;
 
-                        ViewModel.Instance.InventoryTag.RemoveRange(inventoryTag);
+                        ViewModel.Instance.InventoryTags.RemoveRange(inventoryTag);
                         ViewModel.Instance.SaveChanges();
 
                         var tag = ViewModel.Instance.Tags.Where(x => x.Label.ToLower() == r.ToLower()).FirstOrDefault();
 
-                        if (tag != null && !ViewModel.Instance.InventoryTag.Where(x => x.TagId == tag.Id).Any())
+                        if (tag != null && !ViewModel.Instance.InventoryTags.Where(x => x.TagId == tag.Id).Any())
                         {
                             ViewModel.Instance.Tags.Remove(tag);
                             ViewModel.Instance.SaveChanges();

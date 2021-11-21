@@ -2,6 +2,7 @@
 using InventoryExpress.Model.Entity;
 using InventoryExpress.WebControl;
 using System;
+using System.IO;
 using System.Linq;
 using WebExpress.Attribute;
 using WebExpress.Internationalization;
@@ -21,9 +22,12 @@ namespace InventoryExpress.WebPage
     public sealed class PageCostCenterAdd : PageWebApp, IPageCostCenter
     {
         /// <summary>
-        /// Formular
+        /// Liefert das Formular
         /// </summary>
-        private ControlFormularCostCenter form;
+        private ControlFormularCostCenter Form { get; } = new ControlFormularCostCenter("costcenter")
+        {
+            Edit = false
+        };
 
         /// <summary>
         /// Konstruktor
@@ -40,10 +44,96 @@ namespace InventoryExpress.WebPage
         {
             base.Initialization(context);
 
-            form = new ControlFormularCostCenter()
+            Form.InitializeFormular += InitializeFormular;
+            Form.FillFormular += FillFormular;
+            Form.CostCenterName.Validation += CostCenterNameValidation;
+            Form.ProcessFormular += ProcessFormular;
+        }
+
+        /// <summary>
+        /// Wird ausgelöst, wenn das Formular verarbeitet werden soll.
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventargumente/param>
+        private void ProcessFormular(object sender, FormularEventArgs e)
+        {
+            // Neue Kostenstelle erstellen und speichern
+            var costcenter = new CostCenter()
             {
-                EnableCancelButton = true
+                Name = Form.CostCenterName.Value,
+                Description = Form.Description.Value,
+                Tag = Form.Tag.Value,
+                Created = DateTime.Now,
+                Updated = DateTime.Now,
+                Guid = Guid.NewGuid().ToString()
             };
+
+            if (e.Context.Request.GetParameter(Form.Image.Name) is ParameterFile file)
+            {
+                if (costcenter.Media == null)
+                {
+                    costcenter.Media = new Media()
+                    {
+                        Name = file.Value,
+                        Created = DateTime.Now,
+                        Updated = DateTime.Now,
+                        Guid = Guid.NewGuid().ToString()
+                    };
+                }
+                else
+                {
+                    costcenter.Media.Name = file.Value;
+                    costcenter.Media.Updated = DateTime.Now;
+                }
+
+                File.WriteAllBytes(Path.Combine(e.Context.Application.AssetPath, "media", costcenter.Media.Guid), file.Data);
+            }
+
+            lock (ViewModel.Instance.Database)
+            {
+                ViewModel.Instance.CostCenters.Add(costcenter);
+                ViewModel.Instance.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// Wird ausgelöst, wenn das Feld CostCenterName validiert werden soll.
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventargumente/param>
+        private void CostCenterNameValidation(object sender, ValidationEventArgs e)
+        {
+            lock (ViewModel.Instance.Database)
+            {
+                if (e.Value.Length < 1)
+                {
+                    e.Results.Add(new ValidationResult() { Text = "inventoryexpress:inventoryexpress.costcenter.validation.name.invalid", Type = TypesInputValidity.Error });
+                }
+                else if (ViewModel.Instance.CostCenters.Where(x => x.Name.Equals(e.Value)).Any())
+                {
+                    e.Results.Add(new ValidationResult() { Text = "inventoryexpress:inventoryexpress.costcenter.validation.name.used", Type = TypesInputValidity.Error });
+                }
+            }
+        }
+
+        /// <summary>
+        /// Wird aufgerufen, wenn das Formular initialisiert wird
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventargumente</param>
+        private void InitializeFormular(object sender, FormularEventArgs e)
+        {
+            Form.RedirectUri = e.Context.Uri.Take(-1);
+            Form.BackUri = e.Context.Uri.Take(-1);
+        }
+
+        /// <summary>
+        /// Wird aufgerufen, wenn das Formular gefüllt werden soll
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventargumente</param>
+        private void FillFormular(object sender, FormularEventArgs e)
+        {
         }
 
         /// <summary>
@@ -54,71 +144,7 @@ namespace InventoryExpress.WebPage
         {
             base.Process(context);
 
-            var visualTree = context.VisualTree;
-
-            form.RedirectUri = context.Uri.Take(-1);
-            form.BackUri = context.Uri.Take(-1);
-
-            visualTree.Content.Primary.Add(form);
-
-            form.CostCenterName.Validation += (s, e) =>
-            {
-                if (e.Value.Length < 1)
-                {
-                    e.Results.Add(new ValidationResult() { Text = this.I18N("inventoryexpress.costcenter.validation.name.invalid"), Type = TypesInputValidity.Error });
-                }
-                else if (ViewModel.Instance.CostCenters.Where(x => x.Name.Equals(e.Value)).Any())
-                {
-                    e.Results.Add(new ValidationResult() { Text = this.I18N("inventoryexpress.costcenter.validation.name.used"), Type = TypesInputValidity.Error });
-                }
-            };
-
-            form.ProcessFormular += (s, e) =>
-            {
-                // Neue Kostenstelle erstellen und speichern
-                var costcenter = new CostCenter()
-                {
-                    Name = form.CostCenterName.Value,
-                    Description = form.Description.Value,
-                    Tag = form.Tag.Value,
-                    Created = DateTime.Now,
-                    Updated = DateTime.Now,
-                    Guid = Guid.NewGuid().ToString()
-                };
-
-                if (context.Request.GetParameter(form.Image.Name) is ParameterFile file)
-                {
-                    if (costcenter.Media == null)
-                    {
-                        costcenter.Media = new Media()
-                        {
-                            Name = file.Value,
-                            Data = file.Data,
-                            Created = DateTime.Now,
-                            Updated = DateTime.Now,
-                            Guid = Guid.NewGuid().ToString()
-                        };
-                    }
-                    else
-                    {
-                        costcenter.Media.Name = file.Value;
-                        costcenter.Media.Data = file.Data;
-                        costcenter.Media.Updated = DateTime.Now;
-                    }
-                }
-
-                ViewModel.Instance.CostCenters.Add(costcenter);
-                ViewModel.Instance.SaveChanges();
-            };
-        }
-
-        /// <summary>
-        /// In String konvertieren
-        /// </summary>
-        /// <returns>Das Objekt als String</returns>
-        public override string ToString()
-        {
-            return base.ToString();
+            context.VisualTree.Content.Primary.Add(Form);
         }
     }
 }

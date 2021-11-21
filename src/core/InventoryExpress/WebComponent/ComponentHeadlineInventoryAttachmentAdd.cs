@@ -1,6 +1,7 @@
 ﻿using InventoryExpress.Model;
 using InventoryExpress.Model.Entity;
 using System;
+using System.IO;
 using System.Linq;
 using WebExpress.Attribute;
 using WebExpress.Html;
@@ -57,7 +58,7 @@ namespace InventoryExpress.WebComponent
                     if (context.Request.GetParameter(form.File.Name) is ParameterFile file)
                     {
                         // Anlage speichern
-                        var stock = from a in ViewModel.Instance.InventoryAttachment
+                        var stock = from a in ViewModel.Instance.InventoryAttachments
                                     join m in ViewModel.Instance.Media
                                     on a.MediaId equals m.Id
                                     where m.Name == file.Value
@@ -68,7 +69,6 @@ namespace InventoryExpress.WebComponent
                             var media = new Media()
                             {
                                 Name = file.Value,
-                                Data = file.Data,
                                 Created = DateTime.Now,
                                 Updated = DateTime.Now,
                                 Guid = Guid.NewGuid().ToString()
@@ -82,8 +82,10 @@ namespace InventoryExpress.WebComponent
                             };
 
                             ViewModel.Instance.Media.Add(media);
-                            ViewModel.Instance.InventoryAttachment.Add(attachment);
+                            ViewModel.Instance.InventoryAttachments.Add(attachment);
                             ViewModel.Instance.SaveChanges();
+
+                            File.WriteAllBytes(Path.Combine(context.Application.AssetPath, media.Guid), file.Data);
 
                             var journal = new InventoryJournal()
                             {

@@ -1,10 +1,11 @@
 ﻿using InventoryExpress.Model;
 using InventoryExpress.Model.Entity;
 using InventoryExpress.WebControl;
+using InventoryExpress.WebPage;
 using System;
+using System.IO;
 using System.Linq;
 using WebExpress.Attribute;
-using WebExpress.Internationalization;
 using WebExpress.Message;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.Attribute;
@@ -23,12 +24,15 @@ namespace InventoryExpress.WebPageSetting
     [Module("inventoryexpress")]
     [Context("general")]
     [Context("templateadd")]
-    public sealed class PageSettingTemplateAdd : PageWebAppSetting
+    public sealed class PageSettingTemplateAdd : PageWebAppSetting, IPageTemplate
     {
         /// <summary>
-        /// Formular
+        /// Liefert das Formular
         /// </summary>
-        private ControlFormularTemplate form;
+        private ControlFormularTemplate Form { get; } = new ControlFormularTemplate("template")
+        {
+            Edit = false
+        };
 
         /// <summary>
         /// Konstruktor
@@ -45,10 +49,122 @@ namespace InventoryExpress.WebPageSetting
         {
             base.Initialization(context);
 
-            form = new ControlFormularTemplate()
+            Form.InitializeFormular += InitializeFormular;
+            Form.FillFormular += FillFormular;
+            Form.TemplateName.Validation += TemplateNameValidation;
+            Form.ProcessFormular += ProcessFormular;
+        }
+
+        /// <summary>
+        /// Wird ausgelöst, wenn das Formular verarbeitet werden soll.
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventargumente/param>
+        private void ProcessFormular(object sender, FormularEventArgs e)
+        {
+
+            // Neue Vorlage erstellen und speichern
+            var template = new Template()
             {
-                EnableCancelButton = false
+                Name = Form.TemplateName.Value,
+                Description = Form.Description.Value,
+                Tag = Form.Tag.Value,
+                Created = DateTime.Now,
+                Updated = DateTime.Now,
+                Guid = Guid.NewGuid().ToString()
             };
+
+            if (e.Context.Request.GetParameter(Form.Image.Name) is ParameterFile file)
+            {
+                if (template.Media == null)
+                {
+                    template.Media = new Media()
+                    {
+                        Name = file.Value,
+                        Created = DateTime.Now,
+                        Updated = DateTime.Now,
+                        Guid = Guid.NewGuid().ToString()
+                    };
+                }
+                else
+                {
+                    template.Media.Name = file.Value;
+                    template.Media.Updated = DateTime.Now;
+                }
+
+                File.WriteAllBytes(Path.Combine(e.Context.Application.AssetPath, "media", template.Media.Guid), file.Data);
+            }
+
+            var newAttributes = Form.Attributes.Value?.Split(";", StringSplitOptions.RemoveEmptyEntries);
+
+            lock (ViewModel.Instance.Database)
+            {
+                ViewModel.Instance.Templates.Add(template);
+                ViewModel.Instance.SaveChanges();
+
+                // verknüpfe Attribute
+                foreach (var newItems in newAttributes.Join(ViewModel.Instance.Attributes, x => x, y => y.Guid, (x, y) => y))
+                {
+                    ViewModel.Instance.TemplateAttributes.Add(new TemplateAttribute() { TemplateId = template.Id, AttributeId = newItems.Id });
+                }
+
+                ViewModel.Instance.SaveChanges();
+            }
+
+            Form.Reset();
+        }
+
+        /// <summary>
+        /// Wird ausgelöst, wenn das Feld TemplateName validiert werden soll.
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventargumente/param>
+        private void TemplateNameValidation(object sender, ValidationEventArgs e)
+        {
+            lock (ViewModel.Instance.Database)
+            {
+                if (e.Value.Count() < 1)
+                {
+                    e.Results.Add(new ValidationResult() { Text = "inventoryexpress:inventoryexpress.template.validation.name.invalid", Type = TypesInputValidity.Error });
+                }
+                else if (ViewModel.Instance.Templates.Where(x => x.Name.Equals(e.Value)).Any())
+                {
+                    e.Results.Add(new ValidationResult() { Text = "inventoryexpress:inventoryexpress.template.validation.name.used", Type = TypesInputValidity.Error });
+                }
+            }
+        }
+
+        /// <summary>
+        /// Wird aufgerufen, wenn das Formular initialisiert wird
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventargumente</param>
+        private void InitializeFormular(object sender, FormularEventArgs e)
+        {
+            Form.RedirectUri = e.Context.Uri.Take(-1);
+            Form.BackUri = e.Context.Uri.Take(-1);
+        }
+
+        /// <summary>
+        /// Wird aufgerufen, wenn das Formular gefüllt werden soll
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventargumente</param>
+        private void FillFormular(object sender, FormularEventArgs e)
+        {
+            lock (ViewModel.Instance.Database)
+            {
+                foreach (var v in ViewModel.Instance.Attributes)
+                {
+                    Form.Attributes.Options.Add(new ControlFormularItemInputMoveSelectorItem()
+                    {
+                        ID = v.Guid,
+                        Value = v.Name
+                    });
+                }
+
+                Form.Attributes.Value = string.Join(";", ViewModel.Instance.Attributes);
+            }
         }
 
         /// <summary>
@@ -59,94 +175,7 @@ namespace InventoryExpress.WebPageSetting
         {
             base.Process(context);
 
-            var visualTree = context.VisualTree;
-
-            form.RedirectUri = context.Uri.Take(-1);
-            form.BackUri = context.Uri.Take(-1);
-
-            lock (ViewModel.Instance.Database)
-            {
-                foreach (var v in ViewModel.Instance.Attributes)
-                {
-                    form.Attributes.Options.Add(new ControlFormularItemInputMoveSelectorItem()
-                    {
-                        ID = v.Guid,
-                        Value = v.Name
-                    });
-                }
-
-                form.TemplateName.Value = string.Empty;
-                form.Attributes.Value = string.Join(";", ViewModel.Instance.Attributes);
-                form.Description.Value = string.Empty;
-                form.Tag.Value = string.Empty;
-            }
-
-            form.TemplateName.Validation += (s, e) =>
-            {
-                if (e.Value.Count() < 1)
-                {
-                    e.Results.Add(new ValidationResult() { Text = this.I18N("inventoryexpress:inventoryexpress.template.validation.name.invalid"), Type = TypesInputValidity.Error });
-                }
-                else if (ViewModel.Instance.Templates.Where(x => x.Name.Equals(e.Value)).Any())
-                {
-                    e.Results.Add(new ValidationResult() { Text = this.I18N("inventoryexpress:inventoryexpress.template.validation.name.used"), Type = TypesInputValidity.Error });
-                }
-            };
-
-            form.ProcessFormular += (s, e) =>
-            {
-                // Neue Vorlage erstellen und speichern
-                var template = new Template()
-                {
-                    Name = form.TemplateName.Value,
-                    Description = form.Description.Value,
-                    Tag = form.Tag.Value,
-                    Created = DateTime.Now,
-                    Updated = DateTime.Now,
-                    Guid = Guid.NewGuid().ToString()
-                };
-
-                if (context.Request.GetParameter(form.Image.Name) is ParameterFile file)
-                {
-                    if (template.Media == null)
-                    {
-                        template.Media = new Media()
-                        {
-                            Name = file.Value,
-                            Data = file.Data,
-                            Created = DateTime.Now,
-                            Updated = DateTime.Now,
-                            Guid = Guid.NewGuid().ToString()
-                        };
-                    }
-                    else
-                    {
-                        template.Media.Name = file.Value;
-                        template.Media.Data = file.Data;
-                        template.Media.Updated = DateTime.Now;
-                    }
-                }
-
-                var newAttributes = form.Attributes.Value?.Split(";", StringSplitOptions.RemoveEmptyEntries);
-
-                lock (ViewModel.Instance.Database)
-                {
-                    ViewModel.Instance.Templates.Add(template);
-                    ViewModel.Instance.SaveChanges();
-
-                    // verknüpfe Attribute
-                    foreach (var newItems in newAttributes.Join(ViewModel.Instance.Attributes, x => x, y => y.Guid, (x, y) => y))
-                    {
-                        ViewModel.Instance.TemplateAttributes.Add(new TemplateAttribute() { TemplateId = template.Id, AttributeId = newItems.Id });
-                    }
-
-                    ViewModel.Instance.SaveChanges();
-                }
-
-                form.Reset();
-            };
-
-            visualTree.Content.Primary.Add(form);
+            context.VisualTree.Content.Primary.Add(Form);
         }
     }
 }
