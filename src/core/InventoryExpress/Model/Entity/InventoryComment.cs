@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace InventoryExpress.Model.Entity
 {
     /// <summary>
-    /// Attribute eines Inventars
+    /// Kommentare eines Inventars
     /// </summary>
     [Table("INVENTORYCOMMENT")]
     public partial class InventoryComment

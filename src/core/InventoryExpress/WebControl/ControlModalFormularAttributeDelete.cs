@@ -34,9 +34,10 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Löst das Confirm-Event aus
         /// </summary>
-        protected override void OnConfirm()
+        /// <param name="context">Der Kontext</param>
+        protected override void OnConfirm(RenderContextFormular context)
         {
-            base.OnConfirm();
+            base.OnConfirm(context);
 
             lock (ViewModel.Instance.Database)
             {

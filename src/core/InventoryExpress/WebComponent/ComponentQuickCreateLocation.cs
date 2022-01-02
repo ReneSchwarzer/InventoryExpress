@@ -1,18 +1,18 @@
 ﻿using InventoryExpress.WebPage;
-using WebExpress.Attribute;
 using WebExpress.Html;
-using WebExpress.UI.Attribute;
+using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebComponent;
 using WebExpress.UI.WebControl;
 using WebExpress.Uri;
 using WebExpress.WebApp.WebComponent;
+using WebExpress.WebAttribute;
 using WebExpress.WebPage;
 
 namespace InventoryExpress.WebComponent
 {
     [Section(Section.AppQuickcreateSecondary)]
     [Module("inventoryexpress")]
-    public sealed class ComponentQuickCreateLocation : ControlSplitButtonItemLink, IComponent
+    public sealed class ComponentQuickCreateLocation : ComponentControlSplitButtonItemLink
     {
         /// <summary>
         /// Konstruktor
@@ -26,8 +26,10 @@ namespace InventoryExpress.WebComponent
         /// Initialisierung
         /// </summary>
         /// <param name="context">Der Kontext</param>
-        public void Initialization(IComponentContext context)
+        public override void Initialization(IComponentContext context)
         {
+            base.Initialization(context);
+
             Text = "inventoryexpress:inventoryexpress.location.label";
             Uri = new UriResource(context.Module.ContextPath, "locations/add");
             Icon = new PropertyIcon(TypeIcon.Map);

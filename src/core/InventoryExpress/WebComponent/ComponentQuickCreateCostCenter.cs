@@ -1,7 +1,7 @@
 ﻿using InventoryExpress.WebPage;
-using WebExpress.Attribute;
+using WebExpress.WebAttribute;
 using WebExpress.Html;
-using WebExpress.UI.Attribute;
+using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebComponent;
 using WebExpress.UI.WebControl;
 using WebExpress.Uri;
@@ -12,7 +12,7 @@ namespace InventoryExpress.WebComponent
 {
     [Section(Section.AppQuickcreateSecondary)]
     [Module("inventoryexpress")]
-    public sealed class ComponentQuickCreateCostCenter : ControlSplitButtonItemLink, IComponent
+    public sealed class ComponentQuickCreateCostCenter : ComponentControlSplitButtonItemLink
     {
         /// <summary>
         /// Konstruktor
@@ -26,8 +26,10 @@ namespace InventoryExpress.WebComponent
         /// Initialisierung
         /// </summary>
         /// <param name="context">Der Kontext</param>
-        public void Initialization(IComponentContext context)
+        public override void Initialization(IComponentContext context)
         {
+            base.Initialization(context);
+
             Text = "inventoryexpress:inventoryexpress.costcenter.label";
             Uri = new UriResource(context.Module.ContextPath, "costcenters/add");
             Icon = new PropertyIcon(TypeIcon.ShoppingBag);

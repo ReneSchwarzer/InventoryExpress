@@ -1,11 +1,11 @@
 ﻿using InventoryExpress.Model;
 using System.Linq;
-using WebExpress.Attribute;
 using WebExpress.Html;
-using WebExpress.UI.Attribute;
+using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebComponent;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebComponent;
+using WebExpress.WebAttribute;
 using WebExpress.WebPage;
 
 namespace InventoryExpress.WebComponent
@@ -13,7 +13,7 @@ namespace InventoryExpress.WebComponent
     [Section(Section.PropertyPrimary)]
     [Module("inventoryexpress")]
     [Context("inventorydetails")]
-    public sealed class ComponentPropertyInventoryDetails : ControlList, IComponent
+    public sealed class ComponentPropertyInventoryDetails : ComponentControlList
     {
         /// <summary>
         /// Die Inventarnummer
@@ -157,8 +157,9 @@ namespace InventoryExpress.WebComponent
         /// Initialisierung
         /// </summary>
         /// <param name="context">Der Kontext</param>
-        public void Initialization(IComponentContext context)
+        public override void Initialization(IComponentContext context)
         {
+            base.Initialization(context);
         }
 
         /// <summary>

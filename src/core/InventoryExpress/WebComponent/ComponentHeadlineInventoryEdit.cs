@@ -1,9 +1,9 @@
-﻿using WebExpress.Attribute;
-using WebExpress.Html;
-using WebExpress.UI.Attribute;
+﻿using WebExpress.Html;
+using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebComponent;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebComponent;
+using WebExpress.WebAttribute;
 using WebExpress.WebPage;
 using static WebExpress.Internationalization.InternationalizationManager;
 
@@ -12,7 +12,7 @@ namespace InventoryExpress.WebComponent
     [Section(Section.HeadlineSecondary)]
     [Module("inventoryexpress")]
     [Context("inventorydetails")]
-    public sealed class ComponentHeadlineInventoryEdit : ControlButtonLink, IComponent
+    public sealed class ComponentHeadlineInventoryEdit : ComponentControlButtonLink
     {
         /// <summary>
         /// Konstruktor
@@ -26,8 +26,9 @@ namespace InventoryExpress.WebComponent
         /// Initialisierung
         /// </summary>
         /// <param name="context">Der Kontext</param>
-        public void Initialization(IComponentContext context)
+        public override void Initialization(IComponentContext context)
         {
+            base.Initialization(context);
         }
 
         /// <summary>

@@ -3,12 +3,12 @@ using InventoryExpress.Model.Entity;
 using InventoryExpress.WebControl;
 using System;
 using System.Linq;
-using WebExpress.Attribute;
 using WebExpress.Html;
-using WebExpress.UI.Attribute;
+using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebComponent;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebComponent;
+using WebExpress.WebAttribute;
 using WebExpress.WebPage;
 
 namespace InventoryExpress.WebComponent
@@ -16,7 +16,7 @@ namespace InventoryExpress.WebComponent
     [Section(Section.ContentSecondary)]
     [Module("inventoryexpress")]
     [Context("inventorydetails")]
-    public sealed class ComponentContentInventoryComment : ControlPanel, IComponent
+    public sealed class ComponentContentInventoryComment : ComponentControlPanel
     {
         /// <summary>
         /// Das Kommentierungsformular
@@ -38,7 +38,6 @@ namespace InventoryExpress.WebComponent
         public ComponentContentInventoryComment()
         {
             Margin = new PropertySpacingMargin(PropertySpacing.Space.Two);
-            //BackgroundColor = new PropertyColorBackground(TypeColorBackground.Info);
 
             Content.Add(List);
         }
@@ -47,8 +46,9 @@ namespace InventoryExpress.WebComponent
         /// Initialisierung
         /// </summary>
         /// <param name="context">Der Kontext</param>
-        public void Initialization(IComponentContext context)
+        public override void Initialization(IComponentContext context)
         {
+            base.Initialization(context);
         }
 
         /// <summary>

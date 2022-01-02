@@ -3,10 +3,10 @@ using InventoryExpress.Model.Entity;
 using InventoryExpress.WebControl;
 using System;
 using System.Linq;
-using WebExpress.Attribute;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
+using WebExpress.WebAttribute;
 using WebExpress.WebResource;
 using static WebExpress.Internationalization.InternationalizationManager;
 

@@ -2,13 +2,13 @@
 using InventoryExpress.Model.Entity;
 using System;
 using System.Linq;
-using WebExpress.Attribute;
 using WebExpress.Html;
-using WebExpress.UI.Attribute;
+using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebComponent;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebComponent;
 using WebExpress.WebApp.WebControl;
+using WebExpress.WebAttribute;
 using WebExpress.WebPage;
 using static WebExpress.Internationalization.InternationalizationManager;
 
@@ -20,7 +20,7 @@ namespace InventoryExpress.WebComponent
     [Section(Section.ContentSecondary)]
     [Module("inventoryexpress")]
     [Context("media")]
-    public sealed class ComponentContentMediaModalDelete : ControlModalFormConfirmDelete, IComponent
+    public sealed class ComponentContentMediaModalDelete : ComponentControlModalFormConfirmDelete
     {
         /// <summary>
         /// Konstruktor
@@ -34,8 +34,10 @@ namespace InventoryExpress.WebComponent
         /// Initialisierung
         /// </summary>
         /// <param name="context">Der Kontext</param>
-        public void Initialization(IComponentContext context)
+        public override void Initialization(IComponentContext context)
         {
+            base.Initialization(context);
+
             Header = "inventoryexpress:inventoryexpress.media.delete.label";
         }
 
@@ -80,7 +82,7 @@ namespace InventoryExpress.WebComponent
                 }
             };
 
-            
+
             Content = new ControlFormularItemStaticText() { Text = I18N(context.Culture, "inventoryexpress:inventoryexpress.media.delete.description") };
 
             return base.Render(context);

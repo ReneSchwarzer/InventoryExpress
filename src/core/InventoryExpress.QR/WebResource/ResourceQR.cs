@@ -1,9 +1,8 @@
 ﻿using QRCoder;
 using System.IO;
 using System.Text;
-using WebExpress.Application;
-using WebExpress.Attribute;
 using WebExpress.Message;
+using WebExpress.WebAttribute;
 using WebExpress.WebResource;
 
 namespace InventoryExpress.QR.WebResource

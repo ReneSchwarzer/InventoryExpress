@@ -4,11 +4,10 @@ using InventoryExpress.WebControl;
 using System;
 using System.IO;
 using System.Linq;
-using WebExpress.Attribute;
-using WebExpress.Internationalization;
 using WebExpress.Message;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebPage;
+using WebExpress.WebAttribute;
 using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPage
@@ -178,10 +177,10 @@ namespace InventoryExpress.WebPage
             {
                 var guid = context.Request.GetParameter("ManufacturerID")?.Value;
                 var manufacturer = ViewModel.Instance.Manufacturers.Where(x => x.Guid == guid).FirstOrDefault();
-             
+
                 context.Request.Uri.Display = manufacturer.Name;
             }
-            
+
             context.VisualTree.Content.Primary.Add(Form);
         }
     }

@@ -1,4 +1,4 @@
-﻿using WebExpress.Attribute;
+﻿using WebExpress.WebAttribute;
 
 namespace InventoryExpress.QR.WebResource
 {

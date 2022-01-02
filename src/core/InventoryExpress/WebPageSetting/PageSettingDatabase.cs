@@ -1,11 +1,11 @@
 ﻿using InventoryExpress.Model;
 using System.IO;
-using WebExpress.Attribute;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
-using WebExpress.WebApp.Attribute;
+using WebExpress.WebApp.WebAttribute;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebApp.WebSettingPage;
+using WebExpress.WebAttribute;
 using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPageSetting

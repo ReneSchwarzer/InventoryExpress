@@ -2,9 +2,9 @@
 using InventoryExpress.Model.Entity;
 using InventoryExpress.WebControl;
 using System.Linq;
-using WebExpress.Attribute;
+using WebExpress.WebAttribute;
 using WebExpress.UI.WebControl;
-using WebExpress.WebApp.Attribute;
+using WebExpress.WebApp.WebAttribute;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebApp.WebSettingPage;
 using WebExpress.WebResource;

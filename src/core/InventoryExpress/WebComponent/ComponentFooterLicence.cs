@@ -1,10 +1,10 @@
-﻿using WebExpress.Attribute;
-using WebExpress.Html;
-using WebExpress.UI.Attribute;
+﻿using WebExpress.Html;
+using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebComponent;
 using WebExpress.UI.WebControl;
 using WebExpress.Uri;
 using WebExpress.WebApp.WebComponent;
+using WebExpress.WebAttribute;
 using WebExpress.WebPage;
 using static WebExpress.Internationalization.InternationalizationManager;
 
@@ -12,8 +12,8 @@ namespace InventoryExpress.WebComponent
 {
     [Section(Section.FooterPrimary)]
     [Module("inventoryexpress")]
-    public sealed class ComponentFooterLicence : ControlPanel, IComponent
-    {
+    public sealed class ComponentFooterLicence : ComponentControlPanel
+    { 
         /// <summary>
         /// Die Lizenz
         /// </summary>
@@ -35,8 +35,10 @@ namespace InventoryExpress.WebComponent
         /// Initialisierung
         /// </summary>
         /// <param name="context">Der Kontext</param>
-        public void Initialization(IComponentContext context)
+        public override void Initialization(IComponentContext context)
         {
+            base.Initialization(context);
+
             Classes.Add("text-center");
 
             Content.Add(LicenceLink);

@@ -1,7 +1,7 @@
-﻿using WebExpress.Attribute;
+﻿using WebExpress.WebAttribute;
 using WebExpress.Html;
 using WebExpress.Internationalization;
-using WebExpress.UI.Attribute;
+using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebComponent;
 using WebExpress.UI.WebControl;
 using WebExpress.Uri;
@@ -13,7 +13,7 @@ namespace InventoryExpress.WebComponent
     [Section(Section.MoreSecondary)]
     [Module("inventoryexpress")]
     [Context("ledgeraccountedit")]
-    public sealed class ComponentMoreLedgerAccountDelete : ControlDropdownItemLink, IComponent
+    public sealed class ComponentMoreLedgerAccountDelete : ComponentControlDropdownItemLink
     {
         /// <summary>
         /// Konstruktor
@@ -28,8 +28,9 @@ namespace InventoryExpress.WebComponent
         /// Initialisierung
         /// </summary>
         /// <param name="context">Der Kontext</param>
-        public void Initialization(IComponentContext context)
+        public override void Initialization(IComponentContext context)
         {
+            base.Initialization(context);
         }
 
         /// <summary>

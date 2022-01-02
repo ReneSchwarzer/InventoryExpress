@@ -1,8 +1,8 @@
 ﻿using InventoryExpress.Model;
 using System.Linq;
-using WebExpress.Attribute;
+using WebExpress.WebAttribute;
 using WebExpress.Html;
-using WebExpress.UI.Attribute;
+using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebComponent;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebComponent;
@@ -13,7 +13,7 @@ namespace InventoryExpress.WebComponent
     [Section(Section.SidebarHeader)]
     [Module("inventoryexpress")]
     [Context("ledgeraccountedit")]
-    public sealed class ComponentSidebarLedgerAccountMedia : ControlLink, IComponent
+    public sealed class ComponentSidebarLedgerAccountMedia : ComponentControlLink
     {
         /// <summary>
         /// Das Bild
@@ -36,8 +36,9 @@ namespace InventoryExpress.WebComponent
         /// Initialisierung
         /// </summary>
         /// <param name="context">Der Kontext</param>
-        public void Initialization(IComponentContext context)
+        public override void Initialization(IComponentContext context)
         {
+            base.Initialization(context);
         }
 
         /// <summary>

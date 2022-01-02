@@ -1,18 +1,18 @@
 ﻿using InventoryExpress.WebPage;
-using WebExpress.Attribute;
 using WebExpress.Html;
-using WebExpress.UI.Attribute;
+using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebComponent;
 using WebExpress.UI.WebControl;
 using WebExpress.Uri;
 using WebExpress.WebApp.WebComponent;
+using WebExpress.WebAttribute;
 using WebExpress.WebPage;
 
 namespace InventoryExpress.WebComponent
 {
     [Section(Section.AppSettingsPrimary)]
     [Module("inventoryexpress")]
-    public sealed class ComponentSettingsTemplates : ControlDropdownItemLink, IComponent
+    public sealed class ComponentSettingsTemplates : ComponentControlDropdownItemLink
     {
         /// <summary>
         /// Konstruktor
@@ -26,8 +26,10 @@ namespace InventoryExpress.WebComponent
         /// Initialisierung
         /// </summary>
         /// <param name="context">Der Kontext</param>
-        public void Initialization(IComponentContext context)
+        public override void Initialization(IComponentContext context)
         {
+            base.Initialization(context);
+
             Text = "inventoryexpress:inventoryexpress.templates.label";
             Uri = new UriResource(context.Module.ContextPath, "setting/templates");
             Icon = new PropertyIcon(TypeIcon.Clone);

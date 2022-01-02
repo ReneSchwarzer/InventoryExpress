@@ -1,12 +1,11 @@
-﻿using InventoryExpress.Session;
-using InventoryExpress.WebControl;
-using WebExpress.Attribute;
+﻿using InventoryExpress.WebControl;
+using InventoryExpress.WebSession;
 using WebExpress.Html;
-using WebExpress.Session;
-using WebExpress.UI.Attribute;
+using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebComponent;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebComponent;
+using WebExpress.WebAttribute;
 using WebExpress.WebPage;
 
 namespace InventoryExpress.WebComponent
@@ -17,10 +16,15 @@ namespace InventoryExpress.WebComponent
     public sealed class ComponentHeadlineToggleView : ControlFormularToggleView, IComponent
     {
         /// <summary>
+        /// Liefert der Kontext
+        /// </summary>
+        public IComponentContext Context { get; private set; }
+
+        /// <summary>
         /// Konstruktor
         /// </summary>
         public ComponentHeadlineToggleView()
-            :base("toggle_view")
+            : base("toggle_view")
         {
             Margin = new PropertySpacingMargin(PropertySpacing.Space.Two);
         }
@@ -31,6 +35,8 @@ namespace InventoryExpress.WebComponent
         /// <param name="context">Der Kontext</param>
         public void Initialization(IComponentContext context)
         {
+            Context = context;
+
             ProcessFormular += OnProcessFormular;
         }
 

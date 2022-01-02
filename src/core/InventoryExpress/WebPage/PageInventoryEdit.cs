@@ -4,10 +4,10 @@ using InventoryExpress.WebControl;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using WebExpress.Attribute;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebPage;
+using WebExpress.WebAttribute;
 using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPage

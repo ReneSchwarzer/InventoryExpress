@@ -1,6 +1,6 @@
-﻿using WebExpress.Session;
+﻿using WebExpress.WebSession;
 
-namespace InventoryExpress.Session
+namespace InventoryExpress.WebSession
 {
     public class SessionPropertyToggleStatus : SessionProperty
     {

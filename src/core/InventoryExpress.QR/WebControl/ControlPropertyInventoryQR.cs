@@ -1,9 +1,9 @@
-﻿using WebExpress.Attribute;
-using WebExpress.Html;
-using WebExpress.UI.Attribute;
+﻿using WebExpress.Html;
+using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebComponent;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebComponent;
+using WebExpress.WebAttribute;
 using WebExpress.WebPage;
 
 namespace InventoryExpress.QR.WebControl
@@ -11,7 +11,7 @@ namespace InventoryExpress.QR.WebControl
     [Section(Section.PropertyPreferences)]
     [Application("InventoryExpress")]
     [Context("inventorydetails")]
-    public sealed class ControlPropertyInventoriesQR : ControlImage, IComponent
+    public sealed class ControlPropertyInventoriesQR : ComponentControlImage
     {
         /// <summary>
         /// Konstruktor
@@ -25,8 +25,9 @@ namespace InventoryExpress.QR.WebControl
         /// Initialisierung
         /// </summary>
         /// <param name="context">Der Kontext</param>
-        public void Initialization(IComponentContext context)
+        public override void Initialization(IComponentContext context)
         {
+            base.Initialization(context);
         }
 
         /// <summary>

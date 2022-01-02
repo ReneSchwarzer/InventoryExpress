@@ -1,9 +1,9 @@
 ﻿using System.Reflection;
-using WebExpress.Attribute;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
 using WebExpress.Uri;
 using WebExpress.WebApp.WebPage;
+using WebExpress.WebAttribute;
 using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPage

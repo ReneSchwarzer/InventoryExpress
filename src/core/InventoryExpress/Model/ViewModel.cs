@@ -1,7 +1,7 @@
 ﻿using InventoryExpress.Model.Entity;
 using Microsoft.EntityFrameworkCore;
 using System;
-using WebExpress.Plugin;
+using WebExpress.WebPlugin;
 
 namespace InventoryExpress.Model
 {

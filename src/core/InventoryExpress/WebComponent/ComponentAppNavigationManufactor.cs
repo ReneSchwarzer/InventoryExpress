@@ -1,23 +1,23 @@
 ﻿using InventoryExpress.WebPage;
-using WebExpress.Attribute;
 using WebExpress.Html;
-using WebExpress.UI.Attribute;
+using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebComponent;
 using WebExpress.UI.WebControl;
 using WebExpress.Uri;
 using WebExpress.WebApp.WebComponent;
+using WebExpress.WebAttribute;
 using WebExpress.WebPage;
 
 namespace InventoryExpress.WebComponent
 {
     [Section(Section.AppNavigationPrimary)]
     [Module("inventoryexpress")]
-    public sealed class ControlAppNavigationManufacturer : ControlNavigationItemLink, IComponent
+    public sealed class ComponentAppNavigationManufacturer : ComponentControlNavigationItemLink
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public ControlAppNavigationManufacturer()
+        public ComponentAppNavigationManufacturer()
             : base()
         {
         }
@@ -26,8 +26,10 @@ namespace InventoryExpress.WebComponent
         /// Initialisierung
         /// </summary>
         /// <param name="context">Der Kontext</param>
-        public void Initialization(IComponentContext context)
+        public override void Initialization(IComponentContext context)
         {
+            base.Initialization(context);
+
             Text = "inventoryexpress:inventoryexpress.manufacturers.label";
             Uri = new UriResource(context.Module.ContextPath, "manufacturers");
             Icon = new PropertyIcon(TypeIcon.Industry);

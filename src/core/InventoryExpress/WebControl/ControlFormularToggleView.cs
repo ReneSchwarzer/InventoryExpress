@@ -1,4 +1,4 @@
-﻿using InventoryExpress.Session;
+﻿using InventoryExpress.WebSession;
 using WebExpress.Html;
 using WebExpress.UI.WebControl;
 using WebExpress.WebPage;
