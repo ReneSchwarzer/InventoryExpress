@@ -12,6 +12,7 @@ namespace InventoryExpress.WebComponent
 {
     [Section(Section.AppNavigationPrimary)]
     [Module("inventoryexpress")]
+    [Cache]
     public sealed class ComponentAppNavigationLedgerAccount : ComponentControlNavigationItemLink
     {
         /// <summary>
@@ -26,13 +27,15 @@ namespace InventoryExpress.WebComponent
         /// Initialisierung
         /// </summary>
         /// <param name="context">Der Kontext</param>
-        public override void Initialization(IComponentContext context)
+        /// <param name="page">Die Seite, indem die Komonente aktiv ist</param>
+        public override void Initialization(IComponentContext context, IPage page)
         {
-            base.Initialization(context);
+            base.Initialization(context, page);
 
             Text = "inventoryexpress:inventoryexpress.ledgeraccounts.label";
             Uri = new UriResource(context.Module.ContextPath, "ledgeraccounts");
             Icon = new PropertyIcon(TypeIcon.At);
+            Active = page is IPageLedgerAccount ? TypeActive.Active : TypeActive.None;
         }
 
         /// <summary>
@@ -42,10 +45,7 @@ namespace InventoryExpress.WebComponent
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            Active = context.Page is IPageLedgerAccount ? TypeActive.Active : TypeActive.None;
-
             return base.Render(context);
         }
-
     }
 }
