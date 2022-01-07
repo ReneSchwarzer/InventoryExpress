@@ -116,22 +116,22 @@ namespace InventoryExpress.WebControl
             {
                 if (string.IsNullOrWhiteSpace(e.Value))
                 {
-                    e.Results.Add(new ValidationResult()
-                    {
-                        Type = TypesInputValidity.Error,
-                        Text = context.Page.I18N("inventoryexpress:inventoryexpress.attribute.form.name.validation.empty")
-                    });
+                    e.Results.Add(new ValidationResult
+                    (
+                        TypesInputValidity.Error,
+                        "inventoryexpress:inventoryexpress.attribute.form.name.validation.empty"
+                    ));
                 }
 
                 lock (ViewModel.Instance.Database)
                 {
                     if (Item == null && ViewModel.Instance.Conditions.Where(x => x.Name.ToLower() == e.Value.ToLower()).Any())
                     {
-                        e.Results.Add(new ValidationResult()
-                        {
-                            Type = TypesInputValidity.Error,
-                            Text = context.Page.I18N("inventoryexpress:inventoryexpress.attribute.form.name.validation.inuse")
-                        });
+                        e.Results.Add(new ValidationResult
+                        (
+                            TypesInputValidity.Error,
+                            "inventoryexpress:inventoryexpress.attribute.form.name.validation.inuse"
+                        ));
                     }
                 }
             };

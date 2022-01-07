@@ -63,11 +63,11 @@ namespace InventoryExpress.WebPage
                 {
                     if (e.Value.Length < 1)
                     {
-                        e.Results.Add(new ValidationResult() { Text = "Geben Sie einen gültigen Namen ein!", Type = TypesInputValidity.Error });
+                        e.Results.Add(new ValidationResult(TypesInputValidity.Error, "Geben Sie einen gültigen Namen ein!"));
                     }
                     else if (ViewModel.Instance.Inventories.Where(x => x.Name.Equals(e.Value)).Any())
                     {
-                        e.Results.Add(new ValidationResult() { Text = "Der Name wird bereits verwendet. Geben Sie einen anderen Namen an!", Type = TypesInputValidity.Error });
+                        e.Results.Add(new ValidationResult(TypesInputValidity.Error, "Der Name wird bereits verwendet. Geben Sie einen anderen Namen an!"));
                     }
                 };
             };

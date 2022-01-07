@@ -106,11 +106,11 @@ namespace InventoryExpress.WebPage
             {
                 if (e.Value.Length < 1)
                 {
-                    e.Results.Add(new ValidationResult() { Text = "inventoryexpress:inventoryexpress.ledgeraccount.validation.name.invalid", Type = TypesInputValidity.Error });
+                    e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.ledgeraccount.validation.name.invalid"));
                 }
                 else if (ViewModel.Instance.LedgerAccounts.Where(x => x.Name.Equals(e.Value)).Any())
                 {
-                    e.Results.Add(new ValidationResult() { Text = "inventoryexpress:inventoryexpress.ledgeraccount.validation.name.used", Type = TypesInputValidity.Error });
+                    e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.ledgeraccount.validation.name.used"));
                 }
             }
         }

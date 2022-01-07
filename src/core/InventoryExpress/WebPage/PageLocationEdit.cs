@@ -108,7 +108,7 @@ namespace InventoryExpress.WebPage
         {
             if (e.Value != null && e.Value.Count() >= 10)
             {
-                e.Results.Add(new ValidationResult() { Text = "inventoryexpress:inventoryexpress.location.validation.zip.tolong", Type = TypesInputValidity.Error });
+                e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.location.validation.zip.tolong"));
             }
         }
 
@@ -126,11 +126,11 @@ namespace InventoryExpress.WebPage
 
                 if (e.Value.Count() < 1)
                 {
-                    e.Results.Add(new ValidationResult() { Text = "inventoryexpress:inventoryexpress.location.validation.name.invalid", Type = TypesInputValidity.Error });
+                    e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.location.validation.name.invalid"));
                 }
                 else if (!location.Name.Equals(e.Value, StringComparison.InvariantCultureIgnoreCase) && ViewModel.Instance.Suppliers.Where(x => x.Name.Equals(e.Value)).Count() > 0)
                 {
-                    e.Results.Add(new ValidationResult() { Text = "inventoryexpress:inventoryexpress.location.validation.name.used", Type = TypesInputValidity.Error });
+                    e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.location.validation.name.used"));
                 }
             }
         }

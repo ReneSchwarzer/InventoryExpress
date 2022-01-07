@@ -127,11 +127,11 @@ namespace InventoryExpress.WebPage
                     {
                         if (e.Value.Count() < 1)
                         {
-                            e.Results.Add(new ValidationResult() { Text = this.I18N("inventoryexpress.inventory.validation.name.invalid"), Type = TypesInputValidity.Error });
+                            e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress.inventory.validation.name.invalid"));
                         }
                         else if (!inventory.Name.Equals(e.Value, StringComparison.InvariantCultureIgnoreCase) && ViewModel.Instance.Inventories.Where(x => x.Name.Equals(e.Value)).Count() > 0)
                         {
-                            e.Results.Add(new ValidationResult() { Text = this.I18N("inventoryexpress.inventory.validation.name.used"), Type = TypesInputValidity.Error });
+                            e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress.inventory.validation.name.used"));
                         }
                     };
 
@@ -141,12 +141,12 @@ namespace InventoryExpress.WebPage
                         {
                             if (Convert.ToDecimal(Form.CostValue.Value, Culture) < 0)
                             {
-                                e.Results.Add(new ValidationResult() { Text = this.I18N("inventoryexpress.inventory.validation.costvalue.negativ"), Type = TypesInputValidity.Error });
+                                e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress.inventory.validation.costvalue.negativ"));
                             };
                         }
                         catch
                         {
-                            e.Results.Add(new ValidationResult() { Text = this.I18N("inventoryexpress.inventory.validation.costvalue.invalid"), Type = TypesInputValidity.Error });
+                            e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress.inventory.validation.costvalue.invalid"));
                         }
                     };
                 };

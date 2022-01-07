@@ -132,11 +132,11 @@ namespace InventoryExpress.WebPageSetting
 
                 if (e.Value.Count() < 1)
                 {
-                    e.Results.Add(new ValidationResult() { Text = "inventoryexpress:inventoryexpress.template.validation.name.invalid", Type = TypesInputValidity.Error });
+                    e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.template.validation.name.invalid"));
                 }
                 else if (!template.Name.Equals(e.Value, StringComparison.InvariantCultureIgnoreCase) && ViewModel.Instance.Suppliers.Where(x => x.Name.Equals(e.Value)).Count() > 0)
                 {
-                    e.Results.Add(new ValidationResult() { Text = "inventoryexpress:inventoryexpress.template.validation.name.used", Type = TypesInputValidity.Error });
+                    e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.template.validation.name.used"));
                 }
             }
         }

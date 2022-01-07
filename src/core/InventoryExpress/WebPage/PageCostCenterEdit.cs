@@ -106,11 +106,11 @@ namespace InventoryExpress.WebPage
 
                 if (e.Value.Count() < 1)
                 {
-                    e.Results.Add(new ValidationResult() { Text = "inventoryexpress:inventoryexpress.costcenter.validation.name.invalid", Type = TypesInputValidity.Error });
+                    e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.costcenter.validation.name.invalid"));
                 }
                 else if (!costcenter.Name.Equals(e.Value, StringComparison.InvariantCultureIgnoreCase) && ViewModel.Instance.Suppliers.Where(x => x.Name.Equals(e.Value)).Count() > 0)
                 {
-                    e.Results.Add(new ValidationResult() { Text = "inventoryexpress:inventoryexpress.costcenter.validation.name.used", Type = TypesInputValidity.Error });
+                    e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.costcenter.validation.name.used"));
                 }
             }
         }

@@ -125,11 +125,11 @@ namespace InventoryExpress.WebPageSetting
             {
                 if (e.Value.Count() < 1)
                 {
-                    e.Results.Add(new ValidationResult() { Text = "inventoryexpress:inventoryexpress.template.validation.name.invalid", Type = TypesInputValidity.Error });
+                    e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.template.validation.name.invalid"));
                 }
                 else if (ViewModel.Instance.Templates.Where(x => x.Name.Equals(e.Value)).Any())
                 {
-                    e.Results.Add(new ValidationResult() { Text = "inventoryexpress:inventoryexpress.template.validation.name.used", Type = TypesInputValidity.Error });
+                    e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.template.validation.name.used"));
                 }
             }
         }

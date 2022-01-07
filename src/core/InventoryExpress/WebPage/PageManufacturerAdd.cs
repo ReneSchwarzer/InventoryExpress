@@ -109,7 +109,7 @@ namespace InventoryExpress.WebPage
         {
             if (e.Value != null && e.Value.Length >= 10)
             {
-                e.Results.Add(new ValidationResult() { Text = "inventoryexpress:inventoryexpress.manufacturer.validation.zip.tolong", Type = TypesInputValidity.Error });
+                e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.manufacturer.validation.zip.tolong"));
             }
         }
 
@@ -124,11 +124,11 @@ namespace InventoryExpress.WebPage
             {
                 if (e.Value.Length < 1)
                 {
-                    e.Results.Add(new ValidationResult() { Text = "inventoryexpress:inventoryexpress.manufacturer.validation.name.invalid", Type = TypesInputValidity.Error });
+                    e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.manufacturer.validation.name.invalid"));
                 }
                 else if (ViewModel.Instance.Manufacturers.Where(x => x.Name.Equals(e.Value)).Any())
                 {
-                    e.Results.Add(new ValidationResult() { Text = "inventoryexpress:inventoryexpress.manufacturer.validation.name.used", Type = TypesInputValidity.Error });
+                    e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.manufacturer.validation.name.used"));
                 }
             }
         }

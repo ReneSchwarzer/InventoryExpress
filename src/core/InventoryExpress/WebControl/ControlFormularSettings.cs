@@ -48,11 +48,11 @@ namespace InventoryExpress.WebControl
         {
             if (string.IsNullOrWhiteSpace(e.Value))
             {
-                e.Results.Add(new ValidationResult() { Text = e.Context.I18N("inventoryexpress:inventoryexpress.setting.currency.validation.null"), Type = TypesInputValidity.Error });
+                e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.setting.currency.validation.null"));
             }
             else if (e.Value.Length > 10)
             {
-                e.Results.Add(new ValidationResult() { Text = e.Context.I18N("inventoryexpress:inventoryexpress.setting.currency.validation.tolong"), Type = TypesInputValidity.Error });
+                e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.setting.currency.validation.tolong"));
             }
         }
     }
