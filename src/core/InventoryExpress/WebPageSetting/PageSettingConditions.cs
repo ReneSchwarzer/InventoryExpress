@@ -58,9 +58,9 @@ namespace InventoryExpress.WebPageSetting
                 Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.None, PropertySpacing.Space.None, PropertySpacing.Space.Three),
             };
 
-            table.AddColumn(this.I18N("inventoryexpress:inventoryexpress.condition.name.label"));
-            table.AddColumn(this.I18N("inventoryexpress:inventoryexpress.condition.description.label"));
-            table.AddColumn(this.I18N("inventoryexpress:inventoryexpress.condition.order.label"));
+            table.AddColumn("inventoryexpress:inventoryexpress.condition.name.label");
+            table.AddColumn("inventoryexpress:inventoryexpress.condition.description.label");
+            table.AddColumn("inventoryexpress:inventoryexpress.condition.order.label");
             table.AddColumn("");
 
             var conditions = new List<Condition>();
@@ -88,7 +88,7 @@ namespace InventoryExpress.WebPageSetting
                     (
                         new ControlLink()
                         {
-                            Text = this.I18N("inventoryexpress:inventoryexpress.condition.edit.label"),
+                            Text = "inventoryexpress:inventoryexpress.condition.edit.label",
                             Uri = new UriFragment(),
                             Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.Null),
                             Modal = new ControlModalFormularConditionEdit(condition.Guid) { Item = condition }
@@ -102,14 +102,14 @@ namespace InventoryExpress.WebPageSetting
                             inuse ?
                             new ControlText()
                             {
-                                Text = this.I18N("inventoryexpress:inventoryexpress.condition.delete.label"),
+                                Text = "inventoryexpress:inventoryexpress.condition.delete.label",
                                 TextColor = new PropertyColorText(TypeColorText.Muted),
                                 Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.Null)
                             }
                             :
                             new ControlLink()
                             {
-                                Text = this.I18N("inventoryexpress:inventoryexpress.condition.delete.label"),
+                                Text = "inventoryexpress:inventoryexpress.condition.delete.label",
                                 TextColor = new PropertyColorText(TypeColorText.Danger),
                                 Uri = new UriFragment(),
                                 Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.Null),

@@ -10,7 +10,8 @@ namespace InventoryExpress
     [Name("app.name")]
     [Description("app.description")]
     [Icon("/assets/img/inventoryexpress.svg")]
-    [AssetPath("data")]
+    [AssetPath("ix")]
+    [DataPath("ix")]
     [ContextPath("/ix")]
     [Option("webexpress.webapp.*")]
     public sealed class Application : IApplication
@@ -28,7 +29,7 @@ namespace InventoryExpress
         /// <param name="context">Der Kontext, welcher für die Ausführung des Plugins gilt</param>
         public void Initialization(IApplicationContext context)
         {
-            var path = Path.Combine(context.AssetPath, "db");
+            var path = Path.Combine(context.DataPath, "db");
 
             if (!Directory.Exists(path))
             {
