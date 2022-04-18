@@ -57,26 +57,12 @@ namespace InventoryExpress.WebPage
 
             visualTree.Content.Primary.Add(form);
 
-            form.InitializeFormular += (s, e) =>
-            {
-                form.InventoryName.Validation += (s, e) =>
-                {
-                    if (e.Value.Length < 1)
-                    {
-                        e.Results.Add(new ValidationResult(TypesInputValidity.Error, "Geben Sie einen gültigen Namen ein!"));
-                    }
-                    else if (ViewModel.Instance.Inventories.Where(x => x.Name.Equals(e.Value)).Any())
-                    {
-                        e.Results.Add(new ValidationResult(TypesInputValidity.Error, "Der Name wird bereits verwendet. Geben Sie einen anderen Namen an!"));
-                    }
-                };
-            };
 
             form.ProcessFormular += (s, e) =>
             {
                 lock (ViewModel.Instance.Database)
                 {
-                    // Neues Herstellerobjekt erstellen und speichern
+                    // Neues Inventarobjekt erstellen und speichern
                     var inventory = new Inventory()
                     {
                         Name = form.InventoryName.Value,
@@ -100,7 +86,7 @@ namespace InventoryExpress.WebPage
                     ViewModel.Instance.SaveChanges();
 
                     // neue Tags ermitteln
-                    var newTags = form.Tag.Value.Split(';');
+                    var newTags = form.Tag.Value?.Split(';');
 
                     foreach (var n in newTags)
                     {

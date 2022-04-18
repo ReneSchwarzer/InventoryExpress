@@ -1,6 +1,10 @@
 ﻿using InventoryExpress.Model;
+using InventoryExpress.Model.Entity;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using WebExpress.UI.WebControl;
+using WebExpress.WebApp.WebControlRest;
 using WebExpress.WebApp.WebPage;
 
 namespace InventoryExpress.WebControl
@@ -22,90 +26,97 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Liefert oder setzt den Hersteller
         /// </summary>
-        public ControlFormularItemInputComboBox Manufacturer { get; } = new ControlFormularItemInputComboBox()
+        public ControlFormularItemInputSelectionRest Manufacturer { get; } = new ControlFormularItemInputSelectionRest("manufacturer")
         {
             Name = "manufacturer",
             Label = "inventoryexpress:inventoryexpress.inventory.manufacturers.label",
             Help = "inventoryexpress:inventoryexpress.inventory.manufacturer.description",
-            Icon = new PropertyIcon(TypeIcon.Industry)
+            Icon = new PropertyIcon(TypeIcon.Industry),
+            HasEmptyValue = true,
         };
 
         /// <summary>
         /// Liefert oder setzt den Standort
         /// </summary>
-        public ControlFormularItemInputComboBox Location { get; } = new ControlFormularItemInputComboBox()
+        public ControlFormularItemInputSelectionRest Location { get; } = new ControlFormularItemInputSelectionRest("location")
         {
             Name = "location",
             Label = "inventoryexpress:inventoryexpress.inventory.location.label",
             Help = "inventoryexpress:inventoryexpress.inventory.location.description",
-            Icon = new PropertyIcon(TypeIcon.Map)
+            Icon = new PropertyIcon(TypeIcon.Map),
+            HasEmptyValue = true,
         };
 
         /// <summary>
         /// Liefert oder setzt den Lieferanten
         /// </summary>
-        public ControlFormularItemInputComboBox Supplier { get; } = new ControlFormularItemInputComboBox()
+        public ControlFormularItemInputSelectionRest Supplier { get; } = new ControlFormularItemInputSelectionRest("supplier")
         {
             Name = "supplier",
             Label = "inventoryexpress:inventoryexpress.inventory.supplier.label",
             Help = "inventoryexpress:inventoryexpress.inventory.supplier.description",
-            Icon = new PropertyIcon(TypeIcon.Truck)
+            Icon = new PropertyIcon(TypeIcon.Truck),
+            HasEmptyValue = true,
         };
 
         /// <summary>
         /// Liefert oder setzt das Sachkonto
         /// </summary>
-        public ControlFormularItemInputComboBox LedgerAccount { get; } = new ControlFormularItemInputComboBox()
+        public ControlFormularItemInputSelectionRest LedgerAccount { get; } = new ControlFormularItemInputSelectionRest("ledgeraccount")
         {
             Name = "ledgeraccount",
             Label = "inventoryexpress:inventoryexpress.inventory.ledgeraccount.label",
             Help = "inventoryexpress:inventoryexpress.inventory.ledgeraccount.description",
-            Icon = new PropertyIcon(TypeIcon.At)
+            Icon = new PropertyIcon(TypeIcon.At),
+            HasEmptyValue = true,
         };
 
         /// <summary>
         /// Liefert oder setzt die Kostenstelle
         /// </summary>
-        public ControlFormularItemInputComboBox CostCenter { get; } = new ControlFormularItemInputComboBox()
+        public ControlFormularItemInputSelectionRest CostCenter { get; } = new ControlFormularItemInputSelectionRest("costcenter")
         {
             Name = "costcenter",
             Label = "inventoryexpress:inventoryexpress.inventory.costcenter.label",
             Help = "inventoryexpress:inventoryexpress.inventory.costcenter.description",
-            Icon = new PropertyIcon(TypeIcon.ShoppingBag)
+            Icon = new PropertyIcon(TypeIcon.ShoppingBag),
+            HasEmptyValue = true,
         };
 
         /// <summary>
         /// Liefert oder setzt den Zustand
         /// </summary>
-        public ControlFormularItemInputComboBox Condition { get; } = new ControlFormularItemInputComboBox()
+        public ControlFormularItemInputSelectionRest Condition { get; } = new ControlFormularItemInputSelectionRest("condition")
         {
             Name = "condition",
             Label = "inventoryexpress:inventoryexpress.inventory.condition.label",
             Help = "inventoryexpress:inventoryexpress.inventory.condition.description",
-            Icon = new PropertyIcon(TypeIcon.Star)
+            Icon = new PropertyIcon(TypeIcon.Star),
+            HasEmptyValue = true,
         };
 
         /// <summary>
         /// Liefert oder setzt die Zugehörigkeit
         /// </summary>
-        public ControlFormularItemInputComboBox Parent { get; } = new ControlFormularItemInputComboBox()
+        public ControlFormularItemInputSelectionRest Parent { get; } = new ControlFormularItemInputSelectionRest("parent")
         {
             Name = "parent",
             Label = "inventoryexpress:inventoryexpress.inventory.parent.label",
             Help = "inventoryexpress:inventoryexpress.inventory.parent.description",
-            Icon = new PropertyIcon(TypeIcon.Link)
+            Icon = new PropertyIcon(TypeIcon.Link),
+            HasEmptyValue = true,
         };
 
         /// <summary>
         /// Liefert oder setzt das Template
         /// </summary>
-        public ControlFormularItemInputComboBox Template { get; } = new ControlFormularItemInputComboBox()
+        public ControlFormularItemInputSelectionRest Template { get; } = new ControlFormularItemInputSelectionRest("template")
         {
             Name = "template",
             Label = "inventoryexpress:inventoryexpress.inventory.template.label",
             Help = "inventoryexpress:inventoryexpress.inventory.template.description",
             Icon = new PropertyIcon(TypeIcon.Clone),
-            OnChange = new PropertyOnChange(TypeOnChange.Submit)
+            HasEmptyValue = true
         };
 
         /// <summary>
@@ -181,9 +192,8 @@ namespace InventoryExpress.WebControl
         /// </summary>
         /// <param name="id">Die ID</param>
         public ControlFormularInventory(string id = null)
-            : base(id)
+            : base(id ?? "inventory")
         {
-            Name = "inventory";
             EnableCancelButton = false;
             Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Three, PropertySpacing.Space.None, PropertySpacing.Space.None);
             BackgroundColor = LayoutSchema.FormularBackground;
@@ -206,6 +216,9 @@ namespace InventoryExpress.WebControl
             Add(DerecognitionDate);
             Add(Tag);
             Add(Description);
+
+            InventoryName.Validation += OnInventoryNameValidation;
+            CostValue.Validation += OnCostValueValidation;
         }
 
         /// <summary>
@@ -215,125 +228,137 @@ namespace InventoryExpress.WebControl
         public override void Initialize(RenderContextFormular context)
         {
             base.Initialize(context);
+            
+            Manufacturer.RestUri = context.Uri.Root.Append("api/v1/manufacturers?orderby=name");
+            Location.RestUri = context.Uri.Root.Append("api/v1/locations?orderby=name");
+            Supplier.RestUri = context.Uri.Root.Append("api/v1/suppliers?orderby=name");
+            LedgerAccount.RestUri = context.Uri.Root.Append("api/v1/ledgeraccounts?orderby=name");
+            CostCenter.RestUri = context.Uri.Root.Append("api/v1/costcenters?orderby=name");
+            Condition.RestUri = context.Uri.Root.Append("api/v1/conditions?orderby=name");
+            Parent.RestUri = context.Uri.Root.Append("api/v1/inventories?orderby=name");
+            Template.RestUri = context.Uri.Root.Append("api/v1/templates?orderby=name");
+            Template.OnChange = new PropertyOnChange($"$('#{ ID }').submit()");
 
-            Manufacturer.Items.Add(new ControlFormularItemInputComboBoxItem()
+            if (Edit)
             {
-                Text = string.Empty,
-                Value = null
-            });
+                lock (ViewModel.Instance.Database)
+                {
+                    var guid = context.Request.GetParameter("InventoryID")?.Value;
+                    var inventory = ViewModel.Instance.Inventories.Where(x => x.Guid == guid).FirstOrDefault();
+                    var attributesForm = new List<ControlFormularItemInputTextBox>();
+                    var attributes = new List<InventoryAttribute>();
 
+                    var templateGUID = context.Request.HasParameter(Template?.Name) ?
+                        context.Request.GetParameter(Template?.Name)?.Value :
+                        ViewModel.Instance.Templates.Where(x => x.Id == inventory.TemplateId).FirstOrDefault()?.Guid;
+
+                    SetAttributes(inventory, templateGUID);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Übernahme der Attribute
+        /// </summary>
+        /// <param name="inventory">Der Inventargegenstand</param>
+        /// <param name="templateGUID">Die GUID der Attributvorlage</param>
+        protected void SetAttributes(Inventory inventory, string templateGUID)
+        {
             lock (ViewModel.Instance.Database)
             {
-                Manufacturer.Items.AddRange(ViewModel.Instance.Manufacturers.OrderBy(x => x.Name).Select(x => new ControlFormularItemInputComboBoxItem()
+                var attributesForm = new List<ControlFormularItemInputTextBox>();
+                var attributes = new List<InventoryAttribute>();
+                               
+                var template = ViewModel.Instance.Templates.Where(x => x.Guid == templateGUID).FirstOrDefault();
+
+                // nur gefüllte Attribute übernehmen
+                attributes.AddRange(ViewModel.Instance.InventoryAttributes.Where(x => x.InventoryId == inventory.Id && !string.IsNullOrWhiteSpace(x.Value)));
+
+                // Template-Attribute übernehmen
+                if (template != null)
                 {
-                    Text = x.Name,
-                    Value = x.Guid
-                }));
+                    foreach (var ta in ViewModel.Instance.TemplateAttributes.Where(x => x.TemplateId == template.Id))
+                    {
+                        var att = ViewModel.Instance.Attributes.Where(x => x.Id == ta.AttributeId).FirstOrDefault();
+
+                        if (attributes.Find
+                            (
+                                f =>
+                                f.Attribute != null && f.Attribute.Name.Equals
+                                (
+                                    att?.Name,
+                                    StringComparison.OrdinalIgnoreCase
+                                )
+                            ) == null)
+                        {
+                            attributes.Add(new InventoryAttribute()
+                            {
+                                AttributeId = ta.AttributeId,
+                                InventoryId = inventory.Id,
+                                Attribute = att,
+                                Inventory = inventory,
+                                Created = DateTime.Now
+                            });
+                        }
+                    }
+                }
+
+                foreach (var attribute in attributes)
+                {
+                    attributesForm.Add(new ControlFormularItemInputTextBox()
+                    {
+                        Name = "attribute_" + attribute.Attribute.Guid,
+                        Label = attribute.Attribute.Name,
+                        Help = attribute.Attribute.Description,
+                        Tag = attribute
+                    });
+                }
+
+                attributesForm.ForEach(x => Attributes?.Items.Add(x));
+            }
+        }
+
+        /// <summary>
+        /// Wird aufgerufen, wenn der Name überfürft werden soll
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Das Eventargument</param>
+        private void OnInventoryNameValidation(object sender, ValidationEventArgs e)
+        {
+            if (e.Value.Length < 1)
+            {
+                e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.inventory.validation.name.invalid"));
             }
 
-            Location.Items.Add(new ControlFormularItemInputComboBoxItem()
-            {
-                Text = string.Empty,
-                Value = null
-            });
-
             lock (ViewModel.Instance.Database)
             {
-                Location.Items.AddRange(ViewModel.Instance.Locations.OrderBy(x => x.Name).Select(x => new ControlFormularItemInputComboBoxItem()
+                var guid = e.Context.Request.GetParameter("InventoryID")?.Value;
+                var inventory = ViewModel.Instance.Inventories.Where(x => x.Guid == guid).FirstOrDefault();
+
+                if (inventory != null && !inventory.Name.Equals(e.Value, StringComparison.InvariantCultureIgnoreCase) && ViewModel.Instance.Inventories.Where(x => x.Name.Equals(e.Value)).Any())
                 {
-                    Text = x.Name,
-                    Value = x.Guid
-                }));
+                    e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.inventory.validation.name.used"));
+                }
             }
+        }
 
-            Supplier.Items.Add(new ControlFormularItemInputComboBoxItem()
+        /// <summary>
+        /// Wird aufgerufen, wenn der Anschaffungswert überfürft werden soll
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Das Eventargument</param>
+        private void OnCostValueValidation(object sender, ValidationEventArgs e)
+        {
+            try
             {
-                Text = string.Empty,
-                Value = null
-            });
-
-            lock (ViewModel.Instance.Database)
-            {
-                Supplier.Items.AddRange(ViewModel.Instance.Suppliers.OrderBy(x => x.Name).Select(x => new ControlFormularItemInputComboBoxItem()
+                if (Convert.ToDecimal(CostValue.Value, e.Context.Culture) < 0)
                 {
-                    Text = x.Name,
-                    Value = x.Guid
-                }));
+                    e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.inventory.validation.costvalue.negativ"));
+                };
             }
-
-            LedgerAccount.Items.Add(new ControlFormularItemInputComboBoxItem()
+            catch
             {
-                Text = string.Empty,
-                Value = null
-            });
-
-            lock (ViewModel.Instance.Database)
-            {
-                LedgerAccount.Items.AddRange(ViewModel.Instance.LedgerAccounts.OrderBy(x => x.Name).Select(x => new ControlFormularItemInputComboBoxItem()
-                {
-                    Text = x.Name,
-                    Value = x.Guid
-                }));
-            }
-
-            CostCenter.Items.Add(new ControlFormularItemInputComboBoxItem()
-            {
-                Text = string.Empty,
-                Value = null
-            });
-
-            lock (ViewModel.Instance.Database)
-            {
-                CostCenter.Items.AddRange(ViewModel.Instance.CostCenters.OrderBy(x => x.Name).Select(x => new ControlFormularItemInputComboBoxItem()
-                {
-                    Text = x.Name,
-                    Value = x.Guid
-                }));
-            }
-
-            Condition.Items.Add(new ControlFormularItemInputComboBoxItem()
-            {
-                Text = string.Empty,
-                Value = null
-            });
-
-            lock (ViewModel.Instance.Database)
-            {
-                Condition.Items.AddRange(ViewModel.Instance.Conditions.OrderBy(x => x.Grade).Select(x => new ControlFormularItemInputComboBoxItem()
-                {
-                    Text = string.Format("{0} - {1}", x.Grade, x.Name),
-                    Value = x.Guid
-                }));
-            }
-
-            Parent.Items.Add(new ControlFormularItemInputComboBoxItem()
-            {
-                Text = string.Empty,
-                Value = null
-            });
-
-            lock (ViewModel.Instance.Database)
-            {
-                Parent.Items.AddRange(ViewModel.Instance.Inventories.OrderBy(x => x.Name).Select(x => new ControlFormularItemInputComboBoxItem()
-                {
-                    Text = x.Name,
-                    Value = x.Guid
-                }));
-            }
-
-            Template.Items.Add(new ControlFormularItemInputComboBoxItem()
-            {
-                Text = string.Empty,
-                Value = null
-            });
-
-            lock (ViewModel.Instance.Database)
-            {
-                Template.Items.AddRange(ViewModel.Instance.Templates.OrderBy(x => x.Name).Select(x => new ControlFormularItemInputComboBoxItem()
-                {
-                    Text = x.Name,
-                    Value = x.Guid
-                }));
+                e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.inventory.validation.costvalue.invalid"));
             }
         }
     }

@@ -6,12 +6,12 @@ using WebExpress.WebPage;
 
 namespace InventoryExpress.WebControl
 {
-    public class ControlListInventories : ControlPanelGrid
+    public class ControlInventoriesList : ControlPanelGrid
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public ControlListInventories()
+        public ControlInventoriesList()
         {
             Fluid = TypePanelContainer.Fluid;
         }

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generiert durch Microsoft Visio, SVG Export condition_0.svg template -->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"
+		xmlns:v="http://schemas.microsoft.com/visio/2003/SVGExtensions/" width="11.0469in" height="2.625in"
+		viewBox="0 0 795.375 189" xml:space="preserve" color-interpolation-filters="sRGB" class="st2">
+	<v:documentProperties v:langID="1031"/>
+
+	<style type="text/css">
+	<![CDATA[
+		.st1 {fill:#ffc000;stroke:#ffc000;stroke-linecap:round;stroke-linejoin:round;stroke-width:6}
+		.st2 {fill:none;fill-rule:evenodd;font-size:12px;overflow:visible;stroke-linecap:square;stroke-miterlimit:3}
+	]]>
+	</style>
+
+	<g v:mID="0" v:index="1" v:groupContext="foregroundPage">
+		<title>template</title>
+		<v:pageProperties v:drawingScale="1" v:pageScale="1" v:drawingUnits="19" v:shadowOffsetX="8.99993"
+				v:shadowOffsetY="-8.99993"/>
+		<g id="shape6-1" v:mID="6" v:groupContext="shape" transform="translate(18,-18)">
+			<title>Stern mit 5 Zacken</title>
+			<v:userDefs>
+				<v:ud v:nameU="CtrlYOffset" v:prompt="" v:val="VT0(0.17716535433071):24"/>
+				<v:ud v:nameU="CtrlXOffset" v:prompt="" v:val="VT0(0.1287181644104):24"/>
+				<v:ud v:nameU="CtrlAngle" v:prompt="" v:val="VT0(0.62831853071796):26"/>
+				<v:ud v:nameU="ElbowDist" v:prompt="" v:val="VT0(0.21898842121059):24"/>
+				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
+				<v:ud v:nameU="CtrlYOffset" v:prompt="" v:val="VT0(0.31875000759959):1"/>
+				<v:ud v:nameU="CtrlXOffset" v:prompt="" v:val="VT0(0.23158543632314):1"/>
+				<v:ud v:nameU="ElbowDist" v:prompt="" v:val="VT0(0.39399667722167):1"/>
+			</v:userDefs>
+			<path d="M80.8 49.8 L92.18 86.35 A4.5 4.5 -180 0 0 96.53 89.51 L134.8 89.04 A4.5 4.5 0 0 1 137.46 97.21 L106.22 119.33
+						 A4.5 4.5 -180 0 0 104.56 124.44 L116.83 160.7 A4.5 4.5 0 0 1 109.88 165.75 L79.19 142.87 A4.5 4.5 -180 0
+						 0 73.81 142.87 L43.12 165.75 A4.5 4.5 0 0 1 36.17 160.7 L48.44 124.44 A4.5 4.5 -180 0 0 46.78 119.33 L15.54
+						 97.21 A4.5 4.5 0 0 1 18.2 89.04 L56.47 89.51 A4.5 4.5 -180 0 0 60.82 86.35 L72.2 49.8 A4.5 4.5 0 0 1 80.8
+						 49.8 Z" class="st1"/>
+		</g>
+		<g id="shape7-3" v:mID="7" v:groupContext="shape" transform="translate(169.875,-18)">
+			<title>Stern mit 5 Zacken.7</title>
+			<v:userDefs>
+				<v:ud v:nameU="CtrlYOffset" v:prompt="" v:val="VT0(0.17716535433071):24"/>
+				<v:ud v:nameU="CtrlXOffset" v:prompt="" v:val="VT0(0.1287181644104):24"/>
+				<v:ud v:nameU="CtrlAngle" v:prompt="" v:val="VT0(0.62831853071796):26"/>
+				<v:ud v:nameU="ElbowDist" v:prompt="" v:val="VT0(0.21898842121059):24"/>
+				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
+				<v:ud v:nameU="CtrlYOffset" v:prompt="" v:val="VT0(0.31875000759959):1"/>
+				<v:ud v:nameU="CtrlXOffset" v:prompt="" v:val="VT0(0.23158543632314):1"/>
+				<v:ud v:nameU="ElbowDist" v:prompt="" v:val="VT0(0.39399667722167):1"/>
+			</v:userDefs>
+			<path d="M80.8 49.8 L92.18 86.35 A4.5 4.5 -180 0 0 96.53 89.51 L134.8 89.04 A4.5 4.5 0 0 1 137.46 97.21 L106.22 119.33
+						 A4.5 4.5 -180 0 0 104.56 124.44 L116.83 160.7 A4.5 4.5 0 0 1 109.88 165.75 L79.19 142.87 A4.5 4.5 -180 0
+						 0 73.81 142.87 L43.12 165.75 A4.5 4.5 0 0 1 36.17 160.7 L48.44 124.44 A4.5 4.5 -180 0 0 46.78 119.33 L15.54
+						 97.21 A4.5 4.5 0 0 1 18.2 89.04 L56.47 89.51 A4.5 4.5 -180 0 0 60.82 86.35 L72.2 49.8 A4.5 4.5 0 0 1 80.8
+						 49.8 Z" class="st1"/>
+		</g>
+		<g id="shape8-5" v:mID="8" v:groupContext="shape" transform="translate(321.75,-18)">
+			<title>Stern mit 5 Zacken.8</title>
+			<v:userDefs>
+				<v:ud v:nameU="CtrlYOffset" v:prompt="" v:val="VT0(0.17716535433071):24"/>
+				<v:ud v:nameU="CtrlXOffset" v:prompt="" v:val="VT0(0.1287181644104):24"/>
+				<v:ud v:nameU="CtrlAngle" v:prompt="" v:val="VT0(0.62831853071796):26"/>
+				<v:ud v:nameU="ElbowDist" v:prompt="" v:val="VT0(0.21898842121059):24"/>
+				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
+				<v:ud v:nameU="CtrlYOffset" v:prompt="" v:val="VT0(0.31875000759959):1"/>
+				<v:ud v:nameU="CtrlXOffset" v:prompt="" v:val="VT0(0.23158543632314):1"/>
+				<v:ud v:nameU="ElbowDist" v:prompt="" v:val="VT0(0.39399667722167):1"/>
+			</v:userDefs>
+			<path d="M80.8 49.8 L92.18 86.35 A4.5 4.5 -180 0 0 96.53 89.51 L134.8 89.04 A4.5 4.5 0 0 1 137.46 97.21 L106.22 119.33
+						 A4.5 4.5 -180 0 0 104.56 124.44 L116.83 160.7 A4.5 4.5 0 0 1 109.88 165.75 L79.19 142.87 A4.5 4.5 -180 0
+						 0 73.81 142.87 L43.12 165.75 A4.5 4.5 0 0 1 36.17 160.7 L48.44 124.44 A4.5 4.5 -180 0 0 46.78 119.33 L15.54
+						 97.21 A4.5 4.5 0 0 1 18.2 89.04 L56.47 89.51 A4.5 4.5 -180 0 0 60.82 86.35 L72.2 49.8 A4.5 4.5 0 0 1 80.8
+						 49.8 Z" class="st1"/>
+		</g>
+		<g id="shape9-7" v:mID="9" v:groupContext="shape" transform="translate(473.625,-18)">
+			<title>Stern mit 5 Zacken.9</title>
+			<v:userDefs>
+				<v:ud v:nameU="CtrlYOffset" v:prompt="" v:val="VT0(0.17716535433071):24"/>
+				<v:ud v:nameU="CtrlXOffset" v:prompt="" v:val="VT0(0.1287181644104):24"/>
+				<v:ud v:nameU="CtrlAngle" v:prompt="" v:val="VT0(0.62831853071796):26"/>
+				<v:ud v:nameU="ElbowDist" v:prompt="" v:val="VT0(0.21898842121059):24"/>
+				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
+				<v:ud v:nameU="CtrlYOffset" v:prompt="" v:val="VT0(0.31875000759959):1"/>
+				<v:ud v:nameU="CtrlXOffset" v:prompt="" v:val="VT0(0.23158543632314):1"/>
+				<v:ud v:nameU="ElbowDist" v:prompt="" v:val="VT0(0.39399667722167):1"/>
+			</v:userDefs>
+			<path d="M80.8 49.8 L92.18 86.35 A4.5 4.5 -180 0 0 96.53 89.51 L134.8 89.04 A4.5 4.5 0 0 1 137.46 97.21 L106.22 119.33
+						 A4.5 4.5 -180 0 0 104.56 124.44 L116.83 160.7 A4.5 4.5 0 0 1 109.88 165.75 L79.19 142.87 A4.5 4.5 -180 0
+						 0 73.81 142.87 L43.12 165.75 A4.5 4.5 0 0 1 36.17 160.7 L48.44 124.44 A4.5 4.5 -180 0 0 46.78 119.33 L15.54
+						 97.21 A4.5 4.5 0 0 1 18.2 89.04 L56.47 89.51 A4.5 4.5 -180 0 0 60.82 86.35 L72.2 49.8 A4.5 4.5 0 0 1 80.8
+						 49.8 Z" class="st1"/>
+		</g>
+		<g id="shape10-9" v:mID="10" v:groupContext="shape" transform="translate(625.5,-18)">
+			<title>Stern mit 5 Zacken.10</title>
+			<v:userDefs>
+				<v:ud v:nameU="CtrlYOffset" v:prompt="" v:val="VT0(0.17716535433071):24"/>
+				<v:ud v:nameU="CtrlXOffset" v:prompt="" v:val="VT0(0.1287181644104):24"/>
+				<v:ud v:nameU="CtrlAngle" v:prompt="" v:val="VT0(0.62831853071796):26"/>
+				<v:ud v:nameU="ElbowDist" v:prompt="" v:val="VT0(0.21898842121059):24"/>
+				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
+				<v:ud v:nameU="CtrlYOffset" v:prompt="" v:val="VT0(0.31875000759959):1"/>
+				<v:ud v:nameU="CtrlXOffset" v:prompt="" v:val="VT0(0.23158543632314):1"/>
+				<v:ud v:nameU="ElbowDist" v:prompt="" v:val="VT0(0.39399667722167):1"/>
+			</v:userDefs>
+			<path d="M80.8 49.8 L92.18 86.35 A4.5 4.5 -180 0 0 96.53 89.51 L134.8 89.04 A4.5 4.5 0 0 1 137.46 97.21 L106.22 119.33
+						 A4.5 4.5 -180 0 0 104.56 124.44 L116.83 160.7 A4.5 4.5 0 0 1 109.88 165.75 L79.19 142.87 A4.5 4.5 -180 0
+						 0 73.81 142.87 L43.12 165.75 A4.5 4.5 0 0 1 36.17 160.7 L48.44 124.44 A4.5 4.5 -180 0 0 46.78 119.33 L15.54
+						 97.21 A4.5 4.5 0 0 1 18.2 89.04 L56.47 89.51 A4.5 4.5 -180 0 0 60.82 86.35 L72.2 49.8 A4.5 4.5 0 0 1 80.8
+						 49.8 Z" class="st1"/>
+		</g>
+	</g>
+</svg>

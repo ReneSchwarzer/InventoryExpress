@@ -163,10 +163,10 @@ namespace InventoryExpress.WebPageSetting
             {
                 foreach (var v in ViewModel.Instance.Attributes)
                 {
-                    Form.Attributes.Options.Add(new ControlFormularItemInputMoveSelectorItem()
+                    Form.Attributes.Options.Add(new ControlFormularItemInputSelectionItem()
                     {
                         ID = v.Guid,
-                        Value = v.Name
+                        Label = v.Name
                     });
                 }
             }

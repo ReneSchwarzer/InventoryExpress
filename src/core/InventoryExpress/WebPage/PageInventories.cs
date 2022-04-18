@@ -45,12 +45,12 @@ namespace InventoryExpress.WebPage
             if (property.ViewList)
             {
                 // Listenansicht
-                context.VisualTree.Content.Primary.Add(new ControlListInventories());
+                context.VisualTree.Content.Primary.Add(new ControlInventoriesList());
             }
             else
             {
                 // Tabelarische Ansicht
-                context.VisualTree.Content.Primary.Add(new ControlTableInventories());
+                context.VisualTree.Content.Primary.Add(new ControlInventoriesTable());
             }
         }
     }

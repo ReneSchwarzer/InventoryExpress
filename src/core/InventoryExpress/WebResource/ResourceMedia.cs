@@ -46,7 +46,7 @@ namespace InventoryExpress.WebResource
             {
                 var guid = request.GetParameter("MediaID")?.Value.ToLower();
                 var media = ViewModel.Instance.Media.Where(x => x.Guid.ToLower() == guid).FirstOrDefault();
-                var path = Path.Combine(Context.Application.AssetPath, "media");
+                var path = Path.Combine(Context.Application.DataPath, "media");
 
                 Data = File.ReadAllBytes(Path.Combine(path, guid));
 
