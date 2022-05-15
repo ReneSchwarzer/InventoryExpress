@@ -1,6 +1,9 @@
-﻿using WebExpress.UI.WebControl;
+﻿using InventoryExpress.Model;
+using System;
+using System.Linq;
+using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebPage;
-using WebExpress.WebPage;
+using WebExpress.WebApp.Wql;
 
 namespace InventoryExpress.WebControl
 {
@@ -104,6 +107,9 @@ namespace InventoryExpress.WebControl
             BackgroundColor = LayoutSchema.FormularBackground;
             Layout = TypeLayoutFormular.Horizontal;
 
+            ManufacturerName.Validation += ManufacturerNameValidation;
+            Zip.Validation += ZipValidation;
+
             var group = new ControlFormularItemGroupColumnVertical() { Distribution = new int[] { 33 } };
             group.Items.Add(Zip);
             group.Items.Add(Place);
@@ -119,6 +125,52 @@ namespace InventoryExpress.WebControl
             }
 
             Add(Tag);
+        }
+
+        /// <summary>
+        /// Wird ausgelöst, wenn das Feld Zip validiert werden soll.
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventargumente/param>
+        private void ZipValidation(object sender, ValidationEventArgs e)
+        {
+            if (e.Value != null && e.Value.Length >= 10)
+            {
+                e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.manufacturer.validation.zip.tolong"));
+            }
+        }
+
+        /// <summary>
+        /// Wird ausgelöst, wenn das Feld ManufacturerName validiert werden soll.
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventargumente/param>
+        private void ManufacturerNameValidation(object sender, ValidationEventArgs e)
+        {
+            var guid = e.Context.Request.GetParameter("ManufacturerID")?.Value;
+            var manufacturer = ViewModel.GetManufacturer(guid);
+
+            if (e.Value == null || e.Value.Length < 1)
+            {
+                e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.manufacturer.validation.name.invalid"));
+            }
+            else if 
+            (
+                manufacturer == null &&
+                ViewModel.GetManufacturers(new WqlStatement()).Where(x => x.Name.Equals(e.Value, StringComparison.OrdinalIgnoreCase)).Any()
+            )
+            {
+                e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.manufacturer.validation.name.used"));
+            }
+            else if 
+            (
+                manufacturer != null &&
+                !manufacturer.Name.Equals(e.Value, StringComparison.InvariantCultureIgnoreCase) &&
+                ViewModel.GetManufacturers(new WqlStatement()).Where(x => x.Name.Equals(e.Value, StringComparison.OrdinalIgnoreCase)).Any()
+            )
+            {
+                e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.manufacturer.validation.name.used"));
+            }
         }
     }
 }

@@ -7,7 +7,7 @@ namespace InventoryExpress.Model.Entity
     /// Lieferant
     /// </summary>
     [Table("SUPPLIER")]
-    public class Supplier : ItemAaddress
+    public class Supplier : ItemAddress
     {
         public virtual ICollection<Inventory> Inventories { get; set; }
 

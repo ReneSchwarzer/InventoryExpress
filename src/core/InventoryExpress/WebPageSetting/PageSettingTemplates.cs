@@ -1,12 +1,11 @@
 ﻿using InventoryExpress.Model;
-using InventoryExpress.Model.Entity;
 using InventoryExpress.WebControl;
-using System.Collections.Generic;
 using System.Linq;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebAttribute;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebApp.WebSettingPage;
+using WebExpress.WebApp.Wql;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
 
@@ -52,12 +51,7 @@ namespace InventoryExpress.WebPageSetting
             var visualTree = context.VisualTree;
 
             var grid = new ControlPanelGrid() { Fluid = TypePanelContainer.Fluid };
-            var list = null as ICollection<Template>;
-
-            lock (ViewModel.Instance.Database)
-            {
-                list = ViewModel.Instance.Templates.OrderBy(x => x.Name).ToList();
-            }
+            var list = ViewModel.GetTemplates(new WqlStatement()).OrderBy(x => x.Name);
 
             foreach (var template in list)
             {

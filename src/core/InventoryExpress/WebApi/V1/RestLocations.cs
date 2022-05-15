@@ -1,9 +1,10 @@
 ﻿using InventoryExpress.Model;
-using InventoryExpress.Model.Entity;
 using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Message;
+using WebExpress.WebApp.Model;
 using WebExpress.WebApp.WebResource;
+using WebExpress.WebApp.Wql;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
 using static WebExpress.Internationalization.InternationalizationManager;
@@ -18,13 +19,14 @@ namespace InventoryExpress.WebApi.V1
     [Path("/api/v1")]
     [IncludeSubPaths(true)]
     [Module("inventoryexpress")]
-    public sealed class RestLocations : ResourceRestCrud
+    public sealed class RestLocations : ResourceRestCrud<WebItem>
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
         public RestLocations()
         {
+            Guard = ViewModel.Instance.Database;
         }
 
         /// <summary>
@@ -56,45 +58,23 @@ namespace InventoryExpress.WebApi.V1
         /// <summary>
         /// Verarbeitung des GET-Request
         /// </summary>
-        /// <param name="id">Die ID oder null wenn nicht gefiltert werden soll</param>
-        /// <param name="search">Ein Suchstring oder null wenn nicht gefiltert werden soll</param>
+        /// <param name="wql">Der Filter</param>
         /// <param name="request">Die Anfrage</param>
         /// <returns>Eine Aufzählung, welche JsonSerializer serialisiert werden kann.</returns>
-        public override IEnumerable<object> GetData(string id, string search, Request request)
+        public override IEnumerable<WebItem> GetData(WqlStatement wql, Request request)
         {
-            lock (ViewModel.Instance.Database)
-            {
-                var locations = ViewModel.Instance.Locations as IEnumerable<Location>;
+            var locations = ViewModel.GetLocations(wql);
 
-                if (id != null)
-                {
-                    locations = locations.Where(x => x.Id.Equals(id));
-                }
-
-                if (search != null)
-                {
-                    locations = locations.Where
-                    (
-                        x =>
-                        x.Name.Contains(search, System.StringComparison.OrdinalIgnoreCase)
-                    );
-                }
-
-                return locations.Select(x => (object)new
-                {
-                    ID = x.Guid,
-                    Label = x.Name,
-                    Name = x.Name
-                }).ToList();
-            }
+            return locations;
         }
 
         /// <summary>
         /// Verarbeitung des DELETE-Request
         /// </summary>
+        /// <param name="id">Die zu löschende ID</param>
         /// <param name="request">Die Anfrage</param>
         /// <returns>Das Ergebnis der Löschung</returns>
-        public override bool DeleteData(Request request)
+        public override bool DeleteData(string id, Request request)
         {
             return true;
         }

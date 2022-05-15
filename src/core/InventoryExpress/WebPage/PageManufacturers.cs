@@ -1,10 +1,8 @@
 ﻿using InventoryExpress.Model;
-using InventoryExpress.Model.Entity;
 using InventoryExpress.WebControl;
-using System.Collections.Generic;
-using System.Linq;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebPage;
+using WebExpress.WebApp.Wql;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
 
@@ -45,18 +43,13 @@ namespace InventoryExpress.WebPage
             var visualTree = context.VisualTree;
 
             var grid = new ControlPanelGrid() { Fluid = TypePanelContainer.Fluid };
-            var list = null as ICollection<Manufacturer>;
+            var list = ViewModel.GetManufacturers(new WqlStatement());
 
-            lock (ViewModel.Instance.Database)
-            {
-                list = ViewModel.Instance.Manufacturers.OrderBy(x => x.Name).ToList();
-            }
-
-            foreach (var manufacturer in list)
+            foreach (var manufactur in list)
             {
                 var card = new ControlCardManufacturer()
                 {
-                    Manufactur = manufacturer
+                    Manufactur = manufactur
                 };
 
                 grid.Content.Add(card);

@@ -54,7 +54,7 @@ namespace InventoryExpress.WebComponent
                 Active = media != null ? TypeActive.None : TypeActive.Disabled;
             }
 
-            OnClick = $"$('#modal_del_media').modal('show');";
+            OnClick = new PropertyOnClick($"$('#modal_del_media').modal('show');");
 
             return base.Render(context);
         }

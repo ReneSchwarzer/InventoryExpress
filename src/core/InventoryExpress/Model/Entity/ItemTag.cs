@@ -3,7 +3,7 @@
     public class ItemTag : Item
     {
         /// <summary>
-        /// Die Schlüsseltwörter
+        /// Die Schlagwörter
         /// </summary>
         public string Tag { get; set; }
 

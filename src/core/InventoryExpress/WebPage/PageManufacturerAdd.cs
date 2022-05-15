@@ -1,14 +1,15 @@
 ﻿using InventoryExpress.Model;
-using InventoryExpress.Model.Entity;
+using InventoryExpress.Model.WebItems;
 using InventoryExpress.WebControl;
-using System;
 using System.IO;
-using System.Linq;
 using WebExpress.Message;
 using WebExpress.UI.WebControl;
+using WebExpress.Uri;
+using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
+using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace InventoryExpress.WebPage
 {
@@ -46,91 +47,7 @@ namespace InventoryExpress.WebPage
 
             Form.InitializeFormular += InitializeFormular;
             Form.FillFormular += FillFormular;
-            Form.ManufacturerName.Validation += ManufacturerNameValidation;
-            Form.Zip.Validation += ZipValidation;
             Form.ProcessFormular += ProcessFormular;
-        }
-
-        /// <summary>
-        /// Wird ausgelöst, wenn das Formular verarbeitet werden soll.
-        /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
-        /// <param name="e">Die Eventargumente/param>
-        private void ProcessFormular(object sender, FormularEventArgs e)
-        {
-            // Neues Herstellerobjekt erstellen und speichern
-            var manufacturer = new Manufacturer()
-            {
-                Name = Form.ManufacturerName.Value,
-                Description = Form.Description.Value,
-                Address = Form.Address.Value,
-                Zip = Form.Zip.Value,
-                Place = Form.Place.Value,
-                Tag = Form.Tag.Value,
-                Created = DateTime.Now,
-                Updated = DateTime.Now,
-                Guid = Guid.NewGuid().ToString()
-            };
-
-            if (e.Context.Request.GetParameter(Form.Image.Name) is ParameterFile file)
-            {
-                if (manufacturer.Media == null)
-                {
-                    manufacturer.Media = new Media()
-                    {
-                        Name = file.Value,
-                        Created = DateTime.Now,
-                        Updated = DateTime.Now,
-                        Guid = Guid.NewGuid().ToString()
-                    };
-                }
-                else
-                {
-                    manufacturer.Media.Name = file.Value;
-                    manufacturer.Media.Updated = DateTime.Now;
-                }
-
-                File.WriteAllBytes(Path.Combine(e.Context.Application.AssetPath, "media", manufacturer.Media.Guid), file.Data);
-            }
-
-            lock (ViewModel.Instance.Database)
-            {
-                ViewModel.Instance.Manufacturers.Add(manufacturer);
-                ViewModel.Instance.SaveChanges();
-            }
-        }
-
-        /// <summary>
-        /// Wird ausgelöst, wenn das Feld Zip validiert werden soll.
-        /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
-        /// <param name="e">Die Eventargumente/param>
-        private void ZipValidation(object sender, ValidationEventArgs e)
-        {
-            if (e.Value != null && e.Value.Length >= 10)
-            {
-                e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.manufacturer.validation.zip.tolong"));
-            }
-        }
-
-        /// <summary>
-        /// Wird ausgelöst, wenn das Feld ManufacturerName validiert werden soll.
-        /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
-        /// <param name="e">Die Eventargumente/param>
-        private void ManufacturerNameValidation(object sender, ValidationEventArgs e)
-        {
-            lock (ViewModel.Instance.Database)
-            {
-                if (e.Value.Length < 1)
-                {
-                    e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.manufacturer.validation.name.invalid"));
-                }
-                else if (ViewModel.Instance.Manufacturers.Where(x => x.Name.Equals(e.Value)).Any())
-                {
-                    e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.manufacturer.validation.name.used"));
-                }
-            }
         }
 
         /// <summary>
@@ -140,7 +57,7 @@ namespace InventoryExpress.WebPage
         /// <param name="e">Die Eventargumente</param>
         private void InitializeFormular(object sender, FormularEventArgs e)
         {
-            Form.RedirectUri = e.Context.Uri.Take(-1);
+            Form.RedirectUri = e.Context.Uri.Root.Append("manufacturers");
             Form.BackUri = e.Context.Uri.Take(-1);
         }
 
@@ -151,6 +68,56 @@ namespace InventoryExpress.WebPage
         /// <param name="e">Die Eventargumente</param>
         private void FillFormular(object sender, FormularEventArgs e)
         {
+        }
+
+        /// <summary>
+        /// Wird ausgelöst, wenn das Formular verarbeitet werden soll.
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventargumente/param>
+        private void ProcessFormular(object sender, FormularEventArgs e)
+        {
+            var file = e.Context.Request.GetParameter(Form.Image.Name) as ParameterFile;
+
+            // Neues Herstellerobjekt erstellen und speichern
+            var manufacturer = new WebItemEntityManufacturer()
+            {
+                Name = Form.ManufacturerName.Value,
+                Description = Form.Description.Value,
+                Address = Form.Address.Value,
+                Zip = Form.Zip.Value,
+                Place = Form.Place.Value,
+                Tag = Form.Tag.Value,
+                Media = new WebItemEntityMedia()
+                {
+                    Name = file?.Value
+                }
+            };
+
+            ViewModel.AddOrUpdateManufacturer(manufacturer);
+            ViewModel.Instance.SaveChanges();
+
+            if (file != null)
+            {
+                ViewModel.AddOrUpdateMedia(manufacturer.Media, file?.Data);
+                ViewModel.Instance.SaveChanges();
+            }
+
+            NotificationManager.CreateNotification
+            (
+                e.Context.Request, 
+                string.Format
+                (
+                    I18N(Culture, "inventoryexpress:inventoryexpress.manufacturer.notification.add"), 
+                    new ControlLink() 
+                    { 
+                        Text = manufacturer.Name, 
+                        Uri = new UriRelative(ViewModel.GetManufacturerUri(manufacturer.ID)) 
+                    }.Render(e.Context).ToString().Trim()
+                )
+            );
+
+            Form.RedirectUri = Form.RedirectUri.Append(manufacturer.ID);
         }
 
         /// <summary>

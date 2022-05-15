@@ -1,9 +1,9 @@
 ﻿using InventoryExpress.Model;
-using InventoryExpress.Model.Entity;
+using InventoryExpress.Model.WebItems;
 using System.Collections.Generic;
-using System.Linq;
 using WebExpress.Message;
 using WebExpress.WebApp.WebResource;
+using WebExpress.WebApp.Wql;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
 using static WebExpress.Internationalization.InternationalizationManager;
@@ -18,13 +18,14 @@ namespace InventoryExpress.WebApi.V1
     [Path("/api/v1")]
     [IncludeSubPaths(true)]
     [Module("inventoryexpress")]
-    public sealed class RestManufacturers : ResourceRestCrud
+    public sealed class RestManufacturers : ResourceRestCrud<WebItemEntityManufacturer>
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
         public RestManufacturers()
         {
+            Guard = ViewModel.Instance.Database;
         }
 
         /// <summary>
@@ -56,47 +57,24 @@ namespace InventoryExpress.WebApi.V1
         /// <summary>
         /// Verarbeitung des GET-Request
         /// </summary>
-        /// <param name="id">Die ID oder null wenn nicht gefiltert werden soll</param>
-        /// <param name="search">Ein Suchstring oder null wenn nicht gefiltert werden soll</param>
+        /// <param name="wql">Der Filter</param>
         /// <param name="request">Die Anfrage</param>
         /// <returns>Eine Aufzählung, welche JsonSerializer serialisiert werden kann.</returns>
-        public override IEnumerable<object> GetData(string id, string search, Request request)
+        public override IEnumerable<WebItemEntityManufacturer> GetData(WqlStatement wql, Request request)
         {
-            lock (ViewModel.Instance.Database)
-            {
-                var manufacturers = ViewModel.Instance.Manufacturers as IEnumerable<Manufacturer>;
-
-                if (id != null)
-                {
-                    manufacturers = manufacturers.Where(x => x.Id.Equals(id));
-                }
-
-                if (search != null)
-                {
-                    manufacturers = manufacturers.Where
-                    (
-                        x =>
-                        x.Name.Contains(search, System.StringComparison.OrdinalIgnoreCase)
-                    );
-                }
-
-                return manufacturers.Select(x => (object)new
-                {
-                    ID = x.Guid,
-                    Label = x.Name,
-                    x.Name,
-                    Image = ViewModel.Instance.Media.Where(y => y.Id == x.MediaId).Select(y => request.Uri.Root.Append($"media/{ y.Guid }")).FirstOrDefault()?.ToString()
-                }).ToList();
-            }
+            return ViewModel.GetManufacturers(wql);
         }
 
         /// <summary>
         /// Verarbeitung des DELETE-Request
         /// </summary>
+        /// <param name="id">Die zu löschende ID</param>
         /// <param name="request">Die Anfrage</param>
         /// <returns>Das Ergebnis der Löschung</returns>
-        public override bool DeleteData(Request request)
+        public override bool DeleteData(string id, Request request)
         {
+            ViewModel.DeleteManufacturer(id);
+
             return true;
         }
     }

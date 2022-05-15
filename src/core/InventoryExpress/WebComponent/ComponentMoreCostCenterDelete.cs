@@ -35,7 +35,7 @@ namespace InventoryExpress.WebComponent
             Text = "inventoryexpress:inventoryexpress.delete.label";
             Icon = new PropertyIcon(TypeIcon.Trash);
 
-            OnClick = $"$('#modal_del_costcenter').modal('show');";
+            OnClick = new PropertyOnClick($"$('#modal_del_costcenter').modal('show');");
         }
 
         /// <summary>

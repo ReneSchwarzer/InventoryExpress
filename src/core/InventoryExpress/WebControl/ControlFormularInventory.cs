@@ -32,7 +32,7 @@ namespace InventoryExpress.WebControl
             Label = "inventoryexpress:inventoryexpress.inventory.manufacturers.label",
             Help = "inventoryexpress:inventoryexpress.inventory.manufacturer.description",
             Icon = new PropertyIcon(TypeIcon.Industry),
-            HasEmptyValue = true,
+            MultiSelect = false
         };
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace InventoryExpress.WebControl
             Label = "inventoryexpress:inventoryexpress.inventory.location.label",
             Help = "inventoryexpress:inventoryexpress.inventory.location.description",
             Icon = new PropertyIcon(TypeIcon.Map),
-            HasEmptyValue = true,
+            MultiSelect = false
         };
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace InventoryExpress.WebControl
             Label = "inventoryexpress:inventoryexpress.inventory.supplier.label",
             Help = "inventoryexpress:inventoryexpress.inventory.supplier.description",
             Icon = new PropertyIcon(TypeIcon.Truck),
-            HasEmptyValue = true,
+            MultiSelect = false
         };
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace InventoryExpress.WebControl
             Label = "inventoryexpress:inventoryexpress.inventory.ledgeraccount.label",
             Help = "inventoryexpress:inventoryexpress.inventory.ledgeraccount.description",
             Icon = new PropertyIcon(TypeIcon.At),
-            HasEmptyValue = true,
+            MultiSelect = false
         };
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace InventoryExpress.WebControl
             Label = "inventoryexpress:inventoryexpress.inventory.costcenter.label",
             Help = "inventoryexpress:inventoryexpress.inventory.costcenter.description",
             Icon = new PropertyIcon(TypeIcon.ShoppingBag),
-            HasEmptyValue = true,
+            MultiSelect = false
         };
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace InventoryExpress.WebControl
             Label = "inventoryexpress:inventoryexpress.inventory.condition.label",
             Help = "inventoryexpress:inventoryexpress.inventory.condition.description",
             Icon = new PropertyIcon(TypeIcon.Star),
-            HasEmptyValue = true,
+            MultiSelect = false
         };
 
         /// <summary>
@@ -104,7 +104,7 @@ namespace InventoryExpress.WebControl
             Label = "inventoryexpress:inventoryexpress.inventory.parent.label",
             Help = "inventoryexpress:inventoryexpress.inventory.parent.description",
             Icon = new PropertyIcon(TypeIcon.Link),
-            HasEmptyValue = true,
+            MultiSelect = false
         };
 
         /// <summary>
@@ -116,7 +116,7 @@ namespace InventoryExpress.WebControl
             Label = "inventoryexpress:inventoryexpress.inventory.template.label",
             Help = "inventoryexpress:inventoryexpress.inventory.template.description",
             Icon = new PropertyIcon(TypeIcon.Clone),
-            HasEmptyValue = true
+            MultiSelect = false
         };
 
         /// <summary>
@@ -160,12 +160,13 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Liefert oder setzt die Schlagwörter
         /// </summary>
-        public ControlFormularItemInputTag Tag { get; } = new ControlFormularItemInputTag("tags")
+        public ControlFormularItemInputSelectionRest Tag { get; } = new ControlFormularItemInputSelectionRest("tags")
         {
             Name = "tag",
             Label = "inventoryexpress:inventoryexpress.inventory.tags.label",
             Help = "inventoryexpress:inventoryexpress.inventory.tags.description",
-            Icon = new PropertyIcon(TypeIcon.Tag)
+            Icon = new PropertyIcon(TypeIcon.Tag),
+            MultiSelect = true
         };
 
         /// <summary>
@@ -229,21 +230,24 @@ namespace InventoryExpress.WebControl
         {
             base.Initialize(context);
             
-            Manufacturer.RestUri = context.Uri.Root.Append("api/v1/manufacturers?orderby=name");
-            Location.RestUri = context.Uri.Root.Append("api/v1/locations?orderby=name");
-            Supplier.RestUri = context.Uri.Root.Append("api/v1/suppliers?orderby=name");
-            LedgerAccount.RestUri = context.Uri.Root.Append("api/v1/ledgeraccounts?orderby=name");
-            CostCenter.RestUri = context.Uri.Root.Append("api/v1/costcenters?orderby=name");
-            Condition.RestUri = context.Uri.Root.Append("api/v1/conditions?orderby=name");
-            Parent.RestUri = context.Uri.Root.Append("api/v1/inventories?orderby=name");
-            Template.RestUri = context.Uri.Root.Append("api/v1/templates?orderby=name");
-            Template.OnChange = new PropertyOnChange($"$('#{ ID }').submit()");
+            Manufacturer.RestUri = context.Uri.Root.Append("api/v1/manufacturers");
+            Location.RestUri = context.Uri.Root.Append("api/v1/locations");
+            Supplier.RestUri = context.Uri.Root.Append("api/v1/suppliers");
+            LedgerAccount.RestUri = context.Uri.Root.Append("api/v1/ledgeraccounts");
+            CostCenter.RestUri = context.Uri.Root.Append("api/v1/costcenters");
+            Condition.RestUri = context.Uri.Root.Append("api/v1/conditions");
+            Parent.RestUri = context.Uri.Root.Append("api/v1/inventories");
+            Template.RestUri = context.Uri.Root.Append("api/v1/templates");
+            Tag.RestUri = context.Uri.Root.Append("api/v1/tags");
+            Template.OnChange = new PropertyOnChange($"$('#{ ID }').submit();");
+
+            var guid = context.Request.GetParameter("InventoryID")?.Value;
 
             if (Edit)
             {
                 lock (ViewModel.Instance.Database)
                 {
-                    var guid = context.Request.GetParameter("InventoryID")?.Value;
+                    
                     var inventory = ViewModel.Instance.Inventories.Where(x => x.Guid == guid).FirstOrDefault();
                     var attributesForm = new List<ControlFormularItemInputTextBox>();
                     var attributes = new List<InventoryAttribute>();
@@ -255,6 +259,46 @@ namespace InventoryExpress.WebControl
                     SetAttributes(inventory, templateGUID);
                 }
             }
+            else
+            {
+                var templateGUID = context.Request.GetParameter(Template?.Name)?.Value;
+                SetAttributes(templateGUID);
+            }
+        }
+
+        /// <summary>
+        /// Übernahme der Attribute
+        /// </summary>
+        /// <param name="templateGUID">Die GUID der Attributvorlage</param>
+        protected void SetAttributes(string templateGUID)
+        {
+            if (string.IsNullOrWhiteSpace(templateGUID))
+            {
+                return;
+            }
+
+            var attributesForm = new List<ControlFormularItemInputTextBox>();
+
+            lock (ViewModel.Instance.Database)
+            {
+                var template = ViewModel.Instance.Templates.Where(x => x.Guid == templateGUID).FirstOrDefault();
+                var attributes = from x in ViewModel.Instance.TemplateAttributes.Where(x => x.TemplateId == template.Id) 
+                                 join y in ViewModel.Instance.Attributes on x.AttributeId equals y.Id
+                                 select y;
+
+                foreach (var attribute in attributes)
+                {
+                    attributesForm.Add(new ControlFormularItemInputTextBox()
+                    {
+                        Name = "attribute_" + attribute.Guid,
+                        Label = $"{ attribute.Name }:",
+                        Help = attribute.Description,
+                        Tag = attribute
+                    });
+                }
+            }
+
+            attributesForm.ForEach(x => Attributes?.Items.Add(x));
         }
 
         /// <summary>
@@ -308,7 +352,7 @@ namespace InventoryExpress.WebControl
                     attributesForm.Add(new ControlFormularItemInputTextBox()
                     {
                         Name = "attribute_" + attribute.Attribute.Guid,
-                        Label = attribute.Attribute.Name,
+                        Label = $"{ attribute.Attribute.Name }:",
                         Help = attribute.Attribute.Description,
                         Tag = attribute
                     });

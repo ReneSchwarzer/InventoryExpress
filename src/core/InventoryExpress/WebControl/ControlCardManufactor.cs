@@ -1,8 +1,7 @@
-﻿using InventoryExpress.Model;
-using InventoryExpress.Model.Entity;
-using System.Linq;
+﻿using InventoryExpress.Model.WebItems;
 using WebExpress.Html;
 using WebExpress.UI.WebControl;
+using WebExpress.Uri;
 using WebExpress.WebPage;
 
 namespace InventoryExpress.WebControl
@@ -12,7 +11,7 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Liefert oder setzt den Hersteller
         /// </summary>
-        public Manufacturer Manufactur { get; set; }
+        public WebItemEntityManufacturer Manufactur { get; set; }
 
         /// <summary>
         /// Konstruktor
@@ -31,6 +30,7 @@ namespace InventoryExpress.WebControl
         {
             Margin = new PropertySpacingMargin(PropertySpacing.Space.Two);
             BackgroundColor = new PropertyColorBackground(TypeColorBackground.Light);
+            Styles.Add("width: fit-content;");
         }
 
         /// <summary>
@@ -40,32 +40,27 @@ namespace InventoryExpress.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            lock (ViewModel.Instance.Database)
+            var media = new ControlPanelMedia()
             {
-                var image = ViewModel.Instance.Media.Where(x => x.Id == Manufactur.MediaId).Select(x => context.Uri.Root.Append("media/" + x.Guid)).FirstOrDefault();
-
-                var media = new ControlPanelMedia()
+                Image = new UriRelative(Manufactur.Image),
+                ImageWidth = 100,
+                Title = new ControlLink()
                 {
-                    Image = image ?? context.Uri.Root.Append("/assets/img/inventoryexpress.svg"),
-                    ImageWidth = 100,
-                    Title = new ControlLink()
-                    {
-                        Text = Manufactur.Name,
-                        Uri = context.Uri.Append(Manufactur.Guid),
-                        TextColor = new PropertyColorText(TypeColorText.Dark)
-                    }
-                };
+                    Text = Manufactur.Name,
+                    Uri = new UriRelative(Manufactur.Uri),
+                    TextColor = new PropertyColorText(TypeColorText.Dark)
+                }
+            };
 
-                media.Content.Add(new ControlText()
-                {
-                    Text = Manufactur.Description,
-                    Format = TypeFormatText.Paragraph
-                });
+            media.Content.Add(new ControlText()
+            {
+                Text = Manufactur.Description,
+                Format = TypeFormatText.Paragraph
+            });
 
-                Content.Add(media);
+            Content.Add(media);
 
-                return base.Render(context);
-            }
+            return base.Render(context);
         }
     }
 }

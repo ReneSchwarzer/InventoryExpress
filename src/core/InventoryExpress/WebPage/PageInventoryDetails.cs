@@ -15,7 +15,7 @@ namespace InventoryExpress.WebPage
     [Module("inventoryexpress")]
     [Context("general")]
     [Context("inventorydetails")]
-    public sealed class PageInventoryDetails : PageWebApp
+    public sealed class PageInventoryDetails : PageWebApp, IPageInventory
     {
         private ControlText Description { get; } = new ControlText()
         {

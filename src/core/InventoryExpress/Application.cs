@@ -1,8 +1,9 @@
 ﻿using InventoryExpress.Model;
-using System.IO;
-using System.Linq;
+using WebExpress.Uri;
+using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApplication;
 using WebExpress.WebAttribute;
+using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace InventoryExpress
 {
@@ -17,6 +18,11 @@ namespace InventoryExpress
     public sealed class Application : IApplication
     {
         /// <summary>
+        /// Der Anwendungskontext
+        /// </summary>
+        public IApplicationContext Context { get; private set; }
+
+        /// <summary>
         /// Konstruktor
         /// </summary>
         public Application()
@@ -29,22 +35,7 @@ namespace InventoryExpress
         /// <param name="context">Der Kontext, welcher für die Ausführung des Plugins gilt</param>
         public void Initialization(IApplicationContext context)
         {
-            var path = Path.Combine(context.DataPath, "db");
-
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
-
-            // Datenbank initialisieren
-            ViewModel.Instance.DataSource = Path.Combine(path, "inventory.db");
-            ViewModel.Instance.Initialization(context.Plugin);
-
-            // Daten vorladen
-            ViewModel.Instance.Inventories.ToList();
-            ViewModel.Instance.CostCenters.ToList();
-            ViewModel.Instance.Manufacturers.ToList();
-            ViewModel.Instance.Suppliers.ToList();
+            Context = context;
         }
 
         /// <summary>
@@ -52,7 +43,14 @@ namespace InventoryExpress
         /// </summary>
         public void Run()
         {
-
+            // Willkommensnachricht
+            NotificationManager.CreateNotification
+            (
+                heading: I18N("inventoryexpress:app.notification.welcome.label"),
+                message: I18N("inventoryexpress:app.notification.welcome.description"),
+                icon: Context.Icon,
+                durability: 30000
+            );
         }
 
         /// <summary>

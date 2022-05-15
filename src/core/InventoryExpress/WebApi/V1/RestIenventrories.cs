@@ -1,8 +1,10 @@
 ﻿using InventoryExpress.Model;
+using InventoryExpress.Model.WebItems;
 using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Message;
 using WebExpress.WebApp.WebResource;
+using WebExpress.WebApp.Wql;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
 using static WebExpress.Internationalization.InternationalizationManager;
@@ -17,13 +19,14 @@ namespace InventoryExpress.WebApi.V1
     [Path("/api/v1")]
     [IncludeSubPaths(true)]
     [Module("inventoryexpress")]
-    public sealed class RestInventories : ResourceRestCrud
+    public sealed class RestInventories : ResourceRestCrud<WebItemEntityInventory>
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
         public RestInventories()
         {
+            Guard = ViewModel.Instance.Database;
         }
 
         /// <summary>
@@ -51,31 +54,31 @@ namespace InventoryExpress.WebApi.V1
                 },
                 new ResourceRestCrudColumn(I18N(request, "inventoryexpress:inventoryexpress.template.label"))
                 {
-                    Render = "return $(\"<a class='link' href='\" + item.TemplateUri + \"'>\" + item.Template + \"</a>\");"
+                    Render = "return $(\"<a class='link' href='\" + item.Template?.Uri + \"'>\" + item.Template?.Name + \"</a>\");"
                 },
                 new ResourceRestCrudColumn(I18N(request, "inventoryexpress:inventoryexpress.manufacturer.label"))
                 {
-                    Render = "return $(\"<a class='link' href='\" + item.ManufacturerUri + \"'>\" + item.Manufacturer + \"</a>\");"
+                    Render = "return $(\"<a class='link' href='\" + item.Manufacturer?.Uri + \"'>\" + item.Manufacturer?.Name + \"</a>\");"
                 },
                 new ResourceRestCrudColumn(I18N(request, "inventoryexpress:inventoryexpress.supplier.label"))
                 {
-                    Render = "return $(\"<a class='link' href='\" + item.SupplierUri + \"'>\" + item.Supplier + \"</a>\");"
+                    Render = "return $(\"<a class='link' href='\" + item.Supplier?.Uri + \"'>\" + item.Supplier?.Name + \"</a>\");"
                 },
                 new ResourceRestCrudColumn(I18N(request, "inventoryexpress:inventoryexpress.location.label"))
                 {
-                    Render = "return $(\"<a class='link' href='\" + item.LocationUri + \"'>\" + item.Location + \"</a>\");"
+                    Render = "return $(\"<a class='link' href='\" + item.Location?.Uri + \"'>\" + item.Location?.Name + \"</a>\");"
                 },
                 new ResourceRestCrudColumn(I18N(request, "inventoryexpress:inventoryexpress.costcenter.label"))
                 {
-                    Render = "return $(\"<a class='link' href='\" + item.CostCenterUri + \"'>\" + item.CostCenter + \"</a>\");"
+                    Render = "return $(\"<a class='link' href='\" + item.CostCenter?.Uri + \"'>\" + item.CostCenter?.Name + \"</a>\");"
                 },
                 new ResourceRestCrudColumn(I18N(request, "inventoryexpress:inventoryexpress.ledgeraccount.label"))
                 {
-                    Render = "return $(\"<a class='link' href='\" + item.LedgerAccountUri + \"'>\" + item.LedgerAccount + \"</a>\");"
+                    Render = "return $(\"<a class='link' href='\" + item.LedgerAccount?.Uri + \"'>\" + item.LedgerAccount?.Name + \"</a>\");"
                 },
                 new ResourceRestCrudColumn(I18N(request, "inventoryexpress:inventoryexpress.condition.label"))
                 {
-                    Render = "return $(\"<img style='height:1em;' src='\" + item.ConditionUri + \"' alt='\" + item.Condition + \"'/>\");"
+                    Render = "return $(\"<img style='height:1em;' src='\" + item.Condition?.Image + \"' alt='\" + item.Condition?.Name + \"'/>\");"
                 }
             };
         }
@@ -83,76 +86,23 @@ namespace InventoryExpress.WebApi.V1
         /// <summary>
         /// Verarbeitung des GET-Request
         /// </summary>
-        /// <param name="id">Die ID oder null wenn nicht gefiltert werden soll</param>
-        /// <param name="search">Ein Suchstring oder null wenn nicht gefiltert werden soll</param>
+        /// <param name="wql">Der Filter</param>
         /// <param name="request">Die Anfrage</param>
         /// <returns>Eine Aufzählung, welche JsonSerializer serialisiert werden kann.</returns>
-        public override IEnumerable<object> GetData(string id, string search, Request request)
+        public override IEnumerable<WebItemEntityInventory> GetData(WqlStatement wql, Request request)
         {
-            var root = request.Uri.Root;
+            var inventories = ViewModel.GetInventories(wql);
 
-            lock (ViewModel.Instance.Database)
-            {
-                var inventories = from i in ViewModel.Instance.Inventories
-                                  join t in ViewModel.Instance.Templates on i.TemplateId equals t.Id into tj
-                                  from t in tj.DefaultIfEmpty()
-                                  join m in ViewModel.Instance.Manufacturers on i.ManufacturerId equals m.Id into mj
-                                  from m in mj.DefaultIfEmpty()
-                                  join s in ViewModel.Instance.Suppliers on i.SupplierId equals s.Id into sj
-                                  from s in sj.DefaultIfEmpty()
-                                  join l in ViewModel.Instance.Locations on i.LocationId equals l.Id into lj
-                                  from l in lj.DefaultIfEmpty()
-                                  join c in ViewModel.Instance.CostCenters on i.CostCenterId equals c.Id into cj
-                                  from c in cj.DefaultIfEmpty()
-                                  join la in ViewModel.Instance.LedgerAccounts on i.LedgerAccountId equals la.Id into laj
-                                  from la in laj.DefaultIfEmpty()
-                                  join co in ViewModel.Instance.Conditions on i.ConditionId equals co.Id into coj
-                                  from co in coj.DefaultIfEmpty()
-                                  select new
-                                  {
-                                      ID = i.Guid,
-                                      Uri = root.Append(i.Guid).ToString(),
-                                      Name = i.Name,
-                                      TemplateUri = t.Guid != null ? root.Append($"setting/templates/{ t.Guid }").ToString() : "",
-                                      Template = t.Name ?? "",
-                                      ManufacturerUri = m.Guid != null ? root.Append($"manufacturers/{ m.Guid }").ToString() : "",
-                                      Manufacturer = m.Name ?? "",
-                                      SupplierUri = s.Guid != null ? root.Append($"suppliers/{ s.Guid }").ToString() : "",
-                                      Supplier = s.Name ?? "",
-                                      LocationUri = l.Guid != null ? root.Append($"locations/{ l.Guid }").ToString() : "",
-                                      Location = l.Name ?? "",
-                                      CostCenterUri = c.Guid != null ? root.Append($"costcenters/{ c.Guid }").ToString() : "",
-                                      CostCenter = c.Name ?? "",
-                                      LedgerAccountUri = la.Guid != null ? root.Append($"ledgeraccounts/{ la.Guid }").ToString() : "",
-                                      LedgerAccount = la.Name ?? "",
-                                      ConditionUri = co.Guid != null ? root.Append($"assets/img/condition_{ co.Grade }.svg").ToString() : "",
-                                      Condition = co.Name ?? ""
-                                  };
-
-                if (id != null)
-                {
-                    inventories = inventories.Where(x => x.ID.Equals(id));
-                }
-
-                if (!string.IsNullOrWhiteSpace(search))
-                {
-                    inventories = inventories.Where
-                    (
-                        x =>
-                        x.Name.ToLower().Contains(search)
-                    );
-                }
-
-                return inventories.ToList();
-            }
+            return inventories;
         }
 
         /// <summary>
         /// Verarbeitung des DELETE-Request
         /// </summary>
+        /// <param name="id">Die zu löschende ID</param>
         /// <param name="request">Die Anfrage</param>
         /// <returns>Das Ergebnis der Löschung</returns>
-        public override bool DeleteData(Request request)
+        public override bool DeleteData(string id, Request request)
         {
             return true;
         }

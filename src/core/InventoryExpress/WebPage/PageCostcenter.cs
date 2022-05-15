@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebPage;
+using WebExpress.WebApp.Wql;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
 
@@ -45,12 +46,7 @@ namespace InventoryExpress.WebPage
             var visualTree = context.VisualTree;
 
             var grid = new ControlPanelGrid() { Fluid = TypePanelContainer.Fluid };
-            var list = null as ICollection<CostCenter>;
-
-            lock (ViewModel.Instance.Database)
-            {
-                list = ViewModel.Instance.CostCenters.OrderBy(x => x.Name).ToList();
-            }
+            var list = ViewModel.Instance.GetCostCenters(new WqlStatement()).OrderBy(x => x.Name);
 
             foreach (var costcenter in list)
             {

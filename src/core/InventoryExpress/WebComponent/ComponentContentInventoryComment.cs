@@ -14,6 +14,7 @@ using WebExpress.WebPage;
 namespace InventoryExpress.WebComponent
 {
     [Section(Section.ContentSecondary)]
+    [Order(int.MaxValue)]
     [Module("inventoryexpress")]
     [Context("inventorydetails")]
     public sealed class ComponentContentInventoryComment : ComponentControlPanel

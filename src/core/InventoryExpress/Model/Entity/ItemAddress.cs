@@ -1,6 +1,6 @@
 ﻿namespace InventoryExpress.Model.Entity
 {
-    public class ItemAaddress : ItemTag
+    public class ItemAddress : ItemTag
     {
         /// <summary>
         /// Die Aaddresse
@@ -20,7 +20,7 @@
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public ItemAaddress()
+        public ItemAddress()
         {
         }
     }

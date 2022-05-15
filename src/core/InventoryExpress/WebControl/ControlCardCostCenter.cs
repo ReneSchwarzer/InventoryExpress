@@ -1,8 +1,10 @@
 ﻿using InventoryExpress.Model;
 using InventoryExpress.Model.Entity;
+using InventoryExpress.Model.WebItems;
 using System.Linq;
 using WebExpress.Html;
 using WebExpress.UI.WebControl;
+using WebExpress.Uri;
 using WebExpress.WebPage;
 
 namespace InventoryExpress.WebControl
@@ -12,7 +14,7 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Liefert oder setzt die Kostenstelle
         /// </summary>
-        private CostCenter CostCenter { get; set; }
+        private WebItemEntityCostCenter CostCenter { get; set; }
 
         /// <summary>
         /// Liefert das Bild
@@ -34,7 +36,7 @@ namespace InventoryExpress.WebControl
         /// Konstruktor
         /// </summary>
         /// <param name="costCenter">Die Kostenstelle</param>
-        public ControlCardCostCenter(CostCenter costCenter)
+        public ControlCardCostCenter(WebItemEntityCostCenter costCenter)
         {
             CostCenter = costCenter;
             Margin = new PropertySpacingMargin(PropertySpacing.Space.Two);
@@ -50,6 +52,7 @@ namespace InventoryExpress.WebControl
             });
 
             Content.Add(Media);
+            Styles.Add("width: fit-content;");
         }
 
         /// <summary>
@@ -59,13 +62,8 @@ namespace InventoryExpress.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            lock (ViewModel.Instance.Database)
-            {
-                var image = ViewModel.Instance.Media.Where(x => x.Id == CostCenter.MediaId).Select(x => context.Uri.Root.Append("media/" + x.Guid)).FirstOrDefault();
-
-                MediaLink.Uri = context.Uri.Append(CostCenter.Guid);
-                Media.Image = image ?? context.Uri.Root.Append("/assets/img/inventoryexpress.svg");
-            }
+            MediaLink.Uri = new UriRelative(CostCenter.Uri);
+            Media.Image = new UriRelative(CostCenter.Image);
 
             return base.Render(context);
         }

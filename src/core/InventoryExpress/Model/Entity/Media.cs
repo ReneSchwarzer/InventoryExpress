@@ -23,9 +23,9 @@ namespace InventoryExpress.Model.Entity
         public string Name { get; set; }
 
         /// <summary>
-        /// Die Schlagwörter
+        /// Liefert oder setzt die Beschreibung
         /// </summary>
-        public string Tag { get; set; }
+        public string Description { get; set; }
 
         /// <summary>
         /// Der Zeitstempel der Erstellung
@@ -41,6 +41,11 @@ namespace InventoryExpress.Model.Entity
         /// Die GUID
         /// </summary>
         public string Guid { get; set; }
+
+        /// <summary>
+        /// Die Schlagwörter
+        /// </summary>
+        public string Tag { get; set; }
 
         public virtual ICollection<Ascription> Ascriptions { get; set; }
         public virtual ICollection<Attribute> Attributes { get; set; }

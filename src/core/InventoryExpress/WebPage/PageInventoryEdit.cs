@@ -24,7 +24,7 @@ namespace InventoryExpress.WebPage
         /// <summary>
         /// Formular
         /// </summary>
-        private ControlFormularInventory Form = new ControlFormularInventory("inventory")
+        private readonly ControlFormularInventory Form = new("inventory")
         {
         };
 
@@ -70,9 +70,11 @@ namespace InventoryExpress.WebPage
                            where i.InventoryId == inventory.Id
                            select t;
                 var attributesForm = new List<ControlFormularItemInputTextBox>();
+                var manufacturer = ViewModel.Instance.Manufacturers.Where(x => x.Id == inventory.ManufacturerId).FirstOrDefault();
 
                 Form.InventoryName.Value = inventory?.Name;
-                Form.Manufacturer.Value = ViewModel.Instance.Manufacturers.Where(x => x.Id == inventory.ManufacturerId).FirstOrDefault()?.Guid;
+                Form.Manufacturer.Value = manufacturer?.Guid;
+                Form.Manufacturer.Options.Add(new ControlFormularItemInputSelectionItem() { ID = manufacturer?.Guid, Label = manufacturer?.Name });
                 Form.Location.Value = ViewModel.Instance.Locations.Where(x => x.Id == inventory.LocationId).FirstOrDefault()?.Guid;
                 Form.Supplier.Value = ViewModel.Instance.Suppliers.Where(x => x.Id == inventory.SupplierId).FirstOrDefault()?.Guid;
                 Form.LedgerAccount.Value = ViewModel.Instance.LedgerAccounts.Where(x => x.Id == inventory.LedgerAccountId).FirstOrDefault()?.Guid;
@@ -202,9 +204,9 @@ namespace InventoryExpress.WebPage
                 ViewModel.Instance.SaveChanges();
 
                 // neue Tags ermitteln
-                var newTags = Form.Tag.Value.Split(';').Except(tags.Select(x => x.Label));
+                var newTags = Form.Tag.Value?.Split(';').Except(tags.Select(x => x.Label));
 
-                foreach (var n in newTags)
+                foreach (var n in newTags ?? new List<string>())
                 {
                     var tag = ViewModel.Instance.Tags.Where(x => x.Label.ToLower() == n.ToLower()).FirstOrDefault();
                     if (tag == null)
@@ -219,7 +221,7 @@ namespace InventoryExpress.WebPage
                 }
 
                 // zu entfernende Tags
-                var removeTags = tags.Select(x => x.Label).ToList().Except(Form.Tag.Value.Split(';'));
+                var removeTags = tags.Select(x => x.Label).ToList().Except(Form.Tag.Value?.Split(';'));
                 foreach (var r in removeTags)
                 {
                     var inventoryTag = from i in ViewModel.Instance.InventoryTags

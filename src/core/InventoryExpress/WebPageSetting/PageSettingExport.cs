@@ -63,7 +63,7 @@ namespace InventoryExpress.WebPageSetting
             Icon = new PropertyIcon(TypeIcon.Upload),
             Text = "inventoryexpress:inventoryexpress.import.label",
             BackgroundColor = new PropertyColorButton(TypeColorButton.Primary),
-            OnClick = $"$('#modal_import').modal('show');"
+            OnClick = new PropertyOnClick($"$('#modal_import').modal('show');")
         };
 
         /// <summary>

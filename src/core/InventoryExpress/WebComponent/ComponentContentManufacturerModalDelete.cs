@@ -5,8 +5,10 @@ using WebExpress.Html;
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebComponent;
 using WebExpress.UI.WebControl;
+using WebExpress.Uri;
 using WebExpress.WebApp.WebComponent;
 using WebExpress.WebApp.WebControl;
+using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebAttribute;
 using WebExpress.WebPage;
 using static WebExpress.Internationalization.InternationalizationManager;
@@ -48,23 +50,28 @@ namespace InventoryExpress.WebComponent
         {
             Confirm += (s, e) =>
             {
-                lock (ViewModel.Instance.Database)
-                {
-                    var guid = context.Request.GetParameter("ManufacturerID")?.Value;
-                    var manufactur = ViewModel.Instance.Manufacturers.Where(x => x.Guid == guid).FirstOrDefault();
+                var guid = context.Request.GetParameter("ManufacturerID")?.Value;
+                var manufacturer = ViewModel.GetManufacturer(guid);
 
-                    if (manufactur != null)
-                    {
-                        try
-                        {
-                            ViewModel.Instance.Manufacturers.Remove(manufactur);
-                            ViewModel.Instance.SaveChanges();
-                        }
-                        catch (DbUpdateException /*ex*/)
-                        {
-                            //context.Page.AddMessage(context.Page.I18N("inventoryexpress.manufacturer.delete.error", MessageType.Error));
-                        }
-                    }
+                if (manufacturer != null)
+                {
+                    ViewModel.DeleteManufacturer(guid);
+                    ViewModel.Instance.SaveChanges();
+
+                    NotificationManager.CreateNotification
+                    (
+                        e.Context.Request,
+                        string.Format
+                        (
+                            I18N(e.Context, "inventoryexpress:inventoryexpress.manufacturer.notification.delete"),
+                            new ControlText()
+                            {
+                                Text = manufacturer.Name,
+                                Format = TypeFormatText.Span,
+                                TextColor = new PropertyColorText(TypeColorText.Danger)
+                            }.Render(e.Context).ToString().Trim()
+                        )
+                    );
                 }
             };
 

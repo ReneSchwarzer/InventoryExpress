@@ -5,7 +5,7 @@ namespace InventoryExpress.Model.Entity
     /// <summary>
     /// Standort
     /// </summary>
-    public class Location : ItemAaddress
+    public class Location : ItemAddress
     {
         /// <summary>
         /// Das Gebäude

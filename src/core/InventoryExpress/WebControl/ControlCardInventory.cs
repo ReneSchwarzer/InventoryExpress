@@ -1,8 +1,10 @@
 ﻿using InventoryExpress.Model;
 using InventoryExpress.Model.Entity;
+using InventoryExpress.Model.WebItems;
 using System.Linq;
 using WebExpress.Html;
 using WebExpress.UI.WebControl;
+using WebExpress.Uri;
 using WebExpress.WebPage;
 
 namespace InventoryExpress.WebControl
@@ -12,7 +14,7 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Liefert oder setzt das Inventarelement
         /// </summary>
-        private Inventory Inventory { get; set; }
+        private WebItemEntityInventory Inventory { get; set; }
 
         /// <summary>
         /// Liefert das Bild
@@ -102,9 +104,9 @@ namespace InventoryExpress.WebControl
         /// Konstruktor
         /// </summary>
         /// <param name="inventory">Der Invntargegenstand</param>
-        public ControlCardInventory(Inventory inventory)
+        public ControlCardInventory(WebItemEntityInventory inventory)
         {
-
+            Styles.Add("width: fit-content;");
 
             Inventory = inventory;
 
@@ -148,17 +150,17 @@ namespace InventoryExpress.WebControl
         {
             lock (ViewModel.Instance.Database)
             {
-                var image = ViewModel.Instance.Media.Where(x => x.Id == Inventory.MediaId).Select(x => context.Uri.Root.Append("media/" + x.Guid)).FirstOrDefault();
-                var manufacturer = ViewModel.Instance.Manufacturers.Where(x => x.Id == Inventory.ManufacturerId).FirstOrDefault();
-                var location = ViewModel.Instance.Locations.Where(x => x.Id == Inventory.LocationId).FirstOrDefault();
-                var supplier = ViewModel.Instance.Suppliers.Where(x => x.Id == Inventory.SupplierId).FirstOrDefault();
-                var ledgerAccount = ViewModel.Instance.LedgerAccounts.Where(x => x.Id == Inventory.LedgerAccountId).FirstOrDefault();
-                var costCenter = ViewModel.Instance.CostCenters.Where(x => x.Id == Inventory.CostCenterId).FirstOrDefault();
-                var condition = ViewModel.Instance.Conditions.Where(x => x.Id == Inventory.ConditionId)?.FirstOrDefault();
-                var template = ViewModel.Instance.Templates.Where(x => x.Id == Inventory.TemplateId)?.FirstOrDefault();
+                var image = new UriRelative(Inventory.Image);
+                var manufacturer = Inventory.Manufacturer;
+                var location = Inventory.Location;
+                var supplier = Inventory.Supplier;
+                var ledgerAccount = Inventory.LedgerAccount;
+                var costCenter = Inventory.CostCenter;
+                var condition = Inventory.Condition;
+                var template = Inventory.Template;
 
-                Media.Image = image ?? context.Uri.Root.Append("/assets/img/inventoryexpress.svg");
-                MediaLink.Uri = context.Uri.Root.Append(Inventory.Guid);
+                Media.Image = image;
+                MediaLink.Uri = new UriRelative(Inventory.Uri);
 
                 Template.Text = template?.Name;
                 //Template.Uri = ;

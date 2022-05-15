@@ -11,6 +11,8 @@ app.disclaimer.description=Liability for damage caused by material defects is ex
 app.about=About Inventory Express
 app.version.label=Version
 app.contact.label=Contact
+app.notification.welcome.label=Welcome!
+app.notification.welcome.description=The '<strong>InventoryExpress</strong>' application is now available.
 
 module.name=InventoryExpress Core
 module.description=Contains the basic functionalities.
@@ -212,6 +214,8 @@ inventoryexpress.manufacturer.updatedate.description=
 inventoryexpress.manufacturer.validation.name.invalid=Enter a valid name!
 inventoryexpress.manufacturer.validation.name.used=The manufacturer is already in use. Enter a different name!
 inventoryexpress.manufacturer.validation.zip.tolong=The zip code is too long!
+inventoryexpress.manufacturer.notification.add=The manufacturer '{0}' has been created successfully.
+inventoryexpress.manufacturer.notification.delete=The manufacturer '{0}' was successfully deleted.
 
 inventoryexpress.suppliers.label=Suppliers
 inventoryexpress.supplier.label=Supplier

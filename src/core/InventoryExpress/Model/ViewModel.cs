@@ -1,106 +1,25 @@
 ﻿using InventoryExpress.Model.Entity;
+using InventoryExpress.Model.WebItems;
 using Microsoft.EntityFrameworkCore;
 using System;
-using WebExpress.WebPlugin;
+using System.Collections.Generic;
+using System.Linq;
+using WebExpress.WebApp.Wql;
+using WebExpress.WebModule;
 
 namespace InventoryExpress.Model
 {
-    public class ViewModel : DB
+    public partial class ViewModel : DB
     {
         /// <summary>
-        /// Liefert oder setzt die Inventargegenstände
+        /// Instanz des einzigen Modells
         /// </summary>
-        public DbSet<Inventory> Inventories { get; set; }
+        public static string RootUri { get; private set; }
 
         /// <summary>
-        /// Liefert oder setzt die Attribute der Inventargegenstände
+        /// Ermittelt die Uri des Anwendungsicons 
         /// </summary>
-        public DbSet<InventoryAttribute> InventoryAttributes { get; set; }
-
-        /// <summary>
-        /// Liefert oder setzt die Datei-Anhänge der Inventargegenstände
-        /// </summary>
-        public DbSet<InventoryAttachment> InventoryAttachments { get; set; }
-
-        /// <summary>
-        /// Liefert oder setzt die Kommentare der Inventargegenstände
-        /// </summary>
-        public DbSet<InventoryComment> InventoryComments { get; set; }
-
-        /// <summary>
-        /// Liefert oder setzt das Journal der Inventargegenstände
-        /// </summary>
-        public DbSet<InventoryJournal> InventoryJournals { get; set; }
-
-        /// <summary>
-        /// Liefert oder setzt die Journal-Parameter der Inventargegenstände
-        /// </summary>
-        public DbSet<InventoryJournalParameter> InventoryJournalParameters { get; set; }
-
-        /// <summary>
-        /// Liefert oder setzt die Schlagwörter der Inventargegenstände
-        /// </summary>
-        public DbSet<InventoryTag> InventoryTags { get; set; }
-
-        /// <summary>
-        /// Liefert oder setzt die Zustände
-        /// </summary>
-        public DbSet<Condition> Conditions { get; set; }
-
-        /// <summary>
-        /// Liefert oder setzt die Standorte
-        /// </summary>
-        public DbSet<Location> Locations { get; set; }
-
-        /// <summary>
-        /// Liefert oder setzt die Hersteller
-        /// </summary>
-        public DbSet<Manufacturer> Manufacturers { get; set; }
-
-        /// <summary>
-        /// Liefert oder setzt die Lieferanten
-        /// </summary>
-        public DbSet<Supplier> Suppliers { get; set; }
-
-        /// <summary>
-        /// Liefert oder setzt die Sachkonten
-        /// </summary>
-        public DbSet<LedgerAccount> LedgerAccounts { get; set; }
-
-        /// <summary>
-        /// Liefert oder setzt die Kostenstellen
-        /// </summary>
-        public DbSet<CostCenter> CostCenters { get; set; }
-
-        /// <summary>
-        /// Liefert oder setzt die Vorlagen
-        /// </summary>
-        public DbSet<Template> Templates { get; set; }
-
-        /// <summary>
-        /// Liefert oder setzt die Vorlagenattribute
-        /// </summary>
-        public DbSet<TemplateAttribute> TemplateAttributes { get; set; }
-
-        /// <summary>
-        /// Liefert oder setzt die Attribute
-        /// </summary>
-        public DbSet<Entity.Attribute> Attributes { get; set; }
-
-        /// <summary>
-        /// Liefert oder setzt die Medien
-        /// </summary>
-        public DbSet<Media> Media { get; set; }
-
-        /// <summary>
-        /// Liefert oder setzt die Schlagwörter
-        /// </summary>
-        public DbSet<Tag> Tags { get; set; }
-
-        /// <summary>
-        /// Liefert oder setzt die Medien
-        /// </summary>
-        public DbSet<Setting> Settings { get; set; }
+        public static string ApplicationIcon { get; private set; }
 
         /// <summary>
         /// Instanz des einzigen Modells
@@ -126,7 +45,7 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Liefert oder setzt den Kontext
         /// </summary>
-        public IPluginContext Context { get; set; }
+        public static IModuleContext Context { get; private set; }
 
         /// <summary>
         /// Konstruktor
@@ -140,8 +59,12 @@ namespace InventoryExpress.Model
         /// Initialisierung
         /// </summary>
         /// <param name="context">Der Kontext, welcher für die Ausführung des Plugins gilt</param>
-        public void Initialization(IPluginContext context)
+        public void Initialization(IModuleContext context)
         {
+            Context = context;
+            ApplicationIcon = Context.Application.Icon.ToString();
+            RootUri = context.ContextPath.ToString();
+
             Database.EnsureCreated();
 
             Database.Migrate();

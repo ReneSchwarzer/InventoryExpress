@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebPage;
+using WebExpress.WebApp.Wql;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
 
@@ -45,18 +46,13 @@ namespace InventoryExpress.WebPage
             var visualTree = context.VisualTree;
 
             var grid = new ControlPanelGrid() { Fluid = TypePanelContainer.Fluid };
-            var list = null as ICollection<LedgerAccount>;
+            var list = ViewModel.GetLedgerAccounts(new WqlStatement()).OrderBy(x => x.Name);
 
-            lock (ViewModel.Instance.Database)
-            {
-                list = ViewModel.Instance.LedgerAccounts.OrderBy(x => x.Name).ToList();
-            }
-
-            foreach (var gLAccount in list)
+            foreach (var ledgerAccount in list)
             {
                 var card = new ControlCardLedgerAccount()
                 {
-                    LedgerAccount = gLAccount
+                    LedgerAccount = ledgerAccount
                 };
 
                 grid.Content.Add(card);

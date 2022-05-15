@@ -45,7 +45,7 @@ namespace InventoryExpress.WebComponent
             Text = InternationalizationManager.I18N(context.Culture, "inventoryexpress:inventoryexpress.delete.label");
             Icon = new PropertyIcon(TypeIcon.Trash);
 
-            OnClick = $"$('#modal_del_inventory').modal('show');";
+            OnClick = new PropertyOnClick($"$('#modal_del_inventory').modal('show');");
 
             return base.Render(context);
         }
