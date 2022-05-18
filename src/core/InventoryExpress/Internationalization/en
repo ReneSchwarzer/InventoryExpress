@@ -215,6 +215,7 @@ inventoryexpress.manufacturer.validation.name.invalid=Enter a valid name!
 inventoryexpress.manufacturer.validation.name.used=The manufacturer is already in use. Enter a different name!
 inventoryexpress.manufacturer.validation.zip.tolong=The zip code is too long!
 inventoryexpress.manufacturer.notification.add=The manufacturer '{0}' has been created successfully.
+inventoryexpress.manufacturer.notification.edit=The manufacturer's specifications of the manufacturer '{0}' have been saved successfully.
 inventoryexpress.manufacturer.notification.delete=The manufacturer '{0}' was successfully deleted.
 
 inventoryexpress.suppliers.label=Suppliers

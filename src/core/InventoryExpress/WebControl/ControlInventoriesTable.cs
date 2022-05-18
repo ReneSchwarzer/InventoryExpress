@@ -1,10 +1,10 @@
 ﻿using WebExpress.Html;
-using WebExpress.WebApp.WebControlRest;
+using WebExpress.WebApp.WebApiControl;
 using WebExpress.WebPage;
 
 namespace InventoryExpress.WebControl
 {
-    public class ControlInventoriesTable : ControlTableRest
+    public class ControlInventoriesTable : ControlApiTable
     {
         /// <summary>
         /// Konstruktor

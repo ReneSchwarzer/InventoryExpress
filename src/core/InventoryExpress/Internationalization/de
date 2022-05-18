@@ -215,6 +215,7 @@ inventoryexpress.manufacturer.validation.name.invalid=Geben Sie einen gültigen 
 inventoryexpress.manufacturer.validation.name.used=Der Hersteller wird bereits verwendet. Geben Sie einen anderen Namen an!
 inventoryexpress.manufacturer.validation.zip.tolong=Die Postleitzahl ist zu lang!
 inventoryexpress.manufacturer.notification.add=Der Hersteller '{0}' wurde erfolgreich angelegt.
+inventoryexpress.manufacturer.notification.edit=Die Herstellerangaben des Herstellers '{0}' wurde erfolgreich gespeichert.
 inventoryexpress.manufacturer.notification.delete=Der Hersteller '{0}' wurde erfolgreich gelöscht.
 
 inventoryexpress.suppliers.label=Lieferanten

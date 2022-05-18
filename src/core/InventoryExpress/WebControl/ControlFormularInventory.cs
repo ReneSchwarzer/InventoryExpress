@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using WebExpress.UI.WebControl;
-using WebExpress.WebApp.WebControlRest;
+using WebExpress.WebApp.WebApiControl;
 using WebExpress.WebApp.WebPage;
 
 namespace InventoryExpress.WebControl
@@ -26,7 +26,7 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Liefert oder setzt den Hersteller
         /// </summary>
-        public ControlFormularItemInputSelectionRest Manufacturer { get; } = new ControlFormularItemInputSelectionRest("manufacturer")
+        public ControlApiFormularItemInputSelection Manufacturer { get; } = new ControlApiFormularItemInputSelection("manufacturer")
         {
             Name = "manufacturer",
             Label = "inventoryexpress:inventoryexpress.inventory.manufacturers.label",
@@ -38,7 +38,7 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Liefert oder setzt den Standort
         /// </summary>
-        public ControlFormularItemInputSelectionRest Location { get; } = new ControlFormularItemInputSelectionRest("location")
+        public ControlApiFormularItemInputSelection Location { get; } = new ControlApiFormularItemInputSelection("location")
         {
             Name = "location",
             Label = "inventoryexpress:inventoryexpress.inventory.location.label",
@@ -50,7 +50,7 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Liefert oder setzt den Lieferanten
         /// </summary>
-        public ControlFormularItemInputSelectionRest Supplier { get; } = new ControlFormularItemInputSelectionRest("supplier")
+        public ControlApiFormularItemInputSelection Supplier { get; } = new ControlApiFormularItemInputSelection("supplier")
         {
             Name = "supplier",
             Label = "inventoryexpress:inventoryexpress.inventory.supplier.label",
@@ -62,7 +62,7 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Liefert oder setzt das Sachkonto
         /// </summary>
-        public ControlFormularItemInputSelectionRest LedgerAccount { get; } = new ControlFormularItemInputSelectionRest("ledgeraccount")
+        public ControlApiFormularItemInputSelection LedgerAccount { get; } = new ControlApiFormularItemInputSelection("ledgeraccount")
         {
             Name = "ledgeraccount",
             Label = "inventoryexpress:inventoryexpress.inventory.ledgeraccount.label",
@@ -74,7 +74,7 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Liefert oder setzt die Kostenstelle
         /// </summary>
-        public ControlFormularItemInputSelectionRest CostCenter { get; } = new ControlFormularItemInputSelectionRest("costcenter")
+        public ControlApiFormularItemInputSelection CostCenter { get; } = new ControlApiFormularItemInputSelection("costcenter")
         {
             Name = "costcenter",
             Label = "inventoryexpress:inventoryexpress.inventory.costcenter.label",
@@ -86,7 +86,7 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Liefert oder setzt den Zustand
         /// </summary>
-        public ControlFormularItemInputSelectionRest Condition { get; } = new ControlFormularItemInputSelectionRest("condition")
+        public ControlApiFormularItemInputSelection Condition { get; } = new ControlApiFormularItemInputSelection("condition")
         {
             Name = "condition",
             Label = "inventoryexpress:inventoryexpress.inventory.condition.label",
@@ -98,7 +98,7 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Liefert oder setzt die Zugehörigkeit
         /// </summary>
-        public ControlFormularItemInputSelectionRest Parent { get; } = new ControlFormularItemInputSelectionRest("parent")
+        public ControlApiFormularItemInputSelection Parent { get; } = new ControlApiFormularItemInputSelection("parent")
         {
             Name = "parent",
             Label = "inventoryexpress:inventoryexpress.inventory.parent.label",
@@ -110,7 +110,7 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Liefert oder setzt das Template
         /// </summary>
-        public ControlFormularItemInputSelectionRest Template { get; } = new ControlFormularItemInputSelectionRest("template")
+        public ControlApiFormularItemInputSelection Template { get; } = new ControlApiFormularItemInputSelection("template")
         {
             Name = "template",
             Label = "inventoryexpress:inventoryexpress.inventory.template.label",
@@ -160,7 +160,7 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Liefert oder setzt die Schlagwörter
         /// </summary>
-        public ControlFormularItemInputSelectionRest Tag { get; } = new ControlFormularItemInputSelectionRest("tags")
+        public ControlApiFormularItemInputSelection Tag { get; } = new ControlApiFormularItemInputSelection("tags")
         {
             Name = "tag",
             Label = "inventoryexpress:inventoryexpress.inventory.tags.label",
@@ -229,7 +229,7 @@ namespace InventoryExpress.WebControl
         public override void Initialize(RenderContextFormular context)
         {
             base.Initialize(context);
-            
+
             Manufacturer.RestUri = context.Uri.Root.Append("api/v1/manufacturers");
             Location.RestUri = context.Uri.Root.Append("api/v1/locations");
             Supplier.RestUri = context.Uri.Root.Append("api/v1/suppliers");
@@ -247,7 +247,7 @@ namespace InventoryExpress.WebControl
             {
                 lock (ViewModel.Instance.Database)
                 {
-                    
+
                     var inventory = ViewModel.Instance.Inventories.Where(x => x.Guid == guid).FirstOrDefault();
                     var attributesForm = new List<ControlFormularItemInputTextBox>();
                     var attributes = new List<InventoryAttribute>();
@@ -282,7 +282,7 @@ namespace InventoryExpress.WebControl
             lock (ViewModel.Instance.Database)
             {
                 var template = ViewModel.Instance.Templates.Where(x => x.Guid == templateGUID).FirstOrDefault();
-                var attributes = from x in ViewModel.Instance.TemplateAttributes.Where(x => x.TemplateId == template.Id) 
+                var attributes = from x in ViewModel.Instance.TemplateAttributes.Where(x => x.TemplateId == template.Id)
                                  join y in ViewModel.Instance.Attributes on x.AttributeId equals y.Id
                                  select y;
 
@@ -312,7 +312,7 @@ namespace InventoryExpress.WebControl
             {
                 var attributesForm = new List<ControlFormularItemInputTextBox>();
                 var attributes = new List<InventoryAttribute>();
-                               
+
                 var template = ViewModel.Instance.Templates.Where(x => x.Guid == templateGUID).FirstOrDefault();
 
                 // nur gefüllte Attribute übernehmen

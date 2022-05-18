@@ -3,13 +3,14 @@ using InventoryExpress.Model.WebItems;
 using InventoryExpress.WebControl;
 using System;
 using System.IO;
-using System.Linq;
 using WebExpress.Message;
 using WebExpress.UI.WebControl;
+using WebExpress.Uri;
+using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
-using WebExpress.WebApp.Wql;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
+using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace InventoryExpress.WebPage
 {
@@ -108,6 +109,22 @@ namespace InventoryExpress.WebPage
                 ViewModel.AddOrUpdateMedia(Manufacturer.Media, file?.Data);
                 ViewModel.Instance.SaveChanges();
             }
+
+            NotificationManager.CreateNotification
+            (
+                request: e.Context.Request,
+                message: string.Format
+                (
+                    I18N(Culture, "inventoryexpress:inventoryexpress.manufacturer.notification.edit"),
+                    new ControlLink()
+                    {
+                        Text = Manufacturer.Name,
+                        Uri = new UriRelative(ViewModel.GetManufacturerUri(Manufacturer.ID))
+                    }.Render(e.Context).ToString().Trim()
+                ),
+                icon: new UriRelative(Manufacturer.Image),
+                durability: 10000
+            );
         }
 
         /// <summary>

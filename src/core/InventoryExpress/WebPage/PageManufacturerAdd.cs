@@ -105,8 +105,8 @@ namespace InventoryExpress.WebPage
 
             NotificationManager.CreateNotification
             (
-                e.Context.Request, 
-                string.Format
+                request: e.Context.Request,
+                message: string.Format
                 (
                     I18N(Culture, "inventoryexpress:inventoryexpress.manufacturer.notification.add"), 
                     new ControlLink() 
@@ -114,7 +114,9 @@ namespace InventoryExpress.WebPage
                         Text = manufacturer.Name, 
                         Uri = new UriRelative(ViewModel.GetManufacturerUri(manufacturer.ID)) 
                     }.Render(e.Context).ToString().Trim()
-                )
+                ),
+                icon: new UriRelative(manufacturer.Image),
+                durability: 10000
             );
 
             Form.RedirectUri = Form.RedirectUri.Append(manufacturer.ID);

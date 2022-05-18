@@ -19,7 +19,7 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Liefert die ungenutzten Attribute
         /// </summary>
-        public ControlFormularItemInputSelectionMove Attributes { get; } = new ControlFormularItemInputSelectionMove("attributes")
+        public ControlFormularItemInputMove Attributes { get; } = new ControlFormularItemInputMove("attributes")
         {
             Name = "attributes",
             Label = "inventoryexpress:inventoryexpress.template.form.unused.label",
