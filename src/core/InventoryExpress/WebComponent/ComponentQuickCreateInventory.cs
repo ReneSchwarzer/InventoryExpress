@@ -10,7 +10,7 @@ using WebExpress.WebPage;
 
 namespace InventoryExpress.WebComponent
 {
-    [Section(Section.AppQuickcreatePrimary)]
+    [Section(Section.AppQuickcreatePreferences)]
     [Module("inventoryexpress")]
     public sealed class ComponentQuickCreateInventory : ComponentControlSplitButtonItemLink
     {

@@ -4,7 +4,6 @@ using InventoryExpress.WebControl;
 using System;
 using System.IO;
 using System.Linq;
-using WebExpress.Internationalization;
 using WebExpress.Message;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebPage;

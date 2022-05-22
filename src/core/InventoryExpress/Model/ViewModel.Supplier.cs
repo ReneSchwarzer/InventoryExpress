@@ -1,4 +1,6 @@
-﻿using InventoryExpress.Model.WebItems;
+﻿using InventoryExpress.Model.Entity;
+using InventoryExpress.Model.WebItems;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using WebExpress.WebApp.Wql;
@@ -22,26 +24,26 @@ namespace InventoryExpress.Model
         /// </summary>
         /// <param name="wql">Die Filter- und Sortieroptinen</param>
         /// <returns>Eine Aufzählung, welche die Hersteller beinhaltet</returns>
-        public IEnumerable<WebItemEntitySupplier> GetSuppliers(WqlStatement wql)
+        public static IEnumerable<WebItemEntitySupplier> GetSuppliers(WqlStatement wql)
         {
-            lock (Database)
+            lock (Instance.Database)
             {
-                var suppliers = Suppliers.Select(x => new WebItemEntitySupplier(x));
+                var suppliers = Instance.Suppliers.Select(x => new WebItemEntitySupplier(x));
 
                 return wql.Apply(suppliers.AsQueryable());
             }
         }
 
         /// <summary>
-        /// Liefert einen Lieferanten
+        /// Liefert ein Lieferant
         /// </summary>
-        /// <param name="id">Die interne LieferantenID</param>
+        /// <param name="id">Die LieferantenID</param>
         /// <returns>Der Lieferant oder null</returns>
-        public WebItemEntitySupplier GetSupplier(int? id)
+        public static WebItemEntitySupplier GetSupplier(string id)
         {
-            lock (Database)
+            lock (Instance.Database)
             {
-                var supplier = Suppliers.Where(x => x.Id == id).Select(x => new WebItemEntitySupplier(x)).FirstOrDefault();
+                var supplier = Instance.Suppliers.Where(x => x.Guid == id).Select(x => new WebItemEntitySupplier(x)).FirstOrDefault();
 
                 return supplier;
             }
@@ -62,6 +64,104 @@ namespace InventoryExpress.Model
                                select new WebItemEntitySupplier(s);
 
                 return supplier.FirstOrDefault();
+            }
+        }
+
+        /// <summary>
+        /// Fügt ein Lieferant hinzu oder aktuallisiert diesen
+        /// </summary>
+        /// <param name="supplier">Der Lieferant</param>
+        public static void AddOrUpdateSupplier(WebItemEntitySupplier supplier)
+        {
+            lock (Instance.Database)
+            {
+                var availableEntity = Instance.Manufacturers.Where(x => x.Guid == supplier.ID).FirstOrDefault();
+
+                if (availableEntity == null)
+                {
+                    // Neu erstellen
+                    var entity = new Supplier()
+                    {
+                        Guid = supplier.ID,
+                        Name = supplier.Name,
+                        Description = supplier.Description,
+                        Address = supplier.Address,
+                        Zip = supplier.Zip,
+                        Place = supplier.Place,
+                        Tag = supplier.Tag,
+                        Created = DateTime.Now,
+                        Updated = DateTime.Now,
+                        Media = new Media()
+                        {
+                            Guid = supplier.Media?.ID,
+                            Name = supplier.Media?.Name ?? "",
+                            Description = supplier.Media?.Description,
+                            Tag = supplier.Media?.Tag,
+                            Created = DateTime.Now,
+                            Updated = DateTime.Now
+                        }
+                    };
+
+                    Instance.Suppliers.Add(entity);
+                }
+                else
+                {
+                    // Update
+                    var availableMedia = supplier.Media != null ? Instance.Media.Where(x => x.Guid == supplier.Media.ID).FirstOrDefault() : null;
+
+                    availableEntity.Name = supplier.Name;
+                    availableEntity.Description = supplier.Description;
+                    availableEntity.Address = supplier.Address;
+                    availableEntity.Zip = supplier.Zip;
+                    availableEntity.Place = supplier.Place;
+                    availableEntity.Tag = supplier.Tag;
+                    availableEntity.Updated = DateTime.Now;
+
+                    if (availableMedia == null)
+                    {
+                        var media = new Media()
+                        {
+                            Guid = supplier.Media?.ID,
+                            Name = supplier.Media?.Name,
+                            Description = supplier.Media?.Description,
+                            Tag = supplier.Media?.Tag,
+                            Created = DateTime.Now,
+                            Updated = DateTime.Now
+                        };
+
+                        Instance.Media.Add(media);
+                    }
+                    else if (!string.IsNullOrWhiteSpace(supplier.Media.Name))
+                    {
+                        availableMedia.Name = supplier.Media?.Name;
+                        availableMedia.Description = supplier.Media?.Description;
+                        availableMedia.Tag = supplier.Media?.Tag;
+                        availableMedia.Updated = DateTime.Now;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Löscht ein Lieferant
+        /// </summary>
+        /// <param name="id">Die Lieferanten ID</param>
+        public static void DeleteSupplier(string id)
+        {
+            lock (Instance.Database)
+            {
+                var entity = Instance.Suppliers.Where(x => x.Guid == id).FirstOrDefault();
+                var entityMedia = Instance.Media.Where(x => x.Id == entity.MediaId).FirstOrDefault();
+
+                if (entityMedia != null)
+                {
+                    DeleteMedia(entityMedia.Guid);
+                }
+
+                if (entity != null)
+                {
+                    Instance.Suppliers.Remove(entity);
+                }
             }
         }
     }

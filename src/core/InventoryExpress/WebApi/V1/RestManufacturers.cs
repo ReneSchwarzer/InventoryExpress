@@ -74,6 +74,7 @@ namespace InventoryExpress.WebApi.V1
         public override bool DeleteData(string id, Request request)
         {
             ViewModel.DeleteManufacturer(id);
+            ViewModel.Instance.SaveChanges();
 
             return true;
         }

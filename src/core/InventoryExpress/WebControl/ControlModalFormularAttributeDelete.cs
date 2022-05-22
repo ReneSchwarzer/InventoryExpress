@@ -8,7 +8,7 @@ using WebExpress.WebPage;
 
 namespace InventoryExpress.WebControl
 {
-    public class ControlModalFormularAttributeDelete : ControlModalFormConfirmDelete
+    public class ControlModalFormularAttributeDelete : ControlModalFormularConfirmDelete
     {
         /// <summary>
         /// Das zu löschende Attribut

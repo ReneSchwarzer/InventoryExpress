@@ -90,7 +90,7 @@ namespace InventoryExpress.WebPageSetting
                             Text = this.I18N("inventoryexpress:inventoryexpress.attribute.edit.label"),
                             Uri = new UriFragment(),
                             Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.Null),
-                            Modal = new ControlModalFormularAttributeEdit(attribute.Guid) { Item = attribute }
+                            Modal = new PropertyModal(TypeModal.Modal, new ControlModalFormularAttributeEdit(attribute.Guid) { Item = attribute })
                         },
                         new ControlText()
                         {
@@ -112,7 +112,7 @@ namespace InventoryExpress.WebPageSetting
                                 TextColor = new PropertyColorText(TypeColorText.Danger),
                                 Uri = new UriFragment(),
                                 Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.Null),
-                                Modal = new ControlModalFormularAttributeDelete(attribute.Guid) { Item = attribute }
+                                Modal = new PropertyModal(TypeModal.Modal, new ControlModalFormularAttributeDelete(attribute.Guid) { Item = attribute })
                             }
                         )
                     )

@@ -1,4 +1,5 @@
 ﻿using WebExpress.UI.WebControl;
+using WebExpress.WebApp.WebApiControl;
 using WebExpress.WebApp.WebPage;
 
 namespace InventoryExpress.WebControl
@@ -43,12 +44,13 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Liefert die Schlagwörter
         /// </summary>
-        public ControlFormularItemInputTag Tag { get; } = new ControlFormularItemInputTag("tags")
+        public ControlApiFormularItemInputSelection Tag { get; } = new ControlApiFormularItemInputSelection("tags")
         {
             Name = "tag",
             Label = "inventoryexpress:inventoryexpress.ledgeraccount.form.tag.label",
             Help = "inventoryexpress:inventoryexpress.ledgeraccount.form.tag.description",
-            Icon = new PropertyIcon(TypeIcon.Tag)
+            Icon = new PropertyIcon(TypeIcon.Tag),
+            MultiSelect = true
         };
 
         /// <summary>
@@ -78,6 +80,17 @@ namespace InventoryExpress.WebControl
             }
 
             Add(Tag);
+        }
+
+        /// <summary>
+        /// Initialisiert das Formular
+        /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        public override void Initialize(RenderContextFormular context)
+        {
+            base.Initialize(context);
+
+            Tag.RestUri = context.Uri.Root.Append("api/v1/tags");
         }
     }
 }

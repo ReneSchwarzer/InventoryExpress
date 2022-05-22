@@ -6,6 +6,7 @@ using WebExpress.UI.WebComponent;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebComponent;
 using WebExpress.WebApp.WebControl;
+using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebAttribute;
 using WebExpress.WebPage;
 using static WebExpress.Internationalization.InternationalizationManager;
@@ -47,16 +48,28 @@ namespace InventoryExpress.WebComponent
         {
             Confirm += (s, e) =>
             {
-                lock (ViewModel.Instance.Database)
-                {
-                    var guid = context.Request.GetParameter("SupplierID")?.Value;
-                    var supplier = ViewModel.Instance.Suppliers.Where(x => x.Guid == guid).FirstOrDefault();
+                var guid = context.Request.GetParameter("SupplierID")?.Value;
+                var supplier = ViewModel.GetSupplier(guid);
 
-                    if (supplier != null)
-                    {
-                        ViewModel.Instance.Suppliers.Remove(supplier);
-                        ViewModel.Instance.SaveChanges();
-                    }
+                if (supplier != null)
+                {
+                    ViewModel.DeleteSupplier(guid);
+                    ViewModel.Instance.SaveChanges();
+
+                    NotificationManager.CreateNotification
+                    (
+                        e.Context.Request,
+                        string.Format
+                        (
+                            I18N(e.Context, "inventoryexpress:inventoryexpress.supplier.notification.delete"),
+                            new ControlText()
+                            {
+                                Text = supplier.Name,
+                                Format = TypeFormatText.Span,
+                                TextColor = new PropertyColorText(TypeColorText.Danger)
+                            }.Render(e.Context).ToString().Trim()
+                        )
+                    );
                 }
             };
 

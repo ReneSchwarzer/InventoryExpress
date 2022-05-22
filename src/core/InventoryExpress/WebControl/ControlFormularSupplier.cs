@@ -1,5 +1,10 @@
-﻿using WebExpress.UI.WebControl;
+﻿using InventoryExpress.Model;
+using System;
+using System.Linq;
+using WebExpress.UI.WebControl;
+using WebExpress.WebApp.WebApiControl;
 using WebExpress.WebApp.WebPage;
+using WebExpress.WebApp.Wql;
 using WebExpress.WebPage;
 
 namespace InventoryExpress.WebControl
@@ -78,12 +83,13 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Liefert die Schlagwörter
         /// </summary>
-        public ControlFormularItemInputTag Tag { get; } = new ControlFormularItemInputTag("tags")
+        public ControlApiFormularItemInputSelection Tag { get; } = new ControlApiFormularItemInputSelection("tags")
         {
             Name = "tag",
             Label = "inventoryexpress:inventoryexpress.supplier.form.tag.label",
             Help = "inventoryexpress:inventoryexpress.supplier.form.tag.description",
-            Icon = new PropertyIcon(TypeIcon.Tag)
+            Icon = new PropertyIcon(TypeIcon.Tag),
+            MultiSelect = true
         };
 
         /// <summary>
@@ -104,6 +110,9 @@ namespace InventoryExpress.WebControl
             BackgroundColor = LayoutSchema.FormularBackground;
             Layout = TypeLayoutFormular.Horizontal;
 
+            SupplierName.Validation += ManufacturerNameValidation;
+            Zip.Validation += ZipValidation;
+
             var group = new ControlFormularItemGroupColumnVertical() { Distribution = new int[] { 33 } };
             group.Items.Add(Zip);
             group.Items.Add(Place);
@@ -119,6 +128,63 @@ namespace InventoryExpress.WebControl
             }
 
             Add(Tag);
+        }
+
+        /// <summary>
+        /// Initialisiert das Formular
+        /// </summary>
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        public override void Initialize(RenderContextFormular context)
+        {
+            base.Initialize(context);
+
+            Tag.RestUri = context.Uri.Root.Append("api/v1/tags");
+        }
+
+        /// <summary>
+        /// Wird ausgelöst, wenn das Feld Zip validiert werden soll.
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventargumente/param>
+        private void ZipValidation(object sender, ValidationEventArgs e)
+        {
+            if (e.Value != null && e.Value.Length >= 10)
+            {
+                e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.supplier.validation.zip.tolong"));
+            }
+        }
+
+        /// <summary>
+        /// Wird ausgelöst, wenn das Feld ManufacturerName validiert werden soll.
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventargumente/param>
+        private void ManufacturerNameValidation(object sender, ValidationEventArgs e)
+        {
+            var guid = e.Context.Request.GetParameter("SupplierID")?.Value;
+            var supplier = ViewModel.GetSupplier(guid);
+
+            if (e.Value == null || e.Value.Length < 1)
+            {
+                e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.supplier.validation.name.invalid"));
+            }
+            else if
+            (
+                supplier == null &&
+                ViewModel.GetSuppliers(new WqlStatement()).Where(x => x.Name.Equals(e.Value, StringComparison.OrdinalIgnoreCase)).Any()
+            )
+            {
+                e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.supplier.validation.name.used"));
+            }
+            else if
+            (
+                supplier != null &&
+                !supplier.Name.Equals(e.Value, StringComparison.InvariantCultureIgnoreCase) &&
+                ViewModel.GetSuppliers(new WqlStatement()).Where(x => x.Name.Equals(e.Value, StringComparison.OrdinalIgnoreCase)).Any()
+            )
+            {
+                e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.supplier.validation.name.used"));
+            }
         }
     }
 }

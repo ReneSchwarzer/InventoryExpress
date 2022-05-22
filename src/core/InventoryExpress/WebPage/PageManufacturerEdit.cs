@@ -3,6 +3,7 @@ using InventoryExpress.Model.WebItems;
 using InventoryExpress.WebControl;
 using System;
 using System.IO;
+using WebExpress.Internationalization;
 using WebExpress.Message;
 using WebExpress.UI.WebControl;
 using WebExpress.Uri;
@@ -10,7 +11,6 @@ using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
-using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace InventoryExpress.WebPage
 {
@@ -115,7 +115,7 @@ namespace InventoryExpress.WebPage
                 request: e.Context.Request,
                 message: string.Format
                 (
-                    I18N(Culture, "inventoryexpress:inventoryexpress.manufacturer.notification.edit"),
+                    InternationalizationManager.I18N(Culture, "inventoryexpress:inventoryexpress.manufacturer.notification.edit"),
                     new ControlLink()
                     {
                         Text = Manufacturer.Name,

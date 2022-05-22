@@ -13,6 +13,7 @@ namespace InventoryExpress.WebComponent
     [Section(Section.PropertyPrimary)]
     [Module("inventoryexpress")]
     [Context("manufactureredit")]
+    [Context("manufacturerdelete")]
     public sealed class ComponentPropertyManufacturerDetails : ComponentControlList
     {
         /// <summary>

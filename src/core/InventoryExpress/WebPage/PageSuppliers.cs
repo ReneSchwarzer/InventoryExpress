@@ -46,7 +46,7 @@ namespace InventoryExpress.WebPage
             var visualTree = context.VisualTree;
 
             var grid = new ControlPanelGrid() { Fluid = TypePanelContainer.Fluid };
-            var list = ViewModel.Instance.GetSuppliers(new WqlStatement()).OrderBy(x => x.Name);
+            var list = ViewModel.GetSuppliers(new WqlStatement()).OrderBy(x => x.Name);
             
             foreach (var supplier in list)
             {

@@ -69,7 +69,7 @@ namespace InventoryExpress.WebPageSetting
         /// <summary>
         /// Das Importformular
         /// </summary>
-        private ControlModalFormFileUpload ImportForm { get; } = new ControlModalFormFileUpload("import")
+        private ControlModalFormularFileUpload ImportForm { get; } = new ControlModalFormularFileUpload("import")
         {
             Margin = new PropertySpacingMargin(PropertySpacing.Space.Two),
             AcceptFile = new[] { ".zip" },

@@ -13,6 +13,7 @@ namespace InventoryExpress.WebComponent
     [Section(Section.HeadlineSecondary)]
     [Module("inventoryexpress")]
     [Context("inventories")]
+    [Context("manufacturers")]
     public sealed class ComponentHeadlineToggleView : ControlFormularToggleView, IComponent
     {
         /// <summary>

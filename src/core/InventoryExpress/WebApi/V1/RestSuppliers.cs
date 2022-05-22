@@ -63,7 +63,7 @@ namespace InventoryExpress.WebApi.V1
         /// <returns>Eine Aufzählung, welche JsonSerializer serialisiert werden kann.</returns>
         public override IEnumerable<WebItem> GetData(WqlStatement wql, Request request)
         {
-            var suppliers = ViewModel.Instance.GetSuppliers(wql);
+            var suppliers = ViewModel.GetSuppliers(wql);
 
             return suppliers;
         }
@@ -76,6 +76,9 @@ namespace InventoryExpress.WebApi.V1
         /// <returns>Das Ergebnis der Löschung</returns>
         public override bool DeleteData(string id, Request request)
         {
+            ViewModel.DeleteSupplier(id);
+            ViewModel.Instance.SaveChanges();
+
             return true;
         }
     }

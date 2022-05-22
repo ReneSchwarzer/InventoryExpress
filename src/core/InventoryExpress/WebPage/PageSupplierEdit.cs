@@ -1,11 +1,13 @@
 ﻿using InventoryExpress.Model;
-using InventoryExpress.Model.Entity;
+using InventoryExpress.Model.WebItems;
 using InventoryExpress.WebControl;
 using System;
 using System.IO;
-using System.Linq;
+using WebExpress.Internationalization;
 using WebExpress.Message;
 using WebExpress.UI.WebControl;
+using WebExpress.Uri;
+using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
@@ -30,6 +32,11 @@ namespace InventoryExpress.WebPage
         };
 
         /// <summary>
+        /// Liefert oder setzt den Lieferanten
+        /// </summary>
+        private WebItemEntitySupplier Supplier { get; set; }
+
+        /// <summary>
         /// Konstruktor
         /// </summary>
         public PageSupplierEdit()
@@ -46,91 +53,7 @@ namespace InventoryExpress.WebPage
 
             Form.InitializeFormular += InitializeFormular;
             Form.FillFormular += FillFormular;
-            Form.SupplierName.Validation += SupplierNameValidation;
-            Form.Zip.Validation += ZipValidation;
             Form.ProcessFormular += ProcessFormular;
-        }
-
-        /// <summary>
-        /// Wird ausgelöst, wenn das Formular verarbeitet werden soll.
-        /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
-        /// <param name="e">Die Eventargumente/param>
-        private void ProcessFormular(object sender, FormularEventArgs e)
-        {
-            lock (ViewModel.Instance.Database)
-            {
-                var guid = e.Context.Request.GetParameter("SupplierID")?.Value;
-                var supplier = ViewModel.Instance.Suppliers.Where(x => x.Guid == guid).FirstOrDefault();
-
-                // Lieferant ändern und speichern
-                supplier.Name = Form.SupplierName.Value;
-                supplier.Description = Form.Description.Value;
-                supplier.Address = Form.Address.Value;
-                supplier.Zip = Form.Zip.Value;
-                supplier.Place = Form.Place.Value;
-                supplier.Updated = DateTime.Now;
-                supplier.Tag = Form.Tag.Value;
-
-                ViewModel.Instance.SaveChanges();
-
-                if (e.Context.Request.GetParameter(Form.Image.Name) is ParameterFile file)
-                {
-                    if (supplier.Media == null)
-                    {
-                        supplier.Media = new Media()
-                        {
-                            Name = file.Value,
-                            Created = DateTime.Now,
-                            Updated = DateTime.Now,
-                            Guid = Guid.NewGuid().ToString()
-                        };
-                    }
-                    else
-                    {
-                        supplier.Media.Name = file.Value;
-                        supplier.Media.Updated = DateTime.Now;
-                    }
-
-                    File.WriteAllBytes(Path.Combine(e.Context.Application.AssetPath, "media", supplier.Media.Guid), file.Data);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Wird ausgelöst, wenn das Feld Zip validiert werden soll.
-        /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
-        /// <param name="e">Die Eventargumente/param>
-        private void ZipValidation(object sender, ValidationEventArgs e)
-        {
-            if (e.Value != null && e.Value.Count() >= 10)
-            {
-                e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.supplier.validation.zip.tolong"));
-            }
-        }
-
-        /// <summary>
-        /// Wird ausgelöst, wenn das Feld SupplierName validiert werden soll.
-        /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
-        /// <param name="e">Die Eventargumente/param>
-        private void SupplierNameValidation(object sender, ValidationEventArgs e)
-        {
-            lock (ViewModel.Instance.Database)
-            {
-                var guid = e.Context.Request.GetParameter("SupplierID")?.Value;
-                var supplier = ViewModel.Instance.Suppliers.Where(x => x.Guid == guid).FirstOrDefault();
-
-                if (e.Value.Count() < 1)
-                {
-                    e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.supplier.validation.name.invalid"));
-                }
-                else if (!supplier.Name.Equals(e.Value, StringComparison.InvariantCultureIgnoreCase) && ViewModel.Instance.Suppliers.Where(x => x.Name.Equals(e.Value)).Count() > 0)
-                {
-                    e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.supplier.validation.name.used"));
-                }
-            }
         }
 
         /// <summary>
@@ -151,18 +74,57 @@ namespace InventoryExpress.WebPage
         /// <param name="e">Die Eventargumente</param>
         private void FillFormular(object sender, FormularEventArgs e)
         {
-            lock (ViewModel.Instance.Database)
-            {
-                var guid = e.Context.Request.GetParameter("SupplierID")?.Value;
-                var supplier = ViewModel.Instance.Suppliers.Where(x => x.Guid == guid).FirstOrDefault();
+            Form.SupplierName.Value = Supplier?.Name;
+            Form.Description.Value = Supplier?.Description;
+            Form.Address.Value = Supplier?.Address;
+            Form.Zip.Value = Supplier?.Zip;
+            Form.Place.Value = Supplier?.Place;
+            Form.Tag.Value = Supplier?.Tag;
+        }
 
-                Form.SupplierName.Value = supplier?.Name;
-                Form.Description.Value = supplier?.Description;
-                Form.Address.Value = supplier?.Address;
-                Form.Zip.Value = supplier?.Zip;
-                Form.Place.Value = supplier?.Place;
-                Form.Tag.Value = supplier?.Tag;
+        /// <summary>
+        /// Wird ausgelöst, wenn das Formular verarbeitet werden soll.
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventargumente/param>
+        private void ProcessFormular(object sender, FormularEventArgs e)
+        {
+            var file = e.Context.Request.GetParameter(Form.Image.Name) as ParameterFile;
+
+            // Lieferant ändern und speichern
+            Supplier.Name = Form.SupplierName.Value;
+            Supplier.Description = Form.Description.Value;
+            Supplier.Address = Form.Address.Value;
+            Supplier.Zip = Form.Zip.Value;
+            Supplier.Place = Form.Place.Value;
+            Supplier.Tag = Form.Tag.Value;
+            Supplier.Updated = DateTime.Now;
+            Supplier.Media.Name = file?.Value;
+
+            ViewModel.AddOrUpdateSupplier(Supplier);
+            ViewModel.Instance.SaveChanges();
+
+            if (file != null)
+            {
+                ViewModel.AddOrUpdateMedia(Supplier.Media, file?.Data);
+                ViewModel.Instance.SaveChanges();
             }
+
+            NotificationManager.CreateNotification
+            (
+                request: e.Context.Request,
+                message: string.Format
+                (
+                    InternationalizationManager.I18N(Culture, "inventoryexpress:inventoryexpress.supplier.notification.edit"),
+                    new ControlLink()
+                    {
+                        Text = Supplier.Name,
+                        Uri = new UriRelative(ViewModel.GetSupplierUri(Supplier.ID))
+                    }.Render(e.Context).ToString().Trim()
+                ),
+                icon: new UriRelative(Supplier.Image),
+                durability: 10000
+            );
         }
 
         /// <summary>
@@ -173,14 +135,11 @@ namespace InventoryExpress.WebPage
         {
             base.Process(context);
 
-            lock (ViewModel.Instance.Database)
-            {
-                var guid = context.Request.GetParameter("SupplierID")?.Value;
-                var supplier = ViewModel.Instance.Suppliers.Where(x => x.Guid == guid).FirstOrDefault();
+            var guid = context.Request.GetParameter("SupplierID")?.Value;
+            Supplier = ViewModel.GetSupplier(guid);
 
-                context.Request.Uri.Display = supplier.Name;
-                context.VisualTree.Content.Primary.Add(Form);
-            }
+            context.Request.Uri.Display = Supplier.Name;
+            context.VisualTree.Content.Primary.Add(Form);
         }
     }
 }

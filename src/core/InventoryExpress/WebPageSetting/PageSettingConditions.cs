@@ -91,7 +91,7 @@ namespace InventoryExpress.WebPageSetting
                             Text = "inventoryexpress:inventoryexpress.condition.edit.label",
                             Uri = new UriFragment(),
                             Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.Null),
-                            Modal = new ControlModalFormularConditionEdit(condition.Guid) { Item = condition }
+                            Modal = new PropertyModal(TypeModal.Modal, new ControlModalFormularConditionEdit(condition.Guid) { Item = condition })
                         },
                         new ControlText()
                         {
@@ -113,7 +113,7 @@ namespace InventoryExpress.WebPageSetting
                                 TextColor = new PropertyColorText(TypeColorText.Danger),
                                 Uri = new UriFragment(),
                                 Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.Null),
-                                Modal = new ControlModalFormularConditionDelete(condition.Guid) { Item = condition }
+                                Modal = new PropertyModal(TypeModal.Modal, new ControlModalFormularConditionDelete(condition.Guid) { Item = condition })
                             }
                         )
                     )

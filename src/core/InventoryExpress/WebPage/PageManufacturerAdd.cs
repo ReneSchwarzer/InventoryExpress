@@ -2,6 +2,7 @@
 using InventoryExpress.Model.WebItems;
 using InventoryExpress.WebControl;
 using System.IO;
+using WebExpress.Internationalization;
 using WebExpress.Message;
 using WebExpress.UI.WebControl;
 using WebExpress.Uri;
@@ -9,7 +10,6 @@ using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
-using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace InventoryExpress.WebPage
 {
@@ -48,6 +48,7 @@ namespace InventoryExpress.WebPage
             Form.InitializeFormular += InitializeFormular;
             Form.FillFormular += FillFormular;
             Form.ProcessFormular += ProcessFormular;
+            Form.RedirectUri = context.Application.ContextPath.Append("manufacturers");
         }
 
         /// <summary>
@@ -57,7 +58,6 @@ namespace InventoryExpress.WebPage
         /// <param name="e">Die Eventargumente</param>
         private void InitializeFormular(object sender, FormularEventArgs e)
         {
-            Form.RedirectUri = e.Context.Uri.Root.Append("manufacturers");
             Form.BackUri = e.Context.Uri.Take(-1);
         }
 
@@ -108,7 +108,7 @@ namespace InventoryExpress.WebPage
                 request: e.Context.Request,
                 message: string.Format
                 (
-                    I18N(Culture, "inventoryexpress:inventoryexpress.manufacturer.notification.add"), 
+                    InternationalizationManager.I18N(Culture, "inventoryexpress:inventoryexpress.manufacturer.notification.add"), 
                     new ControlLink() 
                     { 
                         Text = manufacturer.Name, 

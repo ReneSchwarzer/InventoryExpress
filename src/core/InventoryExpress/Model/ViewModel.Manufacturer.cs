@@ -102,7 +102,6 @@ namespace InventoryExpress.Model
                         }
                     };
 
-                    //Instance.Media.Add(entity.Media);
                     Instance.Manufacturers.Add(entity);
                 }
                 else
@@ -144,7 +143,7 @@ namespace InventoryExpress.Model
         }
 
         /// <summary>
-        /// Löscht die Medien
+        /// Löscht ein Hersteller
         /// </summary>
         /// <param name="id">Die HerstellerID</param>
         public static void DeleteManufacturer(string id)

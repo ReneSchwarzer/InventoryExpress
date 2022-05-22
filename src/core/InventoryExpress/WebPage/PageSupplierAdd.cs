@@ -1,11 +1,15 @@
 ﻿using InventoryExpress.Model;
 using InventoryExpress.Model.Entity;
+using InventoryExpress.Model.WebItems;
 using InventoryExpress.WebControl;
 using System;
 using System.IO;
 using System.Linq;
+using WebExpress.Internationalization;
 using WebExpress.Message;
 using WebExpress.UI.WebControl;
+using WebExpress.Uri;
+using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
@@ -45,9 +49,27 @@ namespace InventoryExpress.WebPage
 
             Form.InitializeFormular += InitializeFormular;
             Form.FillFormular += FillFormular;
-            Form.SupplierName.Validation += SupplierNameValidation;
-            Form.Zip.Validation += ZipValidation;
             Form.ProcessFormular += ProcessFormular;
+            Form.RedirectUri = context.Application.ContextPath.Append("suppliers");
+        }
+
+        /// <summary>
+        /// Wird aufgerufen, wenn das Formular initialisiert wird
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventargumente</param>
+        private void InitializeFormular(object sender, FormularEventArgs e)
+        {
+            Form.BackUri = e.Context.Uri.Take(-1);
+        }
+
+        /// <summary>
+        /// Wird aufgerufen, wenn das Formular gefüllt werden soll
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventargumente</param>
+        private void FillFormular(object sender, FormularEventArgs e)
+        {
         }
 
         /// <summary>
@@ -57,45 +79,49 @@ namespace InventoryExpress.WebPage
         /// <param name="e">Die Eventargumente/param>
         private void ProcessFormular(object sender, FormularEventArgs e)
         {
+            var file = e.Context.Request.GetParameter(Form.Image.Name) as ParameterFile;
+
             // Neuen Liferanten erstellen und speichern
-            var supplier = new Supplier()
+            var supplier = new WebItemEntitySupplier()
             {
                 Name = Form.SupplierName.Value,
+                Description = Form.Description.Value,
                 Address = Form.Address.Value,
                 Zip = Form.Zip.Value,
                 Place = Form.Place.Value,
                 Tag = Form.Tag.Value,
-                Created = DateTime.Now,
-                Updated = DateTime.Now,
-                Guid = Guid.NewGuid().ToString()
+                Media = new WebItemEntityMedia()
+                {
+                    Name = file?.Value
+                }
             };
 
-            if (e.Context.Request.GetParameter(Form.Image.Name) is ParameterFile file)
-            {
-                if (supplier.Media == null)
-                {
-                    supplier.Media = new Media()
-                    {
-                        Name = file.Value,
-                        Created = DateTime.Now,
-                        Updated = DateTime.Now,
-                        Guid = Guid.NewGuid().ToString()
-                    };
-                }
-                else
-                {
-                    supplier.Media.Name = file.Value;
-                    supplier.Media.Updated = DateTime.Now;
-                }
+            ViewModel.AddOrUpdateSupplier(supplier);
+            ViewModel.Instance.SaveChanges();
 
-                File.WriteAllBytes(Path.Combine(e.Context.Application.AssetPath, supplier.Media.Guid), file.Data);
-            }
-
-            lock (ViewModel.Instance.Database)
+            if (file != null)
             {
-                ViewModel.Instance.Suppliers.Add(supplier);
+                ViewModel.AddOrUpdateMedia(supplier.Media, file?.Data);
                 ViewModel.Instance.SaveChanges();
             }
+
+            NotificationManager.CreateNotification
+            (
+                request: e.Context.Request,
+                message: string.Format
+                (
+                    InternationalizationManager.I18N(Culture, "inventoryexpress:inventoryexpress.supplier.notification.add"),
+                    new ControlLink()
+                    {
+                        Text = supplier.Name,
+                        Uri = new UriRelative(ViewModel.GetSupplierUri(supplier.ID))
+                    }.Render(e.Context).ToString().Trim()
+                ),
+                icon: new UriRelative(supplier.Image),
+                durability: 10000
+            );
+
+            Form.RedirectUri = Form.RedirectUri.Append(supplier.ID);
         }
 
         /// <summary>
@@ -131,25 +157,9 @@ namespace InventoryExpress.WebPage
             }
         }
 
-        /// <summary>
-        /// Wird aufgerufen, wenn das Formular initialisiert wird
-        /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
-        /// <param name="e">Die Eventargumente</param>
-        private void InitializeFormular(object sender, FormularEventArgs e)
-        {
-            Form.RedirectUri = e.Context.Uri.Take(-1);
-            Form.BackUri = e.Context.Uri.Take(-1);
-        }
+        
 
-        /// <summary>
-        /// Wird aufgerufen, wenn das Formular gefüllt werden soll
-        /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
-        /// <param name="e">Die Eventargumente</param>
-        private void FillFormular(object sender, FormularEventArgs e)
-        {
-        }
+        
 
         /// <summary>
         /// Verarbeitung

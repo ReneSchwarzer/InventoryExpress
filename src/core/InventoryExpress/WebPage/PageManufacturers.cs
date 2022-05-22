@@ -1,8 +1,6 @@
-﻿using InventoryExpress.Model;
-using InventoryExpress.WebControl;
-using WebExpress.UI.WebControl;
+﻿using InventoryExpress.WebControl;
+using InventoryExpress.WebSession;
 using WebExpress.WebApp.WebPage;
-using WebExpress.WebApp.Wql;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
 
@@ -14,6 +12,7 @@ namespace InventoryExpress.WebPage
     [Path("/")]
     [Module("inventoryexpress")]
     [Context("general")]
+    [Context("manufacturers")]
     public sealed class PageManufacturers : PageWebApp, IPageManufacturer
     {
         /// <summary>
@@ -40,22 +39,18 @@ namespace InventoryExpress.WebPage
         {
             base.Process(context);
 
-            var visualTree = context.VisualTree;
+            var property = context.Request.Session.GetOrCreateProperty<SessionPropertyToggleStatus>();
 
-            var grid = new ControlPanelGrid() { Fluid = TypePanelContainer.Fluid };
-            var list = ViewModel.GetManufacturers(new WqlStatement());
-
-            foreach (var manufactur in list)
+            if (property.ViewList)
             {
-                var card = new ControlCardManufacturer()
-                {
-                    Manufactur = manufactur
-                };
-
-                grid.Content.Add(card);
+                // Listenansicht
+                context.VisualTree.Content.Primary.Add(new ControlManufactorsList());
             }
-
-            visualTree.Content.Primary.Add(grid);
+            else
+            {
+                // Tabelarische Ansicht
+                context.VisualTree.Content.Primary.Add(new ControlManufactorsTable());
+            }
         }
     }
 }

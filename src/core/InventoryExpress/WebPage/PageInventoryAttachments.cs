@@ -77,9 +77,9 @@ namespace InventoryExpress.WebPage
                             where Attachment.InventoryId == inventory.Id
                             select new { Attachment, Media };
 
-                var createDelteMordalForm = new Func<string, ControlModalFormConfirmDelete>((guid) =>
+                var createDelteMordalForm = new Func<string, ControlModalFormularConfirmDelete>((guid) =>
                 {
-                    var form = new ControlModalFormConfirmDelete("del_" + guid)
+                    var form = new ControlModalFormularConfirmDelete("del_" + guid)
                     {
                         Header = this.I18N("inventoryexpress.media.file.delete.label"),
                         Content = new ControlFormularItemStaticText() { Text = this.I18N("inventoryexpress.media.file.delete.description") },

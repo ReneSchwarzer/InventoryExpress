@@ -50,7 +50,7 @@ namespace InventoryExpress.WebComponent
             {
                 var guid = context.Request.GetParameter("InventoryID")?.Value;
                 var inventory = ViewModel.Instance.Inventories.Where(x => x.Guid == guid).FirstOrDefault();
-                var form = new ControlModalFormFileUpload("add")
+                var form = new ControlModalFormularFileUpload("add")
                 {
                     Header = I18N(context.Culture, "inventoryexpress:inventoryexpress.media.file.add.label")
                 };

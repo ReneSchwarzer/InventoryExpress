@@ -16,21 +16,15 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="id">Die ID</param>
-        public ControlCardManufacturer(string id = null)
-            : base(id)
-        {
-            Init();
-        }
-
-        /// <summary>
-        /// Initialisierung
-        /// </summary>
-        private void Init()
+        /// <param name="manufacture">Der Hersteller</param>
+        public ControlCardManufacturer(WebItemEntityManufacturer manufacture)
+            : base()
         {
             Margin = new PropertySpacingMargin(PropertySpacing.Space.Two);
             BackgroundColor = new PropertyColorBackground(TypeColorBackground.Light);
             Styles.Add("width: fit-content;");
+
+            Manufactur = manufacture;
         }
 
         /// <summary>

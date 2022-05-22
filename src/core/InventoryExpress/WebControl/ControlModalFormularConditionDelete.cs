@@ -9,7 +9,7 @@ using WebExpress.WebPage;
 
 namespace InventoryExpress.WebControl
 {
-    public class ControlModalFormularConditionDelete : ControlModalFormConfirmDelete
+    public class ControlModalFormularConditionDelete : ControlModalFormularConfirmDelete
     {
         /// <summary>
         /// Der zu löschende Status
