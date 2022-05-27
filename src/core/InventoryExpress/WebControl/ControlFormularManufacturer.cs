@@ -167,7 +167,7 @@ namespace InventoryExpress.WebControl
             {
                 e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.manufacturer.validation.name.invalid"));
             }
-            else if 
+            else if
             (
                 manufacturer == null &&
                 ViewModel.GetManufacturers(new WqlStatement()).Where(x => x.Name.Equals(e.Value, StringComparison.OrdinalIgnoreCase)).Any()
@@ -175,7 +175,7 @@ namespace InventoryExpress.WebControl
             {
                 e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.manufacturer.validation.name.used"));
             }
-            else if 
+            else if
             (
                 manufacturer != null &&
                 !manufacturer.Name.Equals(e.Value, StringComparison.InvariantCultureIgnoreCase) &&

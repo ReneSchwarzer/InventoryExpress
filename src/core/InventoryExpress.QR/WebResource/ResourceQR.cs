@@ -34,7 +34,7 @@ namespace InventoryExpress.QR.WebResource
         {
             var id = request.GetParameter("InventoryID")?.Value;
 
-            var link = $"{ request.BaseUri.ToString().TrimEnd('/') }/{ Context.Application.ContextPath.Append(id).ToString().TrimStart('/')}";
+            var link = $"{request.BaseUri.ToString().TrimEnd('/')}/{Context.Application.ContextPath.Append(id).ToString().TrimStart('/')}";
 
             var qrGenerator = new QRCodeGenerator();
             var qrCode = qrGenerator.CreateQrCode(link, QRCodeGenerator.ECCLevel.Q);
@@ -56,7 +56,7 @@ namespace InventoryExpress.QR.WebResource
                     var item = row[x];
                     if (item)
                     {
-                        svg.Append($"<rect x=\"{ x * width }\" y=\"{ y * height }\" width=\"{ width }\" height=\"{ height }\" fill=\"#000000\"/>");
+                        svg.Append($"<rect x=\"{x * width}\" y=\"{y * height}\" width=\"{width}\" height=\"{height}\" fill=\"#000000\"/>");
                     }
                 }
             }

@@ -196,8 +196,8 @@ namespace InventoryExpress.WebPage
                 {
                     InventoryJournalId = journal.Id,
                     Name = x.Item1,
-                    OldValue = x.Item4 ? x.Item2?.Length > 15 ? $" { x.Item2?.Substring(0, 15) }..." : x.Item2 : "...",
-                    NewValue = x.Item4 ? x.Item3?.Length > 15 ? $" { x.Item3?.Substring(0, 15) }..." : x.Item3 : "...",
+                    OldValue = x.Item4 ? x.Item2?.Length > 15 ? $" {x.Item2?.Substring(0, 15)}..." : x.Item2 : "...",
+                    NewValue = x.Item4 ? x.Item3?.Length > 15 ? $" {x.Item3?.Substring(0, 15)}..." : x.Item3 : "...",
                     Guid = Guid.NewGuid().ToString()
                 }));
 

@@ -12,11 +12,11 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Ermittelt die Hersteller-URL
         /// </summary>
-        /// <param name="guid">Die HerstellerID</param>
+        /// <param name="guid">Die ID des Herstellers</param>
         /// <returns>Die Uri oder null</returns>
         public static string GetManufacturerUri(string guid)
         {
-            return $"{ RootUri }/manufacturers/{ guid }";
+            return $"{RootUri}/manufacturers/{guid}";
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace InventoryExpress.Model
             lock (Instance.Database)
             {
                 var manufacturers = Instance.Manufacturers.Select(x => new WebItemEntityManufacturer(x));
-                
+
                 return wql.Apply(manufacturers);
             }
         }
@@ -37,7 +37,7 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Liefert ein Hersteller
         /// </summary>
-        /// <param name="id">Die HerstellerID</param>
+        /// <param name="id">Die ID des Herstellers</param>
         /// <returns>Der Hersteller oder null</returns>
         public static WebItemEntityManufacturer GetManufacturer(string id)
         {
@@ -76,7 +76,7 @@ namespace InventoryExpress.Model
             lock (Instance.Database)
             {
                 var availableEntity = Instance.Manufacturers.Where(x => x.Guid == manufacturer.ID).FirstOrDefault();
-                
+
                 if (availableEntity == null)
                 {
                     // Neu erstellen
@@ -108,7 +108,7 @@ namespace InventoryExpress.Model
                 {
                     // Update
                     var availableMedia = manufacturer.Media != null ? Instance.Media.Where(x => x.Guid == manufacturer.Media.ID).FirstOrDefault() : null;
-                                        
+
                     availableEntity.Name = manufacturer.Name;
                     availableEntity.Description = manufacturer.Description;
                     availableEntity.Address = manufacturer.Address;
@@ -145,7 +145,7 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Löscht ein Hersteller
         /// </summary>
-        /// <param name="id">Die HerstellerID</param>
+        /// <param name="id">Die ID des Herstellers</param>
         public static void DeleteManufacturer(string id)
         {
             lock (Instance.Database)

@@ -118,7 +118,7 @@ namespace InventoryExpress.WebComponent
                 BackgroundColor = new PropertyColorButton(TypeColorButton.Primary);
                 Value = inventory?.Created.ToString(context.Page.Culture.DateTimeFormat.ShortDatePattern);
 
-                Modal = form;
+                Modal = new PropertyModal(TypeModal.Modal, form);
 
                 return base.Render(context);
             }

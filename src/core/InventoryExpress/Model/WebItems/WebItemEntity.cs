@@ -1,5 +1,6 @@
 ﻿using InventoryExpress.Model.Entity;
 using System;
+using System.Text.Json.Serialization;
 using WebExpress.WebApp.Model;
 
 namespace InventoryExpress.Model.WebItems
@@ -9,21 +10,25 @@ namespace InventoryExpress.Model.WebItems
         /// <summary>
         /// Liefert oder setzt die Beschreibung
         /// </summary>
+        [JsonPropertyName("description")]
         public string Description { get; set; }
 
         /// <summary>
         /// Der Zeitstempel der Erstellung
         /// </summary>
+        [JsonPropertyName("created")]
         public DateTime Created { get; set; }
 
         /// <summary>
         /// Der Zeitstempel der letzten Änderung
         /// </summary>
+        [JsonPropertyName("updated")]
         public DateTime Updated { get; set; }
 
         /// <summary>
         /// Das Bild
         /// </summary>
+        [JsonPropertyName("media")]
         public WebItemEntityMedia Media { get; set; }
 
         /// <summary>

@@ -5,6 +5,7 @@ using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebComponent;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebComponent;
+using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebAttribute;
 using WebExpress.WebPage;
 using static WebExpress.Internationalization.InternationalizationManager;
@@ -44,6 +45,33 @@ namespace InventoryExpress.WebComponent
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
+            Confirm += (s, e) =>
+            {
+                var guid = context.Request.GetParameter("LedgerAccountID")?.Value;
+                var ledgeraccount = ViewModel.GetLedgerAccount(guid);
+
+                if (ledgeraccount != null)
+                {
+                    ViewModel.DeleteLedgerAccount(guid);
+                    ViewModel.Instance.SaveChanges();
+
+                    NotificationManager.CreateNotification
+                    (
+                        e.Context.Request,
+                        string.Format
+                        (
+                            I18N(e.Context, "inventoryexpress:inventoryexpress.ledgeraccount.notification.delete"),
+                            new ControlText()
+                            {
+                                Text = ledgeraccount.Name,
+                                Format = TypeFormatText.Span,
+                                TextColor = new PropertyColorText(TypeColorText.Danger)
+                            }.Render(e.Context).ToString().Trim()
+                        )
+                    );
+                }
+            };
+
             Confirm += (s, e) =>
             {
                 lock (ViewModel.Instance.Database)

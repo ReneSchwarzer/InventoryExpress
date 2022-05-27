@@ -1,10 +1,5 @@
-﻿using InventoryExpress.Model.Entity;
-using InventoryExpress.Model.WebItems;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using WebExpress.WebApp.Wql;
 using WebExpress.WebModule;
 
 namespace InventoryExpress.Model

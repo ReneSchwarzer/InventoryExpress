@@ -53,7 +53,7 @@ namespace InventoryExpress.WebComponent
                              where i.Guid == guid
                              select a).Count();
 
-                Title = I18N(context.Culture, "inventoryexpress:inventoryexpress.inventory.attachment.function") + $" ({ count })";
+                Title = I18N(context.Culture, "inventoryexpress:inventoryexpress.inventory.attachment.function") + $" ({count})";
                 Styles.Add(count == 0 ? "display: none;" : string.Empty);
                 Uri = context.Uri.Append("attachments");
             }

@@ -76,7 +76,7 @@ namespace InventoryExpress.WebComponent
                 CreationDateAttribute.Value = costCenter?.Created.ToString(context.Culture.DateTimeFormat.ShortDatePattern);
                 UpdateDateAttribute.Value = costCenter?.Updated.ToString
                 (
-                    $"{ context.Culture.DateTimeFormat.ShortDatePattern } { context.Culture.DateTimeFormat.ShortTimePattern }"
+                    $"{context.Culture.DateTimeFormat.ShortDatePattern} {context.Culture.DateTimeFormat.ShortTimePattern}"
                 );
             }
 

@@ -1,8 +1,9 @@
 ﻿using InventoryExpress.Model;
 using System.Collections.Generic;
-using System.Linq;
 using WebExpress.Message;
+using WebExpress.UI.WebControl;
 using WebExpress.WebApp.Model;
+using WebExpress.WebApp.WebApiControl;
 using WebExpress.WebApp.WebResource;
 using WebExpress.WebApp.Wql;
 using WebExpress.WebAttribute;
@@ -49,7 +50,7 @@ namespace InventoryExpress.WebApi.V1
             {
                 new ResourceRestCrudColumn(I18N(request, "inventoryexpress:inventoryexpress.costcenters.label"))
                 {
-                    Render = "return item.Name;",
+                    Render = "return item.name;",
                     Width = 5
                 }
             };
@@ -63,7 +64,7 @@ namespace InventoryExpress.WebApi.V1
         /// <returns>Eine Aufzählung, welche JsonSerializer serialisiert werden kann.</returns>
         public override IEnumerable<WebItem> GetData(WqlStatement wql, Request request)
         {
-            var costCenters = ViewModel.Instance.GetCostCenters(wql);
+            var costCenters = ViewModel.GetCostCenters(wql);
 
             return costCenters;
         }

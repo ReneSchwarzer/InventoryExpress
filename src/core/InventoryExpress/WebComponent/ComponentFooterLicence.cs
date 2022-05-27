@@ -13,7 +13,7 @@ namespace InventoryExpress.WebComponent
     [Section(Section.FooterPrimary)]
     [Module("inventoryexpress")]
     public sealed class ComponentFooterLicence : ComponentControlPanel
-    { 
+    {
         /// <summary>
         /// Die Lizenz
         /// </summary>

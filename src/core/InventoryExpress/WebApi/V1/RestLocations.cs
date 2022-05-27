@@ -1,8 +1,9 @@
 ﻿using InventoryExpress.Model;
 using System.Collections.Generic;
-using System.Linq;
 using WebExpress.Message;
+using WebExpress.UI.WebControl;
 using WebExpress.WebApp.Model;
+using WebExpress.WebApp.WebApiControl;
 using WebExpress.WebApp.WebResource;
 using WebExpress.WebApp.Wql;
 using WebExpress.WebAttribute;
@@ -49,7 +50,7 @@ namespace InventoryExpress.WebApi.V1
             {
                 new ResourceRestCrudColumn(I18N(request, "inventoryexpress:inventoryexpress.locations.label"))
                 {
-                    Render = "return item.Name;",
+                    Render = "return item.name;",
                     Width = 5
                 }
             };

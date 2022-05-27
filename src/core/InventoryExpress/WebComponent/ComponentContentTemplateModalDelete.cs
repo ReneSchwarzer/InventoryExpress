@@ -1,12 +1,12 @@
 ﻿using InventoryExpress.Model;
 using System.Linq;
-using WebExpress.WebAttribute;
 using WebExpress.Html;
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebComponent;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebComponent;
-using WebExpress.WebApp.WebControl;
+using WebExpress.WebApp.WebNotificaation;
+using WebExpress.WebAttribute;
 using WebExpress.WebPage;
 using static WebExpress.Internationalization.InternationalizationManager;
 
@@ -47,16 +47,28 @@ namespace InventoryExpress.WebComponent
         {
             Confirm += (s, e) =>
             {
-                lock (ViewModel.Instance.Database)
-                {
-                    var guid = context.Request.GetParameter("TemplateID")?.Value;
-                    var template = ViewModel.Instance.Templates.Where(x => x.Guid == guid).FirstOrDefault();
+                var guid = context.Request.GetParameter("TemplateID")?.Value;
+                var template = ViewModel.GetTemplate(guid);
 
-                    if (template != null)
-                    {
-                        ViewModel.Instance.Templates.Remove(template);
-                        ViewModel.Instance.SaveChanges();
-                    }
+                if (template != null)
+                {
+                    ViewModel.DeleteTemplate(guid);
+                    ViewModel.Instance.SaveChanges();
+
+                    NotificationManager.CreateNotification
+                    (
+                        e.Context.Request,
+                        string.Format
+                        (
+                            I18N(e.Context, "inventoryexpress:inventoryexpress.template.notification.delete"),
+                            new ControlText()
+                            {
+                                Text = template.Name,
+                                Format = TypeFormatText.Span,
+                                TextColor = new PropertyColorText(TypeColorText.Danger)
+                            }.Render(e.Context).ToString().Trim()
+                        )
+                    );
                 }
             };
 

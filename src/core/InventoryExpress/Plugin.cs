@@ -1,6 +1,4 @@
-﻿using InventoryExpress.Model;
-using System.Linq;
-using WebExpress.WebAttribute;
+﻿using WebExpress.WebAttribute;
 using WebExpress.WebPlugin;
 
 namespace InventoryExpress.QR

@@ -95,7 +95,7 @@ namespace InventoryExpress.WebPage
                             (
                                 new ControlText()
                                 {
-                                    Text = $"{ this.I18N(x.Name)?.Trim().TrimEnd(':')}:",
+                                    Text = $"{this.I18N(x.Name)?.Trim().TrimEnd(':')}:",
                                     Format = TypeFormatText.Span,
                                     TextColor = new PropertyColorText(TypeColorText.Default),
                                     Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.None)

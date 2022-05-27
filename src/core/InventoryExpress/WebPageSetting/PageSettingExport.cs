@@ -135,7 +135,7 @@ namespace InventoryExpress.WebPageSetting
         /// <param name="e">Die Eventargumente</param>
         private void OnTaskProcess(object sender, EventArgs e)
         {
-            var file = Path.Combine(Path.GetTempPath(), $"{ Guid.NewGuid() }.zip");
+            var file = Path.Combine(Path.GetTempPath(), $"{Guid.NewGuid()}.zip");
 
             ViewModel.Instance.Export(file, Context.Application.AssetPath, i => { (sender as Task).Progress = i; });
         }

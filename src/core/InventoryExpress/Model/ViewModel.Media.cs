@@ -11,17 +11,17 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Ermittelt die Media-URL
         /// </summary>
-        /// <param name="guid">Die MedienID</param>
+        /// <param name="guid">Die ID des Dokumentes</param>
         /// <returns>Die Uri oder null</returns>
         public static string GetMediaUri(string guid)
         {
-            return $"{ RootUri }/media/{ guid }";
+            return $"{RootUri}/media/{guid}";
         }
 
         /// <summary>
         /// Ermittelt die Media-URL
         /// </summary>
-        /// <param name="id">Die MedienID</param>
+        /// <param name="id">Die ID des Dokumentes</param>
         /// <returns>Die Uri oder null</returns>
         public static string GetMediaUri(int? id)
         {
@@ -38,7 +38,7 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Ermittelt die Media-URL
         /// </summary>
-        /// <param name="id">Die ID</param>
+        /// <param name="id">Die ID des Dokumentes</param>
         /// <returns>Die Uri oder null</returns>
         public static WebItemEntityMedia GetMedia(int? id)
         {
@@ -100,7 +100,7 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Löscht die Medien
         /// </summary>
-        /// <param name="id">Die ID</param>
+        /// <param name="id">Die ID des Dokuementes</param>
         public static void DeleteMedia(string id)
         {
             var root = Path.Combine(Context.DataPath, "media");

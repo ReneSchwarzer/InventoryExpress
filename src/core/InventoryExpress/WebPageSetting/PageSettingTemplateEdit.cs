@@ -1,15 +1,18 @@
 ﻿using InventoryExpress.Model;
-using InventoryExpress.Model.Entity;
+using InventoryExpress.Model.WebItems;
 using InventoryExpress.WebControl;
-using InventoryExpress.WebPage;
 using System;
 using System.IO;
 using System.Linq;
+using WebExpress.Internationalization;
 using WebExpress.Message;
 using WebExpress.UI.WebControl;
+using WebExpress.Uri;
 using WebExpress.WebApp.WebAttribute;
+using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebApp.WebSettingPage;
+using WebExpress.WebApp.Wql;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
 
@@ -35,6 +38,11 @@ namespace InventoryExpress.WebPageSetting
         };
 
         /// <summary>
+        /// Liefert oder setzt die Vorlage
+        /// </summary>
+        private WebItemEntityTemplate Template { get; set; }
+
+        /// <summary>
         /// Konstruktor
         /// </summary>
         public PageSettingTemplateEdit()
@@ -51,94 +59,7 @@ namespace InventoryExpress.WebPageSetting
 
             Form.InitializeFormular += InitializeFormular;
             Form.FillFormular += FillFormular;
-            Form.TemplateName.Validation += TemplateNameValidation;
             Form.ProcessFormular += ProcessFormular;
-        }
-
-        /// <summary>
-        /// Wird ausgelöst, wenn das Formular verarbeitet werden soll.
-        /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
-        /// <param name="e">Die Eventargumente/param>
-        private void ProcessFormular(object sender, FormularEventArgs e)
-        {
-            lock (ViewModel.Instance.Database)
-            {
-                var guid = e.Context.Request.GetParameter("TemplateID")?.Value;
-                var template = ViewModel.Instance.Templates.Where(x => x.Guid == guid).FirstOrDefault();
-                var orignalAttributes = ViewModel.Instance.TemplateAttributes
-                    .Where(x => x.TemplateId == template.Id)
-                    .Join(ViewModel.Instance.Attributes, t => t.AttributeId, a => a.Id, (t, a) => a.Guid).ToList();
-
-                // Vorlage ändern und speichern
-                template.Name = Form.TemplateName.Value;
-                template.Description = Form.Description.Value;
-                template.Tag = Form.Tag.Value;
-                template.Updated = DateTime.Now;
-
-                ViewModel.Instance.SaveChanges();
-
-                var changeAttributes = Form.Attributes.Value?.Split(";", StringSplitOptions.RemoveEmptyEntries);
-
-                // lösche nicht mehr verwendete Attribute
-                foreach (var removeItem in orignalAttributes.Except(changeAttributes).Join(ViewModel.Instance.Attributes, x => x, y => y.Guid, (x, y) => y))
-                {
-                    var attr = ViewModel.Instance.TemplateAttributes.Where(x => x.TemplateId == template.Id && x.AttributeId == removeItem.Id).FirstOrDefault();
-                    ViewModel.Instance.TemplateAttributes.Remove(attr);
-                }
-
-                // verknüpfe Attribute
-                foreach (var newItems in changeAttributes.Except(orignalAttributes).Join(ViewModel.Instance.Attributes, x => x, y => y.Guid, (x, y) => y))
-                {
-                    ViewModel.Instance.TemplateAttributes.Add(new TemplateAttribute() { TemplateId = template.Id, AttributeId = newItems.Id });
-                }
-
-                ViewModel.Instance.SaveChanges();
-
-                if (e.Context.Request.GetParameter(Form.Image.Name) is ParameterFile file)
-                {
-                    if (template.Media == null)
-                    {
-                        template.Media = new Media()
-                        {
-                            Name = file.Value,
-                            Created = DateTime.Now,
-                            Updated = DateTime.Now,
-                            Guid = Guid.NewGuid().ToString()
-                        };
-                    }
-                    else
-                    {
-                        template.Media.Name = file.Value;
-                        template.Media.Updated = DateTime.Now;
-                    }
-
-                    File.WriteAllBytes(Path.Combine(e.Context.Application.AssetPath, "media", template.Media.Guid), file.Data);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Wird ausgelöst, wenn das Feld TemplateName validiert werden soll.
-        /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
-        /// <param name="e">Die Eventargumente/param>
-        private void TemplateNameValidation(object sender, ValidationEventArgs e)
-        {
-            lock (ViewModel.Instance.Database)
-            {
-                var guid = e.Context.Request.GetParameter("TemplateID")?.Value;
-                var template = ViewModel.Instance.Templates.Where(x => x.Guid == guid).FirstOrDefault();
-
-                if (e.Value.Count() < 1)
-                {
-                    e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.template.validation.name.invalid"));
-                }
-                else if (!template.Name.Equals(e.Value, StringComparison.InvariantCultureIgnoreCase) && ViewModel.Instance.Suppliers.Where(x => x.Name.Equals(e.Value)).Count() > 0)
-                {
-                    e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.template.validation.name.used"));
-                }
-            }
         }
 
         /// <summary>
@@ -151,24 +72,15 @@ namespace InventoryExpress.WebPageSetting
             Form.RedirectUri = e.Context.Uri.Take(-1);
             Form.BackUri = e.Context.Uri.Take(-1);
 
-            var guid = e.Context.Request.GetParameter("TemplateID")?.Value;
-            var template = ViewModel.Instance.Templates.Where(x => x.Guid == guid).FirstOrDefault();
-            var orignalAttributes = ViewModel.Instance.TemplateAttributes
-                .Where(x => x.TemplateId == template.Id)
-                .Join(ViewModel.Instance.Attributes, t => t.AttributeId, a => a.Id, (t, a) => a.Guid).ToList();
-
             Form.Attributes.Options.Clear();
 
-            lock (ViewModel.Instance.Database)
+            foreach (var v in ViewModel.GetAttributes(new WqlStatement()))
             {
-                foreach (var v in ViewModel.Instance.Attributes)
+                Form.Attributes.Options.Add(new ControlFormularItemInputSelectionItem()
                 {
-                    Form.Attributes.Options.Add(new ControlFormularItemInputSelectionItem()
-                    {
-                        ID = v.Guid,
-                        Label = v.Name
-                    });
-                }
+                    ID = v.ID,
+                    Label = v.Name
+                });
             }
         }
 
@@ -179,19 +91,54 @@ namespace InventoryExpress.WebPageSetting
         /// <param name="e">Die Eventargumente</param>
         private void FillFormular(object sender, FormularEventArgs e)
         {
-            lock (ViewModel.Instance.Database)
-            {
-                var guid = e.Context.Request.GetParameter("TemplateID")?.Value;
-                var template = ViewModel.Instance.Templates.Where(x => x.Guid == guid).FirstOrDefault();
-                var orignalAttributes = ViewModel.Instance.TemplateAttributes
-                    .Where(x => x.TemplateId == template.Id)
-                    .Join(ViewModel.Instance.Attributes, t => t.AttributeId, a => a.Id, (t, a) => a.Guid).ToList();
+            Form.TemplateName.Value = Template?.Name;
+            Form.Attributes.Value = string.Join(";", Template.Attributes);
+            Form.Description.Value = Template?.Description;
+            Form.Tag.Value = Template?.Tag;
+        }
 
-                Form.TemplateName.Value = template?.Name;
-                Form.Attributes.Value = string.Join(";", orignalAttributes);
-                Form.Description.Value = template?.Description;
-                Form.Tag.Value = template?.Tag;
+        /// <summary>
+        /// Wird ausgelöst, wenn das Formular verarbeitet werden soll.
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventargumente/param>
+        private void ProcessFormular(object sender, FormularEventArgs e)
+        {
+            var file = e.Context.Request.GetParameter(Form.Image.Name) as ParameterFile;
+            var attributes = Form.Attributes.Value?.Split(";", StringSplitOptions.RemoveEmptyEntries);
+
+            // Vorlage ändern und speichern
+            Template.Name = Form.TemplateName.Value;
+            Template.Description = Form.Description.Value;
+            Template.Attributes = ViewModel.GetAttributes(new WqlStatement()).Where(x => attributes.Contains(x.ID));
+            Template.Tag = Form.Tag.Value;
+            Template.Updated = DateTime.Now;
+            Template.Media.Name = file?.Value;
+
+            ViewModel.AddOrUpdateTemplate(Template);
+            ViewModel.Instance.SaveChanges();
+
+            if (file != null)
+            {
+                ViewModel.AddOrUpdateMedia(Template.Media, file?.Data);
+                ViewModel.Instance.SaveChanges();
             }
+
+            NotificationManager.CreateNotification
+            (
+                request: e.Context.Request,
+                message: string.Format
+                (
+                    InternationalizationManager.I18N(Culture, "inventoryexpress:inventoryexpress.template.notification.edit"),
+                    new ControlLink()
+                    {
+                        Text = Template.Name,
+                        Uri = new UriRelative(ViewModel.GetTemplateUri(Template.ID))
+                    }.Render(e.Context).ToString().Trim()
+                ),
+                icon: new UriRelative(Template.Image),
+                durability: 10000
+            );
         }
 
         /// <summary>
@@ -202,14 +149,10 @@ namespace InventoryExpress.WebPageSetting
         {
             base.Process(context);
 
-            lock (ViewModel.Instance.Database)
-            {
-                var guid = context.Request.GetParameter("TemplateID")?.Value;
-                var template = ViewModel.Instance.Templates.Where(x => x.Guid == guid).FirstOrDefault();
+            var guid = context.Request.GetParameter("TemplateID")?.Value;
+            Template = ViewModel.GetTemplate(guid);
 
-                context.Request.Uri.Display = template.Name;
-            }
-
+            context.Request.Uri.Display = Template.Name;
             context.VisualTree.Content.Primary.Add(Form);
         }
     }

@@ -1,11 +1,13 @@
 ﻿using InventoryExpress.Model;
-using InventoryExpress.Model.Entity;
+using InventoryExpress.Model.WebItems;
 using InventoryExpress.WebControl;
 using System;
 using System.IO;
-using System.Linq;
+using WebExpress.Internationalization;
 using WebExpress.Message;
 using WebExpress.UI.WebControl;
+using WebExpress.Uri;
+using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
@@ -30,6 +32,11 @@ namespace InventoryExpress.WebPage
         };
 
         /// <summary>
+        /// Liefert oder setzt die Kostenstelle
+        /// </summary>
+        private WebItemEntityCostCenter CostCenter { get; set; }
+
+        /// <summary>
         /// Konstruktor
         /// </summary>
         public PageCostCenterEdit()
@@ -46,73 +53,7 @@ namespace InventoryExpress.WebPage
 
             Form.InitializeFormular += InitializeFormular;
             Form.FillFormular += FillFormular;
-            Form.CostCenterName.Validation += CostCenterNameValidation;
             Form.ProcessFormular += ProcessFormular;
-        }
-
-        /// <summary>
-        /// Wird ausgelöst, wenn das Formular verarbeitet werden soll.
-        /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
-        /// <param name="e">Die Eventargumente/param>
-        private void ProcessFormular(object sender, FormularEventArgs e)
-        {
-            lock (ViewModel.Instance.Database)
-            {
-                var guid = e.Context.Request.GetParameter("CostCenterID")?.Value;
-                var costcenter = ViewModel.Instance.CostCenters.Where(x => x.Guid == guid).FirstOrDefault();
-
-                // Kostenstelle ändern und speichern
-                costcenter.Description = Form.Description.Value;
-                costcenter.Updated = DateTime.Now;
-                costcenter.Tag = Form.Tag.Value;
-
-                ViewModel.Instance.SaveChanges();
-
-                if (e.Context.Request.GetParameter(Form.Image.Name) is ParameterFile file)
-                {
-                    if (costcenter.Media == null)
-                    {
-                        costcenter.Media = new Media()
-                        {
-                            Name = file.Value,
-                            Created = DateTime.Now,
-                            Updated = DateTime.Now,
-                            Guid = Guid.NewGuid().ToString()
-                        };
-                    }
-                    else
-                    {
-                        costcenter.Media.Name = file.Value;
-                        costcenter.Media.Updated = DateTime.Now;
-                    }
-
-                    File.WriteAllBytes(Path.Combine(e.Context.Application.AssetPath, "media", costcenter.Media.Guid), file.Data);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Wird ausgelöst, wenn das Feld CostCenterName validiert werden soll.
-        /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
-        /// <param name="e">Die Eventargumente/param>
-        private void CostCenterNameValidation(object sender, ValidationEventArgs e)
-        {
-            lock (ViewModel.Instance.Database)
-            {
-                var guid = e.Context.Request.GetParameter("CostCenterID")?.Value;
-                var costcenter = ViewModel.Instance.CostCenters.Where(x => x.Guid == guid).FirstOrDefault();
-
-                if (e.Value.Count() < 1)
-                {
-                    e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.costcenter.validation.name.invalid"));
-                }
-                else if (!costcenter.Name.Equals(e.Value, StringComparison.InvariantCultureIgnoreCase) && ViewModel.Instance.Suppliers.Where(x => x.Name.Equals(e.Value)).Count() > 0)
-                {
-                    e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.costcenter.validation.name.used"));
-                }
-            }
         }
 
         /// <summary>
@@ -133,15 +74,51 @@ namespace InventoryExpress.WebPage
         /// <param name="e">Die Eventargumente</param>
         private void FillFormular(object sender, FormularEventArgs e)
         {
-            lock (ViewModel.Instance.Database)
-            {
-                var guid = e.Context.Request.GetParameter("CostCenterID")?.Value;
-                var costcenter = ViewModel.Instance.CostCenters.Where(x => x.Guid == guid).FirstOrDefault();
+            Form.CostCenterName.Value = CostCenter?.Name;
+            Form.Description.Value = CostCenter?.Description;
+            Form.Tag.Value = CostCenter?.Tag;
+        }
 
-                Form.CostCenterName.Value = costcenter?.Name;
-                Form.Description.Value = costcenter?.Description;
-                Form.Tag.Value = costcenter?.Tag;
+        /// <summary>
+        /// Wird ausgelöst, wenn das Formular verarbeitet werden soll.
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventargumente/param>
+        private void ProcessFormular(object sender, FormularEventArgs e)
+        {
+            var file = e.Context.Request.GetParameter(Form.Image.Name) as ParameterFile;
+
+            // Herstellerobjekt ändern und speichern
+            CostCenter.Name = Form.CostCenterName.Value;
+            CostCenter.Description = Form.Description.Value;
+            CostCenter.Tag = Form.Tag.Value;
+            CostCenter.Updated = DateTime.Now;
+            CostCenter.Media.Name = file?.Value;
+
+            ViewModel.AddOrUpdateCostCenter(CostCenter);
+            ViewModel.Instance.SaveChanges();
+
+            if (file != null)
+            {
+                ViewModel.AddOrUpdateMedia(CostCenter.Media, file?.Data);
+                ViewModel.Instance.SaveChanges();
             }
+
+            NotificationManager.CreateNotification
+            (
+                request: e.Context.Request,
+                message: string.Format
+                (
+                    InternationalizationManager.I18N(Culture, "inventoryexpress:inventoryexpress.costcenter.notification.edit"),
+                    new ControlLink()
+                    {
+                        Text = CostCenter.Name,
+                        Uri = new UriRelative(ViewModel.GetManufacturerUri(CostCenter.ID))
+                    }.Render(e.Context).ToString().Trim()
+                ),
+                icon: new UriRelative(CostCenter.Image),
+                durability: 10000
+            );
         }
 
         /// <summary>
@@ -152,14 +129,11 @@ namespace InventoryExpress.WebPage
         {
             base.Process(context);
 
-            lock (ViewModel.Instance.Database)
-            {
-                var guid = context.Request.GetParameter("CostCenterID")?.Value;
-                var costcenter = ViewModel.Instance.CostCenters.Where(x => x.Guid == guid).FirstOrDefault();
+            var guid = context.Request.GetParameter("CostCenterID")?.Value;
+            CostCenter = ViewModel.GetCostCenter(guid);
 
-                context.Request.Uri.Display = costcenter.Name;
-                context.VisualTree.Content.Primary.Add(Form);
-            }
+            context.Request.Uri.Display = CostCenter.Name;
+            context.VisualTree.Content.Primary.Add(Form);
         }
     }
 }

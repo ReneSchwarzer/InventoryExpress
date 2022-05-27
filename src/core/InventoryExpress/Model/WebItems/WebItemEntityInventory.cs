@@ -13,17 +13,17 @@ namespace InventoryExpress.Model.WebItems
         /// Liefert die Kostenstelle
         /// </summary>
         public WebItemEntityCostCenter CostCenter { get; set; }
-        
+
         /// <summary>
         /// Liefert das Sachkonto
         /// </summary>
         public WebItemEntityLedgerAccount LedgerAccount { get; set; }
-        
+
         /// <summary>
         /// Liefert den Standort
         /// </summary>
         public WebItemEntityLocation Location { get; set; }
-        
+
         /// <summary>
         /// Liefert den Hersteller
         /// </summary>

@@ -1,4 +1,4 @@
-﻿namespace InventoryExpress.WebPage
+﻿namespace InventoryExpress.WebPageSetting
 {
     public interface IPageTemplate
     {

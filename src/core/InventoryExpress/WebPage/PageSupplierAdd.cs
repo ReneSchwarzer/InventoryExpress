@@ -1,8 +1,6 @@
 ﻿using InventoryExpress.Model;
-using InventoryExpress.Model.Entity;
 using InventoryExpress.Model.WebItems;
 using InventoryExpress.WebControl;
-using System;
 using System.IO;
 using System.Linq;
 using WebExpress.Internationalization;
@@ -157,9 +155,9 @@ namespace InventoryExpress.WebPage
             }
         }
 
-        
 
-        
+
+
 
         /// <summary>
         /// Verarbeitung

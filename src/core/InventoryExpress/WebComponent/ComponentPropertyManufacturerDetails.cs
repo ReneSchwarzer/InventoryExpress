@@ -74,7 +74,7 @@ namespace InventoryExpress.WebComponent
                 CreationDateAttribute.Value = manufactur?.Created.ToString(context.Culture.DateTimeFormat.ShortDatePattern);
                 UpdateDateAttribute.Value = manufactur?.Updated.ToString
                 (
-                    $"{ context.Culture.DateTimeFormat.ShortDatePattern } { context.Culture.DateTimeFormat.ShortTimePattern }"
+                    $"{context.Culture.DateTimeFormat.ShortDatePattern} {context.Culture.DateTimeFormat.ShortTimePattern}"
                 );
             }
 

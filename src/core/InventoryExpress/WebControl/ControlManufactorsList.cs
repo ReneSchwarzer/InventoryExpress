@@ -1,5 +1,4 @@
 ﻿using InventoryExpress.Model;
-using System.Linq;
 using WebExpress.Html;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.Wql;

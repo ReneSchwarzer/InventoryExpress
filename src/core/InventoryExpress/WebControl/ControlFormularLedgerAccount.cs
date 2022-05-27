@@ -1,6 +1,10 @@
-﻿using WebExpress.UI.WebControl;
+﻿using InventoryExpress.Model;
+using System;
+using System.Linq;
+using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebApiControl;
 using WebExpress.WebApp.WebPage;
+using WebExpress.WebApp.Wql;
 
 namespace InventoryExpress.WebControl
 {
@@ -71,6 +75,8 @@ namespace InventoryExpress.WebControl
             BackgroundColor = LayoutSchema.FormularBackground;
             Layout = TypeLayoutFormular.Horizontal;
 
+            LedgerAccountName.Validation += LedgerAccountNameValidation;
+
             Add(LedgerAccountName);
             Add(Description);
 
@@ -91,6 +97,39 @@ namespace InventoryExpress.WebControl
             base.Initialize(context);
 
             Tag.RestUri = context.Uri.Root.Append("api/v1/tags");
+        }
+
+        /// <summary>
+        /// Wird ausgelöst, wenn das Feld LedgerAccountName validiert werden soll.
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventargumente/param>
+        private void LedgerAccountNameValidation(object sender, ValidationEventArgs e)
+        {
+            var guid = e.Context.Request.GetParameter("LedgerAccountID")?.Value;
+            var ledgeraccount = ViewModel.GetLedgerAccount(guid);
+
+            if (e.Value == null || e.Value.Length < 1)
+            {
+                e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.ledgeraccount.validation.name.invalid"));
+            }
+            else if
+            (
+                ledgeraccount == null &&
+                ViewModel.GetLedgerAccounts(new WqlStatement()).Where(x => x.Name.Equals(e.Value, StringComparison.OrdinalIgnoreCase)).Any()
+            )
+            {
+                e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.ledgeraccount.validation.name.used"));
+            }
+            else if
+            (
+                ledgeraccount != null &&
+                !ledgeraccount.Name.Equals(e.Value, StringComparison.InvariantCultureIgnoreCase) &&
+                ViewModel.GetLedgerAccounts(new WqlStatement()).Where(x => x.Name.Equals(e.Value, StringComparison.OrdinalIgnoreCase)).Any()
+            )
+            {
+                e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.ledgeraccount.validation.name.used"));
+            }
         }
     }
 }

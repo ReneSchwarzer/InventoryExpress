@@ -1,11 +1,12 @@
 ﻿using InventoryExpress.Model;
-using InventoryExpress.Model.Entity;
+using InventoryExpress.Model.WebItems;
 using InventoryExpress.WebControl;
-using System;
 using System.IO;
-using System.Linq;
+using WebExpress.Internationalization;
 using WebExpress.Message;
 using WebExpress.UI.WebControl;
+using WebExpress.Uri;
+using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
@@ -45,74 +46,8 @@ namespace InventoryExpress.WebPage
 
             Form.InitializeFormular += InitializeFormular;
             Form.FillFormular += FillFormular;
-            Form.CostCenterName.Validation += CostCenterNameValidation;
             Form.ProcessFormular += ProcessFormular;
-        }
-
-        /// <summary>
-        /// Wird ausgelöst, wenn das Formular verarbeitet werden soll.
-        /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
-        /// <param name="e">Die Eventargumente/param>
-        private void ProcessFormular(object sender, FormularEventArgs e)
-        {
-            // Neue Kostenstelle erstellen und speichern
-            var costcenter = new CostCenter()
-            {
-                Name = Form.CostCenterName.Value,
-                Description = Form.Description.Value,
-                Tag = Form.Tag.Value,
-                Created = DateTime.Now,
-                Updated = DateTime.Now,
-                Guid = Guid.NewGuid().ToString()
-            };
-
-            if (e.Context.Request.GetParameter(Form.Image.Name) is ParameterFile file)
-            {
-                if (costcenter.Media == null)
-                {
-                    costcenter.Media = new Media()
-                    {
-                        Name = file.Value,
-                        Created = DateTime.Now,
-                        Updated = DateTime.Now,
-                        Guid = Guid.NewGuid().ToString()
-                    };
-                }
-                else
-                {
-                    costcenter.Media.Name = file.Value;
-                    costcenter.Media.Updated = DateTime.Now;
-                }
-
-                File.WriteAllBytes(Path.Combine(e.Context.Application.AssetPath, "media", costcenter.Media.Guid), file.Data);
-            }
-
-            lock (ViewModel.Instance.Database)
-            {
-                ViewModel.Instance.CostCenters.Add(costcenter);
-                ViewModel.Instance.SaveChanges();
-            }
-        }
-
-        /// <summary>
-        /// Wird ausgelöst, wenn das Feld CostCenterName validiert werden soll.
-        /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
-        /// <param name="e">Die Eventargumente/param>
-        private void CostCenterNameValidation(object sender, ValidationEventArgs e)
-        {
-            lock (ViewModel.Instance.Database)
-            {
-                if (e.Value.Length < 1)
-                {
-                    e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.costcenter.validation.name.invalid"));
-                }
-                else if (ViewModel.Instance.CostCenters.Where(x => x.Name.Equals(e.Value)).Any())
-                {
-                    e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.costcenter.validation.name.used"));
-                }
-            }
+            Form.RedirectUri = context.Application.ContextPath.Append("costcenters");
         }
 
         /// <summary>
@@ -122,7 +57,6 @@ namespace InventoryExpress.WebPage
         /// <param name="e">Die Eventargumente</param>
         private void InitializeFormular(object sender, FormularEventArgs e)
         {
-            Form.RedirectUri = e.Context.Uri.Take(-1);
             Form.BackUri = e.Context.Uri.Take(-1);
         }
 
@@ -133,6 +67,55 @@ namespace InventoryExpress.WebPage
         /// <param name="e">Die Eventargumente</param>
         private void FillFormular(object sender, FormularEventArgs e)
         {
+        }
+
+        /// <summary>
+        /// Wird ausgelöst, wenn das Formular verarbeitet werden soll.
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventargumente/param>
+        private void ProcessFormular(object sender, FormularEventArgs e)
+        {
+            var file = e.Context.Request.GetParameter(Form.Image.Name) as ParameterFile;
+
+            // Neue Kostenstelle erstellen und speichern
+            var costcenter = new WebItemEntityCostCenter()
+            {
+                Name = Form.CostCenterName.Value,
+                Description = Form.Description.Value,
+                Tag = Form.Tag.Value,
+                Media = new WebItemEntityMedia()
+                {
+                    Name = file?.Value
+                }
+            };
+
+            ViewModel.AddOrUpdateCostCenter(costcenter);
+            ViewModel.Instance.SaveChanges();
+
+            if (file != null)
+            {
+                ViewModel.AddOrUpdateMedia(costcenter.Media, file?.Data);
+                ViewModel.Instance.SaveChanges();
+            }
+
+            NotificationManager.CreateNotification
+            (
+                request: e.Context.Request,
+                message: string.Format
+                (
+                    InternationalizationManager.I18N(Culture, "inventoryexpress:inventoryexpress.costcenter.notification.add"),
+                    new ControlLink()
+                    {
+                        Text = costcenter.Name,
+                        Uri = new UriRelative(ViewModel.GetCostCenterUri(costcenter.ID))
+                    }.Render(e.Context).ToString().Trim()
+                ),
+                icon: new UriRelative(costcenter.Image),
+                durability: 10000
+            );
+
+            Form.RedirectUri = Form.RedirectUri.Append(costcenter.ID);
         }
 
         /// <summary>

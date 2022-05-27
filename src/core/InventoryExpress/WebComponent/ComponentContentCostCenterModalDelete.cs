@@ -5,6 +5,7 @@ using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebComponent;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebComponent;
+using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebAttribute;
 using WebExpress.WebPage;
 using static WebExpress.Internationalization.InternationalizationManager;
@@ -46,16 +47,28 @@ namespace InventoryExpress.WebComponent
         {
             Confirm += (s, e) =>
             {
-                lock (ViewModel.Instance.Database)
-                {
-                    var guid = context.Request.GetParameter("CostCenterID")?.Value;
-                    var costCenter = ViewModel.Instance.CostCenters.Where(x => x.Guid == guid).FirstOrDefault();
+                var guid = context.Request.GetParameter("CostCenterID")?.Value;
+                var costcenter = ViewModel.GetCostCenter(guid);
 
-                    if (costCenter != null)
-                    {
-                        ViewModel.Instance.CostCenters.Remove(costCenter);
-                        ViewModel.Instance.SaveChanges();
-                    }
+                if (costcenter != null)
+                {
+                    ViewModel.DeleteCostCenter(guid);
+                    ViewModel.Instance.SaveChanges();
+
+                    NotificationManager.CreateNotification
+                    (
+                        e.Context.Request,
+                        string.Format
+                        (
+                            I18N(e.Context, "inventoryexpress:inventoryexpress.costcenter.notification.delete"),
+                            new ControlText()
+                            {
+                                Text = costcenter.Name,
+                                Format = TypeFormatText.Span,
+                                TextColor = new PropertyColorText(TypeColorText.Danger)
+                            }.Render(e.Context).ToString().Trim()
+                        )
+                    );
                 }
             };
 

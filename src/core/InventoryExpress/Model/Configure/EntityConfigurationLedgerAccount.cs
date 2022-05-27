@@ -16,7 +16,7 @@ namespace InventoryExpress.Model.Configure
         public void Configure(EntityTypeBuilder<LedgerAccount> builder)
         {
             builder.ToTable("LedgerAccount");
-            
+
             builder.HasKey(key => new { key.Id });
 
             builder.Property(e => e.Id)

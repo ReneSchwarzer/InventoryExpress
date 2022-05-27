@@ -69,7 +69,7 @@ namespace InventoryExpress.WebComponent
                 var currency = ViewModel.Instance.Settings.FirstOrDefault()?.Currency;
 
                 CountAttribute.Value = inventories.Count().ToString();
-                CurrencyAttribute.Value = $"{inventories.Sum(x => x.CostValue).ToString(context.Culture)} { (string.IsNullOrWhiteSpace(currency) ? "€" : currency) }";
+                CurrencyAttribute.Value = $"{inventories.Sum(x => x.CostValue).ToString(context.Culture)} {(string.IsNullOrWhiteSpace(currency) ? "€" : currency)}";
             }
 
             return base.Render(context);

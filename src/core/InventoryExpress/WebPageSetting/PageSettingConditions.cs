@@ -1,11 +1,6 @@
-﻿using InventoryExpress.Model;
-using InventoryExpress.Model.Entity;
-using InventoryExpress.WebControl;
-using System.Collections.Generic;
-using System.Linq;
-using WebExpress.Internationalization;
+﻿using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
-using WebExpress.Uri;
+using WebExpress.WebApp.WebApiControl;
 using WebExpress.WebApp.WebAttribute;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebApp.WebSettingPage;
@@ -16,7 +11,7 @@ namespace InventoryExpress.WebPageSetting
 {
     [ID("SettingCondition")]
     [Title("inventoryexpress:inventoryexpress.condition.label")]
-    [Segment("condition", "inventoryexpress:inventoryexpress.condition.label")]
+    [Segment("conditions", "inventoryexpress:inventoryexpress.condition.label")]
     [Path("/Setting")]
     [SettingSection(SettingSection.Primary)]
     [SettingIcon(TypeIcon.StarHalf)]
@@ -25,8 +20,17 @@ namespace InventoryExpress.WebPageSetting
     [Module("inventoryexpress")]
     [Context("general")]
     [Context("condition")]
+    [Cache]
     public sealed class PageSettingConditions : PageWebAppSetting
     {
+        /// <summary>
+        /// Liefert oder setzt die Tabelle
+        /// </summary>
+        private ControlApiTable Table { get; set; } = new ControlApiTable()
+        {
+            Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.None, PropertySpacing.Space.None, PropertySpacing.Space.Three)
+        };
+
         /// <summary>
         /// Konstruktor
         /// </summary>
@@ -41,6 +45,10 @@ namespace InventoryExpress.WebPageSetting
         public override void Initialization(IResourceContext context)
         {
             base.Initialization(context);
+
+            Table.RestUri = context.Application.ContextPath.Append("api/v1/conditions");
+
+
         }
 
         /// <summary>
@@ -51,81 +59,101 @@ namespace InventoryExpress.WebPageSetting
         {
             base.Process(context);
 
-            var visualTree = context.VisualTree;
+            Table.OptionSettings.Icon = TypeIcon.Cog.ToClass();
+            Table.OptionItems.Clear();
 
-            var table = new ControlTable()
+            Table.OptionItems.Add(new ControlApiTableOptionItem(InternationalizationManager.I18N(context, "inventoryexpress:inventoryexpress.edit.label"))
             {
-                Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.None, PropertySpacing.Space.None, PropertySpacing.Space.Three),
-            };
+                Icon = TypeIcon.Edit.ToClass(),
+                Color = TypeColorText.Dark.ToClass(),
+                Uri = "#",
+                OnClick = $"new webexpress.ui.modalFormularCtrl({{ uri: '{context.Application.ContextPath.Append("setting/conditions/edit/")}/' + item.id, size: 'large' }});"
+            });
 
-            table.AddColumn("inventoryexpress:inventoryexpress.condition.name.label");
-            table.AddColumn("inventoryexpress:inventoryexpress.condition.description.label");
-            table.AddColumn("inventoryexpress:inventoryexpress.condition.order.label");
-            table.AddColumn("");
+            Table.OptionItems.Add(new ControlApiTableOptionItem());
 
-            var conditions = new List<Condition>();
-
-            lock (ViewModel.Instance.Database)
+            Table.OptionItems.Add(new ControlApiTableOptionItem(InternationalizationManager.I18N(context, "inventoryexpress:inventoryexpress.delete.label"))
             {
-                conditions.AddRange(ViewModel.Instance.Conditions);
-            }
+                Icon = TypeIcon.Trash.ToClass(),
+                Color = TypeColorText.Danger.ToClass(),
+                Disabled = "return !item.isinuse;",
+                OnClick = $"new webexpress.ui.modalFormularCtrl({{ uri: '{context.Application.ContextPath.Append("setting/conditions/del/")}/' + item.id, size: 'small' }});"
+            });
 
-            foreach (var condition in conditions.OrderBy(x => x.Grade))
-            {
-                var inuse = false;
 
-                lock (ViewModel.Instance.Database)
-                {
-                    inuse = ViewModel.Instance.Inventories.Where(x => x.ConditionId == condition.Id).Any();
-                }
+            //var table = new ControlTable()
+            //{
+            //    Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.None, PropertySpacing.Space.None, PropertySpacing.Space.Three),
+            //};
 
-                table.AddRow
-                (
-                    new ControlText() { Text = condition.Name },
-                    new ControlText() { Text = condition.Description },
-                    new ControlText() { Text = condition.Grade.ToString() },
-                    new ControlPanelFlexbox
-                    (
-                        new ControlLink()
-                        {
-                            Text = "inventoryexpress:inventoryexpress.condition.edit.label",
-                            Uri = new UriFragment(),
-                            Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.Null),
-                            Modal = new PropertyModal(TypeModal.Modal, new ControlModalFormularConditionEdit(condition.Guid) { Item = condition })
-                        },
-                        new ControlText()
-                        {
-                            Text = "|",
-                            TextColor = new PropertyColorText(TypeColorText.Muted)
-                        },
-                        (
-                            inuse ?
-                            new ControlText()
-                            {
-                                Text = "inventoryexpress:inventoryexpress.condition.delete.label",
-                                TextColor = new PropertyColorText(TypeColorText.Muted),
-                                Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.Null)
-                            }
-                            :
-                            new ControlLink()
-                            {
-                                Text = "inventoryexpress:inventoryexpress.condition.delete.label",
-                                TextColor = new PropertyColorText(TypeColorText.Danger),
-                                Uri = new UriFragment(),
-                                Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.Null),
-                                Modal = new PropertyModal(TypeModal.Modal, new ControlModalFormularConditionDelete(condition.Guid) { Item = condition })
-                            }
-                        )
-                    )
-                    {
-                        Align = TypeAlignFlexbox.Center,
-                        Layout = TypeLayoutFlexbox.Default,
-                        Justify = TypeJustifiedFlexbox.End
-                    }
-                );
-            }
+            //table.AddColumn("inventoryexpress:inventoryexpress.condition.name.label");
+            //table.AddColumn("inventoryexpress:inventoryexpress.condition.description.label");
+            //table.AddColumn("inventoryexpress:inventoryexpress.condition.order.label");
+            //table.AddColumn("");
 
-            visualTree.Content.Preferences.Add(table);
+            //var conditions = new List<Condition>();
+
+            //lock (ViewModel.Instance.Database)
+            //{
+            //    conditions.AddRange(ViewModel.Instance.Conditions);
+            //}
+
+            //foreach (var condition in conditions.OrderBy(x => x.Grade))
+            //{
+            //    var inuse = false;
+
+            //    lock (ViewModel.Instance.Database)
+            //    {
+            //        inuse = ViewModel.Instance.Inventories.Where(x => x.ConditionId == condition.Id).Any();
+            //    }
+
+            //    table.AddRow
+            //    (
+            //        new ControlText() { Text = condition.Name },
+            //        new ControlText() { Text = condition.Description },
+            //        new ControlText() { Text = condition.Grade.ToString() },
+            //        new ControlPanelFlexbox
+            //        (
+            //            new ControlLink()
+            //            {
+            //                Text = "inventoryexpress:inventoryexpress.condition.edit.label",
+            //                Uri = Uri.Root.Append("setting/conditions/" + condition.Guid),
+            //                Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.Null),
+            //                Modal = new PropertyModal(TypeModal.Formular)
+            //            },
+            //            new ControlText()
+            //            {
+            //                Text = "|",
+            //                TextColor = new PropertyColorText(TypeColorText.Muted)
+            //            },
+            //            (
+            //                inuse ?
+            //                new ControlText()
+            //                {
+            //                    Text = "inventoryexpress:inventoryexpress.condition.delete.label",
+            //                    TextColor = new PropertyColorText(TypeColorText.Muted),
+            //                    Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.Null)
+            //                }
+            //                :
+            //                new ControlLink()
+            //                {
+            //                    Text = "inventoryexpress:inventoryexpress.condition.delete.label",
+            //                    TextColor = new PropertyColorText(TypeColorText.Danger),
+            //                    Uri = Uri.Root.Append("setting/conditions/" + condition.Guid),
+            //                    Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.Null),
+            //                    Modal = new PropertyModal(TypeModal.Formular)
+            //                }
+            //            )
+            //        )
+            //        {
+            //            Align = TypeAlignFlexbox.Center,
+            //            Layout = TypeLayoutFlexbox.Default,
+            //            Justify = TypeJustifiedFlexbox.End
+            //        }
+            //    );
+            //}
+
+            context.VisualTree.Content.Preferences.Add(Table);
         }
     }
 }

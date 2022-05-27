@@ -1,11 +1,6 @@
-﻿using InventoryExpress.Model;
-using InventoryExpress.Model.Entity;
-using InventoryExpress.WebControl;
-using System.Collections.Generic;
-using System.Linq;
-using WebExpress.Internationalization;
+﻿using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
-using WebExpress.Uri;
+using WebExpress.WebApp.WebApiControl;
 using WebExpress.WebApp.WebAttribute;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebApp.WebSettingPage;
@@ -16,7 +11,7 @@ namespace InventoryExpress.WebPageSetting
 {
     [ID("SettingAttribute")]
     [Title("inventoryexpress:inventoryexpress.attribute.label")]
-    [Segment("attribute", "inventoryexpress:inventoryexpress.attribute.label")]
+    [Segment("attributes", "inventoryexpress:inventoryexpress.attribute.label")]
     [Path("/Setting")]
     [SettingSection(SettingSection.Primary)]
     [SettingIcon(TypeIcon.Cubes)]
@@ -25,8 +20,17 @@ namespace InventoryExpress.WebPageSetting
     [Module("inventoryexpress")]
     [Context("general")]
     [Context("attribute")]
+    [Cache()]
     public sealed class PageSettingAttributes : PageWebAppSetting
     {
+        /// <summary>
+        /// Liefert oder setzt die Tabelle
+        /// </summary>
+        private ControlApiTable Table { get; set; } = new ControlApiTable()
+        {
+            Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.None, PropertySpacing.Space.None, PropertySpacing.Space.Three)
+        };
+
         /// <summary>
         /// Konstruktor
         /// </summary>
@@ -41,6 +45,8 @@ namespace InventoryExpress.WebPageSetting
         public override void Initialization(IResourceContext context)
         {
             base.Initialization(context);
+
+            Table.RestUri = context.Application.ContextPath.Append("api/v1/attributes");
         }
 
         /// <summary>
@@ -51,80 +57,28 @@ namespace InventoryExpress.WebPageSetting
         {
             base.Process(context);
 
-            var visualTree = context.VisualTree;
+            Table.OptionSettings.Icon = TypeIcon.Cog.ToClass();
 
-            var table = new ControlTable()
+            Table.OptionItems.Clear();
+            Table.OptionItems.Add(new ControlApiTableOptionItem(InternationalizationManager.I18N(context, "inventoryexpress:inventoryexpress.edit.label"))
             {
-                Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.None, PropertySpacing.Space.None, PropertySpacing.Space.Three),
-            };
+                Icon = TypeIcon.Edit.ToClass(),
+                Color = TypeColorText.Dark.ToClass(),
+                Uri = "#",
+                OnClick = $"new webexpress.ui.modalFormularCtrl({{ uri: '{context.Application.ContextPath.Append("setting/attributes/edit/")}/' + item.id, size: 'large' }});"
+            });
 
-            table.AddColumn(this.I18N("inventoryexpress:inventoryexpress.condition.name.label"));
-            table.AddColumn(this.I18N("inventoryexpress:inventoryexpress.condition.description.label"));
-            table.AddColumn("");
+            Table.OptionItems.Add(new ControlApiTableOptionItem());
 
-            var attributes = new List<Attribute>();
-
-            lock (ViewModel.Instance.Database)
+            Table.OptionItems.Add(new ControlApiTableOptionItem(InternationalizationManager.I18N(context, "inventoryexpress:inventoryexpress.delete.label"))
             {
-                attributes.AddRange(ViewModel.Instance.Attributes);
-            }
+                Icon = TypeIcon.Trash.ToClass(),
+                Color = TypeColorText.Danger.ToClass(),
+                Disabled = "return !item.isinuse;",
+                OnClick = $"new webexpress.ui.modalFormularCtrl({{ uri: '{context.Application.ContextPath.Append("setting/conditions/del/")}/' + item.id, size: 'small' }});"
+            });
 
-            foreach (var attribute in attributes.OrderBy(x => x.Name))
-            {
-                var inuse = false;
-
-                lock (ViewModel.Instance.Database)
-                {
-                    inuse = ViewModel.Instance.InventoryAttributes.Where(x => x.AttributeId == attribute.Id).Any() ||
-                            ViewModel.Instance.TemplateAttributes.Where(x => x.AttributeId == attribute.Id).Any();
-                }
-
-                table.AddRow
-                (
-                    new ControlText() { Text = attribute.Name },
-                    new ControlText() { Text = attribute.Description },
-                    new ControlPanelFlexbox
-                    (
-                        new ControlLink()
-                        {
-                            Text = this.I18N("inventoryexpress:inventoryexpress.attribute.edit.label"),
-                            Uri = new UriFragment(),
-                            Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.Null),
-                            Modal = new PropertyModal(TypeModal.Modal, new ControlModalFormularAttributeEdit(attribute.Guid) { Item = attribute })
-                        },
-                        new ControlText()
-                        {
-                            Text = "|",
-                            TextColor = new PropertyColorText(TypeColorText.Muted)
-                        },
-                        (
-                            inuse ?
-                            new ControlText()
-                            {
-                                Text = this.I18N("inventoryexpress:inventoryexpress.attribute.delete.label"),
-                                TextColor = new PropertyColorText(TypeColorText.Muted),
-                                Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.Null)
-                            }
-                            :
-                            new ControlLink()
-                            {
-                                Text = this.I18N("inventoryexpress:inventoryexpress.attribute.delete.label"),
-                                TextColor = new PropertyColorText(TypeColorText.Danger),
-                                Uri = new UriFragment(),
-                                Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.Null),
-                                Modal = new PropertyModal(TypeModal.Modal, new ControlModalFormularAttributeDelete(attribute.Guid) { Item = attribute })
-                            }
-                        )
-                    )
-                    {
-                        Align = TypeAlignFlexbox.Center,
-                        Layout = TypeLayoutFlexbox.Default,
-                        Justify = TypeJustifiedFlexbox.End
-                    }
-                );
-            }
-
-            visualTree.Content.Preferences.Add(table);
+            context.VisualTree.Content.Preferences.Add(Table);
         }
     }
 }

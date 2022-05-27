@@ -1,11 +1,11 @@
 ﻿using InventoryExpress.WebPage;
-using WebExpress.WebAttribute;
 using WebExpress.Html;
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebComponent;
 using WebExpress.UI.WebControl;
 using WebExpress.Uri;
 using WebExpress.WebApp.WebComponent;
+using WebExpress.WebAttribute;
 using WebExpress.WebPage;
 
 namespace InventoryExpress.WebComponent
@@ -34,7 +34,7 @@ namespace InventoryExpress.WebComponent
             Text = "inventoryexpress:inventoryexpress.manufacturer.label";
             Uri = new UriResource(context.Module.ContextPath, "manufacturers/add");
             Icon = new PropertyIcon(TypeIcon.Industry);
-            Modal = new PropertyModal(TypeModal.Formular); 
+            Modal = new PropertyModal(TypeModal.Formular);
         }
 
         /// <summary>

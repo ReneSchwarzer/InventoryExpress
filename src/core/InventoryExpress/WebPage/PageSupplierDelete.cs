@@ -1,5 +1,4 @@
 ﻿using InventoryExpress.Model;
-using InventoryExpress.Model.WebItems;
 using System.IO;
 using WebExpress.UI.WebControl;
 using WebExpress.Uri;
@@ -42,7 +41,7 @@ namespace InventoryExpress.WebPage
         public override void Initialization(IResourceContext context)
         {
             base.Initialization(context);
-            
+
             Form.RedirectUri = context.ContextPath.Append("suppliers");
             Form.InitializeFormular += OnInitializeFormular;
             Form.Confirm += OnConfirmFormular;
@@ -66,7 +65,7 @@ namespace InventoryExpress.WebPage
         private void OnConfirmFormular(object sender, FormularEventArgs e)
         {
             var guid = e.Context.Request.GetParameter("SupplierID")?.Value;
-            var supplier = ViewModel.GetManufacturer(guid);
+            var supplier = ViewModel.GetSupplier(guid);
 
             ViewModel.DeleteSupplier(guid);
             ViewModel.Instance.SaveChanges();

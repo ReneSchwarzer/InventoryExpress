@@ -118,7 +118,7 @@ namespace InventoryExpress.Model
         /// <param name="optionsBuilder">Der OptionsBuilder</param>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite($"Data Source={ DataSource };");
+            optionsBuilder.UseSqlite($"Data Source={DataSource};");
         }
 
         /// <summary>

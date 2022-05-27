@@ -187,7 +187,7 @@ namespace InventoryExpress.WebComponent
                 LedgeraccountAttribute.Value = ViewModel.Instance.LedgerAccounts.Where(x => x.Id == inventory.LedgerAccountId).FirstOrDefault()?.Name;
                 CostcenterAttribute.Value = ViewModel.Instance.CostCenters.Where(x => x.Id == inventory.CostCenterId).FirstOrDefault()?.Name;
                 ConditionAttribute.Value = ViewModel.Instance.Conditions.Where(x => x.Id == inventory.ConditionId)?.FirstOrDefault()?.Name;
-                CostValueAttribute.Value = $"{inventory?.CostValue.ToString(context.Culture)} { (string.IsNullOrWhiteSpace(currency) ? "€" : currency) }";
+                CostValueAttribute.Value = $"{inventory?.CostValue.ToString(context.Culture)} {(string.IsNullOrWhiteSpace(currency) ? "€" : currency)}";
                 PurchaseDateAttribute.Value = inventory?.PurchaseDate != null ? inventory?.PurchaseDate.Value.ToString("d", context.Culture) : string.Empty;
 
                 DrecognitionDateListItem.Enable = inventory.DerecognitionDate.HasValue;

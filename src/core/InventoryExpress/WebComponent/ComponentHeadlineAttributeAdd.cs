@@ -1,10 +1,10 @@
 ﻿using InventoryExpress.WebControl;
-using WebExpress.WebAttribute;
 using WebExpress.Html;
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebComponent;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebComponent;
+using WebExpress.WebAttribute;
 using WebExpress.WebPage;
 using static WebExpress.Internationalization.InternationalizationManager;
 
@@ -43,8 +43,9 @@ namespace InventoryExpress.WebComponent
             Text = I18N(context.Culture, "inventoryexpress:inventoryexpress.attribute.add.label");
             Icon = new PropertyIcon(TypeIcon.Plus);
             BackgroundColor = new PropertyColorButton(TypeColorButton.Primary);
+            Uri = context.Application.ContextPath.Append("setting/attributes/add/");
 
-            Modal = new ControlModalFormularAttributeEdit();
+            Modal = new PropertyModal(TypeModal.Formular, TypeModalSize.Large);
 
             return base.Render(context);
         }

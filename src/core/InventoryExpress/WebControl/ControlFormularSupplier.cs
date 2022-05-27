@@ -5,7 +5,6 @@ using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebApiControl;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebApp.Wql;
-using WebExpress.WebPage;
 
 namespace InventoryExpress.WebControl
 {
@@ -110,7 +109,7 @@ namespace InventoryExpress.WebControl
             BackgroundColor = LayoutSchema.FormularBackground;
             Layout = TypeLayoutFormular.Horizontal;
 
-            SupplierName.Validation += ManufacturerNameValidation;
+            SupplierName.Validation += SupplierNameValidation;
             Zip.Validation += ZipValidation;
 
             var group = new ControlFormularItemGroupColumnVertical() { Distribution = new int[] { 33 } };
@@ -155,11 +154,11 @@ namespace InventoryExpress.WebControl
         }
 
         /// <summary>
-        /// Wird ausgelöst, wenn das Feld ManufacturerName validiert werden soll.
+        /// Wird ausgelöst, wenn das Feld SupplierName validiert werden soll.
         /// </summary>
         /// <param name="sender">Der Auslöser des Events</param>
         /// <param name="e">Die Eventargumente/param>
-        private void ManufacturerNameValidation(object sender, ValidationEventArgs e)
+        private void SupplierNameValidation(object sender, ValidationEventArgs e)
         {
             var guid = e.Context.Request.GetParameter("SupplierID")?.Value;
             var supplier = ViewModel.GetSupplier(guid);

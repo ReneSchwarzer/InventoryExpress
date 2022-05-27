@@ -1,5 +1,4 @@
 ﻿using InventoryExpress.Model;
-using InventoryExpress.Model.WebItems;
 using System.IO;
 using WebExpress.UI.WebControl;
 using WebExpress.Uri;
@@ -42,7 +41,7 @@ namespace InventoryExpress.WebPage
         public override void Initialization(IResourceContext context)
         {
             base.Initialization(context);
-            
+
             Form.RedirectUri = context.ContextPath.Append("manufacturers");
             Form.InitializeFormular += OnInitializeFormular;
             Form.Confirm += OnConfirmFormular;

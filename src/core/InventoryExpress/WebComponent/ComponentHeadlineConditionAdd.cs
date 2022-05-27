@@ -1,5 +1,4 @@
-﻿using InventoryExpress.WebControl;
-using WebExpress.Html;
+﻿using WebExpress.Html;
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebComponent;
 using WebExpress.UI.WebControl;
@@ -43,8 +42,9 @@ namespace InventoryExpress.WebComponent
             Text = I18N(context.Culture, "inventoryexpress:inventoryexpress.condition.add.label");
             Icon = new PropertyIcon(TypeIcon.Plus);
             BackgroundColor = new PropertyColorButton(TypeColorButton.Primary);
+            Uri = context.Application.ContextPath.Append("setting/conditions/add/");
 
-            Modal = new ControlModalFormularConditionEdit();
+            Modal = new PropertyModal(TypeModal.Formular, TypeModalSize.Large);
 
             return base.Render(context);
         }

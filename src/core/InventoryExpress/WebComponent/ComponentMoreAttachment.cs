@@ -51,7 +51,7 @@ namespace InventoryExpress.WebComponent
                              where i.Guid == guid
                              select a).Count();
 
-                Text = I18N(context.Culture, "inventoryexpress:inventoryexpress.inventory.attachment.function") + $" ({ count })";
+                Text = I18N(context.Culture, "inventoryexpress:inventoryexpress.inventory.attachment.function") + $" ({count})";
                 Uri = context.Uri.Append("attachments");
             }
 

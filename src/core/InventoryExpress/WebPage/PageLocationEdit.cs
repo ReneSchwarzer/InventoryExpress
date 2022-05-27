@@ -1,11 +1,13 @@
 ﻿using InventoryExpress.Model;
-using InventoryExpress.Model.Entity;
+using InventoryExpress.Model.WebItems;
 using InventoryExpress.WebControl;
 using System;
 using System.IO;
-using System.Linq;
+using WebExpress.Internationalization;
 using WebExpress.Message;
 using WebExpress.UI.WebControl;
+using WebExpress.Uri;
+using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
@@ -30,6 +32,11 @@ namespace InventoryExpress.WebPage
         };
 
         /// <summary>
+        /// Liefert oder setzt den Standort
+        /// </summary>
+        private WebItemEntityLocation Location { get; set; }
+
+        /// <summary>
         /// Konstruktor
         /// </summary>
         public PageLocationEdit()
@@ -46,93 +53,7 @@ namespace InventoryExpress.WebPage
 
             Form.InitializeFormular += InitializeFormular;
             Form.FillFormular += FillFormular;
-            Form.LocationName.Validation += LocationNameValidation;
-            Form.Zip.Validation += ZipValidation;
             Form.ProcessFormular += ProcessFormular;
-        }
-
-        /// <summary>
-        /// Wird ausgelöst, wenn das Formular verarbeitet werden soll.
-        /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
-        /// <param name="e">Die Eventargumente/param>
-        private void ProcessFormular(object sender, FormularEventArgs e)
-        {
-            lock (ViewModel.Instance.Database)
-            {
-                var guid = e.Context.Request.GetParameter("LocationID")?.Value;
-                var location = ViewModel.Instance.Locations.Where(x => x.Guid == guid).FirstOrDefault();
-
-                // Standort ändern und speichern
-                location.Name = Form.LocationName.Value;
-                location.Description = Form.Description.Value;
-                location.Address = Form.Address.Value;
-                location.Zip = Form.Zip.Value;
-                location.Place = Form.Place.Value;
-                location.Building = Form.Building.Value;
-                location.Room = Form.Room.Value;
-                location.Tag = Form.Tag.Value;
-                location.Updated = DateTime.Now;
-
-                ViewModel.Instance.SaveChanges();
-
-                if (e.Context.Request.GetParameter(Form.Image.Name) is ParameterFile file)
-                {
-                    if (location.Media == null)
-                    {
-                        location.Media = new Media()
-                        {
-                            Name = file.Value,
-                            Created = DateTime.Now,
-                            Updated = DateTime.Now,
-                            Guid = Guid.NewGuid().ToString()
-                        };
-                    }
-                    else
-                    {
-                        location.Media.Name = file.Value;
-                        location.Media.Updated = DateTime.Now;
-                    }
-
-                    File.WriteAllBytes(Path.Combine(e.Context.Application.AssetPath, "media", location.Media.Guid), file.Data);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Wird ausgelöst, wenn das Feld Zip validiert werden soll.
-        /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
-        /// <param name="e">Die Eventargumente/param>
-        private void ZipValidation(object sender, ValidationEventArgs e)
-        {
-            if (e.Value != null && e.Value.Count() >= 10)
-            {
-                e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.location.validation.zip.tolong"));
-            }
-        }
-
-        /// <summary>
-        /// Wird ausgelöst, wenn das Feld LocationName validiert werden soll.
-        /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
-        /// <param name="e">Die Eventargumente/param>
-        private void LocationNameValidation(object sender, ValidationEventArgs e)
-        {
-            lock (ViewModel.Instance.Database)
-            {
-                var guid = e.Context.Request.GetParameter("LocationID")?.Value;
-                var location = ViewModel.Instance.Locations.Where(x => x.Guid == guid).FirstOrDefault();
-
-                if (e.Value.Count() < 1)
-                {
-                    e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.location.validation.name.invalid"));
-                }
-                else if (!location.Name.Equals(e.Value, StringComparison.InvariantCultureIgnoreCase) && ViewModel.Instance.Suppliers.Where(x => x.Name.Equals(e.Value)).Count() > 0)
-                {
-                    e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.location.validation.name.used"));
-                }
-            }
         }
 
         /// <summary>
@@ -153,20 +74,61 @@ namespace InventoryExpress.WebPage
         /// <param name="e">Die Eventargumente</param>
         private void FillFormular(object sender, FormularEventArgs e)
         {
-            lock (ViewModel.Instance.Database)
-            {
-                var guid = e.Context.Request.GetParameter("LocationID")?.Value;
-                var location = ViewModel.Instance.Locations.Where(x => x.Guid == guid).FirstOrDefault();
+            Form.LocationName.Value = Location?.Name;
+            Form.Description.Value = Location?.Description;
+            Form.Address.Value = Location?.Address;
+            Form.Zip.Value = Location?.Zip;
+            Form.Place.Value = Location?.Place;
+            Form.Building.Value = Location?.Building;
+            Form.Room.Value = Location?.Room;
+            Form.Tag.Value = Location?.Tag;
+        }
 
-                Form.LocationName.Value = location?.Name;
-                Form.Description.Value = location?.Description;
-                Form.Address.Value = location?.Address;
-                Form.Zip.Value = location?.Zip;
-                Form.Place.Value = location?.Place;
-                Form.Building.Value = location?.Building;
-                Form.Room.Value = location?.Room;
-                Form.Tag.Value = location?.Tag;
+        /// <summary>
+        /// Wird ausgelöst, wenn das Formular verarbeitet werden soll.
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventargumente/param>
+        private void ProcessFormular(object sender, FormularEventArgs e)
+        {
+            var file = e.Context.Request.GetParameter(Form.Image.Name) as ParameterFile;
+
+            // Standort ändern und speichern
+            Location.Name = Form.LocationName.Value;
+            Location.Description = Form.Description.Value;
+            Location.Address = Form.Address.Value;
+            Location.Zip = Form.Zip.Value;
+            Location.Place = Form.Place.Value;
+            Location.Building = Form.Building.Value;
+            Location.Room = Form.Room.Value;
+            Location.Tag = Form.Tag.Value;
+            Location.Updated = DateTime.Now;
+            Location.Media.Name = file?.Value;
+
+            ViewModel.AddOrUpdateLocation(Location);
+            ViewModel.Instance.SaveChanges();
+
+            if (file != null)
+            {
+                ViewModel.AddOrUpdateMedia(Location.Media, file?.Data);
+                ViewModel.Instance.SaveChanges();
             }
+
+            NotificationManager.CreateNotification
+            (
+                request: e.Context.Request,
+                message: string.Format
+                (
+                    InternationalizationManager.I18N(Culture, "inventoryexpress:inventoryexpress.location.notification.edit"),
+                    new ControlLink()
+                    {
+                        Text = Location.Name,
+                        Uri = new UriRelative(ViewModel.GetLocationUri(Location.ID))
+                    }.Render(e.Context).ToString().Trim()
+                ),
+                icon: new UriRelative(Location.Image),
+                durability: 10000
+            );
         }
 
         /// <summary>
@@ -177,14 +139,11 @@ namespace InventoryExpress.WebPage
         {
             base.Process(context);
 
-            lock (ViewModel.Instance.Database)
-            {
-                var guid = context.Request.GetParameter("LocationID")?.Value;
-                var location = ViewModel.Instance.Locations.Where(x => x.Guid == guid).FirstOrDefault();
+            var guid = context.Request.GetParameter("LocationID")?.Value;
+            Location = ViewModel.GetLocation(guid);
 
-                context.Request.Uri.Display = location.Name;
-                context.VisualTree.Content.Primary.Add(Form);
-            }
+            context.Request.Uri.Display = Location.Name;
+            context.VisualTree.Content.Primary.Add(Form);
         }
     }
 }

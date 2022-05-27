@@ -73,7 +73,7 @@ namespace InventoryExpress.WebComponent
                 CreationDateAttribute.Value = template?.Created.ToString(context.Culture.DateTimeFormat.ShortDatePattern);
                 UpdateDateAttribute.Value = template?.Updated.ToString
                 (
-                    $"{ context.Culture.DateTimeFormat.ShortDatePattern } { context.Culture.DateTimeFormat.ShortTimePattern }"
+                    $"{context.Culture.DateTimeFormat.ShortDatePattern} {context.Culture.DateTimeFormat.ShortTimePattern}"
                 );
             }
 

@@ -1,6 +1,10 @@
-﻿using WebExpress.UI.WebControl;
+﻿using InventoryExpress.Model;
+using System;
+using System.Linq;
+using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebApiControl;
 using WebExpress.WebApp.WebPage;
+using WebExpress.WebApp.Wql;
 
 namespace InventoryExpress.WebControl
 {
@@ -82,6 +86,8 @@ namespace InventoryExpress.WebControl
             BackgroundColor = LayoutSchema.FormularBackground;
             Layout = TypeLayoutFormular.Horizontal;
 
+            TemplateName.Validation += TemplateNameValidation;
+
             Add(TemplateName);
             Add(Attributes);
             Add(Description);
@@ -103,6 +109,39 @@ namespace InventoryExpress.WebControl
             base.Initialize(context);
 
             Tag.RestUri = context.Uri.Root.Append("api/v1/tags");
+        }
+
+        /// <summary>
+        /// Wird ausgelöst, wenn das Feld TemplateName validiert werden soll.
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventargumente/param>
+        private void TemplateNameValidation(object sender, ValidationEventArgs e)
+        {
+            var guid = e.Context.Request.GetParameter("TemplateID")?.Value;
+            var template = ViewModel.GetTemplate(guid);
+
+            if (e.Value == null || e.Value.Length < 1)
+            {
+                e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.template.validation.name.invalid"));
+            }
+            else if
+            (
+                template == null &&
+                ViewModel.GetTemplates(new WqlStatement()).Where(x => x.Name.Equals(e.Value, StringComparison.OrdinalIgnoreCase)).Any()
+            )
+            {
+                e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.template.validation.name.used"));
+            }
+            else if
+            (
+                template != null &&
+                !template.Name.Equals(e.Value, StringComparison.InvariantCultureIgnoreCase) &&
+                ViewModel.GetTemplates(new WqlStatement()).Where(x => x.Name.Equals(e.Value, StringComparison.OrdinalIgnoreCase)).Any()
+            )
+            {
+                e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.template.validation.name.used"));
+            }
         }
     }
 }

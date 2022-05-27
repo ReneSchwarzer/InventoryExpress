@@ -1,11 +1,10 @@
 ﻿using InventoryExpress.Model;
-using System.Linq;
 using WebExpress.Html;
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebComponent;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebComponent;
-using WebExpress.WebApp.WebControl;
+using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebAttribute;
 using WebExpress.WebPage;
 using static WebExpress.Internationalization.InternationalizationManager;
@@ -47,16 +46,28 @@ namespace InventoryExpress.WebComponent
         {
             Confirm += (s, e) =>
             {
-                lock (ViewModel.Instance.Database)
-                {
-                    var guid = context.Request.GetParameter("LocationID")?.Value;
-                    var location = ViewModel.Instance.Locations.Where(x => x.Guid == guid).FirstOrDefault();
+                var guid = context.Request.GetParameter("LocationID")?.Value;
+                var location = ViewModel.GetLocation(guid);
 
-                    if (location != null)
-                    {
-                        ViewModel.Instance.Locations.Remove(location);
-                        ViewModel.Instance.SaveChanges();
-                    }
+                if (location != null)
+                {
+                    ViewModel.DeleteLocation(guid);
+                    ViewModel.Instance.SaveChanges();
+
+                    NotificationManager.CreateNotification
+                    (
+                        e.Context.Request,
+                        string.Format
+                        (
+                            I18N(e.Context, "inventoryexpress:inventoryexpress.location.notification.delete"),
+                            new ControlText()
+                            {
+                                Text = location.Name,
+                                Format = TypeFormatText.Span,
+                                TextColor = new PropertyColorText(TypeColorText.Danger)
+                            }.Render(e.Context).ToString().Trim()
+                        )
+                    );
                 }
             };
 

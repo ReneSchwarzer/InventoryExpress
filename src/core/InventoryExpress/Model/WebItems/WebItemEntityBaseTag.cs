@@ -1,4 +1,5 @@
 ﻿using InventoryExpress.Model.Entity;
+using System.Text.Json.Serialization;
 
 namespace InventoryExpress.Model.WebItems
 {
@@ -7,6 +8,7 @@ namespace InventoryExpress.Model.WebItems
         /// <summary>
         /// Die Schlagwörter
         /// </summary>
+        [JsonPropertyName("tag")]
         public string Tag { get; set; }
 
         /// <summary>
@@ -22,7 +24,7 @@ namespace InventoryExpress.Model.WebItems
         /// </summary>
         /// <param name="item">Das Datenbankobjektes des Herstellers</param>
         public WebItemEntityBaseTag(ItemTag item)
-            :base(item)
+            : base(item)
         {
             Tag = item.Tag;
         }

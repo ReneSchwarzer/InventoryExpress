@@ -142,7 +142,7 @@ namespace InventoryExpress.WebPage
                         new ControlButtonLink()
                         {
                             Icon = new PropertyIcon(TypeIcon.TrashAlt),
-                            Modal = createDelteMordalForm(row.Media.Guid)
+                            Modal = new PropertyModal(TypeModal.Modal, createDelteMordalForm(row.Media.Guid))
                         }
                     });
                 }

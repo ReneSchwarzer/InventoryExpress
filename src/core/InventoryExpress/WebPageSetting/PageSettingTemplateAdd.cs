@@ -1,15 +1,16 @@
 ﻿using InventoryExpress.Model;
-using InventoryExpress.Model.Entity;
+using InventoryExpress.Model.WebItems;
 using InventoryExpress.WebControl;
-using InventoryExpress.WebPage;
-using System;
 using System.IO;
-using System.Linq;
+using WebExpress.Internationalization;
 using WebExpress.Message;
 using WebExpress.UI.WebControl;
+using WebExpress.Uri;
 using WebExpress.WebApp.WebAttribute;
+using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebApp.WebSettingPage;
+using WebExpress.WebApp.Wql;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
 
@@ -51,87 +52,7 @@ namespace InventoryExpress.WebPageSetting
 
             Form.InitializeFormular += InitializeFormular;
             Form.FillFormular += FillFormular;
-            Form.TemplateName.Validation += TemplateNameValidation;
             Form.ProcessFormular += ProcessFormular;
-        }
-
-        /// <summary>
-        /// Wird ausgelöst, wenn das Formular verarbeitet werden soll.
-        /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
-        /// <param name="e">Die Eventargumente/param>
-        private void ProcessFormular(object sender, FormularEventArgs e)
-        {
-
-            // Neue Vorlage erstellen und speichern
-            var template = new Template()
-            {
-                Name = Form.TemplateName.Value,
-                Description = Form.Description.Value,
-                Tag = Form.Tag.Value,
-                Created = DateTime.Now,
-                Updated = DateTime.Now,
-                Guid = Guid.NewGuid().ToString()
-            };
-
-            if (e.Context.Request.GetParameter(Form.Image.Name) is ParameterFile file)
-            {
-                if (template.Media == null)
-                {
-                    template.Media = new Media()
-                    {
-                        Name = file.Value,
-                        Created = DateTime.Now,
-                        Updated = DateTime.Now,
-                        Guid = Guid.NewGuid().ToString()
-                    };
-                }
-                else
-                {
-                    template.Media.Name = file.Value;
-                    template.Media.Updated = DateTime.Now;
-                }
-
-                File.WriteAllBytes(Path.Combine(e.Context.Application.AssetPath, "media", template.Media.Guid), file.Data);
-            }
-
-            var newAttributes = Form.Attributes.Value?.Split(";", StringSplitOptions.RemoveEmptyEntries);
-
-            lock (ViewModel.Instance.Database)
-            {
-                ViewModel.Instance.Templates.Add(template);
-                ViewModel.Instance.SaveChanges();
-
-                // verknüpfe Attribute
-                foreach (var newItems in newAttributes.Join(ViewModel.Instance.Attributes, x => x, y => y.Guid, (x, y) => y))
-                {
-                    ViewModel.Instance.TemplateAttributes.Add(new TemplateAttribute() { TemplateId = template.Id, AttributeId = newItems.Id });
-                }
-
-                ViewModel.Instance.SaveChanges();
-            }
-
-            Form.Reset();
-        }
-
-        /// <summary>
-        /// Wird ausgelöst, wenn das Feld TemplateName validiert werden soll.
-        /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
-        /// <param name="e">Die Eventargumente/param>
-        private void TemplateNameValidation(object sender, ValidationEventArgs e)
-        {
-            lock (ViewModel.Instance.Database)
-            {
-                if (e.Value.Count() < 1)
-                {
-                    e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.template.validation.name.invalid"));
-                }
-                else if (ViewModel.Instance.Templates.Where(x => x.Name.Equals(e.Value)).Any())
-                {
-                    e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.template.validation.name.used"));
-                }
-            }
         }
 
         /// <summary>
@@ -152,19 +73,65 @@ namespace InventoryExpress.WebPageSetting
         /// <param name="e">Die Eventargumente</param>
         private void FillFormular(object sender, FormularEventArgs e)
         {
-            lock (ViewModel.Instance.Database)
+            foreach (var v in ViewModel.GetAttributes(new WqlStatement()))
             {
-                foreach (var v in ViewModel.Instance.Attributes)
+                Form.Attributes.Options.Add(new ControlFormularItemInputSelectionItem()
                 {
-                    Form.Attributes.Options.Add(new ControlFormularItemInputSelectionItem()
-                    {
-                        ID = v.Guid,
-                        Label = v.Name
-                    });
-                }
-
-                Form.Attributes.Value = string.Join(";", ViewModel.Instance.Attributes);
+                    ID = v.ID,
+                    Label = v.Name
+                });
             }
+
+            Form.Attributes.Value = string.Empty;
+        }
+
+        /// <summary>
+        /// Wird ausgelöst, wenn das Formular verarbeitet werden soll.
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventargumente/param>
+        private void ProcessFormular(object sender, FormularEventArgs e)
+        {
+            var file = e.Context.Request.GetParameter(Form.Image.Name) as ParameterFile;
+
+            // Neue Vorlage erstellen und speichern
+            var template = new WebItemEntityTemplate()
+            {
+                Name = Form.TemplateName.Value,
+                Description = Form.Description.Value,
+                Tag = Form.Tag.Value,
+                Media = new WebItemEntityMedia()
+                {
+                    Name = file?.Value
+                }
+            };
+
+            ViewModel.AddOrUpdateTemplate(template);
+            ViewModel.Instance.SaveChanges();
+
+            if (file != null)
+            {
+                ViewModel.AddOrUpdateMedia(template.Media, file?.Data);
+                ViewModel.Instance.SaveChanges();
+            }
+
+            NotificationManager.CreateNotification
+            (
+                request: e.Context.Request,
+                message: string.Format
+                (
+                    InternationalizationManager.I18N(Culture, "inventoryexpress:inventoryexpress.template.notification.add"),
+                    new ControlLink()
+                    {
+                        Text = template.Name,
+                        Uri = new UriRelative(ViewModel.GetTemplateUri(template.ID))
+                    }.Render(e.Context).ToString().Trim()
+                ),
+                icon: new UriRelative(template.Image),
+                durability: 10000
+            );
+
+            Form.RedirectUri = Form.RedirectUri.Append(template.ID);
         }
 
         /// <summary>

@@ -1,5 +1,4 @@
-﻿using WebExpress.Internationalization;
-using WebExpress.UI.WebControl;
+﻿using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebPage;
 
 namespace InventoryExpress.WebControl

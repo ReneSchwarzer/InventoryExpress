@@ -1,6 +1,10 @@
-﻿using WebExpress.UI.WebControl;
+﻿using InventoryExpress.Model;
+using System;
+using System.Linq;
+using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebApiControl;
 using WebExpress.WebApp.WebPage;
+using WebExpress.WebApp.Wql;
 
 namespace InventoryExpress.WebControl
 {
@@ -127,6 +131,9 @@ namespace InventoryExpress.WebControl
             BackgroundColor = LayoutSchema.FormularBackground;
             Layout = TypeLayoutFormular.Horizontal;
 
+            LocationName.Validation += LocationNameValidation;
+            Zip.Validation += ZipValidation;
+
             var group1 = new ControlFormularItemGroupColumnVertical() { Distribution = new int[] { 33 } };
             group1.Items.Add(Zip);
             group1.Items.Add(Place);
@@ -158,6 +165,52 @@ namespace InventoryExpress.WebControl
             base.Initialize(context);
 
             Tag.RestUri = context.Uri.Root.Append("api/v1/tags");
+        }
+
+        /// <summary>
+        /// Wird ausgelöst, wenn das Feld Zip validiert werden soll.
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventargumente/param>
+        private void ZipValidation(object sender, ValidationEventArgs e)
+        {
+            if (e.Value != null && e.Value.Length >= 10)
+            {
+                e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.location.validation.zip.tolong"));
+            }
+        }
+
+        /// <summary>
+        /// Wird ausgelöst, wenn das Feld LocationName validiert werden soll.
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventargumente/param>
+        private void LocationNameValidation(object sender, ValidationEventArgs e)
+        {
+            var guid = e.Context.Request.GetParameter("LocationID")?.Value;
+            var location = ViewModel.GetLocation(guid);
+
+            if (e.Value == null || e.Value.Length < 1)
+            {
+                e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.location.validation.name.invalid"));
+            }
+            else if
+            (
+                location == null &&
+                ViewModel.GetLocations(new WqlStatement()).Where(x => x.Name.Equals(e.Value, StringComparison.OrdinalIgnoreCase)).Any()
+            )
+            {
+                e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.location.validation.name.used"));
+            }
+            else if
+            (
+                location != null &&
+                !location.Name.Equals(e.Value, StringComparison.InvariantCultureIgnoreCase) &&
+                ViewModel.GetLocations(new WqlStatement()).Where(x => x.Name.Equals(e.Value, StringComparison.OrdinalIgnoreCase)).Any()
+            )
+            {
+                e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.location.validation.name.used"));
+            }
         }
     }
 }

@@ -108,11 +108,11 @@ namespace InventoryExpress.WebPage
                 request: e.Context.Request,
                 message: string.Format
                 (
-                    InternationalizationManager.I18N(Culture, "inventoryexpress:inventoryexpress.manufacturer.notification.add"), 
-                    new ControlLink() 
-                    { 
-                        Text = manufacturer.Name, 
-                        Uri = new UriRelative(ViewModel.GetManufacturerUri(manufacturer.ID)) 
+                    InternationalizationManager.I18N(Culture, "inventoryexpress:inventoryexpress.manufacturer.notification.add"),
+                    new ControlLink()
+                    {
+                        Text = manufacturer.Name,
+                        Uri = new UriRelative(ViewModel.GetManufacturerUri(manufacturer.ID))
                     }.Render(e.Context).ToString().Trim()
                 ),
                 icon: new UriRelative(manufacturer.Image),

@@ -1,7 +1,5 @@
 ﻿using InventoryExpress.Model;
-using InventoryExpress.Model.Entity;
 using InventoryExpress.WebControl;
-using System.Collections.Generic;
 using System.Linq;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebPage;
@@ -47,7 +45,7 @@ namespace InventoryExpress.WebPage
 
             var grid = new ControlPanelGrid() { Fluid = TypePanelContainer.Fluid };
             var list = ViewModel.GetSuppliers(new WqlStatement()).OrderBy(x => x.Name);
-            
+
             foreach (var supplier in list)
             {
                 var card = new ControlCardSupplier()

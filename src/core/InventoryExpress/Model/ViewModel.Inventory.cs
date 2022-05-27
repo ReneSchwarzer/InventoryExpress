@@ -14,7 +14,7 @@ namespace InventoryExpress.Model
         /// <returns>Die Uri oder null</returns>
         public static string GetInventoryUri(string guid)
         {
-            return $"{ RootUri }/{ guid }";
+            return $"{RootUri}/{guid}";
         }
 
         /// <summary>

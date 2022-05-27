@@ -91,7 +91,7 @@ namespace InventoryExpress.WebComponent
                 CreationDateAttribute.Value = media?.Created.ToString(context.Culture.DateTimeFormat.ShortDatePattern);
                 UpdateDateAttribute.Value = media?.Updated.ToString
                 (
-                    $"{ context.Culture.DateTimeFormat.ShortDatePattern } { context.Culture.DateTimeFormat.ShortTimePattern }"
+                    $"{context.Culture.DateTimeFormat.ShortDatePattern} {context.Culture.DateTimeFormat.ShortTimePattern}"
                 );
 
                 FileInfo fi = new FileInfo(Path.Combine(context.Application.AssetPath, "media", media?.Guid));

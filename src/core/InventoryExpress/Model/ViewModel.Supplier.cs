@@ -12,11 +12,11 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Ermittelt die Lieferanten-URL
         /// </summary>
-        /// <param name="guid">Die LieferantenID</param>
+        /// <param name="guid">Die ID des Lieferanten</param>
         /// <returns>Die Uri oder null</returns>
         public static string GetSupplierUri(string guid)
         {
-            return $"{ RootUri }/suppliers/{ guid }";
+            return $"{RootUri}/suppliers/{guid}";
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Liefert ein Lieferant
         /// </summary>
-        /// <param name="id">Die LieferantenID</param>
+        /// <param name="id">Die ID des Lieferanten</param>
         /// <returns>Der Lieferant oder null</returns>
         public static WebItemEntitySupplier GetSupplier(string id)
         {
@@ -145,7 +145,7 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Löscht ein Lieferant
         /// </summary>
-        /// <param name="id">Die Lieferanten ID</param>
+        /// <param name="id">Die ID des Lieferanten</param>
         public static void DeleteSupplier(string id)
         {
             lock (Instance.Database)

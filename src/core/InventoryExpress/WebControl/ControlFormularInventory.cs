@@ -239,7 +239,7 @@ namespace InventoryExpress.WebControl
             Parent.RestUri = context.Uri.Root.Append("api/v1/inventories");
             Template.RestUri = context.Uri.Root.Append("api/v1/templates");
             Tag.RestUri = context.Uri.Root.Append("api/v1/tags");
-            Template.OnChange = new PropertyOnChange($"$('#{ ID }').submit();");
+            Template.OnChange = new PropertyOnChange($"$('#{ID}').submit();");
 
             var guid = context.Request.GetParameter("InventoryID")?.Value;
 
@@ -291,7 +291,7 @@ namespace InventoryExpress.WebControl
                     attributesForm.Add(new ControlFormularItemInputTextBox()
                     {
                         Name = "attribute_" + attribute.Guid,
-                        Label = $"{ attribute.Name }:",
+                        Label = $"{attribute.Name}:",
                         Help = attribute.Description,
                         Tag = attribute
                     });
@@ -352,7 +352,7 @@ namespace InventoryExpress.WebControl
                     attributesForm.Add(new ControlFormularItemInputTextBox()
                     {
                         Name = "attribute_" + attribute.Attribute.Guid,
-                        Label = $"{ attribute.Attribute.Name }:",
+                        Label = $"{attribute.Attribute.Name}:",
                         Help = attribute.Attribute.Description,
                         Tag = attribute
                     });
