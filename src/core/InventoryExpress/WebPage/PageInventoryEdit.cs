@@ -45,9 +45,6 @@ namespace InventoryExpress.WebPage
 
             Form.RedirectUri = Uri.Take(-1);
             Form.Edit = true;
-            Form.EnableCancelButton = true;
-            Form.BackUri = Uri.Take(-1);
-
             Form.FillFormular += OnFillFormular;
             Form.ProcessFormular += OnProcessFormular;
         }

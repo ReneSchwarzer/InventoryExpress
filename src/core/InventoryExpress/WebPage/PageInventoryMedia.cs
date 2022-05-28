@@ -67,8 +67,7 @@ namespace InventoryExpress.WebPage
 
             Form = new ControlFormularMedia("media")
             {
-                RedirectUri = context.Uri,
-                BackUri = context.Uri.Take(-1)
+                RedirectUri = context.Uri
             };
 
             var guid = context.Request.GetParameter("InventoryID")?.Value;

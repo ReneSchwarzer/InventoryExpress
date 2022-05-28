@@ -104,7 +104,6 @@ namespace InventoryExpress.WebControl
             : base(id)
         {
             Name = "manufacturer";
-            EnableCancelButton = false;
             Margin = new PropertySpacingMargin(PropertySpacing.Space.Three);
             BackgroundColor = LayoutSchema.FormularBackground;
             Layout = TypeLayoutFormular.Horizontal;

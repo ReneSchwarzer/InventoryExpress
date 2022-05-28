@@ -1,5 +1,6 @@
 ﻿using InventoryExpress.Model;
 using System.Collections.Generic;
+using System.Linq;
 using WebExpress.Message;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.Model;
@@ -68,7 +69,7 @@ namespace InventoryExpress.WebApi.V1
         /// <returns>Eine Aufzählung, welche JsonSerializer serialisiert werden kann.</returns>
         public override IEnumerable<WebItem> GetData(WqlStatement wql, Request request)
         {
-            var attributes = ViewModel.GetAttributes(wql);
+            var attributes = ViewModel.GetAttributes(wql).ToList();
 
             return attributes;
         }

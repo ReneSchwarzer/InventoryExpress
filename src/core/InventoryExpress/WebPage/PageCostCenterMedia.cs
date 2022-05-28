@@ -70,7 +70,6 @@ namespace InventoryExpress.WebPage
             var visualTree = context.VisualTree;
 
             Form.RedirectUri = context.Uri;
-            Form.BackUri = context.Uri.Take(-1);
 
             var guid = context.Request.GetParameter("CostCenterID")?.Value;
             lock (ViewModel.Instance.Database)

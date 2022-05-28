@@ -49,8 +49,6 @@ namespace InventoryExpress.WebPage
 
             var form = new ControlFormularInventory
             {
-                EnableCancelButton = true,
-                BackUri = context.Uri.Take(-1),
                 RedirectUri = context.Uri.Root.Append(guid).Append("edit")
             };
 

@@ -64,7 +64,6 @@ namespace InventoryExpress.WebPage
         private void InitializeFormular(object sender, FormularEventArgs e)
         {
             Form.RedirectUri = e.Context.Uri.Take(-1);
-            Form.BackUri = e.Context.Uri.Take(-1);
         }
 
         /// <summary>

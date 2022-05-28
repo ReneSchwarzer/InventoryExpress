@@ -113,7 +113,7 @@ namespace InventoryExpress.WebApi.V1
                 //    }
                 //}
 
-                return tags;
+                return tags.ToList(); 
             }
         }
 

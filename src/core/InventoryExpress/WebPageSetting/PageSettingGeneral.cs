@@ -28,7 +28,6 @@ namespace InventoryExpress.WebPageSetting
         /// </summary>
         private ControlFormularSettings Form { get; } = new ControlFormularSettings("settings")
         {
-            EnableCancelButton = false
         };
 
         /// <summary>
@@ -58,7 +57,6 @@ namespace InventoryExpress.WebPageSetting
             var setting = null as Setting;
 
             Form.RedirectUri = context.Uri;
-            Form.BackUri = context.Uri.Take(-1);
 
             lock (ViewModel.Instance.Database)
             {

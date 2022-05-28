@@ -1,6 +1,7 @@
 ﻿using InventoryExpress.Model;
 using InventoryExpress.Model.WebItems;
 using System.Collections.Generic;
+using System.Linq;
 using WebExpress.Message;
 using WebExpress.WebApp.WebResource;
 using WebExpress.WebApp.Wql;
@@ -78,7 +79,7 @@ namespace InventoryExpress.WebApi.V1
         {
             lock (ViewModel.Instance.Database)
             {
-                var conditions = ViewModel.GetConditions(wql);
+                var conditions = ViewModel.GetConditions(wql).ToList();
 
                 return conditions;
             }

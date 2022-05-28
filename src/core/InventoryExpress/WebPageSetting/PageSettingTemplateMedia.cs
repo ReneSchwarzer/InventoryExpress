@@ -91,8 +91,6 @@ namespace InventoryExpress.WebPageSetting
             visualTree.Content.Primary.Add(Form);
 
             Form.RedirectUri = context.Uri;
-            Form.BackUri = context.Uri.Take(-1);
-
             Form.Tag.Value = Media?.Tag;
 
             Form.Image.Validation += (s, e) =>

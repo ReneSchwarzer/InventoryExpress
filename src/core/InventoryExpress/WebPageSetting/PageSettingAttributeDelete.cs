@@ -53,7 +53,6 @@ namespace InventoryExpress.WebPageSetting
             Form.InitializeFormular += InitializeFormular;
             Form.Confirm += OnConfirmFormular;
             Form.RedirectUri = context.Application.ContextPath.Append("setting/attributes");
-            Form.BackUri = Form.RedirectUri;
         }
 
         /// <summary>

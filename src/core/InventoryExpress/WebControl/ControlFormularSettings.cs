@@ -25,13 +25,11 @@ namespace InventoryExpress.WebControl
             : base(id)
         {
             Name = "form_comment";
-            EnableCancelButton = true;
             Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Three, PropertySpacing.Space.Five, PropertySpacing.Space.None);
             BackgroundColor = LayoutSchema.FormularBackground;
             Layout = TypeLayoutFormular.Vertical;
             SubmitButton.Icon = new PropertyIcon(TypeIcon.Save);
             SubmitButton.Text = "inventoryexpress:inventoryexpress.setting.submit.label";
-            EnableCancelButton = false;
 
             Currency.Validation += OnCurrencyValidation;
 

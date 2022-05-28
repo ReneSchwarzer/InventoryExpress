@@ -54,7 +54,6 @@ namespace InventoryExpress.WebPage
         /// <param name="e">Die Eventargumente</param>
         private void OnInitializeFormular(object sender, FormularEventArgs e)
         {
-            Form.BackUri = e.Context.Uri.Take(-1);
         }
 
         /// <summary>

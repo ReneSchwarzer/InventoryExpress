@@ -195,7 +195,6 @@ namespace InventoryExpress.WebControl
         public ControlFormularInventory(string id = null)
             : base(id ?? "inventory")
         {
-            EnableCancelButton = false;
             Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Three, PropertySpacing.Space.None, PropertySpacing.Space.None);
             BackgroundColor = LayoutSchema.FormularBackground;
             Border = new PropertyBorder(true);
