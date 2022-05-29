@@ -90,6 +90,8 @@ namespace InventoryExpress.WebPage
         {
             var file = e.Context.Request.GetParameter(Form.Image.Name) as ParameterFile;
 
+            using var transaction = ViewModel.BeginTransaction();
+
             // Herstellerobjekt ändern und speichern
             Manufacturer.Name = Form.ManufacturerName.Value;
             Manufacturer.Description = Form.Description.Value;
@@ -101,12 +103,10 @@ namespace InventoryExpress.WebPage
             Manufacturer.Media.Name = file?.Value;
 
             ViewModel.AddOrUpdateManufacturer(Manufacturer);
-            ViewModel.Instance.SaveChanges();
 
             if (file != null)
             {
                 ViewModel.AddOrUpdateMedia(Manufacturer.Media, file?.Data);
-                ViewModel.Instance.SaveChanges();
             }
 
             NotificationManager.CreateNotification
@@ -124,6 +124,8 @@ namespace InventoryExpress.WebPage
                 icon: new UriRelative(Manufacturer.Image),
                 durability: 10000
             );
+
+            transaction.Commit();
         }
 
         /// <summary>

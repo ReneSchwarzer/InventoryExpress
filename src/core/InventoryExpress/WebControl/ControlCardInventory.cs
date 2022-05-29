@@ -114,12 +114,6 @@ namespace InventoryExpress.WebControl
             MediaLink.Text = Inventory.Name;
             Media.Title = MediaLink;
 
-            //Media.Content.Add(new ControlText()
-            //{
-            //    Text = Inventory.Description,
-            //    Format = TypeFormatText.Paragraph
-            //});
-
             Media.Content.Add(Template);
 
             var flex = new ControlPanelFlexbox
@@ -135,6 +129,30 @@ namespace InventoryExpress.WebControl
                 Direction = TypeDirection.Horizontal
             };
 
+            Media.Image = new UriRelative(Inventory.Media?.Uri);
+            MediaLink.Uri = new UriRelative(Inventory.Uri);
+
+            Template.Text = Inventory.Template?.Name;
+            Template.Uri = new UriRelative(Inventory.Template?.Uri);
+
+            Manufacturer.Enable = Inventory.Manufacturer != null;
+            Manufacturer.Name = Inventory.Manufacturer?.Name;
+
+            Location.Enable = Inventory.Location != null;
+            Location.Name = Inventory.Location?.Name;
+
+            Supplier.Enable = Inventory.Supplier != null;
+            Supplier.Name = Inventory.Supplier?.Name;
+
+            LedgerAccount.Enable = Inventory.LedgerAccount != null;
+            LedgerAccount.Name = Inventory.LedgerAccount?.Name;
+
+            CostCenter.Enable = Inventory.CostCenter != null;
+            CostCenter.Name = Inventory.CostCenter?.Name;
+
+            Condition.Enable = Inventory.Condition != null;
+            Condition.Name = Inventory.Condition?.Name;
+
             Media.Content.Add(flex);
             Content.Add(Media);
         }
@@ -146,42 +164,6 @@ namespace InventoryExpress.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            lock (ViewModel.Instance.Database)
-            {
-                var image = new UriRelative(Inventory.Image);
-                var manufacturer = Inventory.Manufacturer;
-                var location = Inventory.Location;
-                var supplier = Inventory.Supplier;
-                var ledgerAccount = Inventory.LedgerAccount;
-                var costCenter = Inventory.CostCenter;
-                var condition = Inventory.Condition;
-                var template = Inventory.Template;
-
-                Media.Image = image;
-                MediaLink.Uri = new UriRelative(Inventory.Uri);
-
-                Template.Text = template?.Name;
-                //Template.Uri = ;
-
-                Manufacturer.Enable = manufacturer != null;
-                Manufacturer.Name = manufacturer?.Name;
-
-                Location.Enable = location != null;
-                Location.Name = location?.Name;
-
-                Supplier.Enable = supplier != null;
-                Supplier.Name = supplier?.Name;
-
-                LedgerAccount.Enable = ledgerAccount != null;
-                LedgerAccount.Name = ledgerAccount?.Name;
-
-                CostCenter.Enable = costCenter != null;
-                CostCenter.Name = costCenter?.Name;
-
-                Condition.Enable = condition != null;
-                Condition.Name = condition?.Name;
-            }
-
             return base.Render(context);
         }
     }

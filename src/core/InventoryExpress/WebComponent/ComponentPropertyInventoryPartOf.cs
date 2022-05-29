@@ -65,37 +65,37 @@ namespace InventoryExpress.WebComponent
             var id = context.Request.GetParameter("InventoryID")?.Value;
             Items.Clear();
 
-            lock (ViewModel.Instance.Database)
-            {
-                var inventory = ViewModel.Instance.Inventories.Where(x => x.Guid.Equals(id)).FirstOrDefault();
-                var parent = ViewModel.Instance.Inventories.Where(x => x.Id.Equals(inventory.ParentId)).FirstOrDefault();
-                var children = ViewModel.Instance.Inventories.Where(x => x.ParentId.Equals(inventory.Id));
+            //lock (ViewModel.Instance.Database)
+            //{
+            //    var inventory = ViewModel.Instance.Inventories.Where(x => x.Guid.Equals(id)).FirstOrDefault();
+            //    var parent = ViewModel.Instance.Inventories.Where(x => x.Id.Equals(inventory.ParentId)).FirstOrDefault();
+            //    var children = ViewModel.Instance.Inventories.Where(x => x.ParentId.Equals(inventory.Id));
 
-                if (parent != null)
-                {
-                    Add(new ControlListItem(ParentAttribute, new ControlLink()
-                    {
-                        Text = parent?.Name,
-                        Uri = context.Uri.Root.Append(parent.Guid),
-                    }));
-                }
+            //    if (parent != null)
+            //    {
+            //        Add(new ControlListItem(ParentAttribute, new ControlLink()
+            //        {
+            //            Text = parent?.Name,
+            //            Uri = context.Uri.Root.Append(parent.Guid),
+            //        }));
+            //    }
 
-                if (children.Any())
-                {
-                    var list = new List<Control> { ChildAttribute };
+            //    if (children.Any())
+            //    {
+            //        var list = new List<Control> { ChildAttribute };
 
-                    foreach (var child in children)
-                    {
-                        list.Add(new ControlLink()
-                        {
-                            Text = child?.Name,
-                            Uri = context.Uri.Root.Append(child?.Guid)
-                        });
-                    }
+            //        foreach (var child in children)
+            //        {
+            //            list.Add(new ControlLink()
+            //            {
+            //                Text = child?.Name,
+            //                Uri = context.Uri.Root.Append(child?.Guid)
+            //            });
+            //        }
 
-                    Add(new ControlListItem(list));
-                }
-            }
+            //        Add(new ControlListItem(list));
+            //    }
+            //}
 
             return base.Render(context);
         }

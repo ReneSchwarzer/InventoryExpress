@@ -1,8 +1,8 @@
 ﻿using InventoryExpress.Model;
 using InventoryExpress.Model.Entity;
+using InventoryExpress.Model.WebItems;
 using InventoryExpress.WebControl;
 using System;
-using System.Linq;
 using WebExpress.Html;
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebComponent;
@@ -63,39 +63,33 @@ namespace InventoryExpress.WebComponent
             Form.RedirectUri = context.Uri;
             List.Items.Clear();
 
-            lock (ViewModel.Instance.Database)
+            var guid = context.Request.GetParameter("InventoryID")?.Value;
+            var inventory = ViewModel.GetInventory(guid);
+
+            foreach (var comment in ViewModel.GetInventoryComments(inventory))
             {
-                var id = context.Request.GetParameter("InventoryID")?.Value;
-                var inventory = ViewModel.Instance.Inventories.OrderByDescending(x => x.Created).Where(x => x.Guid.Equals(id)).FirstOrDefault();
-
-                foreach (var comment in ViewModel.Instance.InventoryComments.Where(x => x.InventoryId == inventory.Id))
+                List.Add(new ControlListItem(new ControlTimelineComment()
                 {
-                    List.Add(new ControlListItem(new ControlTimelineComment()
-                    {
-                        Post = comment.Comment,
-                        Timestamp = comment.Created,
-                        Likes = -1
-                    }));
-                }
-
-                Form.ProcessFormular += (s, e) =>
-                {
-                    if (!string.IsNullOrWhiteSpace(Form.Comment.Value))
-                    {
-                        lock (ViewModel.Instance.Database)
-                        {
-                            ViewModel.Instance.InventoryComments.Add(new InventoryComment()
-                            {
-                                Inventory = inventory,
-                                Comment = Form.Comment.Value,
-                                Guid = Guid.NewGuid().ToString()
-                            });
-
-                            ViewModel.Instance.SaveChanges();
-                        }
-                    }
-                };
+                    Post = comment.Comment,
+                    Timestamp = comment.Created,
+                    Likes = -1
+                }));
             }
+
+            Form.ProcessFormular += (s, e) =>
+            {
+                if (!string.IsNullOrWhiteSpace(Form.Comment.Value))
+                {
+                    using var transaction = ViewModel.BeginTransaction();
+
+                    ViewModel.AddInventoryComment(inventory, new WebItemEntityComment()
+                    {
+                        Comment = Form.Comment.Value
+                    });
+
+                    transaction.Commit();                   
+                }
+            };
 
             List.Add(new ControlListItem(Form));
 

@@ -42,19 +42,9 @@ namespace InventoryExpress.WebComponent
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            lock (ViewModel.Instance.Database)
-            {
-                var guid = context.Request.GetParameter("InventoryID")?.Value;
-                var count = (from i in ViewModel.Instance.Inventories
-                             join a in ViewModel.Instance.InventoryAttachments
-                             on i.Id equals a.InventoryId
-                             where i.Guid == guid
-                             select a).Count();
-
-                Text = InternationalizationManager.I18N(context.Culture, "inventoryexpress:inventoryexpress.inventory.journal.function");
-                Uri = context.Uri.Append("journal");
-            }
-
+            Text = InternationalizationManager.I18N(context.Culture, "inventoryexpress:inventoryexpress.inventory.journal.function");
+            Uri = context.Uri.Append("journal");
+            
             return base.Render(context);
         }
     }

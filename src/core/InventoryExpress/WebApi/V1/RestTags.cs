@@ -28,7 +28,6 @@ namespace InventoryExpress.WebApi.V1
         /// </summary>
         public RestTags()
         {
-            Guard = ViewModel.Instance.Database;
         }
 
         /// <summary>
@@ -65,56 +64,46 @@ namespace InventoryExpress.WebApi.V1
         /// <returns>Eine Aufzählung, welche JsonSerializer serialisiert werden kann.</returns>
         public override IEnumerable<WebItem> GetData(WqlStatement wql, Request request)
         {
-            lock (ViewModel.Instance.Database)
-            {
-                var tags = ViewModel.Instance.Tags.Select(x => new WebItem
-                {
-                    ID = x.Label,
-                    Label = x.Label
-                });
+            var tags = ViewModel.GetTags(wql);
 
-                tags = wql.Apply(tags);
+            //if (id != null)
+            //{
+            //    locations = locations.Where(x => x.Id.Equals(id));
+            //}
 
+            //if (!string.IsNullOrWhiteSpace(search))
+            //{
+            //    var split = search.Split(' ', System.StringSplitOptions.RemoveEmptyEntries);
+            //    locations = locations.Where
+            //    (
+            //        x =>
+            //        split.Contains(x.Label.ToLower())
+            //    );
+            //}
 
-                //if (id != null)
-                //{
-                //    locations = locations.Where(x => x.Id.Equals(id));
-                //}
+            //var x = locations.Select(x => (object)new
+            //{
+            //    ID = x.Label,
+            //    Label = x.Label
+            //}).ToList();
 
-                //if (!string.IsNullOrWhiteSpace(search))
-                //{
-                //    var split = search.Split(' ', System.StringSplitOptions.RemoveEmptyEntries);
-                //    locations = locations.Where
-                //    (
-                //        x =>
-                //        split.Contains(x.Label.ToLower())
-                //    );
-                //}
+            //if (!string.IsNullOrWhiteSpace(search))
+            //{
+            //    foreach (var s in search.Split(' ', System.StringSplitOptions.RemoveEmptyEntries))
+            //    {
+            //        if (!locations.Where(x => x.Label.ToLower().Equals(s?.ToLower())).Any())
+            //        {
+            //            x.Add((object)new
+            //            {
+            //                ID = s?.ToLower(),
+            //                Label = s?.ToLower(),
+            //                Instruction = I18N(request, "inventoryexpress:inventoryexpress.add.label")
+            //            });
+            //        }
+            //    }
+            //}
 
-                //var x = locations.Select(x => (object)new
-                //{
-                //    ID = x.Label,
-                //    Label = x.Label
-                //}).ToList();
-
-                //if (!string.IsNullOrWhiteSpace(search))
-                //{
-                //    foreach (var s in search.Split(' ', System.StringSplitOptions.RemoveEmptyEntries))
-                //    {
-                //        if (!locations.Where(x => x.Label.ToLower().Equals(s?.ToLower())).Any())
-                //        {
-                //            x.Add((object)new
-                //            {
-                //                ID = s?.ToLower(),
-                //                Label = s?.ToLower(),
-                //                Instruction = I18N(request, "inventoryexpress:inventoryexpress.add.label")
-                //            });
-                //        }
-                //    }
-                //}
-
-                return tags.ToList(); 
-            }
+            return tags; 
         }
 
         /// <summary>

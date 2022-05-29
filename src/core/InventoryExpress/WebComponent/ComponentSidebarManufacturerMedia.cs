@@ -4,6 +4,7 @@ using WebExpress.Html;
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebComponent;
 using WebExpress.UI.WebControl;
+using WebExpress.Uri;
 using WebExpress.WebApp.WebComponent;
 using WebExpress.WebAttribute;
 using WebExpress.WebPage;
@@ -49,17 +50,12 @@ namespace InventoryExpress.WebComponent
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            lock (ViewModel.Instance.Database)
-            {
-                var guid = context.Request.GetParameter("ManufacturerID")?.Value;
-                var manufactur = ViewModel.Instance.Manufacturers.Where(x => x.Guid == guid).FirstOrDefault();
-                var media = ViewModel.Instance.Media.Where(x => x.Id == (manufactur != null ? manufactur.MediaId : null)).FirstOrDefault();
-                var image = media != null ? context.Uri.Root.Append("media").Append(media.Guid) : null;
+            var guid = context.Request.GetParameter("ManufacturerID")?.Value;
+            var manufacturer = ViewModel.GetManufacturer(guid);
 
-                Uri = context.Uri.Append("media");
-
-                Image.Uri = image == null ? context.Uri.Root.Append("/assets/img/inventoryexpress.svg") : image;
-            }
+            Modal = new PropertyModal(TypeModal.Formular, TypeModalSize.Large);
+            Uri = context.Uri.Append("media");
+            Image.Uri = new UriRelative(manufacturer.Media?.Uri);
 
             return base.Render(context);
         }

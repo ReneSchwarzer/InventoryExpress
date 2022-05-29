@@ -26,11 +26,11 @@ namespace InventoryExpress.Model
         /// <returns>Eine Aufzählung, welche die Sachkonten beinhaltet</returns>
         public static IEnumerable<WebItemEntityLedgerAccount> GetLedgerAccounts(WqlStatement wql)
         {
-            lock (Instance.Database)
+            lock (DbContext)
             {
-                var ledgerAccounts = Instance.LedgerAccounts.Select(x => new WebItemEntityLedgerAccount(x));
+                var ledgerAccounts = DbContext.LedgerAccounts.Select(x => new WebItemEntityLedgerAccount(x));
 
-                return wql.Apply(ledgerAccounts.AsQueryable());
+                return wql.Apply(ledgerAccounts.AsQueryable()).ToList();
             }
         }
 
@@ -41,9 +41,9 @@ namespace InventoryExpress.Model
         /// <returns>Das Sachkonto oder null</returns>
         public static WebItemEntityLedgerAccount GetLedgerAccount(string id)
         {
-            lock (Instance.Database)
+            lock (DbContext)
             {
-                var ledgerAccount = Instance.LedgerAccounts.Where(x => x.Guid == id).Select(x => new WebItemEntityLedgerAccount(x)).FirstOrDefault();
+                var ledgerAccount = DbContext.LedgerAccounts.Where(x => x.Guid == id).Select(x => new WebItemEntityLedgerAccount(x)).FirstOrDefault();
 
                 return ledgerAccount;
             }
@@ -56,10 +56,10 @@ namespace InventoryExpress.Model
         /// <returns>Das Sachkonto oder null</returns>
         public static WebItemEntityLedgerAccount GetLedgerAccount(WebItemEntityInventory inventory)
         {
-            lock (Instance.Database)
+            lock (DbContext)
             {
-                var condition = from i in Instance.Inventories
-                                join l in Instance.LedgerAccounts on i.ConditionId equals l.Id
+                var condition = from i in DbContext.Inventories
+                                join l in DbContext.LedgerAccounts on i.LedgerAccountId equals l.Id
                                 where i.Guid == inventory.ID
                                 select new WebItemEntityLedgerAccount(l);
 
@@ -73,9 +73,9 @@ namespace InventoryExpress.Model
         /// <param name="location">Das Sachkonto</param>
         public static void AddOrUpdateLedgerAccount(WebItemEntityLedgerAccount location)
         {
-            lock (Instance.Database)
+            lock (DbContext)
             {
-                var availableEntity = Instance.Locations.Where(x => x.Guid == location.ID).FirstOrDefault();
+                var availableEntity = DbContext.Locations.Where(x => x.Guid == location.ID).FirstOrDefault();
 
                 if (availableEntity == null)
                 {
@@ -99,12 +99,13 @@ namespace InventoryExpress.Model
                         }
                     };
 
-                    Instance.LedgerAccounts.Add(entity);
+                    DbContext.LedgerAccounts.Add(entity);
+                    DbContext.SaveChanges();
                 }
                 else
                 {
                     // Update
-                    var availableMedia = location.Media != null ? Instance.Media.Where(x => x.Guid == location.Media.ID).FirstOrDefault() : null;
+                    var availableMedia = location.Media != null ? DbContext.Media.Where(x => x.Guid == location.Media.ID).FirstOrDefault() : null;
 
                     availableEntity.Name = location.Name;
                     availableEntity.Description = location.Description;
@@ -123,7 +124,7 @@ namespace InventoryExpress.Model
                             Updated = DateTime.Now
                         };
 
-                        Instance.Media.Add(media);
+                        DbContext.Media.Add(media);
                     }
                     else if (!string.IsNullOrWhiteSpace(location.Media.Name))
                     {
@@ -132,6 +133,8 @@ namespace InventoryExpress.Model
                         availableMedia.Tag = location.Media?.Tag;
                         availableMedia.Updated = DateTime.Now;
                     }
+
+                    DbContext.SaveChanges();
                 }
             }
         }
@@ -142,10 +145,10 @@ namespace InventoryExpress.Model
         /// <param name="id">Die ID des Sachkontos</param>
         public static void DeleteLedgerAccount(string id)
         {
-            lock (Instance.Database)
+            lock (DbContext)
             {
-                var entity = Instance.LedgerAccounts.Where(x => x.Guid == id).FirstOrDefault();
-                var entityMedia = Instance.Media.Where(x => x.Id == entity.MediaId).FirstOrDefault();
+                var entity = DbContext.LedgerAccounts.Where(x => x.Guid == id).FirstOrDefault();
+                var entityMedia = DbContext.Media.Where(x => x.Id == entity.MediaId).FirstOrDefault();
 
                 if (entityMedia != null)
                 {
@@ -154,8 +157,27 @@ namespace InventoryExpress.Model
 
                 if (entity != null)
                 {
-                    Instance.LedgerAccounts.Remove(entity);
+                    DbContext.LedgerAccounts.Remove(entity);
+                    DbContext.SaveChanges();
                 }
+            }
+        }
+
+        /// <summary>
+        /// Prüft ob das Sachkonto in Verwendung ist
+        /// </summary>
+        /// <param name="ledgerAccount">Das Sachkonto</param>
+        /// <returns>True wenn in Verwendung, false sonst</returns>
+        public static bool GetLedgerAccountInUse(WebItemEntityLedgerAccount ledgerAccount)
+        {
+            lock (DbContext)
+            {
+                var used = from i in DbContext.Inventories
+                           join l in DbContext.LedgerAccounts on i.LedgerAccountId equals l.Id
+                           where l.Guid == ledgerAccount.ID
+                           select l;
+
+                return used.Any();
             }
         }
     }

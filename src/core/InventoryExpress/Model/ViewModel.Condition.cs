@@ -65,11 +65,11 @@ namespace InventoryExpress.Model
         /// <returns>Eine Aufzählung, welche die Zustände beinhaltet</returns>
         public static IEnumerable<WebItemEntityCondition> GetConditions(WqlStatement wql)
         {
-            lock (Instance.Database)
+            lock (DbContext)
             {
-                var conditions = Instance.Conditions.Select(x => new WebItemEntityCondition(x));
+                var conditions = DbContext.Conditions.Select(x => new WebItemEntityCondition(x));
 
-                return wql.Apply(conditions.AsQueryable());
+                return wql.Apply(conditions.AsQueryable()).ToList();
             }
         }
 
@@ -80,9 +80,9 @@ namespace InventoryExpress.Model
         /// <returns>Der Zustand oder null</returns>
         public static WebItemEntityCondition GetCondition(string id)
         {
-            lock (Instance.Database)
+            lock (DbContext)
             {
-                var condition = Instance.Conditions.Where(x => x.Guid == id).Select(x => new WebItemEntityCondition(x)).FirstOrDefault();
+                var condition = DbContext.Conditions.Where(x => x.Guid == id).Select(x => new WebItemEntityCondition(x)).FirstOrDefault();
 
                 return condition;
             }
@@ -95,10 +95,10 @@ namespace InventoryExpress.Model
         /// <returns>Der Zustand oder null</returns>
         public static WebItemEntityCondition GetCondition(WebItemEntityInventory inventory)
         {
-            lock (Instance.Database)
+            lock (DbContext)
             {
-                var condition = from i in Instance.Inventories
-                                join c in Instance.Conditions on i.ConditionId equals c.Id
+                var condition = from i in DbContext.Inventories
+                                join c in DbContext.Conditions on i.ConditionId equals c.Id
                                 where i.Guid == inventory.ID
                                 select new WebItemEntityCondition(c);
 
@@ -112,9 +112,9 @@ namespace InventoryExpress.Model
         /// <param name="condition">Der Zustand</param>
         public static void AddOrUpdateCondition(WebItemEntityCondition condition)
         {
-            lock (Instance.Database)
+            lock (DbContext)
             {
-                var availableEntity = Instance.Conditions.Where(x => x.Guid == condition.ID).FirstOrDefault();
+                var availableEntity = DbContext.Conditions.Where(x => x.Guid == condition.ID).FirstOrDefault();
 
                 if (availableEntity == null)
                 {
@@ -138,12 +138,13 @@ namespace InventoryExpress.Model
                         }
                     };
 
-                    Instance.Conditions.Add(entity);
+                    DbContext.Conditions.Add(entity);
+                    DbContext.SaveChanges();
                 }
                 else
                 {
                     // Update
-                    var availableMedia = condition.Media != null ? Instance.Media.Where(x => x.Guid == condition.Media.ID).FirstOrDefault() : null;
+                    var availableMedia = condition.Media != null ? DbContext.Media.Where(x => x.Guid == condition.Media.ID).FirstOrDefault() : null;
 
                     availableEntity.Name = condition.Name;
                     availableEntity.Description = condition.Description;
@@ -162,7 +163,7 @@ namespace InventoryExpress.Model
                             Updated = DateTime.Now
                         };
 
-                        Instance.Media.Add(media);
+                        DbContext.Media.Add(media);
                     }
                     else if (!string.IsNullOrWhiteSpace(condition.Media.Name))
                     {
@@ -171,6 +172,8 @@ namespace InventoryExpress.Model
                         availableMedia.Tag = condition.Media?.Tag;
                         availableMedia.Updated = DateTime.Now;
                     }
+
+                    DbContext.SaveChanges();
                 }
             }
         }
@@ -181,10 +184,10 @@ namespace InventoryExpress.Model
         /// <param name="id">Die ID des Zustandes</param>
         public static void DeleteCondition(string id)
         {
-            lock (Instance.Database)
+            lock (DbContext)
             {
-                var entity = Instance.Conditions.Where(x => x.Guid == id).FirstOrDefault();
-                var entityMedia = Instance.Media.Where(x => x.Id == entity.MediaId).FirstOrDefault();
+                var entity = DbContext.Conditions.Where(x => x.Guid == id).FirstOrDefault();
+                var entityMedia = DbContext.Media.Where(x => x.Id == entity.MediaId).FirstOrDefault();
 
                 if (entityMedia != null)
                 {
@@ -193,7 +196,8 @@ namespace InventoryExpress.Model
 
                 if (entity != null)
                 {
-                    Instance.Conditions.Remove(entity);
+                    DbContext.Conditions.Remove(entity);
+                    DbContext.SaveChanges();
                 }
             }
         }
@@ -205,10 +209,10 @@ namespace InventoryExpress.Model
         /// <returns>True wenn in Verwendung, false sonst</returns>
         public static bool GetConditionInUse(WebItemEntityCondition condition)
         {
-            lock (Instance.Database)
+            lock (DbContext)
             {
-                var used = from i in Instance.Inventories
-                           join c in Instance.Conditions on i.ConditionId equals c.Id
+                var used = from i in DbContext.Inventories
+                           join c in DbContext.Conditions on i.ConditionId equals c.Id
                            where c.Guid == condition.ID
                            select c;
 

@@ -66,8 +66,9 @@ namespace InventoryExpress.WebPage
             var guid = e.Context.Request.GetParameter("LocationID")?.Value;
             var location = ViewModel.GetLocation(guid);
 
+            using var transaction = ViewModel.BeginTransaction();
+
             ViewModel.DeleteLocation(guid);
-            ViewModel.Instance.SaveChanges();
 
             NotificationManager.CreateNotification
             (
@@ -84,6 +85,8 @@ namespace InventoryExpress.WebPage
                 icon: new UriRelative(location.Image),
                 durability: 10000
             );
+
+            transaction.Commit();
         }
 
         /// <summary>

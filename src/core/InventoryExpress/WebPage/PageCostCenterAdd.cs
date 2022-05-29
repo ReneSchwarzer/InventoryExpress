@@ -76,6 +76,7 @@ namespace InventoryExpress.WebPage
         private void ProcessFormular(object sender, FormularEventArgs e)
         {
             var file = e.Context.Request.GetParameter(Form.Image.Name) as ParameterFile;
+            using var transaction = ViewModel.BeginTransaction();
 
             // Neue Kostenstelle erstellen und speichern
             var costcenter = new WebItemEntityCostCenter()
@@ -90,13 +91,13 @@ namespace InventoryExpress.WebPage
             };
 
             ViewModel.AddOrUpdateCostCenter(costcenter);
-            ViewModel.Instance.SaveChanges();
 
             if (file != null)
             {
                 ViewModel.AddOrUpdateMedia(costcenter.Media, file?.Data);
-                ViewModel.Instance.SaveChanges();
             }
+
+            transaction.Commit();
 
             NotificationManager.CreateNotification
             (

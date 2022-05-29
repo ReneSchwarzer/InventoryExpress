@@ -91,6 +91,7 @@ namespace InventoryExpress.WebPage
         private void ProcessFormular(object sender, FormularEventArgs e)
         {
             var file = e.Context.Request.GetParameter(Form.Image.Name) as ParameterFile;
+            using var transaction = ViewModel.BeginTransaction();
 
             // Standort ändern und speichern
             Location.Name = Form.LocationName.Value;
@@ -105,13 +106,13 @@ namespace InventoryExpress.WebPage
             Location.Media.Name = file?.Value;
 
             ViewModel.AddOrUpdateLocation(Location);
-            ViewModel.Instance.SaveChanges();
 
             if (file != null)
             {
                 ViewModel.AddOrUpdateMedia(Location.Media, file?.Data);
-                ViewModel.Instance.SaveChanges();
             }
+
+            transaction.Commit();
 
             NotificationManager.CreateNotification
             (

@@ -4,6 +4,7 @@ using WebExpress.Html;
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebComponent;
 using WebExpress.UI.WebControl;
+using WebExpress.Uri;
 using WebExpress.WebApp.WebComponent;
 using WebExpress.WebAttribute;
 using WebExpress.WebPage;
@@ -55,19 +56,12 @@ namespace InventoryExpress.WebComponent
         public override IHtmlNode Render(RenderContext context)
         {
             TagList.Links.Clear();
+            
+            var guid = context.Request.GetParameter("InventoryID")?.Value;
+            var tags = ViewModel.GetInventoryTags(guid);
 
-            lock (ViewModel.Instance.Database)
-            {
-                var id = context.Request.GetParameter("InventoryID")?.Value;
-                var inventoryTags = from i in ViewModel.Instance.Inventories
-                                    join it in ViewModel.Instance.InventoryTags on i.Id equals it.InventoryId
-                                    join t in ViewModel.Instance.Tags on it.TagId equals t.Id
-                                    where i.Guid.Equals(id)
-                                    select new ControlLink(string.Empty) { Text = t.Label.ToLower() };
-
-                TagList.Links.AddRange(inventoryTags);
-            }
-
+            TagList.Links.AddRange(tags.Select(x => new ControlLink() { Text = x.Label, Uri = new UriFragment() }));
+            
             return base.Render(context);
         }
     }

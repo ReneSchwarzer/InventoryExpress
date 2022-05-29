@@ -28,7 +28,6 @@ namespace InventoryExpress.WebApi.V1
         /// </summary>
         public RestAttributes()
         {
-            Guard = ViewModel.Instance.Database;
         }
 
         /// <summary>
@@ -69,7 +68,7 @@ namespace InventoryExpress.WebApi.V1
         /// <returns>Eine Aufzählung, welche JsonSerializer serialisiert werden kann.</returns>
         public override IEnumerable<WebItem> GetData(WqlStatement wql, Request request)
         {
-            var attributes = ViewModel.GetAttributes(wql).ToList();
+            var attributes = ViewModel.GetAttributes(wql);
 
             return attributes;
         }

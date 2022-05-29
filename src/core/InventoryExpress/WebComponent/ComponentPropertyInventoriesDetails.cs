@@ -5,6 +5,7 @@ using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebComponent;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebComponent;
+using WebExpress.WebApp.Wql;
 using WebExpress.WebAttribute;
 using WebExpress.WebPage;
 
@@ -63,14 +64,12 @@ namespace InventoryExpress.WebComponent
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            lock (ViewModel.Instance.Database)
-            {
-                var inventories = ViewModel.Instance.Inventories.ToList();
-                var currency = ViewModel.Instance.Settings.FirstOrDefault()?.Currency;
+            var count = ViewModel.CountInventories(new WqlStatement());
+            var capitalCosts = ViewModel.GetInventoriesCapitalCosts(new WqlStatement());
+            var currency = ViewModel.GetSettings()?.Currency;
 
-                CountAttribute.Value = inventories.Count().ToString();
-                CurrencyAttribute.Value = $"{inventories.Sum(x => x.CostValue).ToString(context.Culture)} {(string.IsNullOrWhiteSpace(currency) ? "€" : currency)}";
-            }
+            CountAttribute.Value = count.ToString();
+            CurrencyAttribute.Value = $"{capitalCosts.ToString(context.Culture)} {(string.IsNullOrWhiteSpace(currency) ? "€" : currency)}";
 
             return base.Render(context);
         }

@@ -23,14 +23,14 @@ namespace InventoryExpress.Model
         /// Liefert alle Lieferanten
         /// </summary>
         /// <param name="wql">Die Filter- und Sortieroptinen</param>
-        /// <returns>Eine Aufzählung, welche die Hersteller beinhaltet</returns>
+        /// <returns>Eine Aufzählung, welche die Lieferanten beinhaltet</returns>
         public static IEnumerable<WebItemEntitySupplier> GetSuppliers(WqlStatement wql)
         {
-            lock (Instance.Database)
+            lock (DbContext)
             {
-                var suppliers = Instance.Suppliers.Select(x => new WebItemEntitySupplier(x));
+                var suppliers = DbContext.Suppliers.Select(x => new WebItemEntitySupplier(x));
 
-                return wql.Apply(suppliers.AsQueryable());
+                return wql.Apply(suppliers.AsQueryable()).ToList();
             }
         }
 
@@ -41,9 +41,9 @@ namespace InventoryExpress.Model
         /// <returns>Der Lieferant oder null</returns>
         public static WebItemEntitySupplier GetSupplier(string id)
         {
-            lock (Instance.Database)
+            lock (DbContext)
             {
-                var supplier = Instance.Suppliers.Where(x => x.Guid == id).Select(x => new WebItemEntitySupplier(x)).FirstOrDefault();
+                var supplier = DbContext.Suppliers.Where(x => x.Guid == id).Select(x => new WebItemEntitySupplier(x)).FirstOrDefault();
 
                 return supplier;
             }
@@ -56,10 +56,10 @@ namespace InventoryExpress.Model
         /// <returns>Der Lieferant oder null</returns>
         public static WebItemEntitySupplier GetSupplier(WebItemEntityInventory inventory)
         {
-            lock (Instance.Database)
+            lock (DbContext)
             {
-                var supplier = from i in Instance.Inventories
-                               join s in Instance.Suppliers on i.ConditionId equals s.Id
+                var supplier = from i in DbContext.Inventories
+                               join s in DbContext.Suppliers on i.SupplierId equals s.Id
                                where i.Guid == inventory.ID
                                select new WebItemEntitySupplier(s);
 
@@ -73,9 +73,9 @@ namespace InventoryExpress.Model
         /// <param name="supplier">Der Lieferant</param>
         public static void AddOrUpdateSupplier(WebItemEntitySupplier supplier)
         {
-            lock (Instance.Database)
+            lock (DbContext)
             {
-                var availableEntity = Instance.Manufacturers.Where(x => x.Guid == supplier.ID).FirstOrDefault();
+                var availableEntity = DbContext.Manufacturers.Where(x => x.Guid == supplier.ID).FirstOrDefault();
 
                 if (availableEntity == null)
                 {
@@ -102,12 +102,13 @@ namespace InventoryExpress.Model
                         }
                     };
 
-                    Instance.Suppliers.Add(entity);
+                    DbContext.Suppliers.Add(entity);
+                    DbContext.SaveChanges();
                 }
                 else
                 {
                     // Update
-                    var availableMedia = supplier.Media != null ? Instance.Media.Where(x => x.Guid == supplier.Media.ID).FirstOrDefault() : null;
+                    var availableMedia = supplier.Media != null ? DbContext.Media.Where(x => x.Guid == supplier.Media.ID).FirstOrDefault() : null;
 
                     availableEntity.Name = supplier.Name;
                     availableEntity.Description = supplier.Description;
@@ -129,7 +130,7 @@ namespace InventoryExpress.Model
                             Updated = DateTime.Now
                         };
 
-                        Instance.Media.Add(media);
+                        DbContext.Media.Add(media);
                     }
                     else if (!string.IsNullOrWhiteSpace(supplier.Media.Name))
                     {
@@ -138,6 +139,8 @@ namespace InventoryExpress.Model
                         availableMedia.Tag = supplier.Media?.Tag;
                         availableMedia.Updated = DateTime.Now;
                     }
+
+                    DbContext.SaveChanges();
                 }
             }
         }
@@ -148,10 +151,10 @@ namespace InventoryExpress.Model
         /// <param name="id">Die ID des Lieferanten</param>
         public static void DeleteSupplier(string id)
         {
-            lock (Instance.Database)
+            lock (DbContext)
             {
-                var entity = Instance.Suppliers.Where(x => x.Guid == id).FirstOrDefault();
-                var entityMedia = Instance.Media.Where(x => x.Id == entity.MediaId).FirstOrDefault();
+                var entity = DbContext.Suppliers.Where(x => x.Guid == id).FirstOrDefault();
+                var entityMedia = DbContext.Media.Where(x => x.Id == entity.MediaId).FirstOrDefault();
 
                 if (entityMedia != null)
                 {
@@ -160,8 +163,27 @@ namespace InventoryExpress.Model
 
                 if (entity != null)
                 {
-                    Instance.Suppliers.Remove(entity);
+                    DbContext.Suppliers.Remove(entity);
+                    DbContext.SaveChanges();
                 }
+            }
+        }
+
+        /// <summary>
+        /// Prüft ob der Lieferant in Verwendung ist
+        /// </summary>
+        /// <param name="supplier">Der Lieferant</param>
+        /// <returns>True wenn in Verwendung, false sonst</returns>
+        public static bool GetSupplierInUse(WebItemEntitySupplier supplier)
+        {
+            lock (DbContext)
+            {
+                var used = from i in DbContext.Inventories
+                           join s in DbContext.Suppliers on i.SupplierId equals s.Id
+                           where s.Guid == supplier.ID
+                           select s;
+
+                return used.Any();
             }
         }
     }

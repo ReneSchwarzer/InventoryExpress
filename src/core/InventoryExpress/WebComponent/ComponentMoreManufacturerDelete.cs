@@ -1,4 +1,5 @@
-﻿using WebExpress.Html;
+﻿using InventoryExpress.Model;
+using WebExpress.Html;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebComponent;
@@ -41,10 +42,18 @@ namespace InventoryExpress.WebComponent
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
+            var guid = context.Request.GetParameter("ManufacturerID")?.Value;
+            var manufacturer = ViewModel.GetManufacturer(guid);
+            var inUse = ViewModel.GetManufacturerInUse(manufacturer);
+
             Text = InternationalizationManager.I18N(context.Culture, "inventoryexpress:inventoryexpress.delete.label");
             Icon = new PropertyIcon(TypeIcon.Trash);
 
-            OnClick = new PropertyOnClick($"$('#modal_del_manufacturer').modal('show');");
+            Active = inUse ? TypeActive.Disabled : TypeActive.None;
+            TextColor = inUse ? new PropertyColorText(TypeColorText.Muted) : TextColor;
+
+            Uri = context.Uri.Append("del");
+            Modal = new PropertyModal(TypeModal.Formular, TypeModalSize.Default);
 
             return base.Render(context);
         }

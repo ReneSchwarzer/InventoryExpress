@@ -137,7 +137,7 @@ namespace InventoryExpress.WebPageSetting
         {
             var file = Path.Combine(Path.GetTempPath(), $"{Guid.NewGuid()}.zip");
 
-            ViewModel.Instance.Export(file, Context.Application.AssetPath, i => { (sender as Task).Progress = i; });
+            //ViewModel.Instance.Export(file, Context.Application.AssetPath, i => { (sender as Task).Progress = i; });
         }
 
         /// <summary>

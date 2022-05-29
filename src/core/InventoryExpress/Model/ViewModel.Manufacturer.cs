@@ -26,11 +26,11 @@ namespace InventoryExpress.Model
         /// <returns>Eine Aufzählung, welche die Hersteller beinhaltet</returns>
         public static IEnumerable<WebItemEntityManufacturer> GetManufacturers(WqlStatement wql)
         {
-            lock (Instance.Database)
+            lock (DbContext)
             {
-                var manufacturers = Instance.Manufacturers.Select(x => new WebItemEntityManufacturer(x));
+                var manufacturers = DbContext.Manufacturers.Select(x => new WebItemEntityManufacturer(x));
 
-                return wql.Apply(manufacturers);
+                return wql.Apply(manufacturers).ToList();
             }
         }
 
@@ -41,9 +41,9 @@ namespace InventoryExpress.Model
         /// <returns>Der Hersteller oder null</returns>
         public static WebItemEntityManufacturer GetManufacturer(string id)
         {
-            lock (Instance.Database)
+            lock (DbContext)
             {
-                var manufacturer = Instance.Manufacturers.Where(x => x.Guid == id).Select(x => new WebItemEntityManufacturer(x)).FirstOrDefault();
+                var manufacturer = DbContext.Manufacturers.Where(x => x.Guid == id).Select(x => new WebItemEntityManufacturer(x)).FirstOrDefault();
 
                 return manufacturer;
             }
@@ -56,10 +56,10 @@ namespace InventoryExpress.Model
         /// <returns>Der Hersteller oder null</returns>
         public static WebItemEntityManufacturer GetManufacturer(WebItemEntityInventory inventory)
         {
-            lock (Instance.Database)
+            lock (DbContext)
             {
-                var manufacturer = from i in Instance.Inventories
-                                   join m in Instance.Manufacturers on i.ConditionId equals m.Id
+                var manufacturer = from i in DbContext.Inventories
+                                   join m in DbContext.Manufacturers on i.ManufacturerId equals m.Id
                                    where i.Guid == inventory.ID
                                    select new WebItemEntityManufacturer(m);
 
@@ -73,9 +73,9 @@ namespace InventoryExpress.Model
         /// <param name="manufacturer">Der Hersteller</param>
         public static void AddOrUpdateManufacturer(WebItemEntityManufacturer manufacturer)
         {
-            lock (Instance.Database)
+            lock (DbContext)
             {
-                var availableEntity = Instance.Manufacturers.Where(x => x.Guid == manufacturer.ID).FirstOrDefault();
+                var availableEntity = DbContext.Manufacturers.Where(x => x.Guid == manufacturer.ID).FirstOrDefault();
 
                 if (availableEntity == null)
                 {
@@ -102,12 +102,13 @@ namespace InventoryExpress.Model
                         }
                     };
 
-                    Instance.Manufacturers.Add(entity);
+                    DbContext.Manufacturers.Add(entity);
+                    DbContext.SaveChanges();
                 }
                 else
                 {
                     // Update
-                    var availableMedia = manufacturer.Media != null ? Instance.Media.Where(x => x.Guid == manufacturer.Media.ID).FirstOrDefault() : null;
+                    var availableMedia = manufacturer.Media != null ? DbContext.Media.Where(x => x.Guid == manufacturer.Media.ID).FirstOrDefault() : null;
 
                     availableEntity.Name = manufacturer.Name;
                     availableEntity.Description = manufacturer.Description;
@@ -129,7 +130,7 @@ namespace InventoryExpress.Model
                             Updated = DateTime.Now
                         };
 
-                        Instance.Media.Add(media);
+                        DbContext.Media.Add(media);
                     }
                     else if (!string.IsNullOrWhiteSpace(manufacturer.Media.Name))
                     {
@@ -138,6 +139,8 @@ namespace InventoryExpress.Model
                         availableMedia.Tag = manufacturer.Media?.Tag;
                         availableMedia.Updated = DateTime.Now;
                     }
+
+                    DbContext.SaveChanges();
                 }
             }
         }
@@ -148,10 +151,10 @@ namespace InventoryExpress.Model
         /// <param name="id">Die ID des Herstellers</param>
         public static void DeleteManufacturer(string id)
         {
-            lock (Instance.Database)
+            lock (DbContext)
             {
-                var entity = Instance.Manufacturers.Where(x => x.Guid == id).FirstOrDefault();
-                var entityMedia = Instance.Media.Where(x => x.Id == entity.MediaId).FirstOrDefault();
+                var entity = DbContext.Manufacturers.Where(x => x.Guid == id).FirstOrDefault();
+                var entityMedia = DbContext.Media.Where(x => x.Id == entity.MediaId).FirstOrDefault();
 
                 if (entityMedia != null)
                 {
@@ -160,8 +163,27 @@ namespace InventoryExpress.Model
 
                 if (entity != null)
                 {
-                    Instance.Manufacturers.Remove(entity);
+                    DbContext.Manufacturers.Remove(entity);
+                    DbContext.SaveChanges();
                 }
+            }
+        }
+
+        /// <summary>
+        /// Prüft ob der HErsteller in Verwendung ist
+        /// </summary>
+        /// <param name="manufacturer">Der Hersteller</param>
+        /// <returns>True wenn in Verwendung, false sonst</returns>
+        public static bool GetManufacturerInUse(WebItemEntityManufacturer manufacturer)
+        {
+            lock (DbContext)
+            {
+                var used = from i in DbContext.Inventories
+                           join m in DbContext.Manufacturers on i.ManufacturerId equals m.Id
+                           where m.Guid == manufacturer.ID
+                           select m;
+
+                return used.Any();
             }
         }
     }

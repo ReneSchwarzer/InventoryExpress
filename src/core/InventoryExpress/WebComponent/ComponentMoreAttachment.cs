@@ -1,13 +1,12 @@
 ﻿using InventoryExpress.Model;
-using System.Linq;
 using WebExpress.Html;
+using WebExpress.Internationalization;
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebComponent;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebComponent;
 using WebExpress.WebAttribute;
 using WebExpress.WebPage;
-using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace InventoryExpress.WebComponent
 {
@@ -42,18 +41,11 @@ namespace InventoryExpress.WebComponent
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            lock (ViewModel.Instance.Database)
-            {
-                var guid = context.Request.GetParameter("InventoryID")?.Value;
-                var count = (from i in ViewModel.Instance.Inventories
-                             join a in ViewModel.Instance.InventoryAttachments
-                             on i.Id equals a.InventoryId
-                             where i.Guid == guid
-                             select a).Count();
+            var guid = context.Request.GetParameter("InventoryID")?.Value;
+            var count = ViewModel.CountInventoryAttachments(guid);
 
-                Text = I18N(context.Culture, "inventoryexpress:inventoryexpress.inventory.attachment.function") + $" ({count})";
-                Uri = context.Uri.Append("attachments");
-            }
+            Text = InternationalizationManager.I18N(context.Culture, "inventoryexpress:inventoryexpress.inventory.attachment.function") + $" ({count})";
+            Uri = context.Uri.Append("attachments");
 
             return base.Render(context);
         }

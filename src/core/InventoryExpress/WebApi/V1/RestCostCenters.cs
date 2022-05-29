@@ -28,7 +28,6 @@ namespace InventoryExpress.WebApi.V1
         /// </summary>
         public RestCostCenters()
         {
-            Guard = ViewModel.Instance.Database;
         }
 
         /// <summary>
@@ -65,7 +64,7 @@ namespace InventoryExpress.WebApi.V1
         /// <returns>Eine Aufzählung, welche JsonSerializer serialisiert werden kann.</returns>
         public override IEnumerable<WebItem> GetData(WqlStatement wql, Request request)
         {
-            var costCenters = ViewModel.GetCostCenters(wql).ToList();
+            var costCenters = ViewModel.GetCostCenters(wql);
 
             return costCenters;
         }

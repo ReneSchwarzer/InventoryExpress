@@ -68,17 +68,13 @@ namespace InventoryExpress.WebComponent
         public override IHtmlNode Render(RenderContext context)
         {
             var guid = context.Request.GetParameter("CostCenterID")?.Value;
+            var costCenter = ViewModel.GetCostCenter(guid);
 
-            lock (ViewModel.Instance.Database)
-            {
-                var costCenter = ViewModel.Instance.CostCenters.Where(x => x.Guid == guid).FirstOrDefault();
-
-                CreationDateAttribute.Value = costCenter?.Created.ToString(context.Culture.DateTimeFormat.ShortDatePattern);
-                UpdateDateAttribute.Value = costCenter?.Updated.ToString
-                (
-                    $"{context.Culture.DateTimeFormat.ShortDatePattern} {context.Culture.DateTimeFormat.ShortTimePattern}"
-                );
-            }
+            CreationDateAttribute.Value = costCenter?.Created.ToString(context.Culture.DateTimeFormat.ShortDatePattern);
+            UpdateDateAttribute.Value = costCenter?.Updated.ToString
+            (
+                $"{context.Culture.DateTimeFormat.ShortDatePattern} {context.Culture.DateTimeFormat.ShortTimePattern}"
+            );
 
             return base.Render(context);
         }

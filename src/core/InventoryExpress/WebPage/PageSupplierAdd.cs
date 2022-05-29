@@ -78,6 +78,8 @@ namespace InventoryExpress.WebPage
         {
             var file = e.Context.Request.GetParameter(Form.Image.Name) as ParameterFile;
 
+            using var transaction = ViewModel.BeginTransaction();
+
             // Neuen Liferanten erstellen und speichern
             var supplier = new WebItemEntitySupplier()
             {
@@ -94,12 +96,10 @@ namespace InventoryExpress.WebPage
             };
 
             ViewModel.AddOrUpdateSupplier(supplier);
-            ViewModel.Instance.SaveChanges();
 
             if (file != null)
             {
                 ViewModel.AddOrUpdateMedia(supplier.Media, file?.Data);
-                ViewModel.Instance.SaveChanges();
             }
 
             NotificationManager.CreateNotification
@@ -119,44 +119,9 @@ namespace InventoryExpress.WebPage
             );
 
             Form.RedirectUri = Form.RedirectUri.Append(supplier.ID);
+
+            transaction.Commit();
         }
-
-        /// <summary>
-        /// Wird ausgelöst, wenn das Feld Zip validiert werden soll.
-        /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
-        /// <param name="e">Die Eventargumente/param>
-        private void ZipValidation(object sender, ValidationEventArgs e)
-        {
-            if (e.Value != null && e.Value.Count() >= 10)
-            {
-                e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.supplier.validation.zip.tolong"));
-            }
-        }
-
-        /// <summary>
-        /// Wird ausgelöst, wenn das Feld SupplierName validiert werden soll.
-        /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
-        /// <param name="e">Die Eventargumente/param>
-        private void SupplierNameValidation(object sender, ValidationEventArgs e)
-        {
-            lock (ViewModel.Instance.Database)
-            {
-                if (e.Value.Length < 1)
-                {
-                    e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.supplier.validation.name.invalid"));
-                }
-                else if (ViewModel.Instance.Suppliers.Where(x => x.Name.Equals(e.Value)).Any())
-                {
-                    e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.supplier.validation.name.used"));
-                }
-            }
-        }
-
-
-
-
 
         /// <summary>
         /// Verarbeitung

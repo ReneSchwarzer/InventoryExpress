@@ -65,17 +65,13 @@ namespace InventoryExpress.WebComponent
         public override IHtmlNode Render(RenderContext context)
         {
             var guid = context.Request.GetParameter("LedgerAccountID")?.Value;
+            var ledgerAccount = ViewModel.GetLedgerAccount(guid);
 
-            lock (ViewModel.Instance.Database)
-            {
-                var ledgerAccount = ViewModel.Instance.LedgerAccounts.Where(x => x.Guid == guid).FirstOrDefault();
-
-                CreationDateAttribute.Value = ledgerAccount?.Created.ToString(context.Culture.DateTimeFormat.ShortDatePattern);
-                UpdateDateAttribute.Value = ledgerAccount?.Updated.ToString
-                (
-                    $"{context.Culture.DateTimeFormat.ShortDatePattern} {context.Culture.DateTimeFormat.ShortTimePattern}"
-                );
-            }
+            CreationDateAttribute.Value = ledgerAccount?.Created.ToString(context.Culture.DateTimeFormat.ShortDatePattern);
+            UpdateDateAttribute.Value = ledgerAccount?.Updated.ToString
+            (
+                $"{context.Culture.DateTimeFormat.ShortDatePattern} {context.Culture.DateTimeFormat.ShortTimePattern}"
+            );
 
             return base.Render(context);
         }

@@ -1,5 +1,6 @@
 ﻿using InventoryExpress.Model;
 using InventoryExpress.Model.Entity;
+using InventoryExpress.Model.WebItems;
 using InventoryExpress.WebControl;
 using System.Linq;
 using WebExpress.UI.WebControl;
@@ -44,6 +45,51 @@ namespace InventoryExpress.WebPageSetting
         public override void Initialization(IResourceContext context)
         {
             base.Initialization(context);
+
+            Form.InitializeFormular += InitializeFormular;
+            Form.FillFormular += FillFormular;
+            Form.ProcessFormular += ProcessFormular;
+        }
+
+        /// <summary>
+        /// Wird aufgerufen, wenn das Formular initialisiert wird
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventargumente</param>
+        private void InitializeFormular(object sender, FormularEventArgs e)
+        {
+            Form.RedirectUri = e.Context.Uri.Take(-1);
+        }
+
+        /// <summary>
+        /// Wird aufgerufen, wenn das Formular gefüllt werden soll
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventargumente</param>
+        private void FillFormular(object sender, FormularEventArgs e)
+        {
+            var setting = ViewModel.GetSettings();
+
+            Form.Currency.Value = setting?.Currency;
+        }
+
+        /// <summary>
+        /// Wird ausgelöst, wenn das Formular verarbeitet werden soll.
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventargumente/param>
+        private void ProcessFormular(object sender, FormularEventArgs e)
+        {
+            using var transaction = ViewModel.BeginTransaction();
+
+            var setting = ViewModel.GetSettings();
+
+            // Einstellungen ändern und speichern
+            setting.Currency = Form.Currency.Value;
+            
+            ViewModel.AddOrUpdateSettings(setting);
+
+            transaction.Commit();
         }
 
         /// <summary>
@@ -54,39 +100,7 @@ namespace InventoryExpress.WebPageSetting
         {
             base.Process(context);
 
-            var setting = null as Setting;
-
             Form.RedirectUri = context.Uri;
-
-            lock (ViewModel.Instance.Database)
-            {
-                setting = ViewModel.Instance.Settings.FirstOrDefault();
-            }
-
-            Form.FillFormular += (s, e) =>
-            {
-                Form.Currency.Value = setting?.Currency;
-            };
-
-            Form.ProcessFormular += (s, e) =>
-            {
-                lock (ViewModel.Instance.Database)
-                {
-                    if (setting == null)
-                    {
-                        ViewModel.Instance.Settings.Add(new Setting()
-                        {
-                            Currency = Form.Currency.Value
-                        });
-                    }
-                    else
-                    {
-                        setting.Currency = Form.Currency.Value;
-                    }
-
-                    ViewModel.Instance.SaveChanges();
-                }
-            };
 
             context.VisualTree.Content.Primary.Add(Form);
         }

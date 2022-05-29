@@ -28,7 +28,6 @@ namespace InventoryExpress.WebApi.V1
         /// </summary>
         public RestLedgerAccounts()
         {
-            Guard = ViewModel.Instance.Database;
         }
 
         /// <summary>
@@ -65,7 +64,7 @@ namespace InventoryExpress.WebApi.V1
         /// <returns>Eine Aufzählung, welche JsonSerializer serialisiert werden kann.</returns>
         public override IEnumerable<WebItem> GetData(WqlStatement wql, Request request)
         {
-            var ledgerAccounts = ViewModel.GetLedgerAccounts(wql).ToList();
+            var ledgerAccounts = ViewModel.GetLedgerAccounts(wql);
 
             return ledgerAccounts;
         }

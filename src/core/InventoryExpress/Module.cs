@@ -35,22 +35,7 @@ namespace InventoryExpress
         {
             Context = context;
 
-            var path = Path.Combine(context.DataPath, "db");
-
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
-
-            // Datenbank initialisieren
-            ViewModel.Instance.DataSource = Path.Combine(path, "inventory.db");
-            ViewModel.Instance.Initialization(context);
-
-            // Daten vorladen
-            _ = ViewModel.Instance.Inventories.ToList();
-            _ = ViewModel.Instance.CostCenters.ToList();
-            _ = ViewModel.Instance.Manufacturers.ToList();
-            _ = ViewModel.Instance.Suppliers.ToList();
+            ViewModel.Initialization(context);
         }
 
         /// <summary>

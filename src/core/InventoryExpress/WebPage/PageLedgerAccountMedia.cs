@@ -1,11 +1,15 @@
 ﻿using InventoryExpress.Model;
 using InventoryExpress.Model.Entity;
+using InventoryExpress.Model.WebItems;
 using InventoryExpress.WebControl;
 using System;
 using System.IO;
 using System.Linq;
+using WebExpress.Internationalization;
 using WebExpress.Message;
 using WebExpress.UI.WebControl;
+using WebExpress.Uri;
+using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
@@ -26,17 +30,12 @@ namespace InventoryExpress.WebPage
         /// <summary>
         /// Formular
         /// </summary>
-        private ControlFormularMedia Form { get; set; }
+        private ControlFormularMedia Form { get; } = new ControlFormularMedia("media");
 
         /// <summary>
         /// Liefert oder setzt das Sachkonto
         /// </summary>
-        private LedgerAccount LedgerAccount { get; set; }
-
-        /// <summary>
-        /// Liefert oder setzt das Bild
-        /// </summary>
-        private Media Media { get; set; }
+        private WebItemEntityLedgerAccount LedgerAccount { get; set; }
 
         /// <summary>
         /// Konstruktor
@@ -54,7 +53,63 @@ namespace InventoryExpress.WebPage
         {
             base.Initialization(context);
 
-            Form = new ControlFormularMedia("media");
+            Form.InitializeFormular += InitializeFormular;
+            Form.FillFormular += FillFormular;
+            Form.ProcessFormular += ProcessFormular;
+        }
+
+        /// <summary>
+        /// Wird aufgerufen, wenn das Formular initialisiert wird
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventargumente</param>
+        private void InitializeFormular(object sender, FormularEventArgs e)
+        {
+            Form.RedirectUri = e.Context.Uri.Take(-1);
+        }
+
+        /// <summary>
+        /// Wird aufgerufen, wenn das Formular gefüllt werden soll
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventargumente</param>
+        private void FillFormular(object sender, FormularEventArgs e)
+        {
+            Form.Tag.Value = LedgerAccount.Media?.Tag;
+        }
+
+        /// <summary>
+        /// Wird ausgelöst, wenn das Formular verarbeitet werden soll.
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventargumente/param>
+        private void ProcessFormular(object sender, FormularEventArgs e)
+        {
+            var file = e.Context.Request.GetParameter(Form.Image.Name) as ParameterFile;
+            using var transaction = ViewModel.BeginTransaction();
+
+            if (file != null)
+            {
+                ViewModel.AddOrUpdateMedia(LedgerAccount.Media, file?.Data);
+            }
+
+            transaction.Commit();
+
+            NotificationManager.CreateNotification
+            (
+                request: e.Context.Request,
+                message: string.Format
+                (
+                    InternationalizationManager.I18N(Culture, "inventoryexpress:inventoryexpress.media.notification.edit"),
+                    new ControlLink()
+                    {
+                        Text = LedgerAccount.Name,
+                        Uri = new UriRelative(ViewModel.GetLedgerAccountUri(LedgerAccount.ID))
+                    }.Render(e.Context).ToString().Trim()
+                ),
+                icon: new UriRelative(LedgerAccount.Image),
+                durability: 10000
+            );
         }
 
         /// <summary>
@@ -65,80 +120,17 @@ namespace InventoryExpress.WebPage
         {
             base.Process(context);
 
-            var visualTree = context.VisualTree;
-
             var guid = context.Request.GetParameter("LedgerAccountID")?.Value;
-            lock (ViewModel.Instance.Database)
-            {
-                LedgerAccount = ViewModel.Instance.LedgerAccounts.Where(x => x.Guid == guid).FirstOrDefault();
-                Media = ViewModel.Instance.Media.Where(x => x.Id == LedgerAccount.MediaId).FirstOrDefault();
-            }
+            LedgerAccount = ViewModel.GetLedgerAccount(guid);
 
-            //AddParam("MediaID", Media?.Guid, ParameterScope.Local);
-
-            visualTree.Content.Preferences.Add(new ControlImage()
+            context.VisualTree.Content.Preferences.Add(new ControlImage()
             {
-                Uri = Media != null ? context.Uri.Root.Append($"media/{Media.Guid}") : context.Uri.Root.Append("/assets/img/inventoryexpress.svg"),
+                Uri = LedgerAccount.Media != null ? new UriRelative(LedgerAccount.Media?.Uri) : context.Uri.Root.Append("/assets/img/inventoryexpress.svg"),
                 Width = 400,
                 Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.None, PropertySpacing.Space.None, PropertySpacing.Space.Three)
             });
 
-            visualTree.Content.Primary.Add(Form);
-
-            Form.RedirectUri = context.Uri;
-            Form.Tag.Value = Media?.Tag;
-
-            Form.Image.Validation += (s, e) =>
-            {
-                //if (e.Value.Count() < 1)
-                //{
-                //    e.Results.Add(new ValidationResult() { Text = "Geben Sie einen gültigen Namen ein!", Type = TypesInputValidity.Error });
-                //}
-                //else if (!manufactur.Name.Equals(e.Value, StringComparison.InvariantCultureIgnoreCase) && ViewModel.Instance.Suppliers.Where(x => x.Name.Equals(e.Value)).Count() > 0)
-                //{
-                //    e.Results.Add(new ValidationResult() { Text = "Der Hersteller wird bereits verwendet. Geben Sie einen anderen Namen an!", Type = TypesInputValidity.Error });
-                //}
-            };
-
-            Form.ProcessFormular += (s, e) =>
-            {
-                lock (ViewModel.Instance.Database)
-                {
-                    if (context.Request.GetParameter(Form.Image.Name) is ParameterFile file)
-                    {
-                        // Image speichern
-                        if (Media == null)
-                        {
-                            LedgerAccount.Media = new Media()
-                            {
-                                Name = file.Value,
-                                Tag = Form.Tag.Value,
-                                Created = DateTime.Now,
-                                Updated = DateTime.Now,
-                                Guid = Guid.NewGuid().ToString()
-                            };
-
-                            File.WriteAllBytes(Path.Combine(context.Application.AssetPath, LedgerAccount.Media.Guid), file.Data);
-                        }
-                        else
-                        {
-                            // Image ändern
-                            Media.Name = file.Value;
-                            Media.Tag = Form.Tag.Value;
-                            Media.Updated = DateTime.Now;
-
-                            File.WriteAllBytes(Path.Combine(context.Application.AssetPath, Media.Guid), file.Data);
-                        }
-                    }
-
-                    if (Form.Tag.Value != Media?.Tag)
-                    {
-                        LedgerAccount.Media.Tag = Form.Tag.Value;
-                    }
-
-                    ViewModel.Instance.SaveChanges();
-                }
-            };
+            context.VisualTree.Content.Primary.Add(Form);
         }
     }
 }

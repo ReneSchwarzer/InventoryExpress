@@ -36,7 +36,6 @@ namespace InventoryExpress.Model.WebItems
         /// </summary>
         public WebItemEntity()
         {
-            ID = Guid.NewGuid().ToString();
         }
 
         /// <summary>

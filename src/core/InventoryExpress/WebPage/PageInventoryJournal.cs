@@ -54,89 +54,89 @@ namespace InventoryExpress.WebPage
         {
             base.Process(context);
 
-            var visualTree = context.VisualTree;
+            //var visualTree = context.VisualTree;
 
-            var guid = context.Request.GetParameter("InventoryID")?.Value;
-            lock (ViewModel.Instance.Database)
-            {
-                Inventory = ViewModel.Instance.Inventories.Where(x => x.Guid == guid).FirstOrDefault();
-                if (Inventory != null)
-                {
-                    Journals.AddRange(ViewModel.Instance.InventoryJournals.Where(x => x.InventoryId == Inventory.Id));
-                }
-            }
+            //var guid = context.Request.GetParameter("InventoryID")?.Value;
+            //lock (ViewModel.Instance.Database)
+            //{
+            //    Inventory = ViewModel.Instance.Inventories.Where(x => x.Guid == guid).FirstOrDefault();
+            //    if (Inventory != null)
+            //    {
+            //        Journals.AddRange(ViewModel.Instance.InventoryJournals.Where(x => x.InventoryId == Inventory.Id));
+            //    }
+            //}
 
-            var list = new ControlList() { Layout = TypeLayoutList.Flush };
+            //var list = new ControlList() { Layout = TypeLayoutList.Flush };
 
-            foreach (var item in Journals.OrderByDescending(x => x.Created))
-            {
-                var param = new List<InventoryJournalParameter>();
-                lock (ViewModel.Instance.Database)
-                {
-                    param.AddRange(ViewModel.Instance.InventoryJournalParameters.Where(x => x.InventoryJournalId == item.Id));
-                }
+            //foreach (var item in Journals.OrderByDescending(x => x.Created))
+            //{
+            //    var param = new List<InventoryJournalParameter>();
+            //    lock (ViewModel.Instance.Database)
+            //    {
+            //        param.AddRange(ViewModel.Instance.InventoryJournalParameters.Where(x => x.InventoryJournalId == item.Id));
+            //    }
 
-                list.Add(new ControlListItem
-                (
-                    new ControlText() { Text = this.I18N(item.Action) },
-                    new ControlText()
-                    {
-                        Text = item.Created.ToString(Culture.DateTimeFormat.ShortDatePattern + " " + Culture.DateTimeFormat.ShortTimePattern),
-                        Format = TypeFormatText.Small,
-                        TextColor = new PropertyColorText(TypeColorText.Secondary),
-                        Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.None)
-                    },
-                    new ControlPanel
-                    (
-                        "",
-                        param.Select
-                        (
-                            x => new ControlPanelFlexbox
-                            (
-                                new ControlText()
-                                {
-                                    Text = $"{this.I18N(x.Name)?.Trim().TrimEnd(':')}:",
-                                    Format = TypeFormatText.Span,
-                                    TextColor = new PropertyColorText(TypeColorText.Default),
-                                    Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.None)
-                                },
-                                new ControlText()
-                                {
-                                    Text = x.OldValue,
-                                    Format = TypeFormatText.Code,
-                                    TextColor = new PropertyColorText(TypeColorText.Default),
-                                    Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.None)
-                                },
-                                new ControlText()
-                                {
-                                    Text = "=>",
-                                    Format = TypeFormatText.Span,
-                                    TextColor = new PropertyColorText(TypeColorText.Default),
-                                    Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.None)
-                                }, new ControlText()
-                                {
-                                    Text = x.NewValue,
-                                    Format = TypeFormatText.Code,
-                                    TextColor = new PropertyColorText(TypeColorText.Default),
-                                    Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.None)
-                                }
-                            )
-                            {
-                                Layout = TypeLayoutFlexbox.Default,
-                                Align = TypeAlignFlexbox.Center,
-                                Justify = TypeJustifiedFlexbox.Start
-                            }
-                         )
-                    )
-                    {
-                    }
-                )
-                {
+            //    list.Add(new ControlListItem
+            //    (
+            //        new ControlText() { Text = this.I18N(item.Action) },
+            //        new ControlText()
+            //        {
+            //            Text = item.Created.ToString(Culture.DateTimeFormat.ShortDatePattern + " " + Culture.DateTimeFormat.ShortTimePattern),
+            //            Format = TypeFormatText.Small,
+            //            TextColor = new PropertyColorText(TypeColorText.Secondary),
+            //            Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.None)
+            //        },
+            //        new ControlPanel
+            //        (
+            //            "",
+            //            param.Select
+            //            (
+            //                x => new ControlPanelFlexbox
+            //                (
+            //                    new ControlText()
+            //                    {
+            //                        Text = $"{this.I18N(x.Name)?.Trim().TrimEnd(':')}:",
+            //                        Format = TypeFormatText.Span,
+            //                        TextColor = new PropertyColorText(TypeColorText.Default),
+            //                        Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.None)
+            //                    },
+            //                    new ControlText()
+            //                    {
+            //                        Text = x.OldValue,
+            //                        Format = TypeFormatText.Code,
+            //                        TextColor = new PropertyColorText(TypeColorText.Default),
+            //                        Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.None)
+            //                    },
+            //                    new ControlText()
+            //                    {
+            //                        Text = "=>",
+            //                        Format = TypeFormatText.Span,
+            //                        TextColor = new PropertyColorText(TypeColorText.Default),
+            //                        Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.None)
+            //                    }, new ControlText()
+            //                    {
+            //                        Text = x.NewValue,
+            //                        Format = TypeFormatText.Code,
+            //                        TextColor = new PropertyColorText(TypeColorText.Default),
+            //                        Margin = new PropertySpacingMargin(PropertySpacing.Space.Two, PropertySpacing.Space.None)
+            //                    }
+            //                )
+            //                {
+            //                    Layout = TypeLayoutFlexbox.Default,
+            //                    Align = TypeAlignFlexbox.Center,
+            //                    Justify = TypeJustifiedFlexbox.Start
+            //                }
+            //             )
+            //        )
+            //        {
+            //        }
+            //    )
+            //    {
 
-                });
-            }
+            //    });
+            //}
 
-            visualTree.Content.Preferences.Add(list);
+            //visualTree.Content.Preferences.Add(list);
         }
     }
 }

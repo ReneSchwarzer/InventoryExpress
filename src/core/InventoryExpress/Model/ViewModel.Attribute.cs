@@ -25,11 +25,11 @@ namespace InventoryExpress.Model
         /// <returns>Eine Aufzählung, welche die Attribute beinhaltet</returns>
         public static IEnumerable<WebItemEntityAttribute> GetAttributes(WqlStatement wql)
         {
-            lock (Instance.Database)
+            lock (DbContext)
             {
-                var attributes = Instance.Attributes.Select(x => new WebItemEntityAttribute(x));
+                var attributes = DbContext.Attributes.Select(x => new WebItemEntityAttribute(x));
 
-                return wql.Apply(attributes.AsQueryable());
+                return wql.Apply(attributes.AsQueryable()).ToList();
             }
         }
 
@@ -40,15 +40,34 @@ namespace InventoryExpress.Model
         /// <returns>Eine Aufzählung, welche die Attribute beinhaltet</returns>
         public static IEnumerable<WebItemEntityAttribute> GetAttributes(WebItemEntityTemplate template)
         {
-            lock (Instance.Database)
+            lock (DbContext)
             {
-                var attributes = from t in Instance.Templates
-                                 join ta in Instance.TemplateAttributes on t.Id equals ta.TemplateId
-                                 join a in Instance.Attributes on ta.AttributeId equals a.Id
+                var attributes = from t in DbContext.Templates
+                                 join ta in DbContext.TemplateAttributes on t.Id equals ta.TemplateId
+                                 join a in DbContext.Attributes on ta.AttributeId equals a.Id
                                  where t.Guid == template.ID
                                  select new WebItemEntityAttribute(a);
 
-                return attributes;
+                return attributes.ToList();
+            }
+        }
+
+        /// <summary>
+        /// Liefert alle Attribute einees Inventargegenstandes
+        /// </summary>
+        /// <param name="inventory">Der Inventargegenstand</param>
+        /// <returns>Eine Aufzählung, welche die Attribute beinhaltet</returns>
+        public static IEnumerable<WebItemEntityInventoryAttribute> GetAttributes(WebItemEntityInventory inventory)
+        {
+            lock (DbContext)
+            {
+                var attributes = from i in DbContext.Inventories
+                                 join ia in DbContext.InventoryAttributes on i.Id equals ia.InventoryId
+                                 join a in DbContext.Attributes on ia.AttributeId equals a.Id
+                                 where i.Guid == inventory.ID
+                                 select new WebItemEntityInventoryAttribute(ia, a);
+
+                return attributes.ToList();
             }
         }
 
@@ -59,9 +78,9 @@ namespace InventoryExpress.Model
         /// <returns>Das Attribut oder null</returns>
         public static WebItemEntityAttribute GetAttribute(string id)
         {
-            lock (Instance.Database)
+            lock (DbContext)
             {
-                var attribute = Instance.Attributes.Where(x => x.Guid == id).Select(x => new WebItemEntityAttribute(x)).FirstOrDefault();
+                var attribute = DbContext.Attributes.Where(x => x.Guid == id).Select(x => new WebItemEntityAttribute(x)).FirstOrDefault();
 
                 return attribute;
             }
@@ -73,9 +92,9 @@ namespace InventoryExpress.Model
         /// <param name="attribute">Das Attribut</param>
         public static void AddOrUpdateAttribute(WebItemEntityAttribute attribute)
         {
-            lock (Instance.Database)
+            lock (DbContext)
             {
-                var availableEntity = Instance.Attributes.Where(x => x.Guid == attribute.ID).FirstOrDefault();
+                var availableEntity = DbContext.Attributes.Where(x => x.Guid == attribute.ID).FirstOrDefault();
 
                 if (availableEntity == null)
                 {
@@ -98,12 +117,13 @@ namespace InventoryExpress.Model
                         }
                     };
 
-                    Instance.Attributes.Add(entity);
+                    DbContext.Attributes.Add(entity);
+                    DbContext.SaveChanges();
                 }
                 else
                 {
                     // Update
-                    var availableMedia = attribute.Media != null ? Instance.Media.Where(x => x.Guid == attribute.Media.ID).FirstOrDefault() : null;
+                    var availableMedia = attribute.Media != null ? DbContext.Media.Where(x => x.Guid == attribute.Media.ID).FirstOrDefault() : null;
 
                     availableEntity.Name = attribute.Name;
                     availableEntity.Description = attribute.Description;
@@ -121,7 +141,7 @@ namespace InventoryExpress.Model
                             Updated = System.DateTime.Now
                         };
 
-                        Instance.Media.Add(media);
+                        DbContext.Media.Add(media);
                     }
                     else if (!string.IsNullOrWhiteSpace(attribute.Media.Name))
                     {
@@ -130,6 +150,8 @@ namespace InventoryExpress.Model
                         availableMedia.Tag = attribute.Media?.Tag;
                         availableMedia.Updated = System.DateTime.Now;
                     }
+
+                    DbContext.SaveChanges();
                 }
             }
         }
@@ -140,10 +162,10 @@ namespace InventoryExpress.Model
         /// <param name="id">Die ID des Attributes</param>
         public static void DeleteAttribute(string id)
         {
-            lock (Instance.Database)
+            lock (DbContext)
             {
-                var entity = Instance.Attributes.Where(x => x.Guid == id).FirstOrDefault();
-                var entityMedia = Instance.Media.Where(x => x.Id == entity.MediaId).FirstOrDefault();
+                var entity = DbContext.Attributes.Where(x => x.Guid == id).FirstOrDefault();
+                var entityMedia = DbContext.Media.Where(x => x.Id == entity.MediaId).FirstOrDefault();
 
                 if (entityMedia != null)
                 {
@@ -152,7 +174,8 @@ namespace InventoryExpress.Model
 
                 if (entity != null)
                 {
-                    Instance.Attributes.Remove(entity);
+                    DbContext.Attributes.Remove(entity);
+                    DbContext.SaveChanges();
                 }
             }
         }
@@ -164,11 +187,11 @@ namespace InventoryExpress.Model
         /// <returns>True wenn in Verwendung, false sonst</returns>
         public static bool GetAttributeInUse(WebItemEntityAttribute attribute)
         {
-            lock (Instance.Database)
+            lock (DbContext)
             {
-                var used = from i in Instance.Inventories
-                           join ia in Instance.InventoryAttributes on i.Id equals ia.InventoryId
-                           join a in Instance.Attributes on ia.AttributeId equals a.Id
+                var used = from i in DbContext.Inventories
+                           join ia in DbContext.InventoryAttributes on i.Id equals ia.InventoryId
+                           join a in DbContext.Attributes on ia.AttributeId equals a.Id
                            where a.Guid == attribute.ID
                            select a;
 

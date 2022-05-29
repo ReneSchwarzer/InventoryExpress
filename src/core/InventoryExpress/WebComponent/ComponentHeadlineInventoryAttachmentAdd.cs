@@ -46,82 +46,79 @@ namespace InventoryExpress.WebComponent
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            lock (ViewModel.Instance.Database)
-            {
-                var guid = context.Request.GetParameter("InventoryID")?.Value;
-                var inventory = ViewModel.Instance.Inventories.Where(x => x.Guid == guid).FirstOrDefault();
-                var form = new ControlModalFormularFileUpload("add")
-                {
-                    Header = I18N(context.Culture, "inventoryexpress:inventoryexpress.media.file.add.label")
-                };
+            var guid = context.Request.GetParameter("InventoryID")?.Value;
+            var inventory = ViewModel.GetInventory(guid);
+            //var form = new ControlModalFormularFileUpload("add")
+            //{
+            //    Header = I18N(context.Culture, "inventoryexpress:inventoryexpress.media.file.add.label")
+            //};
 
-                form.Upload += (s, e) =>
-                {
-                    if (context.Request.GetParameter(form.File.Name) is ParameterFile file)
-                    {
-                        // Anlage speichern
-                        var stock = from a in ViewModel.Instance.InventoryAttachments
-                                    join m in ViewModel.Instance.Media
-                                    on a.MediaId equals m.Id
-                                    where m.Name == file.Value
-                                    select a;
+            //form.Upload += (s, e) =>
+            //{
+            //    if (context.Request.GetParameter(form.File.Name) is ParameterFile file)
+            //    {
+            //        // Anlage speichern
+            //        var stock = from a in ViewModel.Instance.InventoryAttachments
+            //                    join m in ViewModel.Instance.Media
+            //                    on a.MediaId equals m.Id
+            //                    where m.Name == file.Value
+            //                    select a;
 
-                        if (stock.Count() == 0)
-                        {
-                            var media = new Media()
-                            {
-                                Name = file.Value,
-                                Created = DateTime.Now,
-                                Updated = DateTime.Now,
-                                Guid = Guid.NewGuid().ToString()
-                            };
+            //        if (stock.Count() == 0)
+            //        {
+            //            var media = new Media()
+            //            {
+            //                Name = file.Value,
+            //                Created = DateTime.Now,
+            //                Updated = DateTime.Now,
+            //                Guid = Guid.NewGuid().ToString()
+            //            };
 
-                            var attachment = new InventoryAttachment()
-                            {
-                                InventoryId = inventory.Id,
-                                Media = media,
-                                Created = DateTime.Now,
-                            };
+            //            var attachment = new InventoryAttachment()
+            //            {
+            //                InventoryId = inventory.Id,
+            //                Media = media,
+            //                Created = DateTime.Now,
+            //            };
 
-                            ViewModel.Instance.Media.Add(media);
-                            ViewModel.Instance.InventoryAttachments.Add(attachment);
-                            ViewModel.Instance.SaveChanges();
+            //            ViewModel.Instance.Media.Add(media);
+            //            ViewModel.Instance.InventoryAttachments.Add(attachment);
+            //            ViewModel.Instance.SaveChanges();
 
-                            File.WriteAllBytes(Path.Combine(context.Application.AssetPath, media.Guid), file.Data);
+            //            File.WriteAllBytes(Path.Combine(context.Application.AssetPath, media.Guid), file.Data);
 
-                            var journal = new InventoryJournal()
-                            {
-                                InventoryId = inventory.Id,
-                                Action = "inventoryexpress:inventoryexpress.journal.action.inventory.attachment.add",
-                                Created = DateTime.Now,
-                                Guid = Guid.NewGuid().ToString()
-                            };
+            //            var journal = new InventoryJournal()
+            //            {
+            //                InventoryId = inventory.Id,
+            //                Action = "inventoryexpress:inventoryexpress.journal.action.inventory.attachment.add",
+            //                Created = DateTime.Now,
+            //                Guid = Guid.NewGuid().ToString()
+            //            };
 
-                            ViewModel.Instance.InventoryJournals.Add(journal);
+            //            ViewModel.Instance.InventoryJournals.Add(journal);
 
-                            ViewModel.Instance.InventoryJournalParameters.Add(new InventoryJournalParameter()
-                            {
-                                InventoryJournal = journal,
-                                Name = "inventoryexpress:inventoryexpress.inventory.attachment.label",
-                                OldValue = "🖳",
-                                NewValue = media.Name,
-                                Guid = Guid.NewGuid().ToString()
-                            });
+            //            ViewModel.Instance.InventoryJournalParameters.Add(new InventoryJournalParameter()
+            //            {
+            //                InventoryJournal = journal,
+            //                Name = "inventoryexpress:inventoryexpress.inventory.attachment.label",
+            //                OldValue = "🖳",
+            //                NewValue = media.Name,
+            //                Guid = Guid.NewGuid().ToString()
+            //            });
 
-                            ViewModel.Instance.SaveChanges();
-                        }
-                    }
-                };
+            //            ViewModel.Instance.SaveChanges();
+            //        }
+            //    }
+            //};
 
-                Text = I18N(context.Culture, "inventoryexpress:inventoryexpress.media.file.add.label");
-                Icon = new PropertyIcon(TypeIcon.Plus);
-                BackgroundColor = new PropertyColorButton(TypeColorButton.Primary);
-                Value = inventory?.Created.ToString(context.Page.Culture.DateTimeFormat.ShortDatePattern);
+            Text = I18N(context.Culture, "inventoryexpress:inventoryexpress.media.file.add.label");
+            Icon = new PropertyIcon(TypeIcon.Plus);
+            BackgroundColor = new PropertyColorButton(TypeColorButton.Primary);
+            Value = inventory?.Created.ToString(context.Page.Culture.DateTimeFormat.ShortDatePattern);
 
-                Modal = new PropertyModal(TypeModal.Modal, form);
+            //Modal = new PropertyModal(TypeModal.Modal, form);
 
-                return base.Render(context);
-            }
+            return base.Render(context);
         }
     }
 }

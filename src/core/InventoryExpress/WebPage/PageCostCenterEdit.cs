@@ -86,6 +86,7 @@ namespace InventoryExpress.WebPage
         private void ProcessFormular(object sender, FormularEventArgs e)
         {
             var file = e.Context.Request.GetParameter(Form.Image.Name) as ParameterFile;
+            using var transaction = ViewModel.BeginTransaction();
 
             // Herstellerobjekt ändern und speichern
             CostCenter.Name = Form.CostCenterName.Value;
@@ -95,13 +96,13 @@ namespace InventoryExpress.WebPage
             CostCenter.Media.Name = file?.Value;
 
             ViewModel.AddOrUpdateCostCenter(CostCenter);
-            ViewModel.Instance.SaveChanges();
 
             if (file != null)
             {
                 ViewModel.AddOrUpdateMedia(CostCenter.Media, file?.Data);
-                ViewModel.Instance.SaveChanges();
             }
+
+            transaction.Commit();
 
             NotificationManager.CreateNotification
             (

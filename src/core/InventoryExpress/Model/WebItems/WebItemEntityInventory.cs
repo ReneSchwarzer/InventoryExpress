@@ -1,4 +1,6 @@
 ﻿using InventoryExpress.Model.Entity;
+using System;
+using System.Collections.Generic;
 
 namespace InventoryExpress.Model.WebItems
 {
@@ -40,6 +42,31 @@ namespace InventoryExpress.Model.WebItems
         public WebItemEntityTemplate Template { get; set; }
 
         /// <summary>
+        /// Liefert das übergeordnete Inventargegenstand
+        /// </summary>
+        public WebItemEntityInventory Parent { get; set; }
+
+        /// <summary>
+        /// Liefert die Attribute
+        /// </summary>
+        public IEnumerable<WebItemEntityInventoryAttribute> Attributes { get; set; }
+
+        /// <summary>
+        /// Der Anschaffungswert
+        /// </summary>
+        public decimal CostValue { get; set; }
+
+        /// <summary>
+        /// Das Anschaffungsdatum
+        /// </summary>
+        public DateTime? PurchaseDate { get; set; }
+
+        /// <summary>
+        /// Das Abgangsdatum
+        /// </summary>
+        public DateTime? DerecognitionDate { get; set; }
+
+        /// <summary>
         /// Konstruktor
         /// </summary>
         public WebItemEntityInventory()
@@ -50,11 +77,11 @@ namespace InventoryExpress.Model.WebItems
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="costCenter">Das Datenbankobjektes der Kosenstelle</param>
-        public WebItemEntityInventory(Inventory costCenter)
-            : base(costCenter)
+        /// <param name="inventory">Das Datenbankobjektes des Inventargegenstandes</param>
+        public WebItemEntityInventory(Inventory inventory)
+            : base(inventory)
         {
-            Uri = ViewModel.GetInventoryUri(costCenter.Guid);
+            Uri = ViewModel.GetInventoryUri(inventory.Guid);
 
             Condition = ViewModel.GetCondition(this);
             CostCenter = ViewModel.GetCostCenter(this);
@@ -63,6 +90,12 @@ namespace InventoryExpress.Model.WebItems
             Manufacturer = ViewModel.GetManufacturer(this);
             Supplier = ViewModel.GetSupplier(this);
             Template = ViewModel.GetTemplate(this);
+            Parent = ViewModel.GetInventoryParent(this);
+            Attributes = ViewModel.GetAttributes(this);
+
+            CostValue = inventory.CostValue;
+            PurchaseDate = inventory.PurchaseDate;
+            DerecognitionDate = inventory.DerecognitionDate;
         }
     }
 }

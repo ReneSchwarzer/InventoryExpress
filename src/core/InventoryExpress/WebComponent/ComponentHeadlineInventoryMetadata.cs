@@ -40,19 +40,19 @@ namespace InventoryExpress.WebComponent
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            lock (ViewModel.Instance.Database)
-            {
-                var id = context.Request.GetParameter("InventoryID")?.Value;
-                var inventory = ViewModel.Instance.Inventories.Where(x => x.Guid.Equals(id)).FirstOrDefault();
+            //lock (ViewModel.Instance.Database)
+            //{
+            //    var id = context.Request.GetParameter("InventoryID")?.Value;
+            //    var inventory = ViewModel.Instance.Inventories.Where(x => x.Guid.Equals(id)).FirstOrDefault();
 
-                Text = string.Format(I18N(context.Culture, "inventoryexpress:inventoryexpress.inventory.metadata.created"), inventory.Created.ToString("d", context.Culture));
+            //    Text = string.Format(I18N(context.Culture, "inventoryexpress:inventoryexpress.inventory.metadata.created"), inventory.Created.ToString("d", context.Culture));
 
-                if (inventory.Created != inventory.Updated)
-                {
-                    Text += " ";
-                    Text += string.Format(I18N(context.Culture, "inventoryexpress:inventoryexpress.inventory.metadata.lastchange"), inventory.Updated.ToString("d", context.Culture));
-                }
-            }
+            //    if (inventory.Created != inventory.Updated)
+            //    {
+            //        Text += " ";
+            //        Text += string.Format(I18N(context.Culture, "inventoryexpress:inventoryexpress.inventory.metadata.lastchange"), inventory.Updated.ToString("d", context.Culture));
+            //    }
+            //}
 
             return base.Render(context);
         }

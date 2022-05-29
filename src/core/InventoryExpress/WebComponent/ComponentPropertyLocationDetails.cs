@@ -65,17 +65,13 @@ namespace InventoryExpress.WebComponent
         public override IHtmlNode Render(RenderContext context)
         {
             var guid = context.Request.GetParameter("LocationID")?.Value;
+            var location = ViewModel.GetLocation(guid);
 
-            lock (ViewModel.Instance.Database)
-            {
-                var location = ViewModel.Instance.Locations.Where(x => x.Guid == guid).FirstOrDefault();
-
-                CreationDateAttribute.Value = location?.Created.ToString(context.Culture.DateTimeFormat.ShortDatePattern);
-                UpdateDateAttribute.Value = location?.Updated.ToString
-                (
-                    $"{context.Culture.DateTimeFormat.ShortDatePattern} {context.Culture.DateTimeFormat.ShortTimePattern}"
-                );
-            }
+            CreationDateAttribute.Value = location?.Created.ToString(context.Culture.DateTimeFormat.ShortDatePattern);
+            UpdateDateAttribute.Value = location?.Updated.ToString
+            (
+                $"{context.Culture.DateTimeFormat.ShortDatePattern} {context.Culture.DateTimeFormat.ShortTimePattern}"
+            );
 
             return base.Render(context);
         }

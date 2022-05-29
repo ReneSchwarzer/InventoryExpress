@@ -1,10 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using InventoryExpress.Model.WebItems;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using System;
+using System.IO;
+using System.Linq;
 using WebExpress.WebModule;
 
 namespace InventoryExpress.Model
 {
-    public partial class ViewModel : DB
+    public partial class ViewModel
     {
         /// <summary>
         /// Instanz des einzigen Modells
@@ -17,25 +21,9 @@ namespace InventoryExpress.Model
         public static string ApplicationIcon { get; private set; }
 
         /// <summary>
-        /// Instanz des einzigen Modells
+        /// Lifert die einzige Instanz der Datenbank-Klasse
         /// </summary>
-        private static ViewModel _this = null;
-
-        /// <summary>
-        /// Lifert die einzige Instanz der Modell-Klasse
-        /// </summary>
-        public static ViewModel Instance
-        {
-            get
-            {
-                if (_this == null)
-                {
-                    _this = new ViewModel();
-                }
-
-                return _this;
-            }
-        }
+        private static DB DbContext { get; } = new DB();
 
         /// <summary>
         /// Liefert oder setzt den Kontext
@@ -43,28 +31,72 @@ namespace InventoryExpress.Model
         public static IModuleContext Context { get; private set; }
 
         /// <summary>
+        /// Ermittelt das Medienverzeichnis
+        /// </summary>
+        public static string MediaDirectory => Path.Combine(Context.Application.DataPath, "media");
+
+        /// <summary>
         /// Konstruktor
         /// </summary>
         private ViewModel()
         {
-            DataSource = "Assets/db/inventory.db";
+            DbContext.DataSource = "Assets/db/inventory.db";
         }
 
         /// <summary>
         /// Initialisierung
         /// </summary>
         /// <param name="context">Der Kontext, welcher für die Ausführung des Plugins gilt</param>
-        public void Initialization(IModuleContext context)
+        public static void Initialization(IModuleContext context)
         {
             Context = context;
             ApplicationIcon = Context.Application.Icon.ToString();
             RootUri = context.ContextPath.ToString();
 
-            Database.EnsureCreated();
+            var path = Path.Combine(context.DataPath, "db");
 
-            Database.Migrate();
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
+            // Datenbank initialisieren
+            DbContext.DataSource = Path.Combine(path, "inventory.db");
+
+            // möglicherweise erstellen
+            DbContext.Database.EnsureCreated();
+            DbContext.Database.Migrate();
+
+            // Daten vorladen
+            _ = DbContext.Inventories.ToList();
+            _ = DbContext.CostCenters.ToList();
+            _ = DbContext.Manufacturers.ToList();
+            _ = DbContext.Suppliers.ToList();
         }
 
+        /// <summary>
+        /// Ermittelt die Datenbankinformationen
+        /// </summary>
+        /// <returns>Die Datenbankinformationen</returns>
+        public static WebItemDbInfo GetDbInfo()
+        {
+            var info = new WebItemDbInfo()
+            {
+                ProviderName = DbContext.Database.ProviderName,
+                DataSource = DbContext.DataSource
+            };
+
+            return info;
+        }
+
+        /// <summary>
+        /// Startet eine neue Transaktion
+        /// </summary>
+        /// <returns>Die Transaktion</returns>
+        public static IDbContextTransaction BeginTransaction()
+        {
+            return DbContext.Database.BeginTransaction();
+        }
 
         /// <summary>
         /// Export der Daten
@@ -72,10 +104,12 @@ namespace InventoryExpress.Model
         /// <param name="fileName">Das Archive</param>
         /// <param name="dataPath">Das Verzeichnis, indem die Anhänge gespeichert werden</param>
         /// <param name="progress">Der Fortschritt</param>
-        public void Export(string fileName, string dataPath, Action<int> progress)
+        public static void Export(string fileName, string dataPath, Action<int> progress)
         {
             ImportExport.Export(fileName, dataPath, progress);
         }
+        
+        
 
         /// <summary>
         /// Import der Daten
@@ -83,36 +117,35 @@ namespace InventoryExpress.Model
         /// <param name="fileName">Das Archive</param>
         /// <param name="dataPath">Das Verzeichnis, indem die Anhänge gespeichert werden</param>
         /// <param name="progress">Der Fortschritt</param>
-        public void Import(string fileName, string dataPath, Action<int> progress)
+        public static void Import(string fileName, string dataPath, Action<int> progress)
         {
-            lock (Database)
+            lock (DbContext)
             {
-                Database.BeginTransaction();
+                using var transaction = DbContext.Database.BeginTransaction();
 
-                Conditions.RemoveRange(Conditions);
-                Locations.RemoveRange(Locations);
-                Manufacturers.RemoveRange(Manufacturers);
-                Suppliers.RemoveRange(Suppliers);
-                LedgerAccounts.RemoveRange(LedgerAccounts);
-                CostCenters.RemoveRange(CostCenters);
-                Inventories.RemoveRange(Inventories);
-                InventoryAttributes.RemoveRange(InventoryAttributes);
-                InventoryAttachments.RemoveRange(InventoryAttachments);
-                InventoryComments.RemoveRange(InventoryComments);
-                InventoryJournals.RemoveRange(InventoryJournals);
-                InventoryJournalParameters.RemoveRange(InventoryJournalParameters);
-                InventoryTags.RemoveRange(InventoryTags);
-                Templates.RemoveRange(Templates);
-                TemplateAttributes.RemoveRange(TemplateAttributes);
-                Attributes.RemoveRange(Attributes);
-                Media.RemoveRange(Media);
-                Tags.RemoveRange(Tags);
-
-                Database.CommitTransaction();
-
+                DbContext.Conditions.RemoveRange(DbContext.Conditions);
+                DbContext.Locations.RemoveRange(DbContext.Locations);
+                DbContext.Manufacturers.RemoveRange(DbContext.Manufacturers);
+                DbContext.Suppliers.RemoveRange(DbContext.Suppliers);
+                DbContext.LedgerAccounts.RemoveRange(DbContext.LedgerAccounts);
+                DbContext.CostCenters.RemoveRange(DbContext.CostCenters);
+                DbContext.Inventories.RemoveRange(DbContext.Inventories);
+                DbContext.InventoryAttributes.RemoveRange(DbContext.InventoryAttributes);
+                DbContext.InventoryAttachments.RemoveRange(DbContext.InventoryAttachments);
+                DbContext.InventoryComments.RemoveRange(DbContext.InventoryComments);
+                DbContext.InventoryJournals.RemoveRange(DbContext.InventoryJournals);
+                DbContext.InventoryJournalParameters.RemoveRange(DbContext.InventoryJournalParameters);
+                DbContext.InventoryTags.RemoveRange(DbContext.InventoryTags);
+                DbContext.Templates.RemoveRange(DbContext.Templates);
+                DbContext.TemplateAttributes.RemoveRange(DbContext.TemplateAttributes);
+                DbContext.Attributes.RemoveRange(DbContext.Attributes);
+                DbContext.Media.RemoveRange(DbContext.Media);
+                DbContext.Tags.RemoveRange(DbContext.Tags);
                 //Database.ExecuteSqlCommand("vacum;");
 
-                SaveChanges();
+                DbContext.SaveChanges();
+                
+                transaction.Commit();
             }
 
             ImportExport.Import(fileName, dataPath, progress);

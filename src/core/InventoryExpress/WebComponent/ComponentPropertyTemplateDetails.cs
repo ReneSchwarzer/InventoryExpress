@@ -65,17 +65,13 @@ namespace InventoryExpress.WebComponent
         public override IHtmlNode Render(RenderContext context)
         {
             var guid = context.Request.GetParameter("TemplateID")?.Value;
+            var template = ViewModel.GetTemplate(guid);
 
-            lock (ViewModel.Instance.Database)
-            {
-                var template = ViewModel.Instance.Manufacturers.Where(x => x.Guid == guid).FirstOrDefault();
-
-                CreationDateAttribute.Value = template?.Created.ToString(context.Culture.DateTimeFormat.ShortDatePattern);
-                UpdateDateAttribute.Value = template?.Updated.ToString
-                (
-                    $"{context.Culture.DateTimeFormat.ShortDatePattern} {context.Culture.DateTimeFormat.ShortTimePattern}"
-                );
-            }
+            CreationDateAttribute.Value = template?.Created.ToString(context.Culture.DateTimeFormat.ShortDatePattern);
+            UpdateDateAttribute.Value = template?.Updated.ToString
+            (
+                $"{context.Culture.DateTimeFormat.ShortDatePattern} {context.Culture.DateTimeFormat.ShortTimePattern}"
+            );
 
             return base.Render(context);
         }

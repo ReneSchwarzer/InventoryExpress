@@ -1,5 +1,6 @@
 ﻿using InventoryExpress.Model.Entity;
 using System;
+using System.IO;
 using System.Text.Json.Serialization;
 using WebExpress.WebApp.Model;
 
@@ -35,11 +36,16 @@ namespace InventoryExpress.Model.WebItems
         public string Tag { get; set; }
 
         /// <summary>
+        /// Die Dateigröße im Bytes
+        /// </summary>
+        [JsonIgnore]
+        public long Size => new FileInfo(Path.Combine(ViewModel.MediaDirectory, ID)).Length;
+
+        /// <summary>
         /// Konstruktor
         /// </summary>
         public WebItemEntityMedia()
         {
-            ID = Guid.NewGuid().ToString();
         }
 
         /// <summary>

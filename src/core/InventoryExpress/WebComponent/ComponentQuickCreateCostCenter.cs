@@ -34,6 +34,7 @@ namespace InventoryExpress.WebComponent
             Text = "inventoryexpress:inventoryexpress.costcenter.label";
             Uri = new UriResource(context.Module.ContextPath, "costcenters/add");
             Icon = new PropertyIcon(TypeIcon.ShoppingBag);
+            Modal = new PropertyModal(TypeModal.Formular, TypeModalSize.Large);
         }
 
         /// <summary>

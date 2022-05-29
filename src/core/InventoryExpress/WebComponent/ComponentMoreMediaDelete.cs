@@ -42,19 +42,18 @@ namespace InventoryExpress.WebComponent
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
+            var guid = context.Request.GetParameter("MediaID")?.Value;
+            var media = ViewModel.GetMedia(guid);
+            var inUse = ViewModel.GetMediaInUse(media);
+
             Text = InternationalizationManager.I18N(context.Culture, "inventoryexpress:inventoryexpress.delete.label");
             Icon = new PropertyIcon(TypeIcon.Trash);
 
-            lock (ViewModel.Instance.Database)
-            {
-                var guid = context.Request.GetParameter("MediaID")?.Value;
-                var media = ViewModel.Instance.Media.Where(x => x.Guid == guid).FirstOrDefault();
+            Active = inUse ? TypeActive.Disabled : TypeActive.None;
+            TextColor = inUse ? new PropertyColorText(TypeColorText.Muted) : TextColor;
 
-                TextColor = media != null ? new PropertyColorText(TypeColorText.Danger) : new PropertyColorText(TypeColorText.Muted);
-                Active = media != null ? TypeActive.None : TypeActive.Disabled;
-            }
-
-            OnClick = new PropertyOnClick($"$('#modal_del_media').modal('show');");
+            Uri = context.Uri.Append("del");
+            Modal = new PropertyModal(TypeModal.Formular, TypeModalSize.Default);
 
             return base.Render(context);
         }

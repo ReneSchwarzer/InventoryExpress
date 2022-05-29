@@ -77,6 +77,7 @@ namespace InventoryExpress.WebPage
         private void ProcessFormular(object sender, FormularEventArgs e)
         {
             var file = e.Context.Request.GetParameter(Form.Image.Name) as ParameterFile;
+            using var transaction = ViewModel.BeginTransaction();
 
             // Neues Herstellerobjekt erstellen und speichern
             var manufacturer = new WebItemEntityManufacturer()
@@ -94,12 +95,10 @@ namespace InventoryExpress.WebPage
             };
 
             ViewModel.AddOrUpdateManufacturer(manufacturer);
-            ViewModel.Instance.SaveChanges();
 
             if (file != null)
             {
                 ViewModel.AddOrUpdateMedia(manufacturer.Media, file?.Data);
-                ViewModel.Instance.SaveChanges();
             }
 
             NotificationManager.CreateNotification
@@ -117,6 +116,8 @@ namespace InventoryExpress.WebPage
                 icon: new UriRelative(manufacturer.Image),
                 durability: 10000
             );
+
+            transaction.Commit();
 
             Form.RedirectUri = Form.RedirectUri.Append(manufacturer.ID);
         }

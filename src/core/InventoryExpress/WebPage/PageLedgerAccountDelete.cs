@@ -66,8 +66,9 @@ namespace InventoryExpress.WebPage
             var guid = e.Context.Request.GetParameter("LedgerAccountID")?.Value;
             var ledgeraccount = ViewModel.GetLedgerAccount(guid);
 
+            using var transaction = ViewModel.BeginTransaction();
+
             ViewModel.DeleteLedgerAccount(guid);
-            ViewModel.Instance.SaveChanges();
 
             NotificationManager.CreateNotification
             (
@@ -84,6 +85,8 @@ namespace InventoryExpress.WebPage
                 icon: new UriRelative(ledgeraccount.Image),
                 durability: 10000
             );
+
+            transaction.Commit();
         }
 
         /// <summary>

@@ -26,7 +26,6 @@ namespace InventoryExpress.WebApi.V1
         /// </summary>
         public RestConditions()
         {
-            Guard = ViewModel.Instance.Database;
         }
 
         /// <summary>
@@ -77,12 +76,8 @@ namespace InventoryExpress.WebApi.V1
         /// <returns>Eine Aufzählung, welche JsonSerializer serialisiert werden kann.</returns>
         public override IEnumerable<WebItemEntityCondition> GetData(WqlStatement wql, Request request)
         {
-            lock (ViewModel.Instance.Database)
-            {
-                var conditions = ViewModel.GetConditions(wql).ToList();
-
-                return conditions;
-            }
+            var conditions = ViewModel.GetConditions(wql);
+            return conditions;
         }
 
         /// <summary>

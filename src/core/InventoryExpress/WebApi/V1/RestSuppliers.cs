@@ -28,7 +28,6 @@ namespace InventoryExpress.WebApi.V1
         /// </summary>
         public RestSuppliers()
         {
-            Guard = ViewModel.Instance.Database;
         }
 
         /// <summary>
@@ -65,7 +64,7 @@ namespace InventoryExpress.WebApi.V1
         /// <returns>Eine Aufzählung, welche JsonSerializer serialisiert werden kann.</returns>
         public override IEnumerable<WebItem> GetData(WqlStatement wql, Request request)
         {
-            var suppliers = ViewModel.GetSuppliers(wql).ToList(); 
+            var suppliers = ViewModel.GetSuppliers(wql); 
 
             return suppliers;
         }
@@ -78,8 +77,11 @@ namespace InventoryExpress.WebApi.V1
         /// <returns>Das Ergebnis der Löschung</returns>
         public override bool DeleteData(string id, Request request)
         {
+            using var transaction = ViewModel.BeginTransaction();
+
             ViewModel.DeleteSupplier(id);
-            ViewModel.Instance.SaveChanges();
+            
+            transaction.Commit();
 
             return true;
         }

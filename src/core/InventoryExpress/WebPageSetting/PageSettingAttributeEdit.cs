@@ -89,6 +89,7 @@ namespace InventoryExpress.WebPageSetting
         private void ProcessFormular(object sender, FormularEventArgs e)
         {
             var file = e.Context.Request.GetParameter(Form.Image.Name) as ParameterFile;
+            using var transaction = ViewModel.BeginTransaction();
 
             // Attribut ändern und speichern
             Attribute.Name = Form.AttributeName.Value;
@@ -97,13 +98,13 @@ namespace InventoryExpress.WebPageSetting
             Attribute.Media.Name = file?.Value;
 
             ViewModel.AddOrUpdateAttribute(Attribute);
-            ViewModel.Instance.SaveChanges();
 
             if (file != null)
             {
                 ViewModel.AddOrUpdateMedia(Attribute.Media, file?.Data);
-                ViewModel.Instance.SaveChanges();
             }
+
+            transaction.Commit();
 
             NotificationManager.CreateNotification
             (

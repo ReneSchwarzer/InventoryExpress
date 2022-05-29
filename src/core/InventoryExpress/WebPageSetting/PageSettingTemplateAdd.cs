@@ -92,6 +92,7 @@ namespace InventoryExpress.WebPageSetting
         private void ProcessFormular(object sender, FormularEventArgs e)
         {
             var file = e.Context.Request.GetParameter(Form.Image.Name) as ParameterFile;
+            using var transaction = ViewModel.BeginTransaction();
 
             // Neue Vorlage erstellen und speichern
             var template = new WebItemEntityTemplate()
@@ -106,13 +107,13 @@ namespace InventoryExpress.WebPageSetting
             };
 
             ViewModel.AddOrUpdateTemplate(template);
-            ViewModel.Instance.SaveChanges();
 
             if (file != null)
             {
                 ViewModel.AddOrUpdateMedia(template.Media, file?.Data);
-                ViewModel.Instance.SaveChanges();
             }
+
+            transaction.Commit();
 
             NotificationManager.CreateNotification
             (

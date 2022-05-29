@@ -73,9 +73,11 @@ namespace InventoryExpress.WebPageSetting
         {
             var guid = e.Context.Request.GetParameter("AttributeID")?.Value;
             var attribute = ViewModel.GetAttribute(guid);
+            using var transaction = ViewModel.BeginTransaction();
 
             ViewModel.DeleteAttribute(guid);
-            ViewModel.Instance.SaveChanges();
+            
+            transaction.Commit();
 
             NotificationManager.CreateNotification
             (

@@ -34,6 +34,7 @@ namespace InventoryExpress.WebComponent
             Text = "inventoryexpress:inventoryexpress.ledgeraccount.label";
             Uri = new UriResource(context.Module.ContextPath, "ledgeraccounts/add");
             Icon = new PropertyIcon(TypeIcon.At);
+            Modal = new PropertyModal(TypeModal.Formular, TypeModalSize.Large);
         }
 
         /// <summary>

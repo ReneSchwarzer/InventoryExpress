@@ -78,26 +78,15 @@ namespace InventoryExpress.WebComponent
         public override IHtmlNode Render(RenderContext context)
         {
             var guid = context.Request.GetParameter("MediaID")?.Value;
+            var media = ViewModel.GetMedia(guid);
 
-            lock (ViewModel.Instance.Database)
-            {
-                var media = ViewModel.Instance.Media.Where(x => x.Guid == guid).FirstOrDefault();
+            CreationDateAttribute.Value = media?.Created.ToString(context.Culture.DateTimeFormat.ShortDatePattern);
+            UpdateDateAttribute.Value = media?.Updated.ToString
+            (
+                $"{context.Culture.DateTimeFormat.ShortDatePattern} {context.Culture.DateTimeFormat.ShortTimePattern}"
+            );
 
-                if (media == null)
-                {
-                    return base.Render(context);
-                }
-
-                CreationDateAttribute.Value = media?.Created.ToString(context.Culture.DateTimeFormat.ShortDatePattern);
-                UpdateDateAttribute.Value = media?.Updated.ToString
-                (
-                    $"{context.Culture.DateTimeFormat.ShortDatePattern} {context.Culture.DateTimeFormat.ShortTimePattern}"
-                );
-
-                FileInfo fi = new FileInfo(Path.Combine(context.Application.AssetPath, "media", media?.Guid));
-
-                SizeAttribute.Value = string.Format(new FileSizeFormatProvider() { Culture = context.Culture }, "{0:fs}", fi.Length);
-            }
+            SizeAttribute.Value = string.Format(new FileSizeFormatProvider() { Culture = context.Culture }, "{0:fs}", media?.Size);
 
             return base.Render(context);
         }

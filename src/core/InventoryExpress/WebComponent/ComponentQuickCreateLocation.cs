@@ -34,6 +34,7 @@ namespace InventoryExpress.WebComponent
             Text = "inventoryexpress:inventoryexpress.location.label";
             Uri = new UriResource(context.Module.ContextPath, "locations/add");
             Icon = new PropertyIcon(TypeIcon.Map);
+            Modal = new PropertyModal(TypeModal.Formular, TypeModalSize.Large);
         }
 
         /// <summary>

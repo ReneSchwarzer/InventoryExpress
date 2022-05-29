@@ -104,6 +104,7 @@ namespace InventoryExpress.WebPageSetting
         {
             var file = e.Context.Request.GetParameter(Form.Image.Name) as ParameterFile;
             var attributes = Form.Attributes.Value?.Split(";", StringSplitOptions.RemoveEmptyEntries);
+            using var transaction = ViewModel.BeginTransaction();
 
             // Vorlage ändern und speichern
             Template.Name = Form.TemplateName.Value;
@@ -114,13 +115,13 @@ namespace InventoryExpress.WebPageSetting
             Template.Media.Name = file?.Value;
 
             ViewModel.AddOrUpdateTemplate(Template);
-            ViewModel.Instance.SaveChanges();
 
             if (file != null)
             {
                 ViewModel.AddOrUpdateMedia(Template.Media, file?.Data);
-                ViewModel.Instance.SaveChanges();
             }
+
+            transaction.Commit();
 
             NotificationManager.CreateNotification
             (

@@ -26,11 +26,11 @@ namespace InventoryExpress.Model
         /// <returns>Eine Aufzählung, welche die Standorte beinhaltet</returns>
         public static IEnumerable<WebItemEntityLocation> GetLocations(WqlStatement wql)
         {
-            lock (Instance.Database)
+            lock (DbContext)
             {
-                var locations = Instance.Locations.Select(x => new WebItemEntityLocation(x));
+                var locations = DbContext.Locations.Select(x => new WebItemEntityLocation(x));
 
-                return wql.Apply(locations);
+                return wql.Apply(locations).ToList();
             }
         }
 
@@ -41,9 +41,9 @@ namespace InventoryExpress.Model
         /// <returns>Der Standort oder null</returns>
         public static WebItemEntityLocation GetLocation(string id)
         {
-            lock (Instance.Database)
+            lock (DbContext)
             {
-                var location = Instance.Locations.Where(x => x.Guid == id).Select(x => new WebItemEntityLocation(x)).FirstOrDefault();
+                var location = DbContext.Locations.Where(x => x.Guid == id).Select(x => new WebItemEntityLocation(x)).FirstOrDefault();
 
                 return location;
             }
@@ -56,10 +56,10 @@ namespace InventoryExpress.Model
         /// <returns>Der Standort oder null</returns>
         public static WebItemEntityLocation GetLocation(WebItemEntityInventory inventory)
         {
-            lock (Instance.Database)
+            lock (DbContext)
             {
-                var location = from i in Instance.Inventories
-                               join l in Instance.Locations on i.ConditionId equals l.Id
+                var location = from i in DbContext.Inventories
+                               join l in DbContext.Locations on i.LocationId equals l.Id
                                where i.Guid == inventory.ID
                                select new WebItemEntityLocation(l);
 
@@ -73,9 +73,9 @@ namespace InventoryExpress.Model
         /// <param name="condition">Der Standort</param>
         public static void AddOrUpdateLocation(WebItemEntityLocation condition)
         {
-            lock (Instance.Database)
+            lock (DbContext)
             {
-                var availableEntity = Instance.Locations.Where(x => x.Guid == condition.ID).FirstOrDefault();
+                var availableEntity = DbContext.Locations.Where(x => x.Guid == condition.ID).FirstOrDefault();
 
                 if (availableEntity == null)
                 {
@@ -102,12 +102,13 @@ namespace InventoryExpress.Model
                         }
                     };
 
-                    Instance.Locations.Add(entity);
+                    DbContext.Locations.Add(entity);
+                    DbContext.SaveChanges();
                 }
                 else
                 {
                     // Update
-                    var availableMedia = condition.Media != null ? Instance.Media.Where(x => x.Guid == condition.Media.ID).FirstOrDefault() : null;
+                    var availableMedia = condition.Media != null ? DbContext.Media.Where(x => x.Guid == condition.Media.ID).FirstOrDefault() : null;
 
                     availableEntity.Name = condition.Name;
                     availableEntity.Description = condition.Description;
@@ -129,7 +130,7 @@ namespace InventoryExpress.Model
                             Updated = DateTime.Now
                         };
 
-                        Instance.Media.Add(media);
+                        DbContext.Media.Add(media);
                     }
                     else if (!string.IsNullOrWhiteSpace(condition.Media.Name))
                     {
@@ -138,6 +139,8 @@ namespace InventoryExpress.Model
                         availableMedia.Tag = condition.Media?.Tag;
                         availableMedia.Updated = DateTime.Now;
                     }
+                    
+                    DbContext.SaveChanges();
                 }
             }
         }
@@ -148,10 +151,10 @@ namespace InventoryExpress.Model
         /// <param name="id">Die ID des Standortes</param>
         public static void DeleteLocation(string id)
         {
-            lock (Instance.Database)
+            lock (DbContext)
             {
-                var entity = Instance.Locations.Where(x => x.Guid == id).FirstOrDefault();
-                var entityMedia = Instance.Media.Where(x => x.Id == entity.MediaId).FirstOrDefault();
+                var entity = DbContext.Locations.Where(x => x.Guid == id).FirstOrDefault();
+                var entityMedia = DbContext.Media.Where(x => x.Id == entity.MediaId).FirstOrDefault();
 
                 if (entityMedia != null)
                 {
@@ -160,8 +163,27 @@ namespace InventoryExpress.Model
 
                 if (entity != null)
                 {
-                    Instance.Locations.Remove(entity);
+                    DbContext.Locations.Remove(entity);
+                    DbContext.SaveChanges();
                 }
+            }
+        }
+
+        /// <summary>
+        /// Prüft ob der Standort in Verwendung ist
+        /// </summary>
+        /// <param name="location">Der Standort</param>
+        /// <returns>True wenn in Verwendung, false sonst</returns>
+        public static bool GetLocationInUse(WebItemEntityLocation location)
+        {
+            lock (DbContext)
+            {
+                var used = from i in DbContext.Inventories
+                           join l in DbContext.Locations on i.LocationId equals l.Id
+                           where l.Guid == location.ID
+                           select l;
+
+                return used.Any();
             }
         }
     }

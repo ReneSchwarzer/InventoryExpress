@@ -66,8 +66,9 @@ namespace InventoryExpress.WebPage
             var guid = e.Context.Request.GetParameter("ManufacturerID")?.Value;
             var manufacturer = ViewModel.GetManufacturer(guid);
 
+            using var transaction = ViewModel.BeginTransaction();
+
             ViewModel.DeleteManufacturer(guid);
-            ViewModel.Instance.SaveChanges();
 
             NotificationManager.CreateNotification
             (
@@ -84,6 +85,8 @@ namespace InventoryExpress.WebPage
                 icon: new UriRelative(manufacturer.Image),
                 durability: 10000
             );
+
+            transaction.Commit();
         }
 
         /// <summary>

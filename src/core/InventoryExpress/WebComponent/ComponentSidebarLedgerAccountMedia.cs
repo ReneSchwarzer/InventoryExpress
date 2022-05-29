@@ -4,6 +4,7 @@ using WebExpress.Html;
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebComponent;
 using WebExpress.UI.WebControl;
+using WebExpress.Uri;
 using WebExpress.WebApp.WebComponent;
 using WebExpress.WebAttribute;
 using WebExpress.WebPage;
@@ -49,17 +50,12 @@ namespace InventoryExpress.WebComponent
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            lock (ViewModel.Instance.Database)
-            {
-                var guid = context.Request.GetParameter("LedgerAccountID")?.Value;
-                var ledgerAccount = ViewModel.Instance.LedgerAccounts.Where(x => x.Guid == guid).FirstOrDefault();
-                var media = ViewModel.Instance.Media.Where(x => x.Id == (ledgerAccount != null ? ledgerAccount.MediaId : null)).FirstOrDefault();
-                var image = media != null ? context.Uri.Root.Append("media").Append(media.Guid) : null;
+            var guid = context.Request.GetParameter("LedgerAccountID")?.Value;
+            var ledgerAccount = ViewModel.GetLedgerAccount(guid);
 
-                Uri = context.Uri.Append("media");
-
-                Image.Uri = image == null ? context.Uri.Root.Append("/assets/img/inventoryexpress.svg") : image;
-            }
+            Modal = new PropertyModal(TypeModal.Formular, TypeModalSize.Large);
+            Uri = context.Uri.Append("media");
+            Image.Uri = new UriRelative(ledgerAccount.Media?.Uri);
 
             return base.Render(context);
         }

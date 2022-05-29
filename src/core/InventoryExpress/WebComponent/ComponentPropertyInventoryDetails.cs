@@ -1,9 +1,9 @@
 ﻿using InventoryExpress.Model;
-using System.Linq;
 using WebExpress.Html;
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebComponent;
 using WebExpress.UI.WebControl;
+using WebExpress.Uri;
 using WebExpress.WebApp.WebComponent;
 using WebExpress.WebAttribute;
 using WebExpress.WebPage;
@@ -170,46 +170,39 @@ namespace InventoryExpress.WebComponent
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var id = context.Request.GetParameter("InventoryID")?.Value;
+            var guid = context.Request.GetParameter("InventoryID")?.Value;
+            var inventory = ViewModel.GetInventory(guid);
+            var currency = ViewModel.GetSettings()?.Currency;
 
-            lock (ViewModel.Instance.Database)
+            InventoryNumberLink.Text = guid;
+            InventoryNumberLink.Uri = new UriRelative(inventory.Uri);
+
+            ManufacturerAttribute.Value = inventory.Manufacturer?.Name;
+            LocationAttribute.Value = inventory.Location?.Name;
+            SupplierAttribute.Value = inventory.Supplier?.Name;
+            LedgeraccountAttribute.Value = inventory.LedgerAccount?.Name;
+            CostcenterAttribute.Value = inventory.CostCenter?.Name;
+            ConditionAttribute.Value = inventory.Condition?.Name;
+            CostValueAttribute.Value = $"{inventory?.CostValue.ToString(context.Culture)} {(string.IsNullOrWhiteSpace(currency) ? "€" : currency)}";
+            PurchaseDateAttribute.Value = inventory?.PurchaseDate != null ? inventory?.PurchaseDate.Value.ToString("d", context.Culture) : string.Empty;
+
+            DrecognitionDateListItem.Enable = inventory.DerecognitionDate.HasValue;
+            DrecognitionDateAttribute.Value = inventory?.DerecognitionDate != null ? inventory?.DerecognitionDate.Value.ToString("d", context.Culture) : string.Empty;
+
+            AttributesListItem.Content.Clear();
+            AttributesListItem.Enable = false;
+
+            foreach (var attribute in inventory.Attributes)
             {
-                var inventory = ViewModel.Instance.Inventories.Where(x => x.Guid.Equals(id)).FirstOrDefault();
-                var currency = ViewModel.Instance.Settings.FirstOrDefault()?.Currency;
-                var inventoryAttributes = ViewModel.Instance.InventoryAttributes.Where(x => x.InventoryId == inventory.Id).ToList();
-
-                InventoryNumberLink.Text = id;
-                InventoryNumberLink.Uri = context.Uri.Root.Append(id);
-
-                ManufacturerAttribute.Value = ViewModel.Instance.Manufacturers.Where(x => x.Id == inventory.ManufacturerId).FirstOrDefault()?.Name;
-                LocationAttribute.Value = ViewModel.Instance.Locations.Where(x => x.Id == inventory.LocationId).FirstOrDefault()?.Name;
-                SupplierAttribute.Value = ViewModel.Instance.Suppliers.Where(x => x.Id == inventory.SupplierId).FirstOrDefault()?.Name;
-                LedgeraccountAttribute.Value = ViewModel.Instance.LedgerAccounts.Where(x => x.Id == inventory.LedgerAccountId).FirstOrDefault()?.Name;
-                CostcenterAttribute.Value = ViewModel.Instance.CostCenters.Where(x => x.Id == inventory.CostCenterId).FirstOrDefault()?.Name;
-                ConditionAttribute.Value = ViewModel.Instance.Conditions.Where(x => x.Id == inventory.ConditionId)?.FirstOrDefault()?.Name;
-                CostValueAttribute.Value = $"{inventory?.CostValue.ToString(context.Culture)} {(string.IsNullOrWhiteSpace(currency) ? "€" : currency)}";
-                PurchaseDateAttribute.Value = inventory?.PurchaseDate != null ? inventory?.PurchaseDate.Value.ToString("d", context.Culture) : string.Empty;
-
-                DrecognitionDateListItem.Enable = inventory.DerecognitionDate.HasValue;
-                DrecognitionDateAttribute.Value = inventory?.DerecognitionDate != null ? inventory?.DerecognitionDate.Value.ToString("d", context.Culture) : string.Empty;
-
-                AttributesListItem.Content.Clear();
-                AttributesListItem.Enable = false;
-
-                foreach (var v in inventoryAttributes)
+                AttributesListItem.Content.Add(new ControlAttribute()
                 {
-                    var att = ViewModel.Instance.Attributes.Where(x => x.Id == v.AttributeId).FirstOrDefault();
+                    Name = attribute?.Name + ":",
+                    Icon = new PropertyIcon(TypeIcon.Cube),
+                    Value = attribute.Value,
+                    TextColor = new PropertyColorText(TypeColorText.Secondary)
+                });
 
-                    AttributesListItem.Content.Add(new ControlAttribute()
-                    {
-                        Name = att?.Name + ":",
-                        Icon = new PropertyIcon(TypeIcon.Cube),
-                        Value = v.Value,
-                        TextColor = new PropertyColorText(TypeColorText.Secondary)
-                    });
-
-                    AttributesListItem.Enable = true;
-                }
+                AttributesListItem.Enable = true;
             }
 
             return base.Render(context);

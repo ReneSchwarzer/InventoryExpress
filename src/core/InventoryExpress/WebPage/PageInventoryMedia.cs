@@ -1,11 +1,12 @@
 ﻿using InventoryExpress.Model;
-using InventoryExpress.Model.Entity;
+using InventoryExpress.Model.WebItems;
 using InventoryExpress.WebControl;
-using System;
 using System.IO;
-using System.Linq;
+using WebExpress.Internationalization;
 using WebExpress.Message;
 using WebExpress.UI.WebControl;
+using WebExpress.Uri;
+using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
@@ -26,17 +27,12 @@ namespace InventoryExpress.WebPage
         /// <summary>
         /// Formular
         /// </summary>
-        private ControlFormularMedia Form { get; set; }
+        private ControlFormularMedia Form { get; } = new ControlFormularMedia("media");
 
         /// <summary>
         /// Liefert oder setzt das Inventar
         /// </summary>
-        private Inventory Inventory { get; set; }
-
-        /// <summary>
-        /// Liefert oder setzt das Bild
-        /// </summary>
-        private Media Media { get; set; }
+        private WebItemEntityInventory Inventory { get; set; }
 
         /// <summary>
         /// Konstruktor
@@ -53,6 +49,64 @@ namespace InventoryExpress.WebPage
         public override void Initialization(IResourceContext context)
         {
             base.Initialization(context);
+
+            Form.InitializeFormular += InitializeFormular;
+            Form.FillFormular += FillFormular;
+            Form.ProcessFormular += ProcessFormular;
+        }
+
+        /// <summary>
+        /// Wird aufgerufen, wenn das Formular initialisiert wird
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventargumente</param>
+        private void InitializeFormular(object sender, FormularEventArgs e)
+        {
+            Form.RedirectUri = e.Context.Uri.Take(-1);
+        }
+
+        /// <summary>
+        /// Wird aufgerufen, wenn das Formular gefüllt werden soll
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventargumente</param>
+        private void FillFormular(object sender, FormularEventArgs e)
+        {
+            Form.Tag.Value = Inventory.Media?.Tag;
+        }
+
+        /// <summary>
+        /// Wird ausgelöst, wenn das Formular verarbeitet werden soll.
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Die Eventargumente/param>
+        private void ProcessFormular(object sender, FormularEventArgs e)
+        {
+            var file = e.Context.Request.GetParameter(Form.Image.Name) as ParameterFile;
+            using var transaction = ViewModel.BeginTransaction();
+
+            if (file != null)
+            {
+                ViewModel.AddOrUpdateMedia(Inventory.Media, file?.Data);
+            }
+
+            transaction.Commit();
+
+            NotificationManager.CreateNotification
+            (
+                request: e.Context.Request,
+                message: string.Format
+                (
+                    InternationalizationManager.I18N(Culture, "inventoryexpress:inventoryexpress.media.notification.edit"),
+                    new ControlLink()
+                    {
+                        Text = Inventory.Name,
+                        Uri = new UriRelative(ViewModel.GetInventoryUri(Inventory.ID))
+                    }.Render(e.Context).ToString().Trim()
+                ),
+                icon: new UriRelative(Inventory.Image),
+                durability: 10000
+            );
         }
 
         /// <summary>
@@ -63,121 +117,17 @@ namespace InventoryExpress.WebPage
         {
             base.Process(context);
 
-            var visualTree = context.VisualTree;
-
-            Form = new ControlFormularMedia("media")
-            {
-                RedirectUri = context.Uri
-            };
-
             var guid = context.Request.GetParameter("InventoryID")?.Value;
-            lock (ViewModel.Instance.Database)
+            Inventory = ViewModel.GetInventory(guid);
+
+            context.VisualTree.Content.Preferences.Add(new ControlImage()
             {
-                Inventory = ViewModel.Instance.Inventories.Where(x => x.Guid == guid).FirstOrDefault();
-                Media = ViewModel.Instance.Media.Where(x => x.Id == Inventory.MediaId).FirstOrDefault();
-            }
-
-            //AddParam("MediaID", Media?.Guid, ParameterScope.Local);
-
-            Form.InitializeFormular += (s, e) =>
-            {
-
-            };
-
-            Form.Image.Validation += (s, e) =>
-            {
-            };
-
-            visualTree.Content.Preferences.Add(new ControlImage()
-            {
-                Uri = Media != null ? context.Uri.Root.Append($"media/{Media.Guid}") : context.Uri.Root.Append("/assets/img/inventoryexpress.svg"),
+                Uri = Inventory.Media != null ? new UriRelative(Inventory.Media?.Uri) : context.Uri.Root.Append("/assets/img/inventoryexpress.svg"),
                 Width = 400,
                 Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.None, PropertySpacing.Space.None, PropertySpacing.Space.Three)
             });
 
-            visualTree.Content.Primary.Add(Form);
-
-            Form.Tag.Value = Media?.Tag;
-
-            var oldTag = Media?.Tag;
-
-            Form.ProcessFormular += (s, e) =>
-            {
-                var journal = new InventoryJournal()
-                {
-                    InventoryId = Inventory.Id,
-                    Action = "inventoryexpress.journal.action.inventory.media.edit",
-                    Created = DateTime.Now,
-                    Guid = Guid.NewGuid().ToString()
-                };
-
-                lock (ViewModel.Instance.Database)
-                {
-                    if (context.Request.GetParameter(Form.Image.Name) is ParameterFile file)
-                    {
-                        // Image speichern
-                        if (Media == null)
-                        {
-                            Inventory.Media = new Media()
-                            {
-                                Name = file.Value,
-                                Tag = Form.Tag.Value,
-                                Created = DateTime.Now,
-                                Updated = DateTime.Now,
-                                Guid = Guid.NewGuid().ToString()
-                            };
-
-                            ViewModel.Instance.SaveChanges();
-
-                            File.WriteAllBytes(Path.Combine(context.Application.AssetPath, Inventory.Media.Guid), file.Data);
-
-                            journal.Action = "inventoryexpress.journal.action.inventory.media.add";
-                        }
-                        else
-                        {
-                            // Image ändern
-                            Media.Name = file.Value;
-                            Media.Tag = Form.Tag.Value;
-                            Media.Updated = DateTime.Now;
-
-                            ViewModel.Instance.SaveChanges();
-
-                            File.WriteAllBytes(Path.Combine(context.Application.AssetPath, Media.Guid), file.Data);
-
-                            ViewModel.Instance.InventoryJournalParameters.Add(new InventoryJournalParameter()
-                            {
-                                InventoryJournal = journal,
-                                Name = "inventoryexpress.media.form.image.label",
-                                OldValue = "...",
-                                NewValue = "...",
-                                Guid = Guid.NewGuid().ToString()
-                            });
-                        }
-                    }
-
-                    ViewModel.Instance.InventoryJournals.Add(journal);
-                    ViewModel.Instance.SaveChanges();
-
-                    if (Form.Tag.Value != Media?.Tag)
-                    {
-                        Inventory.Media.Tag = Form.Tag.Value;
-                    }
-
-                    if (!string.IsNullOrWhiteSpace(oldTag) && oldTag != Media?.Tag)
-                    {
-                        ViewModel.Instance.InventoryJournalParameters.Add(new InventoryJournalParameter()
-                        {
-                            InventoryJournal = journal,
-                            Name = "inventoryexpress.inventory.tags.label",
-                            OldValue = oldTag,
-                            NewValue = Media?.Tag,
-                            Guid = Guid.NewGuid().ToString()
-                        });
-                    }
-
-                    ViewModel.Instance.SaveChanges();
-                }
-            };
+            context.VisualTree.Content.Primary.Add(Form);
         }
     }
 }

@@ -197,7 +197,6 @@ namespace InventoryExpress.WebControl
         {
             Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Three, PropertySpacing.Space.None, PropertySpacing.Space.None);
             BackgroundColor = LayoutSchema.FormularBackground;
-            Border = new PropertyBorder(true);
             Padding = new PropertySpacingPadding(PropertySpacing.Space.Two);
             Layout = TypeLayoutFormular.Horizontal;
 
@@ -239,126 +238,6 @@ namespace InventoryExpress.WebControl
             Template.RestUri = context.Uri.Root.Append("api/v1/templates");
             Tag.RestUri = context.Uri.Root.Append("api/v1/tags");
             Template.OnChange = new PropertyOnChange($"$('#{ID}').submit();");
-
-            var guid = context.Request.GetParameter("InventoryID")?.Value;
-
-            if (Edit)
-            {
-                lock (ViewModel.Instance.Database)
-                {
-
-                    var inventory = ViewModel.Instance.Inventories.Where(x => x.Guid == guid).FirstOrDefault();
-                    var attributesForm = new List<ControlFormularItemInputTextBox>();
-                    var attributes = new List<InventoryAttribute>();
-
-                    var templateGUID = context.Request.HasParameter(Template?.Name) ?
-                        context.Request.GetParameter(Template?.Name)?.Value :
-                        ViewModel.Instance.Templates.Where(x => x.Id == inventory.TemplateId).FirstOrDefault()?.Guid;
-
-                    SetAttributes(inventory, templateGUID);
-                }
-            }
-            else
-            {
-                var templateGUID = context.Request.GetParameter(Template?.Name)?.Value;
-                SetAttributes(templateGUID);
-            }
-        }
-
-        /// <summary>
-        /// Übernahme der Attribute
-        /// </summary>
-        /// <param name="templateGUID">Die GUID der Attributvorlage</param>
-        protected void SetAttributes(string templateGUID)
-        {
-            if (string.IsNullOrWhiteSpace(templateGUID))
-            {
-                return;
-            }
-
-            var attributesForm = new List<ControlFormularItemInputTextBox>();
-
-            lock (ViewModel.Instance.Database)
-            {
-                var template = ViewModel.Instance.Templates.Where(x => x.Guid == templateGUID).FirstOrDefault();
-                var attributes = from x in ViewModel.Instance.TemplateAttributes.Where(x => x.TemplateId == template.Id)
-                                 join y in ViewModel.Instance.Attributes on x.AttributeId equals y.Id
-                                 select y;
-
-                foreach (var attribute in attributes)
-                {
-                    attributesForm.Add(new ControlFormularItemInputTextBox()
-                    {
-                        Name = "attribute_" + attribute.Guid,
-                        Label = $"{attribute.Name}:",
-                        Help = attribute.Description,
-                        Tag = attribute
-                    });
-                }
-            }
-
-            attributesForm.ForEach(x => Attributes?.Items.Add(x));
-        }
-
-        /// <summary>
-        /// Übernahme der Attribute
-        /// </summary>
-        /// <param name="inventory">Der Inventargegenstand</param>
-        /// <param name="templateGUID">Die GUID der Attributvorlage</param>
-        protected void SetAttributes(Inventory inventory, string templateGUID)
-        {
-            lock (ViewModel.Instance.Database)
-            {
-                var attributesForm = new List<ControlFormularItemInputTextBox>();
-                var attributes = new List<InventoryAttribute>();
-
-                var template = ViewModel.Instance.Templates.Where(x => x.Guid == templateGUID).FirstOrDefault();
-
-                // nur gefüllte Attribute übernehmen
-                attributes.AddRange(ViewModel.Instance.InventoryAttributes.Where(x => x.InventoryId == inventory.Id && !string.IsNullOrWhiteSpace(x.Value)));
-
-                // Template-Attribute übernehmen
-                if (template != null)
-                {
-                    foreach (var ta in ViewModel.Instance.TemplateAttributes.Where(x => x.TemplateId == template.Id))
-                    {
-                        var att = ViewModel.Instance.Attributes.Where(x => x.Id == ta.AttributeId).FirstOrDefault();
-
-                        if (attributes.Find
-                            (
-                                f =>
-                                f.Attribute != null && f.Attribute.Name.Equals
-                                (
-                                    att?.Name,
-                                    StringComparison.OrdinalIgnoreCase
-                                )
-                            ) == null)
-                        {
-                            attributes.Add(new InventoryAttribute()
-                            {
-                                AttributeId = ta.AttributeId,
-                                InventoryId = inventory.Id,
-                                Attribute = att,
-                                Inventory = inventory,
-                                Created = DateTime.Now
-                            });
-                        }
-                    }
-                }
-
-                foreach (var attribute in attributes)
-                {
-                    attributesForm.Add(new ControlFormularItemInputTextBox()
-                    {
-                        Name = "attribute_" + attribute.Attribute.Guid,
-                        Label = $"{attribute.Attribute.Name}:",
-                        Help = attribute.Attribute.Description,
-                        Tag = attribute
-                    });
-                }
-
-                attributesForm.ForEach(x => Attributes?.Items.Add(x));
-            }
         }
 
         /// <summary>
@@ -373,16 +252,17 @@ namespace InventoryExpress.WebControl
                 e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.inventory.validation.name.invalid"));
             }
 
-            lock (ViewModel.Instance.Database)
-            {
-                var guid = e.Context.Request.GetParameter("InventoryID")?.Value;
-                var inventory = ViewModel.Instance.Inventories.Where(x => x.Guid == guid).FirstOrDefault();
+            //lock (ViewModel.Instance.Database)
+            //{
+            var guid = e.Context.Request.GetParameter("InventoryID")?.Value;
+            var inventory = ViewModel.GetInventory(guid);
+            //var inventory = ViewModel.GetInventoryByName(e.Value);
 
-                if (inventory != null && !inventory.Name.Equals(e.Value, StringComparison.InvariantCultureIgnoreCase) && ViewModel.Instance.Inventories.Where(x => x.Name.Equals(e.Value)).Any())
-                {
-                    e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.inventory.validation.name.used"));
-                }
-            }
+            //    if (inventory != null && !inventory.Name.Equals(e.Value, StringComparison.InvariantCultureIgnoreCase) && ViewModel.Instance.Inventories.Where(x => x.Name.Equals(e.Value)).Any())
+            //    {
+            //        e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.inventory.validation.name.used"));
+            //    }
+            //}
         }
 
         /// <summary>

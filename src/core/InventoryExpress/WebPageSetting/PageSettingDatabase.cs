@@ -47,9 +47,10 @@ namespace InventoryExpress.WebPageSetting
             base.Process(context);
 
             var visualTree = context.VisualTree;
+            var dbInfo = ViewModel.GetDbInfo();
 
-            var providerName = ViewModel.Instance.Database.ProviderName;
-            var dataSource = ViewModel.Instance.DataSource;
+            var providerName = dbInfo.ProviderName;
+            var dataSource = dbInfo.DataSource;
             var file = new FileInfo(dataSource);
             var fileSize = string.Format(new FileSizeFormatProvider() { Culture = Culture }, "{0:fs}", file.Exists ? file.Length : 0);
 

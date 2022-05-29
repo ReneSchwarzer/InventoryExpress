@@ -66,8 +66,9 @@ namespace InventoryExpress.WebPage
             var guid = e.Context.Request.GetParameter("CostCenterID")?.Value;
             var costcenter = ViewModel.GetCostCenter(guid);
 
+            using var transaction = ViewModel.BeginTransaction();
+
             ViewModel.DeleteCostCenter(guid);
-            ViewModel.Instance.SaveChanges();
 
             NotificationManager.CreateNotification
             (
@@ -84,6 +85,8 @@ namespace InventoryExpress.WebPage
                 icon: new UriRelative(costcenter.Image),
                 durability: 10000
             );
+
+            transaction.Commit();
         }
 
         /// <summary>
