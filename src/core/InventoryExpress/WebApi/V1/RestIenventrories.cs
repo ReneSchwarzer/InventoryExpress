@@ -2,6 +2,7 @@
 using InventoryExpress.Model.WebItems;
 using System.Collections.Generic;
 using System.Linq;
+using WebExpress.Internationalization;
 using WebExpress.Message;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebApiControl;
@@ -9,7 +10,6 @@ using WebExpress.WebApp.WebResource;
 using WebExpress.WebApp.Wql;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
-using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace InventoryExpress.WebApi.V1
 {
@@ -48,36 +48,36 @@ namespace InventoryExpress.WebApi.V1
         {
             return new ResourceRestCrudColumn[]
             {
-                new ResourceRestCrudColumn(I18N(request, "inventoryexpress:inventoryexpress.inventory.label"))
+                new ResourceRestCrudColumn(InternationalizationManager.I18N(request, "inventoryexpress:inventoryexpress.inventory.label"))
                 {
                     Render = "return $(\"<a class='link' href='\" + item.uri + \"'>\" + item.name + \"</a>\");",
                     Width = 10
                 },
-                new ResourceRestCrudColumn(I18N(request, "inventoryexpress:inventoryexpress.template.label"))
+                new ResourceRestCrudColumn(InternationalizationManager.I18N(request, "inventoryexpress:inventoryexpress.template.label"))
                 {
                     Render = "return $(\"<a class='link' href='\" + item.template?.Uri + \"'>\" + item.template?.name + \"</a>\");"
                 },
-                new ResourceRestCrudColumn(I18N(request, "inventoryexpress:inventoryexpress.manufacturer.label"))
+                new ResourceRestCrudColumn(InternationalizationManager.I18N(request, "inventoryexpress:inventoryexpress.manufacturer.label"))
                 {
                     Render = "return $(\"<a class='link' href='\" + item.manufacturer?.Uri + \"'>\" + item.manufacturer?.name + \"</a>\");"
                 },
-                new ResourceRestCrudColumn(I18N(request, "inventoryexpress:inventoryexpress.supplier.label"))
+                new ResourceRestCrudColumn(InternationalizationManager.I18N(request, "inventoryexpress:inventoryexpress.supplier.label"))
                 {
                     Render = "return $(\"<a class='link' href='\" + item.supplier?.uri + \"'>\" + item.supplier?.name + \"</a>\");"
                 },
-                new ResourceRestCrudColumn(I18N(request, "inventoryexpress:inventoryexpress.location.label"))
+                new ResourceRestCrudColumn(InternationalizationManager.I18N(request, "inventoryexpress:inventoryexpress.location.label"))
                 {
                     Render = "return $(\"<a class='link' href='\" + item.location?.uri + \"'>\" + item.location?.name + \"</a>\");"
                 },
-                new ResourceRestCrudColumn(I18N(request, "inventoryexpress:inventoryexpress.costcenter.label"))
+                new ResourceRestCrudColumn(InternationalizationManager.I18N(request, "inventoryexpress:inventoryexpress.costcenter.label"))
                 {
                     Render = "return $(\"<a class='link' href='\" + item.costcenter?.uri + \"'>\" + item.costcenter?.name + \"</a>\");"
                 },
-                new ResourceRestCrudColumn(I18N(request, "inventoryexpress:inventoryexpress.ledgeraccount.label"))
+                new ResourceRestCrudColumn(InternationalizationManager.I18N(request, "inventoryexpress:inventoryexpress.ledgeraccount.label"))
                 {
                     Render = "return $(\"<a class='link' href='\" + item.ledgeraccount?.uri + \"'>\" + item.ledgeraccount?.name + \"</a>\");"
                 },
-                new ResourceRestCrudColumn(I18N(request, "inventoryexpress:inventoryexpress.condition.label"))
+                new ResourceRestCrudColumn(InternationalizationManager.I18N(request, "inventoryexpress:inventoryexpress.condition.label"))
                 {
                     Render = "return $(\"<img style='height:1em;' src='\" + item.condition?.image + \"' alt='\" + item.condition?.name + \"'/>\");"
                 }

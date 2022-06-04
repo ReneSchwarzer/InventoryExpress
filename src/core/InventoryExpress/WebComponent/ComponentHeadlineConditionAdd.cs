@@ -5,7 +5,6 @@ using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebComponent;
 using WebExpress.WebAttribute;
 using WebExpress.WebPage;
-using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace InventoryExpress.WebComponent
 {
@@ -20,6 +19,10 @@ namespace InventoryExpress.WebComponent
         public ComponentHeadlineConditionAdd()
         {
             Margin = new PropertySpacingMargin(PropertySpacing.Space.Two);
+            Text = "inventoryexpress:inventoryexpress.condition.add.label";
+            Icon = new PropertyIcon(TypeIcon.Plus);
+            BackgroundColor = new PropertyColorButton(TypeColorButton.Primary);
+            Modal = new PropertyModal(TypeModal.Formular, TypeModalSize.Large);
         }
 
         /// <summary>
@@ -39,12 +42,7 @@ namespace InventoryExpress.WebComponent
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            Text = I18N(context.Culture, "inventoryexpress:inventoryexpress.condition.add.label");
-            Icon = new PropertyIcon(TypeIcon.Plus);
-            BackgroundColor = new PropertyColorButton(TypeColorButton.Primary);
             Uri = context.Application.ContextPath.Append("setting/conditions/add/");
-
-            Modal = new PropertyModal(TypeModal.Formular, TypeModalSize.Large);
 
             return base.Render(context);
         }

@@ -37,7 +37,7 @@ namespace InventoryExpress.WebComponent
         {
             TextColor = new PropertyColorText(TypeColorText.Secondary),
             Icon = new PropertyIcon(TypeIcon.Industry),
-            Name = "inventoryexpress:inventoryexpress.inventory.manufacturers.label"
+            Name = "inventoryexpress:inventoryexpress.inventory.manufacturer.label"
         };
 
         /// <summary>

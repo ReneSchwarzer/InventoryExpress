@@ -1,15 +1,12 @@
 ﻿using InventoryExpress.Model;
 using System.Collections.Generic;
-using System.Linq;
+using WebExpress.Internationalization;
 using WebExpress.Message;
-using WebExpress.UI.WebControl;
 using WebExpress.WebApp.Model;
-using WebExpress.WebApp.WebApiControl;
 using WebExpress.WebApp.WebResource;
 using WebExpress.WebApp.Wql;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
-using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace InventoryExpress.WebApi.V1
 {
@@ -48,7 +45,7 @@ namespace InventoryExpress.WebApi.V1
         {
             return new ResourceRestCrudColumn[]
             {
-                new ResourceRestCrudColumn(I18N(request, "inventoryexpress:inventoryexpress.suppliers.label"))
+                new ResourceRestCrudColumn(InternationalizationManager.I18N(request, "inventoryexpress:inventoryexpress.suppliers.label"))
                 {
                     Render = "return item.name;",
                     Width = 5
@@ -64,7 +61,7 @@ namespace InventoryExpress.WebApi.V1
         /// <returns>Eine Aufzählung, welche JsonSerializer serialisiert werden kann.</returns>
         public override IEnumerable<WebItem> GetData(WqlStatement wql, Request request)
         {
-            var suppliers = ViewModel.GetSuppliers(wql); 
+            var suppliers = ViewModel.GetSuppliers(wql);
 
             return suppliers;
         }
@@ -80,7 +77,7 @@ namespace InventoryExpress.WebApi.V1
             using var transaction = ViewModel.BeginTransaction();
 
             ViewModel.DeleteSupplier(id);
-            
+
             transaction.Commit();
 
             return true;

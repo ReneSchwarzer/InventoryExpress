@@ -12,7 +12,6 @@ using WebExpress.WebApp.WebComponent;
 using WebExpress.WebApp.WebControl;
 using WebExpress.WebAttribute;
 using WebExpress.WebPage;
-using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace InventoryExpress.WebComponent
 {
@@ -27,6 +26,9 @@ namespace InventoryExpress.WebComponent
         public ComponentHeadlineInventoryAttachmentAdd()
         {
             Margin = new PropertySpacingMargin(PropertySpacing.Space.Two);
+            Text = "inventoryexpress:inventoryexpress.media.file.add.label";
+            Icon = new PropertyIcon(TypeIcon.Plus);
+            BackgroundColor = new PropertyColorButton(TypeColorButton.Primary);
         }
 
         /// <summary>
@@ -110,10 +112,7 @@ namespace InventoryExpress.WebComponent
             //        }
             //    }
             //};
-
-            Text = I18N(context.Culture, "inventoryexpress:inventoryexpress.media.file.add.label");
-            Icon = new PropertyIcon(TypeIcon.Plus);
-            BackgroundColor = new PropertyColorButton(TypeColorButton.Primary);
+           
             Value = inventory?.Created.ToString(context.Page.Culture.DateTimeFormat.ShortDatePattern);
 
             //Modal = new PropertyModal(TypeModal.Modal, form);

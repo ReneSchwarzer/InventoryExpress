@@ -32,7 +32,8 @@ namespace InventoryExpress.Model.WebItems
         /// <param name="parameter">Das Datenbankobjekt</param>
         public WebItemEntityJournalParameter(InventoryJournalParameter parameter)
         {
-            ID = parameter.Guid;
+            Id = parameter.Guid;
+            Name = parameter.Name;
             OldValue = parameter.OldValue;
             NewValue = parameter.NewValue;
         }

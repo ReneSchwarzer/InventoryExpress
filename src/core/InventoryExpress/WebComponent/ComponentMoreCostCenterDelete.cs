@@ -22,6 +22,8 @@ namespace InventoryExpress.WebComponent
         public ComponentMoreCostCenterDelete()
         {
             TextColor = new PropertyColorText(TypeColorText.Danger);
+            Text = "inventoryexpress:inventoryexpress.delete.label";
+            Icon = new PropertyIcon(TypeIcon.Trash);
         }
 
         /// <summary>
@@ -44,15 +46,12 @@ namespace InventoryExpress.WebComponent
             var guid = context.Request.GetParameter("CostCenterID")?.Value;
             var costCenter = ViewModel.GetCostCenter(guid);
             var inUse = ViewModel.GetCostCenterInUse(costCenter);
-
-            Text = InternationalizationManager.I18N(context.Culture, "inventoryexpress:inventoryexpress.delete.label");
-            Icon = new PropertyIcon(TypeIcon.Trash);
-
+            
             Active = inUse ? TypeActive.Disabled : TypeActive.None;
             TextColor = inUse ? new PropertyColorText(TypeColorText.Muted) : TextColor;
 
             Uri = context.Uri.Append("del");
-            Modal = new PropertyModal(TypeModal.Formular, TypeModalSize.Default);
+            Modal = new PropertyModal(TypeModal.Formular, TypeModalSize.Default) { RedirectUri = context.Application.ContextPath.Append("costcenters") };
 
             return base.Render(context);
         }

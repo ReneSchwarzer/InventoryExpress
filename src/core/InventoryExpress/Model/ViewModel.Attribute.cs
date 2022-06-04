@@ -45,7 +45,7 @@ namespace InventoryExpress.Model
                 var attributes = from t in DbContext.Templates
                                  join ta in DbContext.TemplateAttributes on t.Id equals ta.TemplateId
                                  join a in DbContext.Attributes on ta.AttributeId equals a.Id
-                                 where t.Guid == template.ID
+                                 where t.Guid == template.Id
                                  select new WebItemEntityAttribute(a);
 
                 return attributes.ToList();
@@ -64,7 +64,7 @@ namespace InventoryExpress.Model
                 var attributes = from i in DbContext.Inventories
                                  join ia in DbContext.InventoryAttributes on i.Id equals ia.InventoryId
                                  join a in DbContext.Attributes on ia.AttributeId equals a.Id
-                                 where i.Guid == inventory.ID
+                                 where i.Guid == inventory.Id
                                  select new WebItemEntityInventoryAttribute(ia, a);
 
                 return attributes.ToList();
@@ -94,21 +94,21 @@ namespace InventoryExpress.Model
         {
             lock (DbContext)
             {
-                var availableEntity = DbContext.Attributes.Where(x => x.Guid == attribute.ID).FirstOrDefault();
+                var availableEntity = DbContext.Attributes.Where(x => x.Guid == attribute.Id).FirstOrDefault();
 
                 if (availableEntity == null)
                 {
                     // Neu erstellen
                     var entity = new Attribute()
                     {
-                        Guid = attribute.ID,
+                        Guid = attribute.Id,
                         Name = attribute.Name,
                         Description = attribute.Description,
                         Created = System.DateTime.Now,
                         Updated = System.DateTime.Now,
                         Media = new Media()
                         {
-                            Guid = attribute.Media?.ID,
+                            Guid = attribute.Media?.Id,
                             Name = attribute.Media?.Name ?? "",
                             Description = attribute.Media?.Description,
                             Tag = attribute.Media?.Tag,
@@ -123,7 +123,7 @@ namespace InventoryExpress.Model
                 else
                 {
                     // Update
-                    var availableMedia = attribute.Media != null ? DbContext.Media.Where(x => x.Guid == attribute.Media.ID).FirstOrDefault() : null;
+                    var availableMedia = attribute.Media != null ? DbContext.Media.Where(x => x.Guid == attribute.Media.Id).FirstOrDefault() : null;
 
                     availableEntity.Name = attribute.Name;
                     availableEntity.Description = attribute.Description;
@@ -133,7 +133,7 @@ namespace InventoryExpress.Model
                     {
                         var media = new Media()
                         {
-                            Guid = attribute.Media?.ID,
+                            Guid = attribute.Media?.Id,
                             Name = attribute.Media?.Name,
                             Description = attribute.Media?.Description,
                             Tag = attribute.Media?.Tag,
@@ -192,7 +192,7 @@ namespace InventoryExpress.Model
                 var used = from i in DbContext.Inventories
                            join ia in DbContext.InventoryAttributes on i.Id equals ia.InventoryId
                            join a in DbContext.Attributes on ia.AttributeId equals a.Id
-                           where a.Guid == attribute.ID
+                           where a.Guid == attribute.Id
                            select a;
 
                 return used.Any();

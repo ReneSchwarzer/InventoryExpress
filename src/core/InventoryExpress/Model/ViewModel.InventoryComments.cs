@@ -19,7 +19,7 @@ namespace InventoryExpress.Model
             {
                 var comments = from i in DbContext.Inventories
                                join c in DbContext.InventoryComments on i.Id equals c.InventoryId
-                               where i.Guid == inventory.ID
+                               where i.Guid == inventory.Id
                                select new WebItemEntityComment(c);
 
                 return comments.ToList();
@@ -35,11 +35,11 @@ namespace InventoryExpress.Model
         {
             lock (DbContext)
             {
-                var inventoryEntity = DbContext.Inventories.Where(x => x.Guid == inventory.ID).FirstOrDefault();
+                var inventoryEntity = DbContext.Inventories.Where(x => x.Guid == inventory.Id).FirstOrDefault();
                 var commentEntity = new InventoryComment()
                 {
                     InventoryId = inventoryEntity.Id,
-                    Guid = comment.ID,
+                    Guid = comment.Id,
                     Comment = comment.Comment,
                     Created = DateTime.Now,
                     Updated = DateTime.Now

@@ -102,8 +102,10 @@ namespace InventoryExpress.WebPage
 
             if (file != null)
             {
-                ViewModel.AddOrUpdateMedia(location.Media, file?.Data);
+                ViewModel.AddOrUpdateMedia(location.Media, file);
             }
+
+            transaction.Commit();
 
             NotificationManager.CreateNotification
             (
@@ -114,16 +116,14 @@ namespace InventoryExpress.WebPage
                     new ControlLink()
                     {
                         Text = location.Name,
-                        Uri = new UriRelative(ViewModel.GetLocationUri(location.ID))
+                        Uri = new UriRelative(ViewModel.GetLocationUri(location.Id))
                     }.Render(e.Context).ToString().Trim()
                 ),
                 icon: new UriRelative(location.Image),
                 durability: 10000
             );
 
-            transaction.Commit();
-
-            Form.RedirectUri = Form.RedirectUri.Append(location.ID);
+            Form.RedirectUri = Form.RedirectUri.Append(location.Id);
         }
 
         /// <summary>

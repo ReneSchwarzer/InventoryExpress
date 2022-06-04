@@ -60,7 +60,7 @@ namespace InventoryExpress.Model
             {
                 var template = from i in DbContext.Inventories
                                join t in DbContext.Templates on i.TemplateId equals t.Id
-                               where i.Guid == inventory.ID
+                               where i.Guid == inventory.Id
                                select new WebItemEntityTemplate(t);
 
                 return template.FirstOrDefault();
@@ -75,14 +75,14 @@ namespace InventoryExpress.Model
         {
             lock (DbContext)
             {
-                var availableEntity = DbContext.Templates.Where(x => x.Guid == template.ID).FirstOrDefault();
+                var availableEntity = DbContext.Templates.Where(x => x.Guid == template.Id).FirstOrDefault();
 
                 if (availableEntity == null)
                 {
                     // Neu erstellen
                     var entity = new Template()
                     {
-                        Guid = template.ID,
+                        Guid = template.Id,
                         Name = template.Name,
                         Description = template.Description,
                         Tag = template.Tag,
@@ -90,7 +90,7 @@ namespace InventoryExpress.Model
                         Updated = DateTime.Now,
                         Media = new Media()
                         {
-                            Guid = template.Media?.ID,
+                            Guid = template.Media?.Id,
                             Name = template.Media?.Name ?? "",
                             Description = template.Media?.Description,
                             Tag = template.Media?.Tag,
@@ -105,7 +105,7 @@ namespace InventoryExpress.Model
                 else
                 {
                     // Update
-                    var availableMedia = template.Media != null ? DbContext.Media.Where(x => x.Guid == template.Media.ID).FirstOrDefault() : null;
+                    var availableMedia = template.Media != null ? DbContext.Media.Where(x => x.Guid == template.Media.Id).FirstOrDefault() : null;
 
                     availableEntity.Name = template.Name;
                     availableEntity.Description = template.Description;
@@ -116,7 +116,7 @@ namespace InventoryExpress.Model
                     {
                         var media = new Media()
                         {
-                            Guid = template.Media?.ID,
+                            Guid = template.Media?.Id,
                             Name = template.Media?.Name,
                             Description = template.Media?.Description,
                             Tag = template.Media?.Tag,
@@ -174,7 +174,7 @@ namespace InventoryExpress.Model
             {
                 var used = from i in DbContext.Inventories
                            join t in DbContext.Templates on i.TemplateId equals t.Id
-                           where t.Guid == template.ID
+                           where t.Guid == template.Id
                            select t;
 
                 return used.Any();

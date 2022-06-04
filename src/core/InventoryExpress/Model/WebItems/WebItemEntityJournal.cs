@@ -23,14 +23,14 @@ namespace InventoryExpress.Model.WebItems
         /// <summary>
         /// Verweis auf die Parameter
         /// </summary>
-        public virtual IEnumerable<WebItemEntityJournalParameter> Parameters { get; private set; } = new List<WebItemEntityJournalParameter>();
+        public virtual IEnumerable<WebItemEntityJournalParameter> Parameters { get; set; } = new List<WebItemEntityJournalParameter>();
 
         /// <summary>
         /// Konstruktor
         /// </summary>
         public WebItemEntityJournal()
         {
-            ID = Guid.NewGuid().ToString();
+            Id = Guid.NewGuid().ToString();
         }
 
         /// <summary>
@@ -48,8 +48,9 @@ namespace InventoryExpress.Model.WebItems
         /// <param name="journal">Das Datenbankobjekt</param>
         public WebItemEntityJournal(InventoryJournal journal)
         {
-            ID = journal.Guid;
+            Id = journal.Guid;
             Action = journal.Action;
+            Created = journal.Created;
         }
     }
 }

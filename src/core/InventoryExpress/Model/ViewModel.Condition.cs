@@ -99,7 +99,7 @@ namespace InventoryExpress.Model
             {
                 var condition = from i in DbContext.Inventories
                                 join c in DbContext.Conditions on i.ConditionId equals c.Id
-                                where i.Guid == inventory.ID
+                                where i.Guid == inventory.Id
                                 select new WebItemEntityCondition(c);
 
                 return condition.FirstOrDefault();
@@ -114,14 +114,14 @@ namespace InventoryExpress.Model
         {
             lock (DbContext)
             {
-                var availableEntity = DbContext.Conditions.Where(x => x.Guid == condition.ID).FirstOrDefault();
+                var availableEntity = DbContext.Conditions.Where(x => x.Guid == condition.Id).FirstOrDefault();
 
                 if (availableEntity == null)
                 {
                     // Neu erstellen
                     var entity = new Condition()
                     {
-                        Guid = condition.ID,
+                        Guid = condition.Id,
                         Name = condition.Name,
                         Description = condition.Description,
                         Grade = condition.Grade,
@@ -129,7 +129,7 @@ namespace InventoryExpress.Model
                         Updated = DateTime.Now,
                         Media = new Media()
                         {
-                            Guid = condition.Media?.ID,
+                            Guid = condition.Media?.Id,
                             Name = condition.Media?.Name ?? "",
                             Description = condition.Media?.Description,
                             Tag = condition.Media?.Tag,
@@ -144,7 +144,7 @@ namespace InventoryExpress.Model
                 else
                 {
                     // Update
-                    var availableMedia = condition.Media != null ? DbContext.Media.Where(x => x.Guid == condition.Media.ID).FirstOrDefault() : null;
+                    var availableMedia = condition.Media != null ? DbContext.Media.Where(x => x.Guid == condition.Media.Id).FirstOrDefault() : null;
 
                     availableEntity.Name = condition.Name;
                     availableEntity.Description = condition.Description;
@@ -155,7 +155,7 @@ namespace InventoryExpress.Model
                     {
                         var media = new Media()
                         {
-                            Guid = condition.Media?.ID,
+                            Guid = condition.Media?.Id,
                             Name = condition.Media?.Name,
                             Description = condition.Media?.Description,
                             Tag = condition.Media?.Tag,
@@ -213,7 +213,7 @@ namespace InventoryExpress.Model
             {
                 var used = from i in DbContext.Inventories
                            join c in DbContext.Conditions on i.ConditionId equals c.Id
-                           where c.Guid == condition.ID
+                           where c.Guid == condition.Id
                            select c;
 
                 return used.Any();

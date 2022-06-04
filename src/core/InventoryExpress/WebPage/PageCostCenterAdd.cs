@@ -94,7 +94,7 @@ namespace InventoryExpress.WebPage
 
             if (file != null)
             {
-                ViewModel.AddOrUpdateMedia(costcenter.Media, file?.Data);
+                ViewModel.AddOrUpdateMedia(costcenter.Media, file);
             }
 
             transaction.Commit();
@@ -108,14 +108,14 @@ namespace InventoryExpress.WebPage
                     new ControlLink()
                     {
                         Text = costcenter.Name,
-                        Uri = new UriRelative(ViewModel.GetCostCenterUri(costcenter.ID))
+                        Uri = new UriRelative(ViewModel.GetCostCenterUri(costcenter.Id))
                     }.Render(e.Context).ToString().Trim()
                 ),
                 icon: new UriRelative(costcenter.Image),
                 durability: 10000
             );
 
-            Form.RedirectUri = Form.RedirectUri.Append(costcenter.ID);
+            Form.RedirectUri = Form.RedirectUri.Append(costcenter.Id);
         }
 
         /// <summary>

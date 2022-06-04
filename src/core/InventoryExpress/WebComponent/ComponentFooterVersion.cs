@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using WebExpress.Html;
+using WebExpress.Internationalization;
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebComponent;
 using WebExpress.UI.WebControl;
@@ -7,7 +8,6 @@ using WebExpress.WebApp.WebComponent;
 using WebExpress.WebAttribute;
 using WebExpress.WebPage;
 using WebExpress.WebPlugin;
-using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace InventoryExpress.WebComponent
 {
@@ -49,7 +49,7 @@ namespace InventoryExpress.WebComponent
 
             Text = string.Format
             (
-                I18N(context.Culture, "inventoryexpress:inventoryexpress.footer.version.label"),
+                InternationalizationManager.I18N(context.Culture, "inventoryexpress:inventoryexpress.footer.version.label"),
                 inventoryExpress?.PluginName,
                 inventoryExpress?.Version,
                 webexpress?.PluginName,

@@ -1,4 +1,5 @@
 ﻿using WebExpress.Html;
+using WebExpress.Internationalization;
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebComponent;
 using WebExpress.UI.WebControl;
@@ -6,7 +7,6 @@ using WebExpress.Uri;
 using WebExpress.WebApp.WebComponent;
 using WebExpress.WebAttribute;
 using WebExpress.WebPage;
-using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace InventoryExpress.WebComponent
 {
@@ -52,8 +52,8 @@ namespace InventoryExpress.WebComponent
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            LicenceLink.Text = I18N(context.Culture, "inventoryexpress:inventoryexpress.footer.licence.label");
-            LicenceLink.Uri = new UriAbsolute(I18N(context.Culture, "inventoryexpress:inventoryexpress.footer.licence.uri"));
+            LicenceLink.Text = InternationalizationManager.I18N(context.Culture, "inventoryexpress:inventoryexpress.footer.licence.label");
+            LicenceLink.Uri = new UriAbsolute(InternationalizationManager.I18N(context.Culture, "inventoryexpress:inventoryexpress.footer.licence.uri"));
 
             return base.Render(context);
         }

@@ -76,7 +76,7 @@ namespace InventoryExpress.WebPageSetting
             {
                 Form.Attributes.Options.Add(new ControlFormularItemInputSelectionItem()
                 {
-                    ID = v.ID,
+                    ID = v.Id,
                     Label = v.Name
                 });
             }
@@ -110,7 +110,7 @@ namespace InventoryExpress.WebPageSetting
 
             if (file != null)
             {
-                ViewModel.AddOrUpdateMedia(template.Media, file?.Data);
+                ViewModel.AddOrUpdateMedia(template.Media, file);
             }
 
             transaction.Commit();
@@ -124,14 +124,14 @@ namespace InventoryExpress.WebPageSetting
                     new ControlLink()
                     {
                         Text = template.Name,
-                        Uri = new UriRelative(ViewModel.GetTemplateUri(template.ID))
+                        Uri = new UriRelative(ViewModel.GetTemplateUri(template.Id))
                     }.Render(e.Context).ToString().Trim()
                 ),
                 icon: new UriRelative(template.Image),
                 durability: 10000
             );
 
-            Form.RedirectUri = Form.RedirectUri.Append(template.ID);
+            Form.RedirectUri = Form.RedirectUri.Append(template.Id);
         }
 
         /// <summary>

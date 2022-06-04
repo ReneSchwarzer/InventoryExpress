@@ -1,15 +1,12 @@
 ﻿using InventoryExpress.Model;
 using InventoryExpress.Model.WebItems;
 using System.Collections.Generic;
-using System.Linq;
+using WebExpress.Internationalization;
 using WebExpress.Message;
-using WebExpress.UI.WebControl;
-using WebExpress.WebApp.WebApiControl;
 using WebExpress.WebApp.WebResource;
 using WebExpress.WebApp.Wql;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
-using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace InventoryExpress.WebApi.V1
 {
@@ -48,7 +45,7 @@ namespace InventoryExpress.WebApi.V1
         {
             return new ResourceRestCrudColumn[]
             {
-                new ResourceRestCrudColumn(I18N(request, "inventoryexpress:inventoryexpress.manufacturer.label"))
+                new ResourceRestCrudColumn(InternationalizationManager.I18N(request, "inventoryexpress:inventoryexpress.manufacturer.label"))
                 {
                     Render = "return item.name;",
                     Width = 5
@@ -64,7 +61,7 @@ namespace InventoryExpress.WebApi.V1
         /// <returns>Eine Aufzählung, welche JsonSerializer serialisiert werden kann.</returns>
         public override IEnumerable<WebItemEntityManufacturer> GetData(WqlStatement wql, Request request)
         {
-            return ViewModel.GetManufacturers(wql); 
+            return ViewModel.GetManufacturers(wql);
         }
 
         /// <summary>
@@ -76,7 +73,7 @@ namespace InventoryExpress.WebApi.V1
         public override bool DeleteData(string id, Request request)
         {
             using var transaction = ViewModel.BeginTransaction();
-            
+
             ViewModel.DeleteManufacturer(id);
 
             transaction.Commit();

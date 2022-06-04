@@ -60,7 +60,7 @@ namespace InventoryExpress.Model
             {
                 var condition = from i in DbContext.Inventories
                                 join l in DbContext.LedgerAccounts on i.LedgerAccountId equals l.Id
-                                where i.Guid == inventory.ID
+                                where i.Guid == inventory.Id
                                 select new WebItemEntityLedgerAccount(l);
 
                 return condition.FirstOrDefault();
@@ -75,14 +75,14 @@ namespace InventoryExpress.Model
         {
             lock (DbContext)
             {
-                var availableEntity = DbContext.Locations.Where(x => x.Guid == location.ID).FirstOrDefault();
+                var availableEntity = DbContext.Locations.Where(x => x.Guid == location.Id).FirstOrDefault();
 
                 if (availableEntity == null)
                 {
                     // Neu erstellen
                     var entity = new LedgerAccount()
                     {
-                        Guid = location.ID,
+                        Guid = location.Id,
                         Name = location.Name,
                         Description = location.Description,
                         Tag = location.Tag,
@@ -90,7 +90,7 @@ namespace InventoryExpress.Model
                         Updated = DateTime.Now,
                         Media = new Media()
                         {
-                            Guid = location.Media?.ID,
+                            Guid = location.Media?.Id,
                             Name = location.Media?.Name ?? "",
                             Description = location.Media?.Description,
                             Tag = location.Media?.Tag,
@@ -105,7 +105,7 @@ namespace InventoryExpress.Model
                 else
                 {
                     // Update
-                    var availableMedia = location.Media != null ? DbContext.Media.Where(x => x.Guid == location.Media.ID).FirstOrDefault() : null;
+                    var availableMedia = location.Media != null ? DbContext.Media.Where(x => x.Guid == location.Media.Id).FirstOrDefault() : null;
 
                     availableEntity.Name = location.Name;
                     availableEntity.Description = location.Description;
@@ -116,7 +116,7 @@ namespace InventoryExpress.Model
                     {
                         var media = new Media()
                         {
-                            Guid = location.Media?.ID,
+                            Guid = location.Media?.Id,
                             Name = location.Media?.Name,
                             Description = location.Media?.Description,
                             Tag = location.Media?.Tag,
@@ -174,7 +174,7 @@ namespace InventoryExpress.Model
             {
                 var used = from i in DbContext.Inventories
                            join l in DbContext.LedgerAccounts on i.LedgerAccountId equals l.Id
-                           where l.Guid == ledgerAccount.ID
+                           where l.Guid == ledgerAccount.Id
                            select l;
 
                 return used.Any();

@@ -90,7 +90,7 @@ namespace InventoryExpress.WebPage
 
             if (file != null)
             {
-                ViewModel.AddOrUpdateMedia(LedgerAccount.Media, file?.Data);
+                ViewModel.AddOrUpdateMedia(LedgerAccount.Media, file);
             }
 
             transaction.Commit();
@@ -104,7 +104,7 @@ namespace InventoryExpress.WebPage
                     new ControlLink()
                     {
                         Text = LedgerAccount.Name,
-                        Uri = new UriRelative(ViewModel.GetLedgerAccountUri(LedgerAccount.ID))
+                        Uri = new UriRelative(ViewModel.GetLedgerAccountUri(LedgerAccount.Id))
                     }.Render(e.Context).ToString().Trim()
                 ),
                 icon: new UriRelative(LedgerAccount.Image),

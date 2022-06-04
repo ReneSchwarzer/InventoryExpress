@@ -1,11 +1,13 @@
 ﻿using InventoryExpress.Model;
-using InventoryExpress.Model.Entity;
+using InventoryExpress.Model.WebItems;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebApiControl;
 using WebExpress.WebApp.WebPage;
+using WebExpress.WebApp.Wql;
 
 namespace InventoryExpress.WebControl
 {
@@ -26,10 +28,10 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Liefert oder setzt den Hersteller
         /// </summary>
-        public ControlApiFormularItemInputSelection Manufacturer { get; } = new ControlApiFormularItemInputSelection("manufacturer")
+        public ControlApiFormularItemInputSelection Manufacturer { get; } = new ControlApiFormularItemInputSelection()
         {
             Name = "manufacturer",
-            Label = "inventoryexpress:inventoryexpress.inventory.manufacturers.label",
+            Label = "inventoryexpress:inventoryexpress.inventory.manufacturer.label",
             Help = "inventoryexpress:inventoryexpress.inventory.manufacturer.description",
             Icon = new PropertyIcon(TypeIcon.Industry),
             MultiSelect = false
@@ -38,7 +40,7 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Liefert oder setzt den Standort
         /// </summary>
-        public ControlApiFormularItemInputSelection Location { get; } = new ControlApiFormularItemInputSelection("location")
+        public ControlApiFormularItemInputSelection Location { get; } = new ControlApiFormularItemInputSelection()
         {
             Name = "location",
             Label = "inventoryexpress:inventoryexpress.inventory.location.label",
@@ -50,7 +52,7 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Liefert oder setzt den Lieferanten
         /// </summary>
-        public ControlApiFormularItemInputSelection Supplier { get; } = new ControlApiFormularItemInputSelection("supplier")
+        public ControlApiFormularItemInputSelection Supplier { get; } = new ControlApiFormularItemInputSelection()
         {
             Name = "supplier",
             Label = "inventoryexpress:inventoryexpress.inventory.supplier.label",
@@ -62,7 +64,7 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Liefert oder setzt das Sachkonto
         /// </summary>
-        public ControlApiFormularItemInputSelection LedgerAccount { get; } = new ControlApiFormularItemInputSelection("ledgeraccount")
+        public ControlApiFormularItemInputSelection LedgerAccount { get; } = new ControlApiFormularItemInputSelection()
         {
             Name = "ledgeraccount",
             Label = "inventoryexpress:inventoryexpress.inventory.ledgeraccount.label",
@@ -74,7 +76,7 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Liefert oder setzt die Kostenstelle
         /// </summary>
-        public ControlApiFormularItemInputSelection CostCenter { get; } = new ControlApiFormularItemInputSelection("costcenter")
+        public ControlApiFormularItemInputSelection CostCenter { get; } = new ControlApiFormularItemInputSelection()
         {
             Name = "costcenter",
             Label = "inventoryexpress:inventoryexpress.inventory.costcenter.label",
@@ -86,7 +88,7 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Liefert oder setzt den Zustand
         /// </summary>
-        public ControlApiFormularItemInputSelection Condition { get; } = new ControlApiFormularItemInputSelection("condition")
+        public ControlApiFormularItemInputSelection Condition { get; } = new ControlApiFormularItemInputSelection()
         {
             Name = "condition",
             Label = "inventoryexpress:inventoryexpress.inventory.condition.label",
@@ -98,7 +100,7 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Liefert oder setzt die Zugehörigkeit
         /// </summary>
-        public ControlApiFormularItemInputSelection Parent { get; } = new ControlApiFormularItemInputSelection("parent")
+        public ControlApiFormularItemInputSelection Parent { get; } = new ControlApiFormularItemInputSelection()
         {
             Name = "parent",
             Label = "inventoryexpress:inventoryexpress.inventory.parent.label",
@@ -110,7 +112,7 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Liefert oder setzt das Template
         /// </summary>
-        public ControlApiFormularItemInputSelection Template { get; } = new ControlApiFormularItemInputSelection("template")
+        public ControlApiFormularItemInputSelection Template { get; } = new ControlApiFormularItemInputSelection()
         {
             Name = "template",
             Label = "inventoryexpress:inventoryexpress.inventory.template.label",
@@ -138,7 +140,7 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Liefert oder setzt das Anschaffungsdatum
         /// </summary>
-        public ControlFormularItemInputDatepicker PurchaseDate { get; } = new ControlFormularItemInputDatepicker("purchasedate")
+        public ControlFormularItemInputDatepicker PurchaseDate { get; } = new ControlFormularItemInputDatepicker()
         {
             Name = "purchasedate",
             Label = "inventoryexpress:inventoryexpress.inventory.purchasedate.label",
@@ -149,7 +151,7 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Liefert oder setzt das Abgangsdatum
         /// </summary>
-        public ControlFormularItemInputDatepicker DerecognitionDate { get; } = new ControlFormularItemInputDatepicker("derecognitiondate")
+        public ControlFormularItemInputDatepicker DerecognitionDate { get; } = new ControlFormularItemInputDatepicker()
         {
             Name = "derecognitiondate",
             Label = "inventoryexpress:inventoryexpress.inventory.derecognitiondate.label",
@@ -160,7 +162,7 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Liefert oder setzt die Schlagwörter
         /// </summary>
-        public ControlApiFormularItemInputSelection Tag { get; } = new ControlApiFormularItemInputSelection("tags")
+        public ControlApiFormularItemInputSelection Tag { get; } = new ControlApiFormularItemInputSelection()
         {
             Name = "tag",
             Label = "inventoryexpress:inventoryexpress.inventory.tags.label",
@@ -172,7 +174,7 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Liefert oder setzt die Beschreibung
         /// </summary>
-        public ControlFormularItemInputTextBox Description { get; } = new ControlFormularItemInputTextBox("note")
+        public ControlFormularItemInputTextBox Description { get; } = new ControlFormularItemInputTextBox()
         {
             Name = "description",
             Label = "inventoryexpress:inventoryexpress.inventory.description.label",
@@ -182,11 +184,6 @@ namespace InventoryExpress.WebControl
             Rows = 10,
             AutoInitialize = true
         };
-
-        /// <summary>
-        /// Bestimmt, ob das Formular zum Bearbeiten oder zum Neuanlegen verwendet werden soll.
-        /// </summary>
-        public bool Edit { get; set; } = false;
 
         /// <summary>
         /// Konstruktor
@@ -228,6 +225,8 @@ namespace InventoryExpress.WebControl
         {
             base.Initialize(context);
 
+            Attributes.Items.Clear();
+
             Manufacturer.RestUri = context.Uri.Root.Append("api/v1/manufacturers");
             Location.RestUri = context.Uri.Root.Append("api/v1/locations");
             Supplier.RestUri = context.Uri.Root.Append("api/v1/suppliers");
@@ -237,7 +236,25 @@ namespace InventoryExpress.WebControl
             Parent.RestUri = context.Uri.Root.Append("api/v1/inventories");
             Template.RestUri = context.Uri.Root.Append("api/v1/templates");
             Tag.RestUri = context.Uri.Root.Append("api/v1/tags");
-            Template.OnChange = new PropertyOnChange($"$('#{ID}').submit();");
+            Template.OnChange = new PropertyOnChange($"$('#{Id}').submit();");
+
+            var guid = context.Request.GetParameter(Template.Name)?.Value;
+            var template = ViewModel.GetTemplate(guid);
+
+            // Attribute ermitteln
+            if (template != null)
+            {
+                foreach (var attribute in template.Attributes)
+                {
+                    Attributes.Items.Add(new ControlFormularItemInputTextBox()
+                    {
+                        Name = "attribute_" + attribute.Id,
+                        Label = $"{attribute.Name}:",
+                        Help = attribute.Description,
+                        Tag = attribute
+                    });
+                }
+            }
         }
 
         /// <summary>
@@ -247,22 +264,30 @@ namespace InventoryExpress.WebControl
         /// <param name="e">Das Eventargument</param>
         private void OnInventoryNameValidation(object sender, ValidationEventArgs e)
         {
-            if (e.Value.Length < 1)
+            var guid = e.Context.Request.GetParameter("InventoryID")?.Value;
+            var inventory = ViewModel.GetInventory(guid);
+
+            if (e.Value == null || e.Value.Length < 1)
             {
                 e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.inventory.validation.name.invalid"));
             }
-
-            //lock (ViewModel.Instance.Database)
-            //{
-            var guid = e.Context.Request.GetParameter("InventoryID")?.Value;
-            var inventory = ViewModel.GetInventory(guid);
-            //var inventory = ViewModel.GetInventoryByName(e.Value);
-
-            //    if (inventory != null && !inventory.Name.Equals(e.Value, StringComparison.InvariantCultureIgnoreCase) && ViewModel.Instance.Inventories.Where(x => x.Name.Equals(e.Value)).Any())
-            //    {
-            //        e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.inventory.validation.name.used"));
-            //    }
-            //}
+            else if
+            (
+                inventory == null &&
+                ViewModel.GetInventories(new WqlStatement()).Where(x => x.Name.Equals(e.Value, StringComparison.OrdinalIgnoreCase)).Any()
+            )
+            {
+                e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.inventory.validation.name.used"));
+            }
+            else if
+            (
+                inventory != null &&
+                !inventory.Name.Equals(e.Value, StringComparison.InvariantCultureIgnoreCase) &&
+                ViewModel.GetInventories(new WqlStatement()).Where(x => x.Name.Equals(e.Value, StringComparison.OrdinalIgnoreCase)).Any()
+            )
+            {
+                e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.inventory.validation.name.used"));
+            }
         }
 
         /// <summary>
@@ -283,6 +308,108 @@ namespace InventoryExpress.WebControl
             {
                 e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.inventory.validation.costvalue.invalid"));
             }
+        }
+
+        /// <summary>
+        /// Liefert die Attribute
+        /// </summary>
+        /// <returns>Die Attribute</returns>
+        public IEnumerable<WebItemEntityInventoryAttribute> GetAttributes()
+        {
+            var attributes = Attributes.Items.Select(x => x as ControlFormularItemInput)
+                .Select(x => new WebItemEntityInventoryAttribute(x.Tag as WebItemEntityInventoryAttribute)
+                {
+                    Value = x.Value,
+                });
+
+            return attributes;
+        }
+
+        /// <summary>
+        /// Setzt einen Wert in ein Attributfeld ein
+        /// </summary>
+        /// <param name="attributes">Das Attribute</param>
+        public void SetAttributes(IEnumerable<WebItemEntityInventoryAttribute> attributes)
+        {
+            foreach (var attribute in attributes)
+            {
+                var field = Attributes.Items.Where(x => x.Name == "attribute_" + attribute.Id)
+                .Select(x => x as ControlFormularItemInput)
+                .FirstOrDefault();
+
+                if (field == null)
+                {
+                    field = new ControlFormularItemInputTextBox()
+                    {
+                        Name = "attribute_" + attribute.Id,
+                        Label = $"{attribute.Name}:",
+                        Help = attribute.Description,
+                        Tag = attribute
+                    };
+
+                    Attributes.Items.Add(field);
+                }
+
+                field.Value = attribute.Value;
+            }
+        }
+
+        /// <summary>
+        /// Übernahme der Werte aus dem Formular
+        /// </summary>
+        /// <param name="inventory">Der Inventargegenstand, welcher die Werte aufnimmt</param>
+        /// <param name="culture">Die Kultur</param>
+        public void Apply(WebItemEntityInventory inventory, CultureInfo culture)
+        {
+            inventory.Name = InventoryName.Value;
+            inventory.Manufacturer = ViewModel.GetManufacturer(Manufacturer.Value);
+            inventory.Location = ViewModel.GetLocation(Location.Value);
+            inventory.Supplier = ViewModel.GetSupplier(Supplier.Value);
+            inventory.LedgerAccount = ViewModel.GetLedgerAccount(LedgerAccount.Value);
+            inventory.CostCenter = ViewModel.GetCostCenter(CostCenter.Value);
+            inventory.Condition = ViewModel.GetCondition(Condition.Value);
+            inventory.Parent = ViewModel.GetInventory(Parent.Value);
+            inventory.Template = ViewModel.GetTemplate(Template.Value);
+            inventory.CostValue = !string.IsNullOrWhiteSpace(CostValue.Value) ? Convert.ToDecimal(CostValue.Value, culture) : 0;
+            inventory.PurchaseDate = !string.IsNullOrWhiteSpace(PurchaseDate.Value) ? Convert.ToDateTime(PurchaseDate.Value, culture) : null;
+            inventory.DerecognitionDate = !string.IsNullOrWhiteSpace(DerecognitionDate.Value) ? Convert.ToDateTime(DerecognitionDate.Value, culture) : null;
+            inventory.Tag = Tag.Value;
+            inventory.Description = Description.Value;
+            inventory.Attributes = GetAttributes();
+        }
+
+        /// <summary>
+        /// Übernahme der Werte aus dem Inventargegenstand
+        /// </summary>
+        /// <param name="inventory">Der Inventargegenstand, aus denen die Werte stammen</param>
+        /// <param name="culture">Die Kultur</param>
+        public void Fill(WebItemEntityInventory inventory, CultureInfo culture)
+        {
+            InventoryName.Value = inventory?.Name;
+            Manufacturer.Value = inventory.Manufacturer?.Id;
+            Manufacturer.Options.Add(new ControlFormularItemInputSelectionItem() { ID = inventory.Manufacturer?.Id, Label = inventory.Manufacturer?.Name });
+            Location.Value = inventory.Location?.Id;
+            Location.Options.Add(new ControlFormularItemInputSelectionItem() { ID = inventory.Location?.Id, Label = inventory.Location?.Name });
+            Supplier.Value = inventory.Supplier?.Id;
+            Supplier.Options.Add(new ControlFormularItemInputSelectionItem() { ID = inventory.Supplier?.Id, Label = inventory.Supplier?.Name });
+            LedgerAccount.Value = inventory.LedgerAccount?.Id;
+            LedgerAccount.Options.Add(new ControlFormularItemInputSelectionItem() { ID = inventory.LedgerAccount?.Id, Label = inventory.LedgerAccount?.Name });
+            CostCenter.Value = inventory.CostCenter?.Id;
+            CostCenter.Options.Add(new ControlFormularItemInputSelectionItem() { ID = inventory.CostCenter?.Id, Label = inventory.CostCenter?.Name });
+            Condition.Value = inventory.Condition?.Id;
+            Condition.Options.Add(new ControlFormularItemInputSelectionItem() { ID = inventory.Condition?.Id, Label = inventory.Condition?.Name });
+            Parent.Value = inventory.Parent?.Id;
+            Parent.Options.Add(new ControlFormularItemInputSelectionItem() { ID = inventory.Parent?.Id, Label = inventory.Parent?.Name });
+            Template.Value = inventory.Template?.Id;
+            Template.Options.Add(new ControlFormularItemInputSelectionItem() { ID = inventory.Template?.Id, Label = inventory.Template?.Name });
+            CostValue.Value = inventory.CostValue.ToString(culture);
+            PurchaseDate.Value = inventory.PurchaseDate.HasValue ? inventory.PurchaseDate.Value.ToString(culture.DateTimeFormat.ShortDatePattern) : null;
+            DerecognitionDate.Value = inventory.DerecognitionDate.HasValue ? inventory.DerecognitionDate.Value.ToString(culture.DateTimeFormat.ShortDatePattern) : null;
+            Tag.Value = inventory.Tag;
+            Description.Value = inventory?.Description;
+
+            Attributes.Items.Clear();
+            SetAttributes(inventory.Attributes);
         }
     }
 }

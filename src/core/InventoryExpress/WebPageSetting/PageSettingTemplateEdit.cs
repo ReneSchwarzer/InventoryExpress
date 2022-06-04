@@ -76,7 +76,7 @@ namespace InventoryExpress.WebPageSetting
             {
                 Form.Attributes.Options.Add(new ControlFormularItemInputSelectionItem()
                 {
-                    ID = v.ID,
+                    ID = v.Id,
                     Label = v.Name
                 });
             }
@@ -109,7 +109,7 @@ namespace InventoryExpress.WebPageSetting
             // Vorlage ändern und speichern
             Template.Name = Form.TemplateName.Value;
             Template.Description = Form.Description.Value;
-            Template.Attributes = ViewModel.GetAttributes(new WqlStatement()).Where(x => attributes.Contains(x.ID));
+            Template.Attributes = ViewModel.GetAttributes(new WqlStatement()).Where(x => attributes.Contains(x.Id));
             Template.Tag = Form.Tag.Value;
             Template.Updated = DateTime.Now;
             Template.Media.Name = file?.Value;
@@ -118,7 +118,7 @@ namespace InventoryExpress.WebPageSetting
 
             if (file != null)
             {
-                ViewModel.AddOrUpdateMedia(Template.Media, file?.Data);
+                ViewModel.AddOrUpdateMedia(Template.Media, file);
             }
 
             transaction.Commit();
@@ -132,7 +132,7 @@ namespace InventoryExpress.WebPageSetting
                     new ControlLink()
                     {
                         Text = Template.Name,
-                        Uri = new UriRelative(ViewModel.GetTemplateUri(Template.ID))
+                        Uri = new UriRelative(ViewModel.GetTemplateUri(Template.Id))
                     }.Render(e.Context).ToString().Trim()
                 ),
                 icon: new UriRelative(Template.Image),

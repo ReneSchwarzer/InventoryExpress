@@ -12,7 +12,7 @@ namespace InventoryExpress.WebPage
     [ID("InventoryAttachments")]
     [Title("inventoryexpress:inventoryexpress.inventory.attachment.label")]
     [Segment("attachments", "inventoryexpress:inventoryexpress.inventory.attachment.display")]
-    [Path("/Details")]
+    [Path("/InventoryDetails")]
     [Module("inventoryexpress")]
     [Context("general")]
     [Context("attachment")]
@@ -61,7 +61,7 @@ namespace InventoryExpress.WebPage
             {
                 table.AddRow(new Control[]
                 {
-                    new ControlLink() { Text = item.Name, Uri = context.Uri.Root.Append("media").Append(item.ID) },
+                    new ControlLink() { Text = item.Name, Uri = context.Uri.Root.Append("media").Append(item.Id) },
                     new ControlText() { Text = string.Format(new FileSizeFormatProvider() { Culture = Culture }, "{0:fs}", item.Size) },
                     new ControlText() { Text = item.Updated.ToString(Culture.DateTimeFormat.ShortDatePattern + " " + Culture.DateTimeFormat.ShortTimePattern) },
                     new ControlButtonLink()
@@ -83,7 +83,7 @@ namespace InventoryExpress.WebPage
         /// <returns></returns>
         private ControlModalFormularConfirmDelete CreateDelteMordalForm(WebItemEntityInventory inventory, WebItemEntityMedia item, RenderContextWebApp context)
         {
-            var form = new ControlModalFormularConfirmDelete("del_" + item.ID)
+            var form = new ControlModalFormularConfirmDelete("del_" + item.Id)
             {
                 Header = "inventoryexpress:inventoryexpress.media.file.delete.label",
                 Content = new ControlFormularItemStaticText() { Text = "inventoryexpress:inventoryexpress.media.file.delete.description" },

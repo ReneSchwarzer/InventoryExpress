@@ -5,7 +5,6 @@ using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebComponent;
 using WebExpress.WebAttribute;
 using WebExpress.WebPage;
-using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace InventoryExpress.WebComponent
 {
@@ -20,6 +19,9 @@ namespace InventoryExpress.WebComponent
         public ComponentHeadlineInventoryEdit()
         {
             Margin = new PropertySpacingMargin(PropertySpacing.Space.Two);
+            Text = "inventoryexpress:inventoryexpress.edit.label";
+            Icon = new PropertyIcon(TypeIcon.Edit);
+            BackgroundColor = new PropertyColorButton(TypeColorButton.Primary);
         }
 
         /// <summary>
@@ -40,9 +42,6 @@ namespace InventoryExpress.WebComponent
         public override IHtmlNode Render(RenderContext context)
         {
             Uri = context.Uri.Append("edit");
-            Text = I18N(context.Culture, "inventoryexpress:inventoryexpress.edit.label");
-            Icon = new PropertyIcon(TypeIcon.Edit);
-            BackgroundColor = new PropertyColorButton(TypeColorButton.Primary);
 
             return base.Render(context);
         }

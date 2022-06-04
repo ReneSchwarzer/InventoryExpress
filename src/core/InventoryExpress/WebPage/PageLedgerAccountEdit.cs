@@ -99,8 +99,10 @@ namespace InventoryExpress.WebPage
 
             if (file != null)
             {
-                ViewModel.AddOrUpdateMedia(ledgerAccount.Media, file?.Data);
+                ViewModel.AddOrUpdateMedia(ledgerAccount.Media, file);
             }
+
+            transaction.Commit();
 
             NotificationManager.CreateNotification
             (
@@ -111,14 +113,12 @@ namespace InventoryExpress.WebPage
                     new ControlLink()
                     {
                         Text = ledgerAccount.Name,
-                        Uri = new UriRelative(ViewModel.GetSupplierUri(ledgerAccount.ID))
+                        Uri = new UriRelative(ViewModel.GetSupplierUri(ledgerAccount.Id))
                     }.Render(e.Context).ToString().Trim()
                 ),
                 icon: new UriRelative(ledgerAccount.Image),
                 durability: 10000
             );
-
-            transaction.Commit();
         }
 
         /// <summary>

@@ -70,6 +70,8 @@ namespace InventoryExpress.WebPage
 
             ViewModel.DeleteSupplier(guid);
 
+            transaction.Commit();
+
             NotificationManager.CreateNotification
             (
                 request: e.Context.Request,
@@ -79,14 +81,12 @@ namespace InventoryExpress.WebPage
                     new ControlLink()
                     {
                         Text = supplier.Name,
-                        Uri = new UriRelative(ViewModel.GetSupplierUri(supplier.ID))
+                        Uri = new UriRelative(ViewModel.GetSupplierUri(supplier.Id))
                     }.Render(e.Context).ToString().Trim()
                 ),
                 icon: new UriRelative(supplier.Image),
                 durability: 10000
             );
-
-            transaction.Commit();
         }
 
         /// <summary>

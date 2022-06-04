@@ -1,5 +1,6 @@
 ﻿using InventoryExpress.Model;
 using System.IO;
+using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
 using WebExpress.Uri;
 using WebExpress.WebApp.WebControl;
@@ -7,14 +8,13 @@ using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
-using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace InventoryExpress.WebPage
 {
     [ID("InventoryDelete")]
     [Title("inventoryexpress:inventoryexpress.inventory.delete.label")]
     [Segment("del", "inventoryexpress:inventoryexpress.inventory.delete.display")]
-    [Path("/Inventory/InventoryEdit")]
+    [Path("/InventoryDetails")]
     [Module("inventoryexpress")]
     [Context("general")]
     [Context("Inventorydelete")]
@@ -54,6 +54,9 @@ namespace InventoryExpress.WebPage
         /// <param name="e">Die Eventargumente</param>
         private void OnInitializeFormular(object sender, FormularEventArgs e)
         {
+            var guid = e.Context.Request.GetParameter("InventoryID")?.Value;
+            var inventory = ViewModel.GetInventory(guid);
+            Form.Content.Text = string.Format(InternationalizationManager.I18N("inventoryexpress:inventoryexpress.inventory.delete.description"), inventory?.Name);
         }
 
         /// <summary>
@@ -67,25 +70,25 @@ namespace InventoryExpress.WebPage
             var inventory = ViewModel.GetInventory(guid);
             using var transaction = ViewModel.BeginTransaction();
 
-            ViewModel.DeleteInventory(guid);
+            ViewModel.DeleteInventory(inventory);
+            
+            transaction.Commit();
 
             NotificationManager.CreateNotification
             (
                 request: e.Context.Request,
                 message: string.Format
                 (
-                    I18N(Culture, "inventoryexpress:inventoryexpress.inventory.notification.delete"),
-                    new ControlLink()
+                    InternationalizationManager.I18N(Culture, "inventoryexpress:inventoryexpress.inventory.notification.delete"),
+                    new ControlText()
                     {
                         Text = inventory.Name,
-                        Uri = new UriRelative(ViewModel.GetInventoryUri(inventory.ID))
+                        TextColor = new PropertyColorText(TypeColorText.Danger)
                     }.Render(e.Context).ToString().Trim()
                 ),
                 icon: new UriRelative(inventory.Image),
                 durability: 10000
             );
-
-            transaction.Commit();
         }
 
         /// <summary>

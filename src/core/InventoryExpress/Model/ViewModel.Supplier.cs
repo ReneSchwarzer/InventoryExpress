@@ -60,7 +60,7 @@ namespace InventoryExpress.Model
             {
                 var supplier = from i in DbContext.Inventories
                                join s in DbContext.Suppliers on i.SupplierId equals s.Id
-                               where i.Guid == inventory.ID
+                               where i.Guid == inventory.Id
                                select new WebItemEntitySupplier(s);
 
                 return supplier.FirstOrDefault();
@@ -75,14 +75,14 @@ namespace InventoryExpress.Model
         {
             lock (DbContext)
             {
-                var availableEntity = DbContext.Manufacturers.Where(x => x.Guid == supplier.ID).FirstOrDefault();
+                var availableEntity = DbContext.Manufacturers.Where(x => x.Guid == supplier.Id).FirstOrDefault();
 
                 if (availableEntity == null)
                 {
                     // Neu erstellen
                     var entity = new Supplier()
                     {
-                        Guid = supplier.ID,
+                        Guid = supplier.Id,
                         Name = supplier.Name,
                         Description = supplier.Description,
                         Address = supplier.Address,
@@ -93,7 +93,7 @@ namespace InventoryExpress.Model
                         Updated = DateTime.Now,
                         Media = new Media()
                         {
-                            Guid = supplier.Media?.ID,
+                            Guid = supplier.Media?.Id,
                             Name = supplier.Media?.Name ?? "",
                             Description = supplier.Media?.Description,
                             Tag = supplier.Media?.Tag,
@@ -108,7 +108,7 @@ namespace InventoryExpress.Model
                 else
                 {
                     // Update
-                    var availableMedia = supplier.Media != null ? DbContext.Media.Where(x => x.Guid == supplier.Media.ID).FirstOrDefault() : null;
+                    var availableMedia = supplier.Media != null ? DbContext.Media.Where(x => x.Guid == supplier.Media.Id).FirstOrDefault() : null;
 
                     availableEntity.Name = supplier.Name;
                     availableEntity.Description = supplier.Description;
@@ -122,7 +122,7 @@ namespace InventoryExpress.Model
                     {
                         var media = new Media()
                         {
-                            Guid = supplier.Media?.ID,
+                            Guid = supplier.Media?.Id,
                             Name = supplier.Media?.Name,
                             Description = supplier.Media?.Description,
                             Tag = supplier.Media?.Tag,
@@ -180,7 +180,7 @@ namespace InventoryExpress.Model
             {
                 var used = from i in DbContext.Inventories
                            join s in DbContext.Suppliers on i.SupplierId equals s.Id
-                           where s.Guid == supplier.ID
+                           where s.Guid == supplier.Id
                            select s;
 
                 return used.Any();

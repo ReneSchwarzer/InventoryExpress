@@ -1,7 +1,7 @@
-﻿using WebExpress.WebApp.WebNotificaation;
+﻿using WebExpress.Internationalization;
+using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApplication;
 using WebExpress.WebAttribute;
-using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace InventoryExpress
 {
@@ -44,8 +44,8 @@ namespace InventoryExpress
             // Willkommensnachricht
             NotificationManager.CreateNotification
             (
-                heading: I18N("inventoryexpress:app.notification.welcome.label"),
-                message: I18N("inventoryexpress:app.notification.welcome.description"),
+                heading: InternationalizationManager.I18N("inventoryexpress:app.notification.welcome.label"),
+                message: InternationalizationManager.I18N("inventoryexpress:app.notification.welcome.description"),
                 icon: Context.Icon,
                 durability: 30000
             );

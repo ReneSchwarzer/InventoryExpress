@@ -87,7 +87,7 @@ namespace InventoryExpress.WebPage
 
             if (file != null)
             {
-                ViewModel.AddOrUpdateMedia(Manufacturer.Media, file?.Data);
+                ViewModel.AddOrUpdateMedia(Manufacturer.Media, file);
             }
 
             transaction.Commit();
@@ -101,7 +101,7 @@ namespace InventoryExpress.WebPage
                     new ControlLink()
                     {
                         Text = Manufacturer.Name,
-                        Uri = new UriRelative(ViewModel.GetManufacturerUri(Manufacturer.ID))
+                        Uri = new UriRelative(ViewModel.GetManufacturerUri(Manufacturer.Id))
                     }.Render(e.Context).ToString().Trim()
                 ),
                 icon: new UriRelative(Manufacturer.Image),

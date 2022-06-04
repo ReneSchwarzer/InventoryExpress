@@ -27,7 +27,6 @@ namespace InventoryExpress.WebPage
         /// </summary>
         private ControlFormularManufacturer Form { get; } = new ControlFormularManufacturer("manufacturer")
         {
-            Edit = false
         };
 
         /// <summary>
@@ -98,8 +97,10 @@ namespace InventoryExpress.WebPage
 
             if (file != null)
             {
-                ViewModel.AddOrUpdateMedia(manufacturer.Media, file?.Data);
+                ViewModel.AddOrUpdateMedia(manufacturer.Media, file);
             }
+            
+            transaction.Commit();
 
             NotificationManager.CreateNotification
             (
@@ -110,16 +111,14 @@ namespace InventoryExpress.WebPage
                     new ControlLink()
                     {
                         Text = manufacturer.Name,
-                        Uri = new UriRelative(ViewModel.GetManufacturerUri(manufacturer.ID))
+                        Uri = new UriRelative(ViewModel.GetManufacturerUri(manufacturer.Id))
                     }.Render(e.Context).ToString().Trim()
                 ),
                 icon: new UriRelative(manufacturer.Image),
                 durability: 10000
             );
 
-            transaction.Commit();
-
-            Form.RedirectUri = Form.RedirectUri.Append(manufacturer.ID);
+            Form.RedirectUri = Form.RedirectUri.Append(manufacturer.Id);
         }
 
         /// <summary>

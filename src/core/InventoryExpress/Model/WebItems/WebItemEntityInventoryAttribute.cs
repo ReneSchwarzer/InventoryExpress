@@ -20,6 +20,16 @@ namespace InventoryExpress.Model.WebItems
         }
 
         /// <summary>
+        /// Copy-Konstruktor
+        /// </summary>
+        /// <param name="attribute">Das Attribut</param>
+        public WebItemEntityInventoryAttribute(WebItemEntityInventoryAttribute attribute)
+            : base(attribute)
+        {
+            Value = attribute.Value;
+        }
+
+        /// <summary>
         /// Konstruktor
         /// </summary>
         /// <param name="attribute">Das Datenbankobjektes des Inventarattributes</param>

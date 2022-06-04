@@ -98,7 +98,7 @@ namespace InventoryExpress.WebPageSetting
 
             if (file != null)
             {
-                ViewModel.AddOrUpdateMedia(condition.Media, file?.Data);
+                ViewModel.AddOrUpdateMedia(condition.Media, file);
             }
 
             transaction.Commit();
@@ -112,14 +112,14 @@ namespace InventoryExpress.WebPageSetting
                     new ControlLink()
                     {
                         Text = condition.Name,
-                        Uri = new UriRelative(ViewModel.GetConditionUri(condition.ID))
+                        Uri = new UriRelative(ViewModel.GetConditionUri(condition.Id))
                     }.Render(e.Context).ToString().Trim()
                 ),
                 icon: new UriRelative(condition.Image),
                 durability: 10000
             );
 
-            Form.RedirectUri = Form.RedirectUri.Append(condition.ID);
+            Form.RedirectUri = Form.RedirectUri.Append(condition.Id);
         }
 
         /// <summary>

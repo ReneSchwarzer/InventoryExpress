@@ -70,6 +70,8 @@ namespace InventoryExpress.WebPage
 
             ViewModel.DeleteLedgerAccount(guid);
 
+            transaction.Commit();
+
             NotificationManager.CreateNotification
             (
                 request: e.Context.Request,
@@ -79,14 +81,12 @@ namespace InventoryExpress.WebPage
                     new ControlLink()
                     {
                         Text = ledgeraccount.Name,
-                        Uri = new UriRelative(ViewModel.GetLedgerAccountUri(ledgeraccount.ID))
+                        Uri = new UriRelative(ViewModel.GetLedgerAccountUri(ledgeraccount.Id))
                     }.Render(e.Context).ToString().Trim()
                 ),
                 icon: new UriRelative(ledgeraccount.Image),
                 durability: 10000
             );
-
-            transaction.Commit();
         }
 
         /// <summary>

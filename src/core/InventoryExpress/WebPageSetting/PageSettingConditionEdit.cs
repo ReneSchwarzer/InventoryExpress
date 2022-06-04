@@ -101,7 +101,7 @@ namespace InventoryExpress.WebPageSetting
 
             if (file != null)
             {
-                ViewModel.AddOrUpdateMedia(Condition.Media, file?.Data);
+                ViewModel.AddOrUpdateMedia(Condition.Media, file);
             }
 
             transaction.Commit();
@@ -115,7 +115,7 @@ namespace InventoryExpress.WebPageSetting
                     new ControlLink()
                     {
                         Text = Condition.Name,
-                        Uri = new UriRelative(ViewModel.GetConditionUri(Condition.ID))
+                        Uri = new UriRelative(ViewModel.GetConditionUri(Condition.Id))
                     }.Render(e.Context).ToString().Trim()
                 ),
                 icon: new UriRelative(Condition.Image),

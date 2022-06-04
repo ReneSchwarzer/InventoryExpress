@@ -41,7 +41,7 @@ namespace InventoryExpress.Model.WebItems
         /// <param name="comment">Das Datenbakobjekt mit dem Kommentar</param>
         public WebItemEntityComment(InventoryComment comment)
         {
-            ID = comment.Guid;
+            Id = comment.Guid;
             Comment = comment.Comment;
             Created = comment.Created;
             Updated = comment.Updated;

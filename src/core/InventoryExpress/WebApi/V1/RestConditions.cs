@@ -1,13 +1,12 @@
 ﻿using InventoryExpress.Model;
 using InventoryExpress.Model.WebItems;
 using System.Collections.Generic;
-using System.Linq;
+using WebExpress.Internationalization;
 using WebExpress.Message;
 using WebExpress.WebApp.WebResource;
 using WebExpress.WebApp.Wql;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
-using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace InventoryExpress.WebApi.V1
 {
@@ -46,21 +45,21 @@ namespace InventoryExpress.WebApi.V1
         {
             return new ResourceRestCrudColumn[]
             {
-                new ResourceRestCrudColumn(I18N(request, "inventoryexpress:inventoryexpress.condition.image.label"))
+                new ResourceRestCrudColumn(InternationalizationManager.I18N(request, "inventoryexpress:inventoryexpress.condition.image.label"))
                 {
                     Render = "return $(\"<img style='height:1em;' src='\" + item.image + \"' alt='\" + item.name + \"'/>\");"
                 },
-                new ResourceRestCrudColumn(I18N(request, "inventoryexpress:inventoryexpress.condition.name.label"))
+                new ResourceRestCrudColumn(InternationalizationManager.I18N(request, "inventoryexpress:inventoryexpress.condition.name.label"))
                 {
                     Render = "return item.label;",
                     Width = 5
                 },
-                new ResourceRestCrudColumn(I18N(request, "inventoryexpress:inventoryexpress.condition.description.label"))
+                new ResourceRestCrudColumn(InternationalizationManager.I18N(request, "inventoryexpress:inventoryexpress.condition.description.label"))
                 {
                     Render = "return item.description;",
                     Width = 40
                 },
-                new ResourceRestCrudColumn(I18N(request, "inventoryexpress:inventoryexpress.condition.order.label"))
+                new ResourceRestCrudColumn(InternationalizationManager.I18N(request, "inventoryexpress:inventoryexpress.condition.order.label"))
                 {
                     Render = "return item.grade;",
                     Width = 40

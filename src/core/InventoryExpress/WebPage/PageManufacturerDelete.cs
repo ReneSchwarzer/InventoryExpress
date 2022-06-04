@@ -70,6 +70,8 @@ namespace InventoryExpress.WebPage
 
             ViewModel.DeleteManufacturer(guid);
 
+            transaction.Commit();
+
             NotificationManager.CreateNotification
             (
                 request: e.Context.Request,
@@ -79,14 +81,12 @@ namespace InventoryExpress.WebPage
                     new ControlLink()
                     {
                         Text = manufacturer.Name,
-                        Uri = new UriRelative(ViewModel.GetManufacturerUri(manufacturer.ID))
+                        Uri = new UriRelative(ViewModel.GetManufacturerUri(manufacturer.Id))
                     }.Render(e.Context).ToString().Trim()
                 ),
                 icon: new UriRelative(manufacturer.Image),
                 durability: 10000
             );
-
-            transaction.Commit();
         }
 
         /// <summary>

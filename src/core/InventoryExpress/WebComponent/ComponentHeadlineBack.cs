@@ -5,7 +5,6 @@ using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebComponent;
 using WebExpress.WebAttribute;
 using WebExpress.WebPage;
-using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace InventoryExpress.WebComponent
 {
@@ -33,6 +32,7 @@ namespace InventoryExpress.WebComponent
             Icon = new PropertyIcon(TypeIcon.ArrowLeft);
             Outline = true;
             BackgroundColor = new PropertyColorButton(TypeColorButton.Secondary);
+            Text = "inventoryexpress:inventoryexpress.inventory.attachment.back";
         }
 
         /// <summary>
@@ -52,7 +52,6 @@ namespace InventoryExpress.WebComponent
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            Text = I18N(context.Culture, "inventoryexpress:inventoryexpress.inventory.attachment.back");
             Uri = context.Uri.Take(-1);
 
             return base.Render(context);

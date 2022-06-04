@@ -47,7 +47,7 @@ namespace InventoryExpress.Model
         {
             lock (DbContext)
             {
-                var availableEntity = DbContext.Tags.Where(x => x.Label == tag.ID).FirstOrDefault();
+                var availableEntity = DbContext.Tags.Where(x => x.Label == tag.Id).FirstOrDefault();
 
                 if (availableEntity == null)
                 {

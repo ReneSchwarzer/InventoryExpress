@@ -12,6 +12,7 @@ namespace InventoryExpress.WebControl
         public ControlFormularItemInputFile Image { get; } = new ControlFormularItemInputFile()
         {
             Name = "image",
+            Label = "inventoryexpress:inventoryexpress.manufacturer.form.image.label",
             Help = "inventoryexpress:inventoryexpress.media.form.image.description",
             AcceptFile = new string[] { "image/*" },
             Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.None, PropertySpacing.Space.None, PropertySpacing.Space.Three)

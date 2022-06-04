@@ -19,7 +19,7 @@ namespace InventoryExpress.Model
                 var attachments = from i in DbContext.Inventories
                                   join ia in DbContext.InventoryAttachments on i.Id equals ia.InventoryId
                                   join m in DbContext.Media on ia.MediaId equals m.Id
-                                  where i.Guid == inventory.ID
+                                  where i.Guid == inventory.Id
                                   select new WebItemEntityMedia(m);
 
                 return attachments.ToList();
@@ -34,7 +34,7 @@ namespace InventoryExpress.Model
         {
             lock (DbContext)
             {
-                var mediaEntity = DbContext.Media.Where(x => x.Guid == media.ID).FirstOrDefault();
+                var mediaEntity = DbContext.Media.Where(x => x.Guid == media.Id).FirstOrDefault();
                 var attachmentEntity = DbContext.InventoryAttachments.Where(x => x.MediaId == mediaEntity.Id).FirstOrDefault();
 
                 DbContext.InventoryAttachments.Remove(attachmentEntity);
@@ -42,7 +42,7 @@ namespace InventoryExpress.Model
                 DbContext.SaveChanges();
             }
 
-            File.Delete(Path.Combine(MediaDirectory, media.ID));
+            File.Delete(Path.Combine(MediaDirectory, media.Id));
         }
 
         /// <summary>

@@ -60,7 +60,7 @@ namespace InventoryExpress.Model
             {
                 var costCenter = from i in DbContext.Inventories
                                  join c in DbContext.CostCenters on i.CostCenterId equals c.Id
-                                 where i.Guid == inventory.ID
+                                 where i.Guid == inventory.Id
                                  select new WebItemEntityCostCenter(c);
 
                 return costCenter.FirstOrDefault();
@@ -75,14 +75,14 @@ namespace InventoryExpress.Model
         {
             lock (DbContext)
             {
-                var availableEntity = DbContext.CostCenters.Where(x => x.Guid == costCenter.ID).FirstOrDefault();
+                var availableEntity = DbContext.CostCenters.Where(x => x.Guid == costCenter.Id).FirstOrDefault();
 
                 if (availableEntity == null)
                 {
                     // Neu erstellen
                     var entity = new CostCenter()
                     {
-                        Guid = costCenter.ID,
+                        Guid = costCenter.Id,
                         Name = costCenter.Name,
                         Description = costCenter.Description,
                         Tag = costCenter.Tag,
@@ -90,7 +90,7 @@ namespace InventoryExpress.Model
                         Updated = DateTime.Now,
                         Media = new Media()
                         {
-                            Guid = costCenter.Media?.ID,
+                            Guid = costCenter.Media?.Id,
                             Name = costCenter.Media?.Name ?? "",
                             Description = costCenter.Media?.Description,
                             Tag = costCenter.Media?.Tag,
@@ -105,7 +105,7 @@ namespace InventoryExpress.Model
                 else
                 {
                     // Update
-                    var availableMedia = costCenter.Media != null ? DbContext.Media.Where(x => x.Guid == costCenter.Media.ID).FirstOrDefault() : null;
+                    var availableMedia = costCenter.Media != null ? DbContext.Media.Where(x => x.Guid == costCenter.Media.Id).FirstOrDefault() : null;
 
                     availableEntity.Name = costCenter.Name;
                     availableEntity.Description = costCenter.Description;
@@ -116,7 +116,7 @@ namespace InventoryExpress.Model
                     {
                         var media = new Media()
                         {
-                            Guid = costCenter.Media?.ID,
+                            Guid = costCenter.Media?.Id,
                             Name = costCenter.Media?.Name,
                             Description = costCenter.Media?.Description,
                             Tag = costCenter.Media?.Tag,
@@ -174,7 +174,7 @@ namespace InventoryExpress.Model
             {
                 var used = from i in DbContext.Inventories
                            join c in DbContext.CostCenters on i.CostCenterId equals c.Id
-                           where c.Guid == costCenter.ID
+                           where c.Guid == costCenter.Id
                            select c;
 
                 return used.Any();

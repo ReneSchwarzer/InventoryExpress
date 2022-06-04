@@ -1,5 +1,6 @@
 ﻿using InventoryExpress.Model;
 using System.IO;
+using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
 using WebExpress.Uri;
 using WebExpress.WebApp.WebControl;
@@ -7,7 +8,6 @@ using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
-using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace InventoryExpress.WebPage
 {
@@ -69,24 +69,24 @@ namespace InventoryExpress.WebPage
             using var transaction = ViewModel.BeginTransaction();
 
             ViewModel.DeleteCostCenter(guid);
+            
+            transaction.Commit();
 
             NotificationManager.CreateNotification
             (
                 request: e.Context.Request,
                 message: string.Format
                 (
-                    I18N(Culture, "inventoryexpress:inventoryexpress.costcenter.notification.delete"),
+                    InternationalizationManager.I18N(Culture, "inventoryexpress:inventoryexpress.costcenter.notification.delete"),
                     new ControlLink()
                     {
                         Text = costcenter.Name,
-                        Uri = new UriRelative(ViewModel.GetCostCenterUri(costcenter.ID))
+                        Uri = new UriRelative(ViewModel.GetCostCenterUri(costcenter.Id))
                     }.Render(e.Context).ToString().Trim()
                 ),
                 icon: new UriRelative(costcenter.Image),
                 durability: 10000
             );
-
-            transaction.Commit();
         }
 
         /// <summary>

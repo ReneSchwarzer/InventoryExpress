@@ -1,14 +1,11 @@
-﻿using InventoryExpress.Model;
-using System.Collections.Generic;
-using System.Linq;
-using WebExpress.UI.WebControl;
+﻿using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPage
 {
-    [ID("Details")]
+    [ID("InventoryDetails")]
     [Title("inventoryexpress:inventoryexpress.details.label")]
     [SegmentGuid("InventoryID", "inventoryexpress:inventoryexpress.details.label")]
     [Path("/")]

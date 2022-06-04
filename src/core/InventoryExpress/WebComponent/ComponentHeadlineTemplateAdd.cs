@@ -5,7 +5,6 @@ using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebComponent;
 using WebExpress.WebAttribute;
 using WebExpress.WebPage;
-using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace InventoryExpress.WebComponent
 {
@@ -20,6 +19,9 @@ namespace InventoryExpress.WebComponent
         public ComponentHeadlineTemplateAdd()
         {
             Margin = new PropertySpacingMargin(PropertySpacing.Space.Two);
+            Text = "inventoryexpress:inventoryexpress.add.label";
+            Icon = new PropertyIcon(TypeIcon.Plus);
+            BackgroundColor = new PropertyColorButton(TypeColorButton.Primary);
         }
 
         /// <summary>
@@ -39,9 +41,6 @@ namespace InventoryExpress.WebComponent
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            Text = I18N(context.Culture, "inventoryexpress:inventoryexpress.add.label");
-            Icon = new PropertyIcon(TypeIcon.Plus);
-            BackgroundColor = new PropertyColorButton(TypeColorButton.Primary);
             Uri = context.Uri.Append("add");
 
             return base.Render(context);

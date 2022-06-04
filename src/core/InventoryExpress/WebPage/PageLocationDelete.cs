@@ -70,6 +70,8 @@ namespace InventoryExpress.WebPage
 
             ViewModel.DeleteLocation(guid);
 
+            transaction.Commit();
+
             NotificationManager.CreateNotification
             (
                 request: e.Context.Request,
@@ -79,14 +81,12 @@ namespace InventoryExpress.WebPage
                     new ControlLink()
                     {
                         Text = location.Name,
-                        Uri = new UriRelative(ViewModel.GetLocationUri(location.ID))
+                        Uri = new UriRelative(ViewModel.GetLocationUri(location.Id))
                     }.Render(e.Context).ToString().Trim()
                 ),
                 icon: new UriRelative(location.Image),
                 durability: 10000
             );
-
-            transaction.Commit();
         }
 
         /// <summary>

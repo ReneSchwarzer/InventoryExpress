@@ -22,7 +22,7 @@ namespace InventoryExpress.Model.WebItems
         /// <param name="tag">Das Datenbankobjektes des Schlagwortes</param>
         public WebItemEntityTag(Tag tag)
         {
-            ID = tag.Label;
+            Id = tag.Label;
             Name = tag.Label;
             Label = tag.Label;
         }

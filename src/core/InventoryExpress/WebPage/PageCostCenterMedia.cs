@@ -87,7 +87,7 @@ namespace InventoryExpress.WebPage
 
             if (file != null)
             {
-                ViewModel.AddOrUpdateMedia(CostCenter.Media, file?.Data);
+                ViewModel.AddOrUpdateMedia(CostCenter.Media, file);
             }
 
             transaction.Commit();
@@ -101,7 +101,7 @@ namespace InventoryExpress.WebPage
                     new ControlLink()
                     {
                         Text = CostCenter.Name,
-                        Uri = new UriRelative(ViewModel.GetCostCenterUri(CostCenter.ID))
+                        Uri = new UriRelative(ViewModel.GetCostCenterUri(CostCenter.Id))
                     }.Render(e.Context).ToString().Trim()
                 ),
                 icon: new UriRelative(CostCenter.Image),

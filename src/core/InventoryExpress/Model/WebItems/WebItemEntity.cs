@@ -39,12 +39,26 @@ namespace InventoryExpress.Model.WebItems
         }
 
         /// <summary>
+        /// Copy-Konstruktor
+        /// Erstellt eine Tiefenkopie.
+        /// </summary>
+        /// <param name="item">Das zu kopierende Objekt</param>
+        public WebItemEntity(WebItemEntity item)
+            : base(item)
+        {
+            Description = item.Description;
+            Created = item.Created;
+            Updated = item.Updated;
+            Media = item.Media;
+        }
+
+        /// <summary>
         /// Konstruktor
         /// </summary>
         /// <param name="item">Das Datenbankobjektes des Herstellers</param>
         public WebItemEntity(Item item)
         {
-            ID = item.Guid;
+            Id = item.Guid;
             Label = item.Name;
             Name = item.Name;
             Description = item.Description;

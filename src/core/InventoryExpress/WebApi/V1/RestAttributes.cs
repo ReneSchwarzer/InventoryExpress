@@ -1,6 +1,7 @@
 ﻿using InventoryExpress.Model;
 using System.Collections.Generic;
 using System.Linq;
+using WebExpress.Internationalization;
 using WebExpress.Message;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.Model;
@@ -9,7 +10,6 @@ using WebExpress.WebApp.WebResource;
 using WebExpress.WebApp.Wql;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
-using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace InventoryExpress.WebApi.V1
 {
@@ -48,12 +48,12 @@ namespace InventoryExpress.WebApi.V1
         {
             return new ResourceRestCrudColumn[]
             {
-                new ResourceRestCrudColumn(I18N(request, "inventoryexpress:inventoryexpress.attribute.name.label"))
+                new ResourceRestCrudColumn(InternationalizationManager.I18N(request, "inventoryexpress:inventoryexpress.attribute.name.label"))
                 {
                     Render = "return item.name;",
                     Width = 20
                 },
-                new ResourceRestCrudColumn(I18N(request, "inventoryexpress:inventoryexpress.attribute.description.label"))
+                new ResourceRestCrudColumn(InternationalizationManager.I18N(request, "inventoryexpress:inventoryexpress.attribute.description.label"))
                 {
                     Render = "return item.description;"
                 }

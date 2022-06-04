@@ -1,5 +1,6 @@
 ﻿using InventoryExpress.Model.Entity;
 using InventoryExpress.Model.WebItems;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace InventoryExpress.Model
@@ -14,10 +15,11 @@ namespace InventoryExpress.Model
         {
             lock (DbContext)
             {
-                var inventoryEntity = DbContext.Inventories.Where(x => x.Guid == inventory.ID).FirstOrDefault();
+                var inventoryEntity = DbContext.Inventories.Where(x => x.Guid == inventory.Id).FirstOrDefault();
                 var journalEntity = new InventoryJournal()
                 {
-                    Guid = journal.ID,
+                    InventoryId = inventoryEntity.Id,
+                    Guid = journal.Id,
                     Created = journal.Created,
                     Action = journal.Action
                 };
@@ -28,12 +30,46 @@ namespace InventoryExpress.Model
                 DbContext.InventoryJournalParameters.AddRange(journal.Parameters.Select(x => new InventoryJournalParameter()
                 {
                     InventoryJournalId = journalEntity.Id,
-                    Guid = x.ID,
+                    Name = x.Name,
+                    Guid = x.Id,
                     OldValue = x.OldValue,
                     NewValue = x.NewValue
                 }));
                 DbContext.SaveChanges();
             }
+        }
+
+        /// <summary>
+        /// Liefert die Journaleinträge zu einem Inventargegenstand
+        /// </summary>
+        /// <param name="inventory">Der Inventargegenstand</param>
+        /// <returns>Eine Aufzählung mit den Journaleinträgen</returns>
+        public static IEnumerable<WebItemEntityJournal> GetInventoryJournals(WebItemEntityInventory inventory)
+        {
+            var journal = new List<WebItemEntityJournal>();
+            lock (DbContext)
+            {
+                var inventoryEntity = DbContext.Inventories
+                    .Where(x => x.Guid == inventory.Id)
+                    .FirstOrDefault();
+
+                if (inventoryEntity != null)
+                {
+                    journal.AddRange
+                    (
+                        DbContext.InventoryJournals
+                            .Where(x => x.InventoryId == inventoryEntity.Id)
+                            .Select(x => new WebItemEntityJournal(x)
+                            {
+                                Parameters = DbContext.InventoryJournalParameters
+                                    .Where(y => y.InventoryJournalId == x.Id)
+                                    .Select(y => new WebItemEntityJournalParameter(y)).ToList()
+                            })
+                    );
+                }
+            }
+
+            return journal.OrderByDescending(x => x.Created);
         }
     }
 }

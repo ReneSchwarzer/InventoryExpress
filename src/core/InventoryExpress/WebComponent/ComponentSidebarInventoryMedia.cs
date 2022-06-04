@@ -1,10 +1,14 @@
 ﻿using InventoryExpress.Model;
 using WebExpress.Html;
+using WebExpress.Internationalization;
+using WebExpress.Message;
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebComponent;
 using WebExpress.UI.WebControl;
 using WebExpress.Uri;
 using WebExpress.WebApp.WebComponent;
+using WebExpress.WebApp.WebControl;
+using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebAttribute;
 using WebExpress.WebPage;
 
@@ -28,11 +32,20 @@ namespace InventoryExpress.WebComponent
         };
 
         /// <summary>
+        /// Das Formular zum Upload eines Bildes
+        /// </summary>
+        private ControlModalFormularFileUpload Form { get; } = new ControlModalFormularFileUpload()
+        {
+            Header = "inventoryexpress:inventoryexpress.inventory.media.label"
+        };
+
+        /// <summary>
         /// Konstruktor
         /// </summary>
         public ComponentSidebarInventoryMedia()
         {
             Content.Add(Image);
+            Modal = new PropertyModal(TypeModal.Modal, Form);
         }
 
         /// <summary>
@@ -43,6 +56,44 @@ namespace InventoryExpress.WebComponent
         public override void Initialization(IComponentContext context, IPage page)
         {
             base.Initialization(context, page);
+            Form.Upload += OnUpload;
+        }
+
+        /// <summary>
+        /// Wird ausgelöst, wenn das Upload-Ereignis ausgelöst wurde
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Das Eventargument</param>
+        private void OnUpload(object sender, FormularUploadEventArgs e)
+        {
+            var file = e.Context.Request.GetParameter(Form.File.Name) as ParameterFile;
+            var guid = e.Context.Request.GetParameter("InventoryID")?.Value;
+            var inventory = ViewModel.GetInventory(guid);
+            using var transaction = ViewModel.BeginTransaction();
+
+            if (file != null)
+            {
+                inventory.Media.Name = file.Value;
+                ViewModel.AddOrUpdateMedia(inventory, file);
+            }
+
+            transaction.Commit();
+
+            NotificationManager.CreateNotification
+            (
+                request: e.Context.Request,
+                message: string.Format
+                (
+                    InternationalizationManager.I18N(e.Context.Culture, "inventoryexpress:inventoryexpress.media.notification.edit"),
+                    new ControlLink()
+                    {
+                        Text = inventory.Name,
+                        Uri = new UriRelative(ViewModel.GetInventoryUri(inventory.Id))
+                    }.Render(e.Context).ToString().Trim()
+                ),
+                icon: new UriRelative(inventory.Image),
+                durability: 10000
+            );
         }
 
         /// <summary>
@@ -55,9 +106,8 @@ namespace InventoryExpress.WebComponent
             var guid = context.Request.GetParameter("InventoryID")?.Value;
             var inventory = ViewModel.GetInventory(guid);
 
-            Modal = new PropertyModal(TypeModal.Formular, TypeModalSize.Large);
             Uri = context.Uri.Root.Append(guid).Append("media");
-            Image.Uri = new UriRelative(inventory.Media?.Uri);
+            Image.Uri = new UriRelative(inventory?.Media?.Uri);
 
             return base.Render(context);
         }

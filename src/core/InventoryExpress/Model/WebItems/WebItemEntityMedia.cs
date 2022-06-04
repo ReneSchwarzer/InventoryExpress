@@ -39,7 +39,7 @@ namespace InventoryExpress.Model.WebItems
         /// Die Dateigröße im Bytes
         /// </summary>
         [JsonIgnore]
-        public long Size => new FileInfo(Path.Combine(ViewModel.MediaDirectory, ID)).Length;
+        public long Size => File.Exists(Path.Combine(ViewModel.MediaDirectory, Id)) ? new FileInfo(Path.Combine(ViewModel.MediaDirectory, Id)).Length : 0;
 
         /// <summary>
         /// Konstruktor
@@ -54,7 +54,7 @@ namespace InventoryExpress.Model.WebItems
         /// <param name="media">Das Datenbankobjekt der Medien</param>
         public WebItemEntityMedia(Media media)
         {
-            ID = media.Guid;
+            Id = media.Guid;
             Label = media.Name;
             Name = media.Name;
             Description = media.Description;

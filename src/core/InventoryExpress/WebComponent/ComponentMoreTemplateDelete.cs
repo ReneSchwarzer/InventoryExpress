@@ -21,7 +21,9 @@ namespace InventoryExpress.WebComponent
         /// </summary>
         public ComponentMoreTemplateDelete()
         {
-            TextColor = new PropertyColorText(TypeColorText.Danger);
+            TextColor = new PropertyColorText(TypeColorText.Danger);  
+            Text = "inventoryexpress:inventoryexpress.delete.label";
+            Icon = new PropertyIcon(TypeIcon.Trash);
         }
 
         /// <summary>
@@ -45,14 +47,11 @@ namespace InventoryExpress.WebComponent
             var template = ViewModel.GetTemplate(guid);
             var inUse = ViewModel.GetTemplateInUse(template);
 
-            Text = InternationalizationManager.I18N(context.Culture, "inventoryexpress:inventoryexpress.delete.label");
-            Icon = new PropertyIcon(TypeIcon.Trash);
-
             Active = inUse ? TypeActive.Disabled : TypeActive.None;
             TextColor = inUse ? new PropertyColorText(TypeColorText.Muted) : TextColor;
 
             Uri = context.Uri.Append("del");
-            Modal = new PropertyModal(TypeModal.Formular, TypeModalSize.Default);
+            Modal = new PropertyModal(TypeModal.Formular, TypeModalSize.Default) { RedirectUri = context.Application.ContextPath.Append("setting/templates") };
 
             return base.Render(context);
         }

@@ -23,6 +23,8 @@ namespace InventoryExpress.WebComponent
         {
             TextColor = new PropertyColorText(TypeColorText.Danger);
             Uri = new UriFragment();
+            Text = "inventoryexpress:inventoryexpress.delete.label";
+            Icon = new PropertyIcon(TypeIcon.Trash);
         }
 
         /// <summary>
@@ -46,14 +48,12 @@ namespace InventoryExpress.WebComponent
             var supplier = ViewModel.GetSupplier(guid);
             var inUse = ViewModel.GetSupplierInUse(supplier);
 
-            Text = InternationalizationManager.I18N(context.Culture, "inventoryexpress:inventoryexpress.delete.label");
-            Icon = new PropertyIcon(TypeIcon.Trash);
 
             Active = inUse ? TypeActive.Disabled : TypeActive.None;
             TextColor = inUse ? new PropertyColorText(TypeColorText.Muted) : TextColor;
 
             Uri = context.Uri.Append("del");
-            Modal = new PropertyModal(TypeModal.Formular, TypeModalSize.Default);
+            Modal = new PropertyModal(TypeModal.Formular, TypeModalSize.Default) { RedirectUri = context.Application.ContextPath.Append("suppliers") };
 
             return base.Render(context);
         }
