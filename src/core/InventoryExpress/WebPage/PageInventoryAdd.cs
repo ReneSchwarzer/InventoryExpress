@@ -76,12 +76,13 @@ namespace InventoryExpress.WebPage
             // Neues Inventarobjekt erstellen und speichern
             var inventory = new WebItemEntityInventory();
             Form.Apply(inventory, e.Context.Culture);
-            
-            using var transaction = ViewModel.BeginTransaction();
 
-            ViewModel.AddOrUpdateInventory(inventory);
+            using (var transaction = ViewModel.BeginTransaction())
+            {
+                ViewModel.AddOrUpdateInventory(inventory);
 
-            transaction.Commit();
+                transaction.Commit();
+            }
 
             NotificationManager.CreateNotification
             (

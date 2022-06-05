@@ -26,7 +26,6 @@ namespace InventoryExpress.WebPage
         /// </summary>
         private ControlFormularLedgerAccount Form { get; } = new ControlFormularLedgerAccount("ledgeraccount")
         {
-            Edit = false
         };
 
         /// <summary>
@@ -75,29 +74,20 @@ namespace InventoryExpress.WebPage
         /// <param name="e">Die Eventargumente/param>
         private void ProcessFormular(object sender, FormularEventArgs e)
         {
-            var file = e.Context.Request.GetParameter(Form.Image.Name) as ParameterFile;
-            using var transaction = ViewModel.BeginTransaction();
-
             // Neues Sachkonto erstellen und speichern
             var ledgeraccount = new WebItemEntityLedgerAccount()
             {
                 Name = Form.LedgerAccountName.Value,
                 Description = Form.Description.Value,
-                Tag = Form.Tag.Value,
-                Media = new WebItemEntityMedia()
-                {
-                    Name = file?.Value
-                }
+                Tag = Form.Tag.Value
             };
 
-            ViewModel.AddOrUpdateLedgerAccount(ledgeraccount);
-
-            if (file != null)
+            using (var transaction = ViewModel.BeginTransaction())
             {
-                ViewModel.AddOrUpdateMedia(ledgeraccount.Media, file);
-            }
+                ViewModel.AddOrUpdateLedgerAccount(ledgeraccount);
 
-            transaction.Commit();
+                transaction.Commit();
+            }
 
             NotificationManager.CreateNotification
             (

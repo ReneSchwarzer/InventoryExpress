@@ -66,11 +66,12 @@ namespace InventoryExpress.WebPage
             var guid = e.Context.Request.GetParameter("SupplierID")?.Value;
             var supplier = ViewModel.GetSupplier(guid);
 
-            using var transaction = ViewModel.BeginTransaction();
+            using (var transaction = ViewModel.BeginTransaction())
+            {
+                ViewModel.DeleteSupplier(guid);
 
-            ViewModel.DeleteSupplier(guid);
-
-            transaction.Commit();
+                transaction.Commit();
+            }
 
             NotificationManager.CreateNotification
             (

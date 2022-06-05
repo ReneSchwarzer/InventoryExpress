@@ -33,18 +33,6 @@ namespace InventoryExpress.WebControl
         };
 
         /// <summary>
-        /// Liefert das Bild
-        /// </summary>
-        public ControlFormularItemInputFile Image { get; } = new ControlFormularItemInputFile()
-        {
-            Name = "image",
-            Label = "inventoryexpress:inventoryexpress.condition.form.image.label",
-            Help = "inventoryexpress:inventoryexpress.condition.form.image.description",
-            Icon = new PropertyIcon(TypeIcon.Image),
-            AcceptFile = new string[] { "image/*" }
-        };
-
-        /// <summary>
         /// Bestimmt, ob das Formular zum Bearbeiten oder zum Neuanlegen verwendet werden soll.
         /// </summary>
         public bool Edit { get; set; } = false;
@@ -65,11 +53,6 @@ namespace InventoryExpress.WebControl
 
             Add(ConditionName);
             Add(Description);
-
-            if (!Edit)
-            {
-                Add(Image);
-            }
         }
 
         /// <summary>

@@ -29,7 +29,7 @@ namespace InventoryExpress.Model.WebItems
         /// Das Bild
         /// </summary>
         [JsonPropertyName("media")]
-        public WebItemEntityMedia Media { get; set; }
+        public WebItemEntityMedia Media { get; set; } = new WebItemEntityMedia();
 
         /// <summary>
         /// Konstruktor

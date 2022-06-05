@@ -86,11 +86,12 @@ namespace InventoryExpress.WebPage
             var inventory = ViewModel.GetInventory(guid);
             Form.Apply(inventory, e.Context.Culture);
 
-            using var transaction = ViewModel.BeginTransaction();
+            using (var transaction = ViewModel.BeginTransaction())
+            {
+                ViewModel.AddOrUpdateInventory(inventory);
 
-            ViewModel.AddOrUpdateInventory(inventory);
-
-            transaction.Commit();
+                transaction.Commit();
+            }
 
             NotificationManager.CreateNotification
             (

@@ -71,49 +71,65 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Fügt Medien hinzu oder aktuslisiert diese
         /// </summary>
-        /// <param name="media">Die Medien</param>
+        /// <param name="costCenter">Die Kostenstelle</param>
         /// <param name="file">Die Datei oder null</param>
-        public static void AddOrUpdateMedia(WebItemEntityMedia media, ParameterFile file)
+        public static void AddOrUpdateMedia(WebItemEntityCostCenter costCenter, ParameterFile file)
         {
             var root = Path.Combine(Context.DataPath, "media");
+            var guid = Guid.NewGuid().ToString();
+            var filename = file?.Value;
+            var journalParameter = new WebItemEntityJournalParameter()
+            {
+                Name = "inventoryexpress:inventoryexpress.costcenter.media.label",
+                OldValue = "🖳",
+                NewValue = filename,
+            };
 
             lock (DbContext)
             {
-                var availableEntity = DbContext.Media.Where(x => x.Guid == media.Id).FirstOrDefault();
+                var costCenterEntity = DbContext.CostCenters.Where(x => x.Guid == costCenter.Id).FirstOrDefault();
+                var availableEntity = DbContext.Media.Where(x => x.Id == costCenterEntity.MediaId).FirstOrDefault();
 
                 if (availableEntity == null)
                 {
                     // Neu erstellen
                     var entity = new Media()
                     {
-                        Guid = media.Id,
-                        Name = media.Name,
-                        Description = media.Description,
-                        Tag = media.Tag,
+                        Guid = guid,
+                        Name = filename,
                         Created = DateTime.Now,
                         Updated = DateTime.Now
                     };
 
                     DbContext.Media.Add(entity);
                     DbContext.SaveChanges();
+
+                    costCenterEntity.MediaId = entity.Id;
+
+                    DbContext.SaveChanges();
                 }
                 else
                 {
-                    // Update
-                    availableEntity.Name = media.Name;
-                    availableEntity.Description = media.Description;
-                    availableEntity.Tag = media.Tag;
-                    availableEntity.Updated = DateTime.Now;
-
                     if (File.Exists(Path.Combine(root, availableEntity.Guid)))
                     {
                         File.Delete(Path.Combine(root, availableEntity.Guid));
                     }
 
+                    costCenter.Media.Name = filename;
+                    costCenter.Media.Id = guid;
+
+                    // Update
+                    availableEntity.Name = filename;
+                    availableEntity.Guid = guid;
+                    availableEntity.Updated = DateTime.Now;
+
                     DbContext.SaveChanges();
                 }
+            }
 
-                File.WriteAllBytes(Path.Combine(root, media.Id), file.Data);
+            if (costCenter.Media != null)
+            {
+                File.WriteAllBytes(Path.Combine(root, guid), file.Data);
             }
         }
 
@@ -193,6 +209,331 @@ namespace InventoryExpress.Model
             }
 
             if (inventory.Media != null)
+            {
+                File.WriteAllBytes(Path.Combine(root, guid), file.Data);
+            }
+        }
+
+        /// <summary>
+        /// Fügt Medien hinzu oder aktuslisiert diese
+        /// </summary>
+        /// <param name="ledgerAccount">Das Sachkonto</param>
+        /// <param name="file">Die Datei oder null</param>
+        public static void AddOrUpdateMedia(WebItemEntityLedgerAccount ledgerAccount, ParameterFile file)
+        {
+            var root = Path.Combine(Context.DataPath, "media");
+            var guid = Guid.NewGuid().ToString();
+            var filename = file?.Value;
+            var journalParameter = new WebItemEntityJournalParameter()
+            {
+                Name = "inventoryexpress:inventoryexpress.ledgeraccount.media.label",
+                OldValue = "🖳",
+                NewValue = filename,
+            };
+
+            lock (DbContext)
+            {
+                var ledgerAccountEntity = DbContext.LedgerAccounts.Where(x => x.Guid == ledgerAccount.Id).FirstOrDefault();
+                var availableEntity = DbContext.Media.Where(x => x.Id == ledgerAccountEntity.MediaId).FirstOrDefault();
+
+                if (availableEntity == null)
+                {
+                    // Neu erstellen
+                    var entity = new Media()
+                    {
+                        Guid = guid,
+                        Name = filename,
+                        Created = DateTime.Now,
+                        Updated = DateTime.Now
+                    };
+
+                    DbContext.Media.Add(entity);
+                    DbContext.SaveChanges();
+
+                    ledgerAccountEntity.MediaId = entity.Id;
+
+                    DbContext.SaveChanges();
+                }
+                else
+                {
+                    if (File.Exists(Path.Combine(root, availableEntity.Guid)))
+                    {
+                        File.Delete(Path.Combine(root, availableEntity.Guid));
+                    }
+
+                    ledgerAccount.Media.Name = filename;
+                    ledgerAccount.Media.Id = guid;
+
+                    // Update
+                    availableEntity.Name = filename;
+                    availableEntity.Guid = guid;
+                    availableEntity.Updated = DateTime.Now;
+
+                    DbContext.SaveChanges();
+                }
+            }
+
+            if (ledgerAccount.Media != null)
+            {
+                File.WriteAllBytes(Path.Combine(root, guid), file.Data);
+            }
+        }
+
+        /// <summary>
+        /// Fügt Medien hinzu oder aktuslisiert diese
+        /// </summary>
+        /// <param name="location">Der Standort</param>
+        /// <param name="file">Die Datei oder null</param>
+        public static void AddOrUpdateMedia(WebItemEntityLocation location, ParameterFile file)
+        {
+            var root = Path.Combine(Context.DataPath, "media");
+            var guid = Guid.NewGuid().ToString();
+            var filename = file?.Value;
+            var journalParameter = new WebItemEntityJournalParameter()
+            {
+                Name = "inventoryexpress:inventoryexpress.location.media.label",
+                OldValue = "🖳",
+                NewValue = filename,
+            };
+
+            lock (DbContext)
+            {
+                var locationEntity = DbContext.Locations.Where(x => x.Guid == location.Id).FirstOrDefault();
+                var availableEntity = DbContext.Media.Where(x => x.Id == locationEntity.MediaId).FirstOrDefault();
+
+                if (availableEntity == null)
+                {
+                    // Neu erstellen
+                    var entity = new Media()
+                    {
+                        Guid = guid,
+                        Name = filename,
+                        Created = DateTime.Now,
+                        Updated = DateTime.Now
+                    };
+
+                    DbContext.Media.Add(entity);
+                    DbContext.SaveChanges();
+
+                    locationEntity.MediaId = entity.Id;
+
+                    DbContext.SaveChanges();
+                }
+                else
+                {
+                    if (File.Exists(Path.Combine(root, availableEntity.Guid)))
+                    {
+                        File.Delete(Path.Combine(root, availableEntity.Guid));
+                    }
+
+                    location.Media.Name = filename;
+                    location.Media.Id = guid;
+
+                    // Update
+                    availableEntity.Name = filename;
+                    availableEntity.Guid = guid;
+                    availableEntity.Updated = DateTime.Now;
+
+                    DbContext.SaveChanges();
+                }
+            }
+
+            if (location.Media != null)
+            {
+                File.WriteAllBytes(Path.Combine(root, guid), file.Data);
+            }
+        }
+        
+        /// <summary>
+        /// Fügt Medien hinzu oder aktuslisiert diese
+        /// </summary>
+        /// <param name="manufacturer">Der Hersteller</param>
+        /// <param name="file">Die Datei oder null</param>
+        public static void AddOrUpdateMedia(WebItemEntityManufacturer manufacturer, ParameterFile file)
+        {
+            var root = Path.Combine(Context.DataPath, "media");
+            var guid = Guid.NewGuid().ToString();
+            var filename = file?.Value;
+            var journalParameter = new WebItemEntityJournalParameter()
+            {
+                Name = "inventoryexpress:inventoryexpress.manufacturer.media.label",
+                OldValue = "🖳",
+                NewValue = filename,
+            };
+
+            lock (DbContext)
+            {
+                var manufacturerEntity = DbContext.Manufacturers.Where(x => x.Guid == manufacturer.Id).FirstOrDefault();
+                var availableEntity = DbContext.Media.Where(x => x.Id == manufacturerEntity.MediaId).FirstOrDefault();
+
+                if (availableEntity == null)
+                {
+                    // Neu erstellen
+                    var entity = new Media()
+                    {
+                        Guid = guid,
+                        Name = filename,
+                        Created = DateTime.Now,
+                        Updated = DateTime.Now
+                    };
+
+                    DbContext.Media.Add(entity);
+                    DbContext.SaveChanges();
+
+                    manufacturerEntity.MediaId = entity.Id;
+
+                    DbContext.SaveChanges();
+                }
+                else
+                {
+                    if (File.Exists(Path.Combine(root, availableEntity.Guid)))
+                    {
+                        File.Delete(Path.Combine(root, availableEntity.Guid));
+                    }
+
+                    manufacturer.Media.Name = filename;
+                    manufacturer.Media.Id = guid;
+
+                    // Update
+                    availableEntity.Name = filename;
+                    availableEntity.Guid = guid;
+                    availableEntity.Updated = DateTime.Now;
+
+                    DbContext.SaveChanges();
+                }
+            }
+
+            if (manufacturer.Media != null)
+            {
+                File.WriteAllBytes(Path.Combine(root, guid), file.Data);
+            }
+        }
+
+        /// <summary>
+        /// Fügt Medien hinzu oder aktuslisiert diese
+        /// </summary>
+        /// <param name="supplier">Der Lieferant</param>
+        /// <param name="file">Die Datei oder null</param>
+        public static void AddOrUpdateMedia(WebItemEntitySupplier supplier, ParameterFile file)
+        {
+            var root = Path.Combine(Context.DataPath, "media");
+            var guid = Guid.NewGuid().ToString();
+            var filename = file?.Value;
+            var journalParameter = new WebItemEntityJournalParameter()
+            {
+                Name = "inventoryexpress:inventoryexpress.supplier.media.label",
+                OldValue = "🖳",
+                NewValue = filename,
+            };
+
+            lock (DbContext)
+            {
+                var supplierEntity = DbContext.Suppliers.Where(x => x.Guid == supplier.Id).FirstOrDefault();
+                var availableEntity = DbContext.Media.Where(x => x.Id == supplierEntity.MediaId).FirstOrDefault();
+
+                if (availableEntity == null)
+                {
+                    // Neu erstellen
+                    var entity = new Media()
+                    {
+                        Guid = guid,
+                        Name = filename,
+                        Created = DateTime.Now,
+                        Updated = DateTime.Now
+                    };
+
+                    DbContext.Media.Add(entity);
+                    DbContext.SaveChanges();
+
+                    supplierEntity.MediaId = entity.Id;
+
+                    DbContext.SaveChanges();
+                }
+                else
+                {
+                    if (File.Exists(Path.Combine(root, availableEntity.Guid)))
+                    {
+                        File.Delete(Path.Combine(root, availableEntity.Guid));
+                    }
+
+                    supplier.Media.Name = filename;
+                    supplier.Media.Id = guid;
+
+                    // Update
+                    availableEntity.Name = filename;
+                    availableEntity.Guid = guid;
+                    availableEntity.Updated = DateTime.Now;
+
+                    DbContext.SaveChanges();
+                }
+            }
+
+            if (supplier.Media != null)
+            {
+                File.WriteAllBytes(Path.Combine(root, guid), file.Data);
+            }
+        }
+
+        /// <summary>
+        /// Fügt Medien hinzu oder aktuslisiert diese
+        /// </summary>
+        /// <param name="template">Die Vorlage</param>
+        /// <param name="file">Die Datei oder null</param>
+        public static void AddOrUpdateMedia(WebItemEntityTemplate template, ParameterFile file)
+        {
+            var root = Path.Combine(Context.DataPath, "media");
+            var guid = Guid.NewGuid().ToString();
+            var filename = file?.Value;
+            var journalParameter = new WebItemEntityJournalParameter()
+            {
+                Name = "inventoryexpress:inventoryexpress.template.media.label",
+                OldValue = "🖳",
+                NewValue = filename,
+            };
+
+            lock (DbContext)
+            {
+                var templateEntity = DbContext.Templates.Where(x => x.Guid == template.Id).FirstOrDefault();
+                var availableEntity = DbContext.Media.Where(x => x.Id == templateEntity.MediaId).FirstOrDefault();
+
+                if (availableEntity == null)
+                {
+                    // Neu erstellen
+                    var entity = new Media()
+                    {
+                        Guid = guid,
+                        Name = filename,
+                        Created = DateTime.Now,
+                        Updated = DateTime.Now
+                    };
+
+                    DbContext.Media.Add(entity);
+                    DbContext.SaveChanges();
+
+                    templateEntity.MediaId = entity.Id;
+
+                    DbContext.SaveChanges();
+                }
+                else
+                {
+                    if (File.Exists(Path.Combine(root, availableEntity.Guid)))
+                    {
+                        File.Delete(Path.Combine(root, availableEntity.Guid));
+                    }
+
+                    template.Media.Name = filename;
+                    template.Media.Id = guid;
+
+                    // Update
+                    availableEntity.Name = filename;
+                    availableEntity.Guid = guid;
+                    availableEntity.Updated = DateTime.Now;
+
+                    DbContext.SaveChanges();
+                }
+            }
+
+            if (template.Media != null)
             {
                 File.WriteAllBytes(Path.Combine(root, guid), file.Data);
             }

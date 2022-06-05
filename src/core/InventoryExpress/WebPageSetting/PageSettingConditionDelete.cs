@@ -77,11 +77,13 @@ namespace InventoryExpress.WebPageSetting
         {
             var guid = e.Context.Request.GetParameter("ConditionID")?.Value;
             var condition = ViewModel.GetCondition(guid);
-            using var transaction = ViewModel.BeginTransaction();
 
-            ViewModel.DeleteCondition(guid);
+            using (var transaction = ViewModel.BeginTransaction())
+            {
+                ViewModel.DeleteCondition(guid);
 
-            transaction.Commit();
+                transaction.Commit();
+            }
 
             NotificationManager.CreateNotification
             (

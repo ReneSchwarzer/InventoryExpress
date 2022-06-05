@@ -66,11 +66,12 @@ namespace InventoryExpress.WebPage
             var guid = e.Context.Request.GetParameter("CostCenterID")?.Value;
             var costcenter = ViewModel.GetCostCenter(guid);
 
-            using var transaction = ViewModel.BeginTransaction();
+            using (var transaction = ViewModel.BeginTransaction())
+            {
+                ViewModel.DeleteCostCenter(guid);
 
-            ViewModel.DeleteCostCenter(guid);
-            
-            transaction.Commit();
+                transaction.Commit();
+            }
 
             NotificationManager.CreateNotification
             (

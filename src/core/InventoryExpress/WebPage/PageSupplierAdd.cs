@@ -2,9 +2,7 @@
 using InventoryExpress.Model.WebItems;
 using InventoryExpress.WebControl;
 using System.IO;
-using System.Linq;
 using WebExpress.Internationalization;
-using WebExpress.Message;
 using WebExpress.UI.WebControl;
 using WebExpress.Uri;
 using WebExpress.WebApp.WebNotificaation;
@@ -27,7 +25,6 @@ namespace InventoryExpress.WebPage
         /// </summary>
         private ControlFormularSupplier Form { get; } = new ControlFormularSupplier("supplier")
         {
-            Edit = false
         };
 
         /// <summary>
@@ -76,10 +73,6 @@ namespace InventoryExpress.WebPage
         /// <param name="e">Die Eventargumente/param>
         private void ProcessFormular(object sender, FormularEventArgs e)
         {
-            var file = e.Context.Request.GetParameter(Form.Image.Name) as ParameterFile;
-
-            using var transaction = ViewModel.BeginTransaction();
-
             // Neuen Liferanten erstellen und speichern
             var supplier = new WebItemEntitySupplier()
             {
@@ -88,21 +81,15 @@ namespace InventoryExpress.WebPage
                 Address = Form.Address.Value,
                 Zip = Form.Zip.Value,
                 Place = Form.Place.Value,
-                Tag = Form.Tag.Value,
-                Media = new WebItemEntityMedia()
-                {
-                    Name = file?.Value
-                }
+                Tag = Form.Tag.Value
             };
 
-            ViewModel.AddOrUpdateSupplier(supplier);
-
-            if (file != null)
+            using (var transaction = ViewModel.BeginTransaction())
             {
-                ViewModel.AddOrUpdateMedia(supplier.Media, file);
-            }
+                ViewModel.AddOrUpdateSupplier(supplier);
 
-            transaction.Commit();
+                transaction.Commit();
+            }
 
             NotificationManager.CreateNotification
             (

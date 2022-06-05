@@ -1,8 +1,6 @@
 ﻿using InventoryExpress.Model;
-using InventoryExpress.Model.Entity;
 using InventoryExpress.Model.WebItems;
 using InventoryExpress.WebControl;
-using System;
 using WebExpress.Html;
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebComponent;
@@ -22,7 +20,7 @@ namespace InventoryExpress.WebComponent
         /// <summary>
         /// Das Kommentierungsformular
         /// </summary>
-        private ControlFormularComment Form { get; } = new ControlFormularComment("form_comment");
+        private ControlFormularComment Form { get; } = new ControlFormularComment("B4F92D96-89C6-46DD-910E-1D5BF08EEF42");
 
         /// <summary>
         /// Die Liste
@@ -87,7 +85,7 @@ namespace InventoryExpress.WebComponent
                         Comment = Form.Comment.Value
                     });
 
-                    transaction.Commit();                   
+                    transaction.Commit();
                 }
             };
 

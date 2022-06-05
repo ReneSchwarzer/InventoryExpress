@@ -66,11 +66,12 @@ namespace InventoryExpress.WebPage
             var guid = e.Context.Request.GetParameter("LocationID")?.Value;
             var location = ViewModel.GetLocation(guid);
 
-            using var transaction = ViewModel.BeginTransaction();
+            using (var transaction = ViewModel.BeginTransaction())
+            {
+                ViewModel.DeleteLocation(guid);
 
-            ViewModel.DeleteLocation(guid);
-
-            transaction.Commit();
+                transaction.Commit();
+            }
 
             NotificationManager.CreateNotification
             (

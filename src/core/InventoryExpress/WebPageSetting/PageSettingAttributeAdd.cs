@@ -3,14 +3,12 @@ using InventoryExpress.Model.WebItems;
 using InventoryExpress.WebControl;
 using System.IO;
 using WebExpress.Internationalization;
-using WebExpress.Message;
 using WebExpress.UI.WebControl;
 using WebExpress.Uri;
 using WebExpress.WebApp.WebAttribute;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebApp.WebSettingPage;
-using WebExpress.WebApp.Wql;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
 
@@ -32,7 +30,6 @@ namespace InventoryExpress.WebPageSetting
         /// </summary>
         private ControlFormularAttribute Form { get; } = new ControlFormularAttribute("attribute")
         {
-            Edit = false
         };
 
         /// <summary>
@@ -81,28 +78,19 @@ namespace InventoryExpress.WebPageSetting
         /// <param name="e">Die Eventargumente/param>
         private void ProcessFormular(object sender, FormularEventArgs e)
         {
-            var file = e.Context.Request.GetParameter(Form.Image.Name) as ParameterFile;
-            using var transaction = ViewModel.BeginTransaction();
-
             // Neues Attribut erstellen und speichern
             var attribute = new WebItemEntityAttribute()
             {
                 Name = Form.AttributeName.Value,
-                Description = Form.Description.Value,
-                Media = new WebItemEntityMedia()
-                {
-                    Name = file?.Value
-                }
+                Description = Form.Description.Value
             };
 
-            ViewModel.AddOrUpdateAttribute(attribute);
-
-            if (file != null)
+            using (var transaction = ViewModel.BeginTransaction())
             {
-                ViewModel.AddOrUpdateMedia(attribute.Media, file);
-            }
+                ViewModel.AddOrUpdateAttribute(attribute);
 
-            transaction.Commit();
+                transaction.Commit();
+            }
 
             NotificationManager.CreateNotification
             (

@@ -66,11 +66,12 @@ namespace InventoryExpress.WebPage
             var guid = e.Context.Request.GetParameter("LedgerAccountID")?.Value;
             var ledgeraccount = ViewModel.GetLedgerAccount(guid);
 
-            using var transaction = ViewModel.BeginTransaction();
+            using (var transaction = ViewModel.BeginTransaction())
+            {
+                ViewModel.DeleteLedgerAccount(guid);
 
-            ViewModel.DeleteLedgerAccount(guid);
-
-            transaction.Commit();
+                transaction.Commit();
+            }
 
             NotificationManager.CreateNotification
             (

@@ -28,7 +28,6 @@ namespace InventoryExpress.WebPage
         /// </summary>
         private ControlFormularSupplier Form { get; } = new ControlFormularSupplier("supplier")
         {
-            Edit = true
         };
 
         /// <summary>
@@ -88,10 +87,6 @@ namespace InventoryExpress.WebPage
         /// <param name="e">Die Eventargumente/param>
         private void ProcessFormular(object sender, FormularEventArgs e)
         {
-            var file = e.Context.Request.GetParameter(Form.Image.Name) as ParameterFile;
-
-            using var transaction = ViewModel.BeginTransaction();
-
             // Lieferant ändern und speichern
             Supplier.Name = Form.SupplierName.Value;
             Supplier.Description = Form.Description.Value;
@@ -100,16 +95,13 @@ namespace InventoryExpress.WebPage
             Supplier.Place = Form.Place.Value;
             Supplier.Tag = Form.Tag.Value;
             Supplier.Updated = DateTime.Now;
-            Supplier.Media.Name = file?.Value;
 
-            ViewModel.AddOrUpdateSupplier(Supplier);
-
-            if (file != null)
+            using (var transaction = ViewModel.BeginTransaction())
             {
-                ViewModel.AddOrUpdateMedia(Supplier.Media, file);
-            }
+                ViewModel.AddOrUpdateSupplier(Supplier);
 
-            transaction.Commit();
+                transaction.Commit();
+            }
 
             NotificationManager.CreateNotification
             (

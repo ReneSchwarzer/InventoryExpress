@@ -32,7 +32,6 @@ namespace InventoryExpress.WebPageSetting
         /// </summary>
         private ControlFormularAttribute Form { get; } = new ControlFormularAttribute("attribute")
         {
-            Edit = true
         };
 
         /// <summary>
@@ -88,23 +87,17 @@ namespace InventoryExpress.WebPageSetting
         /// <param name="e">Die Eventargumente/param>
         private void ProcessFormular(object sender, FormularEventArgs e)
         {
-            var file = e.Context.Request.GetParameter(Form.Image.Name) as ParameterFile;
-            using var transaction = ViewModel.BeginTransaction();
-
             // Attribut ändern und speichern
             Attribute.Name = Form.AttributeName.Value;
             Attribute.Description = Form.Description.Value;
             Attribute.Updated = DateTime.Now;
-            Attribute.Media.Name = file?.Value;
 
-            ViewModel.AddOrUpdateAttribute(Attribute);
-
-            if (file != null)
+            using (var transaction = ViewModel.BeginTransaction())
             {
-                ViewModel.AddOrUpdateMedia(Attribute.Media, file);
-            }
+                ViewModel.AddOrUpdateAttribute(Attribute);
 
-            transaction.Commit();
+                transaction.Commit();
+            }
 
             NotificationManager.CreateNotification
             (

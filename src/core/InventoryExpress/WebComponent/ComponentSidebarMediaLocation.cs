@@ -1,5 +1,4 @@
 ﻿using InventoryExpress.Model;
-using System;
 using WebExpress.Html;
 using WebExpress.Internationalization;
 using WebExpress.Message;
@@ -17,36 +16,15 @@ namespace InventoryExpress.WebComponent
 {
     [Section(Section.SidebarHeader)]
     [Module("inventoryexpress")]
-    [Context("inventorydetails")]
-    [Context("attachment")]
-    [Context("journal")]
-    [Context("inventoryedit")]
-    public sealed class ComponentSidebarInventoryMedia : ComponentControlLink
+    [Context("locationedit")]
+    public sealed class ComponentSidebarMediaLocation : ComponentSidebarMedia
     {
-        /// <summary>
-        /// Das Bild
-        /// </summary>
-        private ControlImage Image { get; } = new ControlImage()
-        {
-            Width = 180,
-            Margin = new PropertySpacingMargin(PropertySpacing.Space.Two)
-        };
-
-        /// <summary>
-        /// Das Formular zum Upload eines Bildes
-        /// </summary>
-        private ControlModalFormularFileUpload Form { get; } = new ControlModalFormularFileUpload("BCD434C5-655C-483A-AE9A-A12B9891C7B1")
-        {
-            Header = "inventoryexpress:inventoryexpress.inventory.media.label"
-        };
-
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public ComponentSidebarInventoryMedia()
+        public ComponentSidebarMediaLocation()
         {
-            Content.Add(Image);
-            Modal = new PropertyModal(TypeModal.Modal, Form);
+            Form.Header = "inventoryexpress:inventoryexpress.location.media.label";
         }
 
         /// <summary>
@@ -57,8 +35,6 @@ namespace InventoryExpress.WebComponent
         public override void Initialization(IComponentContext context, IPage page)
         {
             base.Initialization(context, page);
-            Form.Upload += OnUpload;
-            Form.RedirectUri = page.Uri;
         }
 
         /// <summary>
@@ -66,19 +42,20 @@ namespace InventoryExpress.WebComponent
         /// </summary>
         /// <param name="sender">Der Auslöser des Events</param>
         /// <param name="e">Das Eventargument</param>
-        private void OnUpload(object sender, FormularUploadEventArgs e)
+        protected override void OnUpload(object sender, FormularUploadEventArgs e)
         {
             var file = e.Context.Request.GetParameter(Form.File.Name) as ParameterFile;
-            var guid = e.Context.Request.GetParameter("InventoryID")?.Value;
-            var inventory = ViewModel.GetInventory(guid);
-            using var transaction = ViewModel.BeginTransaction();
+            var guid = e.Context.Request.GetParameter("LocationID")?.Value;
+            var location = ViewModel.GetLocation(guid);
 
             if (file != null)
             {
-                ViewModel.AddOrUpdateMedia(inventory, file);
-            }
+                using var transaction = ViewModel.BeginTransaction();
 
-            transaction.Commit();
+                ViewModel.AddOrUpdateMedia(location, file);
+
+                transaction.Commit();
+            }
 
             NotificationManager.CreateNotification
             (
@@ -88,11 +65,11 @@ namespace InventoryExpress.WebComponent
                     InternationalizationManager.I18N(e.Context.Culture, "inventoryexpress:inventoryexpress.media.notification.edit"),
                     new ControlLink()
                     {
-                        Text = inventory.Name,
-                        Uri = new UriRelative(ViewModel.GetInventoryUri(inventory.Id))
+                        Text = location.Name,
+                        Uri = new UriRelative(ViewModel.GetLocationUri(location.Id))
                     }.Render(e.Context).ToString().Trim()
                 ),
-                icon: new UriRelative(ViewModel.GetMediaUri(inventory.Media.Id)),
+                icon: new UriRelative(ViewModel.GetMediaUri(location.Media.Id)),
                 durability: 10000
             );
         }
@@ -104,11 +81,10 @@ namespace InventoryExpress.WebComponent
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var guid = context.Request.GetParameter("InventoryID")?.Value;
-            var inventory = ViewModel.GetInventory(guid);
+            var guid = context.Request.GetParameter("LocationID")?.Value;
+            var location = ViewModel.GetLocation(guid);
 
-            Uri = context.Uri.Root.Append(guid).Append("media");
-            Image.Uri = new UriRelative(inventory?.Media?.Uri);
+            Image.Uri = new UriRelative(location.Media?.Uri);
 
             return base.Render(context);
         }

@@ -29,7 +29,6 @@ namespace InventoryExpress.WebPage
         /// </summary>
         private ControlFormularLocation Form { get; } = new ControlFormularLocation("location")
         {
-            Edit = true
         };
 
         /// <summary>
@@ -78,9 +77,6 @@ namespace InventoryExpress.WebPage
         /// <param name="e">Die Eventargumente/param>
         private void ProcessFormular(object sender, FormularEventArgs e)
         {
-            var file = e.Context.Request.GetParameter(Form.Image.Name) as ParameterFile;
-            using var transaction = ViewModel.BeginTransaction();
-
             // Neues Herstellerobjekt erstellen und speichern
             var location = new WebItemEntityLocation()
             {
@@ -91,21 +87,15 @@ namespace InventoryExpress.WebPage
                 Place = Form.Place.Value,
                 Building = Form.Building.Value,
                 Room = Form.Room.Value,
-                Tag = Form.Tag.Value,
-                Media = new WebItemEntityMedia()
-                {
-                    Name = file?.Value
-                }
+                Tag = Form.Tag.Value
             };
 
-            ViewModel.AddOrUpdateLocation(location);
-
-            if (file != null)
+            using (var transaction = ViewModel.BeginTransaction())
             {
-                ViewModel.AddOrUpdateMedia(location.Media, file);
-            }
+                ViewModel.AddOrUpdateLocation(location);
 
-            transaction.Commit();
+                transaction.Commit();
+            }
 
             NotificationManager.CreateNotification
             (

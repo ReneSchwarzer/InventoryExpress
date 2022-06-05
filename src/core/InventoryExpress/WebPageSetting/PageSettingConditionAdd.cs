@@ -80,28 +80,19 @@ namespace InventoryExpress.WebPageSetting
         /// <param name="e">Die Eventargumente/param>
         private void ProcessFormular(object sender, FormularEventArgs e)
         {
-            var file = e.Context.Request.GetParameter(Form.Image.Name) as ParameterFile;
-            using var transaction = ViewModel.BeginTransaction();
-
             // Neuen Zustand erstellen und speichern
             var condition = new WebItemEntityCondition()
             {
                 Name = Form.ConditionName.Value,
-                Description = Form.Description.Value,
-                Media = new WebItemEntityMedia()
-                {
-                    Name = file?.Value
-                }
+                Description = Form.Description.Value
             };
 
-            ViewModel.AddOrUpdateCondition(condition);
-
-            if (file != null)
+            using (var transaction = ViewModel.BeginTransaction())
             {
-                ViewModel.AddOrUpdateMedia(condition.Media, file);
-            }
+                ViewModel.AddOrUpdateCondition(condition);
 
-            transaction.Commit();
+                transaction.Commit();
+            }
 
             NotificationManager.CreateNotification
             (

@@ -34,7 +34,6 @@ namespace InventoryExpress.WebPageSetting
         /// </summary>
         private ControlFormularTemplate Form { get; } = new ControlFormularTemplate("template")
         {
-            Edit = true
         };
 
         /// <summary>
@@ -102,9 +101,7 @@ namespace InventoryExpress.WebPageSetting
         /// <param name="e">Die Eventargumente/param>
         private void ProcessFormular(object sender, FormularEventArgs e)
         {
-            var file = e.Context.Request.GetParameter(Form.Image.Name) as ParameterFile;
             var attributes = Form.Attributes.Value?.Split(";", StringSplitOptions.RemoveEmptyEntries);
-            using var transaction = ViewModel.BeginTransaction();
 
             // Vorlage ändern und speichern
             Template.Name = Form.TemplateName.Value;
@@ -112,16 +109,13 @@ namespace InventoryExpress.WebPageSetting
             Template.Attributes = ViewModel.GetAttributes(new WqlStatement()).Where(x => attributes.Contains(x.Id));
             Template.Tag = Form.Tag.Value;
             Template.Updated = DateTime.Now;
-            Template.Media.Name = file?.Value;
 
-            ViewModel.AddOrUpdateTemplate(Template);
-
-            if (file != null)
+            using (var transaction = ViewModel.BeginTransaction())
             {
-                ViewModel.AddOrUpdateMedia(Template.Media, file);
-            }
+                ViewModel.AddOrUpdateTemplate(Template);
 
-            transaction.Commit();
+                transaction.Commit();
+            }
 
             NotificationManager.CreateNotification
             (

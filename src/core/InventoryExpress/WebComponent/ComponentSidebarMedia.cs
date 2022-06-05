@@ -1,36 +1,36 @@
-﻿using InventoryExpress.Model;
-using System.Linq;
-using WebExpress.Html;
-using WebExpress.UI.WebAttribute;
+﻿using WebExpress.Html;
 using WebExpress.UI.WebComponent;
 using WebExpress.UI.WebControl;
-using WebExpress.Uri;
-using WebExpress.WebApp.WebComponent;
-using WebExpress.WebAttribute;
+using WebExpress.WebApp.WebControl;
 using WebExpress.WebPage;
 
 namespace InventoryExpress.WebComponent
 {
-    [Section(Section.SidebarHeader)]
-    [Module("inventoryexpress")]
-    [Context("manufactureredit")]
-    public sealed class ComponentSidebarManufacturerMedia : ComponentControlLink
+    public abstract class ComponentSidebarMedia : ComponentControlLink
     {
         /// <summary>
         /// Das Bild
         /// </summary>
-        private ControlImage Image { get; } = new ControlImage()
+        protected ControlImage Image { get; } = new ControlImage()
         {
             Width = 180,
             Margin = new PropertySpacingMargin(PropertySpacing.Space.Two)
         };
 
         /// <summary>
+        /// Das Formular zum Upload eines Bildes
+        /// </summary>
+        protected ControlModalFormularFileUpload Form { get; } = new ControlModalFormularFileUpload("BCD434C5-655C-483A-AE9A-A12B9891C7B1")
+        {
+        };
+
+        /// <summary>
         /// Konstruktor
         /// </summary>
-        public ComponentSidebarManufacturerMedia()
+        public ComponentSidebarMedia()
         {
             Content.Add(Image);
+            Modal = new PropertyModal(TypeModal.Modal, Form);
         }
 
         /// <summary>
@@ -41,7 +41,16 @@ namespace InventoryExpress.WebComponent
         public override void Initialization(IComponentContext context, IPage page)
         {
             base.Initialization(context, page);
+            Form.Upload += OnUpload;
+            Form.RedirectUri = page.Uri;
         }
+
+        /// <summary>
+        /// Wird ausgelöst, wenn das Upload-Ereignis ausgelöst wurde
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Das Eventargument</param>
+        protected abstract void OnUpload(object sender, FormularUploadEventArgs e);
 
         /// <summary>
         /// In HTML konvertieren
@@ -50,13 +59,6 @@ namespace InventoryExpress.WebComponent
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var guid = context.Request.GetParameter("ManufacturerID")?.Value;
-            var manufacturer = ViewModel.GetManufacturer(guid);
-
-            Modal = new PropertyModal(TypeModal.Formular, TypeModalSize.Large);
-            Uri = context.Uri.Append("media");
-            Image.Uri = new UriRelative(manufacturer.Media?.Uri);
-
             return base.Render(context);
         }
     }

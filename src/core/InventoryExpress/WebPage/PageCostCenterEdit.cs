@@ -28,7 +28,6 @@ namespace InventoryExpress.WebPage
         /// </summary>
         private ControlFormularCostCenter Form { get; } = new ControlFormularCostCenter("costcenter")
         {
-            Edit = true
         };
 
         /// <summary>
@@ -85,24 +84,18 @@ namespace InventoryExpress.WebPage
         /// <param name="e">Die Eventargumente/param>
         private void ProcessFormular(object sender, FormularEventArgs e)
         {
-            var file = e.Context.Request.GetParameter(Form.Image.Name) as ParameterFile;
-            using var transaction = ViewModel.BeginTransaction();
-
             // Herstellerobjekt ändern und speichern
             CostCenter.Name = Form.CostCenterName.Value;
             CostCenter.Description = Form.Description.Value;
             CostCenter.Tag = Form.Tag.Value;
             CostCenter.Updated = DateTime.Now;
-            CostCenter.Media.Name = file?.Value;
 
-            ViewModel.AddOrUpdateCostCenter(CostCenter);
-
-            if (file != null)
+            using (var transaction = ViewModel.BeginTransaction())
             {
-                ViewModel.AddOrUpdateMedia(CostCenter.Media, file);
-            }
+                ViewModel.AddOrUpdateCostCenter(CostCenter);
 
-            transaction.Commit();
+                transaction.Commit();
+            }
 
             NotificationManager.CreateNotification
             (

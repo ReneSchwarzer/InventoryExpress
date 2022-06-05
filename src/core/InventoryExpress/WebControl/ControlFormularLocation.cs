@@ -90,18 +90,6 @@ namespace InventoryExpress.WebControl
         };
 
         /// <summary>
-        /// Liefert das Bild
-        /// </summary>
-        public ControlFormularItemInputFile Image { get; } = new ControlFormularItemInputFile()
-        {
-            Name = "image",
-            Label = "inventoryexpress:inventoryexpress.location.form.image.label",
-            Help = "inventoryexpress:inventoryexpress.location.form.image.description",
-            Icon = new PropertyIcon(TypeIcon.Image),
-            AcceptFile = new string[] { "image/*" }
-        };
-
-        /// <summary>
         /// Liefert die Schlagwörter
         /// </summary>
         public ControlApiFormularItemInputSelection Tag { get; } = new ControlApiFormularItemInputSelection("tags")
@@ -112,11 +100,6 @@ namespace InventoryExpress.WebControl
             Icon = new PropertyIcon(TypeIcon.Tag),
             MultiSelect = true
         };
-
-        /// <summary>
-        /// Bestimmt, ob das Formular zum Bearbeiten oder zum Neuanlegen verwendet werden soll.
-        /// </summary>
-        public bool Edit { get; set; } = false;
 
         /// <summary>
         /// Konstruktor
@@ -146,12 +129,6 @@ namespace InventoryExpress.WebControl
             Add(Address);
             Add(new ControlFormularItemInputGroup(null, group1));
             Add(new ControlFormularItemInputGroup(null, group2));
-
-            if (!Edit)
-            {
-                Add(Image);
-            }
-
             Add(Tag);
         }
 

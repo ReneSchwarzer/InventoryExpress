@@ -27,7 +27,6 @@ namespace InventoryExpress.WebPage
         /// </summary>
         private ControlFormularLedgerAccount Form { get; } = new ControlFormularLedgerAccount("ledgeraccount")
         {
-            Edit = true
         };
 
         /// <summary>
@@ -85,24 +84,18 @@ namespace InventoryExpress.WebPage
             var guid = e.Context.Request.GetParameter("LedgerAccountID")?.Value;
             var ledgerAccount = ViewModel.GetLedgerAccount(guid);
 
-            var file = e.Context.Request.GetParameter(Form.Image.Name) as ParameterFile;
-
-            using var transaction = ViewModel.BeginTransaction();
-
             // Sachkonto ändern und speichern
             ledgerAccount.Name = Form.LedgerAccountName.Value;
             ledgerAccount.Description = Form.Description.Value;
             ledgerAccount.Tag = Form.Tag.Value;
             ledgerAccount.Updated = DateTime.Now;
 
-            ViewModel.AddOrUpdateLedgerAccount(ledgerAccount);
-
-            if (file != null)
+            using (var transaction = ViewModel.BeginTransaction())
             {
-                ViewModel.AddOrUpdateMedia(ledgerAccount.Media, file);
-            }
+                ViewModel.AddOrUpdateLedgerAccount(ledgerAccount);
 
-            transaction.Commit();
+                transaction.Commit();
+            }
 
             NotificationManager.CreateNotification
             (

@@ -77,11 +77,13 @@ namespace InventoryExpress.WebPageSetting
         {
             var guid = e.Context.Request.GetParameter("TemplateID")?.Value;
             var template = ViewModel.GetTemplate(guid);
-            using var transaction = ViewModel.BeginTransaction();
 
-            ViewModel.DeleteTemplate(guid);
+            using (var transaction = ViewModel.BeginTransaction())
+            {
+                ViewModel.DeleteTemplate(guid);
 
-            transaction.Commit();
+                transaction.Commit();
+            }
 
             NotificationManager.CreateNotification
             (
