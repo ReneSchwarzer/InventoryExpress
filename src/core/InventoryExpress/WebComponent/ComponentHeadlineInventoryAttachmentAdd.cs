@@ -1,15 +1,19 @@
 ﻿using InventoryExpress.Model;
 using InventoryExpress.Model.Entity;
+using InventoryExpress.Model.WebItems;
 using System;
 using System.IO;
 using System.Linq;
 using WebExpress.Html;
+using WebExpress.Internationalization;
 using WebExpress.Message;
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebComponent;
 using WebExpress.UI.WebControl;
+using WebExpress.Uri;
 using WebExpress.WebApp.WebComponent;
 using WebExpress.WebApp.WebControl;
+using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebAttribute;
 using WebExpress.WebPage;
 
@@ -21,6 +25,14 @@ namespace InventoryExpress.WebComponent
     public sealed class ComponentHeadlineInventoryAttachmentAdd : ComponentControlButtonLink
     {
         /// <summary>
+        /// Formular zum Upload von Anhängen
+        /// </summary>
+        private ControlModalFormularFileUpload Form { get; } = new ControlModalFormularFileUpload("A21A40B5-29CC-4CA7-A235-79D181F1B77C")
+        {
+            Header = "inventoryexpress:inventoryexpress.media.file.add.label"
+        };
+
+        /// <summary>
         /// Konstruktor
         /// </summary>
         public ComponentHeadlineInventoryAttachmentAdd()
@@ -29,6 +41,7 @@ namespace InventoryExpress.WebComponent
             Text = "inventoryexpress:inventoryexpress.media.file.add.label";
             Icon = new PropertyIcon(TypeIcon.Plus);
             BackgroundColor = new PropertyColorButton(TypeColorButton.Primary);
+            Modal = new PropertyModal(TypeModal.Modal, Form);
         }
 
         /// <summary>
@@ -39,6 +52,44 @@ namespace InventoryExpress.WebComponent
         public override void Initialization(IComponentContext context, IPage page)
         {
             base.Initialization(context, page);
+            Form.Upload += OnUpload;
+            Form.RedirectUri = page.Uri;
+        }
+
+        /// <summary>
+        /// Wird ausgelöst, wenn das Upload-Ereignis ausgelöst wurde
+        /// </summary>
+        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="e">Das Eventargument</param>
+        private void OnUpload(object sender, FormularUploadEventArgs e)
+        {
+            var file = e.Context.Request.GetParameter(Form.File.Name) as ParameterFile;
+            var guid = e.Context.Request.GetParameter("InventoryID")?.Value;
+            var inventory = ViewModel.GetInventory(guid);
+            using var transaction = ViewModel.BeginTransaction();
+
+            if (file != null)
+            {
+                ViewModel.AddOrUpdateInventoryAttachment(inventory, file);
+            }
+
+            transaction.Commit();
+
+            NotificationManager.CreateNotification
+            (
+                request: e.Context.Request,
+                message: string.Format
+                (
+                    InternationalizationManager.I18N(e.Context.Culture, "inventoryexpress:inventoryexpress.inventory.attachment.notification.label"),
+                    new ControlLink()
+                    {
+                        Text = inventory.Name,
+                        Uri = new UriRelative(ViewModel.GetInventoryUri(inventory.Id))
+                    }.Render(e.Context).ToString().Trim()
+                ),
+                icon: new UriRelative(ViewModel.GetMediaUri(inventory.Media.Id)),
+                durability: 10000
+            );
         }
 
         /// <summary>
@@ -48,74 +99,10 @@ namespace InventoryExpress.WebComponent
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var guid = context.Request.GetParameter("InventoryID")?.Value;
-            var inventory = ViewModel.GetInventory(guid);
-            //var form = new ControlModalFormularFileUpload("add")
-            //{
-            //    Header = I18N(context.Culture, "inventoryexpress:inventoryexpress.media.file.add.label")
-            //};
+            //var guid = context.Request.GetParameter("InventoryID")?.Value;
+            //var inventory = ViewModel.GetInventory(guid);
 
-            //form.Upload += (s, e) =>
-            //{
-            //    if (context.Request.GetParameter(form.File.Name) is ParameterFile file)
-            //    {
-            //        // Anlage speichern
-            //        var stock = from a in ViewModel.Instance.InventoryAttachments
-            //                    join m in ViewModel.Instance.Media
-            //                    on a.MediaId equals m.Id
-            //                    where m.Name == file.Value
-            //                    select a;
-
-            //        if (stock.Count() == 0)
-            //        {
-            //            var media = new Media()
-            //            {
-            //                Name = file.Value,
-            //                Created = DateTime.Now,
-            //                Updated = DateTime.Now,
-            //                Guid = Guid.NewGuid().ToString()
-            //            };
-
-            //            var attachment = new InventoryAttachment()
-            //            {
-            //                InventoryId = inventory.Id,
-            //                Media = media,
-            //                Created = DateTime.Now,
-            //            };
-
-            //            ViewModel.Instance.Media.Add(media);
-            //            ViewModel.Instance.InventoryAttachments.Add(attachment);
-            //            ViewModel.Instance.SaveChanges();
-
-            //            File.WriteAllBytes(Path.Combine(context.Application.AssetPath, media.Guid), file.Data);
-
-            //            var journal = new InventoryJournal()
-            //            {
-            //                InventoryId = inventory.Id,
-            //                Action = "inventoryexpress:inventoryexpress.journal.action.inventory.attachment.add",
-            //                Created = DateTime.Now,
-            //                Guid = Guid.NewGuid().ToString()
-            //            };
-
-            //            ViewModel.Instance.InventoryJournals.Add(journal);
-
-            //            ViewModel.Instance.InventoryJournalParameters.Add(new InventoryJournalParameter()
-            //            {
-            //                InventoryJournal = journal,
-            //                Name = "inventoryexpress:inventoryexpress.inventory.attachment.label",
-            //                OldValue = "🖳",
-            //                NewValue = media.Name,
-            //                Guid = Guid.NewGuid().ToString()
-            //            });
-
-            //            ViewModel.Instance.SaveChanges();
-            //        }
-            //    }
-            //};
-           
-            Value = inventory?.Created.ToString(context.Page.Culture.DateTimeFormat.ShortDatePattern);
-
-            //Modal = new PropertyModal(TypeModal.Modal, form);
+            //Value = inventory?.Created.ToString(context.Page.Culture.DateTimeFormat.ShortDatePattern);
 
             return base.Render(context);
         }

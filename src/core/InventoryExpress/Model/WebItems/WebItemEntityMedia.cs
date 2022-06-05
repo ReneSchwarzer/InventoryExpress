@@ -49,6 +49,24 @@ namespace InventoryExpress.Model.WebItems
         }
 
         /// <summary>
+        /// Copy-Konstruktor
+        /// Erstellt eine Tiefenkopie.
+        /// </summary>
+        /// <param name="media">Das Datenbankobjekt der Medien</param>
+        public WebItemEntityMedia(WebItemEntityMedia media)
+        {
+            Id = media.Id;
+            Label = media.Name;
+            Name = media.Name;
+            Description = media.Description;
+            Image = media.Image;
+            Tag = media.Tag;
+            Created = media.Created;
+            Updated = media.Updated;
+            Uri = media.Uri;
+        }
+
+        /// <summary>
         /// Konstruktor
         /// </summary>
         /// <param name="media">Das Datenbankobjekt der Medien</param>

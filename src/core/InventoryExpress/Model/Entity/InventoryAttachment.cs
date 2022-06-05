@@ -7,8 +7,14 @@ namespace InventoryExpress.Model.Entity
     /// </summary>
     public partial class InventoryAttachment
     {
+        /// <summary>
+        /// Die ID des Inventargegenstandes
+        /// </summary>
         public int InventoryId { get; set; }
 
+        /// <summary>
+        /// VDie ID des Dokumented
+        /// </summary>
         public int MediaId { get; set; }
 
         /// <summary>
@@ -16,7 +22,14 @@ namespace InventoryExpress.Model.Entity
         /// </summary>
         public DateTime Created { get; set; }
 
-        public virtual Media Media { get; set; }
+        /// <summary>
+        /// Verweis auf dem Inventargegenstand
+        /// </summary>
         public virtual Inventory Inventory { get; set; }
+
+        /// <summary>
+        /// Verweis auf das Dokument
+        /// </summary>
+        public virtual Media Media { get; set; }
     }
 }

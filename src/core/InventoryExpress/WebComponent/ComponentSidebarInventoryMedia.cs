@@ -1,4 +1,5 @@
 ﻿using InventoryExpress.Model;
+using System;
 using WebExpress.Html;
 using WebExpress.Internationalization;
 using WebExpress.Message;
@@ -34,7 +35,7 @@ namespace InventoryExpress.WebComponent
         /// <summary>
         /// Das Formular zum Upload eines Bildes
         /// </summary>
-        private ControlModalFormularFileUpload Form { get; } = new ControlModalFormularFileUpload()
+        private ControlModalFormularFileUpload Form { get; } = new ControlModalFormularFileUpload("BCD434C5-655C-483A-AE9A-A12B9891C7B1")
         {
             Header = "inventoryexpress:inventoryexpress.inventory.media.label"
         };
@@ -57,6 +58,7 @@ namespace InventoryExpress.WebComponent
         {
             base.Initialization(context, page);
             Form.Upload += OnUpload;
+            Form.RedirectUri = page.Uri;
         }
 
         /// <summary>
@@ -73,7 +75,6 @@ namespace InventoryExpress.WebComponent
 
             if (file != null)
             {
-                inventory.Media.Name = file.Value;
                 ViewModel.AddOrUpdateMedia(inventory, file);
             }
 
@@ -91,7 +92,7 @@ namespace InventoryExpress.WebComponent
                         Uri = new UriRelative(ViewModel.GetInventoryUri(inventory.Id))
                     }.Render(e.Context).ToString().Trim()
                 ),
-                icon: new UriRelative(inventory.Image),
+                icon: new UriRelative(ViewModel.GetMediaUri(inventory.Media.Id)),
                 durability: 10000
             );
         }

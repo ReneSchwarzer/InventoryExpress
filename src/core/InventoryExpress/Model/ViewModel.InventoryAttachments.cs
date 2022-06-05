@@ -1,7 +1,10 @@
-﻿using InventoryExpress.Model.WebItems;
+﻿using InventoryExpress.Model.Entity;
+using InventoryExpress.Model.WebItems;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using WebExpress.Message;
 
 namespace InventoryExpress.Model
 {
@@ -23,6 +26,93 @@ namespace InventoryExpress.Model
                                   select new WebItemEntityMedia(m);
 
                 return attachments.ToList();
+            }
+        }
+
+        /// <summary>
+        /// Fügt eine Anlage hinzu
+        /// </summary>
+        /// <param name="inventory">Der Inventargegenstand</param>
+        /// <param name="file">Die Anlage</param>
+        public static void AddOrUpdateInventoryAttachment(WebItemEntityInventory inventory, ParameterFile file)
+        {
+            var root = Path.Combine(Context.DataPath, "media");
+            var guid = Guid.NewGuid().ToString();
+            var filename = file?.Value;
+            var journalParameter = new WebItemEntityJournalParameter()
+            {
+                Name = "inventoryexpress:inventoryexpress.inventory.attachment.label",
+                OldValue = "🖳",
+                NewValue = filename,
+            };
+
+            lock (DbContext)
+            {
+                var inventoryEntity = DbContext.Inventories.Where(x => x.Guid == inventory.Id).FirstOrDefault();
+                var availableEntity = (from i in DbContext.Media
+                                       join ia in DbContext.InventoryAttachments on i.Id equals ia.InventoryId
+                                       join m in DbContext.Media on ia.MediaId equals m.Id
+                                       where i.Id == inventoryEntity.Id & m.Name == filename
+                                       select m).FirstOrDefault();
+
+                if (availableEntity == null)
+                {
+                    // Neu erstellen
+                    var entity = new Media()
+                    {
+                        Guid = guid,
+                        Name = file.Value,
+                        Created = DateTime.Now,
+                        Updated = DateTime.Now
+                    };
+
+                    DbContext.Media.Add(entity);
+                    DbContext.SaveChanges();
+
+                    var link = new InventoryAttachment()
+                    {
+                        InventoryId = inventoryEntity.Id,
+                        MediaId = entity.Id
+                    };
+
+                    DbContext.InventoryAttachments.Add(link);
+                    DbContext.SaveChanges();
+
+                    var journal = new WebItemEntityJournal()
+                    {
+                        Action = "inventoryexpress:inventoryexpress.journal.action.inventory.attachment.add",
+                        Parameters = new[] { journalParameter }
+                    };
+
+                    AddInventoryJournal(inventory, journal);
+                }
+                else
+                {
+                    if (File.Exists(Path.Combine(root, availableEntity.Guid)))
+                    {
+                        File.Delete(Path.Combine(root, availableEntity.Guid));
+                    }
+
+                    // Update
+                    availableEntity.Name = filename;
+                    availableEntity.Guid = guid;
+                    availableEntity.Updated = DateTime.Now;
+
+                    DbContext.SaveChanges();
+
+                    var journal = new WebItemEntityJournal()
+                    {
+                        Action = "inventoryexpress:inventoryexpress.journal.action.inventory.attachment.edit",
+                        Parameters = new[] { journalParameter }
+                    };
+
+                    AddInventoryJournal(inventory, journal);
+                }
+            }
+
+            if (inventory.Media != null)
+            {
+                File.WriteAllBytes(Path.Combine(root, guid), file?.Data);
             }
         }
 

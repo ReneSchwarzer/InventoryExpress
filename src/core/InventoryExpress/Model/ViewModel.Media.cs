@@ -125,6 +125,14 @@ namespace InventoryExpress.Model
         public static void AddOrUpdateMedia(WebItemEntityInventory inventory, ParameterFile file)
         {
             var root = Path.Combine(Context.DataPath, "media");
+            var guid = Guid.NewGuid().ToString();
+            var filename = file?.Value;
+            var journalParameter = new WebItemEntityJournalParameter()
+            {
+                Name = "inventoryexpress:inventoryexpress.inventory.media.label",
+                OldValue = "🖳",
+                NewValue = filename,
+            };
 
             lock (DbContext)
             {
@@ -136,10 +144,8 @@ namespace InventoryExpress.Model
                     // Neu erstellen
                     var entity = new Media()
                     {
-                        Guid = inventory.Id,
-                        Name = inventory.Name,
-                        Description = inventory.Description,
-                        Tag = inventory.Tag,
+                        Guid = guid,
+                        Name = filename,
                         Created = DateTime.Now,
                         Updated = DateTime.Now
                     };
@@ -148,40 +154,47 @@ namespace InventoryExpress.Model
                     DbContext.SaveChanges();
 
                     inventoryEntity.MediaId = entity.Id;
-                    
+
                     DbContext.SaveChanges();
-                    
+
                     var journal = new WebItemEntityJournal()
                     {
-                        Action = "inventoryexpress:inventoryexpress.journal.action.inventory.media.add"
+                        Action = "inventoryexpress:inventoryexpress.journal.action.inventory.media.add",
+                        Parameters = new[] { journalParameter }
                     };
 
                     AddInventoryJournal(inventory, journal);
                 }
                 else
                 {
-                    // Update
-                    availableEntity.Name = inventory.Media?.Name;
-                    availableEntity.Description = inventory.Media?.Description;
-                    availableEntity.Tag = inventory.Media?.Tag;
-                    availableEntity.Updated = DateTime.Now;
-                    
-                    DbContext.SaveChanges();
-
                     if (File.Exists(Path.Combine(root, availableEntity.Guid)))
                     {
                         File.Delete(Path.Combine(root, availableEntity.Guid));
                     }
 
+                    inventory.Media.Name = filename;
+                    inventory.Media.Id = guid;
+
+                    // Update
+                    availableEntity.Name = filename;
+                    availableEntity.Guid = guid;
+                    availableEntity.Updated = DateTime.Now;
+
+                    DbContext.SaveChanges();
+
                     var journal = new WebItemEntityJournal()
                     {
-                        Action = "inventoryexpress:inventoryexpress.journal.action.inventory.media.edit"
+                        Action = "inventoryexpress:inventoryexpress.journal.action.inventory.media.edit",
+                        Parameters = new[] { journalParameter }
                     };
 
                     AddInventoryJournal(inventory, journal);
                 }
+            }
 
-                File.WriteAllBytes(Path.Combine(root, inventory.Id), file.Data);
+            if (inventory.Media != null)
+            {
+                File.WriteAllBytes(Path.Combine(root, guid), file.Data);
             }
         }
 

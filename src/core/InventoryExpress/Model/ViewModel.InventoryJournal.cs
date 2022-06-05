@@ -11,6 +11,7 @@ namespace InventoryExpress.Model
         /// Fügt ein Journaleintrag hinzu
         /// </summary>
         /// <param name="inventory">Der Inventargegenstand</param>
+        /// <param name="journal">Der Journaleintrag</param>
         public static void AddInventoryJournal(WebItemEntityInventory inventory, WebItemEntityJournal journal)
         {
             lock (DbContext)

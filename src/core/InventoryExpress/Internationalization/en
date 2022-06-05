@@ -87,6 +87,7 @@ inventoryexpress.inventory.metadata.lastchange=Last modified on {0}.
 inventoryexpress.inventory.notification.add=The inventory item '{0}' has been successfully created.
 inventoryexpress.inventory.notification.edit=The inventory item '{0}' was successfully saved.
 inventoryexpress.inventory.notification.delete=The inventory item '{0}' was successfully deleted.
+inventoryexpress.inventory.attachment.notification.label=The attachment was saved successfully.
 
 inventoryexpress.media.form.image.label=Image
 inventoryexpress.media.form.image.description=

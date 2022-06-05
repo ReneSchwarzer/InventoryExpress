@@ -87,6 +87,7 @@ inventoryexpress.inventory.metadata.lastchange=Zuletzt geändert am {0}.
 inventoryexpress.inventory.notification.add=Der Inventargegenstand '{0}' wurde erfolgreich angelegt.
 inventoryexpress.inventory.notification.edit=Der Inventargegenstand '{0}' wurde erfolgreich gespeichert.
 inventoryexpress.inventory.notification.delete=Der Inventargegenstand '{0}' wurde erfolgreich gelöscht.
+inventoryexpress.inventory.attachment.notification.label=Die Anlage wurde erfolgreich gespeichert.
 
 inventoryexpress.media.form.image.label=Bild
 inventoryexpress.media.form.image.description=
