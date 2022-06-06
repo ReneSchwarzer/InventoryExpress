@@ -35,6 +35,12 @@ namespace InventoryExpress.Model.Configure
                    .HasColumnType("TIMESTAMP")
                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
+            builder.Property(e => e.Updated)
+                   .HasColumnName("Updated")
+                   .IsRequired()
+                   .HasColumnType("TIMESTAMP")
+                   .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
             builder.HasOne(d => d.Attribute)
                    .WithMany(p => p.InventoryAttributes)
                    .HasForeignKey(d => d.AttributeId)

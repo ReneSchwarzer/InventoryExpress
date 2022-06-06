@@ -23,7 +23,7 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Lifert die einzige Instanz der Datenbank-Klasse
         /// </summary>
-        private static DB DbContext { get; } = new DB();
+        private static InventoryDbContext DbContext { get; } = new InventoryDbContext();
 
         /// <summary>
         /// Liefert oder setzt den Kontext
@@ -63,8 +63,7 @@ namespace InventoryExpress.Model
             // Datenbank initialisieren
             DbContext.DataSource = Path.Combine(path, "inventory.db");
 
-            // möglicherweise erstellen
-            DbContext.Database.EnsureCreated();
+            // möglicherweise erstellen und ggf. Migrationspfad anwenden
             DbContext.Database.Migrate();
 
             // Daten vorladen

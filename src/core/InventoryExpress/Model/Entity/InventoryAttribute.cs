@@ -24,6 +24,11 @@ namespace InventoryExpress.Model.Entity
         public DateTime Created { get; set; }
 
         /// <summary>
+        /// Der Zeitstempel der letzten Änderung
+        /// </summary>
+        public DateTime Updated { get; set; }
+
+        /// <summary>
         /// Konstruktor
         /// </summary>
         public InventoryAttribute()
