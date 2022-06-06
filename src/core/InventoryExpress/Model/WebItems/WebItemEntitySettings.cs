@@ -1,4 +1,5 @@
 ﻿using InventoryExpress.Model.Entity;
+using System.Text.Json.Serialization;
 using WebExpress.WebApp.Model;
 
 namespace InventoryExpress.Model.WebItems
@@ -11,6 +12,7 @@ namespace InventoryExpress.Model.WebItems
         /// <summary>
         /// Die Währung
         /// </summary>
+        [JsonPropertyName("currency")]
         public string Currency { get; set; }
 
         /// <summary>

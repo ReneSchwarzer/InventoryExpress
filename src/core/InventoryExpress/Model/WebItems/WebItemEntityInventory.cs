@@ -1,6 +1,7 @@
 ﻿using InventoryExpress.Model.Entity;
 using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace InventoryExpress.Model.WebItems
 {
@@ -9,61 +10,73 @@ namespace InventoryExpress.Model.WebItems
         /// <summary>
         /// Liefert den Zustand
         /// </summary>
+        [JsonPropertyName("condition")]
         public WebItemEntityCondition Condition { get; set; }
 
         /// <summary>
         /// Liefert die Kostenstelle
         /// </summary>
+        [JsonPropertyName("costcenter")]
         public WebItemEntityCostCenter CostCenter { get; set; }
 
         /// <summary>
         /// Liefert das Sachkonto
         /// </summary>
+        [JsonPropertyName("ledgeraccount")]
         public WebItemEntityLedgerAccount LedgerAccount { get; set; }
 
         /// <summary>
         /// Liefert den Standort
         /// </summary>
+        [JsonPropertyName("location")]
         public WebItemEntityLocation Location { get; set; }
 
         /// <summary>
         /// Liefert den Hersteller
         /// </summary>
+        [JsonPropertyName("manufacturer")]
         public WebItemEntityManufacturer Manufacturer { get; set; }
 
         /// <summary>
         /// Liefert den Lieferanten
         /// </summary>
+        [JsonPropertyName("supplier")]
         public WebItemEntitySupplier Supplier { get; set; }
 
         /// <summary>
         /// Liefert die Vorlage
         /// </summary>
+        [JsonPropertyName("Template")]
         public WebItemEntityTemplate Template { get; set; }
 
         /// <summary>
         /// Liefert das übergeordnete Inventargegenstand
         /// </summary>
+        [JsonPropertyName("parent")]
         public WebItemEntityInventory Parent { get; set; }
 
         /// <summary>
         /// Liefert die Attribute
         /// </summary>
+        [JsonPropertyName("attributes")]
         public IEnumerable<WebItemEntityInventoryAttribute> Attributes { get; set; }
 
         /// <summary>
         /// Der Anschaffungswert
         /// </summary>
+        [JsonPropertyName("costvalue")]
         public decimal CostValue { get; set; }
 
         /// <summary>
         /// Das Anschaffungsdatum
         /// </summary>
+        [JsonPropertyName("purchasedate")]
         public DateTime? PurchaseDate { get; set; }
 
         /// <summary>
         /// Das Abgangsdatum
         /// </summary>
+        [JsonPropertyName("derecognitiondate")]
         public DateTime? DerecognitionDate { get; set; }
 
         /// <summary>

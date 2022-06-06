@@ -1,4 +1,5 @@
 ﻿using InventoryExpress.Model.Entity;
+using System.Text.Json.Serialization;
 
 namespace InventoryExpress.Model.WebItems
 {
@@ -10,6 +11,7 @@ namespace InventoryExpress.Model.WebItems
         /// <summary>
         /// Der Wert
         /// </summary>
+        [JsonPropertyName("value")]
         public string Value { get; set; }
 
         /// <summary>

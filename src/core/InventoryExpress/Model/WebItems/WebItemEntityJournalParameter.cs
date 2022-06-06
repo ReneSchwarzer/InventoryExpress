@@ -1,5 +1,5 @@
 ﻿using InventoryExpress.Model.Entity;
-using System;
+using System.Text.Json.Serialization;
 using WebExpress.WebApp.Model;
 
 namespace InventoryExpress.Model.WebItems
@@ -12,11 +12,13 @@ namespace InventoryExpress.Model.WebItems
         /// <summary>
         /// Der alte Wert
         /// </summary>
+        [JsonPropertyName("oldvalue")]
         public string OldValue { get; set; }
 
         /// <summary>
         /// Der neue Wert
         /// </summary>
+        [JsonPropertyName("newvalue")]
         public string NewValue { get; set; }
 
         /// <summary>

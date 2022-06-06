@@ -1,4 +1,5 @@
 ﻿using InventoryExpress.Model.Entity;
+using System.Text.Json.Serialization;
 
 namespace InventoryExpress.Model.WebItems
 {
@@ -10,11 +11,13 @@ namespace InventoryExpress.Model.WebItems
         /// <summary>
         /// Das Gebäude
         /// </summary>
+        [JsonPropertyName("building")]
         public string Building { get; set; }
 
         /// <summary>
         /// Der Raum innerhalb des Gebäudes
         /// </summary>
+        [JsonPropertyName("room")]
         public string Room { get; set; }
 
         /// <summary>

@@ -1,5 +1,6 @@
 ﻿using InventoryExpress.Model.Entity;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace InventoryExpress.Model.WebItems
 {
@@ -11,6 +12,7 @@ namespace InventoryExpress.Model.WebItems
         /// <summary>
         /// Liefert oder setzt die Attribute
         /// </summary>
+        [JsonPropertyName("attributes")]
         public IEnumerable<WebItemEntityAttribute> Attributes { get; set; }
 
 

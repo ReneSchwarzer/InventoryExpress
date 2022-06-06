@@ -1,6 +1,7 @@
 ﻿using InventoryExpress.Model.Entity;
 using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 using WebExpress.WebApp.Model;
 
 namespace InventoryExpress.Model.WebItems
@@ -13,11 +14,13 @@ namespace InventoryExpress.Model.WebItems
         /// <summary>
         /// Die Aktion
         /// </summary>
+        [JsonPropertyName("action")]
         public string Action { get; set; }
 
         /// <summary>
         /// Der Zeitstempel der Erstellung
         /// </summary>
+        [JsonPropertyName("created")]
         public DateTime Created { get; set; } = DateTime.Now;
 
         /// <summary>

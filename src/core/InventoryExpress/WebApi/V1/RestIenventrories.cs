@@ -55,31 +55,31 @@ namespace InventoryExpress.WebApi.V1
                 },
                 new ResourceRestCrudColumn(InternationalizationManager.I18N(request, "inventoryexpress:inventoryexpress.template.label"))
                 {
-                    Render = "return $(\"<a class='link' href='\" + item.template?.Uri + \"'>\" + item.template?.name + \"</a>\");"
+                    Render = "return $(\"<a class='link' href='\" + item.template?.uri + \"'>\" + (item.template?.name ?? '') + \"</a>\");"
                 },
                 new ResourceRestCrudColumn(InternationalizationManager.I18N(request, "inventoryexpress:inventoryexpress.manufacturer.label"))
                 {
-                    Render = "return $(\"<a class='link' href='\" + item.manufacturer?.Uri + \"'>\" + item.manufacturer?.name + \"</a>\");"
+                    Render = "return $(\"<a class='link' href='\" + item.manufacturer?.uri + \"'>\" + (item.manufacturer?.name ?? '') + \"</a>\");"
                 },
                 new ResourceRestCrudColumn(InternationalizationManager.I18N(request, "inventoryexpress:inventoryexpress.supplier.label"))
                 {
-                    Render = "return $(\"<a class='link' href='\" + item.supplier?.uri + \"'>\" + item.supplier?.name + \"</a>\");"
+                    Render = "return $(\"<a class='link' href='\" + item.supplier?.uri + \"'>\" + (item.supplier?.name ?? '') + \"</a>\");"
                 },
                 new ResourceRestCrudColumn(InternationalizationManager.I18N(request, "inventoryexpress:inventoryexpress.location.label"))
                 {
-                    Render = "return $(\"<a class='link' href='\" + item.location?.uri + \"'>\" + item.location?.name + \"</a>\");"
+                    Render = "return $(\"<a class='link' href='\" + item.location?.uri + \"'>\" + (item.location?.name ?? '') + \"</a>\");"
                 },
                 new ResourceRestCrudColumn(InternationalizationManager.I18N(request, "inventoryexpress:inventoryexpress.costcenter.label"))
                 {
-                    Render = "return $(\"<a class='link' href='\" + item.costcenter?.uri + \"'>\" + item.costcenter?.name + \"</a>\");"
+                    Render = "return $(\"<a class='link' href='\" + item.costcenter?.uri + \"'>\" + (item.costcenter?.name ?? '') + \"</a>\");"
                 },
                 new ResourceRestCrudColumn(InternationalizationManager.I18N(request, "inventoryexpress:inventoryexpress.ledgeraccount.label"))
                 {
-                    Render = "return $(\"<a class='link' href='\" + item.ledgeraccount?.uri + \"'>\" + item.ledgeraccount?.name + \"</a>\");"
+                    Render = "return $(\"<a class='link' href='\" + item.ledgeraccount?.uri + \"'>\" + (item.ledgeraccount?.name ?? '') + \"</a>\");"
                 },
                 new ResourceRestCrudColumn(InternationalizationManager.I18N(request, "inventoryexpress:inventoryexpress.condition.label"))
                 {
-                    Render = "return $(\"<img style='height:1em;' src='\" + item.condition?.image + \"' alt='\" + item.condition?.name + \"'/>\");"
+                    Render = "return item.condition != null ? $(\"<img style='height:1em;' src='\" + item.condition?.image + \"' alt='\" + item.condition?.name + \"'/>\") : null;"
                 }
             };
         }
