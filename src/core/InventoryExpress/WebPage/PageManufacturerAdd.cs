@@ -108,8 +108,6 @@ namespace InventoryExpress.WebPage
                 icon: new UriRelative(manufacturer.Image),
                 durability: 10000
             );
-
-            Form.RedirectUri = Form.RedirectUri.Append(manufacturer.Id);
         }
 
         /// <summary>

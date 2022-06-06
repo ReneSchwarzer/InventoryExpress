@@ -84,7 +84,7 @@ namespace InventoryExpress.WebComponent
             var guid = context.Request.GetParameter("ManufacturerID")?.Value;
             var manufacturer = ViewModel.GetManufacturer(guid);
 
-            Image.Uri = new UriRelative(manufacturer.Media?.Uri);
+            Image.Uri = new UriRelative(manufacturer.Image);
 
             return base.Render(context);
         }

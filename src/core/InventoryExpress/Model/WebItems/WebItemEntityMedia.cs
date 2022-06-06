@@ -72,15 +72,15 @@ namespace InventoryExpress.Model.WebItems
         /// <param name="media">Das Datenbankobjekt der Medien</param>
         public WebItemEntityMedia(Media media)
         {
-            Id = media.Guid;
-            Label = media.Name;
-            Name = media.Name;
-            Description = media.Description;
-            Image = ViewModel.GetMediaUri(media.Guid);
-            Tag = media.Tag;
-            Created = media.Created;
-            Updated = media.Updated;
-            Uri = ViewModel.GetMediaUri(media.Guid);
+            Id = media?.Guid;
+            Label = media?.Name;
+            Name = media?.Name;
+            Description = media?.Description;
+            Image = ViewModel.GetMediaUri(media?.Guid);
+            Tag = media?.Tag;
+            Created = media != null ? media.Created : DateTime.Now;
+            Updated = media != null ? media.Updated : DateTime.Now;
+            Uri = ViewModel.GetMediaUri(media?.Guid);
         }
     }
 }

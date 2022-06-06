@@ -79,10 +79,11 @@ namespace InventoryExpress.WebPage
                 message: string.Format
                 (
                     I18N(Culture, "inventoryexpress:inventoryexpress.location.notification.delete"),
-                    new ControlLink()
+                    new ControlText()
                     {
                         Text = location.Name,
-                        Uri = new UriRelative(ViewModel.GetLocationUri(location.Id))
+                        TextColor = new PropertyColorText(TypeColorText.Danger),
+                        Format = TypeFormatText.Span
                     }.Render(e.Context).ToString().Trim()
                 ),
                 icon: new UriRelative(location.Image),

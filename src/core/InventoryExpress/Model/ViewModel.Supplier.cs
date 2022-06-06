@@ -75,7 +75,7 @@ namespace InventoryExpress.Model
         {
             lock (DbContext)
             {
-                var availableEntity = DbContext.Manufacturers.Where(x => x.Guid == supplier.Id).FirstOrDefault();
+                var availableEntity = DbContext.Suppliers.Where(x => x.Guid == supplier.Id).FirstOrDefault();
 
                 if (availableEntity == null)
                 {

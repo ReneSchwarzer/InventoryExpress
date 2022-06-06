@@ -376,6 +376,7 @@ inventoryexpress.attribute.notification.delete=The attribute '{0}' was successfu
 
 inventoryexpress.journal.action.inventory.add=The inventory item has been created.
 inventoryexpress.journal.action.inventory.edit=The inventory item has been changed.
+inventoryexpress.journal.action.inventory.attribute.edit=The attributes of the inventory item have been changed.
 inventoryexpress.journal.action.inventory.media.add=An image has been added to the inventory item.
 inventoryexpress.journal.action.inventory.media.edit=The image of the inventory item has been changed.
 inventoryexpress.journal.action.inventory.media.del=The image of the inventory item has been deleted.

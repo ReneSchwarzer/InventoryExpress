@@ -98,6 +98,55 @@ namespace InventoryExpress.Model
         }
 
         /// <summary>
+        /// Liefert alle untergeordneten Inventargegenstände
+        /// </summary>
+        /// <param name="inventory">Der Inventargegenstand</param>
+        /// <returns>Eine Aufzählung mit allen untergeordneten Inventargegenstände</returns>
+        public static IEnumerable<WebItemEntityInventory> GetInventoryChildren(WebItemEntityInventory inventory)
+        {
+            lock (DbContext)
+            {
+                var entities = from i in DbContext.Inventories
+                               join c in DbContext.Inventories on i.Id equals c.ParentId
+                               where i.Guid == inventory.Id
+                               select new WebItemEntityInventory(c);
+
+                return entities;
+            }
+        }
+
+        /// <summary>
+        /// Liefert alle Attribute einees Inventargegenstandes
+        /// </summary>
+        /// <param name="inventory">Der Inventargegenstand</param>
+        /// <returns>Eine Aufzählung, welche die Attribute beinhaltet</returns>
+        public static IEnumerable<WebItemEntityInventoryAttribute> GetInventoryAttributes(WebItemEntityInventory inventory)
+        {
+            var template = inventory.Template?.Id;
+
+            lock (DbContext)
+            {
+                var inventoryAttributes = from i in DbContext.Inventories
+                                          join ia in DbContext.InventoryAttributes on i.Id equals ia.InventoryId
+                                          where i.Guid == inventory.Id
+                                          select ia;
+
+                var templateAttributes = from t in DbContext.Templates
+                                         join ta in DbContext.TemplateAttributes on t.Id equals ta.TemplateId
+                                         join a in DbContext.Attributes on ta.AttributeId equals a.Id
+                                         where t.Guid == template
+                                         select a;
+
+                return templateAttributes.Select
+                    (
+                        x => new WebItemEntityInventoryAttribute(inventoryAttributes
+                            .Where(y => y.AttributeId == x.Id)
+                            .FirstOrDefault(), x)
+                    ).ToList();
+            }
+        }
+
+        /// <summary>
         /// Fügt ein Inventargegenstand hinzu oder aktuallisiert diesen
         /// </summary>
         /// <param name="inventory">Der Inventargegenstand</param>
@@ -138,6 +187,9 @@ namespace InventoryExpress.Model
                     };
 
                     AddInventoryJournal(inventory, journal);
+
+                    // Attribute speichern
+                    AddOrUpdateInventoryAttributes(inventory);
                 }
                 else
                 {
@@ -174,7 +226,7 @@ namespace InventoryExpress.Model
                     availableEntity.Description = inventory.Description;
                     availableEntity.Updated = DateTime.Now;
 
-                    if (changed.Count > 0)
+                    if (changed.Any())
                     {
                         DbContext.SaveChanges();
 
@@ -191,7 +243,105 @@ namespace InventoryExpress.Model
 
                         AddInventoryJournal(inventory, journal);
                     }
+
+                    // Attribute speichern
+                    AddOrUpdateInventoryAttributes(inventory);
                 }
+            }
+        }
+
+        // <summary>
+        /// Fügt die Attribute dem Inventargegenstand hinzu oder aktuallisiert diese
+        /// </summary>
+        /// <param name="inventory">Der Inventargegenstand</param>
+        public static void AddOrUpdateInventoryAttributes(WebItemEntityInventory inventory)
+        {
+            var changed = new List<Tuple<string, string, string, bool>>();
+
+            lock (DbContext)
+            {
+                var existens = (from i in DbContext.Inventories
+                                join ia in DbContext.InventoryAttributes on i.Id equals ia.InventoryId
+                                join a in DbContext.Attributes on ia.AttributeId equals a.Id
+                                where i.Guid == inventory.Id
+                                select new WebItemEntityInventoryAttribute(ia, a)).ToList();
+
+                var creates = inventory.Attributes.Except(existens, new WebItemEntityInventoryAttributeComparer());
+                var updates = inventory.Attributes.Intersect(existens, new WebItemEntityInventoryAttributeComparer());
+                var removes = existens.Except(inventory.Attributes, new WebItemEntityInventoryAttributeComparer());
+
+                // Ersetllung
+                foreach (var attribute in creates)
+                {
+                    var inventoryEntity = DbContext.Inventories
+                        .Where(x => x.Guid == inventory.Id)
+                        .FirstOrDefault();
+
+                    var attributeEntity = DbContext.Attributes
+                        .Where(x => x.Guid == attribute.Id)
+                        .FirstOrDefault();
+
+                    DbContext.InventoryAttributes.Add(new InventoryAttribute()
+                    {
+                        AttributeId = attributeEntity.Id,
+                        InventoryId = inventoryEntity.Id,
+                        Value = attribute.Value,
+                        Created = DateTime.Now
+                    });
+
+                    ComparisonInventory(attribute.Name, null, attribute.Value, changed, true);
+                }
+
+                // Änderung
+                foreach (var attribute in updates)
+                {
+                    var availableEntity = (from i in DbContext.Inventories
+                                           join ia in DbContext.InventoryAttributes on i.Id equals ia.InventoryId
+                                           join a in DbContext.Attributes on ia.AttributeId equals a.Id
+                                           where i.Guid == inventory.Id && a.Guid == attribute.Id
+                                           select ia).FirstOrDefault();
+
+                    if (availableEntity != null && availableEntity.Value != attribute.Value)
+                    {
+                        ComparisonInventory(attribute.Name, availableEntity.Value, attribute.Value, changed, true);
+
+                        availableEntity.Value = attribute.Value;
+                    }
+                }
+
+                // Entfernung
+                foreach (var attribute in removes)
+                {
+                    var availableEntity = (from i in DbContext.Inventories
+                                           join ia in DbContext.InventoryAttributes on i.Id equals ia.InventoryId
+                                           join a in DbContext.Attributes on ia.AttributeId equals a.Id
+                                           where i.Guid == inventory.Id && a.Guid == attribute.Id
+                                           select ia).FirstOrDefault();
+
+                    DbContext.InventoryAttributes.Remove(availableEntity);
+
+                    ComparisonInventory(attribute.Name, availableEntity.Value, null, changed, true);
+                }
+
+                DbContext.SaveChanges();
+            }
+
+            if (changed.Any())
+            {
+                DbContext.SaveChanges();
+
+                var journal = new WebItemEntityJournal()
+                {
+                    Action = "inventoryexpress:inventoryexpress.journal.action.inventory.attribute.edit",
+                    Parameters = changed.Select(x => new WebItemEntityJournalParameter()
+                    {
+                        Name = x.Item1,
+                        OldValue = x.Item4 ? x.Item2?.Length > 15 ? $" {x.Item2?.Substring(0, 15)}..." : x.Item2 : "...",
+                        NewValue = x.Item4 ? x.Item3?.Length > 15 ? $" {x.Item3?.Substring(0, 15)}..." : x.Item3 : "..."
+                    })
+                };
+
+                AddInventoryJournal(inventory, journal);
             }
         }
 
@@ -202,7 +352,7 @@ namespace InventoryExpress.Model
         /// <param name="orgValue">Der Wert vor der Änderung</param>
         /// <param name="newValue">Der geänderte Wert</param>
         /// <param name="list">Eine Liste mit den Änderungen</param>
-        /// <param name="apply"></param>
+        /// <param name="apply">Die Werte werden im Journal übernommen</param>
         private static void ComparisonInventory(string name, string orgValue, string newValue, List<Tuple<string, string, string, bool>> list, bool apply)
         {
             if (orgValue != newValue)

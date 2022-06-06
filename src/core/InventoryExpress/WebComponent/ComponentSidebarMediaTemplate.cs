@@ -84,7 +84,7 @@ namespace InventoryExpress.WebComponent
             var guid = context.Request.GetParameter("TemplateID")?.Value;
             var template = ViewModel.GetTemplate(guid);
 
-            Image.Uri = new UriRelative(template.Media?.Uri);
+            Image.Uri = new UriRelative(template.Image);
 
             return base.Render(context);
         }

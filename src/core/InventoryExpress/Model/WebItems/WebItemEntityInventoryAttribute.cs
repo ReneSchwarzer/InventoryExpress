@@ -32,13 +32,23 @@ namespace InventoryExpress.Model.WebItems
         /// <summary>
         /// Konstruktor
         /// </summary>
+        /// <param name="attribute">Das Attribut</param>
+        public WebItemEntityInventoryAttribute(WebItemEntityAttribute attribute)
+            : base(attribute)
+        {
+            Value = null;
+        }
+
+        /// <summary>
+        /// Konstruktor
+        /// </summary>
         /// <param name="attribute">Das Datenbankobjektes des Inventarattributes</param>
         /// <param name="attribute">Das Datenbankobjektes des Attributs</param>
         public WebItemEntityInventoryAttribute(InventoryAttribute inventoryAttribute, Attribute attribute)
             : base(attribute)
         {
-            Value = inventoryAttribute.Value;
-            Created = inventoryAttribute.Created;
+            Value = inventoryAttribute?.Value;
+            Created = inventoryAttribute != null ? inventoryAttribute.Created : System.DateTime.Now;
         }
     }
 }

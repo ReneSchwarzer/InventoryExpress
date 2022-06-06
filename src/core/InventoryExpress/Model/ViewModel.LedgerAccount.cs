@@ -75,7 +75,7 @@ namespace InventoryExpress.Model
         {
             lock (DbContext)
             {
-                var availableEntity = DbContext.Locations.Where(x => x.Guid == location.Id).FirstOrDefault();
+                var availableEntity = DbContext.LedgerAccounts.Where(x => x.Guid == location.Id).FirstOrDefault();
 
                 if (availableEntity == null)
                 {

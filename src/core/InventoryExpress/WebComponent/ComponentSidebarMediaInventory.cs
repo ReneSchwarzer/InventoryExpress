@@ -87,7 +87,7 @@ namespace InventoryExpress.WebComponent
             var guid = context.Request.GetParameter("InventoryID")?.Value;
             var inventory = ViewModel.GetInventory(guid);
 
-            Image.Uri = new UriRelative(inventory?.Media?.Uri);
+            Image.Uri = new UriRelative(inventory?.Image);
 
             return base.Render(context);
         }

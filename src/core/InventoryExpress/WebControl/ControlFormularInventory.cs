@@ -251,7 +251,7 @@ namespace InventoryExpress.WebControl
                         Name = "attribute_" + attribute.Id,
                         Label = $"{attribute.Name}:",
                         Help = attribute.Description,
-                        Tag = attribute
+                        Tag = new WebItemEntityInventoryAttribute(attribute)
                     });
                 }
             }
@@ -316,10 +316,10 @@ namespace InventoryExpress.WebControl
         /// <returns>Die Attribute</returns>
         public IEnumerable<WebItemEntityInventoryAttribute> GetAttributes()
         {
-            var attributes = Attributes.Items.Select(x => x as ControlFormularItemInput)
+            var attributes = Attributes.Items.Select(x => x as ControlFormularItemInputTextBox)
                 .Select(x => new WebItemEntityInventoryAttribute(x.Tag as WebItemEntityInventoryAttribute)
                 {
-                    Value = x.Value,
+                    Value = x.Value
                 });
 
             return attributes;

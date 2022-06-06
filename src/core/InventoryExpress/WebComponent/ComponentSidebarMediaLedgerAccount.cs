@@ -84,7 +84,7 @@ namespace InventoryExpress.WebComponent
             var guid = context.Request.GetParameter("LedgerAccountID")?.Value;
             var ledgerAccount = ViewModel.GetLedgerAccount(guid);
 
-            Image.Uri = new UriRelative(ledgerAccount.Media?.Uri);
+            Image.Uri = new UriRelative(ledgerAccount.Image);
 
             return base.Render(context);
         }

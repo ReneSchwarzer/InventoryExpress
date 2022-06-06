@@ -52,6 +52,7 @@ namespace InventoryExpress.WebPageSetting
             Form.InitializeFormular += InitializeFormular;
             Form.FillFormular += FillFormular;
             Form.ProcessFormular += ProcessFormular;
+            Form.RedirectUri = context.Application.ContextPath.Append("setting/templates");
         }
 
         /// <summary>
@@ -120,8 +121,6 @@ namespace InventoryExpress.WebPageSetting
                 icon: new UriRelative(template.Image),
                 durability: 10000
             );
-
-            Form.RedirectUri = Form.RedirectUri.Append(template.Id);
         }
 
         /// <summary>

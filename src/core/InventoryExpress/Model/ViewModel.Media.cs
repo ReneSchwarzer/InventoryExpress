@@ -30,7 +30,7 @@ namespace InventoryExpress.Model
 
             lock (DbContext)
             {
-                var media = DbContext.Media.Where(x => x.Id == id).Select(x => GetMediaUri(x.Guid)).FirstOrDefault();
+                var media = DbContext.Media.Where(x => x.Id == id && !string.IsNullOrEmpty(x.Name)).Select(x => GetMediaUri(x.Guid)).FirstOrDefault();
 
                 return media ?? ApplicationIcon;
             }
@@ -50,6 +50,26 @@ namespace InventoryExpress.Model
                 var media = DbContext.Media.Where(x => x.Id == id).Select(x => new WebItemEntityMedia(x)).FirstOrDefault();
 
                 return media ?? new WebItemEntityMedia();
+            }
+        }
+
+        /// <summary>
+        /// Ermittelt die Media-URL
+        /// </summary>
+        /// <param name="id">Die Kostenstelle</param>
+        /// <returns>Das Dokument</returns>
+        public static WebItemEntityMedia GetMedia(WebItemEntityCostCenter costCenter)
+        {
+            if (costCenter == null) { return new WebItemEntityMedia() { Uri = ApplicationIcon }; }
+
+            lock (DbContext)
+            {
+                var media = (from c in DbContext.CostCenters
+                             join m in DbContext.Media on c.MediaId equals m.Id
+                             where c.Guid == costCenter.Id
+                             select m).FirstOrDefault();
+
+                return new WebItemEntityMedia(media) ?? new WebItemEntityMedia();
             }
         }
 

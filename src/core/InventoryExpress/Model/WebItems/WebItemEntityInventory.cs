@@ -91,7 +91,7 @@ namespace InventoryExpress.Model.WebItems
             Supplier = ViewModel.GetSupplier(this);
             Template = ViewModel.GetTemplate(this);
             Parent = ViewModel.GetInventoryParent(this);
-            Attributes = ViewModel.GetAttributes(this);
+            Attributes = ViewModel.GetInventoryAttributes(this);
 
             CostValue = inventory.CostValue;
             PurchaseDate = inventory.PurchaseDate;

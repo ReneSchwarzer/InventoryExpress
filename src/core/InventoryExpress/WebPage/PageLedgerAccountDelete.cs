@@ -79,10 +79,11 @@ namespace InventoryExpress.WebPage
                 message: string.Format
                 (
                     InternationalizationManager.I18N(Culture, "inventoryexpress:inventoryexpress.ledgeraccount.notification.delete"),
-                    new ControlLink()
+                    new ControlText()
                     {
                         Text = ledgeraccount.Name,
-                        Uri = new UriRelative(ViewModel.GetLedgerAccountUri(ledgeraccount.Id))
+                        TextColor = new PropertyColorText(TypeColorText.Danger),
+                        Format = TypeFormatText.Span
                     }.Render(e.Context).ToString().Trim()
                 ),
                 icon: new UriRelative(ledgeraccount.Image),

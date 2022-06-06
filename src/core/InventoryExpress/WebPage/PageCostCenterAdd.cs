@@ -104,8 +104,6 @@ namespace InventoryExpress.WebPage
                 icon: new UriRelative(costcenter.Image),
                 durability: 10000
             );
-
-            Form.RedirectUri = Form.RedirectUri.Append(costcenter.Id);
         }
 
         /// <summary>

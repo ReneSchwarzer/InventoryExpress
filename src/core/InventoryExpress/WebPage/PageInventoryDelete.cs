@@ -85,7 +85,8 @@ namespace InventoryExpress.WebPage
                     new ControlText()
                     {
                         Text = inventory.Name,
-                        TextColor = new PropertyColorText(TypeColorText.Danger)
+                        TextColor = new PropertyColorText(TypeColorText.Danger),
+                        Format = TypeFormatText.Span
                     }.Render(e.Context).ToString().Trim()
                 ),
                 icon: new UriRelative(inventory.Image),

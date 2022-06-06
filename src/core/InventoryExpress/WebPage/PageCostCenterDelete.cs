@@ -79,10 +79,11 @@ namespace InventoryExpress.WebPage
                 message: string.Format
                 (
                     InternationalizationManager.I18N(Culture, "inventoryexpress:inventoryexpress.costcenter.notification.delete"),
-                    new ControlLink()
+                    new ControlText()
                     {
                         Text = costcenter.Name,
-                        Uri = new UriRelative(ViewModel.GetCostCenterUri(costcenter.Id))
+                        TextColor = new PropertyColorText(TypeColorText.Danger),
+                        Format = TypeFormatText.Span
                     }.Render(e.Context).ToString().Trim()
                 ),
                 icon: new UriRelative(costcenter.Image),

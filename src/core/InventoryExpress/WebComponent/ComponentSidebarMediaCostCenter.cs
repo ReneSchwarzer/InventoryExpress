@@ -84,7 +84,7 @@ namespace InventoryExpress.WebComponent
             var guid = context.Request.GetParameter("CostCenterID")?.Value;
             var costCenter = ViewModel.GetCostCenter(guid);
 
-            Image.Uri = new UriRelative(costCenter.Media?.Uri);
+            Image.Uri = new UriRelative(costCenter.Image);
 
             return base.Render(context);
         }

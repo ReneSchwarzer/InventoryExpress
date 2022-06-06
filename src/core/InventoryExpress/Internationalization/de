@@ -376,6 +376,7 @@ inventoryexpress.attribute.notification.delete=Das Attribut '{0}' wurde erfolgre
 
 inventoryexpress.journal.action.inventory.add=Der Inventargegenstand wurde erstellt.
 inventoryexpress.journal.action.inventory.edit=Der Inventargegenstand wurde geändert.
+inventoryexpress.journal.action.inventory.attribute.edit=Die Attribute des Inventargegenstandes wurden geändert.
 inventoryexpress.journal.action.inventory.media.add=Es wurde ein Bild dem Inventargegenstand hinzugefügt.
 inventoryexpress.journal.action.inventory.media.edit=Es wurde das Bild des Inventargegenstandes geändert.
 inventoryexpress.journal.action.inventory.media.del=Es wurde das Bild des Inventargegenstandes gelöscht.

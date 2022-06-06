@@ -53,25 +53,6 @@ namespace InventoryExpress.Model
         }
 
         /// <summary>
-        /// Liefert alle Attribute einees Inventargegenstandes
-        /// </summary>
-        /// <param name="inventory">Der Inventargegenstand</param>
-        /// <returns>Eine Aufzählung, welche die Attribute beinhaltet</returns>
-        public static IEnumerable<WebItemEntityInventoryAttribute> GetAttributes(WebItemEntityInventory inventory)
-        {
-            lock (DbContext)
-            {
-                var attributes = from i in DbContext.Inventories
-                                 join ia in DbContext.InventoryAttributes on i.Id equals ia.InventoryId
-                                 join a in DbContext.Attributes on ia.AttributeId equals a.Id
-                                 where i.Guid == inventory.Id
-                                 select new WebItemEntityInventoryAttribute(ia, a);
-
-                return attributes.ToList();
-            }
-        }
-
-        /// <summary>
         /// Liefert ein Attribut
         /// </summary>
         /// <param name="id">Die ID des Attributes</param>

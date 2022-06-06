@@ -104,8 +104,6 @@ namespace InventoryExpress.WebPage
                 icon: new UriRelative(ledgeraccount.Image),
                 durability: 10000
             );
-
-            Form.RedirectUri = Form.RedirectUri.Append(ledgeraccount.Id);
         }
 
         /// <summary>

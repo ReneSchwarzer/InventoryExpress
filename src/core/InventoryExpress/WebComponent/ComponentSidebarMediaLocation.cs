@@ -84,7 +84,7 @@ namespace InventoryExpress.WebComponent
             var guid = context.Request.GetParameter("LocationID")?.Value;
             var location = ViewModel.GetLocation(guid);
 
-            Image.Uri = new UriRelative(location.Media?.Uri);
+            Image.Uri = new UriRelative(location.Image);
 
             return base.Render(context);
         }

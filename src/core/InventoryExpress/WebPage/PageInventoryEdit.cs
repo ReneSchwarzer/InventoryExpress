@@ -1,8 +1,6 @@
 ﻿using InventoryExpress.Model;
-using InventoryExpress.Model.Entity;
 using InventoryExpress.WebControl;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
