@@ -100,11 +100,14 @@ namespace InventoryExpress.Model
 
                 if (inventoryEntity != null)
                 {
-                    var split = inventoryEntity.Tag.Split(';', StringSplitOptions.RemoveEmptyEntries);
-                    var tags = DbContext.Tags.Where(x => split.Contains(x.Label))
-                        .Select(x => new WebItemEntityTag(x));
+                    var split = inventoryEntity.Tag?.Split(';', StringSplitOptions.RemoveEmptyEntries);
+                    if (split != null)
+                    {
+                        var tags = DbContext.Tags.Where(x => split.Contains(x.Label))
+                            .Select(x => new WebItemEntityTag(x));
 
-                    return tags.ToList();
+                        return tags.ToList();
+                    }
                 }
 
                 return new List<WebItemEntityTag>();
