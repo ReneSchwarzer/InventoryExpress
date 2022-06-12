@@ -1,7 +1,6 @@
 ﻿using InventoryExpress.Model;
 using InventoryExpress.Model.WebItems;
 using InventoryExpress.WebControl;
-using System;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
 using WebExpress.Uri;
@@ -12,7 +11,7 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPage
 {
-    [ID("InventoryAdd")]
+    [Id("InventoryAdd")]
     [Title("inventoryexpress:inventoryexpress.inventory.add.label")]
     [Segment("add", "inventoryexpress:inventoryexpress.inventory.add.label")]
     [Path("/")]

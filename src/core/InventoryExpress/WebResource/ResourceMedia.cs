@@ -10,7 +10,7 @@ namespace InventoryExpress.WebResource
     /// <summary>
     /// Lieferung einer im Assamby eingebetteten Ressource
     /// </summary>
-    [ID("MediaAsset")]
+    [Id("MediaAsset")]
     [Title("Media")]
     [SegmentGuid("MediaID", "")]
     [Path("/media")]

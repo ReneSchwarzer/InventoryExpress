@@ -9,7 +9,7 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPageSetting
 {
-    [ID("SettingAttribute")]
+    [Id("SettingAttribute")]
     [Title("inventoryexpress:inventoryexpress.attribute.label")]
     [Segment("attributes", "inventoryexpress:inventoryexpress.attribute.label")]
     [Path("/Setting")]

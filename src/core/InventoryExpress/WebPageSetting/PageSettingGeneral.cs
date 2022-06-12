@@ -1,8 +1,5 @@
 ﻿using InventoryExpress.Model;
-using InventoryExpress.Model.Entity;
-using InventoryExpress.Model.WebItems;
 using InventoryExpress.WebControl;
-using System.Linq;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebAttribute;
 using WebExpress.WebApp.WebPage;
@@ -12,7 +9,7 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPageSetting
 {
-    [ID("SettingGeneral")]
+    [Id("SettingGeneral")]
     [Title("inventoryexpress:inventoryexpress.setting.label")]
     [Segment("general", "inventoryexpress:inventoryexpress.setting.label")]
     [Path("/Setting")]
@@ -86,7 +83,7 @@ namespace InventoryExpress.WebPageSetting
 
             // Einstellungen ändern und speichern
             setting.Currency = Form.Currency.Value;
-            
+
             ViewModel.AddOrUpdateSettings(setting);
 
             transaction.Commit();

@@ -6,7 +6,7 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPage
 {
-    [ID("Manufacturer")]
+    [Id("Manufacturer")]
     [Title("inventoryexpress:inventoryexpress.manufacturers.label")]
     [Segment("manufacturers", "inventoryexpress:inventoryexpress.manufacturers.label")]
     [Path("/")]

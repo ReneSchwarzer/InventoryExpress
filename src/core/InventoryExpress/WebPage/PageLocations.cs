@@ -9,7 +9,7 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPage
 {
-    [ID("Location")]
+    [Id("Location")]
     [Title("inventoryexpress:inventoryexpress.locations.label")]
     [Segment("locations", "inventoryexpress:inventoryexpress.locations.label")]
     [Path("/")]

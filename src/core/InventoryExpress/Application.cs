@@ -5,7 +5,7 @@ using WebExpress.WebAttribute;
 
 namespace InventoryExpress
 {
-    [ID("InventoryExpress")]
+    [Id("InventoryExpress")]
     [Name("app.name")]
     [Description("app.description")]
     [Icon("/assets/img/inventoryexpress.svg")]

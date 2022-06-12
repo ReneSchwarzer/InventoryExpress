@@ -1,10 +1,6 @@
 ﻿using InventoryExpress.Model;
-using InventoryExpress.Model.WebItems;
-using InventoryExpress.WebControl;
-using System;
 using System.IO;
 using WebExpress.Internationalization;
-using WebExpress.Message;
 using WebExpress.UI.WebControl;
 using WebExpress.Uri;
 using WebExpress.WebApp.WebAttribute;
@@ -17,7 +13,7 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPageSetting
 {
-    [ID("SettingConditionDelete")]
+    [Id("SettingConditionDelete")]
     [Title("inventoryexpress:inventoryexpress.condition.delete.label")]
     [SegmentGuid("ConditionID", "inventoryexpress:inventoryexpress.condition.delete.display")]
     [Path("/Setting/SettingCondition/del")]

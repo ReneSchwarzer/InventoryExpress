@@ -13,7 +13,7 @@ namespace InventoryExpress.WebApi.V1
     /// <summary>
     /// Ermittelt alle Standorte
     /// </summary>
-    [ID("RestTagsV1")]
+    [Id("RestTagsV1")]
     [Segment("tags", "")]
     [Path("/api/v1")]
     [IncludeSubPaths(true)]

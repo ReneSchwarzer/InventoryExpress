@@ -12,7 +12,7 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPage
 {
-    [ID("InventoryEdit")]
+    [Id("InventoryEdit")]
     [Title("inventoryexpress:inventoryexpress.inventory.edit.label")]
     [Segment("edit", "inventoryexpress:inventoryexpress.inventory.edit.display")]
     [Path("/InventoryDetails")]

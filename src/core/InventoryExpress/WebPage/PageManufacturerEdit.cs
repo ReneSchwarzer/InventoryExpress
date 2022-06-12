@@ -4,7 +4,6 @@ using InventoryExpress.WebControl;
 using System;
 using System.IO;
 using WebExpress.Internationalization;
-using WebExpress.Message;
 using WebExpress.UI.WebControl;
 using WebExpress.Uri;
 using WebExpress.WebApp.WebNotificaation;
@@ -14,7 +13,7 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPage
 {
-    [ID("ManufacturerEdit")]
+    [Id("ManufacturerEdit")]
     [Title("inventoryexpress:inventoryexpress.manufacturer.edit.label")]
     [SegmentGuid("ManufacturerID", "inventoryexpress:inventoryexpress.manufacturer.edit.display", SegmentGuidAttribute.Format.Simple)]
     [Path("/Manufacturer")]

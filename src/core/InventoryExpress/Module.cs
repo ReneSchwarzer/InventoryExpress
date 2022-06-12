@@ -1,12 +1,10 @@
 ﻿using InventoryExpress.Model;
-using System.IO;
-using System.Linq;
 using WebExpress.WebAttribute;
 using WebExpress.WebModule;
 
 namespace InventoryExpress
 {
-    [ID("InventoryExpress")]
+    [Id("InventoryExpress")]
     [Name("module.name")]
     [Description("module.description")]
     [Icon("/assets/img/Logo.png")]

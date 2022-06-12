@@ -11,7 +11,7 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPageSetting
 {
-    [ID("SettingTemplate")]
+    [Id("SettingTemplate")]
     [Title("inventoryexpress:inventoryexpress.templates.label")]
     [Segment("templates", "inventoryexpress:inventoryexpress.templates.label")]
     [Path("/Setting")]

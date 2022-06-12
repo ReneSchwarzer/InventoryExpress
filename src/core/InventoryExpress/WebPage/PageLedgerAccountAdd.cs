@@ -3,7 +3,6 @@ using InventoryExpress.Model.WebItems;
 using InventoryExpress.WebControl;
 using System.IO;
 using WebExpress.Internationalization;
-using WebExpress.Message;
 using WebExpress.UI.WebControl;
 using WebExpress.Uri;
 using WebExpress.WebApp.WebNotificaation;
@@ -13,7 +12,7 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPage
 {
-    [ID("LedgerAccountAdd")]
+    [Id("LedgerAccountAdd")]
     [Title("inventoryexpress:inventoryexpress.ledgeraccount.add.label")]
     [Segment("add", "inventoryexpress:inventoryexpress.ledgeraccount.add.label")]
     [Path("/LedgerAccount")]

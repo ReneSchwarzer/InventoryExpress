@@ -11,7 +11,7 @@ using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace InventoryExpress.WebPage
 {
-    [ID("LocationDelete")]
+    [Id("LocationDelete")]
     [Title("inventoryexpress:inventoryexpress.location.delete.label")]
     [Segment("del", "inventoryexpress:inventoryexpress.location.delete.display")]
     [Path("/Location/LocationEdit")]

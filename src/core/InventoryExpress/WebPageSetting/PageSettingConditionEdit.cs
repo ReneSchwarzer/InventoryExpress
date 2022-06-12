@@ -4,7 +4,6 @@ using InventoryExpress.WebControl;
 using System;
 using System.IO;
 using WebExpress.Internationalization;
-using WebExpress.Message;
 using WebExpress.UI.WebControl;
 using WebExpress.Uri;
 using WebExpress.WebApp.WebAttribute;
@@ -16,7 +15,7 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPageSetting
 {
-    [ID("SettingConditionEdit")]
+    [Id("SettingConditionEdit")]
     [Title("inventoryexpress:inventoryexpress.condition.edit.label")]
     [SegmentGuid("ConditionID", "inventoryexpress:inventoryexpress.condition.edit.display")]
     [Path("/Setting/SettingCondition/edit")]

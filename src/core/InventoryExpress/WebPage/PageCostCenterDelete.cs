@@ -11,7 +11,7 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPage
 {
-    [ID("CostCenterDelete")]
+    [Id("CostCenterDelete")]
     [Title("inventoryexpress:inventoryexpress.costcenter.delete.label")]
     [Segment("del", "inventoryexpress:inventoryexpress.costcenter.delete.display")]
     [Path("/CostCenter/CostCenterEdit")]

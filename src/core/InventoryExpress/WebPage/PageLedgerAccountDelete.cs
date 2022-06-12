@@ -11,7 +11,7 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPage
 {
-    [ID("LedgerAccountDelete")]
+    [Id("LedgerAccountDelete")]
     [Title("inventoryexpress:inventoryexpress.ledgeraccount.delete.label")]
     [Segment("del", "inventoryexpress:inventoryexpress.ledgeraccount.delete.display")]
     [Path("/LedgerAccount/LedgerAccountEdit")]

@@ -13,7 +13,7 @@ namespace InventoryExpress.WebApi.V1
     /// <summary>
     /// Ermittelt alle Lieferanten
     /// </summary>
-    [ID("RestSuppliersV1")]
+    [Id("RestSuppliersV1")]
     [Segment("suppliers", "")]
     [Path("/api/v1")]
     [IncludeSubPaths(true)]

@@ -1,5 +1,4 @@
-﻿using InventoryExpress.Model;
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
 using WebExpress.UI.WebControl;
@@ -16,7 +15,7 @@ using WebExpress.WebTask;
 
 namespace InventoryExpress.WebPageSetting
 {
-    [ID("SettingExport")]
+    [Id("SettingExport")]
     [Title("inventoryexpress:inventoryexpress.importexport.label")]
     [Segment("export", "inventoryexpress:inventoryexpress.importexport.label")]
     [Path("/Setting")]

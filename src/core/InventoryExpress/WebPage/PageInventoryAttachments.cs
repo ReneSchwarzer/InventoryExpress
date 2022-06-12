@@ -9,7 +9,7 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPage
 {
-    [ID("InventoryAttachments")]
+    [Id("InventoryAttachments")]
     [Title("inventoryexpress:inventoryexpress.inventory.attachment.label")]
     [Segment("attachments", "inventoryexpress:inventoryexpress.inventory.attachment.display")]
     [Path("/InventoryDetails")]
@@ -104,7 +104,7 @@ namespace InventoryExpress.WebPage
                 {
                     Action = "inventoryexpress.journal.action.inventory.attachment.del"
                 });
-                
+
                 transaction.Commit();
             };
 

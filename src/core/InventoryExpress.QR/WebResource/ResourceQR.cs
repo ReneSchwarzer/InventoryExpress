@@ -10,7 +10,7 @@ namespace InventoryExpress.QR.WebResource
     /// <summary>
     /// Lieferung einer im Assamby eingebetteten Ressource
     /// </summary>
-    [ID("QR")]
+    [Id("QR")]
     [Title("Assets")]
     [SegmentGuid("InventoryID", "")]
     [Path("/")]

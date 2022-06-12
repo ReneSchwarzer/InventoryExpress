@@ -14,7 +14,7 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPageSetting
 {
-    [ID("SettingAttributeAdd")]
+    [Id("SettingAttributeAdd")]
     [Title("inventoryexpress:inventoryexpress.attribute.add.label")]
     [Segment("add", "inventoryexpress:inventoryexpress.attribute.add.label")]
     [Path("/Setting/SettingAttribute")]

@@ -4,7 +4,6 @@ using InventoryExpress.WebControl;
 using System;
 using System.IO;
 using WebExpress.Internationalization;
-using WebExpress.Message;
 using WebExpress.UI.WebControl;
 using WebExpress.Uri;
 using WebExpress.WebApp.WebNotificaation;
@@ -14,7 +13,7 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPage
 {
-    [ID("LocationEdit")]
+    [Id("LocationEdit")]
     [Title("inventoryexpress:inventoryexpress.location.edit.label")]
     [SegmentGuid("LocationID", "inventoryexpress:inventoryexpress.location.edit.display")]
     [Path("/Location")]

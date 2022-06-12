@@ -13,7 +13,7 @@ namespace InventoryExpress.WebApi.V1
     /// <summary>
     /// Ermittelt alle Hersteller
     /// </summary>
-    [ID("RestManufacturersV1")]
+    [Id("RestManufacturersV1")]
     [Segment("manufacturers", "")]
     [Path("/api/v1")]
     [IncludeSubPaths(true)]

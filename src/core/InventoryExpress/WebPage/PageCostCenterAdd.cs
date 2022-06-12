@@ -3,7 +3,6 @@ using InventoryExpress.Model.WebItems;
 using InventoryExpress.WebControl;
 using System.IO;
 using WebExpress.Internationalization;
-using WebExpress.Message;
 using WebExpress.UI.WebControl;
 using WebExpress.Uri;
 using WebExpress.WebApp.WebNotificaation;
@@ -13,7 +12,7 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPage
 {
-    [ID("CostCenterAdd")]
+    [Id("CostCenterAdd")]
     [Title("inventoryexpress:inventoryexpress.costcenter.add.label")]
     [Segment("add", "inventoryexpress:inventoryexpress.costcenter.add.label")]
     [Path("/CostCenter")]

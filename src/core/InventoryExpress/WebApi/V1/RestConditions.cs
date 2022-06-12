@@ -13,7 +13,7 @@ namespace InventoryExpress.WebApi.V1
     /// <summary>
     /// Ermittelt alle Status
     /// </summary>
-    [ID("RestConditionsV1")]
+    [Id("RestConditionsV1")]
     [Segment("conditions", "")]
     [Path("/api/v1")]
     [IncludeSubPaths(true)]

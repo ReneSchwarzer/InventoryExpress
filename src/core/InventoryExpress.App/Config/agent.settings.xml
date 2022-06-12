@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<settings version = "1">
+    <!--<agent>http://crws/agent/1</agent>-->
+    <agent>http://localhost/ix/wxagent/1/applications</agent>
+</settings>

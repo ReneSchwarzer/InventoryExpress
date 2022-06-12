@@ -3,7 +3,6 @@ using InventoryExpress.Model.WebItems;
 using InventoryExpress.WebControl;
 using System.IO;
 using WebExpress.Internationalization;
-using WebExpress.Message;
 using WebExpress.UI.WebControl;
 using WebExpress.Uri;
 using WebExpress.WebApp.WebAttribute;
@@ -16,7 +15,7 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPageSetting
 {
-    [ID("SettingTemplateAdd")]
+    [Id("SettingTemplateAdd")]
     [Title("inventoryexpress:inventoryexpress.template.add.label")]
     [Segment("add", "inventoryexpress:inventoryexpress.template.add.label")]
     [Path("/Setting/SettingTemplate")]

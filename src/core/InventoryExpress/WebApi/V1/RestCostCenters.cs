@@ -1,11 +1,8 @@
 ﻿using InventoryExpress.Model;
 using System.Collections.Generic;
-using System.Linq;
 using WebExpress.Internationalization;
 using WebExpress.Message;
-using WebExpress.UI.WebControl;
 using WebExpress.WebApp.Model;
-using WebExpress.WebApp.WebApiControl;
 using WebExpress.WebApp.WebResource;
 using WebExpress.WebApp.Wql;
 using WebExpress.WebAttribute;
@@ -16,7 +13,7 @@ namespace InventoryExpress.WebApi.V1
     /// <summary>
     /// Ermittelt alle Kostenstellen
     /// </summary>
-    [ID("RestCostCentersV1")]
+    [Id("RestCostCentersV1")]
     [Segment("costcenters", "")]
     [Path("/api/v1")]
     [IncludeSubPaths(true)]

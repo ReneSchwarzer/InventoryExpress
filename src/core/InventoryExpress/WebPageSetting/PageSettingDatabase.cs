@@ -10,7 +10,7 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPageSetting
 {
-    [ID("SettingDatabase")]
+    [Id("SettingDatabase")]
     [Title("inventoryexpress:inventoryexpress.setting.database.label")]
     [Segment("database", "inventoryexpress:inventoryexpress.setting.database.label")]
     [Path("/Setting")]
