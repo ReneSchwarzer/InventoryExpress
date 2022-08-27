@@ -10,6 +10,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="WebPage\**" />
+    <EmbeddedResource Remove="WebPage\**" />
+    <None Remove="WebPage\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Assets\img\qr.svg" />
     <None Remove="Internationalization\de" />
     <None Remove="Internationalization\en" />
@@ -30,10 +36,6 @@
     <ProjectReference Include="..\..\..\..\WebExpress\core\WebExpress.WebApp\WebExpress.WebApp.csproj" />
     <ProjectReference Include="..\..\..\..\WebExpress\core\WebExpress\WebExpress.csproj" />
     <ProjectReference Include="..\InventoryExpress\InventoryExpress.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="WebPage\" />
   </ItemGroup>
 
 </Project>

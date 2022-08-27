@@ -19,6 +19,7 @@
     <None Remove="Assets\img\condition_4.svg" />
     <None Remove="Assets\img\condition_5.svg" />
     <None Remove="Assets\img\condition_6.svg" />
+    <None Remove="Assets\img\export.svg" />
     <None Remove="Assets\img\Favicon.png" />
     <None Remove="Assets\img\inventoryexpress.svg" />
     <None Remove="Assets\img\Logo.png" />
@@ -33,6 +34,7 @@
     <EmbeddedResource Include="Assets\img\condition_4.svg" />
     <EmbeddedResource Include="Assets\img\condition_5.svg" />
     <EmbeddedResource Include="Assets\img\condition_6.svg" />
+    <EmbeddedResource Include="Assets\img\export.svg" />
     <EmbeddedResource Include="Assets\img\Favicon.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>

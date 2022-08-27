@@ -36,6 +36,11 @@ namespace InventoryExpress.Model
         public static string MediaDirectory => Path.Combine(Context.Application.DataPath, "media");
 
         /// <summary>
+        /// Ermittelt das Exportverzeichnis
+        /// </summary>
+        public static string ExportDirectory => Path.Combine(Context.Application.DataPath, "export");
+
+        /// <summary>
         /// Konstruktor
         /// </summary>
         private ViewModel()
@@ -95,59 +100,6 @@ namespace InventoryExpress.Model
         public static IDbContextTransaction BeginTransaction()
         {
             return DbContext.Database.BeginTransaction();
-        }
-
-        /// <summary>
-        /// Export der Daten
-        /// </summary>
-        /// <param name="fileName">Das Archive</param>
-        /// <param name="dataPath">Das Verzeichnis, indem die Anhänge gespeichert werden</param>
-        /// <param name="progress">Der Fortschritt</param>
-        public static void Export(string fileName, string dataPath, Action<int> progress)
-        {
-            ImportExport.Export(fileName, dataPath, progress);
-        }
-        
-        
-
-        /// <summary>
-        /// Import der Daten
-        /// </summary>
-        /// <param name="fileName">Das Archive</param>
-        /// <param name="dataPath">Das Verzeichnis, indem die Anhänge gespeichert werden</param>
-        /// <param name="progress">Der Fortschritt</param>
-        public static void Import(string fileName, string dataPath, Action<int> progress)
-        {
-            lock (DbContext)
-            {
-                using var transaction = DbContext.Database.BeginTransaction();
-
-                DbContext.Conditions.RemoveRange(DbContext.Conditions);
-                DbContext.Locations.RemoveRange(DbContext.Locations);
-                DbContext.Manufacturers.RemoveRange(DbContext.Manufacturers);
-                DbContext.Suppliers.RemoveRange(DbContext.Suppliers);
-                DbContext.LedgerAccounts.RemoveRange(DbContext.LedgerAccounts);
-                DbContext.CostCenters.RemoveRange(DbContext.CostCenters);
-                DbContext.Inventories.RemoveRange(DbContext.Inventories);
-                DbContext.InventoryAttributes.RemoveRange(DbContext.InventoryAttributes);
-                DbContext.InventoryAttachments.RemoveRange(DbContext.InventoryAttachments);
-                DbContext.InventoryComments.RemoveRange(DbContext.InventoryComments);
-                DbContext.InventoryJournals.RemoveRange(DbContext.InventoryJournals);
-                DbContext.InventoryJournalParameters.RemoveRange(DbContext.InventoryJournalParameters);
-                DbContext.InventoryTags.RemoveRange(DbContext.InventoryTags);
-                DbContext.Templates.RemoveRange(DbContext.Templates);
-                DbContext.TemplateAttributes.RemoveRange(DbContext.TemplateAttributes);
-                DbContext.Attributes.RemoveRange(DbContext.Attributes);
-                DbContext.Media.RemoveRange(DbContext.Media);
-                DbContext.Tags.RemoveRange(DbContext.Tags);
-                //Database.ExecuteSqlCommand("vacum;");
-
-                DbContext.SaveChanges();
-                
-                transaction.Commit();
-            }
-
-            ImportExport.Import(fileName, dataPath, progress);
         }
     }
 }

@@ -1,17 +1,13 @@
-﻿using System;
+﻿using InventoryExpress.Model;
 using System.IO;
-using System.Linq;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebApiControl;
 using WebExpress.WebApp.WebAttribute;
 using WebExpress.WebApp.WebControl;
-using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebApp.WebSettingPage;
 using WebExpress.WebAttribute;
-using WebExpress.WebPage;
 using WebExpress.WebResource;
-using WebExpress.WebTask;
 
 namespace InventoryExpress.WebPageSetting
 {
@@ -115,41 +111,7 @@ namespace InventoryExpress.WebPageSetting
         /// <param name="e">Die Eventargumente</param>
         private void OnProcessFormular(object sender, FormularEventArgs e)
         {
-            var id = $"inventoryexpress_export_{e.Context.Request.Session.ID}";
-
-            if (!TaskManager.ContainsTask(id))
-            {
-                var task = TaskManager.CreateTask(id, OnTaskProcess, e.Context);
-                task.Process += OnTaskProcess;
-                task.Finish += OnTaskFinish;
-
-                task.Run();
-            }
-        }
-
-        /// <summary>
-        /// Ausführung des Export-Task
-        /// </summary>
-        /// <param name="sender">Der Sender</param>
-        /// <param name="e">Die Eventargumente</param>
-        private void OnTaskProcess(object sender, EventArgs e)
-        {
-            var file = Path.Combine(Path.GetTempPath(), $"{Guid.NewGuid()}.zip");
-
-            //ViewModel.Instance.Export(file, Context.Application.AssetPath, i => { (sender as Task).Progress = i; });
-        }
-
-        /// <summary>
-        /// Der Export-Task ist beendet
-        /// </summary>
-        /// <param name="sender">Der Sender</param>
-        /// <param name="e">Die Eventargumente</param>
-        private void OnTaskFinish(object sender, TaskEventArgs e)
-        {
-            var context = (sender as Task)?.Arguments?.Where(x => x is RenderContext).FirstOrDefault() as RenderContext;
-
-            var notification = NotificationManager.CreateNotification(context?.Request, "Export", 100000);
-            //notification.
+            ViewModel.CreateExportTask(e.Context);
         }
 
         /// <summary>

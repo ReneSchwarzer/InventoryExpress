@@ -1,4 +1,5 @@
 ﻿using InventoryExpress.Model.Entity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -11,394 +12,8 @@ using System.Xml.Linq;
 
 namespace InventoryExpress.Model
 {
-    internal static class ImportExport
+    public partial class ViewModel
     {
-        /// <summary>
-        /// Export der Daten
-        /// </summary>
-        /// <param name="fileName">Das Archive</param>
-        /// <param name="dataPath">Das Verzeichnis, indem die Anhänge gespeichert werden</param>
-        /// <param name="progress">Der Fortschritt</param>
-        public static void Export(string fileName, string dataPath, Action<int> progress)
-        {
-            //var dict = new Dictionary<string, XElement>();
-            //var viewModel = ViewModel.Instance;
-
-            ////var ascriptions = null as List<Ascription>;
-            //var attributes = null as List<Entity.Attribute>;
-            //var templates = null as List<Template>;
-            //var templateattributes = null as List<TemplateAttribute>;
-            //var locations = null as List<Location>;
-            //var costcenters = null as List<CostCenter>;
-            //var manufacturers = null as List<Manufacturer>;
-            //var conditions = null as List<Condition>;
-            //var suppliers = null as List<Supplier>;
-            //var ledgeraccounts = null as List<LedgerAccount>;
-            //var inventories = null as List<Inventory>;
-            //var inventoryjournalparameters = null as List<InventoryJournalParameter>;
-            //var inventoryattachments = null as List<InventoryAttachment>;
-            //var inventoryattributes = null as List<InventoryAttribute>;
-            //var inventorycomments = null as List<InventoryComment>;
-            //var inventoryjournals = null as List<InventoryJournal>;
-            //var inventorytags = null as List<InventoryTag>;
-            //var tag = null as List<Tag>;
-            //var media = null as List<Media>;
-
-            //lock (viewModel.Database)
-            //{
-            //    //ascriptions = viewModel.Ascriptions.ToList();
-            //    attributes = viewModel.Attributes.ToList();
-            //    templates = viewModel.Templates.ToList();
-            //    templateattributes = viewModel.TemplateAttributes.ToList();
-            //    locations = viewModel.Locations.ToList();
-            //    costcenters = viewModel.CostCenters.ToList();
-            //    manufacturers = viewModel.Manufacturers.ToList();
-            //    conditions = viewModel.Conditions.ToList();
-            //    suppliers = viewModel.Suppliers.ToList();
-            //    ledgeraccounts = viewModel.LedgerAccounts.ToList();
-            //    inventories = viewModel.Inventories.ToList();
-            //    inventoryjournalparameters = viewModel.InventoryJournalParameters.ToList();
-            //    inventoryattachments = viewModel.InventoryAttachments.ToList();
-            //    inventoryattributes = viewModel.InventoryAttributes.ToList();
-            //    inventorycomments = viewModel.InventoryComments.ToList();
-            //    inventoryjournals = viewModel.InventoryJournals.ToList();
-            //    inventorytags = viewModel.InventoryTags.ToList();
-            //    tag = viewModel.Tags.ToList();
-            //    media = viewModel.Media.ToList();
-            //}
-
-
-            ////// Zuschreibungen
-            ////foreach (var v in Ascriptions)
-            ////{
-            ////    var media = Media.ToList();
-            ////    var xml = new XElement("attribute");
-            ////    xml.Add(new XAttribute("version", 1));
-            ////    // Item
-            ////    xml.Add(new XElement("guid", v.Guid));
-            ////    xml.Add(new XElement("name", v.Name));
-            ////    xml.Add(new XElement("description", !string.IsNullOrWhiteSpace(v.Description) ? Convert.ToBase64String(Encoding.UTF8.GetBytes(v.Description)) : string.Empty));
-            ////    xml.Add(new XElement("created", v.Created));
-            ////    xml.Add(new XElement("updated", v.Updated));
-            ////    xml.Add(new XElement("media", v.Media?.Guid));
-            ////    // ItemTag
-            ////    xml.Add(new XElement("tag", v.Tag));
-
-            ////    dict.Add(v.Guid, xml);
-            ////}
-
-            //progress(5);
-
-            //// Attribute
-            //foreach (var v in attributes)
-            //{
-            //    var mediaGuid = media.Where(x => x.Id == v.MediaId).Select(x => x.Guid).FirstOrDefault();
-
-            //    var xml = new XElement("attribute");
-            //    xml.Add(new XAttribute("version", 1));
-            //    // Item
-            //    xml.Add(new XElement("guid", v.Guid));
-            //    xml.Add(new XElement("name", v.Name));
-            //    xml.Add(new XElement("description", !string.IsNullOrWhiteSpace(v.Description) ? Convert.ToBase64String(Encoding.UTF8.GetBytes(v.Description)) : string.Empty));
-            //    xml.Add(new XElement("created", v.Created));
-            //    xml.Add(new XElement("updated", v.Updated));
-            //    xml.Add(new XElement("media", mediaGuid));
-
-            //    dict.Add(v.Guid, xml);
-            //}
-
-            //progress(10);
-
-            //// Zustände
-            //foreach (var v in conditions)
-            //{
-            //    var mediaGuid = media.Where(x => x.Id == v.MediaId).Select(x => x.Guid).FirstOrDefault();
-
-            //    var xml = new XElement("condition");
-            //    xml.Add(new XAttribute("version", 1));
-            //    // Item
-            //    xml.Add(new XElement("guid", v.Guid));
-            //    xml.Add(new XElement("name", v.Name));
-            //    xml.Add(new XElement("grade", v.Grade));
-            //    xml.Add(new XElement("description", !string.IsNullOrWhiteSpace(v.Description) ? Convert.ToBase64String(Encoding.UTF8.GetBytes(v.Description)) : string.Empty));
-            //    xml.Add(new XElement("created", v.Created));
-            //    xml.Add(new XElement("updated", v.Updated));
-            //    xml.Add(new XElement("media", mediaGuid));
-
-            //    dict.Add(v.Guid, xml);
-            //}
-
-            //progress(20);
-
-            //// Kostenstellen
-            //foreach (var v in costcenters)
-            //{
-            //    var mediaGuid = media.Where(x => x.Id == v.MediaId).Select(x => x.Guid).FirstOrDefault();
-
-            //    var xml = new XElement("costcenter");
-            //    xml.Add(new XAttribute("version", 1));
-            //    // Item
-            //    xml.Add(new XElement("guid", v.Guid));
-            //    xml.Add(new XElement("name", v.Name));
-            //    xml.Add(new XElement("description", !string.IsNullOrWhiteSpace(v.Description) ? Convert.ToBase64String(Encoding.UTF8.GetBytes(v.Description)) : string.Empty));
-            //    xml.Add(new XElement("created", v.Created));
-            //    xml.Add(new XElement("updated", v.Updated));
-            //    xml.Add(new XElement("media", mediaGuid));
-            //    // ItemTag
-            //    xml.Add(new XElement("tag", v.Tag));
-
-            //    dict.Add(v.Guid, xml);
-            //}
-
-            //progress(30);
-
-            //// Inventar
-            //foreach (var v in inventories)
-            //{
-            //    var templateGuid = templates.Where(x => x.Id == v.TemplateId).Select(x => x.Guid).FirstOrDefault();
-            //    var locationGuid = locations.Where(x => x.Id == v.LocationId).Select(x => x.Guid).FirstOrDefault();
-            //    var costcenterGuid = costcenters.Where(x => x.Id == v.CostCenterId).Select(x => x.Guid).FirstOrDefault();
-            //    var manufacturerGuid = manufacturers.Where(x => x.Id == v.ManufacturerId).Select(x => x.Guid).FirstOrDefault();
-            //    var conditionGuid = conditions.Where(x => x.Id == v.ConditionId).Select(x => x.Guid).FirstOrDefault();
-            //    var supplierGuid = suppliers.Where(x => x.Id == v.SupplierId).Select(x => x.Guid).FirstOrDefault();
-            //    var ledgeraccountGuid = ledgeraccounts.Where(x => x.Id == v.LedgerAccountId).Select(x => x.Guid).FirstOrDefault();
-            //    var parentGuid = v.Parent?.Guid;
-            //    var mediaGuid = media.Where(x => x.Id == v.MediaId).Select(x => x.Guid).FirstOrDefault();
-
-            //    var xml = new XElement("inventory");
-            //    xml.Add(new XAttribute("version", 1));
-            //    // Item
-            //    xml.Add(new XElement("guid", v.Guid));
-            //    xml.Add(new XElement("name", v.Name));
-            //    xml.Add(new XElement("costvalue", v.CostValue.ToString(CultureInfo.InvariantCulture)));
-            //    xml.Add(new XElement("purchasedate", v.PurchaseDate));
-            //    xml.Add(new XElement("derecognitiondate", v.DerecognitionDate));
-            //    xml.Add(new XElement("template", templateGuid));
-            //    xml.Add(new XElement("location", locationGuid));
-            //    xml.Add(new XElement("costcenter", costcenterGuid));
-            //    xml.Add(new XElement("manufacturer", manufacturerGuid));
-            //    xml.Add(new XElement("condition", conditionGuid));
-            //    xml.Add(new XElement("supplier", supplierGuid));
-            //    xml.Add(new XElement("ledgeraccount", ledgeraccountGuid));
-            //    xml.Add(new XElement("parent", parentGuid));
-            //    xml.Add(new XElement("description", !string.IsNullOrWhiteSpace(v.Description) ? Convert.ToBase64String(Encoding.UTF8.GetBytes(v.Description)) : string.Empty));
-            //    xml.Add(new XElement("created", v.Created));
-            //    xml.Add(new XElement("updated", v.Updated));
-            //    xml.Add(new XElement("media", mediaGuid));
-            //    // ItemTag
-            //    xml.Add(new XElement("tag", v.Tag));
-
-            //    xml.Add(new XElement("attachments", inventoryattachments.Where(x => x.InventoryId == v.Id).Select(x =>
-            //            new XElement("attachment", new XElement("created", x.Created), new XElement("media", media.Where(y => y.Id == x.MediaId).Select(y => y.Guid).FirstOrDefault()))
-            //    )));
-
-            //    xml.Add(new XElement("attributes", inventoryattributes.Where(x => x.InventoryId == v.Id).Select(x =>
-            //        new XElement("attribute",
-            //            new XElement("created", x.Created),
-            //            new XElement("guid", attributes.Where(y => y.Id == x.AttributeId).Select(y => y.Guid).FirstOrDefault()),
-            //            new XElement("value", !string.IsNullOrWhiteSpace(x.Value) ? Convert.ToBase64String(Encoding.UTF8.GetBytes(x.Value)) : string.Empty))
-            //    )));
-
-            //    xml.Add(new XElement("comments", inventorycomments.Where(x => x.InventoryId == v.Id).Select(x =>
-            //        new XElement("comment", new XElement("created", x.Created), new XElement("updated", x.Updated), new XElement("guid", x.Guid), new XElement("text", Convert.ToBase64String(Encoding.UTF8.GetBytes(x.Comment))))
-            //    )));
-
-            //    xml.Add(new XElement("journals", inventoryjournals.Where(x => x.InventoryId == v.Id).Select(x =>
-            //        new XElement("jornal", new XElement("created", x.Created), new XElement("guid", x.Guid), new XElement("action", Convert.ToBase64String(Encoding.UTF8.GetBytes(x.Action))),
-            //            new XElement("params", inventoryjournalparameters.Where(y => y.InventoryJournalId == x.Id).Select(y =>
-            //                new XElement("param",
-            //                    new XElement("name", y.Name),
-            //                    new XElement("guid", y.Guid),
-            //                    new XElement("oldvalue", !string.IsNullOrWhiteSpace(y.OldValue) ? Convert.ToBase64String(Encoding.UTF8.GetBytes(y.OldValue)) : string.Empty),
-            //                    new XElement("newvalue", !string.IsNullOrWhiteSpace(y.NewValue) ? Convert.ToBase64String(Encoding.UTF8.GetBytes(y.NewValue)) : string.Empty)
-            //                )
-            //             ))
-            //        ))
-            //    ));
-
-            //    xml.Add(new XElement("tags", inventorytags.Where(x => x.InventoryId == v.Id).Select(x =>
-            //       new XElement("tag", new XElement("label", x.Tag?.Label)))
-            //   ));
-
-            //    dict.Add(v.Guid, xml);
-            //}
-
-            //progress(40);
-
-            //// Sachkonten
-            //foreach (var v in ledgeraccounts)
-            //{
-            //    var mediaGuid = media.Where(x => x.Id == v.MediaId).Select(x => x.Guid).FirstOrDefault();
-
-            //    var xml = new XElement("ledgeraccount");
-            //    xml.Add(new XAttribute("version", 1));
-            //    // Item
-            //    xml.Add(new XElement("guid", v.Guid));
-            //    xml.Add(new XElement("name", v.Name));
-            //    xml.Add(new XElement("description", !string.IsNullOrWhiteSpace(v.Description) ? Convert.ToBase64String(Encoding.UTF8.GetBytes(v.Description)) : string.Empty));
-            //    xml.Add(new XElement("created", v.Created));
-            //    xml.Add(new XElement("updated", v.Updated));
-            //    xml.Add(new XElement("media", mediaGuid));
-            //    // ItemTag
-            //    xml.Add(new XElement("tag", v.Tag));
-
-            //    dict.Add(v.Guid, xml);
-            //}
-
-            //progress(50);
-
-            //// Standort
-            //foreach (var v in locations)
-            //{
-            //    var mediaGuid = media.Where(x => x.Id == v.MediaId).Select(x => x.Guid).FirstOrDefault();
-
-            //    var xml = new XElement("location");
-            //    xml.Add(new XAttribute("version", 1));
-            //    // Item
-            //    xml.Add(new XElement("guid", v.Guid));
-            //    xml.Add(new XElement("name", v.Name));
-            //    xml.Add(new XElement("description", !string.IsNullOrWhiteSpace(v.Description) ? Convert.ToBase64String(Encoding.UTF8.GetBytes(v.Description)) : string.Empty));
-            //    xml.Add(new XElement("created", v.Created));
-            //    xml.Add(new XElement("updated", v.Updated));
-            //    xml.Add(new XElement("media", mediaGuid));
-            //    // ItemTag
-            //    xml.Add(new XElement("tag", v.Tag));
-            //    // ItemAaddress
-            //    xml.Add(new XElement("address", v.Address));
-            //    xml.Add(new XElement("zip", v.Zip));
-            //    xml.Add(new XElement("place", v.Place));
-            //    //
-            //    xml.Add(new XElement("building", v.Building));
-            //    xml.Add(new XElement("room", v.Room));
-
-            //    dict.Add(v.Guid, xml);
-            //}
-
-            //progress(60);
-
-            //// Hersteller
-            //foreach (var v in manufacturers)
-            //{
-            //    var mediaGuid = media.Where(x => x.Id == v.MediaId).Select(x => x.Guid).FirstOrDefault();
-
-            //    var xml = new XElement("manufacturer");
-            //    xml.Add(new XAttribute("version", 1));
-            //    // Item
-            //    xml.Add(new XElement("guid", v.Guid));
-            //    xml.Add(new XElement("name", v.Name));
-            //    xml.Add(new XElement("description", !string.IsNullOrWhiteSpace(v.Description) ? Convert.ToBase64String(Encoding.UTF8.GetBytes(v.Description)) : string.Empty));
-            //    xml.Add(new XElement("created", v.Created));
-            //    xml.Add(new XElement("updated", v.Updated));
-            //    xml.Add(new XElement("media", mediaGuid));
-            //    // ItemTag
-            //    xml.Add(new XElement("tag", v.Tag));
-            //    // ItemAaddress
-            //    xml.Add(new XElement("address", v.Address));
-            //    xml.Add(new XElement("zip", v.Zip));
-            //    xml.Add(new XElement("place", v.Place));
-
-            //    dict.Add(v.Guid, xml);
-            //}
-
-            //progress(70);
-
-            //// Lieferant
-            //foreach (var v in suppliers)
-            //{
-            //    var mediaGuid = media.Where(x => x.Id == v.MediaId).Select(x => x.Guid).FirstOrDefault();
-
-            //    var xml = new XElement("supplier");
-            //    xml.Add(new XAttribute("version", 1));
-            //    // Item
-            //    xml.Add(new XElement("guid", v.Guid));
-            //    xml.Add(new XElement("name", v.Name));
-            //    xml.Add(new XElement("description", !string.IsNullOrWhiteSpace(v.Description) ? Convert.ToBase64String(Encoding.UTF8.GetBytes(v.Description)) : string.Empty));
-            //    xml.Add(new XElement("created", v.Created));
-            //    xml.Add(new XElement("updated", v.Updated));
-            //    xml.Add(new XElement("media", mediaGuid));
-            //    // ItemTag
-            //    xml.Add(new XElement("tag", v.Tag));
-            //    // ItemAaddress
-            //    xml.Add(new XElement("address", v.Address));
-            //    xml.Add(new XElement("zip", v.Zip));
-            //    xml.Add(new XElement("place", v.Place));
-
-            //    dict.Add(v.Guid, xml);
-            //}
-
-            //progress(80);
-
-            //// Template
-            //foreach (var v in templates)
-            //{
-            //    var mediaGuid = media.Where(x => x.Id == v.MediaId).Select(x => x.Guid).FirstOrDefault();
-
-            //    var xml = new XElement("template");
-            //    xml.Add(new XAttribute("version", 1));
-            //    // Item
-            //    xml.Add(new XElement("guid", v.Guid));
-            //    xml.Add(new XElement("name", v.Name));
-            //    xml.Add(new XElement("description", !string.IsNullOrWhiteSpace(v.Description) ? Convert.ToBase64String(Encoding.UTF8.GetBytes(v.Description)) : string.Empty));
-            //    xml.Add(new XElement("created", v.Created));
-            //    xml.Add(new XElement("updated", v.Updated));
-            //    xml.Add(new XElement("media", mediaGuid));
-            //    // ItemTag
-            //    xml.Add(new XElement("tag", v.Tag));
-            //    //
-            //    xml.Add(new XElement("attributes", templateattributes.Where(x => x.TemplateId == v.Id).Select(x =>
-            //        new XElement("attribute", new XElement("created", x.Created), new XElement("guid", x.Attribute?.Guid)))
-            //    ));
-
-            //    dict.Add(v.Guid, xml);
-            //}
-
-            //progress(90);
-
-            //// Medien
-            //foreach (var v in media)
-            //{
-            //    var xml = new XElement("media");
-            //    xml.Add(new XAttribute("version", 1));
-            //    xml.Add(new XElement("guid", v.Guid));
-            //    xml.Add(new XElement("name", v.Name));
-            //    xml.Add(new XElement("tag", v.Tag));
-            //    xml.Add(new XElement("created", v.Created));
-            //    xml.Add(new XElement("updated", v.Updated));
-
-            //    var path = Path.Combine(dataPath, "media");
-
-            //    if (File.Exists(Path.Combine(path, v.Guid)))
-            //    {
-            //        xml.Add(new XElement("data", Convert.ToBase64String(File.ReadAllBytes(Path.Combine(path, v.Guid)))));
-            //    }
-
-            //    dict.Add(v.Guid, xml);
-            //}
-
-            //progress(95);
-
-            //using var stream = File.Create(fileName);
-            //using var archive = new ZipArchive(stream, ZipArchiveMode.Create);
-
-            //var xmlWriterSettings = new XmlWriterSettings()
-            //{
-            //    OmitXmlDeclaration = true,
-            //    Indent = true
-            //};
-
-            //foreach (var entryFile in dict)
-            //{
-            //    var entry = archive.CreateEntry(entryFile.Key, CompressionLevel.Optimal);
-            //    using var entryStream = entry.Open();
-            //    using var xmlwriter = XmlWriter.Create(entryStream, xmlWriterSettings);
-            //    var doc = new XDocument(entryFile.Value);
-
-            //    doc.WriteTo(xmlwriter);
-            //}
-
-            //progress(100);
-        }
-
         /// <summary>
         /// Import der Daten
         /// </summary>
@@ -429,6 +44,35 @@ namespace InventoryExpress.Model
             //var inventoryjournalparameters = new List<InventoryJournalParameter>();
             //var inventorytags = new List<InventoryTag>();
             //var tag = new List<Tag>();
+
+            //    lock (DbContext)
+            //    {
+            //        using var transaction = DbContext.Database.BeginTransaction();
+
+            //        DbContext.Conditions.RemoveRange(DbContext.Conditions);
+            //        DbContext.Locations.RemoveRange(DbContext.Locations);
+            //        DbContext.Manufacturers.RemoveRange(DbContext.Manufacturers);
+            //        DbContext.Suppliers.RemoveRange(DbContext.Suppliers);
+            //        DbContext.LedgerAccounts.RemoveRange(DbContext.LedgerAccounts);
+            //        DbContext.CostCenters.RemoveRange(DbContext.CostCenters);
+            //        DbContext.Inventories.RemoveRange(DbContext.Inventories);
+            //        DbContext.InventoryAttributes.RemoveRange(DbContext.InventoryAttributes);
+            //        DbContext.InventoryAttachments.RemoveRange(DbContext.InventoryAttachments);
+            //        DbContext.InventoryComments.RemoveRange(DbContext.InventoryComments);
+            //        DbContext.InventoryJournals.RemoveRange(DbContext.InventoryJournals);
+            //        DbContext.InventoryJournalParameters.RemoveRange(DbContext.InventoryJournalParameters);
+            //        DbContext.InventoryTags.RemoveRange(DbContext.InventoryTags);
+            //        DbContext.Templates.RemoveRange(DbContext.Templates);
+            //        DbContext.TemplateAttributes.RemoveRange(DbContext.TemplateAttributes);
+            //        DbContext.Attributes.RemoveRange(DbContext.Attributes);
+            //        DbContext.Media.RemoveRange(DbContext.Media);
+            //        DbContext.Tags.RemoveRange(DbContext.Tags);
+            //        //Database.ExecuteSqlCommand("vacum;");
+
+            //        DbContext.SaveChanges();
+
+            //        transaction.Commit();
+            //    }
 
             //foreach (var entry in archive.Entries)
             //{

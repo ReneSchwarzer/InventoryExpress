@@ -390,6 +390,9 @@ inventoryexpress.import.header=Importdatei hochladen
 inventoryexpress.import.help.label=Importieren Sie den Inhalt einer Exportdatei in die Datenbank.
 inventoryexpress.export.label=Export
 inventoryexpress.export.help.label=Exportieren Sie den vollständigen Inhalt der Datenbank in einer XML-Datei, welche auf einer anderen Instanz importiert werden kann. Sie können die Exportdatei auch als Datensicherung verwenden.
+inventoryexpress.export.task.heading=Datenbankexport
+inventoryexpress.export.task.inprogress=In Arbeit
+inventoryexpress.export.task.done=Export wurde abgeschlossen. Laden Sie die Datei {0} herunter.
 
 inventoryexpress.parent.label=Zugehörigkeit zu
 inventoryexpress.parent.description=Die Zugehörigkeit zu einem anderen Inventargegenstand.

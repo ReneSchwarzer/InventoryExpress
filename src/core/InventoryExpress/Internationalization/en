@@ -390,6 +390,9 @@ inventoryexpress.import.header=Upload import file
 inventoryexpress.import.help.label=Import the contents of an export file into the database.
 inventoryexpress.export.label=Export
 inventoryexpress.export.help.label=Export the complete contents of the database to an XML file that can be imported on another instance. You can also use the export file as a backup.
+inventoryexpress.export.task.heading=Database export
+inventoryexpress.export.task.inprogress=Work in progress
+inventoryexpress.export.task.done=Export completed. Download the file {0}.
 
 inventoryexpress.parent.label=Membership of
 inventoryexpress.parent.description=Belonging to another inventory item.
