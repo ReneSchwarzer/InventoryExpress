@@ -9,7 +9,7 @@ namespace InventoryExpress.WebPage
     [Id("Manufacturer")]
     [Title("inventoryexpress:inventoryexpress.manufacturers.label")]
     [Segment("manufacturers", "inventoryexpress:inventoryexpress.manufacturers.label")]
-    [Path("/")]
+    [ContextPath("/")]
     [Module("inventoryexpress")]
     [Context("general")]
     [Context("manufacturers")]
@@ -25,16 +25,16 @@ namespace InventoryExpress.WebPage
         /// <summary>
         /// Initialisierung
         /// </summary>
-        /// <param name="context">Der Kontext</param>
+        /// <param name="context">The context.</param>
         public override void Initialization(IResourceContext context)
         {
             base.Initialization(context);
         }
 
         /// <summary>
-        /// Verarbeitung
+        /// Processing of the resource.
         /// </summary>
-        /// <param name="context">Der Kontext zum Rendern der Seite</param>
+        /// <param name="context">The context for rendering the page.</param>
         public override void Process(RenderContextWebApp context)
         {
             base.Process(context);

@@ -12,7 +12,7 @@ namespace InventoryExpress.WebPageSetting
     [Id("SettingCondition")]
     [Title("inventoryexpress:inventoryexpress.condition.label")]
     [Segment("conditions", "inventoryexpress:inventoryexpress.condition.label")]
-    [Path("/Setting")]
+    [ContextPath("/Setting")]
     [SettingSection(SettingSection.Primary)]
     [SettingIcon(TypeIcon.StarHalf)]
     [SettingGroup("inventoryexpress:inventoryexpress.setting.data.label")]
@@ -41,20 +41,20 @@ namespace InventoryExpress.WebPageSetting
         /// <summary>
         /// Initialisierung
         /// </summary>
-        /// <param name="context">Der Kontext</param>
+        /// <param name="context">The context.</param>
         public override void Initialization(IResourceContext context)
         {
             base.Initialization(context);
 
-            Table.RestUri = context.Application.ContextPath.Append("api/v1/conditions");
+            Table.RestUri = ContextPath.Append("api/v1/conditions");
 
 
         }
 
         /// <summary>
-        /// Verarbeitung
+        /// Processing of the resource.
         /// </summary>
-        /// <param name="context">Der Kontext zum Rendern der Seite</param>
+        /// <param name="context">The context for rendering the page.</param>
         public override void Process(RenderContextWebApp context)
         {
             base.Process(context);
@@ -67,7 +67,7 @@ namespace InventoryExpress.WebPageSetting
                 Icon = TypeIcon.Edit.ToClass(),
                 Color = TypeColorText.Dark.ToClass(),
                 Uri = "#",
-                OnClick = $"new webexpress.ui.modalFormularCtrl({{ uri: '{context.Application.ContextPath.Append("setting/conditions/edit/")}/' + item.id, size: 'large' }});"
+                OnClick = $"new webexpress.ui.modalFormularCtrl({{ uri: '{context.ApplicationContext.ContextPath.Append("setting/conditions/edit/")}/' + item.id, size: 'large' }});"
             });
 
             Table.OptionItems.Add(new ControlApiTableOptionItem());
@@ -77,7 +77,7 @@ namespace InventoryExpress.WebPageSetting
                 Icon = TypeIcon.Trash.ToClass(),
                 Color = TypeColorText.Danger.ToClass(),
                 Disabled = "return !item.isinuse;",
-                OnClick = $"new webexpress.ui.modalFormularCtrl({{ uri: '{context.Application.ContextPath.Append("setting/conditions/del/")}/' + item.id, size: 'small' }});"
+                OnClick = $"new webexpress.ui.modalFormularCtrl({{ uri: '{context.ApplicationContext.ContextPath.Append("setting/conditions/del/")}/' + item.id, size: 'small' }});"
             });
 
 

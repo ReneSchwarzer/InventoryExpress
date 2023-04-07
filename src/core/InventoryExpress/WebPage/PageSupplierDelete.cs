@@ -1,7 +1,6 @@
 ﻿using InventoryExpress.Model;
-using System.IO;
 using WebExpress.UI.WebControl;
-using WebExpress.Uri;
+using WebExpress.WebUri;
 using WebExpress.WebApp.WebControl;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
@@ -14,7 +13,7 @@ namespace InventoryExpress.WebPage
     [Id("SupplierDelete")]
     [Title("inventoryexpress:inventoryexpress.supplier.delete.label")]
     [Segment("del", "inventoryexpress:inventoryexpress.supplier.delete.display")]
-    [Path("/Supplier/SupplierEdit")]
+    [ContextPath("/Supplier/SupplierEdit")]
     [Module("inventoryexpress")]
     [Context("general")]
     [Context("supplierdelete")]
@@ -37,12 +36,12 @@ namespace InventoryExpress.WebPage
         /// <summary>
         /// Initialisierung
         /// </summary>
-        /// <param name="context">Der Kontext</param>
+        /// <param name="context">The context.</param>
         public override void Initialization(IResourceContext context)
         {
             base.Initialization(context);
 
-            Form.RedirectUri = context.ContextPath.Append("suppliers");
+            Form.RedirectUri = ContextPath.Append("suppliers");
             Form.InitializeFormular += OnInitializeFormular;
             Form.Confirm += OnConfirmFormular;
         }
@@ -50,8 +49,8 @@ namespace InventoryExpress.WebPage
         /// <summary>
         /// Wird aufgerufen, wenn das Formular initialisiert wird
         /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
-        /// <param name="e">Die Eventargumente</param>
+        /// <param name="sender">The trigger of the event.</param>
+        /// <param name="e">The event argument.</param>
         private void OnInitializeFormular(object sender, FormularEventArgs e)
         {
         }
@@ -59,7 +58,7 @@ namespace InventoryExpress.WebPage
         /// <summary>
         /// Wird ausgelöst, wenn das Formular bestätigt urde.
         /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="sender">The trigger of the event.</param>
         /// <param name="e">Die Eventargumente/param>
         private void OnConfirmFormular(object sender, FormularEventArgs e)
         {
@@ -92,9 +91,9 @@ namespace InventoryExpress.WebPage
         }
 
         /// <summary>
-        /// Verarbeitung
+        /// Processing of the resource.
         /// </summary>
-        /// <param name="context">Der Kontext zum Rendern der Seite</param>
+        /// <param name="context">The context for rendering the page.</param>
         public override void Process(RenderContextWebApp context)
         {
             base.Process(context);

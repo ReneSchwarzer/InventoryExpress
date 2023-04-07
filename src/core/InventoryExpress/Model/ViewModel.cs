@@ -1,9 +1,9 @@
 ﻿using InventoryExpress.Model.WebItems;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
-using System;
 using System.IO;
 using System.Linq;
+using WebExpress.WebApplication;
 using WebExpress.WebModule;
 
 namespace InventoryExpress.Model
@@ -26,19 +26,24 @@ namespace InventoryExpress.Model
         private static InventoryDbContext DbContext { get; } = new InventoryDbContext();
 
         /// <summary>
-        /// Liefert oder setzt den Kontext
+        /// Returns the context of the module.
         /// </summary>
-        public static IModuleContext Context { get; private set; }
+        public static IApplicationContext ApplicationContext { get; private set; }
+
+        /// <summary>
+        /// Returns the context of the module.
+        /// </summary>
+        public static IModuleContext ModuleContext { get; private set; }
 
         /// <summary>
         /// Ermittelt das Medienverzeichnis
         /// </summary>
-        public static string MediaDirectory => Path.Combine(Context.Application.DataPath, "media");
+        public static string MediaDirectory => Path.Combine(ModuleContext.DataPath, "media");
 
         /// <summary>
         /// Ermittelt das Exportverzeichnis
         /// </summary>
-        public static string ExportDirectory => Path.Combine(Context.Application.DataPath, "export");
+        public static string ExportDirectory => Path.Combine(ModuleContext.DataPath, "export");
 
         /// <summary>
         /// Konstruktor
@@ -49,16 +54,17 @@ namespace InventoryExpress.Model
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization.
         /// </summary>
-        /// <param name="context">Der Kontext, welcher für die Ausführung des Plugins gilt</param>
-        public static void Initialization(IModuleContext context)
+        /// <param name="applicationContext">The application context.</param>
+        /// <param name="moduleContext">The module context.</param>
+        public static void Initialization(IApplicationContext applicationContext, IModuleContext moduleContext)
         {
-            Context = context;
-            ApplicationIcon = Context.Application.Icon.ToString();
-            RootUri = context.ContextPath.ToString();
+            ModuleContext = moduleContext;
+            ApplicationIcon = applicationContext.Icon.ToString();
+            RootUri = moduleContext.ContextPath.ToString();
 
-            var path = Path.Combine(context.DataPath, "db");
+            var path = Path.Combine(moduleContext.DataPath, "db");
 
             if (!Directory.Exists(path))
             {

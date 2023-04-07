@@ -1,5 +1,4 @@
 ﻿using QRCoder;
-using System.IO;
 using System.Text;
 using WebExpress.Message;
 using WebExpress.WebAttribute;
@@ -13,7 +12,7 @@ namespace InventoryExpress.QR.WebResource
     [Id("QR")]
     [Title("Assets")]
     [SegmentGuid("InventoryID", "")]
-    [Path("/")]
+    [ContextPath("/")]
     [IncludeSubPaths(true)]
     [Module("InventoryExpress.QR")]
     public sealed class ResourceQR : ResourceBinary
@@ -26,15 +25,15 @@ namespace InventoryExpress.QR.WebResource
         }
 
         /// <summary>
-        /// Verarbeitung
+        /// Processing of the resource.
         /// </summary>
-        /// <param name="request">Die Anfrage</param>
-        /// <returns>Die Antwort</returns>
+        /// <param name="request">The request.</param>
+        /// <returns>The response.</returns>
         public override Response Process(Request request)
         {
             var id = request.GetParameter("InventoryID")?.Value;
 
-            var link = $"{request.BaseUri.ToString().TrimEnd('/')}/{Context.Application.ContextPath.Append(id).ToString().TrimStart('/')}";
+            var link = $"{request.BaseUri.ToString().TrimEnd('/')}/{ContextPath.Append(id).ToString().TrimStart('/')}";
 
             var qrGenerator = new QRCodeGenerator();
             var qrCode = qrGenerator.CreateQrCode(link, QRCodeGenerator.ECCLevel.Q);

@@ -1,7 +1,7 @@
 ﻿using WebExpress.WebAttribute;
 using WebExpress.WebPlugin;
 
-namespace InventoryExpress.QR
+namespace InventoryExpress
 {
     [Id("InventoryExpress")]
     [Name("InventoryExpress")]

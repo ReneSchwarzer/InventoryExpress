@@ -13,7 +13,7 @@ namespace InventoryExpress.WebResource
     [Id("MediaAsset")]
     [Title("Media")]
     [SegmentGuid("MediaID", "")]
-    [Path("/media")]
+    [ContextPath("/media")]
     [IncludeSubPaths(false)]
     [Module("inventoryexpress")]
     public sealed class ResourceMedia : ResourceBinary
@@ -28,17 +28,17 @@ namespace InventoryExpress.WebResource
         /// <summary>
         /// Initialisierung
         /// </summary>
-        /// <param name="context">Der Kontext</param>
+        /// <param name="context">The context.</param>
         public override void Initialization(IResourceContext context)
         {
             base.Initialization(context);
         }
 
         /// <summary>
-        /// Verarbeitung
+        /// Processing of the resource.
         /// </summary>
-        /// <param name="request">Die Anfrage</param>
-        /// <returns>Die Antwort</returns>
+        /// <param name="request">The request.</param>
+        /// <returns>The response.</returns>
         public override Response Process(Request request)
         {
             var guid = request.GetParameter("MediaID")?.Value.ToLower();
@@ -108,7 +108,7 @@ namespace InventoryExpress.WebResource
                     break;
             }
 
-            Context.Log.Debug(message: I18N("webexpress:resource.file"), args: new object[] { request.RemoteEndPoint, request.Uri });
+            ResourceContext.Log.Debug(message: I18N("webexpress:resource.file"), args: new object[] { request.RemoteEndPoint, request.Uri });
 
             return response;
         }

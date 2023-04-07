@@ -4,27 +4,27 @@ using WebExpress.WebResource;
 namespace InventoryExpress.WebResource
 {
     /// <summary>
-    /// Lieferung einer im Assamby eingebetteten Ressource
+    /// Delivery of a resource embedded in the assembly.
     /// </summary>
     [Id("Asset")]
     [Title("Assets")]
     [Segment("assets", "")]
-    [Path("/")]
+    [ContextPath("/")]
     [IncludeSubPaths(true)]
     [Module("inventoryexpress")]
     public sealed class ResourceAsset : WebExpress.WebResource.ResourceAsset
     {
         /// <summary>
-        /// Konstruktor
+        /// Constructor
         /// </summary>
         public ResourceAsset()
         {
         }
 
         /// <summary>
-        /// Initialisierung
+        /// Initialization
         /// </summary>
-        /// <param name="context">Der Kontext</param>
+        /// <param name="context">The context of the resource.</param>
         public override void Initialization(IResourceContext context)
         {
             base.Initialization(context);

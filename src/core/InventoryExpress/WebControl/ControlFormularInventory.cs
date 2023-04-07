@@ -260,7 +260,7 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Wird aufgerufen, wenn der Name überfürft werden soll
         /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="sender">The trigger of the event.</param>
         /// <param name="e">Das Eventargument</param>
         private void OnInventoryNameValidation(object sender, ValidationEventArgs e)
         {
@@ -293,7 +293,7 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Wird aufgerufen, wenn der Anschaffungswert überfürft werden soll
         /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="sender">The trigger of the event.</param>
         /// <param name="e">Das Eventargument</param>
         private void OnCostValueValidation(object sender, ValidationEventArgs e)
         {

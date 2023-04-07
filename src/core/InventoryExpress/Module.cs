@@ -14,30 +14,32 @@ namespace InventoryExpress
     public sealed class Module : IModule
     {
         /// <summary>
-        /// Der Kontext
+        /// The context of the module.
         /// </summary>
-        private IModuleContext Context { get; set; }
+        private IModuleContext ModuleContext { get; set; }
 
         /// <summary>
-        /// Konstruktor
+        /// Constructor.
         /// </summary>
         public Module()
         {
         }
 
         /// <summary>
-        /// Initialisierung des Moduls. Hier können z.B. verwaltete Ressourcen geladen werden. 
+        /// Initialization of the module. Here, for example, managed resources can be loaded. 
         /// </summary>
-        /// <param name="context">Der Kontext, welcher für die Ausführung des Plugins gilt</param>
-        public void Initialization(IModuleContext context)
+        /// <param name="moduleContext">The context of the module that applies to the execution.</param>
+        public void Initialization(IModuleContext moduleContext)
         {
-            Context = context;
+            ModuleContext = moduleContext;
 
-            ViewModel.Initialization(context);
+            var applicationContext = moduleContext.ApplicationContext;
+
+            ViewModel.Initialization(applicationContext, ModuleContext);
         }
 
         /// <summary>
-        /// Wird aufgerufen, wenn das Modul mit der Arbeit beginnt. Der Aufruf erfolgt nebenläufig.
+        /// Called when the module starts working. The call is concurrent.
         /// </summary>
         public void Run()
         {
@@ -46,7 +48,7 @@ namespace InventoryExpress
         }
 
         /// <summary>
-        /// Freigeben von nicht verwalteten Ressourcen, welche wärend der Verwendung reserviert wurden.
+        /// Release unmanaged resources that have been reserved during use.
         /// </summary>
         public void Dispose()
         {

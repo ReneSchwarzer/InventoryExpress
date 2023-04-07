@@ -78,7 +78,7 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Wird ausgelöst, wenn das Feld CostCenterName validiert werden soll.
         /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="sender">The trigger of the event.</param>
         /// <param name="e">Die Eventargumente/param>
         private void CostCenterNameValidation(object sender, ValidationEventArgs e)
         {

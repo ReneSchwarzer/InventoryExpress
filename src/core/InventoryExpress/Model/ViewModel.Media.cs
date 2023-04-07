@@ -95,7 +95,7 @@ namespace InventoryExpress.Model
         /// <param name="file">Die Datei oder null</param>
         public static void AddOrUpdateMedia(WebItemEntityCostCenter costCenter, ParameterFile file)
         {
-            var root = Path.Combine(Context.DataPath, "media");
+            var root = Path.Combine(ModuleContext.DataPath, "media");
             var guid = Guid.NewGuid().ToString();
             var filename = file?.Value;
             var journalParameter = new WebItemEntityJournalParameter()
@@ -160,7 +160,7 @@ namespace InventoryExpress.Model
         /// <param name="file">Die Datei oder null</param>
         public static void AddOrUpdateMedia(WebItemEntityInventory inventory, ParameterFile file)
         {
-            var root = Path.Combine(Context.DataPath, "media");
+            var root = Path.Combine(ModuleContext.DataPath, "media");
             var guid = Guid.NewGuid().ToString();
             var filename = file?.Value;
             var journalParameter = new WebItemEntityJournalParameter()
@@ -241,7 +241,7 @@ namespace InventoryExpress.Model
         /// <param name="file">Die Datei oder null</param>
         public static void AddOrUpdateMedia(WebItemEntityLedgerAccount ledgerAccount, ParameterFile file)
         {
-            var root = Path.Combine(Context.DataPath, "media");
+            var root = Path.Combine(ModuleContext.DataPath, "media");
             var guid = Guid.NewGuid().ToString();
             var filename = file?.Value;
             var journalParameter = new WebItemEntityJournalParameter()
@@ -306,7 +306,7 @@ namespace InventoryExpress.Model
         /// <param name="file">Die Datei oder null</param>
         public static void AddOrUpdateMedia(WebItemEntityLocation location, ParameterFile file)
         {
-            var root = Path.Combine(Context.DataPath, "media");
+            var root = Path.Combine(ModuleContext.DataPath, "media");
             var guid = Guid.NewGuid().ToString();
             var filename = file?.Value;
             var journalParameter = new WebItemEntityJournalParameter()
@@ -371,7 +371,7 @@ namespace InventoryExpress.Model
         /// <param name="file">Die Datei oder null</param>
         public static void AddOrUpdateMedia(WebItemEntityManufacturer manufacturer, ParameterFile file)
         {
-            var root = Path.Combine(Context.DataPath, "media");
+            var root = Path.Combine(ModuleContext.DataPath, "media");
             var guid = Guid.NewGuid().ToString();
             var filename = file?.Value;
             var journalParameter = new WebItemEntityJournalParameter()
@@ -436,7 +436,7 @@ namespace InventoryExpress.Model
         /// <param name="file">Die Datei oder null</param>
         public static void AddOrUpdateMedia(WebItemEntitySupplier supplier, ParameterFile file)
         {
-            var root = Path.Combine(Context.DataPath, "media");
+            var root = Path.Combine(ModuleContext.DataPath, "media");
             var guid = Guid.NewGuid().ToString();
             var filename = file?.Value;
             var journalParameter = new WebItemEntityJournalParameter()
@@ -501,7 +501,7 @@ namespace InventoryExpress.Model
         /// <param name="file">Die Datei oder null</param>
         public static void AddOrUpdateMedia(WebItemEntityTemplate template, ParameterFile file)
         {
-            var root = Path.Combine(Context.DataPath, "media");
+            var root = Path.Combine(ModuleContext.DataPath, "media");
             var guid = Guid.NewGuid().ToString();
             var filename = file?.Value;
             var journalParameter = new WebItemEntityJournalParameter()
@@ -565,7 +565,7 @@ namespace InventoryExpress.Model
         /// <param name="id">Die ID des Dokuementes</param>
         public static void DeleteMedia(string id)
         {
-            var root = Path.Combine(Context.DataPath, "media");
+            var root = Path.Combine(ModuleContext.DataPath, "media");
 
             lock (DbContext)
             {

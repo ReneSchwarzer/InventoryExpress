@@ -40,7 +40,7 @@ namespace InventoryExpress.WebControl
         /// Validierung der Währungsangabe
         /// </summary>
         /// <param name="sender">Der Auslöser</param>
-        /// <param name="e">Die Eventargumente</param>
+        /// <param name="e">The event argument.</param>
         private void OnCurrencyValidation(object sender, ValidationEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(e.Value))

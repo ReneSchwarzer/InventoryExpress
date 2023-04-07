@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
-using WebExpress.Uri;
+using WebExpress.WebUri;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
@@ -11,7 +11,7 @@ namespace InventoryExpress.WebPage
     [Id("Help")]
     [Title("inventoryexpress:inventoryexpress.help.label")]
     [Segment("help", "inventoryexpress:inventoryexpress.help.label")]
-    [Path("/")]
+    [ContextPath("/")]
     [Module("inventoryexpress")]
     [Context("general")]
     public sealed class PageHelp : PageWebApp, IPageHelp
@@ -26,16 +26,16 @@ namespace InventoryExpress.WebPage
         /// <summary>
         /// Initialisierung
         /// </summary>
-        /// <param name="context">Der Kontext</param>
+        /// <param name="context">The context.</param>
         public override void Initialization(IResourceContext context)
         {
             base.Initialization(context);
         }
 
         /// <summary>
-        /// Verarbeitung
+        /// Processing of the resource.
         /// </summary>
-        /// <param name="context">Der Kontext zum Rendern der Seite</param>
+        /// <param name="context">The context for rendering the page.</param>
         public override void Process(RenderContextWebApp context)
         {
             base.Process(context);
@@ -44,7 +44,7 @@ namespace InventoryExpress.WebPage
 
             visualTree.Content.Primary.Add(new ControlImage()
             {
-                Uri = context.Uri.Root.Append("assets/img/inventoryexpress.svg"),
+                Uri = ContextPath.Append("assets/img/inventoryexpress.svg"),
                 Width = 200,
                 Height = 200,
                 HorizontalAlignment = TypeHorizontalAlignment.Right
@@ -102,7 +102,7 @@ namespace InventoryExpress.WebPage
 
             card.Add(new ControlText()
             {
-                Text = string.Format("{0}", Context.Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion),
+                Text = string.Format("{0}", ResourceContext.Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion),
                 TextColor = new PropertyColorText(TypeColorText.Dark)
             });
 

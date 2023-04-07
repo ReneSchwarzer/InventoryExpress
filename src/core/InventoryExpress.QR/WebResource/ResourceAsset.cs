@@ -8,7 +8,7 @@ namespace InventoryExpress.QR.WebResource
     [Id("Asset")]
     [Title("Assets")]
     [Segment("assets", "")]
-    [Path("/")]
+    [ContextPath("/")]
     [IncludeSubPaths(true)]
     [Module("InventoryExpress.QR")]
     public sealed class ResourceAsset : WebExpress.WebResource.ResourceAsset

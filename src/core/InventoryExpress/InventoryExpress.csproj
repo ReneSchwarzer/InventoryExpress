@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <Version>1.1.0.0</Version>
     <AssemblyVersion>1.1.0.0</AssemblyVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -10,6 +10,11 @@
     <Description>Eine Inventardatenbank für vielfältige Zwecke.</Description>
     <AssemblyName>InventoryExpress</AssemblyName>
     <RootNamespace>InventoryExpress</RootNamespace>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>Inventardatenbank</Title>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>inventar; webexpress</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,7 +25,6 @@
     <None Remove="Assets\img\condition_5.svg" />
     <None Remove="Assets\img\condition_6.svg" />
     <None Remove="Assets\img\export.svg" />
-    <None Remove="Assets\img\Favicon.png" />
     <None Remove="Assets\img\inventoryexpress.svg" />
     <None Remove="Assets\img\Logo.png" />
     <None Remove="Internationalization\de" />
@@ -44,8 +48,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.5" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.5">
+    <None Include="..\..\..\icon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.9">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -55,6 +70,13 @@
     <ProjectReference Include="..\..\..\..\WebExpress\core\WebExpress.UI\WebExpress.UI.csproj" />
     <ProjectReference Include="..\..\..\..\WebExpress\core\WebExpress.WebApp\WebExpress.WebApp.csproj" />
     <ProjectReference Include="..\..\..\..\WebExpress\core\WebExpress\WebExpress.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Assets\img\Favicon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

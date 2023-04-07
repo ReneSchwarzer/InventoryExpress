@@ -1,5 +1,4 @@
 ﻿using InventoryExpress.Model;
-using System.IO;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebApiControl;
 using WebExpress.WebApp.WebAttribute;
@@ -14,7 +13,7 @@ namespace InventoryExpress.WebPageSetting
     [Id("SettingExport")]
     [Title("inventoryexpress:inventoryexpress.importexport.label")]
     [Segment("export", "inventoryexpress:inventoryexpress.importexport.label")]
-    [Path("/Setting")]
+    [ContextPath("/Setting")]
     [SettingSection(SettingSection.Primary)]
     [SettingIcon(TypeIcon.FileExport)]
     [SettingGroup("inventoryexpress:inventoryexpress.setting.data.label")]
@@ -81,7 +80,7 @@ namespace InventoryExpress.WebPageSetting
         /// <summary>
         /// Initialisierung
         /// </summary>
-        /// <param name="context">Der Kontext</param>
+        /// <param name="context">The context.</param>
         public override void Initialization(IResourceContext context)
         {
             base.Initialization(context);
@@ -97,8 +96,8 @@ namespace InventoryExpress.WebPageSetting
         /// <summary>
         /// Wird aufgerufen, wenn eine Importdatei hochgeladen wurde.
         /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
-        /// <param name="e">Die Eventargumente</param>
+        /// <param name="sender">The trigger of the event.</param>
+        /// <param name="e">The event argument.</param>
         private void ImportFormUpload(object sender, FormularUploadEventArgs e)
         {
 
@@ -108,16 +107,16 @@ namespace InventoryExpress.WebPageSetting
         /// Formular wird verarbeitet
         /// </summary>
         /// <param name="sender">Der Sender</param>
-        /// <param name="e">Die Eventargumente</param>
+        /// <param name="e">The event argument.</param>
         private void OnProcessFormular(object sender, FormularEventArgs e)
         {
             ViewModel.CreateExportTask(e.Context);
         }
 
         /// <summary>
-        /// Verarbeitung
+        /// Processing of the resource.
         /// </summary>
-        /// <param name="context">Der Kontext zum Rendern der Seite</param>
+        /// <param name="context">The context for rendering the page.</param>
         public override void Process(RenderContextWebApp context)
         {
             base.Process(context);

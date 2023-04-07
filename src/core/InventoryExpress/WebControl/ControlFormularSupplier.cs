@@ -119,7 +119,7 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Wird ausgelöst, wenn das Feld Zip validiert werden soll.
         /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="sender">The trigger of the event.</param>
         /// <param name="e">Die Eventargumente/param>
         private void ZipValidation(object sender, ValidationEventArgs e)
         {
@@ -132,7 +132,7 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Wird ausgelöst, wenn das Feld SupplierName validiert werden soll.
         /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="sender">The trigger of the event.</param>
         /// <param name="e">Die Eventargumente/param>
         private void SupplierNameValidation(object sender, ValidationEventArgs e)
         {

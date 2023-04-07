@@ -25,8 +25,7 @@ namespace InventoryExpress.Model
         {
             var id = $"inventoryexpress_export_{context.Request.Session.ID}";
             var file = Path.Combine(ExportDirectory, $"{Guid.NewGuid()}.zip");
-            var root = Context.Application.ContextPath;
-
+            var root = ModuleContext.ContextPath;
 
             if (!TaskManager.ContainsTask(id))
             {
@@ -39,7 +38,7 @@ namespace InventoryExpress.Model
 
                 task.Process += (s, e) =>
                 {
-                    Export(file, Context.Application.AssetPath, i =>
+                    Export(file, ModuleContext.AssetPath, i =>
                     {
                         task.Progress = i;
                         notification.Progress = i;

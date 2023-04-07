@@ -13,10 +13,10 @@
     </limit>
     
     <culture>de-DE</culture>
-	
+
+	<packages>./packages</packages>
     <assets>./assets</assets>
     <data>./data</data>
     <contextpath></contextpath>
-    <stagedirectory>./</stagedirectory>
     
 </config>

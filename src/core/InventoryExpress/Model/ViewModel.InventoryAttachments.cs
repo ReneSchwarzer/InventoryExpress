@@ -22,10 +22,10 @@ namespace InventoryExpress.Model
                 var attachments = from i in DbContext.Inventories
                                   join ia in DbContext.InventoryAttachments on i.Id equals ia.InventoryId
                                   join m in DbContext.Media on ia.MediaId equals m.Id
-                                  where i.Guid == inventory.Id
+                                  where i.Guid == (inventory != null ? inventory.Id : null)
                                   select new WebItemEntityMedia(m);
 
-                return attachments.ToList();
+                return attachments;
             }
         }
 
@@ -36,7 +36,7 @@ namespace InventoryExpress.Model
         /// <param name="file">Die Anlage</param>
         public static void AddOrUpdateInventoryAttachment(WebItemEntityInventory inventory, ParameterFile file)
         {
-            var root = Path.Combine(Context.DataPath, "media");
+            var root = Path.Combine(ModuleContext.DataPath, "media");
             var guid = Guid.NewGuid().ToString();
             var filename = file?.Value;
             var journalParameter = new WebItemEntityJournalParameter()

@@ -12,7 +12,7 @@ namespace InventoryExpress.WebPageSetting
     [Id("SettingGeneral")]
     [Title("inventoryexpress:inventoryexpress.setting.label")]
     [Segment("general", "inventoryexpress:inventoryexpress.setting.label")]
-    [Path("/Setting")]
+    [ContextPath("/Setting")]
     [SettingSection(SettingSection.Preferences)]
     [SettingIcon(TypeIcon.Wrench)]
     [SettingGroup("inventoryexpress:inventoryexpress.setting.general.label")]
@@ -38,7 +38,7 @@ namespace InventoryExpress.WebPageSetting
         /// <summary>
         /// Initialisierung
         /// </summary>
-        /// <param name="context">Der Kontext</param>
+        /// <param name="context">The context.</param>
         public override void Initialization(IResourceContext context)
         {
             base.Initialization(context);
@@ -51,8 +51,8 @@ namespace InventoryExpress.WebPageSetting
         /// <summary>
         /// Wird aufgerufen, wenn das Formular initialisiert wird
         /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
-        /// <param name="e">Die Eventargumente</param>
+        /// <param name="sender">The trigger of the event.</param>
+        /// <param name="e">The event argument.</param>
         private void InitializeFormular(object sender, FormularEventArgs e)
         {
             Form.RedirectUri = e.Context.Uri.Take(-1);
@@ -61,8 +61,8 @@ namespace InventoryExpress.WebPageSetting
         /// <summary>
         /// Wird aufgerufen, wenn das Formular gefüllt werden soll
         /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
-        /// <param name="e">Die Eventargumente</param>
+        /// <param name="sender">The trigger of the event.</param>
+        /// <param name="e">The event argument.</param>
         private void FillFormular(object sender, FormularEventArgs e)
         {
             var setting = ViewModel.GetSettings();
@@ -73,7 +73,7 @@ namespace InventoryExpress.WebPageSetting
         /// <summary>
         /// Wird ausgelöst, wenn das Formular verarbeitet werden soll.
         /// </summary>
-        /// <param name="sender">Der Auslöser des Events</param>
+        /// <param name="sender">The trigger of the event.</param>
         /// <param name="e">Die Eventargumente/param>
         private void ProcessFormular(object sender, FormularEventArgs e)
         {
@@ -90,9 +90,9 @@ namespace InventoryExpress.WebPageSetting
         }
 
         /// <summary>
-        /// Verarbeitung
+        /// Processing of the resource.
         /// </summary>
-        /// <param name="context">Der Kontext zum Rendern der Seite</param>
+        /// <param name="context">The context for rendering the page.</param>
         public override void Process(RenderContextWebApp context)
         {
             base.Process(context);

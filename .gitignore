@@ -21,6 +21,7 @@ x86/
 build/
 bld/
 data/
+pkg/
 [Bb]in/
 [Oo]bj/
 
