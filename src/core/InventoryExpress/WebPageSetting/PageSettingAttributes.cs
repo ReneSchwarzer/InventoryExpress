@@ -12,7 +12,7 @@ namespace InventoryExpress.WebPageSetting
     [WebExID("SettingAttribute")]
     [WebExTitle("inventoryexpress:inventoryexpress.attribute.label")]
     [WebExSegment("attributes", "inventoryexpress:inventoryexpress.attribute.label")]
-    [WebExContextPath("/Setting")]
+    [WebExContextPath("/setting")]
     [SettingSection(SettingSection.Primary)]
     [SettingIcon(TypeIcon.Cubes)]
     [SettingGroup("inventoryexpress:inventoryexpress.setting.data.label")]

@@ -14,7 +14,7 @@ namespace InventoryExpress.WebPageSetting
     [WebExID("SettingTemplate")]
     [WebExTitle("inventoryexpress:inventoryexpress.templates.label")]
     [WebExSegment("templates", "inventoryexpress:inventoryexpress.templates.label")]
-    [WebExContextPath("/Setting")]
+    [WebExContextPath("/setting")]
     [SettingSection(SettingSection.Primary)]
     [SettingIcon(TypeIcon.Clone)]
     [SettingGroup("inventoryexpress:inventoryexpress.setting.data.label")]

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -9,6 +9,12 @@
     <RepositoryUrl>https://github.com/ReneSchwarzer/InventoryExpress.git</RepositoryUrl>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Cert\**" />
+    <EmbeddedResource Remove="Cert\**" />
+    <None Remove="Cert\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\WebExpress\core\WebExpress.UI\WebExpress.UI.csproj" />
@@ -1248,10 +1254,6 @@
     <None Update="data\ffbf8091-351a-4645-a887-396863293fea.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Cert\" />
   </ItemGroup>
 
 </Project>

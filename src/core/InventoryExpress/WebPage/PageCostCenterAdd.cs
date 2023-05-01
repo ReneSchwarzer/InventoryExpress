@@ -13,7 +13,8 @@ namespace InventoryExpress.WebPage
     [WebExID("CostCenterAdd")]
     [WebExTitle("inventoryexpress:inventoryexpress.costcenter.add.label")]
     [WebExSegment("add", "inventoryexpress:inventoryexpress.costcenter.add.label")]
-    [WebExContextPath("/CostCenter")]
+    [WebExContextPath("/")]
+    [WebExParent("CostCenter")]
     [WebExModule("inventoryexpress")]
     [WebExContext("general")]
     public sealed class PageCostCenterAdd : PageWebApp, IPageCostCenter

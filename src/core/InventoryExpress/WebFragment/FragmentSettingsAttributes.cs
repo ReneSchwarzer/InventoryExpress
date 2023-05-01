@@ -1,4 +1,4 @@
-﻿using InventoryExpress.WebPage;
+﻿using InventoryExpress.WebPageSetting;
 using WebExpress.Html;
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebControl;
@@ -9,14 +9,14 @@ using WebExpress.WebPage;
 
 namespace InventoryExpress.WebFragment
 {
-    [Section(Section.AppQuickcreateSecondary)]
+    [Section(Section.AppSettingsPrimary)]
     [WebExModule("inventoryexpress")]
-    public sealed class FragmentQuickCreateLocation : FragmentControlSplitButtonItemLink
+    public sealed class FragmentSettingsAttributes : FragmentControlDropdownItemLink
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public FragmentQuickCreateLocation()
+        public FragmentSettingsAttributes()
             : base()
         {
         }
@@ -30,10 +30,9 @@ namespace InventoryExpress.WebFragment
         {
             base.Initialization(context, page);
 
-            Text = "inventoryexpress:inventoryexpress.location.label";
-            Uri = context.ModuleContext.ContextPath.Append("locations/add");
-            Icon = new PropertyIcon(TypeIcon.Map);
-            Modal = new PropertyModal(TypeModal.Formular, TypeModalSize.Large);
+            Text = "inventoryexpress:inventoryexpress.attribute.label";
+            Uri = context.ModuleContext.ContextPath.Append("setting/attributes");
+            Icon = new PropertyIcon(TypeIcon.Cubes);
         }
 
         /// <summary>
@@ -43,7 +42,7 @@ namespace InventoryExpress.WebFragment
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            Active = context.Page is IPageLocation ? TypeActive.Active : TypeActive.None;
+            Active = context.Page is IPageTemplate ? TypeActive.Active : TypeActive.None;
 
             return base.Render(context);
         }

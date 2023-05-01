@@ -13,7 +13,8 @@ namespace InventoryExpress.WebPage
     [WebExID("LedgerAccountAdd")]
     [WebExTitle("inventoryexpress:inventoryexpress.ledgeraccount.add.label")]
     [WebExSegment("add", "inventoryexpress:inventoryexpress.ledgeraccount.add.label")]
-    [WebExContextPath("/LedgerAccount")]
+    [WebExContextPath("/")]
+    [WebExParent("LedgerAccount")]
     [WebExModule("inventoryexpress")]
     [WebExContext("general")]
     public sealed class PageLedgerAccountAdd : PageWebApp, IPageLedgerAccount

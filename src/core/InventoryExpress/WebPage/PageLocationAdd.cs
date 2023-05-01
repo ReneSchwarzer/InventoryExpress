@@ -13,7 +13,8 @@ namespace InventoryExpress.WebPage
     [WebExID("LocationAdd")]
     [WebExTitle("inventoryexpress:inventoryexpress.location.add.label")]
     [WebExSegment("add", "inventoryexpress:inventoryexpress.location.add.label")]
-    [WebExContextPath("/Location")]
+    [WebExContextPath("/")]
+    [WebExParent("Location")]
     [WebExModule("inventoryexpress")]
     [WebExContext("general")]
     public sealed class PageLocationAdd : PageWebApp, IPageLocation

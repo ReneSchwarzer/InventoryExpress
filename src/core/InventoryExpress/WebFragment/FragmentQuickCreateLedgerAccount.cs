@@ -6,7 +6,6 @@ using WebExpress.UI.WebFragment;
 using WebExpress.WebApp.WebFragment;
 using WebExpress.WebAttribute;
 using WebExpress.WebPage;
-using WebExpress.WebUri;
 
 namespace InventoryExpress.WebFragment
 {
@@ -32,7 +31,7 @@ namespace InventoryExpress.WebFragment
             base.Initialization(context, page);
 
             Text = "inventoryexpress:inventoryexpress.ledgeraccount.label";
-            Uri = UriResource.Combine(page.ResourceContext.ContextPath, "ledgeraccounts/add");
+            Uri = context.ModuleContext.ContextPath.Append("ledgeraccounts/add");
             Icon = new PropertyIcon(TypeIcon.At);
             Modal = new PropertyModal(TypeModal.Formular, TypeModalSize.Large);
         }
