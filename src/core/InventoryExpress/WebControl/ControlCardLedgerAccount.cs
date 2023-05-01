@@ -1,7 +1,6 @@
 ﻿using InventoryExpress.Model.WebItems;
 using WebExpress.Html;
 using WebExpress.UI.WebControl;
-using WebExpress.WebUri;
 using WebExpress.WebPage;
 
 namespace InventoryExpress.WebControl
@@ -42,12 +41,12 @@ namespace InventoryExpress.WebControl
         {
             var media = new ControlPanelMedia()
             {
-                Image = new UriRelative(LedgerAccount.Image),
+                Image = LedgerAccount.Image,
                 ImageWidth = 100,
                 Title = new ControlLink()
                 {
                     Text = LedgerAccount.Name,
-                    Uri = new UriRelative(LedgerAccount.Uri),
+                    Uri = LedgerAccount.Uri,
                     TextColor = new PropertyColorText(TypeColorText.Dark)
                 }
             };

@@ -3,7 +3,6 @@ using InventoryExpress.Model.WebItems;
 using InventoryExpress.WebControl;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
-using WebExpress.WebUri;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
@@ -11,12 +10,13 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPage
 {
-    [Id("InventoryAdd")]
-    [Title("inventoryexpress:inventoryexpress.inventory.add.label")]
-    [Segment("add", "inventoryexpress:inventoryexpress.inventory.add.label")]
-    [ContextPath("/")]
-    [Module("inventoryexpress")]
-    [Context("general")]
+    [WebExID("InventoryAdd")]
+    [WebExTitle("inventoryexpress:inventoryexpress.inventory.add.label")]
+    [WebExSegment("add", "inventoryexpress:inventoryexpress.inventory.add.label")]
+    [WebExContextPath("/")]
+    [WebExParent("Home")]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("general")]
     public sealed class PageInventoryAdd : PageWebApp, IPageInventory
     {
         /// <summary>
@@ -44,7 +44,7 @@ namespace InventoryExpress.WebPage
             Form.InitializeFormular += InitializeFormular;
             Form.FillFormular += FillFormular;
             Form.ProcessFormular += ProcessFormular;
-            Form.RedirectUri = ContextPath;
+            Form.RedirectUri = ResourceContext.ContextPath;
         }
 
         /// <summary>
@@ -92,10 +92,10 @@ namespace InventoryExpress.WebPage
                     new ControlLink()
                     {
                         Text = inventory.Name,
-                        Uri = new UriRelative(ViewModel.GetInventoryUri(inventory.Id))
+                        Uri = ViewModel.GetInventoryUri(inventory.Id)
                     }.Render(e.Context).ToString().Trim()
                 ),
-                icon: new UriRelative(inventory.Image),
+                icon: inventory.Image,
                 durability: 10000
             );
         }

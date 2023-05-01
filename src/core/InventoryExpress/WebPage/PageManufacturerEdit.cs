@@ -4,7 +4,6 @@ using InventoryExpress.WebControl;
 using System;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
-using WebExpress.WebUri;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
@@ -12,13 +11,13 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPage
 {
-    [Id("ManufacturerEdit")]
-    [Title("inventoryexpress:inventoryexpress.manufacturer.edit.label")]
-    [SegmentGuid("ManufacturerID", "inventoryexpress:inventoryexpress.manufacturer.edit.display", SegmentGuidAttribute.Format.Simple)]
-    [ContextPath("/Manufacturer")]
-    [Module("inventoryexpress")]
-    [Context("general")]
-    [Context("manufactureredit")]
+    [WebExID("ManufacturerEdit")]
+    [WebExTitle("inventoryexpress:inventoryexpress.manufacturer.edit.label")]
+    [WebExSegmentGuid("ManufacturerID", "inventoryexpress:inventoryexpress.manufacturer.edit.display", WebExSegmentGuidAttribute.Format.Simple)]
+    [WebExContextPath("/Manufacturer")]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("general")]
+    [WebExContext("manufactureredit")]
     public sealed class PageManufacturerEdit : PageWebApp, IPageManufacturer
     {
         /// <summary>
@@ -110,10 +109,10 @@ namespace InventoryExpress.WebPage
                     new ControlLink()
                     {
                         Text = Manufacturer.Name,
-                        Uri = new UriRelative(ViewModel.GetManufacturerUri(Manufacturer.Id))
+                        Uri = ViewModel.GetManufacturerUri(Manufacturer.Id)
                     }.Render(e.Context).ToString().Trim()
                 ),
-                icon: new UriRelative(Manufacturer.Image),
+                icon: Manufacturer.Image,
                 durability: 10000
             );
         }
@@ -129,7 +128,7 @@ namespace InventoryExpress.WebPage
             var guid = context.Request.GetParameter("ManufacturerID")?.Value;
             Manufacturer = ViewModel.GetManufacturer(guid);
 
-            context.Request.Uri.Display = Manufacturer.Name;
+            Uri.Display = Manufacturer.Name;
             context.VisualTree.Content.Primary.Add(Form);
         }
     }

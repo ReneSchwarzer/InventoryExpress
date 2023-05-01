@@ -8,13 +8,13 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPage
 {
-    [Id("InventoryDetails")]
-    [Title("inventoryexpress:inventoryexpress.details.label")]
-    [SegmentGuid("InventoryID", "inventoryexpress:inventoryexpress.details.label")]
-    [ContextPath("/")]
-    [Module("inventoryexpress")]
-    [Context("general")]
-    [Context("inventorydetails")]
+    [WebExID("InventoryDetails")]
+    [WebExTitle("inventoryexpress:inventoryexpress.details.label")]
+    [WebExSegmentGuid("InventoryID", "inventoryexpress:inventoryexpress.details.label")]
+    [WebExContextPath("/")]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("general")]
+    [WebExContext("inventorydetails")]
     public sealed class PageInventoryDetails : PageWebApp, IPageInventory
     {
         /// <summary>
@@ -57,7 +57,7 @@ namespace InventoryExpress.WebPage
             var mediaItems = ViewModel.GetInventoryAttachments(inventory)
                                       .Where(x => x.Name.ToLower().EndsWith(".jpg") || x.Name.ToLower().EndsWith(".png") || x.Name.ToLower().EndsWith(".svg"));
 
-            context.Uri.Display = inventory?.Name;
+            Uri.Display = inventory?.Name;
             Title = inventory?.Name;
             Description.Text = inventory?.Description;
 
@@ -65,7 +65,7 @@ namespace InventoryExpress.WebPage
             (
                 mediaItems.Select(x => new ControlCarouselItem()
                 {
-                    Control = new ControlImage("id_" + x.Id) { Uri = context.Uri.Root.Append("media").Append(x.Id), Classes = classes }
+                    Control = new ControlImage("id_" + x.Id) { Uri = context.ContextPath.Append("media").Append(x.Id), Classes = classes }
                 }).ToArray()
             )
             {

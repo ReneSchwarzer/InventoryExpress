@@ -1,7 +1,6 @@
 ﻿using InventoryExpress.Model.WebItems;
 using WebExpress.Html;
 using WebExpress.UI.WebControl;
-using WebExpress.WebUri;
 using WebExpress.WebPage;
 
 namespace InventoryExpress.WebControl
@@ -59,8 +58,8 @@ namespace InventoryExpress.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            MediaLink.Uri = new UriRelative(CostCenter.Uri);
-            Media.Image = new UriRelative(CostCenter.Image);
+            MediaLink.Uri = CostCenter.Uri;
+            Media.Image = CostCenter.Image;
 
             return base.Render(context);
         }

@@ -1,6 +1,6 @@
 ﻿using InventoryExpress.Model;
 using System.IO;
-using WebExpress.Message;
+using WebExpress.WebMessage;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
 using static WebExpress.Internationalization.InternationalizationManager;
@@ -10,12 +10,12 @@ namespace InventoryExpress.WebResource
     /// <summary>
     /// Lieferung ein Exportdatei
     /// </summary>
-    [Id("ExportAsset")]
-    [Title("Export")]
-    [SegmentGuid("ExportID", "")]
-    [ContextPath("/export")]
-    [IncludeSubPaths(false)]
-    [Module("inventoryexpress")]
+    [WebExID("ExportAsset")]
+    [WebExTitle("Export")]
+    [WebExSegmentGuid("ExportID", "")]
+    [WebExContextPath("/export")]
+    [WebExIncludeSubPaths(false)]
+    [WebExModule("inventoryexpress")]
     public sealed class ResourceExport : ResourceBinary
     {
         /// <summary>
@@ -50,7 +50,7 @@ namespace InventoryExpress.WebResource
             response.Header.ContentDisposition = "attatchment; filename=" + Path.GetFileName(guid + ".zip") + "; size=" + Data.LongLength;
             response.Header.ContentType = "application/zip";
 
-            ResourceContext.Log.Debug(message: I18N("webexpress:resource.file"), args: new object[] { request.RemoteEndPoint, request.Uri });
+            request.ServerContext.Log.Debug(message: I18N("webexpress:resource.file"), args: new object[] { request.RemoteEndPoint, request.Uri });
 
             return response;
         }

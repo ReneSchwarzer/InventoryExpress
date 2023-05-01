@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Html;
 using WebExpress.UI.WebAttribute;
-using WebExpress.UI.WebFragment;
 using WebExpress.UI.WebControl;
+using WebExpress.UI.WebFragment;
 using WebExpress.WebApp.WebFragment;
 using WebExpress.WebApp.Wql;
 using WebExpress.WebAttribute;
@@ -14,11 +14,11 @@ using WebExpress.WebPage;
 namespace InventoryExpress.WebFragment
 {
     [Section(Section.SidebarPrimary)]
-    [Module("inventoryexpress")]
-    [Context("inventorydetails")]
-    [Context("attachment")]
-    [Context("journal")]
-    [Context("inventoryedit")]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("inventorydetails")]
+    [WebExContext("attachment")]
+    [WebExContext("journal")]
+    [WebExContext("inventoryedit")]
     public sealed class FragmentSidebarInventoryTree : FragmentControlTree
     {
         /// <summary>
@@ -56,7 +56,7 @@ namespace InventoryExpress.WebFragment
                 {
                     Text = i?.Name,
                     Layout = TypeLayoutTreeItem.TreeView,
-                    Uri = context.Uri.Root.Append(i.Id),
+                    Uri = context.ContextPath.Append(i.Id),
                     Active = i.Id == guid ? TypeActive.Active : TypeActive.None
                 };
 
@@ -87,7 +87,7 @@ namespace InventoryExpress.WebFragment
                 {
                     Text = i?.Name,
                     Layout = TypeLayoutTreeItem.TreeView,
-                    Uri = context.Uri.Root.Append(i.Id),
+                    Uri = context.ContextPath.Append(i.Id),
                     Active = i.Id == guid ? TypeActive.Active : TypeActive.None
                 };
 

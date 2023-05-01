@@ -5,7 +5,6 @@ using System;
 using System.Linq;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
-using WebExpress.WebUri;
 using WebExpress.WebApp.WebAttribute;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
@@ -16,15 +15,15 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPageSetting
 {
-    [Id("SettingTemplateEdit")]
-    [Title("inventoryexpress:inventoryexpress.template.edit.label")]
-    [SegmentGuid("TemplateID", "inventoryexpress:inventoryexpress.template.edit.display")]
-    [ContextPath("/Setting/SettingTemplate")]
+    [WebExID("SettingTemplateEdit")]
+    [WebExTitle("inventoryexpress:inventoryexpress.template.edit.label")]
+    [WebExSegmentGuid("TemplateID", "inventoryexpress:inventoryexpress.template.edit.display")]
+    [WebExContextPath("/Setting/SettingTemplate")]
     [SettingHide()]
     [SettingContext("webexpress.webapp:setting.tab.general.label")]
-    [Module("inventoryexpress")]
-    [Context("general")]
-    [Context("templateedit")]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("general")]
+    [WebExContext("templateedit")]
     public sealed class PageSettingTemplateEdit : PageWebAppSetting, IPageTemplate
     {
         /// <summary>
@@ -124,10 +123,10 @@ namespace InventoryExpress.WebPageSetting
                     new ControlLink()
                     {
                         Text = Template.Name,
-                        Uri = new UriRelative(ViewModel.GetTemplateUri(Template.Id))
+                        Uri = ViewModel.GetTemplateUri(Template.Id)
                     }.Render(e.Context).ToString().Trim()
                 ),
-                icon: new UriRelative(Template.Image),
+                icon: Template.Image,
                 durability: 10000
             );
         }
@@ -143,7 +142,7 @@ namespace InventoryExpress.WebPageSetting
             var guid = context.Request.GetParameter("TemplateID")?.Value;
             Template = ViewModel.GetTemplate(guid);
 
-            context.Request.Uri.Display = Template.Name;
+            Uri.Display = Template.Name;
             context.VisualTree.Content.Primary.Add(Form);
         }
     }

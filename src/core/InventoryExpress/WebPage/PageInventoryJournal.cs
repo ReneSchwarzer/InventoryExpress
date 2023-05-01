@@ -8,13 +8,14 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPage
 {
-    [Id("InventoryJournal")]
-    [Title("inventoryexpress:inventoryexpress.inventory.journal.label")]
-    [Segment("journal", "inventoryexpress:inventoryexpress.inventory.journal.display")]
-    [ContextPath("/InventoryDetails")]
-    [Module("inventoryexpress")]
-    [Context("general")]
-    [Context("journal")]
+    [WebExID("InventoryJournal")]
+    [WebExTitle("inventoryexpress:inventoryexpress.inventory.journal.label")]
+    [WebExSegment("journal", "inventoryexpress:inventoryexpress.inventory.journal.display")]
+    [WebExContextPath("/")]
+    [WebExParent("InventoryDetails")]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("general")]
+    [WebExContext("journal")]
     public sealed class PageInventoryJournal : PageWebApp, IPageInventory
     {
         /// <summary>

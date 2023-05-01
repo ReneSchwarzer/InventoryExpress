@@ -2,7 +2,7 @@
 using InventoryExpress.Model.WebItems;
 using System.Collections.Generic;
 using WebExpress.Internationalization;
-using WebExpress.Message;
+using WebExpress.WebMessage;
 using WebExpress.WebApp.WebResource;
 using WebExpress.WebApp.Wql;
 using WebExpress.WebAttribute;
@@ -13,11 +13,11 @@ namespace InventoryExpress.WebApi.V1
     /// <summary>
     /// Ermittelt alle Inventargegenstände
     /// </summary>
-    [Id("RestInventoriesV1")]
-    [Segment("inventories", "")]
-    [ContextPath("/api/v1")]
-    [IncludeSubPaths(true)]
-    [Module("inventoryexpress")]
+    [WebExID("RestInventoriesV1")]
+    [WebExSegment("inventories", "")]
+    [WebExContextPath("/api/v1")]
+    [WebExIncludeSubPaths(true)]
+    [WebExModule("inventoryexpress")]
     public sealed class RestInventories : ResourceRestCrud<WebItemEntityInventory>
     {
         /// <summary>
@@ -40,7 +40,7 @@ namespace InventoryExpress.WebApi.V1
         /// Processing of the resource. des GET-Request
         /// </summary>
         /// <param name="request">The request.</param>
-        /// <returns>Eine Aufzählung, welche JsonSerializer serialisiert werden kann.</returns>
+        /// <returns>An enumeration of which json serializer can be serialized.</returns>
         public override IEnumerable<ResourceRestCrudColumn> GetColumns(Request request)
         {
             return new ResourceRestCrudColumn[]
@@ -84,9 +84,9 @@ namespace InventoryExpress.WebApi.V1
         /// <summary>
         /// Processing of the resource. des GET-Request
         /// </summary>
-        /// <param name="wql">Der Filter</param>
+        /// <param name="wql">The filter.</param>
         /// <param name="request">The request.</param>
-        /// <returns>Eine Aufzählung, welche JsonSerializer serialisiert werden kann.</returns>
+        /// <returns>An enumeration of which json serializer can be serialized.</returns>
         public override IEnumerable<WebItemEntityInventory> GetData(WqlStatement wql, Request request)
         {
             var inventories = ViewModel.GetInventories(wql);

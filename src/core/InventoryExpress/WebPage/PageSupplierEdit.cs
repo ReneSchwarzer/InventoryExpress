@@ -4,7 +4,6 @@ using InventoryExpress.WebControl;
 using System;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
-using WebExpress.WebUri;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
@@ -12,13 +11,13 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPage
 {
-    [Id("SupplierEdit")]
-    [Title("inventoryexpress:inventoryexpress.supplier.edit.label")]
-    [SegmentGuid("SupplierID", "inventoryexpress:inventoryexpress.supplier.edit.display")]
-    [ContextPath("/Supplier")]
-    [Module("inventoryexpress")]
-    [Context("general")]
-    [Context("supplieredit")]
+    [WebExID("SupplierEdit")]
+    [WebExTitle("inventoryexpress:inventoryexpress.supplier.edit.label")]
+    [WebExSegmentGuid("SupplierID", "inventoryexpress:inventoryexpress.supplier.edit.display")]
+    [WebExContextPath("/Supplier")]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("general")]
+    [WebExContext("supplieredit")]
     public sealed class PageSupplierEdit : PageWebApp, IPageSupplier
     {
         /// <summary>
@@ -110,10 +109,10 @@ namespace InventoryExpress.WebPage
                     new ControlLink()
                     {
                         Text = Supplier.Name,
-                        Uri = new UriRelative(ViewModel.GetSupplierUri(Supplier.Id))
+                        Uri = ViewModel.GetSupplierUri(Supplier.Id)
                     }.Render(e.Context).ToString().Trim()
                 ),
-                icon: new UriRelative(Supplier.Image),
+                icon: Supplier.Image,
                 durability: 10000
             );
         }
@@ -129,7 +128,7 @@ namespace InventoryExpress.WebPage
             var guid = context.Request.GetParameter("SupplierID")?.Value;
             Supplier = ViewModel.GetSupplier(guid);
 
-            context.Request.Uri.Display = Supplier.Name;
+            Uri.Display = Supplier.Name;
             context.VisualTree.Content.Primary.Add(Form);
         }
     }

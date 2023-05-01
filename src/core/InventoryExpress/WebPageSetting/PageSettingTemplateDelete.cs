@@ -1,7 +1,6 @@
 ﻿using InventoryExpress.Model;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
-using WebExpress.WebUri;
 using WebExpress.WebApp.WebAttribute;
 using WebExpress.WebApp.WebControl;
 using WebExpress.WebApp.WebNotificaation;
@@ -12,15 +11,15 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPageSetting
 {
-    [Id("SettingTemplateDelete")]
-    [Title("inventoryexpress:inventoryexpress.template.delete.label")]
-    [Segment("del")]
-    [ContextPath("/Setting/SettingTemplate/SettingTemplateEdit")]
+    [WebExID("SettingTemplateDelete")]
+    [WebExTitle("inventoryexpress:inventoryexpress.template.delete.label")]
+    [WebExSegment("del")]
+    [WebExContextPath("/Setting/SettingTemplate/SettingTemplateEdit")]
     [SettingHide()]
     [SettingContext("webexpress.webapp:setting.tab.general.label")]
-    [Module("inventoryexpress")]
-    [Context("general")]
-    [Context("templatedelete")]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("general")]
+    [WebExContext("templatedelete")]
     public sealed class PageSettingTemplateDelete : PageWebAppSetting, IPageTemplate
     {
         /// <summary>
@@ -47,7 +46,7 @@ namespace InventoryExpress.WebPageSetting
 
             Form.InitializeFormular += InitializeFormular;
             Form.Confirm += OnConfirmFormular;
-            Form.RedirectUri = ContextPath.Append("setting/templates");
+            Form.RedirectUri = ResourceContext.ContextPath.Append("setting/templates");
         }
 
         /// <summary>
@@ -93,7 +92,7 @@ namespace InventoryExpress.WebPageSetting
                         Format = TypeFormatText.Span
                     }.Render(e.Context).ToString().Trim()
                 ),
-                icon: new UriRelative(template.Image),
+                icon: template.Image,
                 durability: 10000
             );
         }

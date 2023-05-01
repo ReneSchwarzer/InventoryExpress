@@ -13,8 +13,8 @@ namespace InventoryExpress.WebFragment
 {
     [Section(Section.ContentSecondary)]
     [Order(int.MaxValue)]
-    [Module("inventoryexpress")]
-    [Context("inventorydetails")]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("inventorydetails")]
     public sealed class FragmentContentInventoryComment : FragmentControlPanel
     {
         /// <summary>

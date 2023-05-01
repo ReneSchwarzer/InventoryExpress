@@ -1,7 +1,6 @@
 ﻿using InventoryExpress.Model;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
-using WebExpress.WebUri;
 using WebExpress.WebApp.WebAttribute;
 using WebExpress.WebApp.WebControl;
 using WebExpress.WebApp.WebNotificaation;
@@ -12,15 +11,15 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPageSetting
 {
-    [Id("SettingAttributeDelete")]
-    [Title("inventoryexpress:inventoryexpress.attribute.delete.label")]
-    [SegmentGuid("AttributeID", "inventoryexpress:inventoryexpress.attribute.delete.display")]
-    [ContextPath("/Setting/SettingAttribute/del")]
+    [WebExID("SettingAttributeDelete")]
+    [WebExTitle("inventoryexpress:inventoryexpress.attribute.delete.label")]
+    [WebExSegmentGuid("AttributeID", "inventoryexpress:inventoryexpress.attribute.delete.display")]
+    [WebExContextPath("/Setting/SettingAttribute/del")]
     [SettingHide()]
     [SettingContext("webexpress.webapp:setting.tab.general.label")]
-    [Module("inventoryexpress")]
-    [Context("general")]
-    [Context("attributedelete")]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("general")]
+    [WebExContext("attributedelete")]
     public sealed class PageSettingAttributeDelete : PageWebAppSetting, IPageAttribute
     {
         /// <summary>
@@ -47,7 +46,7 @@ namespace InventoryExpress.WebPageSetting
 
             Form.InitializeFormular += InitializeFormular;
             Form.Confirm += OnConfirmFormular;
-            Form.RedirectUri = ContextPath.Append("setting/attributes");
+            Form.RedirectUri = ResourceContext.ContextPath.Append("setting/attributes");
         }
 
         /// <summary>
@@ -89,7 +88,7 @@ namespace InventoryExpress.WebPageSetting
                         Format = TypeFormatText.Span
                     }.Render(e.Context).ToString().Trim()
                 ),
-                icon: new UriRelative(attribute.Image),
+                icon: attribute.Image,
                 durability: 10000
             );
         }

@@ -4,7 +4,6 @@ using InventoryExpress.WebControl;
 using System;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
-using WebExpress.WebUri;
 using WebExpress.WebApp.WebAttribute;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
@@ -14,15 +13,15 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPageSetting
 {
-    [Id("SettingAttributeEdit")]
-    [Title("inventoryexpress:inventoryexpress.attribute.edit.label")]
-    [SegmentGuid("AttributeID", "inventoryexpress:inventoryexpress.attribute.edit.display")]
-    [ContextPath("/Setting/SettingAttribute/edit")]
+    [WebExID("SettingAttributeEdit")]
+    [WebExTitle("inventoryexpress:inventoryexpress.attribute.edit.label")]
+    [WebExSegmentGuid("AttributeID", "inventoryexpress:inventoryexpress.attribute.edit.display")]
+    [WebExContextPath("/Setting/SettingAttribute/edit")]
     [SettingHide()]
     [SettingContext("webexpress.webapp:setting.tab.general.label")]
-    [Module("inventoryexpress")]
-    [Context("general")]
-    [Context("attributeedit")]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("general")]
+    [WebExContext("attributeedit")]
     public sealed class PageSettingAttributeEdit : PageWebAppSetting, IPageAttribute
     {
         /// <summary>
@@ -106,10 +105,10 @@ namespace InventoryExpress.WebPageSetting
                     new ControlLink()
                     {
                         Text = Attribute.Name,
-                        Uri = new UriRelative(ViewModel.GetAttributeUri(Attribute.Id))
+                        Uri = ViewModel.GetAttributeUri(Attribute.Id)
                     }.Render(e.Context).ToString().Trim()
                 ),
-                icon: new UriRelative(Attribute.Image),
+                icon: Attribute.Image,
                 durability: 10000
             );
         }
@@ -125,7 +124,7 @@ namespace InventoryExpress.WebPageSetting
             var guid = context.Request.GetParameter("AttributeID")?.Value;
             Attribute = ViewModel.GetAttribute(guid);
 
-            context.Request.Uri.Display = Attribute.Name;
+            Uri.Display = Attribute.Name;
             context.VisualTree.Content.Primary.Add(Form);
         }
     }

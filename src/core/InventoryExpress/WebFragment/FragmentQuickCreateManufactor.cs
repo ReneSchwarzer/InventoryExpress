@@ -3,15 +3,15 @@ using WebExpress.Html;
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebControl;
 using WebExpress.UI.WebFragment;
-using WebExpress.WebUri;
 using WebExpress.WebApp.WebFragment;
 using WebExpress.WebAttribute;
 using WebExpress.WebPage;
+using WebExpress.WebUri;
 
 namespace InventoryExpress.WebFragment
 {
     [Section(Section.AppQuickcreateSecondary)]
-    [Module("inventoryexpress")]
+    [WebExModule("inventoryexpress")]
     public sealed class ControlQuickCreateManufacturer : FragmentControlSplitButtonItemLink
     {
         /// <summary>
@@ -32,7 +32,7 @@ namespace InventoryExpress.WebFragment
             base.Initialization(context, page);
 
             Text = "inventoryexpress:inventoryexpress.manufacturer.label";
-            Uri = UriRelative.Combine(page.ContextPath, "manufacturers/add");
+            Uri = UriResource.Combine(page.ResourceContext.ContextPath, "manufacturers/add");
             Icon = new PropertyIcon(TypeIcon.Industry);
             Modal = new PropertyModal(TypeModal.Formular, TypeModalSize.Large);
         }

@@ -10,8 +10,8 @@ using WebExpress.WebPage;
 namespace InventoryExpress.WebFragment
 {
     [Section(Section.PropertyPrimary)]
-    [Module("inventoryexpress")]
-    [Context("locationedit")]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("locationedit")]
     public sealed class FragmentPropertyLocationDetails : FragmentControlList
     {
         /// <summary>

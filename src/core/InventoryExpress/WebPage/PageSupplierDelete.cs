@@ -1,6 +1,5 @@
 ﻿using InventoryExpress.Model;
 using WebExpress.UI.WebControl;
-using WebExpress.WebUri;
 using WebExpress.WebApp.WebControl;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
@@ -10,13 +9,13 @@ using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace InventoryExpress.WebPage
 {
-    [Id("SupplierDelete")]
-    [Title("inventoryexpress:inventoryexpress.supplier.delete.label")]
-    [Segment("del", "inventoryexpress:inventoryexpress.supplier.delete.display")]
-    [ContextPath("/Supplier/SupplierEdit")]
-    [Module("inventoryexpress")]
-    [Context("general")]
-    [Context("supplierdelete")]
+    [WebExID("SupplierDelete")]
+    [WebExTitle("inventoryexpress:inventoryexpress.supplier.delete.label")]
+    [WebExSegment("del", "inventoryexpress:inventoryexpress.supplier.delete.display")]
+    [WebExContextPath("/Supplier/SupplierEdit")]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("general")]
+    [WebExContext("supplierdelete")]
     public sealed class PageSupplierDelete : PageWebApp, IPageSupplier
     {
         /// <summary>
@@ -41,7 +40,7 @@ namespace InventoryExpress.WebPage
         {
             base.Initialization(context);
 
-            Form.RedirectUri = ContextPath.Append("suppliers");
+            Form.RedirectUri = ResourceContext.ContextPath.Append("suppliers");
             Form.InitializeFormular += OnInitializeFormular;
             Form.Confirm += OnConfirmFormular;
         }
@@ -85,7 +84,7 @@ namespace InventoryExpress.WebPage
                         Format = TypeFormatText.Span
                     }.Render(e.Context).ToString().Trim()
                 ),
-                icon: new UriRelative(supplier.Image),
+                icon: supplier.Image,
                 durability: 10000
             );
         }

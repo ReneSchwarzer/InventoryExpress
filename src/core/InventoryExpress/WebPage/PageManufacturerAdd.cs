@@ -3,7 +3,6 @@ using InventoryExpress.Model.WebItems;
 using InventoryExpress.WebControl;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
-using WebExpress.WebUri;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
@@ -11,13 +10,13 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPage
 {
-    [Id("ManufacturerAdd")]
-    [Title("inventoryexpress:inventoryexpress.manufacturer.add.label")]
-    [Segment("add", "inventoryexpress:inventoryexpress.manufacturer.add.label")]
-    [ContextPath("/Manufacturer")]
-    [Module("inventoryexpress")]
-    [Context("general")]
-    [Context("manufactureradd")]
+    [WebExID("ManufacturerAdd")]
+    [WebExTitle("inventoryexpress:inventoryexpress.manufacturer.add.label")]
+    [WebExSegment("add", "inventoryexpress:inventoryexpress.manufacturer.add.label")]
+    [WebExContextPath("/Manufacturer")]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("general")]
+    [WebExContext("manufactureradd")]
     public sealed class PageManufacturerAdd : PageWebApp, IPageManufacturer
     {
         /// <summary>
@@ -45,7 +44,7 @@ namespace InventoryExpress.WebPage
             Form.InitializeFormular += InitializeFormular;
             Form.FillFormular += FillFormular;
             Form.ProcessFormular += ProcessFormular;
-            Form.RedirectUri = ContextPath.Append("manufacturers");
+            Form.RedirectUri = ResourceContext.ContextPath.Append("manufacturers");
         }
 
         /// <summary>
@@ -100,10 +99,10 @@ namespace InventoryExpress.WebPage
                     new ControlLink()
                     {
                         Text = manufacturer.Name,
-                        Uri = new UriRelative(ViewModel.GetManufacturerUri(manufacturer.Id))
+                        Uri = ViewModel.GetManufacturerUri(manufacturer.Id)
                     }.Render(e.Context).ToString().Trim()
                 ),
-                icon: new UriRelative(manufacturer.Image),
+                icon: manufacturer.Image,
                 durability: 10000
             );
         }

@@ -1,22 +1,21 @@
 ﻿using InventoryExpress.Model;
 using WebExpress.Html;
 using WebExpress.Internationalization;
-using WebExpress.Message;
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebControl;
 using WebExpress.UI.WebFragment;
-using WebExpress.WebUri;
 using WebExpress.WebApp.WebControl;
 using WebExpress.WebApp.WebFragment;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebAttribute;
+using WebExpress.WebMessage;
 using WebExpress.WebPage;
 
 namespace InventoryExpress.WebFragment
 {
     [Section(Section.SidebarHeader)]
-    [Module("inventoryexpress")]
-    [Context("supplieredit")]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("supplieredit")]
     public sealed class FragmentSidebarMediaSupplier : FragmentSidebarMedia
     {
         /// <summary>
@@ -66,10 +65,10 @@ namespace InventoryExpress.WebFragment
                     new ControlLink()
                     {
                         Text = supplier.Name,
-                        Uri = new UriRelative(ViewModel.GetSupplierUri(supplier.Id))
+                        Uri = ViewModel.GetSupplierUri(supplier.Id)
                     }.Render(e.Context).ToString().Trim()
                 ),
-                icon: new UriRelative(ViewModel.GetMediaUri(supplier.Media.Id)),
+                icon: ViewModel.GetMediaUri(supplier.Media.Id),
                 durability: 10000
             );
         }
@@ -84,7 +83,7 @@ namespace InventoryExpress.WebFragment
             var guid = context.Request.GetParameter("SupplierID")?.Value;
             var supplier = ViewModel.GetSupplier(guid);
 
-            Image.Uri = new UriRelative(supplier?.Image);
+            Image.Uri = supplier?.Image;
 
             return base.Render(context);
         }

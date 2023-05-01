@@ -3,7 +3,6 @@ using InventoryExpress.Model.WebItems;
 using InventoryExpress.WebControl;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
-using WebExpress.WebUri;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
@@ -11,12 +10,12 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPage
 {
-    [Id("CostCenterAdd")]
-    [Title("inventoryexpress:inventoryexpress.costcenter.add.label")]
-    [Segment("add", "inventoryexpress:inventoryexpress.costcenter.add.label")]
-    [ContextPath("/CostCenter")]
-    [Module("inventoryexpress")]
-    [Context("general")]
+    [WebExID("CostCenterAdd")]
+    [WebExTitle("inventoryexpress:inventoryexpress.costcenter.add.label")]
+    [WebExSegment("add", "inventoryexpress:inventoryexpress.costcenter.add.label")]
+    [WebExContextPath("/CostCenter")]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("general")]
     public sealed class PageCostCenterAdd : PageWebApp, IPageCostCenter
     {
         /// <summary>
@@ -44,7 +43,7 @@ namespace InventoryExpress.WebPage
             Form.InitializeFormular += InitializeFormular;
             Form.FillFormular += FillFormular;
             Form.ProcessFormular += ProcessFormular;
-            Form.RedirectUri = ContextPath.Append("costcenters");
+            Form.RedirectUri = ResourceContext.ContextPath.Append("costcenters");
         }
 
         /// <summary>
@@ -96,10 +95,10 @@ namespace InventoryExpress.WebPage
                     new ControlLink()
                     {
                         Text = costcenter.Name,
-                        Uri = new UriRelative(ViewModel.GetCostCenterUri(costcenter.Id))
+                        Uri = ViewModel.GetCostCenterUri(costcenter.Id)
                     }.Render(e.Context).ToString().Trim()
                 ),
-                icon: new UriRelative(costcenter.Image),
+                icon: costcenter.Image,
                 durability: 10000
             );
         }

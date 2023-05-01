@@ -11,8 +11,8 @@ using WebExpress.WebPage;
 namespace InventoryExpress.WebFragment
 {
     [Section(Section.PropertyPrimary)]
-    [Module("inventoryexpress")]
-    [Context("inventories")]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("inventories")]
     public sealed class FragmentPropertyInventoriesDetails : FragmentControlList
     {
         /// <summary>

@@ -1,7 +1,7 @@
 ﻿using InventoryExpress.Model;
 using System.Collections.Generic;
 using WebExpress.Internationalization;
-using WebExpress.Message;
+using WebExpress.WebMessage;
 using WebExpress.WebApp.Model;
 using WebExpress.WebApp.WebResource;
 using WebExpress.WebApp.Wql;
@@ -13,11 +13,11 @@ namespace InventoryExpress.WebApi.V1
     /// <summary>
     /// Ermittelt alle Vorlagen
     /// </summary>
-    [Id("RestTemplatesV1")]
-    [Segment("templates", "")]
-    [ContextPath("/api/v1")]
-    [IncludeSubPaths(true)]
-    [Module("inventoryexpress")]
+    [WebExID("RestTemplatesV1")]
+    [WebExSegment("templates", "")]
+    [WebExContextPath("/api/v1")]
+    [WebExIncludeSubPaths(true)]
+    [WebExModule("inventoryexpress")]
     public sealed class RestTemplates : ResourceRestCrud<WebItem>
     {
         /// <summary>
@@ -40,7 +40,7 @@ namespace InventoryExpress.WebApi.V1
         /// Processing of the resource. des GET-Request
         /// </summary>
         /// <param name="request">The request.</param>
-        /// <returns>Eine Aufzählung, welche JsonSerializer serialisiert werden kann.</returns>
+        /// <returns>An enumeration of which json serializer can be serialized.</returns>
         public override IEnumerable<ResourceRestCrudColumn> GetColumns(Request request)
         {
             return new ResourceRestCrudColumn[]
@@ -56,9 +56,9 @@ namespace InventoryExpress.WebApi.V1
         /// <summary>
         /// Processing of the resource. des GET-Request
         /// </summary>
-        /// <param name="wql">Der Filter</param>
+        /// <param name="wql">The filter.</param>
         /// <param name="request">The request.</param>
-        /// <returns>Eine Aufzählung, welche JsonSerializer serialisiert werden kann.</returns>
+        /// <returns>An enumeration of which json serializer can be serialized.</returns>
         public override IEnumerable<WebItem> GetData(WqlStatement wql, Request request)
         {
             var templates = ViewModel.GetTemplates(wql);

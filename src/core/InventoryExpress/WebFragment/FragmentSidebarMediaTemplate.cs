@@ -1,22 +1,21 @@
 ﻿using InventoryExpress.Model;
 using WebExpress.Html;
 using WebExpress.Internationalization;
-using WebExpress.Message;
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebControl;
 using WebExpress.UI.WebFragment;
-using WebExpress.WebUri;
 using WebExpress.WebApp.WebControl;
 using WebExpress.WebApp.WebFragment;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebAttribute;
+using WebExpress.WebMessage;
 using WebExpress.WebPage;
 
 namespace InventoryExpress.WebFragment
 {
     [Section(Section.SidebarHeader)]
-    [Module("inventoryexpress")]
-    [Context("templateedit")]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("templateedit")]
     public sealed class FragmentSidebarMediaTemplate : FragmentSidebarMedia
     {
         /// <summary>
@@ -66,10 +65,10 @@ namespace InventoryExpress.WebFragment
                     new ControlLink()
                     {
                         Text = template.Name,
-                        Uri = new UriRelative(ViewModel.GetTemplateUri(template.Id))
+                        Uri = ViewModel.GetTemplateUri(template.Id)
                     }.Render(e.Context).ToString().Trim()
                 ),
-                icon: new UriRelative(ViewModel.GetMediaUri(template.Media.Id)),
+                icon: ViewModel.GetMediaUri(template.Media.Id),
                 durability: 10000
             );
         }
@@ -84,7 +83,7 @@ namespace InventoryExpress.WebFragment
             var guid = context.Request.GetParameter("TemplateID")?.Value;
             var template = ViewModel.GetTemplate(guid);
 
-            Image.Uri = new UriRelative(template?.Image);
+            Image.Uri = template?.Image;
 
             return base.Render(context);
         }

@@ -4,7 +4,6 @@ using InventoryExpress.WebControl;
 using System;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
-using WebExpress.WebUri;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
@@ -12,13 +11,13 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPage
 {
-    [Id("CostCenterEdit")]
-    [Title("inventoryexpress:inventoryexpress.costcenter.edit.label")]
-    [SegmentGuid("CostCenterID", "inventoryexpress:inventoryexpress.costcenter.edit.display")]
-    [ContextPath("/CostCenter")]
-    [Module("inventoryexpress")]
-    [Context("general")]
-    [Context("costcenteredit")]
+    [WebExID("CostCenterEdit")]
+    [WebExTitle("inventoryexpress:inventoryexpress.costcenter.edit.label")]
+    [WebExSegmentGuid("CostCenterID", "inventoryexpress:inventoryexpress.costcenter.edit.display")]
+    [WebExContextPath("/CostCenter")]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("general")]
+    [WebExContext("costcenteredit")]
     public sealed class PageCostCenterEdit : PageWebApp, IPageCostCenter
     {
         /// <summary>
@@ -104,10 +103,10 @@ namespace InventoryExpress.WebPage
                     new ControlLink()
                     {
                         Text = CostCenter.Name,
-                        Uri = new UriRelative(ViewModel.GetManufacturerUri(CostCenter.Id))
+                        Uri = ViewModel.GetManufacturerUri(CostCenter.Id)
                     }.Render(e.Context).ToString().Trim()
                 ),
-                icon: new UriRelative(CostCenter.Image),
+                icon: CostCenter.Image,
                 durability: 10000
             );
         }
@@ -123,7 +122,7 @@ namespace InventoryExpress.WebPage
             var guid = context.Request.GetParameter("CostCenterID")?.Value;
             CostCenter = ViewModel.GetCostCenter(guid);
 
-            context.Request.Uri.Display = CostCenter.Name;
+            Uri.Display = CostCenter.Name;
             context.VisualTree.Content.Primary.Add(Form);
         }
     }

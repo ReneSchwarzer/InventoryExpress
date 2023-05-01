@@ -1,7 +1,6 @@
 ﻿using InventoryExpress.Model.WebItems;
 using WebExpress.Html;
 using WebExpress.UI.WebControl;
-using WebExpress.WebUri;
 using WebExpress.WebPage;
 
 namespace InventoryExpress.WebControl
@@ -36,12 +35,12 @@ namespace InventoryExpress.WebControl
         {
             var media = new ControlPanelMedia()
             {
-                Image = new UriRelative(Manufactur.Image),
+                Image = Manufactur.Image,
                 ImageWidth = 100,
                 Title = new ControlLink()
                 {
                     Text = Manufactur.Name,
-                    Uri = new UriRelative(Manufactur.Uri),
+                    Uri = Manufactur.Uri,
                     TextColor = new PropertyColorText(TypeColorText.Dark)
                 }
             };

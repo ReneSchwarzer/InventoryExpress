@@ -4,7 +4,6 @@ using InventoryExpress.WebControl;
 using System;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
-using WebExpress.WebUri;
 using WebExpress.WebApp.WebAttribute;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
@@ -14,15 +13,15 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPageSetting
 {
-    [Id("SettingConditionEdit")]
-    [Title("inventoryexpress:inventoryexpress.condition.edit.label")]
-    [SegmentGuid("ConditionID", "inventoryexpress:inventoryexpress.condition.edit.display")]
-    [ContextPath("/Setting/SettingCondition/edit")]
+    [WebExID("SettingConditionEdit")]
+    [WebExTitle("inventoryexpress:inventoryexpress.condition.edit.label")]
+    [WebExSegmentGuid("ConditionID", "inventoryexpress:inventoryexpress.condition.edit.display")]
+    [WebExContextPath("/Setting/SettingCondition/edit")]
     [SettingHide()]
     [SettingContext("webexpress.webapp:setting.tab.general.label")]
-    [Module("inventoryexpress")]
-    [Context("general")]
-    [Context("conditionedit")]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("general")]
+    [WebExContext("conditionedit")]
     public sealed class PageSettingConditionEdit : PageWebAppSetting, IPageCondition
     {
         /// <summary>
@@ -107,10 +106,10 @@ namespace InventoryExpress.WebPageSetting
                     new ControlLink()
                     {
                         Text = Condition.Name,
-                        Uri = new UriRelative(ViewModel.GetConditionUri(Condition.Id))
+                        Uri = ViewModel.GetConditionUri(Condition.Id)
                     }.Render(e.Context).ToString().Trim()
                 ),
-                icon: new UriRelative(Condition.Image),
+                icon: Condition.Image,
                 durability: 10000
             );
         }
@@ -126,7 +125,7 @@ namespace InventoryExpress.WebPageSetting
             var guid = context.Request.GetParameter("ConditionID")?.Value;
             Condition = ViewModel.GetCondition(guid);
 
-            context.Request.Uri.Display = Condition.Name;
+            Uri.Display = Condition.Name;
             context.VisualTree.Content.Primary.Add(Form);
         }
     }

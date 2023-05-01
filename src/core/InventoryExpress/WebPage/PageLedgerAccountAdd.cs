@@ -3,7 +3,6 @@ using InventoryExpress.Model.WebItems;
 using InventoryExpress.WebControl;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
-using WebExpress.WebUri;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
@@ -11,12 +10,12 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPage
 {
-    [Id("LedgerAccountAdd")]
-    [Title("inventoryexpress:inventoryexpress.ledgeraccount.add.label")]
-    [Segment("add", "inventoryexpress:inventoryexpress.ledgeraccount.add.label")]
-    [ContextPath("/LedgerAccount")]
-    [Module("inventoryexpress")]
-    [Context("general")]
+    [WebExID("LedgerAccountAdd")]
+    [WebExTitle("inventoryexpress:inventoryexpress.ledgeraccount.add.label")]
+    [WebExSegment("add", "inventoryexpress:inventoryexpress.ledgeraccount.add.label")]
+    [WebExContextPath("/LedgerAccount")]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("general")]
     public sealed class PageLedgerAccountAdd : PageWebApp, IPageLedgerAccount
     {
         /// <summary>
@@ -44,7 +43,7 @@ namespace InventoryExpress.WebPage
             Form.InitializeFormular += InitializeFormular;
             Form.FillFormular += FillFormular;
             Form.ProcessFormular += ProcessFormular;
-            Form.RedirectUri = ContextPath.Append("ledgeraccounts");
+            Form.RedirectUri = ResourceContext.ContextPath.Append("ledgeraccounts");
         }
 
         /// <summary>
@@ -96,10 +95,10 @@ namespace InventoryExpress.WebPage
                     new ControlLink()
                     {
                         Text = ledgeraccount.Name,
-                        Uri = new UriRelative(ViewModel.GetLedgerAccountUri(ledgeraccount.Id))
+                        Uri = ViewModel.GetLedgerAccountUri(ledgeraccount.Id)
                     }.Render(e.Context).ToString().Trim()
                 ),
-                icon: new UriRelative(ledgeraccount.Image),
+                icon: ledgeraccount.Image,
                 durability: 10000
             );
         }

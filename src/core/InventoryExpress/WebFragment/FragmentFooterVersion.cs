@@ -12,7 +12,7 @@ using WebExpress.WebPage;
 namespace InventoryExpress.WebFragment
 {
     [Section(Section.FooterPrimary)]
-    [Module("inventoryexpress")]
+    [WebExModule("inventoryexpress")]
     public sealed class FragmentFooterVersion : FragmentControlText
     {
         /// <summary>

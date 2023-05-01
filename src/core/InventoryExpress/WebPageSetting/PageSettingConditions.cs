@@ -9,18 +9,18 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPageSetting
 {
-    [Id("SettingCondition")]
-    [Title("inventoryexpress:inventoryexpress.condition.label")]
-    [Segment("conditions", "inventoryexpress:inventoryexpress.condition.label")]
-    [ContextPath("/Setting")]
+    [WebExID("SettingCondition")]
+    [WebExTitle("inventoryexpress:inventoryexpress.condition.label")]
+    [WebExSegment("conditions", "inventoryexpress:inventoryexpress.condition.label")]
+    [WebExContextPath("/Setting")]
     [SettingSection(SettingSection.Primary)]
     [SettingIcon(TypeIcon.StarHalf)]
     [SettingGroup("inventoryexpress:inventoryexpress.setting.data.label")]
     [SettingContext("webexpress.webapp:setting.tab.general.label")]
-    [Module("inventoryexpress")]
-    [Context("general")]
-    [Context("condition")]
-    [Cache]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("general")]
+    [WebExContext("condition")]
+    [WebExCache]
     public sealed class PageSettingConditions : PageWebAppSetting
     {
         /// <summary>
@@ -46,7 +46,7 @@ namespace InventoryExpress.WebPageSetting
         {
             base.Initialization(context);
 
-            Table.RestUri = ContextPath.Append("api/v1/conditions");
+            Table.RestUri = ResourceContext.ContextPath.Append("api/v1/conditions");
 
 
         }

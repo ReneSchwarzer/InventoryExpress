@@ -6,12 +6,12 @@ namespace InventoryExpress.WebResource
     /// <summary>
     /// Delivery of a resource embedded in the assembly.
     /// </summary>
-    [Id("Asset")]
-    [Title("Assets")]
-    [Segment("assets", "")]
-    [ContextPath("/")]
-    [IncludeSubPaths(true)]
-    [Module("inventoryexpress")]
+    [WebExID("Asset")]
+    [WebExTitle("Assets")]
+    [WebExSegment("assets", "")]
+    [WebExContextPath("/")]
+    [WebExIncludeSubPaths(true)]
+    [WebExModule("inventoryexpress")]
     public sealed class ResourceAsset : WebExpress.WebResource.ResourceAsset
     {
         /// <summary>

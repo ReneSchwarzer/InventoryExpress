@@ -11,8 +11,8 @@ using WebExpress.WebPage;
 namespace InventoryExpress.WebFragment
 {
     [Section(Section.MoreSecondary)]
-    [Module("inventoryexpress")]
-    [Context("manufactureredit")]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("manufactureredit")]
     public sealed class FragmentMoreManufacturerDelete : FragmentControlDropdownItemLink
     {
         /// <summary>

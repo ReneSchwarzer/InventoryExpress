@@ -1,7 +1,7 @@
 ﻿using QRCoder;
 using System.Text;
-using WebExpress.Message;
 using WebExpress.WebAttribute;
+using WebExpress.WebMessage;
 using WebExpress.WebResource;
 
 namespace InventoryExpress.QR.WebResource
@@ -9,12 +9,12 @@ namespace InventoryExpress.QR.WebResource
     /// <summary>
     /// Lieferung einer im Assamby eingebetteten Ressource
     /// </summary>
-    [Id("QR")]
-    [Title("Assets")]
-    [SegmentGuid("InventoryID", "")]
-    [ContextPath("/")]
-    [IncludeSubPaths(true)]
-    [Module("InventoryExpress.QR")]
+    [WebExID("QR")]
+    [WebExTitle("Assets")]
+    [WebExSegmentGuid("InventoryID", "")]
+    [WebExContextPath("/")]
+    [WebExIncludeSubPaths(true)]
+    [WebExModule("InventoryExpress.QR")]
     public sealed class ResourceQR : ResourceBinary
     {
         /// <summary>
@@ -33,7 +33,7 @@ namespace InventoryExpress.QR.WebResource
         {
             var id = request.GetParameter("InventoryID")?.Value;
 
-            var link = $"{request.BaseUri.ToString().TrimEnd('/')}/{ContextPath.Append(id).ToString().TrimStart('/')}";
+            var link = $"{request.BaseUri.ToString().TrimEnd('/')}/{ResourceContext.ContextPath.Append(id).ToString().TrimStart('/')}";
 
             var qrGenerator = new QRCodeGenerator();
             var qrCode = qrGenerator.CreateQrCode(link, QRCodeGenerator.ECCLevel.Q);

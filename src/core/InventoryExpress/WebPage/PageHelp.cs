@@ -1,19 +1,18 @@
 ﻿using System.Reflection;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
-using WebExpress.WebUri;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPage
 {
-    [Id("Help")]
-    [Title("inventoryexpress:inventoryexpress.help.label")]
-    [Segment("help", "inventoryexpress:inventoryexpress.help.label")]
-    [ContextPath("/")]
-    [Module("inventoryexpress")]
-    [Context("general")]
+    [WebExID("Help")]
+    [WebExTitle("inventoryexpress:inventoryexpress.help.label")]
+    [WebExSegment("help", "inventoryexpress:inventoryexpress.help.label")]
+    [WebExContextPath("/")]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("general")]
     public sealed class PageHelp : PageWebApp, IPageHelp
     {
         /// <summary>
@@ -44,7 +43,7 @@ namespace InventoryExpress.WebPage
 
             visualTree.Content.Primary.Add(new ControlImage()
             {
-                Uri = ContextPath.Append("assets/img/inventoryexpress.svg"),
+                Uri = ResourceContext.ContextPath.Append("assets/img/inventoryexpress.svg"),
                 Width = 200,
                 Height = 200,
                 HorizontalAlignment = TypeHorizontalAlignment.Right
@@ -102,7 +101,7 @@ namespace InventoryExpress.WebPage
 
             card.Add(new ControlText()
             {
-                Text = string.Format("{0}", ResourceContext.Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion),
+                Text = string.Format("{0}", ResourceContext.PluginContext.Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion),
                 TextColor = new PropertyColorText(TypeColorText.Dark)
             });
 
@@ -115,11 +114,7 @@ namespace InventoryExpress.WebPage
             card.Add(new ControlLink()
             {
                 Text = string.Format("rene_schwarzer@hotmail.de"),
-                Uri = new UriAbsolute()
-                {
-                    Scheme = UriScheme.Mailto,
-                    Authority = new UriAuthority("rene_schwarzer@hotmail.de")
-                },
+                Uri = "mailto:rene_schwarzer@hotmail.de",
                 TextColor = new PropertyColorText(TypeColorText.Dark)
             });
 

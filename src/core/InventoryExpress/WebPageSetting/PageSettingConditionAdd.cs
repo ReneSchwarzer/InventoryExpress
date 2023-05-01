@@ -3,7 +3,6 @@ using InventoryExpress.Model.WebItems;
 using InventoryExpress.WebControl;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
-using WebExpress.WebUri;
 using WebExpress.WebApp.WebAttribute;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
@@ -13,15 +12,15 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPageSetting
 {
-    [Id("SettingConditionAdd")]
-    [Title("inventoryexpress:inventoryexpress.condition.add.label")]
-    [Segment("add", "inventoryexpress:inventoryexpress.condition.add.label")]
-    [ContextPath("/Setting/SettingCondition")]
+    [WebExID("SettingConditionAdd")]
+    [WebExTitle("inventoryexpress:inventoryexpress.condition.add.label")]
+    [WebExSegment("add", "inventoryexpress:inventoryexpress.condition.add.label")]
+    [WebExContextPath("/Setting/SettingCondition")]
     [SettingHide()]
     [SettingContext("webexpress.webapp:setting.tab.general.label")]
-    [Module("inventoryexpress")]
-    [Context("general")]
-    [Context("conditionadd")]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("general")]
+    [WebExContext("conditionadd")]
     public sealed class PageSettingConditionAdd : PageWebAppSetting, IPageCondition
     {
         /// <summary>
@@ -101,14 +100,14 @@ namespace InventoryExpress.WebPageSetting
                     new ControlLink()
                     {
                         Text = condition.Name,
-                        Uri = new UriRelative(ViewModel.GetConditionUri(condition.Id))
+                        Uri = ViewModel.GetConditionUri(condition.Id)
                     }.Render(e.Context).ToString().Trim()
                 ),
-                icon: new UriRelative(condition.Image),
+                icon: condition.Image,
                 durability: 10000
             );
 
-            Form.RedirectUri = Form.RedirectUri.Append(condition.Id);
+            //Form.RedirectUri = Form.RedirectUri.Append(condition.Id);
         }
 
         /// <summary>

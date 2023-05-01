@@ -3,15 +3,15 @@ using WebExpress.Html;
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebControl;
 using WebExpress.UI.WebFragment;
-using WebExpress.WebUri;
 using WebExpress.WebApp.WebFragment;
 using WebExpress.WebAttribute;
 using WebExpress.WebPage;
+using WebExpress.WebUri;
 
 namespace InventoryExpress.WebFragment
 {
     [Section(Section.AppSettingsSecondary)]
-    [Module("inventoryexpress")]
+    [WebExModule("inventoryexpress")]
     public sealed class FragmentSettingsSettings : FragmentControlDropdownItemLink
     {
         /// <summary>
@@ -32,7 +32,7 @@ namespace InventoryExpress.WebFragment
             base.Initialization(context, page);
 
             Text = "inventoryexpress:inventoryexpress.setting.label";
-            Uri = UriRelative.Combine(page.ContextPath, "setting/general");
+            Uri = UriResource.Combine(page.ResourceContext.ContextPath, "setting/general");
             Icon = new PropertyIcon(TypeIcon.Cog);
         }
 

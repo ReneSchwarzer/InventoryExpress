@@ -1,22 +1,21 @@
 ﻿using InventoryExpress.Model;
 using WebExpress.Html;
 using WebExpress.Internationalization;
-using WebExpress.Message;
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebControl;
 using WebExpress.UI.WebFragment;
-using WebExpress.WebUri;
 using WebExpress.WebApp.WebControl;
 using WebExpress.WebApp.WebFragment;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebAttribute;
+using WebExpress.WebMessage;
 using WebExpress.WebPage;
 
 namespace InventoryExpress.WebFragment
 {
     [Section(Section.SidebarHeader)]
-    [Module("inventoryexpress")]
-    [Context("costcenteredit")]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("costcenteredit")]
     public sealed class FragmentSidebarMediaCostCenter : FragmentSidebarMedia
     {
         /// <summary>
@@ -66,10 +65,10 @@ namespace InventoryExpress.WebFragment
                     new ControlLink()
                     {
                         Text = costCenter.Name,
-                        Uri = new UriRelative(ViewModel.GetCostCenterUri(costCenter.Id))
+                        Uri = ViewModel.GetCostCenterUri(costCenter.Id)
                     }.Render(e.Context).ToString().Trim()
                 ),
-                icon: new UriRelative(ViewModel.GetMediaUri(costCenter.Media.Id)),
+                icon: ViewModel.GetMediaUri(costCenter.Media.Id),
                 durability: 10000
             );
         }
@@ -84,7 +83,7 @@ namespace InventoryExpress.WebFragment
             var guid = context.Request.GetParameter("CostCenterID")?.Value;
             var costCenter = ViewModel.GetCostCenter(guid);
 
-            Image.Uri = new UriRelative(costCenter?.Image);
+            Image.Uri = costCenter?.Image;
 
             return base.Render(context);
         }

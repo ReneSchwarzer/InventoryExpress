@@ -1,8 +1,6 @@
-﻿using InventoryExpress.Model;
-using InventoryExpress.Model.WebItems;
+﻿using InventoryExpress.Model.WebItems;
 using WebExpress.Html;
 using WebExpress.UI.WebControl;
-using WebExpress.WebUri;
 using WebExpress.WebPage;
 
 namespace InventoryExpress.WebControl
@@ -129,11 +127,11 @@ namespace InventoryExpress.WebControl
                 Direction = TypeDirection.Horizontal
             };
 
-            Media.Image = new UriRelative(Inventory.Media?.Uri);
-            MediaLink.Uri = new UriRelative(Inventory.Uri);
+            Media.Image = Inventory.Media?.Uri;
+            MediaLink.Uri = Inventory.Uri;
 
             Template.Text = Inventory.Template?.Name;
-            Template.Uri = new UriRelative(Inventory.Template?.Uri);
+            Template.Uri = Inventory.Template?.Uri;
 
             Manufacturer.Enable = Inventory.Manufacturer != null;
             Manufacturer.Name = Inventory.Manufacturer?.Name;

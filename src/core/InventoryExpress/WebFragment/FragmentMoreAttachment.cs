@@ -11,8 +11,8 @@ using WebExpress.WebPage;
 namespace InventoryExpress.WebFragment
 {
     [Section(Section.MorePreferences)]
-    [Module("inventoryexpress")]
-    [Context("inventorydetails")]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("inventorydetails")]
     public sealed class FragmentMoreAttachment : FragmentControlDropdownItemLink
     {
         /// <summary>

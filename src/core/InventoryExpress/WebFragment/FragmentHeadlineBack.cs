@@ -9,18 +9,18 @@ using WebExpress.WebPage;
 namespace InventoryExpress.WebFragment
 {
     [Section(Section.HeadlinePrologue)]
-    [Module("inventoryexpress")]
-    [Context("attachment")]
-    [Context("inventoryedit")]
-    [Context("costcenteredit")]
-    [Context("ledgeraccountedit")]
-    [Context("locationedit")]
-    [Context("manufactureredit")]
-    [Context("supplieredit")]
-    [Context("templateedit")]
-    [Context("templateadd")]
-    [Context("mediaedit")]
-    [Context("journal")]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("attachment")]
+    [WebExContext("inventoryedit")]
+    [WebExContext("costcenteredit")]
+    [WebExContext("ledgeraccountedit")]
+    [WebExContext("locationedit")]
+    [WebExContext("manufactureredit")]
+    [WebExContext("supplieredit")]
+    [WebExContext("templateedit")]
+    [WebExContext("templateadd")]
+    [WebExContext("mediaedit")]
+    [WebExContext("journal")]
     public sealed class FragmentHeadlineBack : FragmentControlButtonLink
     {
         /// <summary>

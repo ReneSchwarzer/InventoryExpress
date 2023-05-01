@@ -9,12 +9,12 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPage
 {
-    [Id("LedgerAccount")]
-    [Title("inventoryexpress:inventoryexpress.ledgeraccounts.label")]
-    [Segment("ledgeraccounts", "inventoryexpress:inventoryexpress.ledgeraccounts.label")]
-    [ContextPath("/")]
-    [Module("inventoryexpress")]
-    [Context("general")]
+    [WebExID("LedgerAccount")]
+    [WebExTitle("inventoryexpress:inventoryexpress.ledgeraccounts.label")]
+    [WebExSegment("ledgeraccounts", "inventoryexpress:inventoryexpress.ledgeraccounts.label")]
+    [WebExContextPath("/")]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("general")]
     public sealed class PageLedgerAccounts : PageWebApp, IPageLedgerAccount
     {
         /// <summary>

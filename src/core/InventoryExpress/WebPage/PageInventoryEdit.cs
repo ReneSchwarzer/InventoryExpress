@@ -4,7 +4,6 @@ using System;
 using System.Linq;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
-using WebExpress.WebUri;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
@@ -12,13 +11,14 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPage
 {
-    [Id("InventoryEdit")]
-    [Title("inventoryexpress:inventoryexpress.inventory.edit.label")]
-    [Segment("edit", "inventoryexpress:inventoryexpress.inventory.edit.display")]
-    [ContextPath("/InventoryDetails")]
-    [Module("inventoryexpress")]
-    [Context("general")]
-    [Context("inventoryedit")]
+    [WebExID("InventoryEdit")]
+    [WebExTitle("inventoryexpress:inventoryexpress.inventory.edit.label")]
+    [WebExSegment("edit", "inventoryexpress:inventoryexpress.inventory.edit.display")]
+    [WebExContextPath("/")]
+    [WebExParent("InventoryDetails")]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("general")]
+    [WebExContext("inventoryedit")]
     //[Cache]
     public sealed class PageInventoryEdit : PageWebApp, IPageInventory
     {
@@ -100,10 +100,10 @@ namespace InventoryExpress.WebPage
                     new ControlLink()
                     {
                         Text = inventory.Name,
-                        Uri = new UriRelative(ViewModel.GetInventoryUri(inventory.Id))
+                        Uri = ViewModel.GetInventoryUri(inventory.Id)
                     }.Render(e.Context).ToString().Trim()
                 ),
-                icon: new UriRelative(inventory.Image),
+                icon: inventory.Image,
                 durability: 10000
             );
         }
@@ -118,7 +118,7 @@ namespace InventoryExpress.WebPage
 
             // Attribute im Formular erstellen
             context.VisualTree.Content.Primary.Add(Form);
-            context.Uri.Display = context.Request.GetParameter("InventoryID")?.Value.Split('-').LastOrDefault();
+            Uri.Display = context.Request.GetParameter("InventoryID")?.Value.Split('-').LastOrDefault();
         }
     }
 }

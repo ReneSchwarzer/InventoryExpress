@@ -1,6 +1,5 @@
 ﻿using InventoryExpress.Model;
 using WebExpress.UI.WebControl;
-using WebExpress.WebUri;
 using WebExpress.WebApp.WebControl;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
@@ -10,13 +9,13 @@ using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace InventoryExpress.WebPage
 {
-    [Id("ManufacturerDelete")]
-    [Title("inventoryexpress:inventoryexpress.manufacturer.delete.label")]
-    [Segment("del", "inventoryexpress:inventoryexpress.manufacturer.delete.display")]
-    [ContextPath("/Manufacturer/ManufacturerEdit")]
-    [Module("inventoryexpress")]
-    [Context("general")]
-    [Context("manufacturerdelete")]
+    [WebExID("ManufacturerDelete")]
+    [WebExTitle("inventoryexpress:inventoryexpress.manufacturer.delete.label")]
+    [WebExSegment("del", "inventoryexpress:inventoryexpress.manufacturer.delete.display")]
+    [WebExContextPath("/Manufacturer/ManufacturerEdit")]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("general")]
+    [WebExContext("manufacturerdelete")]
     public sealed class PageManufacturerDelete : PageWebApp, IPageManufacturer
     {
         /// <summary>
@@ -41,7 +40,7 @@ namespace InventoryExpress.WebPage
         {
             base.Initialization(context);
 
-            Form.RedirectUri = ContextPath.Append("manufacturers");
+            Form.RedirectUri = ResourceContext.ContextPath.Append("manufacturers");
             Form.InitializeFormular += OnInitializeFormular;
             Form.Confirm += OnConfirmFormular;
         }
@@ -85,7 +84,7 @@ namespace InventoryExpress.WebPage
                         Format = TypeFormatText.Span
                     }.Render(e.Context).ToString().Trim()
                 ),
-                icon: new UriRelative(manufacturer.Image),
+                icon: manufacturer.Image,
                 durability: 10000
             );
         }

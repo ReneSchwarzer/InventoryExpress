@@ -10,8 +10,8 @@ using WebExpress.WebPage;
 namespace InventoryExpress.WebFragment
 {
     [Section(Section.PropertyPrimary)]
-    [Module("inventoryexpress")]
-    [Context("ledgeraccountedit")]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("ledgeraccountedit")]
     public sealed class FragmentPropertyLedgerAccountDetails : FragmentControlList
     {
         /// <summary>

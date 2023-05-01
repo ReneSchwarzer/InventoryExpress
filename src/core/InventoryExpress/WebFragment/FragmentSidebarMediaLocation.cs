@@ -1,22 +1,21 @@
 ﻿using InventoryExpress.Model;
 using WebExpress.Html;
 using WebExpress.Internationalization;
-using WebExpress.Message;
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebControl;
 using WebExpress.UI.WebFragment;
-using WebExpress.WebUri;
 using WebExpress.WebApp.WebControl;
 using WebExpress.WebApp.WebFragment;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebAttribute;
+using WebExpress.WebMessage;
 using WebExpress.WebPage;
 
 namespace InventoryExpress.WebFragment
 {
     [Section(Section.SidebarHeader)]
-    [Module("inventoryexpress")]
-    [Context("locationedit")]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("locationedit")]
     public sealed class FragmentSidebarMediaLocation : FragmentSidebarMedia
     {
         /// <summary>
@@ -66,10 +65,10 @@ namespace InventoryExpress.WebFragment
                     new ControlLink()
                     {
                         Text = location.Name,
-                        Uri = new UriRelative(ViewModel.GetLocationUri(location.Id))
+                        Uri = ViewModel.GetLocationUri(location.Id)
                     }.Render(e.Context).ToString().Trim()
                 ),
-                icon: new UriRelative(ViewModel.GetMediaUri(location.Media.Id)),
+                icon: ViewModel.GetMediaUri(location.Media.Id),
                 durability: 10000
             );
         }
@@ -84,7 +83,7 @@ namespace InventoryExpress.WebFragment
             var guid = context.Request.GetParameter("LocationID")?.Value;
             var location = ViewModel.GetLocation(guid);
 
-            Image.Uri = new UriRelative(location?.Image);
+            Image.Uri = location?.Image;
 
             return base.Render(context);
         }

@@ -3,7 +3,6 @@ using InventoryExpress.Model.WebItems;
 using InventoryExpress.WebControl;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
-using WebExpress.WebUri;
 using WebExpress.WebApp.WebAttribute;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
@@ -13,15 +12,15 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPageSetting
 {
-    [Id("SettingAttributeAdd")]
-    [Title("inventoryexpress:inventoryexpress.attribute.add.label")]
-    [Segment("add", "inventoryexpress:inventoryexpress.attribute.add.label")]
-    [ContextPath("/Setting/SettingAttribute")]
+    [WebExID("SettingAttributeAdd")]
+    [WebExTitle("inventoryexpress:inventoryexpress.attribute.add.label")]
+    [WebExSegment("add", "inventoryexpress:inventoryexpress.attribute.add.label")]
+    [WebExContextPath("/Setting/SettingAttribute")]
     [SettingHide()]
     [SettingContext("webexpress.webapp:setting.tab.general.label")]
-    [Module("inventoryexpress")]
-    [Context("general")]
-    [Context("attributeadd")]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("general")]
+    [WebExContext("attributeadd")]
     public sealed class PageSettingAttributeAdd : PageWebAppSetting, IPageAttribute
     {
         /// <summary>
@@ -100,14 +99,14 @@ namespace InventoryExpress.WebPageSetting
                     new ControlLink()
                     {
                         Text = attribute.Name,
-                        Uri = new UriRelative(ViewModel.GetAttributeUri(attribute.Id))
+                        Uri = ViewModel.GetAttributeUri(attribute.Id)
                     }.Render(e.Context).ToString().Trim()
                 ),
-                icon: new UriRelative(attribute.Image),
+                icon: attribute.Image,
                 durability: 10000
             );
 
-            Form.RedirectUri = Form.RedirectUri.Append(attribute.Id);
+            //Form.RedirectUri = Form.RedirectUri.Append(attribute.Id);
         }
 
         /// <summary>

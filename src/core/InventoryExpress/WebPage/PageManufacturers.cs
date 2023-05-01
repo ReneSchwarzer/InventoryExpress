@@ -6,13 +6,13 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPage
 {
-    [Id("Manufacturer")]
-    [Title("inventoryexpress:inventoryexpress.manufacturers.label")]
-    [Segment("manufacturers", "inventoryexpress:inventoryexpress.manufacturers.label")]
-    [ContextPath("/")]
-    [Module("inventoryexpress")]
-    [Context("general")]
-    [Context("manufacturers")]
+    [WebExID("Manufacturer")]
+    [WebExTitle("inventoryexpress:inventoryexpress.manufacturers.label")]
+    [WebExSegment("manufacturers", "inventoryexpress:inventoryexpress.manufacturers.label")]
+    [WebExContextPath("/")]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("general")]
+    [WebExContext("manufacturers")]
     public sealed class PageManufacturers : PageWebApp, IPageManufacturer
     {
         /// <summary>

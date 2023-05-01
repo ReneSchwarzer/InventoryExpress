@@ -1,7 +1,6 @@
 ﻿using InventoryExpress.Model;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
-using WebExpress.WebUri;
 using WebExpress.WebApp.WebControl;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
@@ -10,13 +9,13 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPage
 {
-    [Id("CostCenterDelete")]
-    [Title("inventoryexpress:inventoryexpress.costcenter.delete.label")]
-    [Segment("del", "inventoryexpress:inventoryexpress.costcenter.delete.display")]
-    [ContextPath("/CostCenter/CostCenterEdit")]
-    [Module("inventoryexpress")]
-    [Context("general")]
-    [Context("costcenterdelete")]
+    [WebExID("CostCenterDelete")]
+    [WebExTitle("inventoryexpress:inventoryexpress.costcenter.delete.label")]
+    [WebExSegment("del", "inventoryexpress:inventoryexpress.costcenter.delete.display")]
+    [WebExContextPath("/CostCenter/CostCenterEdit")]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("general")]
+    [WebExContext("costcenterdelete")]
     public sealed class PageCostCenterDelete : PageWebApp, IPageCostCenter
     {
         /// <summary>
@@ -41,7 +40,7 @@ namespace InventoryExpress.WebPage
         {
             base.Initialization(context);
 
-            Form.RedirectUri = ContextPath.Append("costcenters");
+            Form.RedirectUri = ResourceContext.ContextPath.Append("costcenters");
             Form.InitializeFormular += OnInitializeFormular;
             Form.Confirm += OnConfirmFormular;
         }
@@ -85,7 +84,7 @@ namespace InventoryExpress.WebPage
                         Format = TypeFormatText.Span
                     }.Render(e.Context).ToString().Trim()
                 ),
-                icon: new UriRelative(costcenter.Image),
+                icon: costcenter.Image,
                 durability: 10000
             );
         }

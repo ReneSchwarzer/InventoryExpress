@@ -1,6 +1,6 @@
 ﻿using InventoryExpress.Model;
 using System.IO;
-using WebExpress.Message;
+using WebExpress.WebMessage;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
 using static WebExpress.Internationalization.InternationalizationManager;
@@ -10,12 +10,12 @@ namespace InventoryExpress.WebResource
     /// <summary>
     /// Lieferung einer im Assamby eingebetteten Ressource
     /// </summary>
-    [Id("MediaAsset")]
-    [Title("Media")]
-    [SegmentGuid("MediaID", "")]
-    [ContextPath("/media")]
-    [IncludeSubPaths(false)]
-    [Module("inventoryexpress")]
+    [WebExID("MediaAsset")]
+    [WebExTitle("Media")]
+    [WebExSegmentGuid("MediaID", "")]
+    [WebExContextPath("/media")]
+    [WebExIncludeSubPaths(false)]
+    [WebExModule("inventoryexpress")]
     public sealed class ResourceMedia : ResourceBinary
     {
         /// <summary>
@@ -108,7 +108,7 @@ namespace InventoryExpress.WebResource
                     break;
             }
 
-            ResourceContext.Log.Debug(message: I18N("webexpress:resource.file"), args: new object[] { request.RemoteEndPoint, request.Uri });
+            request.ServerContext.Log.Debug(I18N("webexpress:resource.file", request.RemoteEndPoint, request.Uri));
 
             return response;
         }

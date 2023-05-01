@@ -1,22 +1,21 @@
 ﻿using InventoryExpress.Model;
 using WebExpress.Html;
 using WebExpress.Internationalization;
-using WebExpress.Message;
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebControl;
 using WebExpress.UI.WebFragment;
-using WebExpress.WebUri;
 using WebExpress.WebApp.WebControl;
 using WebExpress.WebApp.WebFragment;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebAttribute;
+using WebExpress.WebMessage;
 using WebExpress.WebPage;
 
 namespace InventoryExpress.WebFragment
 {
     [Section(Section.SidebarHeader)]
-    [Module("inventoryexpress")]
-    [Context("ledgeraccountedit")]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("ledgeraccountedit")]
     public sealed class FragmentSidebarMediaLedgerAccount : FragmentSidebarMedia
     {
         /// <summary>
@@ -66,10 +65,10 @@ namespace InventoryExpress.WebFragment
                     new ControlLink()
                     {
                         Text = ledgerAccount.Name,
-                        Uri = new UriRelative(ViewModel.GetLedgerAccountUri(ledgerAccount.Id))
+                        Uri = ViewModel.GetLedgerAccountUri(ledgerAccount.Id)
                     }.Render(e.Context).ToString().Trim()
                 ),
-                icon: new UriRelative(ViewModel.GetMediaUri(ledgerAccount.Media.Id)),
+                icon: ViewModel.GetMediaUri(ledgerAccount.Media.Id),
                 durability: 10000
             );
         }
@@ -84,7 +83,7 @@ namespace InventoryExpress.WebFragment
             var guid = context.Request.GetParameter("LedgerAccountID")?.Value;
             var ledgerAccount = ViewModel.GetLedgerAccount(guid);
 
-            Image.Uri = new UriRelative(ledgerAccount?.Image);
+            Image.Uri = ledgerAccount?.Image;
 
             return base.Render(context);
         }

@@ -3,7 +3,6 @@ using WebExpress.Html;
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebControl;
 using WebExpress.UI.WebFragment;
-using WebExpress.WebUri;
 using WebExpress.WebApp.WebFragment;
 using WebExpress.WebAttribute;
 using WebExpress.WebPage;
@@ -11,8 +10,8 @@ using WebExpress.WebPage;
 namespace InventoryExpress.WebFragment
 {
     [Section(Section.PropertyPrimary)]
-    [Module("inventoryexpress")]
-    [Context("inventorydetails")]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("inventorydetails")]
     public sealed class FragmentPropertyInventoryDetails : FragmentControlList
     {
         /// <summary>
@@ -175,7 +174,7 @@ namespace InventoryExpress.WebFragment
             var currency = ViewModel.GetSettings()?.Currency;
 
             InventoryNumberLink.Text = guid;
-            InventoryNumberLink.Uri = new UriRelative(inventory.Uri);
+            InventoryNumberLink.Uri = inventory.Uri;
 
             ManufacturerAttribute.Value = inventory.Manufacturer?.Name;
             LocationAttribute.Value = inventory.Location?.Name;

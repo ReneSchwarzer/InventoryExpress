@@ -10,16 +10,16 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPageSetting
 {
-    [Id("SettingExport")]
-    [Title("inventoryexpress:inventoryexpress.importexport.label")]
-    [Segment("export", "inventoryexpress:inventoryexpress.importexport.label")]
-    [ContextPath("/Setting")]
+    [WebExID("SettingExport")]
+    [WebExTitle("inventoryexpress:inventoryexpress.importexport.label")]
+    [WebExSegment("export", "inventoryexpress:inventoryexpress.importexport.label")]
+    [WebExContextPath("/Setting")]
     [SettingSection(SettingSection.Primary)]
     [SettingIcon(TypeIcon.FileExport)]
     [SettingGroup("inventoryexpress:inventoryexpress.setting.data.label")]
     [SettingContext("webexpress.webapp:setting.tab.general.label")]
-    [Module("inventoryexpress")]
-    [Context("admin")]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("admin")]
     public sealed class PageSettingExport : PageWebAppSetting
     {
         /// <summary>

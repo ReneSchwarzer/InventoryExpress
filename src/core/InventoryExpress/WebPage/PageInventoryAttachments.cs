@@ -9,13 +9,14 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPage
 {
-    [Id("InventoryAttachments")]
-    [Title("inventoryexpress:inventoryexpress.inventory.attachment.label")]
-    [Segment("attachments", "inventoryexpress:inventoryexpress.inventory.attachment.display")]
-    [ContextPath("/InventoryDetails")]
-    [Module("inventoryexpress")]
-    [Context("general")]
-    [Context("attachment")]
+    [WebExID("InventoryAttachments")]
+    [WebExTitle("inventoryexpress:inventoryexpress.inventory.attachment.label")]
+    [WebExSegment("attachments", "inventoryexpress:inventoryexpress.inventory.attachment.display")]
+    [WebExContextPath("/")]
+    [WebExParent("InventoryDetails")]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("general")]
+    [WebExContext("attachment")]
     public sealed class PageInventoryAttachments : PageWebApp, IPageInventory
     {
         /// <summary>

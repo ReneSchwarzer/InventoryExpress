@@ -9,12 +9,12 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPage
 {
-    [Id("Location")]
-    [Title("inventoryexpress:inventoryexpress.locations.label")]
-    [Segment("locations", "inventoryexpress:inventoryexpress.locations.label")]
-    [ContextPath("/")]
-    [Module("inventoryexpress")]
-    [Context("general")]
+    [WebExID("Location")]
+    [WebExTitle("inventoryexpress:inventoryexpress.locations.label")]
+    [WebExSegment("locations", "inventoryexpress:inventoryexpress.locations.label")]
+    [WebExContextPath("/")]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("general")]
     public sealed class PageLocations : PageWebApp, IPageLocation
     {
         /// <summary>

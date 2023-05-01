@@ -1,9 +1,8 @@
 ﻿using WebExpress.Html;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebAttribute;
-using WebExpress.UI.WebFragment;
 using WebExpress.UI.WebControl;
-using WebExpress.WebUri;
+using WebExpress.UI.WebFragment;
 using WebExpress.WebApp.WebFragment;
 using WebExpress.WebAttribute;
 using WebExpress.WebPage;
@@ -11,7 +10,7 @@ using WebExpress.WebPage;
 namespace InventoryExpress.WebFragment
 {
     [Section(Section.FooterPrimary)]
-    [Module("inventoryexpress")]
+    [WebExModule("inventoryexpress")]
     public sealed class FragmentFooterLicence : FragmentControlPanel
     {
         /// <summary>
@@ -53,7 +52,7 @@ namespace InventoryExpress.WebFragment
         public override IHtmlNode Render(RenderContext context)
         {
             LicenceLink.Text = InternationalizationManager.I18N(context.Culture, "inventoryexpress:inventoryexpress.footer.licence.label");
-            LicenceLink.Uri = new UriAbsolute(InternationalizationManager.I18N(context.Culture, "inventoryexpress:inventoryexpress.footer.licence.uri"));
+            LicenceLink.Uri = InternationalizationManager.I18N(context.Culture, "inventoryexpress:inventoryexpress.footer.licence.uri");
 
             return base.Render(context);
         }

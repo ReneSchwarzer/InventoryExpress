@@ -5,14 +5,14 @@ using WebExpress.WebAttribute;
 
 namespace InventoryExpress
 {
-    [Id("InventoryExpress")]
-    [Name("app.name")]
-    [Description("app.description")]
-    [Icon("/assets/img/inventoryexpress.svg")]
-    [AssetPath("ix")]
-    [DataPath("ix")]
-    [ContextPath("/ix")]
-    [Option("webexpress.webapp.*")]
+    [WebExID("InventoryExpress")]
+    [WebExName("app.name")]
+    [WebExDescription("app.description")]
+    [WebExIcon("/assets/img/inventoryexpress.svg")]
+    [WebExAssetPath("ix")]
+    [WebExDataPath("ix")]
+    [WebExContextPath("/ix")]
+    [WebExOption("webexpress.webapp.*")]
     public sealed class Application : IApplication
     {
         /// <summary>

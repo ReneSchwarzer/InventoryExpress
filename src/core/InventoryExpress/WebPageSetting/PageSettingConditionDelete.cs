@@ -1,7 +1,6 @@
 ﻿using InventoryExpress.Model;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
-using WebExpress.WebUri;
 using WebExpress.WebApp.WebAttribute;
 using WebExpress.WebApp.WebControl;
 using WebExpress.WebApp.WebNotificaation;
@@ -12,15 +11,15 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPageSetting
 {
-    [Id("SettingConditionDelete")]
-    [Title("inventoryexpress:inventoryexpress.condition.delete.label")]
-    [SegmentGuid("ConditionID", "inventoryexpress:inventoryexpress.condition.delete.display")]
-    [ContextPath("/Setting/SettingCondition/del")]
+    [WebExID("SettingConditionDelete")]
+    [WebExTitle("inventoryexpress:inventoryexpress.condition.delete.label")]
+    [WebExSegmentGuid("ConditionID", "inventoryexpress:inventoryexpress.condition.delete.display")]
+    [WebExContextPath("/Setting/SettingCondition/del")]
     [SettingHide()]
     [SettingContext("webexpress.webapp:setting.tab.general.label")]
-    [Module("inventoryexpress")]
-    [Context("general")]
-    [Context("conditiondelete")]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("general")]
+    [WebExContext("conditiondelete")]
     public sealed class PageSettingConditionDelete : PageWebAppSetting, IPageCondition
     {
         /// <summary>
@@ -47,7 +46,7 @@ namespace InventoryExpress.WebPageSetting
 
             Form.InitializeFormular += InitializeFormular;
             Form.Confirm += OnConfirmFormular;
-            Form.RedirectUri = ContextPath.Append("setting/conditions");
+            Form.RedirectUri = ResourceContext.ContextPath.Append("setting/conditions");
         }
 
         /// <summary>
@@ -93,7 +92,7 @@ namespace InventoryExpress.WebPageSetting
                         Format = TypeFormatText.Span
                     }.Render(e.Context).ToString().Trim()
                 ),
-                icon: new UriRelative(condition.Image),
+                icon: condition.Image,
                 durability: 10000
             );
         }

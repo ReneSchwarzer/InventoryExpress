@@ -3,7 +3,6 @@ using InventoryExpress.WebControl;
 using System;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
-using WebExpress.WebUri;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
@@ -11,13 +10,13 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPage
 {
-    [Id("LedgerAccountEdit")]
-    [Title("inventoryexpress:inventoryexpress.ledgeraccount.edit.label")]
-    [SegmentGuid("LedgerAccountID", "inventoryexpress:inventoryexpress.ledgeraccount.edit.display")]
-    [ContextPath("/LedgerAccount")]
-    [Module("inventoryexpress")]
-    [Context("general")]
-    [Context("ledgeraccountedit")]
+    [WebExID("LedgerAccountEdit")]
+    [WebExTitle("inventoryexpress:inventoryexpress.ledgeraccount.edit.label")]
+    [WebExSegmentGuid("LedgerAccountID", "inventoryexpress:inventoryexpress.ledgeraccount.edit.display")]
+    [WebExContextPath("/LedgerAccount")]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("general")]
+    [WebExContext("ledgeraccountedit")]
     public sealed class PageLedgerAccountEdit : PageWebApp, IPageLedgerAccount
     {
         /// <summary>
@@ -104,10 +103,10 @@ namespace InventoryExpress.WebPage
                     new ControlLink()
                     {
                         Text = ledgerAccount.Name,
-                        Uri = new UriRelative(ViewModel.GetSupplierUri(ledgerAccount.Id))
+                        Uri = ViewModel.GetSupplierUri(ledgerAccount.Id)
                     }.Render(e.Context).ToString().Trim()
                 ),
-                icon: new UriRelative(ledgerAccount.Image),
+                icon: ledgerAccount.Image,
                 durability: 10000
             );
         }
@@ -123,7 +122,7 @@ namespace InventoryExpress.WebPage
             var guid = context.Request.GetParameter("LedgerAccountID")?.Value;
             var ledgerAccount = ViewModel.GetLedgerAccount(guid);
 
-            context.Request.Uri.Display = ledgerAccount.Name;
+            Uri.Display = ledgerAccount.Name;
             context.VisualTree.Content.Primary.Add(Form);
         }
     }

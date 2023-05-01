@@ -3,7 +3,6 @@ using InventoryExpress.Model.WebItems;
 using InventoryExpress.WebControl;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
-using WebExpress.WebUri;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
@@ -11,12 +10,12 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPage
 {
-    [Id("LocationAdd")]
-    [Title("inventoryexpress:inventoryexpress.location.add.label")]
-    [Segment("add", "inventoryexpress:inventoryexpress.location.add.label")]
-    [ContextPath("/Location")]
-    [Module("inventoryexpress")]
-    [Context("general")]
+    [WebExID("LocationAdd")]
+    [WebExTitle("inventoryexpress:inventoryexpress.location.add.label")]
+    [WebExSegment("add", "inventoryexpress:inventoryexpress.location.add.label")]
+    [WebExContextPath("/Location")]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("general")]
     public sealed class PageLocationAdd : PageWebApp, IPageLocation
     {
         /// <summary>
@@ -44,7 +43,7 @@ namespace InventoryExpress.WebPage
             Form.InitializeFormular += InitializeFormular;
             Form.FillFormular += FillFormular;
             Form.ProcessFormular += ProcessFormular;
-            Form.RedirectUri = ContextPath.Append("locations");
+            Form.RedirectUri = ResourceContext.ContextPath.Append("locations");
         }
 
         /// <summary>
@@ -101,10 +100,10 @@ namespace InventoryExpress.WebPage
                     new ControlLink()
                     {
                         Text = location.Name,
-                        Uri = new UriRelative(ViewModel.GetLocationUri(location.Id))
+                        Uri = ViewModel.GetLocationUri(location.Id)
                     }.Render(e.Context).ToString().Trim()
                 ),
-                icon: new UriRelative(location.Image),
+                icon: location.Image,
                 durability: 10000
             );
         }

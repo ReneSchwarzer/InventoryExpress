@@ -9,12 +9,12 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPage
 {
-    [Id("CostCenter")]
-    [Title("inventoryexpress:inventoryexpress.costcenters.label")]
-    [Segment("costcenters", "inventoryexpress:inventoryexpress.costcenters.label")]
-    [ContextPath("/")]
-    [Module("inventoryexpress")]
-    [Context("general")]
+    [WebExID("CostCenter")]
+    [WebExTitle("inventoryexpress:inventoryexpress.costcenters.label")]
+    [WebExSegment("costcenters", "inventoryexpress:inventoryexpress.costcenters.label")]
+    [WebExContextPath("/")]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("general")]
     public sealed class PageCostCenter : PageWebApp, IPageCostCenter
     {
         /// <summary>

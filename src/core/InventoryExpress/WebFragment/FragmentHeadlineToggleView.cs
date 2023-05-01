@@ -11,15 +11,15 @@ using WebExpress.WebPage;
 namespace InventoryExpress.WebFragment
 {
     [Section(Section.HeadlineSecondary)]
-    [Module("inventoryexpress")]
-    [Context("inventories")]
-    [Context("manufacturers")]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("inventories")]
+    [WebExContext("manufacturers")]
     public sealed class FragmentHeadlineToggleView : ControlFormularToggleView, IFragment
     {
         /// <summary>
         /// Liefert der Kontext
         /// </summary>
-        public IFragmentContext Context { get; private set; }
+        public IFragmentContext FragmentContext { get; private set; }
 
         /// <summary>
         /// Konstruktor
@@ -37,7 +37,7 @@ namespace InventoryExpress.WebFragment
         /// <param name="page">Die Seite, indem die Komonente aktiv ist</param>
         public void Initialization(IFragmentContext context, IPage page)
         {
-            Context = context;
+            FragmentContext = context;
 
             ProcessFormular += OnProcessFormular;
         }

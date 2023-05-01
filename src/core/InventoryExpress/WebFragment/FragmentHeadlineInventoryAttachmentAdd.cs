@@ -1,22 +1,21 @@
 ﻿using InventoryExpress.Model;
 using WebExpress.Html;
 using WebExpress.Internationalization;
-using WebExpress.Message;
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebControl;
 using WebExpress.UI.WebFragment;
-using WebExpress.WebUri;
 using WebExpress.WebApp.WebControl;
 using WebExpress.WebApp.WebFragment;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebAttribute;
+using WebExpress.WebMessage;
 using WebExpress.WebPage;
 
 namespace InventoryExpress.WebFragment
 {
     [Section(Section.HeadlineSecondary)]
-    [Module("inventoryexpress")]
-    [Context("attachment")]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("attachment")]
     public sealed class FragmentHeadlineInventoryAttachmentAdd : FragmentControlButtonLink
     {
         /// <summary>
@@ -80,10 +79,10 @@ namespace InventoryExpress.WebFragment
                     new ControlLink()
                     {
                         Text = inventory.Name,
-                        Uri = new UriRelative(ViewModel.GetInventoryUri(inventory.Id))
+                        Uri = ViewModel.GetInventoryUri(inventory.Id)
                     }.Render(e.Context).ToString().Trim()
                 ),
-                icon: new UriRelative(ViewModel.GetMediaUri(inventory.Media.Id)),
+                icon: ViewModel.GetMediaUri(inventory.Media.Id),
                 durability: 10000
             );
         }

@@ -3,16 +3,16 @@ using WebExpress.Html;
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebControl;
 using WebExpress.UI.WebFragment;
-using WebExpress.WebUri;
 using WebExpress.WebApp.WebFragment;
 using WebExpress.WebAttribute;
 using WebExpress.WebPage;
+using WebExpress.WebUri;
 
 namespace InventoryExpress.WebFragment
 {
     [Section(Section.AppNavigationPrimary)]
-    [Module("inventoryexpress")]
-    [Cache]
+    [WebExModule("inventoryexpress")]
+    [WebExCache]
     public sealed class ComponentAppNavigationManufacturer : FragmentControlNavigationItemLink
     {
         /// <summary>
@@ -33,7 +33,7 @@ namespace InventoryExpress.WebFragment
             base.Initialization(context, page);
 
             Text = "inventoryexpress:inventoryexpress.manufacturers.label";
-            Uri = UriRelative.Combine(page.ContextPath, "manufacturers");
+            Uri = UriResource.Combine(page.ResourceContext.ContextPath, "manufacturers");
             Icon = new PropertyIcon(TypeIcon.Industry);
             Active = page is IPageManufacturer ? TypeActive.Active : TypeActive.None;
         }

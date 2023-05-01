@@ -4,21 +4,21 @@ using InventoryExpress.WebControl;
 using System;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
-using WebExpress.WebUri;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
+using WebExpress.WebUri;
 
 namespace InventoryExpress.WebPage
 {
-    [Id("LocationEdit")]
-    [Title("inventoryexpress:inventoryexpress.location.edit.label")]
-    [SegmentGuid("LocationID", "inventoryexpress:inventoryexpress.location.edit.display")]
-    [ContextPath("/Location")]
-    [Module("inventoryexpress")]
-    [Context("general")]
-    [Context("locationedit")]
+    [WebExID("LocationEdit")]
+    [WebExTitle("inventoryexpress:inventoryexpress.location.edit.label")]
+    [WebExSegmentGuid("LocationID", "inventoryexpress:inventoryexpress.location.edit.display")]
+    [WebExContextPath("/Location")]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("general")]
+    [WebExContext("locationedit")]
     public sealed class PageLocationEdit : PageWebApp, IPageLocation
     {
         /// <summary>
@@ -114,10 +114,10 @@ namespace InventoryExpress.WebPage
                     new ControlLink()
                     {
                         Text = Location.Name,
-                        Uri = new UriRelative(ViewModel.GetLocationUri(Location.Id))
+                        Uri = new UriResource(ViewModel.GetLocationUri(Location.Id))
                     }.Render(e.Context).ToString().Trim()
                 ),
-                icon: new UriRelative(Location.Image),
+                icon: new UriResource(Location.Image),
                 durability: 10000
             );
         }
@@ -133,7 +133,7 @@ namespace InventoryExpress.WebPage
             var guid = context.Request.GetParameter("LocationID")?.Value;
             Location = ViewModel.GetLocation(guid);
 
-            context.Request.Uri.Display = Location.Name;
+            Uri.Display = Location.Name;
             context.VisualTree.Content.Primary.Add(Form);
         }
     }

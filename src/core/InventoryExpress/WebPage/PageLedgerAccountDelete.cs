@@ -1,7 +1,6 @@
 ﻿using InventoryExpress.Model;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
-using WebExpress.WebUri;
 using WebExpress.WebApp.WebControl;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
@@ -10,13 +9,13 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPage
 {
-    [Id("LedgerAccountDelete")]
-    [Title("inventoryexpress:inventoryexpress.ledgeraccount.delete.label")]
-    [Segment("del", "inventoryexpress:inventoryexpress.ledgeraccount.delete.display")]
-    [ContextPath("/LedgerAccount/LedgerAccountEdit")]
-    [Module("inventoryexpress")]
-    [Context("general")]
-    [Context("ledgeraccountdelete")]
+    [WebExID("LedgerAccountDelete")]
+    [WebExTitle("inventoryexpress:inventoryexpress.ledgeraccount.delete.label")]
+    [WebExSegment("del", "inventoryexpress:inventoryexpress.ledgeraccount.delete.display")]
+    [WebExContextPath("/LedgerAccount/LedgerAccountEdit")]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("general")]
+    [WebExContext("ledgeraccountdelete")]
     public sealed class PageLedgerAccountDelete : PageWebApp, IPageLedgerAccount
     {
         /// <summary>
@@ -41,7 +40,7 @@ namespace InventoryExpress.WebPage
         {
             base.Initialization(context);
 
-            Form.RedirectUri = ContextPath.Append("ledgeraccounts");
+            Form.RedirectUri = ResourceContext.ContextPath.Append("ledgeraccounts");
             Form.InitializeFormular += OnInitializeFormular;
             Form.Confirm += OnConfirmFormular;
         }
@@ -85,7 +84,7 @@ namespace InventoryExpress.WebPage
                         Format = TypeFormatText.Span
                     }.Render(e.Context).ToString().Trim()
                 ),
-                icon: new UriRelative(ledgeraccount.Image),
+                icon: ledgeraccount.Image,
                 durability: 10000
             );
         }

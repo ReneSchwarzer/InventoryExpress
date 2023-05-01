@@ -3,7 +3,6 @@ using InventoryExpress.Model.WebItems;
 using InventoryExpress.WebControl;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
-using WebExpress.WebUri;
 using WebExpress.WebApp.WebAttribute;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
@@ -14,15 +13,15 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPageSetting
 {
-    [Id("SettingTemplateAdd")]
-    [Title("inventoryexpress:inventoryexpress.template.add.label")]
-    [Segment("add", "inventoryexpress:inventoryexpress.template.add.label")]
-    [ContextPath("/Setting/SettingTemplate")]
+    [WebExID("SettingTemplateAdd")]
+    [WebExTitle("inventoryexpress:inventoryexpress.template.add.label")]
+    [WebExSegment("add", "inventoryexpress:inventoryexpress.template.add.label")]
+    [WebExContextPath("/Setting/SettingTemplate")]
     [SettingHide()]
     [SettingContext("webexpress.webapp:setting.tab.general.label")]
-    [Module("inventoryexpress")]
-    [Context("general")]
-    [Context("templateadd")]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("general")]
+    [WebExContext("templateadd")]
     public sealed class PageSettingTemplateAdd : PageWebAppSetting, IPageTemplate
     {
         /// <summary>
@@ -50,7 +49,7 @@ namespace InventoryExpress.WebPageSetting
             Form.InitializeFormular += InitializeFormular;
             Form.FillFormular += FillFormular;
             Form.ProcessFormular += ProcessFormular;
-            Form.RedirectUri = ContextPath.Append("setting/templates");
+            Form.RedirectUri = ResourceContext.ContextPath.Append("setting/templates");
         }
 
         /// <summary>
@@ -113,10 +112,10 @@ namespace InventoryExpress.WebPageSetting
                     new ControlLink()
                     {
                         Text = template.Name,
-                        Uri = new UriRelative(ViewModel.GetTemplateUri(template.Id))
+                        Uri = ViewModel.GetTemplateUri(template.Id)
                     }.Render(e.Context).ToString().Trim()
                 ),
-                icon: new UriRelative(template.Image),
+                icon: template.Image,
                 durability: 10000
             );
         }

@@ -3,16 +3,16 @@ using WebExpress.Html;
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebControl;
 using WebExpress.UI.WebFragment;
-using WebExpress.WebUri;
 using WebExpress.WebApp.WebFragment;
 using WebExpress.WebAttribute;
 using WebExpress.WebPage;
+using WebExpress.WebUri;
 
 namespace InventoryExpress.WebFragment
 {
     [Section(Section.AppNavigationPrimary)]
-    [Module("inventoryexpress")]
-    [Cache]
+    [WebExModule("inventoryexpress")]
+    [WebExCache]
     public sealed class FragmentAppNavigationLedgerAccount : FragmentControlNavigationItemLink
     {
         /// <summary>
@@ -33,7 +33,7 @@ namespace InventoryExpress.WebFragment
             base.Initialization(context, page);
 
             Text = "inventoryexpress:inventoryexpress.ledgeraccounts.label";
-            Uri = UriRelative.Combine(page.ContextPath, "ledgeraccounts");
+            Uri = UriResource.Combine(page.ResourceContext.ContextPath, "ledgeraccounts");
             Icon = new PropertyIcon(TypeIcon.At);
             Active = page is IPageLedgerAccount ? TypeActive.Active : TypeActive.None;
         }

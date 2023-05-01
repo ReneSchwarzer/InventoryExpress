@@ -3,7 +3,7 @@ using InventoryExpress.Model.WebItems;
 using System;
 using System.IO;
 using System.Linq;
-using WebExpress.Message;
+using WebExpress.WebMessage;
 
 namespace InventoryExpress.Model
 {

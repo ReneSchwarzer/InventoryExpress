@@ -1,7 +1,6 @@
 ﻿using InventoryExpress.Model;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
-using WebExpress.WebUri;
 using WebExpress.WebApp.WebControl;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
@@ -10,13 +9,14 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPage
 {
-    [Id("InventoryDelete")]
-    [Title("inventoryexpress:inventoryexpress.inventory.delete.label")]
-    [Segment("del", "inventoryexpress:inventoryexpress.inventory.delete.display")]
-    [ContextPath("/InventoryDetails")]
-    [Module("inventoryexpress")]
-    [Context("general")]
-    [Context("Inventorydelete")]
+    [WebExID("InventoryDelete")]
+    [WebExTitle("inventoryexpress:inventoryexpress.inventory.delete.label")]
+    [WebExSegment("del", "inventoryexpress:inventoryexpress.inventory.delete.display")]
+    [WebExContextPath("/")]
+    [WebExParent("InventoryDetails")]
+    [WebExModule("inventoryexpress")]
+    [WebExContext("general")]
+    [WebExContext("Inventorydelete")]
     public sealed class PageInventoryDelete : PageWebApp, IPageInventory
     {
         /// <summary>
@@ -41,7 +41,7 @@ namespace InventoryExpress.WebPage
         {
             base.Initialization(context);
 
-            Form.RedirectUri = ContextPath;
+            Form.RedirectUri = ResourceContext.ContextPath;
             Form.InitializeFormular += OnInitializeFormular;
             Form.Confirm += OnConfirmFormular;
         }
@@ -88,7 +88,7 @@ namespace InventoryExpress.WebPage
                         Format = TypeFormatText.Span
                     }.Render(e.Context).ToString().Trim()
                 ),
-                icon: new UriRelative(inventory.Image),
+                icon: inventory.Image,
                 durability: 10000
             );
         }

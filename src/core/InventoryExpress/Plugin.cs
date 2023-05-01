@@ -3,10 +3,10 @@ using WebExpress.WebPlugin;
 
 namespace InventoryExpress
 {
-    [Id("InventoryExpress")]
-    [Name("InventoryExpress")]
-    [Description("plugin.description")]
-    [Icon("/assets/img/Logo.png")]
+    [WebExID("InventoryExpress")]
+    [WebExName("InventoryExpress")]
+    [WebExDescription("plugin.description")]
+    [WebExIcon("/assets/img/Logo.png")]
     public sealed class Plugin : IPlugin
     {
         /// <summary>
