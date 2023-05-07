@@ -62,7 +62,7 @@ namespace InventoryExpress.WebPage
             {
                 table.AddRow(new Control[]
                 {
-                    new ControlLink() { Text = item.Name, Uri = context.Uri.Root.Append("media").Append(item.Id) },
+                    new ControlLink() { Text = item.Name, Uri = context.Uri.ModuleRoot.Append("media").Append(item.Id) },
                     new ControlText() { Text = string.Format(new FileSizeFormatProvider() { Culture = Culture }, "{0:fs}", item.Size) },
                     new ControlText() { Text = item.Updated.ToString(Culture.DateTimeFormat.ShortDatePattern + " " + Culture.DateTimeFormat.ShortTimePattern) },
                     new ControlButtonLink()

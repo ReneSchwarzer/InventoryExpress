@@ -227,15 +227,15 @@ namespace InventoryExpress.WebControl
 
             Attributes.Items.Clear();
 
-            Manufacturer.RestUri = context.Uri.Root.Append("api/v1/manufacturers");
-            Location.RestUri = context.Uri.Root.Append("api/v1/locations");
-            Supplier.RestUri = context.Uri.Root.Append("api/v1/suppliers");
-            LedgerAccount.RestUri = context.Uri.Root.Append("api/v1/ledgeraccounts");
-            CostCenter.RestUri = context.Uri.Root.Append("api/v1/costcenters");
-            Condition.RestUri = context.Uri.Root.Append("api/v1/conditions");
-            Parent.RestUri = context.Uri.Root.Append("api/v1/inventories");
-            Template.RestUri = context.Uri.Root.Append("api/v1/templates");
-            Tag.RestUri = context.Uri.Root.Append("api/v1/tags");
+            Manufacturer.RestUri = context.Uri.ModuleRoot.Append("api/v1/manufacturers");
+            Location.RestUri = context.Uri.ModuleRoot.Append("api/v1/locations");
+            Supplier.RestUri = context.Uri.ModuleRoot.Append("api/v1/suppliers");
+            LedgerAccount.RestUri = context.Uri.ModuleRoot.Append("api/v1/ledgeraccounts");
+            CostCenter.RestUri = context.Uri.ModuleRoot.Append("api/v1/costcenters");
+            Condition.RestUri = context.Uri.ModuleRoot.Append("api/v1/conditions");
+            Parent.RestUri = context.Uri.ModuleRoot.Append("api/v1/inventories");
+            Template.RestUri = context.Uri.ModuleRoot.Append("api/v1/templates");
+            Tag.RestUri = context.Uri.ModuleRoot.Append("api/v1/tags");
             Template.OnChange = new PropertyOnChange($"$('#{Id}').submit();");
 
             var guid = context.Request.GetParameter(Template.Name)?.Value;

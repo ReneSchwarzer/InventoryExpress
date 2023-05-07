@@ -20,7 +20,7 @@ namespace InventoryExpress.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            RestUri = context.Uri.Root.Append("api/v1/manufacturers");
+            RestUri = context.Uri.ModuleRoot.Append("api/v1/manufacturers");
 
             return base.Render(context);
         }

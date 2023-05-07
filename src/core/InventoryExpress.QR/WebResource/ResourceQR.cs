@@ -33,7 +33,7 @@ namespace InventoryExpress.QR.WebResource
         {
             var id = request.GetParameter("InventoryID")?.Value;
 
-            var link = $"{request.BaseUri.ToString().TrimEnd('/')}/{ResourceContext.ContextPath.Append(id).ToString().TrimStart('/')}";
+            var link = $"{ModuleContext.ContextPath.Append(id).ToString().TrimStart('/')}";
 
             var qrGenerator = new QRCodeGenerator();
             var qrCode = qrGenerator.CreateQrCode(link, QRCodeGenerator.ECCLevel.Q);

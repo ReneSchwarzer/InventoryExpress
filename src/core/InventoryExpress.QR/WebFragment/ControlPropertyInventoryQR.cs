@@ -39,7 +39,7 @@ namespace InventoryExpress.QR.WebFragment
         public override IHtmlNode Render(RenderContext context)
         {
             var id = context.Request.GetParameter("InventoryID")?.Value;
-            Uri = context.Uri.Root.Append("qr").Append(id);
+            Uri = context.Uri.ModuleRoot.Append("qr").Append(id);
             Width = 200;
 
             return base.Render(context);

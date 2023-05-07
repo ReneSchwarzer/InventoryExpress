@@ -140,7 +140,7 @@ namespace InventoryExpress.WebControl
         {
             base.Initialize(context);
 
-            Tag.RestUri = context.Uri.Root.Append("api/v1/tags");
+            Tag.RestUri = context.Uri.ModuleRoot.Append("api/v1/tags");
         }
 
         /// <summary>
