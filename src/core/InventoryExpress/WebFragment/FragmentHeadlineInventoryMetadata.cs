@@ -7,7 +7,7 @@ using WebExpress.WebPage;
 
 namespace InventoryExpress.WebFragment
 {
-    [Section(Section.Metadata)]
+    [WebExSection(Section.Metadata)]
     [WebExModule("inventoryexpress")]
     [WebExContext("inventorydetails")]
     public sealed class FragmentHeadlineInventoryMetadata : FragmentControlText

@@ -13,7 +13,7 @@ using WebExpress.WebPage;
 
 namespace InventoryExpress.WebFragment
 {
-    [Section(Section.SidebarHeader)]
+    [WebExSection(Section.SidebarHeader)]
     [WebExModule("inventoryexpress")]
     [WebExContext("manufactureredit")]
     public sealed class FragmentSidebarMediaManufacturer : FragmentSidebarMedia

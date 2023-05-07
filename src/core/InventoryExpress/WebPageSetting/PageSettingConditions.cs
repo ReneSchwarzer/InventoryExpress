@@ -1,7 +1,7 @@
 ﻿using WebExpress.Internationalization;
+using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebApiControl;
-using WebExpress.WebApp.WebAttribute;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebApp.WebSettingPage;
 using WebExpress.WebAttribute;
@@ -12,11 +12,11 @@ namespace InventoryExpress.WebPageSetting
     [WebExID("SettingCondition")]
     [WebExTitle("inventoryexpress:inventoryexpress.condition.label")]
     [WebExSegment("conditions", "inventoryexpress:inventoryexpress.condition.label")]
-    [WebExContextPath("/Setting")]
-    [SettingSection(SettingSection.Primary)]
-    [SettingIcon(TypeIcon.StarHalf)]
-    [SettingGroup("inventoryexpress:inventoryexpress.setting.data.label")]
-    [SettingContext("webexpress.webapp:setting.tab.general.label")]
+    [WebExContextPath("/setting")]
+    [WebExSettingSection(WebExSettingSection.Primary)]
+    [WebExSettingIcon(TypeIcon.StarHalf)]
+    [WebExSettingGroup("inventoryexpress:inventoryexpress.setting.data.label")]
+    [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
     [WebExModule("inventoryexpress")]
     [WebExContext("general")]
     [WebExContext("condition")]

@@ -1,7 +1,7 @@
 ﻿using InventoryExpress.Model;
 using WebExpress.Internationalization;
+using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebControl;
-using WebExpress.WebApp.WebAttribute;
 using WebExpress.WebApp.WebControl;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
@@ -15,8 +15,8 @@ namespace InventoryExpress.WebPageSetting
     [WebExTitle("inventoryexpress:inventoryexpress.condition.delete.label")]
     [WebExSegmentGuid("ConditionID", "inventoryexpress:inventoryexpress.condition.delete.display")]
     [WebExContextPath("/Setting/SettingCondition/del")]
-    [SettingHide()]
-    [SettingContext("webexpress.webapp:setting.tab.general.label")]
+    [WebExSettingHide()]
+    [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
     [WebExModule("inventoryexpress")]
     [WebExContext("general")]
     [WebExContext("conditiondelete")]

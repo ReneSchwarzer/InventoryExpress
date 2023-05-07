@@ -13,7 +13,7 @@ using WebExpress.WebPage;
 
 namespace InventoryExpress.WebFragment
 {
-    [Section(Section.HeadlineSecondary)]
+    [WebExSection(Section.HeadlineSecondary)]
     [WebExModule("inventoryexpress")]
     [WebExContext("attachment")]
     public sealed class FragmentHeadlineInventoryAttachmentAdd : FragmentControlButtonLink

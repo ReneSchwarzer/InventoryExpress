@@ -1,8 +1,8 @@
 ﻿using InventoryExpress.Model;
 using InventoryExpress.WebControl;
 using System.Linq;
+using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebControl;
-using WebExpress.WebApp.WebAttribute;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebApp.WebSettingPage;
 using WebExpress.WebApp.Wql;
@@ -15,10 +15,10 @@ namespace InventoryExpress.WebPageSetting
     [WebExTitle("inventoryexpress:inventoryexpress.templates.label")]
     [WebExSegment("templates", "inventoryexpress:inventoryexpress.templates.label")]
     [WebExContextPath("/setting")]
-    [SettingSection(SettingSection.Primary)]
-    [SettingIcon(TypeIcon.Clone)]
-    [SettingGroup("inventoryexpress:inventoryexpress.setting.data.label")]
-    [SettingContext("webexpress.webapp:setting.tab.general.label")]
+    [WebExSettingSection(WebExSettingSection.Primary)]
+    [WebExSettingIcon(TypeIcon.Clone)]
+    [WebExSettingGroup("inventoryexpress:inventoryexpress.setting.data.label")]
+    [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
     [WebExModule("inventoryexpress")]
     [WebExContext("general")]
     [WebExContext("template")]

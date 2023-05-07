@@ -11,8 +11,8 @@ using WebExpress.WebPage;
 
 namespace InventoryExpress.WebFragment
 {
-    [Section(Section.ContentSecondary)]
-    [Order(int.MinValue)]
+    [WebExSection(Section.ContentSecondary)]
+    [WebExOrder(int.MinValue)]
     [WebExModule("inventoryexpress")]
     [WebExContext("inventorydetails")]
     public sealed class FragmentContentInventoryTag : FragmentControlPanelFlexbox

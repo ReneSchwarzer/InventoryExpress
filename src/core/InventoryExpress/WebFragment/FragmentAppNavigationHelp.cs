@@ -10,7 +10,7 @@ using WebExpress.WebUri;
 
 namespace InventoryExpress.WebFragment
 {
-    [Section(Section.AppNavigationSecondary)]
+    [WebExSection(Section.AppNavigationSecondary)]
     [WebExModule("inventoryexpress")]
     [WebExCache]
     public sealed class FragmentAppNavigationHelp : FragmentControlNavigationItemLink
@@ -33,7 +33,7 @@ namespace InventoryExpress.WebFragment
             base.Initialization(context, page);
 
             Text = "inventoryexpress:inventoryexpress.help.label";
-            Uri = UriResource.Combine(page.ResourceContext.ContextPath, "help");
+            Uri = UriResource.Combine(context.ApplicationContext.ContextPath, "help");
             Icon = new PropertyIcon(TypeIcon.InfoCircle);
             Active = page is IPageHelp ? TypeActive.Active : TypeActive.None;
         }

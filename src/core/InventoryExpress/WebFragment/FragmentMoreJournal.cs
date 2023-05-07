@@ -9,7 +9,7 @@ using WebExpress.WebPage;
 
 namespace InventoryExpress.WebFragment
 {
-    [Section(Section.MorePrimary)]
+    [WebExSection(Section.MorePrimary)]
     [WebExModule("inventoryexpress")]
     [WebExContext("inventorydetails")]
     public sealed class FragmentMoreJournal : FragmentControlDropdownItemLink

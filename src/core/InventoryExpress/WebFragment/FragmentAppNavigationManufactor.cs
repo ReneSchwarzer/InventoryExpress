@@ -10,7 +10,7 @@ using WebExpress.WebUri;
 
 namespace InventoryExpress.WebFragment
 {
-    [Section(Section.AppNavigationPrimary)]
+    [WebExSection(Section.AppNavigationPrimary)]
     [WebExModule("inventoryexpress")]
     [WebExCache]
     public sealed class ComponentAppNavigationManufacturer : FragmentControlNavigationItemLink
@@ -33,7 +33,7 @@ namespace InventoryExpress.WebFragment
             base.Initialization(context, page);
 
             Text = "inventoryexpress:inventoryexpress.manufacturers.label";
-            Uri = UriResource.Combine(page.ResourceContext.ContextPath, "manufacturers");
+            Uri = UriResource.Combine(context.ApplicationContext.ContextPath, "manufacturers");
             Icon = new PropertyIcon(TypeIcon.Industry);
             Active = page is IPageManufacturer ? TypeActive.Active : TypeActive.None;
         }

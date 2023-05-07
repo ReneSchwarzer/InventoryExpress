@@ -2,8 +2,8 @@
 using InventoryExpress.Model.WebItems;
 using InventoryExpress.WebControl;
 using WebExpress.Internationalization;
+using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebControl;
-using WebExpress.WebApp.WebAttribute;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebApp.WebSettingPage;
@@ -15,9 +15,9 @@ namespace InventoryExpress.WebPageSetting
     [WebExID("SettingConditionAdd")]
     [WebExTitle("inventoryexpress:inventoryexpress.condition.add.label")]
     [WebExSegment("add", "inventoryexpress:inventoryexpress.condition.add.label")]
-    [WebExContextPath("/Setting/SettingCondition")]
-    [SettingHide()]
-    [SettingContext("webexpress.webapp:setting.tab.general.label")]
+    [WebExContextPath("/setting/SettingCondition")]
+    [WebExSettingHide()]
+    [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
     [WebExModule("inventoryexpress")]
     [WebExContext("general")]
     [WebExContext("conditionadd")]

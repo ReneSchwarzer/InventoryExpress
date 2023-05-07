@@ -12,7 +12,7 @@ namespace InventoryExpress.WebFragment
     /// <summary>
     /// Anzeige der Metadaten einer Kostenstelle
     /// </summary>
-    [Section(Section.PropertyPrimary)]
+    [WebExSection(Section.PropertyPrimary)]
     [WebExModule("inventoryexpress")]
     [WebExContext("costcenteredit")]
     public sealed class FragmentPropertyCostCenterDetails : FragmentControlList

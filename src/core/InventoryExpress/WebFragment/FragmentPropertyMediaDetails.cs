@@ -10,7 +10,7 @@ using WebExpress.WebPage;
 
 namespace InventoryExpress.WebFragment
 {
-    [Section(Section.PropertyPrimary)]
+    [WebExSection(Section.PropertyPrimary)]
     [WebExModule("inventoryexpress")]
     [WebExContext("media")]
     public sealed class FragmentPropertyMediaDetails : FragmentControlList

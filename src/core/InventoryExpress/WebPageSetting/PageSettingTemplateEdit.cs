@@ -4,8 +4,8 @@ using InventoryExpress.WebControl;
 using System;
 using System.Linq;
 using WebExpress.Internationalization;
+using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebControl;
-using WebExpress.WebApp.WebAttribute;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebApp.WebSettingPage;
@@ -20,8 +20,8 @@ namespace InventoryExpress.WebPageSetting
     [WebExSegmentGuid("TemplateID", "inventoryexpress:inventoryexpress.template.edit.display")]
     [WebExContextPath("/")]
     [WebExParent("SettingTemplate")]
-    [SettingHide()]
-    [SettingContext("webexpress.webapp:setting.tab.general.label")]
+    [WebExSettingHide()]
+    [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
     [WebExModule("inventoryexpress")]
     [WebExContext("general")]
     [WebExContext("templateedit")]

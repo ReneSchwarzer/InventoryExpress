@@ -1,7 +1,7 @@
 ﻿using InventoryExpress.Model;
 using InventoryExpress.WebControl;
+using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebControl;
-using WebExpress.WebApp.WebAttribute;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebApp.WebSettingPage;
 using WebExpress.WebAttribute;
@@ -12,11 +12,11 @@ namespace InventoryExpress.WebPageSetting
     [WebExID("SettingGeneral")]
     [WebExTitle("inventoryexpress:inventoryexpress.setting.label")]
     [WebExSegment("general", "inventoryexpress:inventoryexpress.setting.label")]
-    [WebExContextPath("/Setting")]
-    [SettingSection(SettingSection.Preferences)]
-    [SettingIcon(TypeIcon.Wrench)]
-    [SettingGroup("inventoryexpress:inventoryexpress.setting.general.label")]
-    [SettingContext("webexpress.webapp:setting.tab.general.label")]
+    [WebExContextPath("/setting")]
+    [WebExSettingSection(WebExSettingSection.Preferences)]
+    [WebExSettingIcon(TypeIcon.Wrench)]
+    [WebExSettingGroup("inventoryexpress:inventoryexpress.setting.general.label")]
+    [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
     [WebExModule("inventoryexpress")]
     [WebExContext("admin")]
     public sealed class PageSettingGeneral : PageWebAppSetting

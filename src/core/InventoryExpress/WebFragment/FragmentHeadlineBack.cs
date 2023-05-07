@@ -8,7 +8,7 @@ using WebExpress.WebPage;
 
 namespace InventoryExpress.WebFragment
 {
-    [Section(Section.HeadlinePrologue)]
+    [WebExSection(Section.HeadlinePrologue)]
     [WebExModule("inventoryexpress")]
     [WebExContext("attachment")]
     [WebExContext("inventoryedit")]
