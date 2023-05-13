@@ -2,6 +2,7 @@
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApplication;
 using WebExpress.WebAttribute;
+using WebExpress.WebComponent;
 
 namespace InventoryExpress
 {
@@ -42,7 +43,7 @@ namespace InventoryExpress
         public void Run()
         {
             // Willkommensnachricht
-            NotificationManager.CreateNotification
+            ComponentManager.GetComponent<NotificationManager>()?.AddNotification
             (
                 heading: InternationalizationManager.I18N("inventoryexpress:app.notification.welcome.label"),
                 message: InternationalizationManager.I18N("inventoryexpress:app.notification.welcome.description"),

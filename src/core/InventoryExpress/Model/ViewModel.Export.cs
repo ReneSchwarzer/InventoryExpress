@@ -10,6 +10,7 @@ using System.Xml;
 using System.Xml.Linq;
 using WebExpress.Internationalization;
 using WebExpress.WebApp.WebNotificaation;
+using WebExpress.WebComponent;
 using WebExpress.WebPage;
 using WebExpress.WebTask;
 
@@ -29,7 +30,12 @@ namespace InventoryExpress.Model
 
             if (!TaskManager.ContainsTask(id))
             {
-                var notification = NotificationManager.CreateNotification(context?.Request, InternationalizationManager.I18N(context, "inventoryexpress:inventoryexpress.export.task.inprogress"));
+                var notification = ComponentManager.GetComponent<NotificationManager>()?.AddNotification
+                (
+                    context?.Request,
+                    InternationalizationManager.I18N(context, "inventoryexpress:inventoryexpress.export.task.inprogress")
+                );
+
                 notification.Heading = InternationalizationManager.I18N(context, "inventoryexpress:inventoryexpress.export.task.heading");
                 notification.Progress = 0;
                 notification.Type = TypeNotification.Light;

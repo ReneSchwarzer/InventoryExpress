@@ -6,6 +6,7 @@ using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
+using WebExpress.WebComponent;
 using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPage
@@ -90,7 +91,7 @@ namespace InventoryExpress.WebPage
                 transaction.Commit();
             }
 
-            NotificationManager.CreateNotification
+            ComponentManager.GetComponent<NotificationManager>()?.AddNotification
             (
                 request: e.Context.Request,
                 message: string.Format
