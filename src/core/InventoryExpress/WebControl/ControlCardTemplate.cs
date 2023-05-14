@@ -15,7 +15,7 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="id">Die ID</param>
+        /// <param name="id">The id.</param>
         public ControlCardTemplate(string id = null)
             : base(id)
         {

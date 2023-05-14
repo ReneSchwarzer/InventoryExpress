@@ -188,7 +188,7 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="id">Die ID</param>
+        /// <param name="id">The id.</param>
         public ControlFormularInventory(string id = null)
             : base(id ?? "inventory")
         {

@@ -12,7 +12,7 @@ namespace InventoryExpress.Model.WebItems
         public string ProviderName { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Datenquelle
+        /// Returns or sets the data.quelle
         /// </summary>
         [JsonPropertyName("datasource")]
         public string DataSource { get; set; }

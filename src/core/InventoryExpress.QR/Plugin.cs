@@ -7,6 +7,7 @@ namespace InventoryExpress.QR
     [WebExName("plugin.name")]
     [WebExDescription("plugin.description")]
     [WebExIcon("/assets/img/qr.svg")]
+    [WebExDependency("InventoryExpress")]
     public sealed class Plugin : IPlugin
     {
         /// <summary>

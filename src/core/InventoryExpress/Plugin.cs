@@ -7,6 +7,8 @@ namespace InventoryExpress
     [WebExName("InventoryExpress")]
     [WebExDescription("plugin.description")]
     [WebExIcon("/assets/img/Logo.png")]
+    [WebExDependency("webexpress.ui")]
+    [WebExDependency("webexpress.webapp")]
     public sealed class Plugin : IPlugin
     {
         /// <summary>

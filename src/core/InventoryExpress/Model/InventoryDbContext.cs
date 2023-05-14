@@ -6,7 +6,7 @@ namespace InventoryExpress.Model
     public class InventoryDbContext : DbContext
     {
         /// <summary>
-        /// Liefert oder setzt die Datenquelle
+        /// Returns or sets the data.quelle
         /// </summary>
         public string DataSource { get; internal set; }
 
