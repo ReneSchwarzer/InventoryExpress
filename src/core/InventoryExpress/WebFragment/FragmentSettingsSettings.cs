@@ -10,7 +10,7 @@ using WebExpress.WebPage;
 namespace InventoryExpress.WebFragment
 {
     [WebExSection(Section.AppSettingsSecondary)]
-    [WebExModule("inventoryexpress")]
+    [WebExModule(typeof(Module))]
     public sealed class FragmentSettingsSettings : FragmentControlDropdownItemLink
     {
         /// <summary>

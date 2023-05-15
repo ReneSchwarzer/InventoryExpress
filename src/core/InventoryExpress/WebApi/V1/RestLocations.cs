@@ -13,11 +13,11 @@ namespace InventoryExpress.WebApi.V1
     /// <summary>
     /// Ermittelt alle Standorte
     /// </summary>
-    [WebExID("RestLocationsV1")]
+    [WebExId("RestLocationsV1")]
     [WebExSegment("locations", "")]
     [WebExContextPath("/api/v1")]
     [WebExIncludeSubPaths(true)]
-    [WebExModule("inventoryexpress")]
+    [WebExModule(typeof(Module))]
     public sealed class RestLocations : ResourceRestCrud<WebItem>
     {
         /// <summary>

@@ -4,13 +4,12 @@ using WebExpress.WebModule;
 
 namespace InventoryExpress
 {
-    [WebExID("InventoryExpress")]
     [WebExName("module.name")]
     [WebExDescription("module.description")]
     [WebExIcon("/assets/img/Logo.png")]
     [WebExAssetPath("")]
     [WebExContextPath("/")]
-    [WebExApplication("InventoryExpress")]
+    [WebExApplication(typeof(Application))]
     public sealed class Module : IModule
     {
         /// <summary>

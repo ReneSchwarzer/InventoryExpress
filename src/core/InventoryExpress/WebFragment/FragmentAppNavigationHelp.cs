@@ -11,7 +11,7 @@ using WebExpress.WebUri;
 namespace InventoryExpress.WebFragment
 {
     [WebExSection(Section.AppNavigationSecondary)]
-    [WebExModule("inventoryexpress")]
+    [WebExModule(typeof(Module))]
     [WebExCache]
     public sealed class FragmentAppNavigationHelp : FragmentControlNavigationItemLink
     {

@@ -10,7 +10,7 @@ using WebExpress.WebPage;
 namespace InventoryExpress.WebFragment
 {
     [WebExSection(Section.AppQuickcreatePreferences)]
-    [WebExModule("inventoryexpress")]
+    [WebExModule(typeof(Module))]
     public sealed class FragmentQuickCreateInventory : FragmentControlSplitButtonItemLink
     {
         /// <summary>

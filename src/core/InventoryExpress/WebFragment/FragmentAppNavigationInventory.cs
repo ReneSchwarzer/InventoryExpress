@@ -10,7 +10,7 @@ using WebExpress.WebPage;
 namespace InventoryExpress.WebFragment
 {
     [WebExSection(Section.AppNavigationPreferences)]
-    [WebExModule("inventoryexpress")]
+    [WebExModule(typeof(Module))]
     [WebExCache]
     public sealed class FragmentAppNavigationInventory : FragmentControlNavigationItemLink
     {

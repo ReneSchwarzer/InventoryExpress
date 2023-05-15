@@ -13,11 +13,11 @@ namespace InventoryExpress.WebApi.V1
     /// <summary>
     /// Ermittelt alle Status
     /// </summary>
-    [WebExID("RestConditionsV1")]
+    [WebExId("RestConditionsV1")]
     [WebExSegment("conditions", "")]
     [WebExContextPath("/api/v1")]
     [WebExIncludeSubPaths(true)]
-    [WebExModule("inventoryexpress")]
+    [WebExModule(typeof(Module))]
     public sealed class RestConditions : ResourceRestCrud<WebItemEntityCondition>
     {
         /// <summary>

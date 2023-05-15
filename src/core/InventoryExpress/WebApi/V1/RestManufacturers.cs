@@ -13,11 +13,11 @@ namespace InventoryExpress.WebApi.V1
     /// <summary>
     /// Ermittelt alle Hersteller
     /// </summary>
-    [WebExID("RestManufacturersV1")]
+    [WebExId("RestManufacturersV1")]
     [WebExSegment("manufacturers", "")]
     [WebExContextPath("/api/v1")]
     [WebExIncludeSubPaths(true)]
-    [WebExModule("inventoryexpress")]
+    [WebExModule(typeof(Module))]
     public sealed class RestManufacturers : ResourceRestCrud<WebItemEntityManufacturer>
     {
         /// <summary>

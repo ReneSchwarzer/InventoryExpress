@@ -1,7 +1,7 @@
 ﻿using InventoryExpress.Model;
 using System.IO;
-using WebExpress.WebMessage;
 using WebExpress.WebAttribute;
+using WebExpress.WebMessage;
 using WebExpress.WebResource;
 using static WebExpress.Internationalization.InternationalizationManager;
 
@@ -10,12 +10,11 @@ namespace InventoryExpress.WebResource
     /// <summary>
     /// Lieferung einer im Assamby eingebetteten Ressource
     /// </summary>
-    [WebExID("MediaAsset")]
     [WebExTitle("Media")]
     [WebExSegmentGuid("MediaID", "")]
     [WebExContextPath("/media")]
     [WebExIncludeSubPaths(false)]
-    [WebExModule("inventoryexpress")]
+    [WebExModule(typeof(Module))]
     public sealed class ResourceMedia : ResourceBinary
     {
         /// <summary>

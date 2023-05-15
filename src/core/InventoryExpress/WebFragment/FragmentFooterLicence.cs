@@ -10,7 +10,7 @@ using WebExpress.WebPage;
 namespace InventoryExpress.WebFragment
 {
     [WebExSection(Section.FooterPrimary)]
-    [WebExModule("inventoryexpress")]
+    [WebExModule(typeof(Module))]
     public sealed class FragmentFooterLicence : FragmentControlPanel
     {
         /// <summary>

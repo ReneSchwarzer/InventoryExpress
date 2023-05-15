@@ -10,12 +10,11 @@ using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace InventoryExpress.WebPage
 {
-    [WebExID("ManufacturerDelete")]
     [WebExTitle("inventoryexpress:inventoryexpress.manufacturer.delete.label")]
     [WebExSegment("del", "inventoryexpress:inventoryexpress.manufacturer.delete.display")]
     [WebExContextPath("/")]
-    [WebExParent("ManufacturerEdit")]
-    [WebExModule("inventoryexpress")]
+    [WebExParent(typeof(PageManufacturers))]
+    [WebExModule(typeof(Module))]
     [WebExContext("general")]
     [WebExContext("manufacturerdelete")]
     public sealed class PageManufacturerDelete : PageWebApp, IPageManufacturer

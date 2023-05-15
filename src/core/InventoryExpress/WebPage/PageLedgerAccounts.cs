@@ -9,11 +9,10 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPage
 {
-    [WebExID("LedgerAccount")]
     [WebExTitle("inventoryexpress:inventoryexpress.ledgeraccounts.label")]
     [WebExSegment("ledgeraccounts", "inventoryexpress:inventoryexpress.ledgeraccounts.label")]
     [WebExContextPath("/")]
-    [WebExModule("inventoryexpress")]
+    [WebExModule(typeof(Module))]
     [WebExContext("general")]
     public sealed class PageLedgerAccounts : PageWebApp, IPageLedgerAccount
     {

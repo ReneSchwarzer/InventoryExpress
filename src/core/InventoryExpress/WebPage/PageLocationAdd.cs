@@ -11,12 +11,11 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPage
 {
-    [WebExID("LocationAdd")]
     [WebExTitle("inventoryexpress:inventoryexpress.location.add.label")]
     [WebExSegment("add", "inventoryexpress:inventoryexpress.location.add.label")]
     [WebExContextPath("/")]
     [WebExParent("Location")]
-    [WebExModule("inventoryexpress")]
+    [WebExModule(typeof(Module))]
     [WebExContext("general")]
     public sealed class PageLocationAdd : PageWebApp, IPageLocation
     {

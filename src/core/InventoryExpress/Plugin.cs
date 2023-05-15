@@ -3,7 +3,7 @@ using WebExpress.WebPlugin;
 
 namespace InventoryExpress
 {
-    [WebExID("InventoryExpress")]
+    [WebExId("InventoryExpress")]
     [WebExName("InventoryExpress")]
     [WebExDescription("plugin.description")]
     [WebExIcon("/assets/img/Logo.png")]

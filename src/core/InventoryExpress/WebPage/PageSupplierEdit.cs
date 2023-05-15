@@ -12,12 +12,11 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPage
 {
-    [WebExID("SupplierEdit")]
     [WebExTitle("inventoryexpress:inventoryexpress.supplier.edit.label")]
     [WebExSegmentGuid("SupplierID", "inventoryexpress:inventoryexpress.supplier.edit.display")]
     [WebExContextPath("/")]
-    [WebExParent("Supplier")]
-    [WebExModule("inventoryexpress")]
+    [WebExParent(typeof(PageSuppliers))]
+    [WebExModule(typeof(Module))]
     [WebExContext("general")]
     [WebExContext("supplieredit")]
     public sealed class PageSupplierEdit : PageWebApp, IPageSupplier

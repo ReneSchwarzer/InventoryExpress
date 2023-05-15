@@ -10,12 +10,11 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPage
 {
-    [WebExID("InventoryDelete")]
     [WebExTitle("inventoryexpress:inventoryexpress.inventory.delete.label")]
     [WebExSegment("del", "inventoryexpress:inventoryexpress.inventory.delete.display")]
     [WebExContextPath("/")]
-    [WebExParent("InventoryDetails")]
-    [WebExModule("inventoryexpress")]
+    [WebExParent(typeof(PageInventoryDetails))]
+    [WebExModule(typeof(Module))]
     [WebExContext("general")]
     [WebExContext("Inventorydelete")]
     public sealed class PageInventoryDelete : PageWebApp, IPageInventory

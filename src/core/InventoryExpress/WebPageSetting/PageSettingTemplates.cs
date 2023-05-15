@@ -11,7 +11,6 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPageSetting
 {
-    [WebExID("SettingTemplate")]
     [WebExTitle("inventoryexpress:inventoryexpress.templates.label")]
     [WebExSegment("templates", "inventoryexpress:inventoryexpress.templates.label")]
     [WebExContextPath("/setting")]
@@ -19,7 +18,7 @@ namespace InventoryExpress.WebPageSetting
     [WebExSettingIcon(TypeIcon.Clone)]
     [WebExSettingGroup("inventoryexpress:inventoryexpress.setting.data.label")]
     [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
-    [WebExModule("inventoryexpress")]
+    [WebExModule(typeof(Module))]
     [WebExContext("general")]
     [WebExContext("template")]
     public sealed class PageSettingTemplates : PageWebAppSetting

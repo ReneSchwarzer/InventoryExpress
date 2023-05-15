@@ -13,11 +13,11 @@ namespace InventoryExpress.WebApi.V1
     /// <summary>
     /// Ermittelt alle Vorlagen
     /// </summary>
-    [WebExID("RestTemplatesV1")]
+    [WebExId("RestTemplatesV1")]
     [WebExSegment("templates", "")]
     [WebExContextPath("/api/v1")]
     [WebExIncludeSubPaths(true)]
-    [WebExModule("inventoryexpress")]
+    [WebExModule(typeof(Module))]
     public sealed class RestTemplates : ResourceRestCrud<WebItem>
     {
         /// <summary>

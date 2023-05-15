@@ -14,14 +14,13 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPageSetting
 {
-    [WebExID("SettingTemplateAdd")]
     [WebExTitle("inventoryexpress:inventoryexpress.template.add.label")]
     [WebExSegment("add", "inventoryexpress:inventoryexpress.template.add.label")]
     [WebExContextPath("/")]
     [WebExParent("SettingTemplate")]
     [WebExSettingHide()]
     [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
-    [WebExModule("inventoryexpress")]
+    [WebExModule(typeof(Module))]
     [WebExContext("general")]
     [WebExContext("templateadd")]
     public sealed class PageSettingTemplateAdd : PageWebAppSetting, IPageTemplate

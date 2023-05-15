@@ -12,13 +12,13 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPageSetting
 {
-    [WebExID("SettingConditionDelete")]
     [WebExTitle("inventoryexpress:inventoryexpress.condition.delete.label")]
     [WebExSegmentGuid("ConditionID", "inventoryexpress:inventoryexpress.condition.delete.display")]
-    [WebExContextPath("/Setting/SettingCondition/del")]
+    [WebExParent(typeof(PageSettingConditions))]
+    [WebExContextPath("/del")]
     [WebExSettingHide()]
     [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
-    [WebExModule("inventoryexpress")]
+    [WebExModule(typeof(Module))]
     [WebExContext("general")]
     [WebExContext("conditiondelete")]
     public sealed class PageSettingConditionDelete : PageWebAppSetting, IPageCondition

@@ -11,12 +11,11 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPage
 {
-    [WebExID("LedgerAccountEdit")]
     [WebExTitle("inventoryexpress:inventoryexpress.ledgeraccount.edit.label")]
     [WebExSegmentGuid("LedgerAccountID", "inventoryexpress:inventoryexpress.ledgeraccount.edit.display")]
     [WebExContextPath("/")]
-    [WebExParent("LedgerAccount")]
-    [WebExModule("inventoryexpress")]
+    [WebExParent(typeof(PageLedgerAccounts))]
+    [WebExModule(typeof(Module))]
     [WebExContext("general")]
     [WebExContext("ledgeraccountedit")]
     public sealed class PageLedgerAccountEdit : PageWebApp, IPageLedgerAccount

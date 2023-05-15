@@ -13,12 +13,11 @@ using WebExpress.WebUri;
 
 namespace InventoryExpress.WebPage
 {
-    [WebExID("LocationEdit")]
     [WebExTitle("inventoryexpress:inventoryexpress.location.edit.label")]
     [WebExSegmentGuid("LocationID", "inventoryexpress:inventoryexpress.location.edit.display")]
     [WebExContextPath("/")]
-    [WebExParent("Location")]
-    [WebExModule("inventoryexpress")]
+    [WebExParent(typeof(PageLocations))]
+    [WebExModule(typeof(Module))]
     [WebExContext("general")]
     [WebExContext("locationedit")]
     public sealed class PageLocationEdit : PageWebApp, IPageLocation

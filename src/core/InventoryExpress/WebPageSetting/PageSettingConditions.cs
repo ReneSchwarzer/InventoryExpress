@@ -9,7 +9,6 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPageSetting
 {
-    [WebExID("SettingCondition")]
     [WebExTitle("inventoryexpress:inventoryexpress.condition.label")]
     [WebExSegment("conditions", "inventoryexpress:inventoryexpress.condition.label")]
     [WebExContextPath("/setting")]
@@ -17,7 +16,7 @@ namespace InventoryExpress.WebPageSetting
     [WebExSettingIcon(TypeIcon.StarHalf)]
     [WebExSettingGroup("inventoryexpress:inventoryexpress.setting.data.label")]
     [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
-    [WebExModule("inventoryexpress")]
+    [WebExModule(typeof(Module))]
     [WebExContext("general")]
     [WebExContext("condition")]
     [WebExCache]

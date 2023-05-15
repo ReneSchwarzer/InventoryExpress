@@ -14,14 +14,13 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPageSetting
 {
-    [WebExID("SettingAttributeEdit")]
     [WebExTitle("inventoryexpress:inventoryexpress.attribute.edit.label")]
     [WebExSegmentGuid("AttributeID", "inventoryexpress:inventoryexpress.attribute.edit.display")]
-    [WebExContextPath("/setting")]
-    [WebExParent("SettingAttribute")]
+    [WebExContextPath("/edit")]
+    [WebExParent(typeof(PageSettingAttributes))]
     [WebExSettingHide()]
     [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
-    [WebExModule("inventoryexpress")]
+    [WebExModule(typeof(Module))]
     [WebExContext("general")]
     [WebExContext("attributeedit")]
     public sealed class PageSettingAttributeEdit : PageWebAppSetting, IPageAttribute

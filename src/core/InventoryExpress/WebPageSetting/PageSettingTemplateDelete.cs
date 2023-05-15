@@ -12,14 +12,13 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPageSetting
 {
-    [WebExID("SettingTemplateDelete")]
     [WebExTitle("inventoryexpress:inventoryexpress.template.delete.label")]
     [WebExSegment("del")]
     [WebExContextPath("/")]
-    [WebExParent("SettingTemplateEdit")]
+    [WebExParent(typeof(PageSettingTemplates))]
     [WebExSettingHide()]
     [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
-    [WebExModule("inventoryexpress")]
+    [WebExModule(typeof(Module))]
     [WebExContext("general")]
     [WebExContext("templatedelete")]
     public sealed class PageSettingTemplateDelete : PageWebAppSetting, IPageTemplate

@@ -13,11 +13,11 @@ namespace InventoryExpress.WebApi.V1
     /// <summary>
     /// Ermittelt alle Kostenstellen
     /// </summary>
-    [WebExID("RestCostCentersV1")]
+    [WebExId("RestCostCentersV1")]
     [WebExSegment("costcenters", "")]
     [WebExContextPath("/api/v1")]
     [WebExIncludeSubPaths(true)]
-    [WebExModule("inventoryexpress")]
+    [WebExModule(typeof(Module))]
     public sealed class RestCostCenters : ResourceRestCrud<WebItem>
     {
         /// <summary>

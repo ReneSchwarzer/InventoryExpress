@@ -13,7 +13,7 @@ namespace InventoryExpress.WebFragment
 {
     [WebExSection(Section.ContentSecondary)]
     [WebExOrder(int.MaxValue)]
-    [WebExModule("inventoryexpress")]
+    [WebExModule(typeof(Module))]
     [WebExContext("inventorydetails")]
     public sealed class FragmentContentInventoryComment : FragmentControlPanel
     {

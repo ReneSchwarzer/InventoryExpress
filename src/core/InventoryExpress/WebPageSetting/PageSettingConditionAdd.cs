@@ -13,13 +13,13 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPageSetting
 {
-    [WebExID("SettingConditionAdd")]
     [WebExTitle("inventoryexpress:inventoryexpress.condition.add.label")]
     [WebExSegment("add", "inventoryexpress:inventoryexpress.condition.add.label")]
-    [WebExContextPath("/setting/SettingCondition")]
+    [WebExParent("SettingCondition")]
+    [WebExContextPath("/")]
     [WebExSettingHide()]
     [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
-    [WebExModule("inventoryexpress")]
+    [WebExModule(typeof(Module))]
     [WebExContext("general")]
     [WebExContext("conditionadd")]
     public sealed class PageSettingConditionAdd : PageWebAppSetting, IPageCondition
