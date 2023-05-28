@@ -1,19 +1,19 @@
 # InventoryExpress
-Verwaltung des privaten Inventars.
+Web application to manage (private) inventory.
 
-# Beschreibung
-Die kostenlose und werbefreie Inventardatenbank für vielfältige Zwecke. 
+# Description
+The free and ad-free inventory database for a variety of purposes. 
 
-Mit InventoryExpress verwalten Sie ihren persönlichen Besitz. InventoryExpress ist für den privaten Bereich ausgelegt. Verwalten Sie zum Beispiel Ihre Sammlerobjekte oder Haushaltsgegenstände und behalten Sie somit einen Überblick über Ihre Anschaffungen.
+With InventoryExpress you manage your personal possessions. InventoryExpress is designed for the private sector. For example, manage your collectibles or household items and keep track of your purchases.
 
-Die Daten werden lokal auf Ihren Gerät gespeichert. Durch die Umsetzung als WebApp können Sie von all Ihren Geräten auf Ihr Inventar zugreifen.
+The data is stored locally on your device. By implementing it as a WebApp, you can access your inventory from all your devices.
 
 # Plattform
-InventoryExpress ist eine WebApp, welche in C# entwickelt wird.
+InventoryExpress is a WebApp, which is developed in C#.
 
-# Voraussetzungen
-- Hardware (Zum Beispiel Raspberry Pi 3 mit Raspbian Buster Lite https://downloads.raspberrypi.org/raspbian_lite_latest)
+# Dependencies
+- Hardware For example, Raspberry Pi 3 with Raspbian Buster Lite https://downloads.raspberrypi.org/raspbian_lite_latest
 - WebExpress (https://github.com/ReneSchwarzer/WebExpress.git)
 
-# Einrichtung 
-siehe doc/InventoryExpress.docx
+# Install 
+See doc/InventoryExpress.docx
