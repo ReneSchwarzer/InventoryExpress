@@ -16,7 +16,7 @@ namespace InventoryExpress.WebPage
     [WebExSegmentGuid("SupplierId", "inventoryexpress:inventoryexpress.supplier.edit.display")]
     [WebExContextPath("/")]
     [WebExParent(typeof(PageSuppliers))]
-    [WebExModule(typeof(Module))]
+    [WebExModule<Module>]
     [WebExContext("general")]
     [WebExContext("supplieredit")]
     public sealed class PageSupplierEdit : PageWebApp, IPageSupplier

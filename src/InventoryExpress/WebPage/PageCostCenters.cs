@@ -12,7 +12,7 @@ namespace InventoryExpress.WebPage
     [WebExTitle("inventoryexpress:inventoryexpress.costcenters.label")]
     [WebExSegment("costcenters", "inventoryexpress:inventoryexpress.costcenters.label")]
     [WebExContextPath("/")]
-    [WebExModule(typeof(Module))]
+    [WebExModule<Module>]
     [WebExContext("general")]
     public sealed class PageCostCenters : PageWebApp, IPageCostCenter
     {

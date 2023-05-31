@@ -16,7 +16,7 @@ namespace InventoryExpress.WebApi.V1
     [WebExSegment("inventories", "")]
     [WebExContextPath("/api/v1")]
     [WebExIncludeSubPaths(true)]
-    [WebExModule(typeof(Module))]
+    [WebExModule<Module>]
     public sealed class RestInventories : ResourceRestCrud<WebItemEntityInventory>
     {
         /// <summary>

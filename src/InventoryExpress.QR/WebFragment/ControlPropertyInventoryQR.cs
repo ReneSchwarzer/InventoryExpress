@@ -9,7 +9,7 @@ using WebExpress.WebPage;
 namespace InventoryExpress.QR.WebFragment
 {
     [WebExSection(Section.PropertyPreferences)]
-    [WebExModule(typeof(Module))]
+    [WebExModule<Module>]
     [WebExContext("inventorydetails")]
     public sealed class ControlPropertyInventoriesQR : FragmentControlImage
     {

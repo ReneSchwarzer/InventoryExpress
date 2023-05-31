@@ -15,7 +15,7 @@ namespace InventoryExpress.WebPage
     [WebExSegmentGuid("LedgerAccountId", "inventoryexpress:inventoryexpress.ledgeraccount.edit.display")]
     [WebExContextPath("/")]
     [WebExParent(typeof(PageLedgerAccounts))]
-    [WebExModule(typeof(Module))]
+    [WebExModule<Module>]
     [WebExContext("general")]
     [WebExContext("ledgeraccountedit")]
     public sealed class PageLedgerAccountEdit : PageWebApp, IPageLedgerAccount

@@ -13,7 +13,7 @@ namespace InventoryExpress.WebPage
     [WebExSegment("attachments", "inventoryexpress:inventoryexpress.inventory.attachment.display")]
     [WebExContextPath("/")]
     [WebExParent(typeof(PageInventoryDetails))]
-    [WebExModule(typeof(Module))]
+    [WebExModule<Module>]
     [WebExContext("general")]
     [WebExContext("attachment")]
     public sealed class PageInventoryAttachments : PageWebApp, IPageInventory

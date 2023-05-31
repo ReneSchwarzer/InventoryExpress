@@ -12,7 +12,7 @@ namespace InventoryExpress.WebPage
     [WebExTitle("inventoryexpress:inventoryexpress.suppliers.label")]
     [WebExSegment("suppliers", "inventoryexpress:inventoryexpress.suppliers.label")]
     [WebExContextPath("/")]
-    [WebExModule(typeof(Module))]
+    [WebExModule<Module>]
     [WebExContext("general")]
     public sealed class PageSuppliers : PageWebApp, IPageSupplier
     {

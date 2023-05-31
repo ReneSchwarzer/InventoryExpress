@@ -16,7 +16,7 @@ namespace InventoryExpress.WebPageSetting
     [WebExSettingIcon(TypeIcon.Wrench)]
     [WebExSettingGroup("inventoryexpress:inventoryexpress.setting.general.label")]
     [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
-    [WebExModule(typeof(Module))]
+    [WebExModule<Module>]
     [WebExContext("admin")]
     public sealed class PageSettingGeneral : PageWebAppSetting
     {

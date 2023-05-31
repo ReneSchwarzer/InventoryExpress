@@ -12,7 +12,7 @@ namespace InventoryExpress.WebPage
     [WebExTitle("inventoryexpress:inventoryexpress.ledgeraccounts.label")]
     [WebExSegment("ledgeraccounts", "inventoryexpress:inventoryexpress.ledgeraccounts.label")]
     [WebExContextPath("/")]
-    [WebExModule(typeof(Module))]
+    [WebExModule<Module>]
     [WebExContext("general")]
     public sealed class PageLedgerAccounts : PageWebApp, IPageLedgerAccount
     {

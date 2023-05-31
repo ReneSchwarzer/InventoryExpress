@@ -12,7 +12,7 @@ namespace InventoryExpress.WebPage
     [WebExSegment("journal", "inventoryexpress:inventoryexpress.inventory.journal.display")]
     [WebExContextPath("/")]
     [WebExParent(typeof(PageInventoryDetails))]
-    [WebExModule(typeof(Module))]
+    [WebExModule<Module>]
     [WebExContext("general")]
     [WebExContext("journal")]
     public sealed class PageInventoryJournal : PageWebApp, IPageInventory

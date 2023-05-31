@@ -12,7 +12,7 @@ namespace InventoryExpress.WebPage
     [WebExTitle("inventoryexpress:inventoryexpress.locations.label")]
     [WebExSegment("locations", "inventoryexpress:inventoryexpress.locations.label")]
     [WebExContextPath("/")]
-    [WebExModule(typeof(Module))]
+    [WebExModule<Module>]
     [WebExContext("general")]
     public sealed class PageLocations : PageWebApp, IPageLocation
     {

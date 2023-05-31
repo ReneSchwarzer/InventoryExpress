@@ -14,7 +14,7 @@ namespace InventoryExpress.WebPage
     [WebExSegment("del", "inventoryexpress:inventoryexpress.location.delete.display")]
     [WebExContextPath("/")]
     [WebExParent(typeof(PageLocations))]
-    [WebExModule(typeof(Module))]
+    [WebExModule<Module>]
     [WebExContext("general")]
     [WebExContext("locationdelete")]
     public sealed class PageLocationDelete : PageWebApp, IPageLocation

@@ -7,13 +7,13 @@ using WebExpress.WebResource;
 namespace InventoryExpress.QR.WebResource
 {
     /// <summary>
-    /// Lieferung einer im Assamby eingebetteten Ressource
+    /// Returns of a resource embedded in the Assamby.
     /// </summary>
     [WebExTitle("Assets")]
     [WebExSegmentGuid("InventoryId", "")]
     [WebExContextPath("/")]
     [WebExIncludeSubPaths(true)]
-    [WebExModule("InventoryExpress.QR")]
+    [WebExModule<Module>()]
     public sealed class ResourceQR : ResourceBinary
     {
         /// <summary>

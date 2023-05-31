@@ -21,7 +21,7 @@ namespace InventoryExpress.WebPageSetting
     [WebExContextPath("/edit")]
     [WebExSettingHide()]
     [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
-    [WebExModule(typeof(Module))]
+    [WebExModule<Module>]
     [WebExContext("general")]
     [WebExContext("conditionedit")]
     public sealed class PageSettingConditionEdit : PageWebAppSetting, IPageCondition

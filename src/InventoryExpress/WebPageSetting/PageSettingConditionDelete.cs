@@ -18,7 +18,7 @@ namespace InventoryExpress.WebPageSetting
     [WebExContextPath("/del")]
     [WebExSettingHide()]
     [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
-    [WebExModule(typeof(Module))]
+    [WebExModule<Module>]
     [WebExContext("general")]
     [WebExContext("conditiondelete")]
     public sealed class PageSettingConditionDelete : PageWebAppSetting, IPageCondition

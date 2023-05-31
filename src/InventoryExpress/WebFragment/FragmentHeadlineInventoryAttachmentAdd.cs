@@ -15,7 +15,7 @@ using WebExpress.WebPage;
 namespace InventoryExpress.WebFragment
 {
     [WebExSection(Section.HeadlineSecondary)]
-    [WebExModule(typeof(Module))]
+    [WebExModule<Module>]
     [WebExContext("attachment")]
     public sealed class FragmentHeadlineInventoryAttachmentAdd : FragmentControlButtonLink
     {

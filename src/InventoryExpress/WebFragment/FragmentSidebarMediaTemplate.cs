@@ -15,7 +15,7 @@ using WebExpress.WebPage;
 namespace InventoryExpress.WebFragment
 {
     [WebExSection(Section.SidebarHeader)]
-    [WebExModule(typeof(Module))]
+    [WebExModule<Module>]
     [WebExContext("templateedit")]
     public sealed class FragmentSidebarMediaTemplate : FragmentSidebarMedia
     {

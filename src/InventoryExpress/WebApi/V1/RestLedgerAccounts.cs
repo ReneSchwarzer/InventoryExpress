@@ -16,7 +16,7 @@ namespace InventoryExpress.WebApi.V1
     [WebExSegment("ledgeraccounts", "")]
     [WebExContextPath("/api/v1")]
     [WebExIncludeSubPaths(true)]
-    [WebExModule(typeof(Module))]
+    [WebExModule<Module>]
     public sealed class RestLedgerAccounts : ResourceRestCrud<WebItem>
     {
         /// <summary>

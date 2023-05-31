@@ -11,7 +11,7 @@ using WebExpress.WebPage;
 namespace InventoryExpress.WebFragment
 {
     [WebExSection(Section.AppNavigationPrimary)]
-    [WebExModule(typeof(Module))]
+    [WebExModule<Module>]
     [WebExCache]
     public sealed class FragmentAppNavigationCostCenter : FragmentControlNavigationItemLink
     {

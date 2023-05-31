@@ -12,7 +12,7 @@ namespace InventoryExpress.WebPage
     [WebExTitle("inventoryexpress:inventoryexpress.details.label")]
     [WebExSegmentGuid(typeof(ParameterInventoryId), "inventoryexpress:inventoryexpress.details.label")]
     [WebExContextPath("/")]
-    [WebExModule(typeof(Module))]
+    [WebExModule<Module>]
     [WebExContext("general")]
     [WebExContext("inventorydetails")]
     public sealed class PageInventoryDetails : PageWebApp, IPageInventory

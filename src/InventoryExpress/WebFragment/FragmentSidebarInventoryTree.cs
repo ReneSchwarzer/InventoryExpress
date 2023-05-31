@@ -14,7 +14,7 @@ using WebExpress.WebPage;
 namespace InventoryExpress.WebFragment
 {
     [WebExSection(Section.SidebarPrimary)]
-    [WebExModule(typeof(Module))]
+    [WebExModule<Module>]
     [WebExContext("inventorydetails")]
     [WebExContext("attachment")]
     [WebExContext("journal")]

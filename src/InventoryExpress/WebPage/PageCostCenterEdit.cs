@@ -17,7 +17,7 @@ namespace InventoryExpress.WebPage
     [WebExSegmentGuid(typeof(ParameterCostCenterId), "inventoryexpress:inventoryexpress.costcenter.edit.display")]
     [WebExContextPath("/")]
     [WebExParent(typeof(PageCostCenters))]
-    [WebExModule(typeof(Module))]
+    [WebExModule<Module>]
     [WebExContext("general")]
     [WebExContext("costcenteredit")]
     public sealed class PageCostCenterEdit : PageWebApp, IPageCostCenter

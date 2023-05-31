@@ -15,7 +15,7 @@ namespace InventoryExpress.WebPage
     [WebExSegment("add", "inventoryexpress:inventoryexpress.ledgeraccount.add.label")]
     [WebExContextPath("/")]
     [WebExParent(typeof(PageLedgerAccounts))]
-    [WebExModule(typeof(Module))]
+    [WebExModule<Module>]
     [WebExContext("general")]
     public sealed class PageLedgerAccountAdd : PageWebApp, IPageLedgerAccount
     {

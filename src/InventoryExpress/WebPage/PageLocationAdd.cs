@@ -15,7 +15,7 @@ namespace InventoryExpress.WebPage
     [WebExSegment("add", "inventoryexpress:inventoryexpress.location.add.label")]
     [WebExContextPath("/")]
     [WebExParent(typeof(PageLocations))]
-    [WebExModule(typeof(Module))]
+    [WebExModule<Module>]
     [WebExContext("general")]
     public sealed class PageLocationAdd : PageWebApp, IPageLocation
     {

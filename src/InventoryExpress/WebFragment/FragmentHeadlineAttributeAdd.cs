@@ -9,7 +9,7 @@ using WebExpress.WebPage;
 namespace InventoryExpress.WebFragment
 {
     [WebExSection(Section.HeadlineSecondary)]
-    [WebExModule(typeof(Module))]
+    [WebExModule<Module>]
     [WebExContext("attribute")]
     public sealed class FragmentHeadlineAttributeAdd : FragmentControlButtonLink
     {

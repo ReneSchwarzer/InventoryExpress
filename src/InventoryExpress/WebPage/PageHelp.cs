@@ -10,7 +10,7 @@ namespace InventoryExpress.WebPage
     [WebExTitle("inventoryexpress:inventoryexpress.help.label")]
     [WebExSegment("help", "inventoryexpress:inventoryexpress.help.label")]
     [WebExContextPath("/")]
-    [WebExModule(typeof(Module))]
+    [WebExModule<Module>]
     [WebExContext("general")]
     public sealed class PageHelp : PageWebApp, IPageHelp
     {

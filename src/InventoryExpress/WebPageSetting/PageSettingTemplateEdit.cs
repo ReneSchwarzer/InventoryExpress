@@ -22,7 +22,7 @@ namespace InventoryExpress.WebPageSetting
     [WebExParent(typeof(PageSettingTemplates))]
     [WebExSettingHide()]
     [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
-    [WebExModule(typeof(Module))]
+    [WebExModule<Module>]
     [WebExContext("general")]
     [WebExContext("templateedit")]
     public sealed class PageSettingTemplateEdit : PageWebAppSetting, IPageTemplate

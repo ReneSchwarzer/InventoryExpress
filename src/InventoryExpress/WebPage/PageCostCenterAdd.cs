@@ -15,7 +15,7 @@ namespace InventoryExpress.WebPage
     [WebExSegment("add", "inventoryexpress:inventoryexpress.costcenter.add.label")]
     [WebExContextPath("/")]
     [WebExParent(typeof(PageCostCenters))]
-    [WebExModule(typeof(Module))]
+    [WebExModule<Module>]
     [WebExContext("general")]
     public sealed class PageCostCenterAdd : PageWebApp, IPageCostCenter
     {

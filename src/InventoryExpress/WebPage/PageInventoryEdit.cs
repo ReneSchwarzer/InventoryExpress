@@ -16,7 +16,7 @@ namespace InventoryExpress.WebPage
     [WebExSegment("edit", "inventoryexpress:inventoryexpress.inventory.edit.display")]
     [WebExContextPath("/")]
     [WebExParent(typeof(PageInventoryDetails))]
-    [WebExModule(typeof(Module))]
+    [WebExModule<Module>]
     [WebExContext("general")]
     [WebExContext("inventoryedit")]
     //[Cache]

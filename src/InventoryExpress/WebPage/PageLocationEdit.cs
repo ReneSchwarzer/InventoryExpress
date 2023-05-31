@@ -17,7 +17,7 @@ namespace InventoryExpress.WebPage
     [WebExSegmentGuid("LocationId", "inventoryexpress:inventoryexpress.location.edit.display")]
     [WebExContextPath("/")]
     [WebExParent(typeof(PageLocations))]
-    [WebExModule(typeof(Module))]
+    [WebExModule<Module>]
     [WebExContext("general")]
     [WebExContext("locationedit")]
     public sealed class PageLocationEdit : PageWebApp, IPageLocation

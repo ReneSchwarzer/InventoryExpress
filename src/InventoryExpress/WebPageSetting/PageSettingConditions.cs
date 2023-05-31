@@ -16,7 +16,7 @@ namespace InventoryExpress.WebPageSetting
     [WebExSettingIcon(TypeIcon.StarHalf)]
     [WebExSettingGroup("inventoryexpress:inventoryexpress.setting.data.label")]
     [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
-    [WebExModule(typeof(Module))]
+    [WebExModule<Module>]
     [WebExContext("general")]
     [WebExContext("condition")]
     [WebExCache]

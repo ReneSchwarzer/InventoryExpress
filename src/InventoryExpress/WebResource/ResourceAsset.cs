@@ -10,7 +10,7 @@ namespace InventoryExpress.WebResource
     [WebExSegment("assets", "")]
     [WebExContextPath("/")]
     [WebExIncludeSubPaths(true)]
-    [WebExModule(typeof(Module))]
+    [WebExModule<Module>]
     public sealed class ResourceAsset : WebExpress.WebResource.ResourceAsset
     {
         /// <summary>

@@ -14,7 +14,7 @@ namespace InventoryExpress.WebPage
     [WebExSegment("del", "inventoryexpress:inventoryexpress.supplier.delete.display")]
     [WebExContextPath("/")]
     [WebExParent(typeof(PageSuppliers))]
-    [WebExModule(typeof(Module))]
+    [WebExModule<Module>]
     [WebExContext("general")]
     [WebExContext("supplierdelete")]
     public sealed class PageSupplierDelete : PageWebApp, IPageSupplier

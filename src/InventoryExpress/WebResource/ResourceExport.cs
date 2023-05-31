@@ -14,7 +14,7 @@ namespace InventoryExpress.WebResource
     [WebExSegmentGuid("ExportId", "")]
     [WebExContextPath("/export")]
     [WebExIncludeSubPaths(false)]
-    [WebExModule(typeof(Module))]
+    [WebExModule<Module>]
     public sealed class ResourceExport : ResourceBinary
     {
         /// <summary>

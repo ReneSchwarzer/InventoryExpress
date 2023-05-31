@@ -14,7 +14,7 @@ namespace InventoryExpress.WebResource
     [WebExSegmentGuid("MediaId", "")]
     [WebExContextPath("/media")]
     [WebExIncludeSubPaths(false)]
-    [WebExModule(typeof(Module))]
+    [WebExModule<Module>]
     public sealed class ResourceMedia : ResourceBinary
     {
         /// <summary>
