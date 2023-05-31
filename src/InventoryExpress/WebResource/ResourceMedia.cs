@@ -40,11 +40,11 @@ namespace InventoryExpress.WebResource
         /// <returns>The response.</returns>
         public override Response Process(Request request)
         {
-            var Guid = request.GetParameter("MediaId")?.Value.ToLower();
-            var media = ViewModel.GetMedia(Guid);
+            var guid = request.GetParameter("MediaId")?.Value.ToLower();
+            var media = ViewModel.GetMedia(guid);
             var path = ViewModel.MediaDirectory;
 
-            Data = File.ReadAllBytes(Path.Combine(path, Guid));
+            Data = File.ReadAllBytes(Path.Combine(path, guid));
 
             var response = base.Process(request);
             response.Header.CacheControl = "public, max-age=31536000";

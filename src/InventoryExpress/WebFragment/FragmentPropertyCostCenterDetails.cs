@@ -66,8 +66,8 @@ namespace InventoryExpress.WebFragment
         /// <returns>The control as html.</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var Guid = context.Request.GetParameter("CostCenterId")?.Value;
-            var costCenter = ViewModel.GetCostCenter(Guid);
+            var guid = context.Request.GetParameter("CostCenterId")?.Value;
+            var costCenter = ViewModel.GetCostCenter(guid);
 
             CreationDateAttribute.Value = costCenter?.Created.ToString(context.Culture.DateTimeFormat.ShortDatePattern);
             UpdateDateAttribute.Value = costCenter?.Updated.ToString

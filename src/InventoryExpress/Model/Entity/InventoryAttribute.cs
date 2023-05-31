@@ -19,12 +19,12 @@ namespace InventoryExpress.Model.Entity
         public string Value { get; set; }
 
         /// <summary>
-        /// Der Zeitstempel der Erstellung
+        /// Returns or sets the timestamp of the creation.
         /// </summary>
         public DateTime Created { get; set; }
 
         /// <summary>
-        /// Der Zeitstempel der letzten Änderung
+        /// The timestamp of the last change.
         /// </summary>
         public DateTime Updated { get; set; }
 

@@ -1,11 +1,11 @@
 ﻿using InventoryExpress.Model;
 using System.Collections.Generic;
 using WebExpress.Internationalization;
-using WebExpress.WebMessage;
 using WebExpress.WebApp.Model;
 using WebExpress.WebApp.WebResource;
 using WebExpress.WebApp.Wql;
 using WebExpress.WebAttribute;
+using WebExpress.WebMessage;
 using WebExpress.WebResource;
 
 namespace InventoryExpress.WebApi.V1
@@ -13,7 +13,6 @@ namespace InventoryExpress.WebApi.V1
     /// <summary>
     /// Ermittelt alle Standorte
     /// </summary>
-    [WebExId("RestLocationsV1")]
     [WebExSegment("locations", "")]
     [WebExContextPath("/api/v1")]
     [WebExIncludeSubPaths(true)]

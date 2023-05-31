@@ -66,12 +66,12 @@ namespace InventoryExpress.WebPageSetting
         /// <param name="e">The event argument./param>
         private void OnConfirmFormular(object sender, FormularEventArgs e)
         {
-            var Guid = e.Context.Request.GetParameter("AttributeId")?.Value;
-            var attribute = ViewModel.GetAttribute(Guid);
+            var guid = e.Context.Request.GetParameter("AttributeId")?.Value;
+            var attribute = ViewModel.GetAttribute(guid);
 
             using (var transaction = ViewModel.BeginTransaction())
             {
-                ViewModel.DeleteAttribute(Guid);
+                ViewModel.DeleteAttribute(guid);
 
                 transaction.Commit();
             }

@@ -40,13 +40,13 @@ namespace InventoryExpress.WebResource
         /// <returns>The response.</returns>
         public override Response Process(Request request)
         {
-            var Guid = request.GetParameter("ExportId")?.Value.ToLower();
+            var guid = request.GetParameter("ExportId")?.Value.ToLower();
             var path = ViewModel.ExportDirectory;
 
-            Data = File.ReadAllBytes(Path.Combine(path, Guid + ".zip"));
+            Data = File.ReadAllBytes(Path.Combine(path, guid + ".zip"));
 
             var response = base.Process(request);
-            response.Header.ContentDisposition = "attatchment; filename=" + Path.GetFileName(Guid + ".zip") + "; size=" + Data.LongLength;
+            response.Header.ContentDisposition = "attatchment; filename=" + Path.GetFileName(guid + ".zip") + "; size=" + Data.LongLength;
             response.Header.ContentType = "application/zip";
 
             request.ServerContext.Log.Debug(message: I18N("webexpress:resource.file"), args: new object[] { request.RemoteEndPoint, request.Uri });

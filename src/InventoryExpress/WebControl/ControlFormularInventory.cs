@@ -14,7 +14,7 @@ namespace InventoryExpress.WebControl
     public class ControlFormularInventory : ControlForm
     {
         /// <summary>
-        /// Liefert oder setzt den Namen des Inventargegenstandes
+        /// Returns or sets the name. des Inventargegenstandes
         /// </summary>
         public ControlFormItemInputTextBox InventoryName { get; } = new ControlFormItemInputTextBox()
         {
@@ -160,7 +160,7 @@ namespace InventoryExpress.WebControl
         };
 
         /// <summary>
-        /// Liefert oder setzt die Schlagwörter
+        /// Liefert oder setzt Returns or sets the tags.
         /// </summary>
         public ControlApiFormularItemInputSelection Tag { get; } = new ControlApiFormularItemInputSelection()
         {
@@ -188,7 +188,7 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">The id.</param>
+        /// <param name="id">Returns or sets the id.</param>
         public ControlFormularInventory(string id = null)
             : base(id ?? "inventory")
         {
@@ -238,8 +238,8 @@ namespace InventoryExpress.WebControl
             Tag.RestUri = context.Uri.ModuleRoot.Append("api/v1/tags");
             Template.OnChange = new PropertyOnChange($"$('#{Id}').submit();");
 
-            var Guid = context.Request.GetParameter(Template.Name)?.Value;
-            var template = ViewModel.GetTemplate(Guid);
+            var guid = context.Request.GetParameter(Template.Name)?.Value;
+            var template = ViewModel.GetTemplate(guid);
 
             // Attribute ermitteln
             if (template != null)
@@ -264,8 +264,8 @@ namespace InventoryExpress.WebControl
         /// <param name="e">Das Eventargument</param>
         private void OnInventoryNameValidation(object sender, ValidationEventArgs e)
         {
-            var Guid = e.Context.Request.GetParameter("InventoryId")?.Value;
-            var inventory = ViewModel.GetInventory(Guid);
+            var guid = e.Context.Request.GetParameter("InventoryId")?.Value;
+            var inventory = ViewModel.GetInventory(guid);
 
             if (e.Value == null || e.Value.Length < 1)
             {

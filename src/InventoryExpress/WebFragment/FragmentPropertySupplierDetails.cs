@@ -63,8 +63,8 @@ namespace InventoryExpress.WebFragment
         /// <returns>The control as html.</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var Guid = context.Request.GetParameter("SupplierId")?.Value;
-            var supplier = ViewModel.GetSupplier(Guid);
+            var guid = context.Request.GetParameter("SupplierId")?.Value;
+            var supplier = ViewModel.GetSupplier(guid);
 
             CreationDateAttribute.Value = supplier?.Created.ToString(context.Culture.DateTimeFormat.ShortDatePattern);
             UpdateDateAttribute.Value = supplier?.Updated.ToString

@@ -1,22 +1,25 @@
 ﻿using InventoryExpress.Model.Entity;
 using InventoryExpress.Model.WebItems;
+using InventoryExpress.Parameters;
+using InventoryExpress.WebPage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using WebExpress.WebApp.Wql;
+using WebExpress.WebComponent;
 
 namespace InventoryExpress.Model
 {
     public partial class ViewModel
     {
         /// <summary>
-        /// Ermittelt die Inventar-URL
+        /// Returns the inventory URL.
         /// </summary>
-        /// <param name="Guid">Die InventarId</param>
-        /// <returns>Die Uri oder null</returns>
-        public static string GetInventoryUri(string Guid)
+        /// <param name="guid">The inventory id.</param>
+        /// <returns>The uri or null.</returns>
+        public static string GetInventoryUri(string guid)
         {
-            return $"{RootUri}/{Guid}";
+            return ComponentManager.SitemapManager.GetUri<PageInventoryDetails>(new ParameterInventoryId(guid));
         }
 
         /// <summary>
@@ -67,13 +70,13 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Liefert ein Inventargegenstand
         /// </summary>
-        /// <param name="giud">Die InventarId</param>
+        /// <param name="giud">The inventory id.</param>
         /// <returns>Der Inventargegenstände oder null</returns>
-        public static WebItemEntityInventory GetInventory(string Guid)
+        public static WebItemEntityInventory GetInventory(string guid)
         {
             lock (DbContext)
             {
-                var inventory = DbContext.Inventories.Where(x => x.Guid == Guid).Select(x => new WebItemEntityInventory(x)).FirstOrDefault();
+                var inventory = DbContext.Inventories.Where(x => x.Guid == guid).Select(x => new WebItemEntityInventory(x)).FirstOrDefault();
 
                 return inventory;
             }

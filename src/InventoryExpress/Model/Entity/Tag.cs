@@ -10,7 +10,7 @@ namespace InventoryExpress.Model.Entity
     public class Tag
     {
         /// <summary>
-        /// Die Id
+        /// Returns or sets the id.
         /// </summary>
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }

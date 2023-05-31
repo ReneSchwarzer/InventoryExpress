@@ -62,12 +62,12 @@ namespace InventoryExpress.WebPage
         /// <param name="e">The event argument./param>
         private void OnConfirmFormular(object sender, FormularEventArgs e)
         {
-            var Guid = e.Context.Request.GetParameter("LocationId")?.Value;
-            var location = ViewModel.GetLocation(Guid);
+            var guid = e.Context.Request.GetParameter("LocationId")?.Value;
+            var location = ViewModel.GetLocation(guid);
 
             using (var transaction = ViewModel.BeginTransaction())
             {
-                ViewModel.DeleteLocation(Guid);
+                ViewModel.DeleteLocation(guid);
 
                 transaction.Commit();
             }

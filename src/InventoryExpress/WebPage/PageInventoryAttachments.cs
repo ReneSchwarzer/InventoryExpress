@@ -43,8 +43,8 @@ namespace InventoryExpress.WebPage
         {
             base.Process(context);
 
-            var Guid = context.Request.GetParameter("InventoryId")?.Value;
-            var inventory = ViewModel.GetInventory(Guid);
+            var guid = context.Request.GetParameter("InventoryId")?.Value;
+            var inventory = ViewModel.GetInventory(guid);
             var attachments = ViewModel.GetInventoryAttachments(inventory);
 
             var table = new ControlTable()

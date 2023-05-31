@@ -5,6 +5,7 @@ using WebExpress.UI.WebControl;
 using WebExpress.UI.WebFragment;
 using WebExpress.WebApp.WebFragment;
 using WebExpress.WebAttribute;
+using WebExpress.WebComponent;
 using WebExpress.WebPage;
 
 namespace InventoryExpress.WebFragment
@@ -31,7 +32,7 @@ namespace InventoryExpress.WebFragment
             base.Initialization(context, page);
 
             Text = "inventoryexpress:inventoryexpress.inventory.label";
-            Uri = context.ModuleContext.ContextPath.Append("add");
+            Uri = ComponentManager.SitemapManager.GetUri<PageInventoryAdd>();
             Icon = new PropertyIcon(TypeIcon.Plus);
             Modal = new PropertyModal(TypeModal.Formular, TypeModalSize.ExtraLarge);
         }

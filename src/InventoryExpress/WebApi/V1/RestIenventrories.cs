@@ -2,10 +2,10 @@
 using InventoryExpress.Model.WebItems;
 using System.Collections.Generic;
 using WebExpress.Internationalization;
-using WebExpress.WebMessage;
 using WebExpress.WebApp.WebResource;
 using WebExpress.WebApp.Wql;
 using WebExpress.WebAttribute;
+using WebExpress.WebMessage;
 using WebExpress.WebResource;
 
 namespace InventoryExpress.WebApi.V1
@@ -13,7 +13,6 @@ namespace InventoryExpress.WebApi.V1
     /// <summary>
     /// Ermittelt alle Inventargegenstände
     /// </summary>
-    [WebExId("RestInventoriesV1")]
     [WebExSegment("inventories", "")]
     [WebExContextPath("/api/v1")]
     [WebExIncludeSubPaths(true)]

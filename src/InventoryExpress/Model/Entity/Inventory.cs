@@ -14,7 +14,7 @@ namespace InventoryExpress.Model.Entity
         public decimal CostValue { get; set; }
 
         /// <summary>
-        /// Die Id der Vorlage
+        /// Returns or sets the id. der Vorlage
         /// </summary>
         public int? TemplateId { get; set; }
 
@@ -44,7 +44,7 @@ namespace InventoryExpress.Model.Entity
         public DateTime? DerecognitionDate { get; set; }
 
         /// <summary>
-        /// Die Id des Standortes
+        /// Returns or sets the id. des Standortes
         /// </summary>
         public int? LocationId { get; set; }
 
@@ -54,7 +54,7 @@ namespace InventoryExpress.Model.Entity
         public Location Location { get; set; }
 
         /// <summary>
-        /// Die Id der Kostenstelle
+        /// Returns or sets the id. der Kostenstelle
         /// </summary>
         public int? CostCenterId { get; set; }
 
@@ -64,7 +64,7 @@ namespace InventoryExpress.Model.Entity
         public CostCenter CostCenter { get; set; }
 
         /// <summary>
-        /// Die Id des Herstellers
+        /// Returns or sets the id. des Herstellers
         /// </summary>
         public int? ManufacturerId { get; set; }
 
@@ -74,7 +74,7 @@ namespace InventoryExpress.Model.Entity
         public Manufacturer Manufacturer { get; set; }
 
         /// <summary>
-        /// Die Id des Zustandes
+        /// Returns or sets the id. des Zustandes
         /// </summary>
         public int? ConditionId { get; set; }
 
@@ -84,7 +84,7 @@ namespace InventoryExpress.Model.Entity
         public Condition Condition { get; set; }
 
         /// <summary>
-        /// Die Id des Lieferanten
+        /// Returns or sets the id. des Lieferanten
         /// </summary>
         public int? SupplierId { get; set; }
 
@@ -94,7 +94,7 @@ namespace InventoryExpress.Model.Entity
         public Supplier Supplier { get; set; }
 
         /// <summary>
-        /// Die Id des Sachkontos
+        /// Returns or sets the id. des Sachkontos
         /// </summary>
         public int? LedgerAccountId { get; set; }
 
@@ -104,7 +104,7 @@ namespace InventoryExpress.Model.Entity
         public LedgerAccount LedgerAccount { get; set; }
 
         /// <summary>
-        /// Die Id übergeordneten Inventargegenstandes
+        /// Returns or sets the id. übergeordneten Inventargegenstandes
         /// </summary>
         public int? ParentId { get; set; }
 

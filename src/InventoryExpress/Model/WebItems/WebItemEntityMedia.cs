@@ -18,19 +18,19 @@ namespace InventoryExpress.Model.WebItems
         public string Description { get; set; }
 
         /// <summary>
-        /// Der Zeitstempel der Erstellung
+        /// Returns or sets the timestamp of the creation.
         /// </summary>
         [JsonPropertyName("created")]
         public DateTime Created { get; set; }
 
         /// <summary>
-        /// Der Zeitstempel der letzten Änderung
+        /// The timestamp of the last change.
         /// </summary>
         [JsonPropertyName("updated")]
         public DateTime Updated { get; set; }
 
         /// <summary>
-        /// Die Schlagwörter
+        /// Returns or sets the tags.
         /// </summary>
         [JsonPropertyName("tag")]
         public string Tag { get; set; }

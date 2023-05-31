@@ -1,42 +1,55 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-    <Description>Erzeugung von QR-Codes mittels der freien Bibliothek QRCoder.</Description>
-    <Authors>rene_schwarzer@hotmail.de</Authors>
-    <Company />
-    <Version>1.0.0.0</Version>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<Description>Erzeugung von QR-Codes mittels der freien Bibliothek QRCoder.</Description>
+		<Authors>rene_schwarzer@hotmail.de</Authors>
+		<Company />
+		<Version>1.1.0-alpha</Version>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+		<EnableDynamicLoading>true</EnableDynamicLoading>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="WebPage\**" />
-    <EmbeddedResource Remove="WebPage\**" />
-    <None Remove="WebPage\**" />
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Remove="WebPage\**" />
+		<EmbeddedResource Remove="WebPage\**" />
+		<None Remove="WebPage\**" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Remove="Assets\img\qr.svg" />
-    <None Remove="Internationalization\de" />
-    <None Remove="Internationalization\en" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Remove="Assets\img\qr.svg" />
+		<None Remove="Internationalization\de" />
+		<None Remove="Internationalization\en" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Include="Assets\img\qr.svg" />
-    <EmbeddedResource Include="Internationalization\de" />
-    <EmbeddedResource Include="Internationalization\en" />
-  </ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Include="Assets\img\qr.svg" />
+		<EmbeddedResource Include="Internationalization\de" />
+		<EmbeddedResource Include="Internationalization\en" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="QRCoder" Version="1.4.3" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="QRCoder" Version="1.4.3" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\WebExpress\src\WebExpress.UI\WebExpress.UI.csproj" />
-    <ProjectReference Include="..\..\..\WebExpress\src\WebExpress.WebApp\WebExpress.WebApp.csproj" />
-    <ProjectReference Include="..\..\..\WebExpress\src\WebExpress\WebExpress.csproj" />
-    <ProjectReference Include="..\InventoryExpress\InventoryExpress.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\WebExpress\src\WebExpress.UI\WebExpress.UI.csproj">
+			<Private>false</Private>
+			<ExcludeAssets>runtime</ExcludeAssets>
+		</ProjectReference>
+		<ProjectReference Include="..\..\..\WebExpress\src\WebExpress.WebApp\WebExpress.WebApp.csproj">
+			<Private>false</Private>
+			<ExcludeAssets>runtime</ExcludeAssets>
+		</ProjectReference>
+		<ProjectReference Include="..\..\..\WebExpress\src\WebExpress\WebExpress.csproj">
+			<Private>false</Private>
+			<ExcludeAssets>runtime</ExcludeAssets>
+		</ProjectReference>
+		<ProjectReference Include="..\InventoryExpress\InventoryExpress.csproj">
+			<Private>false</Private>
+			<ExcludeAssets>runtime</ExcludeAssets>
+		</ProjectReference>
+	</ItemGroup>
 
 </Project>

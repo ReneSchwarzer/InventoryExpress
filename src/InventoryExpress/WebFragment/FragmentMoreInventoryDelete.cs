@@ -3,10 +3,10 @@ using WebExpress.Html;
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebControl;
 using WebExpress.UI.WebFragment;
-using WebExpress.WebUri;
 using WebExpress.WebApp.WebFragment;
 using WebExpress.WebAttribute;
 using WebExpress.WebPage;
+using WebExpress.WebUri;
 
 namespace InventoryExpress.WebFragment
 {
@@ -44,8 +44,8 @@ namespace InventoryExpress.WebFragment
         /// <returns>The control as html.</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var Guid = context.Request.GetParameter("InventoryId")?.Value;
-            var inventory = ViewModel.GetInventory(Guid);
+            var guid = context.Request.GetParameter("InventoryId")?.Value;
+            var inventory = ViewModel.GetInventory(guid);
             var inUse = ViewModel.GetInventoryInUse(inventory);
 
             Active = inUse ? TypeActive.Disabled : TypeActive.None;

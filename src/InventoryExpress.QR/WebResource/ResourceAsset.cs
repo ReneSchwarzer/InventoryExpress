@@ -5,7 +5,6 @@ namespace InventoryExpress.QR.WebResource
     /// <summary>
     /// Lieferung einer im Assamby eingebetteten Ressource
     /// </summary>
-    [WebExId("Asset")]
     [WebExTitle("Assets")]
     [WebExSegment("assets", "")]
     [WebExContextPath("/")]

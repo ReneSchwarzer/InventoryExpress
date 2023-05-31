@@ -1,9 +1,12 @@
 ﻿using InventoryExpress.Model.Entity;
 using InventoryExpress.Model.WebItems;
+using InventoryExpress.Parameters;
+using InventoryExpress.WebPage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using WebExpress.WebApp.Wql;
+using WebExpress.WebComponent;
 
 namespace InventoryExpress.Model
 {
@@ -12,11 +15,11 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Ermittelt die Standort-URL
         /// </summary>
-        /// <param name="Guid">Die Id des Standortes</param>
-        /// <returns>Die Uri oder null</returns>
-        public static string GetLocationUri(string Guid)
+        /// <param name="guid">Returns or sets the id. des Standortes</param>
+        /// <returns>The uri or null.</returns>
+        public static string GetLocationUri(string guid)
         {
-            return $"{RootUri}/locations/{Guid}";
+            return ComponentManager.SitemapManager.GetUri<PageLocationEdit>(new ParameterLocationId(guid));
         }
 
         /// <summary>
@@ -37,7 +40,7 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Liefert ein Standort
         /// </summary>
-        /// <param name="id">Die Id des Standortes</param>
+        /// <param name="id">Returns or sets the id. des Standortes</param>
         /// <returns>Der Standort oder null</returns>
         public static WebItemEntityLocation GetLocation(string id)
         {
@@ -139,7 +142,7 @@ namespace InventoryExpress.Model
                         availableMedia.Tag = condition.Media?.Tag;
                         availableMedia.Updated = DateTime.Now;
                     }
-                    
+
                     DbContext.SaveChanges();
                 }
             }
@@ -148,7 +151,7 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Löscht ein Standort
         /// </summary>
-        /// <param name="id">Die Id des Standortes</param>
+        /// <param name="id">Returns or sets the id. des Standortes</param>
         public static void DeleteLocation(string id)
         {
             lock (DbContext)

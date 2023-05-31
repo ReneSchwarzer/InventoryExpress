@@ -67,8 +67,8 @@ namespace InventoryExpress.WebPage
         /// <exception cref="NotImplementedException"></exception>
         private void OnFillFormular(object sender, FormularEventArgs e)
         {
-            var Guid = e.Context.Request.GetParameter("InventoryId")?.Value;
-            var inventory = ViewModel.GetInventory(Guid);
+            var guid = e.Context.Request.GetParameter("InventoryId")?.Value;
+            var inventory = ViewModel.GetInventory(guid);
 
             Form.Fill(inventory, e.Context.Culture);
         }
@@ -80,8 +80,8 @@ namespace InventoryExpress.WebPage
         /// <param name="e">Das Eventargument</param>
         private void OnProcessFormular(object sender, FormularEventArgs e)
         {
-            var Guid = e.Context.Request.GetParameter("InventoryId")?.Value;
-            var inventory = ViewModel.GetInventory(Guid);
+            var guid = e.Context.Request.GetParameter("InventoryId")?.Value;
+            var inventory = ViewModel.GetInventory(guid);
             Form.Apply(inventory, e.Context.Culture);
 
             using (var transaction = ViewModel.BeginTransaction())

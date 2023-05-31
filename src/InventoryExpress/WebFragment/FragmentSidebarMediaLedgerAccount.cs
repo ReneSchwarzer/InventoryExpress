@@ -45,8 +45,8 @@ namespace InventoryExpress.WebFragment
         protected override void OnUpload(object sender, FormularUploadEventArgs e)
         {
             var file = e.Context.Request.GetParameter(Form.File.Name) as ParameterFile;
-            var Guid = e.Context.Request.GetParameter("LedgerAccountId")?.Value;
-            var ledgerAccount = ViewModel.GetLedgerAccount(Guid);
+            var guid = e.Context.Request.GetParameter("LedgerAccountId")?.Value;
+            var ledgerAccount = ViewModel.GetLedgerAccount(guid);
 
             if (file != null)
             {
@@ -81,8 +81,8 @@ namespace InventoryExpress.WebFragment
         /// <returns>The control as html.</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var Guid = context.Request.GetParameter("LedgerAccountId")?.Value;
-            var ledgerAccount = ViewModel.GetLedgerAccount(Guid);
+            var guid = context.Request.GetParameter("LedgerAccountId")?.Value;
+            var ledgerAccount = ViewModel.GetLedgerAccount(guid);
 
             Image.Uri = ledgerAccount?.Image;
 

@@ -1,9 +1,12 @@
 ﻿using InventoryExpress.Model.Entity;
 using InventoryExpress.Model.WebItems;
+using InventoryExpress.Parameters;
+using InventoryExpress.WebPage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using WebExpress.WebApp.Wql;
+using WebExpress.WebComponent;
 
 namespace InventoryExpress.Model
 {
@@ -12,11 +15,11 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Ermittelt die Kostenstelle-URL
         /// </summary>
-        /// <param name="Guid">Die Id der Kostenstelle</param>
-        /// <returns>Die Uri oder null</returns>
-        public static string GetCostCenterUri(string Guid)
+        /// <param name="guid">Returns or sets the id. der Kostenstelle</param>
+        /// <returns>The uri or null.</returns>
+        public static string GetCostCenterUri(string guid)
         {
-            return $"{RootUri}/costcenters/{Guid}";
+            return ComponentManager.SitemapManager.GetUri<PageCostCenterEdit>(new ParameterCostCenterId(guid));
         }
 
         /// <summary>
@@ -37,7 +40,7 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Liefert ein Kostenstelle
         /// </summary>
-        /// <param name="id">Die Id der Kostenstelle</param>
+        /// <param name="id">Returns or sets the id. der Kostenstelle</param>
         /// <returns>Die Kostenstelle oder null</returns>
         public static WebItemEntityCostCenter GetCostCenter(string id)
         {
@@ -142,7 +145,7 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Löscht eine Kostenstelle
         /// </summary>
-        /// <param name="id">Die Id der Kostenstelle</param>
+        /// <param name="id">Returns or sets the id. der Kostenstelle</param>
         public static void DeleteCostCenter(string id)
         {
             lock (DbContext)

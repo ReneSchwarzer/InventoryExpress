@@ -1,70 +1,80 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-    <Version>1.1.0.0</Version>
-    <AssemblyVersion>1.1.0.0</AssemblyVersion>
-    <RepositoryUrl>https://github.com/ReneSchwarzer/InventoryExpress.git</RepositoryUrl>
-    <Authors>rene_schwarzer@hotmail.de</Authors>
-    <Description>An inventory database for a variety of purposes.</Description>
-    <AssemblyName>InventoryExpress</AssemblyName>
-    <RootNamespace>InventoryExpress</RootNamespace>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Title>Inventory database</Title>
-    <PackageTags>inventar; webexpress</PackageTags>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<Version>1.1.0-alpha</Version>
+		<AssemblyVersion>1.1.0.0</AssemblyVersion>
+		<RepositoryUrl>https://github.com/ReneSchwarzer/InventoryExpress.git</RepositoryUrl>
+		<Authors>rene_schwarzer@hotmail.de</Authors>
+		<Description>An inventory database for a variety of purposes.</Description>
+		<AssemblyName>InventoryExpress</AssemblyName>
+		<RootNamespace>InventoryExpress</RootNamespace>
+		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+		<Title>Inventory database</Title>
+		<PackageTags>inventar; webexpress</PackageTags>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<EnableDynamicLoading>true</EnableDynamicLoading>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="Assets\img\condition_1.svg" />
-    <None Remove="Assets\img\condition_2.svg" />
-    <None Remove="Assets\img\condition_3.svg" />
-    <None Remove="Assets\img\condition_4.svg" />
-    <None Remove="Assets\img\condition_5.svg" />
-    <None Remove="Assets\img\condition_6.svg" />
-    <None Remove="Assets\img\export.svg" />
-    <None Remove="Assets\img\inventoryexpress.svg" />
-    <None Remove="Assets\img\Logo.png" />
-    <None Remove="icon.png" />
-    <None Remove="Internationalization\de" />
-    <None Remove="Internationalization\en" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Remove="Assets\img\condition_1.svg" />
+		<None Remove="Assets\img\condition_2.svg" />
+		<None Remove="Assets\img\condition_3.svg" />
+		<None Remove="Assets\img\condition_4.svg" />
+		<None Remove="Assets\img\condition_5.svg" />
+		<None Remove="Assets\img\condition_6.svg" />
+		<None Remove="Assets\img\export.svg" />
+		<None Remove="Assets\img\inventoryexpress.svg" />
+		<None Remove="Assets\img\Logo.png" />
+		<None Remove="icon.png" />
+		<None Remove="Internationalization\de" />
+		<None Remove="Internationalization\en" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Include="Assets\img\condition_1.svg" />
-    <EmbeddedResource Include="Assets\img\condition_2.svg" />
-    <EmbeddedResource Include="Assets\img\condition_3.svg" />
-    <EmbeddedResource Include="Assets\img\condition_4.svg" />
-    <EmbeddedResource Include="Assets\img\condition_5.svg" />
-    <EmbeddedResource Include="Assets\img\condition_6.svg" />
-    <EmbeddedResource Include="Assets\img\export.svg" />
-    <EmbeddedResource Include="Assets\img\Favicon.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Assets\img\inventoryexpress.svg" />
-    <EmbeddedResource Include="Internationalization\de" />
-    <EmbeddedResource Include="Internationalization\en" />
-  </ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Include="Assets\img\condition_1.svg" />
+		<EmbeddedResource Include="Assets\img\condition_2.svg" />
+		<EmbeddedResource Include="Assets\img\condition_3.svg" />
+		<EmbeddedResource Include="Assets\img\condition_4.svg" />
+		<EmbeddedResource Include="Assets\img\condition_5.svg" />
+		<EmbeddedResource Include="Assets\img\condition_6.svg" />
+		<EmbeddedResource Include="Assets\img\export.svg" />
+		<EmbeddedResource Include="Assets\img\Favicon.png">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Include="Assets\img\inventoryexpress.svg" />
+		<EmbeddedResource Include="Internationalization\de" />
+		<EmbeddedResource Include="Internationalization\en" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.5" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.5">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.5" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.5">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\WebExpress\src\WebExpress.UI\WebExpress.UI.csproj" />
-    <ProjectReference Include="..\..\..\WebExpress\src\WebExpress.WebApp\WebExpress.WebApp.csproj" />
-    <ProjectReference Include="..\..\..\WebExpress\src\WebExpress\WebExpress.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\WebExpress\src\WebExpress.UI\WebExpress.UI.csproj">
+			<Private>false</Private>
+			<ExcludeAssets>runtime</ExcludeAssets>
+		</ProjectReference>
+		<ProjectReference Include="..\..\..\WebExpress\src\WebExpress.WebApp\WebExpress.WebApp.csproj">
+			<Private>false</Private>
+			<ExcludeAssets>runtime</ExcludeAssets>
+		</ProjectReference>	
+		<ProjectReference Include="..\..\..\WebExpress\src\WebExpress\WebExpress.csproj">
+			<Private>false</Private>
+			<ExcludeAssets>runtime</ExcludeAssets>
+		</ProjectReference>
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Update="Assets\img\Favicon.png">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<None Update="Assets\img\Favicon.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
 
 </Project>

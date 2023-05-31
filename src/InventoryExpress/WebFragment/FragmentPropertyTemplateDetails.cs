@@ -63,8 +63,8 @@ namespace InventoryExpress.WebFragment
         /// <returns>The control as html.</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var Guid = context.Request.GetParameter("TemplateId")?.Value;
-            var template = ViewModel.GetTemplate(Guid);
+            var guid = context.Request.GetParameter("TemplateId")?.Value;
+            var template = ViewModel.GetTemplate(guid);
 
             CreationDateAttribute.Value = template?.Created.ToString(context.Culture.DateTimeFormat.ShortDatePattern);
             UpdateDateAttribute.Value = template?.Updated.ToString

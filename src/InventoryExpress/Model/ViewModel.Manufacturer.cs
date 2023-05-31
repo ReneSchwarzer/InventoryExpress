@@ -1,9 +1,12 @@
 ﻿using InventoryExpress.Model.Entity;
 using InventoryExpress.Model.WebItems;
+using InventoryExpress.Parameters;
+using InventoryExpress.WebPage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using WebExpress.WebApp.Wql;
+using WebExpress.WebComponent;
 
 namespace InventoryExpress.Model
 {
@@ -12,11 +15,11 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Ermittelt die Hersteller-URL
         /// </summary>
-        /// <param name="Guid">Die Id des Herstellers</param>
-        /// <returns>Die Uri oder null</returns>
-        public static string GetManufacturerUri(string Guid)
+        /// <param name="guid">Returns or sets the id. des Herstellers</param>
+        /// <returns>The uri or null.</returns>
+        public static string GetManufacturerUri(string guid)
         {
-            return $"{RootUri}/manufacturers/{Guid}";
+            return ComponentManager.SitemapManager.GetUri<PageManufacturerEdit>(new ParameterManufacturerId(guid));
         }
 
         /// <summary>
@@ -37,7 +40,7 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Liefert ein Hersteller
         /// </summary>
-        /// <param name="id">Die Id des Herstellers</param>
+        /// <param name="id">Returns or sets the id. des Herstellers</param>
         /// <returns>Der Hersteller oder null</returns>
         public static WebItemEntityManufacturer GetManufacturer(string id)
         {
@@ -148,7 +151,7 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Löscht ein Hersteller
         /// </summary>
-        /// <param name="id">Die Id des Herstellers</param>
+        /// <param name="id">Returns or sets the id. des Herstellers</param>
         public static void DeleteManufacturer(string id)
         {
             lock (DbContext)

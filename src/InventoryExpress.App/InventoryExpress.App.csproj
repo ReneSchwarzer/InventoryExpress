@@ -7,7 +7,7 @@
 		<AssemblyVersion>1.0.0.0</AssemblyVersion>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<RepositoryUrl>https://github.com/ReneSchwarzer/InventoryExpress.git</RepositoryUrl>
-		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -1260,8 +1260,8 @@
 		</None>
 	</ItemGroup>
 
-	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-		<Exec Command="$(SolutionDir)$(AssemblyName)\bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).exe -s $(SolutionDir)$(ProjectName)\InventoryExpress.spec -o $(SolutionDir)$(ProjectName)\bin\$(Configuration)" />
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(Configuration)' == 'Release'">
+		<Exec Command="$(SolutionDir)$(AssemblyName)\bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).exe -s $(SolutionDir)..\InventoryExpress.spec -c $(Configuration) -t $(TargetFramework) -o $(SolutionDir)..\pkg\$(Configuration)" />
 	</Target>
-
+	
 </Project>

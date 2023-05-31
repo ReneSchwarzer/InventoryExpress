@@ -13,7 +13,7 @@ namespace InventoryExpress.WebPage
     [WebExTitle("inventoryexpress:inventoryexpress.ledgeraccount.delete.label")]
     [WebExSegment("del", "inventoryexpress:inventoryexpress.ledgeraccount.delete.display")]
     [WebExContextPath("/")]
-    [WebExParent(typeof(PageLedgerAccounts))]
+    [WebExParent(typeof(PageLedgerAccountEdit))]
     [WebExModule(typeof(Module))]
     [WebExContext("general")]
     [WebExContext("ledgeraccountdelete")]
@@ -41,7 +41,7 @@ namespace InventoryExpress.WebPage
         {
             base.Initialization(context);
 
-            Form.RedirectUri = ResourceContext.ContextPath.Append("ledgeraccounts");
+            Form.RedirectUri = ComponentManager.SitemapManager.GetUri<PageLedgerAccounts>(context);
             Form.InitializeFormular += OnInitializeFormular;
             Form.Confirm += OnConfirmFormular;
         }
@@ -62,12 +62,12 @@ namespace InventoryExpress.WebPage
         /// <param name="e">The event argument./param>
         private void OnConfirmFormular(object sender, FormularEventArgs e)
         {
-            var Guid = e.Context.Request.GetParameter("LedgerAccountId")?.Value;
-            var ledgeraccount = ViewModel.GetLedgerAccount(Guid);
+            var guid = e.Context.Request.GetParameter("LedgerAccountId")?.Value;
+            var ledgeraccount = ViewModel.GetLedgerAccount(guid);
 
             using (var transaction = ViewModel.BeginTransaction())
             {
-                ViewModel.DeleteLedgerAccount(Guid);
+                ViewModel.DeleteLedgerAccount(guid);
 
                 transaction.Commit();
             }

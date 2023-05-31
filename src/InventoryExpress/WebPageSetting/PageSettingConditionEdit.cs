@@ -1,5 +1,6 @@
 ﻿using InventoryExpress.Model;
 using InventoryExpress.Model.WebItems;
+using InventoryExpress.Parameters;
 using InventoryExpress.WebControl;
 using System;
 using WebExpress.Internationalization;
@@ -15,7 +16,7 @@ using WebExpress.WebResource;
 namespace InventoryExpress.WebPageSetting
 {
     [WebExTitle("inventoryexpress:inventoryexpress.condition.edit.label")]
-    [WebExSegmentGuid("ConditionId", "inventoryexpress:inventoryexpress.condition.edit.display")]
+    [WebExSegmentGuid(typeof(ParameterConditionId), "inventoryexpress:inventoryexpress.condition.edit.display")]
     [WebExParent(typeof(PageSettingConditions))]
     [WebExContextPath("/edit")]
     [WebExSettingHide()]
@@ -123,8 +124,8 @@ namespace InventoryExpress.WebPageSetting
         {
             base.Process(context);
 
-            var Guid = context.Request.GetParameter("ConditionId")?.Value;
-            Condition = ViewModel.GetCondition(Guid);
+            var guid = context.Request.GetParameter("ConditionId")?.Value;
+            Condition = ViewModel.GetCondition(guid);
 
             Uri.Display = Condition.Name;
             context.VisualTree.Content.Primary.Add(Form);

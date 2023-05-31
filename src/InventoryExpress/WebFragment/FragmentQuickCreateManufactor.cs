@@ -5,6 +5,7 @@ using WebExpress.UI.WebControl;
 using WebExpress.UI.WebFragment;
 using WebExpress.WebApp.WebFragment;
 using WebExpress.WebAttribute;
+using WebExpress.WebComponent;
 using WebExpress.WebPage;
 
 namespace InventoryExpress.WebFragment
@@ -31,7 +32,7 @@ namespace InventoryExpress.WebFragment
             base.Initialization(context, page);
 
             Text = "inventoryexpress:inventoryexpress.manufacturer.label";
-            Uri = context.ModuleContext.ContextPath.Append("manufacturers/add");
+            Uri = ComponentManager.SitemapManager.GetUri<PageManufacturerAdd>();
             Icon = new PropertyIcon(TypeIcon.Industry);
             Modal = new PropertyModal(TypeModal.Formular, TypeModalSize.Large);
         }

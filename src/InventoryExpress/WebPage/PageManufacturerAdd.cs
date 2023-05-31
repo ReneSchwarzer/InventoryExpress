@@ -45,7 +45,7 @@ namespace InventoryExpress.WebPage
             Form.InitializeFormular += InitializeFormular;
             Form.FillFormular += FillFormular;
             Form.ProcessFormular += ProcessFormular;
-            Form.RedirectUri = ResourceContext.ContextPath.Append("manufacturers");
+            Form.RedirectUri = ApplicationContext.ContextPath.Append("manufacturers");
         }
 
         /// <summary>

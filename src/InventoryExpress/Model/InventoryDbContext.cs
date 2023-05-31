@@ -41,7 +41,7 @@ namespace InventoryExpress.Model
         public DbSet<InventoryJournalParameter> InventoryJournalParameters { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Schlagwörter der Inventargegenstände
+        /// Liefert oder setzt Returns or sets the tags. der Inventargegenstände
         /// </summary>
         public DbSet<InventoryTag> InventoryTags { get; set; }
 
@@ -96,7 +96,7 @@ namespace InventoryExpress.Model
         public DbSet<Media> Media { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Schlagwörter
+        /// Liefert oder setzt Returns or sets the tags.
         /// </summary>
         public DbSet<Tag> Tags { get; set; }
 

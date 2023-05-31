@@ -62,12 +62,12 @@ namespace InventoryExpress.WebPage
         /// <param name="e">The event argument./param>
         private void OnConfirmFormular(object sender, FormularEventArgs e)
         {
-            var Guid = e.Context.Request.GetParameter("ManufacturerId")?.Value;
-            var manufacturer = ViewModel.GetManufacturer(Guid);
+            var guid = e.Context.Request.GetParameter("ManufacturerId")?.Value;
+            var manufacturer = ViewModel.GetManufacturer(guid);
 
             using (var transaction = ViewModel.BeginTransaction())
             {
-                ViewModel.DeleteManufacturer(Guid);
+                ViewModel.DeleteManufacturer(guid);
 
                 transaction.Commit();
             }

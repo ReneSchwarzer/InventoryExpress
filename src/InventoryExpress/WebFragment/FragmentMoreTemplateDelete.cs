@@ -41,8 +41,8 @@ namespace InventoryExpress.WebFragment
         /// <returns>The control as html.</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var Guid = context.Request.GetParameter("TemplateId")?.Value;
-            var template = ViewModel.GetTemplate(Guid);
+            var guid = context.Request.GetParameter("TemplateId")?.Value;
+            var template = ViewModel.GetTemplate(guid);
             var inUse = ViewModel.GetTemplateInUse(template);
 
             Active = inUse ? TypeActive.Disabled : TypeActive.None;

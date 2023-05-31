@@ -11,11 +11,6 @@ namespace InventoryExpress.Model
     public partial class ViewModel
     {
         /// <summary>
-        /// Instanz des einzigen Modells
-        /// </summary>
-        public static string RootUri { get; private set; }
-
-        /// <summary>
         /// Ermittelt die Uri des Anwendungsicons 
         /// </summary>
         public static string ApplicationIcon { get; private set; }
@@ -62,7 +57,6 @@ namespace InventoryExpress.Model
         {
             ModuleContext = moduleContext;
             ApplicationIcon = applicationContext.Icon.ToString();
-            RootUri = moduleContext.ContextPath.ToString();
 
             var path = Path.Combine(moduleContext.DataPath, "db");
 

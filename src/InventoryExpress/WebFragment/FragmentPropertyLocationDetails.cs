@@ -63,8 +63,8 @@ namespace InventoryExpress.WebFragment
         /// <returns>The control as html.</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var Guid = context.Request.GetParameter("LocationId")?.Value;
-            var location = ViewModel.GetLocation(Guid);
+            var guid = context.Request.GetParameter("LocationId")?.Value;
+            var location = ViewModel.GetLocation(guid);
 
             CreationDateAttribute.Value = location?.Created.ToString(context.Culture.DateTimeFormat.ShortDatePattern);
             UpdateDateAttribute.Value = location?.Updated.ToString

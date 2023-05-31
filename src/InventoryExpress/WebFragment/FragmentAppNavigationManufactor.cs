@@ -5,8 +5,8 @@ using WebExpress.UI.WebControl;
 using WebExpress.UI.WebFragment;
 using WebExpress.WebApp.WebFragment;
 using WebExpress.WebAttribute;
+using WebExpress.WebComponent;
 using WebExpress.WebPage;
-using WebExpress.WebUri;
 
 namespace InventoryExpress.WebFragment
 {
@@ -33,7 +33,7 @@ namespace InventoryExpress.WebFragment
             base.Initialization(context, page);
 
             Text = "inventoryexpress:inventoryexpress.manufacturers.label";
-            Uri = UriResource.Combine(context.ApplicationContext.ContextPath, "manufacturers");
+            Uri = ComponentManager.SitemapManager.GetUri<PageManufacturers>();
             Icon = new PropertyIcon(TypeIcon.Industry);
             Active = page is IPageManufacturer ? TypeActive.Active : TypeActive.None;
         }

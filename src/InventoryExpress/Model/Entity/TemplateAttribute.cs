@@ -15,7 +15,7 @@ namespace InventoryExpress.Model.Entity
         public int AttributeId { get; set; }
 
         /// <summary>
-        /// Der Zeitstempel der Erstellung
+        /// Returns or sets the timestamp of the creation.
         /// </summary>
         public DateTime Created { get; set; }
 

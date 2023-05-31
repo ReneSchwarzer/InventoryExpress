@@ -1,5 +1,6 @@
 ﻿using InventoryExpress.Model;
 using InventoryExpress.Model.WebItems;
+using InventoryExpress.Parameters;
 using InventoryExpress.WebControl;
 using System;
 using WebExpress.Internationalization;
@@ -13,7 +14,7 @@ using WebExpress.WebResource;
 namespace InventoryExpress.WebPage
 {
     [WebExTitle("inventoryexpress:inventoryexpress.costcenter.edit.label")]
-    [WebExSegmentGuid("CostCenterId", "inventoryexpress:inventoryexpress.costcenter.edit.display")]
+    [WebExSegmentGuid(typeof(ParameterCostCenterId), "inventoryexpress:inventoryexpress.costcenter.edit.display")]
     [WebExContextPath("/")]
     [WebExParent(typeof(PageCostCenters))]
     [WebExModule(typeof(Module))]
@@ -120,8 +121,8 @@ namespace InventoryExpress.WebPage
         {
             base.Process(context);
 
-            var Guid = context.Request.GetParameter("CostCenterId")?.Value;
-            CostCenter = ViewModel.GetCostCenter(Guid);
+            var guid = context.Request.GetParameter("CostCenterId")?.Value;
+            CostCenter = ViewModel.GetCostCenter(guid);
 
             Uri.Display = CostCenter.Name;
             context.VisualTree.Content.Primary.Add(Form);

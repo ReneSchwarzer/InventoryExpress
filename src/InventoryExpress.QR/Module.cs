@@ -3,7 +3,6 @@ using WebExpress.WebModule;
 
 namespace InventoryExpress.QR
 {
-    [WebExId("InventoryExpress.QR")]
     [WebExName("module.name")]
     [WebExDescription("module.description")]
     [WebExIcon("/assets/img/Logo.png")]

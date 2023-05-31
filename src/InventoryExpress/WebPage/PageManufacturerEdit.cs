@@ -126,8 +126,8 @@ namespace InventoryExpress.WebPage
         {
             base.Process(context);
 
-            var Guid = context.Request.GetParameter("ManufacturerId")?.Value;
-            Manufacturer = ViewModel.GetManufacturer(Guid);
+            var guid = context.Request.GetParameter("ManufacturerId")?.Value;
+            Manufacturer = ViewModel.GetManufacturer(guid);
 
             Uri.Display = Manufacturer.Name;
             context.VisualTree.Content.Primary.Add(Form);

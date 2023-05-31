@@ -75,8 +75,8 @@ namespace InventoryExpress.WebFragment
         /// <returns>The control as html.</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var Guid = context.Request.GetParameter("MediaId")?.Value;
-            var media = ViewModel.GetMedia(Guid);
+            var guid = context.Request.GetParameter("MediaId")?.Value;
+            var media = ViewModel.GetMedia(guid);
 
             CreationDateAttribute.Value = media?.Created.ToString(context.Culture.DateTimeFormat.ShortDatePattern);
             UpdateDateAttribute.Value = media?.Updated.ToString

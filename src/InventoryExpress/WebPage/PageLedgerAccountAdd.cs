@@ -44,7 +44,7 @@ namespace InventoryExpress.WebPage
             Form.InitializeFormular += InitializeFormular;
             Form.FillFormular += FillFormular;
             Form.ProcessFormular += ProcessFormular;
-            Form.RedirectUri = ResourceContext.ContextPath.Append("ledgeraccounts");
+            Form.RedirectUri = ApplicationContext.ContextPath.Append("ledgeraccounts");
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace InventoryExpress.WebPage
         /// <param name="e">The event argument./param>
         private void ProcessFormular(object sender, FormularEventArgs e)
         {
-            // Neues Sachkonto erstellen und speichern
+            // create and save a new ledger account
             var ledgeraccount = new WebItemEntityLedgerAccount()
             {
                 Name = Form.LedgerAccountName.Value,

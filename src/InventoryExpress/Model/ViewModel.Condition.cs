@@ -1,61 +1,55 @@
 ﻿using InventoryExpress.Model.Entity;
 using InventoryExpress.Model.WebItems;
+using InventoryExpress.Parameters;
+using InventoryExpress.WebPageSetting;
+using InventoryExpress.WebResource;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using WebExpress.WebApp.Wql;
+using WebExpress.WebComponent;
 
 namespace InventoryExpress.Model
 {
     public partial class ViewModel
     {
         /// <summary>
-        /// Ermittelt die Zustands-URL
+        /// Returns the state uri.
         /// </summary>
-        /// <returns>Die Uri oder null</returns>
+        /// <returns>The uri or null.</returns>
         public static string GetConditionsUri()
         {
-            return $"{RootUri}/setting/conditions";
+            return ComponentManager.SitemapManager.GetUri<PageSettingConditions>();
         }
 
         /// <summary>
-        /// Ermittelt die Zustands-URL
+        /// Returns the state uri.
         /// </summary>
-        /// <param name="Guid">Die Id des Zustandes</param>
-        /// <returns>Die Uri oder null</returns>
-        public static string GetConditionUri(string Guid)
+        /// <param name="guid">Returns or sets the id. des Zustandes</param>
+        /// <returns>The uri or null.</returns>
+        public static string GetConditionUri(string guid)
         {
-            return $"{GetConditionsUri()}/{Guid}";
+            return ComponentManager.SitemapManager.GetUri<PageSettingConditionEdit>(new ParameterConditionId(guid));
         }
 
         /// <summary>
-        /// Ermittelt die Zustands-URL
+        /// Returns the state uri.
         /// </summary>
-        /// <param name="Guid">Die Id des Zustandes</param>
-        /// <returns>Die Uri oder null</returns>
-        public static string GetConditionAddUri(string Guid)
+        /// <param name="guid">Returns or sets the id. des Zustandes</param>
+        /// <returns>The uri or null.</returns>
+        public static string GetConditionAddUri(string guid)
         {
-            return $"{GetConditionsUri()}/add/{Guid}";
+            return ComponentManager.SitemapManager.GetUri<PageSettingConditionAdd>();
         }
 
         /// <summary>
-        /// Ermittelt die Zustands-URL
-        /// </summary>
-        /// <param name="Guid">Die Id des Zustandes</param>
-        /// <returns>Die Uri oder null</returns>
-        public static string GetConditionEditUri(string Guid)
-        {
-            return $"{GetConditionsUri()}/edit/{Guid}";
-        }
-
-        /// <summary>
-        /// Ermittelt die Zustands-URL
+        /// Returns the state uri.
         /// </summary>
         /// <param name="grade">Der Zustand</param>
-        /// <returns>Die Uri oder null</returns>
+        /// <returns>The uri or null.</returns>
         public static string GetConditionIamgeUri(int grade)
         {
-            return $"{RootUri}/assets/img/condition_{grade}.svg";
+            return ComponentManager.SitemapManager.GetUri<ResourceAsset>().Append($"/img/condition_{grade}.svg");
         }
 
         /// <summary>
@@ -76,7 +70,7 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Liefert ein Zustand
         /// </summary>
-        /// <param name="id">Die Id des Zustandes</param>
+        /// <param name="id">Returns or sets the id. des Zustandes</param>
         /// <returns>Der Zustand oder null</returns>
         public static WebItemEntityCondition GetCondition(string id)
         {
@@ -181,7 +175,7 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Löscht ein Zustand
         /// </summary>
-        /// <param name="id">Die Id des Zustandes</param>
+        /// <param name="id">Returns or sets the id. des Zustandes</param>
         public static void DeleteCondition(string id)
         {
             lock (DbContext)

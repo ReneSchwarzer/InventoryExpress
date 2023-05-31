@@ -6,7 +6,7 @@ namespace InventoryExpress.Model.WebItems
     public class WebItemEntityBaseTag : WebItemEntity
     {
         /// <summary>
-        /// Die Schlagwörter
+        /// Returns or sets the tags.
         /// </summary>
         [JsonPropertyName("tag")]
         public string Tag { get; set; }

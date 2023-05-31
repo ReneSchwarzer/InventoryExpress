@@ -12,13 +12,13 @@ namespace InventoryExpress.Model.Entity
     public class Media
     {
         /// <summary>
-        /// Die Id
+        /// Returns or sets the id.
         /// </summary>
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt den Namen
+        /// Returns or sets the name.
         /// </summary>
         public string Name { get; set; }
 
@@ -28,22 +28,22 @@ namespace InventoryExpress.Model.Entity
         public string Description { get; set; }
 
         /// <summary>
-        /// Der Zeitstempel der Erstellung
+        /// Returns or sets the timestamp of the creation.
         /// </summary>
         public DateTime Created { get; set; }
 
         /// <summary>
-        /// Der Zeitstempel der letzten Änderung
+        /// The timestamp of the last change.
         /// </summary>
         public DateTime Updated { get; set; }
 
         /// <summary>
-        /// Die Guid
+        /// Returns or sets the guid.
         /// </summary>
         public string Guid { get; set; }
 
         /// <summary>
-        /// Die Schlagwörter
+        /// Returns or sets the tags.
         /// </summary>
         public string Tag { get; set; }
 

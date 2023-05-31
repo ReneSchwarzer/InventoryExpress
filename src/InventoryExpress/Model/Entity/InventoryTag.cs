@@ -11,7 +11,7 @@
         public int InventoryId { get; set; }
 
         /// <summary>
-        /// Die Id des Schlüsselwortes
+        /// Returns or sets the id. des Schlüsselwortes
         /// </summary>
         public int TagId { get; set; }
 

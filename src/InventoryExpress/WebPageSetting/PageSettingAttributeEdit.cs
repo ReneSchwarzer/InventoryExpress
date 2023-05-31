@@ -122,8 +122,8 @@ namespace InventoryExpress.WebPageSetting
         {
             base.Process(context);
 
-            var Guid = context.Request.GetParameter("AttributeId")?.Value;
-            Attribute = ViewModel.GetAttribute(Guid);
+            var guid = context.Request.GetParameter("AttributeId")?.Value;
+            Attribute = ViewModel.GetAttribute(guid);
 
             Uri.Display = Attribute.Name;
             context.VisualTree.Content.Primary.Add(Form);

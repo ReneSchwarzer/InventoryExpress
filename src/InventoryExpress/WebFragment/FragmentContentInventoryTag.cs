@@ -57,8 +57,8 @@ namespace InventoryExpress.WebFragment
         {
             TagList.Links.Clear();
 
-            var Guid = context.Request.GetParameter("InventoryId")?.Value;
-            var tags = ViewModel.GetInventoryTags(Guid);
+            var guid = context.Request.GetParameter("InventoryId")?.Value;
+            var tags = ViewModel.GetInventoryTags(guid);
 
             TagList.Links.AddRange(tags.Select(x => new ControlLink() { Text = x.Label, Uri = new UriFragment() }));
 

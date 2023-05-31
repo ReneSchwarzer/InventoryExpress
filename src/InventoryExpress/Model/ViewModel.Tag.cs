@@ -13,7 +13,7 @@ namespace InventoryExpress.Model
         /// Liefert alle Schlagwörter
         /// </summary>
         /// <param name="wql">Die Filter- und Sortieroptinen</param>
-        /// <returns>Eine Aufzählung, welche die Schlagwörter beinhaltet</returns>
+        /// <returns>Eine Aufzählung, welche Returns or sets the tags. beinhaltet</returns>
         public static IEnumerable<WebItemEntityTag> GetTags(WqlStatement wql)
         {
             lock (DbContext)
@@ -27,7 +27,7 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Liefert ein Standort
         /// </summary>
-        /// <param name="id">Die Id des Standortes</param>
+        /// <param name="id">Returns or sets the id. des Standortes</param>
         /// <returns>Der Standort oder null</returns>
         public static WebItemEntityTag GetTag(string id)
         {
@@ -72,7 +72,7 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Löscht ein Schlagwort
         /// </summary>
-        /// <param name="id">Die Id des Schlagwortes</param>
+        /// <param name="id">Returns or sets the id. des Schlagwortes</param>
         public static void DeleteTag(string id)
         {
             lock (DbContext)
@@ -90,13 +90,13 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Ermittelt alle Schlagwörter zu einem Inventargegenstand
         /// </summary>
-        /// <param name="Guid">The id of the inventory item.</param>
-        /// <returns>Eine Aufzählung mit den Schlagwörtern</returns>
-        public static IEnumerable<WebItemEntityTag> GetInventoryTags(string Guid)
+        /// <param name="guid">The id of the inventory item.</param>
+        /// <returns>A list with the tags.</returns>
+        public static IEnumerable<WebItemEntityTag> GetInventoryTags(string guid)
         {
             lock (DbContext)
             {
-                var inventoryEntity = DbContext.Inventories.Where(x => x.Guid == Guid).FirstOrDefault();
+                var inventoryEntity = DbContext.Inventories.Where(x => x.Guid == guid).FirstOrDefault();
 
                 if (inventoryEntity != null)
                 {

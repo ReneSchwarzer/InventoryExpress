@@ -5,6 +5,7 @@ using WebExpress.UI.WebControl;
 using WebExpress.UI.WebFragment;
 using WebExpress.WebApp.WebFragment;
 using WebExpress.WebAttribute;
+using WebExpress.WebComponent;
 using WebExpress.WebPage;
 
 namespace InventoryExpress.WebFragment
@@ -31,7 +32,7 @@ namespace InventoryExpress.WebFragment
             base.Initialization(context, page);
 
             Text = "inventoryexpress:inventoryexpress.attribute.label";
-            Uri = context.ModuleContext.ContextPath.Append("setting/attributes");
+            Uri = ComponentManager.SitemapManager.GetUri<PageSettingAttributes>();
             Icon = new PropertyIcon(TypeIcon.Cubes);
         }
 

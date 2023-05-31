@@ -1,9 +1,12 @@
 ﻿using InventoryExpress.Model.Entity;
 using InventoryExpress.Model.WebItems;
+using InventoryExpress.Parameters;
+using InventoryExpress.WebPage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using WebExpress.WebApp.Wql;
+using WebExpress.WebComponent;
 
 namespace InventoryExpress.Model
 {
@@ -12,11 +15,11 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Ermittelt die Sachkonten-URL
         /// </summary>
-        /// <param name="Guid">Die Id des Sachkontos</param>
-        /// <returns>Die Uri oder null</returns>
-        public static string GetLedgerAccountUri(string Guid)
+        /// <param name="guid">Returns or sets the id. des Sachkontos</param>
+        /// <returns>The uri or null.</returns>
+        public static string GetLedgerAccountUri(string guid)
         {
-            return $"{RootUri}/ledgeraccounts/{Guid}";
+            return ComponentManager.SitemapManager.GetUri<PageLedgerAccountEdit>(new ParameterLedgerAccountId(guid));
         }
 
         /// <summary>
@@ -37,7 +40,7 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Liefert ein Sachkonto
         /// </summary>
-        /// <param name="id">Die Id des Sachkontos</param>
+        /// <param name="id">Returns or sets the id. des Sachkontos</param>
         /// <returns>Das Sachkonto oder null</returns>
         public static WebItemEntityLedgerAccount GetLedgerAccount(string id)
         {
@@ -142,7 +145,7 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Löscht ein Sachkonto
         /// </summary>
-        /// <param name="id">Die Id des Sachkontos</param>
+        /// <param name="id">Returns or sets the id. des Sachkontos</param>
         public static void DeleteLedgerAccount(string id)
         {
             lock (DbContext)

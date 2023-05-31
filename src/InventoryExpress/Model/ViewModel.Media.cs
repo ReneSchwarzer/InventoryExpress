@@ -1,8 +1,11 @@
 ﻿using InventoryExpress.Model.Entity;
 using InventoryExpress.Model.WebItems;
+using InventoryExpress.Parameters;
+using InventoryExpress.WebResource;
 using System;
 using System.IO;
 using System.Linq;
+using WebExpress.WebComponent;
 using WebExpress.WebMessage;
 
 namespace InventoryExpress.Model
@@ -10,20 +13,20 @@ namespace InventoryExpress.Model
     public partial class ViewModel
     {
         /// <summary>
-        /// Ermittelt die Media-URL
+        /// Returns the media uri.
         /// </summary>
-        /// <param name="Guid">Die Id des Dokumentes</param>
-        /// <returns>Die Uri oder null</returns>
-        public static string GetMediaUri(string Guid)
+        /// <param name="guid">Returns or sets the id. des Dokumentes</param>
+        /// <returns>The uri or null.</returns>
+        public static string GetMediaUri(string guid)
         {
-            return $"{RootUri}/media/{Guid}";
+            return ComponentManager.SitemapManager.GetUri<ResourceMedia>(new ParameterMediaId(guid));
         }
 
         /// <summary>
-        /// Ermittelt die Media-URL
+        /// Returns the media uri.
         /// </summary>
-        /// <param name="id">Die Id des Dokumentes</param>
-        /// <returns>Die Uri oder null</returns>
+        /// <param name="id">Returns or sets the id. des Dokumentes</param>
+        /// <returns>The uri or null.</returns>
         public static string GetMediaUri(int? id)
         {
             if (!id.HasValue) { return ApplicationIcon; }
@@ -37,10 +40,10 @@ namespace InventoryExpress.Model
         }
 
         /// <summary>
-        /// Ermittelt die Media-URL
+        /// Returns the media uri.
         /// </summary>
-        /// <param name="id">Die Id des Dokumentes</param>
-        /// <returns>Die Uri oder null</returns>
+        /// <param name="id">Returns or sets the id. des Dokumentes</param>
+        /// <returns>The media.</returns>
         public static WebItemEntityMedia GetMedia(int? id)
         {
             if (!id.HasValue) { return new WebItemEntityMedia() { Uri = ViewModel.ApplicationIcon }; }
@@ -54,10 +57,10 @@ namespace InventoryExpress.Model
         }
 
         /// <summary>
-        /// Ermittelt die Media-URL
+        /// Returns the media uri.
         /// </summary>
-        /// <param name="id">Die Kostenstelle</param>
-        /// <returns>Das Dokument</returns>
+        /// <param name="costCenter">The cost center.</param>
+        /// <returns>The media.</returns>
         public static WebItemEntityMedia GetMedia(WebItemEntityCostCenter costCenter)
         {
             if (costCenter == null) { return new WebItemEntityMedia() { Uri = ApplicationIcon }; }
@@ -74,15 +77,15 @@ namespace InventoryExpress.Model
         }
 
         /// <summary>
-        /// Ermittelt die Media-URL
+        /// Returns the media uri.
         /// </summary>
-        /// <param name="Guid">Die Id des Dokumentes</param>
-        /// <returns>Die Uri oder null</returns>
-        public static WebItemEntityMedia GetMedia(string Guid)
+        /// <param name="guid">Returns or sets the id. des Dokumentes</param>
+        /// <returns>The media.</returns>
+        public static WebItemEntityMedia GetMedia(string guid)
         {
             lock (DbContext)
             {
-                var media = DbContext.Media.Where(x => x.Guid == Guid).Select(x => new WebItemEntityMedia(x)).FirstOrDefault();
+                var media = DbContext.Media.Where(x => x.Guid == guid).Select(x => new WebItemEntityMedia(x)).FirstOrDefault();
 
                 return media ?? new WebItemEntityMedia();
             }
@@ -112,7 +115,7 @@ namespace InventoryExpress.Model
 
                 if (availableEntity == null)
                 {
-                    // Neu erstellen
+                    // rebuild
                     var entity = new Media()
                     {
                         Guid = guid,
@@ -138,7 +141,7 @@ namespace InventoryExpress.Model
                     costCenter.Media.Name = filename;
                     costCenter.Media.Id = guid;
 
-                    // Update
+                    // update
                     availableEntity.Name = filename;
                     availableEntity.Guid = guid;
                     availableEntity.Updated = DateTime.Now;
@@ -211,7 +214,7 @@ namespace InventoryExpress.Model
                     inventory.Media.Name = filename;
                     inventory.Media.Id = guid;
 
-                    // Update
+                    // update
                     availableEntity.Name = filename;
                     availableEntity.Guid = guid;
                     availableEntity.Updated = DateTime.Now;
@@ -258,7 +261,7 @@ namespace InventoryExpress.Model
 
                 if (availableEntity == null)
                 {
-                    // Neu erstellen
+                    // rebuild
                     var entity = new Media()
                     {
                         Guid = guid,
@@ -284,7 +287,7 @@ namespace InventoryExpress.Model
                     ledgerAccount.Media.Name = filename;
                     ledgerAccount.Media.Id = guid;
 
-                    // Update
+                    // update
                     availableEntity.Name = filename;
                     availableEntity.Guid = guid;
                     availableEntity.Updated = DateTime.Now;
@@ -323,7 +326,7 @@ namespace InventoryExpress.Model
 
                 if (availableEntity == null)
                 {
-                    // Neu erstellen
+                    // rebuild
                     var entity = new Media()
                     {
                         Guid = guid,
@@ -349,7 +352,7 @@ namespace InventoryExpress.Model
                     location.Media.Name = filename;
                     location.Media.Id = guid;
 
-                    // Update
+                    // update
                     availableEntity.Name = filename;
                     availableEntity.Guid = guid;
                     availableEntity.Updated = DateTime.Now;
@@ -388,7 +391,7 @@ namespace InventoryExpress.Model
 
                 if (availableEntity == null)
                 {
-                    // Neu erstellen
+                    // rebuild
                     var entity = new Media()
                     {
                         Guid = guid,
@@ -414,7 +417,7 @@ namespace InventoryExpress.Model
                     manufacturer.Media.Name = filename;
                     manufacturer.Media.Id = guid;
 
-                    // Update
+                    // update
                     availableEntity.Name = filename;
                     availableEntity.Guid = guid;
                     availableEntity.Updated = DateTime.Now;
@@ -453,7 +456,7 @@ namespace InventoryExpress.Model
 
                 if (availableEntity == null)
                 {
-                    // Neu erstellen
+                    // rebuild
                     var entity = new Media()
                     {
                         Guid = guid,
@@ -479,7 +482,7 @@ namespace InventoryExpress.Model
                     supplier.Media.Name = filename;
                     supplier.Media.Id = guid;
 
-                    // Update
+                    // update
                     availableEntity.Name = filename;
                     availableEntity.Guid = guid;
                     availableEntity.Updated = DateTime.Now;
@@ -518,7 +521,7 @@ namespace InventoryExpress.Model
 
                 if (availableEntity == null)
                 {
-                    // Neu erstellen
+                    // rebuild
                     var entity = new Media()
                     {
                         Guid = guid,
@@ -544,7 +547,7 @@ namespace InventoryExpress.Model
                     template.Media.Name = filename;
                     template.Media.Id = guid;
 
-                    // Update
+                    // update
                     availableEntity.Name = filename;
                     availableEntity.Guid = guid;
                     availableEntity.Updated = DateTime.Now;
@@ -585,10 +588,10 @@ namespace InventoryExpress.Model
         }
 
         /// <summary>
-        /// Prüft ob das Dokument in Verwendung ist
+        /// Checks if the document is in use.
         /// </summary>
-        /// <param name="media">Das Dokument</param>
-        /// <returns>True wenn in Verwendung, false sonst</returns>
+        /// <param name="media">The document.</param>
+        /// <returns>True if in use, false otherwise.</returns>
         public static bool GetMediaInUse(WebItemEntityMedia media)
         {
             lock (DbContext)

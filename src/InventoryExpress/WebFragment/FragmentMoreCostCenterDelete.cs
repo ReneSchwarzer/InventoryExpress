@@ -41,8 +41,8 @@ namespace InventoryExpress.WebFragment
         /// <returns>The control as html.</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var Guid = context.Request.GetParameter("CostCenterId")?.Value;
-            var costCenter = ViewModel.GetCostCenter(Guid);
+            var guid = context.Request.GetParameter("CostCenterId")?.Value;
+            var costCenter = ViewModel.GetCostCenter(guid);
             var inUse = ViewModel.GetCostCenterInUse(costCenter);
 
             Active = inUse ? TypeActive.Disabled : TypeActive.None;

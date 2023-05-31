@@ -2,8 +2,8 @@
 using WebExpress.Html;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebAttribute;
-using WebExpress.UI.WebFragment;
 using WebExpress.UI.WebControl;
+using WebExpress.UI.WebFragment;
 using WebExpress.WebApp.WebFragment;
 using WebExpress.WebAttribute;
 using WebExpress.WebPage;
@@ -41,8 +41,8 @@ namespace InventoryExpress.WebFragment
         /// <returns>The control as html.</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var Guid = context.Request.GetParameter("InventoryId")?.Value;
-            var count = ViewModel.CountInventoryAttachments(Guid);
+            var guid = context.Request.GetParameter("InventoryId")?.Value;
+            var count = ViewModel.CountInventoryAttachments(guid);
 
             Text = InternationalizationManager.I18N(context.Culture, "inventoryexpress:inventoryexpress.inventory.attachment.function") + $" ({count})";
             Uri = context.Uri.Append("attachments");

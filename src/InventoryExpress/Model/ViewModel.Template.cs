@@ -1,9 +1,12 @@
 ﻿using InventoryExpress.Model.Entity;
 using InventoryExpress.Model.WebItems;
+using InventoryExpress.Parameters;
+using InventoryExpress.WebPageSetting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using WebExpress.WebApp.Wql;
+using WebExpress.WebComponent;
 
 namespace InventoryExpress.Model
 {
@@ -12,11 +15,11 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Ermittelt die Vorlagen-URL
         /// </summary>
-        /// <param name="Guid">Die Id der Vorlage</param>
-        /// <returns>Die Uri oder null</returns>
-        public static string GetTemplateUri(string Guid)
+        /// <param name="guid">Returns or sets the id. der Vorlage</param>
+        /// <returns>The uri or null.</returns>
+        public static string GetTemplateUri(string guid)
         {
-            return $"{RootUri}/setting/templates/{Guid}";
+            return ComponentManager.SitemapManager.GetUri<PageSettingTemplateEdit>(new ParameterTemplateId(guid));
         }
 
         /// <summary>
@@ -37,7 +40,7 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Liefert eine Vorlage
         /// </summary>
-        /// <param name="id">Die Id der Vorlage</param>
+        /// <param name="id">Returns or sets the id. der Vorlage</param>
         /// <returns>Die Vorlage oder null</returns>
         public static WebItemEntityTemplate GetTemplate(string id)
         {
@@ -133,7 +136,7 @@ namespace InventoryExpress.Model
                         availableMedia.Tag = template.Media?.Tag;
                         availableMedia.Updated = DateTime.Now;
                     }
-                    
+
                     DbContext.SaveChanges();
                 }
             }
@@ -142,7 +145,7 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Löscht ein Standort
         /// </summary>
-        /// <param name="id">Die Id des Standortes</param>
+        /// <param name="id">Returns or sets the id. des Standortes</param>
         public static void DeleteTemplate(string id)
         {
             lock (DbContext)

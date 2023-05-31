@@ -53,8 +53,8 @@ namespace InventoryExpress.WebPage
         /// <param name="e">The event argument.</param>
         private void OnInitializeFormular(object sender, FormularEventArgs e)
         {
-            var Guid = e.Context.Request.GetParameter("InventoryId")?.Value;
-            var inventory = ViewModel.GetInventory(Guid);
+            var guid = e.Context.Request.GetParameter("InventoryId")?.Value;
+            var inventory = ViewModel.GetInventory(guid);
             Form.Content.Text = string.Format(InternationalizationManager.I18N("inventoryexpress:inventoryexpress.inventory.delete.description"), inventory?.Name);
         }
 
@@ -65,8 +65,8 @@ namespace InventoryExpress.WebPage
         /// <param name="e">The event argument./param>
         private void OnConfirmFormular(object sender, FormularEventArgs e)
         {
-            var Guid = e.Context.Request.GetParameter("InventoryId")?.Value;
-            var inventory = ViewModel.GetInventory(Guid);
+            var guid = e.Context.Request.GetParameter("InventoryId")?.Value;
+            var inventory = ViewModel.GetInventory(guid);
 
             using (var transaction = ViewModel.BeginTransaction())
             {

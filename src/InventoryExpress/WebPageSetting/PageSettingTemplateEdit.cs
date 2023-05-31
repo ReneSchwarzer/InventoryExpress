@@ -140,8 +140,8 @@ namespace InventoryExpress.WebPageSetting
         {
             base.Process(context);
 
-            var Guid = context.Request.GetParameter("TemplateId")?.Value;
-            Template = ViewModel.GetTemplate(Guid);
+            var guid = context.Request.GetParameter("TemplateId")?.Value;
+            Template = ViewModel.GetTemplate(guid);
 
             Uri.Display = Template.Name;
             context.VisualTree.Content.Primary.Add(Form);

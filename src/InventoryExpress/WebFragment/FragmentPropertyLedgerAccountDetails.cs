@@ -63,8 +63,8 @@ namespace InventoryExpress.WebFragment
         /// <returns>The control as html.</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var Guid = context.Request.GetParameter("LedgerAccountId")?.Value;
-            var ledgerAccount = ViewModel.GetLedgerAccount(Guid);
+            var guid = context.Request.GetParameter("LedgerAccountId")?.Value;
+            var ledgerAccount = ViewModel.GetLedgerAccount(guid);
 
             CreationDateAttribute.Value = ledgerAccount?.Created.ToString(context.Culture.DateTimeFormat.ShortDatePattern);
             UpdateDateAttribute.Value = ledgerAccount?.Updated.ToString

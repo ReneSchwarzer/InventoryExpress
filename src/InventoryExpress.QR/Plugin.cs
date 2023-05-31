@@ -3,7 +3,6 @@ using WebExpress.WebPlugin;
 
 namespace InventoryExpress.QR
 {
-    [WebExId("InventoryExpress.QR")]
     [WebExName("plugin.name")]
     [WebExDescription("plugin.description")]
     [WebExIcon("/assets/img/qr.svg")]

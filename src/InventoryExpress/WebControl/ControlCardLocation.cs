@@ -15,7 +15,7 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">The id.</param>
+        /// <param name="id">Returns or sets the id.</param>
         public ControlCardLocation(string id = null)
             : base(id)
         {

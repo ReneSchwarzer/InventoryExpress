@@ -13,12 +13,12 @@ namespace InventoryExpress.Model.Entity
         public int InventoryId { get; set; }
 
         /// <summary>
-        /// VDie Id des Dokumented
+        /// VReturns or sets the id. des Dokumented
         /// </summary>
         public int MediaId { get; set; }
 
         /// <summary>
-        /// Der Zeitstempel der Erstellung
+        /// Returns or sets the timestamp of the creation.
         /// </summary>
         public DateTime Created { get; set; }
 

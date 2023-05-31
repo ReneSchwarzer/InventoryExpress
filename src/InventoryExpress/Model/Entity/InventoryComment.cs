@@ -5,13 +5,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace InventoryExpress.Model.Entity
 {
     /// <summary>
-    /// Kommentare eines Inventars
+    /// Comments of an inventory.
     /// </summary>
     [Table("INVENTORYCOMMENT")]
     public partial class InventoryComment
     {
         /// <summary>
-        /// Die Id
+        /// Returns or sets the id.
         /// </summary>
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -28,23 +28,26 @@ namespace InventoryExpress.Model.Entity
         public string Comment { get; set; }
 
         /// <summary>
-        /// Der Zeitstempel der Erstellung
+        /// Returns or sets the timestamp of the creation.
         /// </summary>
         [Column("CREATED")]
         public DateTime Created { get; set; }
 
         /// <summary>
-        /// Der Zeitstempel der letzten Änderung
+        /// The timestamp of the last change.
         /// </summary>
         [Column("UPDATED")]
         public DateTime Updated { get; set; }
 
         /// <summary>
-        /// Die Guid
+        /// Returns or sets the guid.
         /// </summary>
         [Column("Guid")]
         public string Guid { get; set; }
 
+        /// <summary>
+        /// Returns or sets the inventory.
+        /// </summary>
         public virtual Inventory Inventory { get; set; }
     }
 }

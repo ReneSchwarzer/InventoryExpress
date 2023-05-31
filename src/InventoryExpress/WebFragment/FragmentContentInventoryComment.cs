@@ -61,8 +61,8 @@ namespace InventoryExpress.WebFragment
             Form.RedirectUri = context.Uri;
             List.Items.Clear();
 
-            var Guid = context.Request.GetParameter("InventoryId")?.Value;
-            var inventory = ViewModel.GetInventory(Guid);
+            var guid = context.Request.GetParameter("InventoryId")?.Value;
+            var inventory = ViewModel.GetInventory(guid);
 
             foreach (var comment in ViewModel.GetInventoryComments(inventory))
             {

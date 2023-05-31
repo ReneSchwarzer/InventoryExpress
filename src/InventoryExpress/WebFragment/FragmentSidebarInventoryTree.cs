@@ -47,7 +47,7 @@ namespace InventoryExpress.WebFragment
         /// <returns>The control as html.</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var Guid = context.Request.GetParameter("InventoryId")?.Value;
+            var guid = context.Request.GetParameter("InventoryId")?.Value;
             var inventories = ViewModel.GetInventories(new WqlStatement()).OrderBy(x => x.Name);
 
             foreach (var i in inventories)
@@ -57,7 +57,7 @@ namespace InventoryExpress.WebFragment
                     Text = i?.Name,
                     Layout = TypeLayoutTreeItem.TreeView,
                     Uri = context.ContextPath.Append(i.Id),
-                    Active = i.Id == Guid ? TypeActive.Active : TypeActive.None
+                    Active = i.Id == guid ? TypeActive.Active : TypeActive.None
                 };
 
                 control.Expand = control.IsAnyChildrenActive ? TypeExpandTree.Visible : TypeExpandTree.Collapse;
@@ -77,7 +77,7 @@ namespace InventoryExpress.WebFragment
         /// <returns></returns>
         private ControlTreeItemLink[] GetChildren(WebItemEntityInventory parent, RenderContext context)
         {
-            var Guid = context.Request.GetParameter("InventoryId")?.Value;
+            var guid = context.Request.GetParameter("InventoryId")?.Value;
             var children = ViewModel.GetInventoryChildren(parent).OrderBy(x => x.Name);
             var childrenContols = new List<ControlTreeItemLink>();
 
@@ -88,7 +88,7 @@ namespace InventoryExpress.WebFragment
                     Text = i?.Name,
                     Layout = TypeLayoutTreeItem.TreeView,
                     Uri = context.ContextPath.Append(i.Id),
-                    Active = i.Id == Guid ? TypeActive.Active : TypeActive.None
+                    Active = i.Id == guid ? TypeActive.Active : TypeActive.None
                 };
 
                 childrenContols.Add(control);

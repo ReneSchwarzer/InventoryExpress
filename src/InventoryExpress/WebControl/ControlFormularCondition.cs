@@ -40,7 +40,7 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">The id.</param>
+        /// <param name="id">Returns or sets the id.</param>
         public ControlFormularCondition(string id = null)
             : base(id)
         {
@@ -71,8 +71,8 @@ namespace InventoryExpress.WebControl
         /// <param name="e">The event argument./param>
         private void ConditionNameValidation(object sender, ValidationEventArgs e)
         {
-            var Guid = e.Context.Request.GetParameter("ConditionId")?.Value;
-            var condition = ViewModel.GetCondition(Guid);
+            var guid = e.Context.Request.GetParameter("ConditionId")?.Value;
+            var condition = ViewModel.GetCondition(guid);
 
             if (e.Value == null || e.Value.Length < 1)
             {

@@ -57,8 +57,8 @@ namespace InventoryExpress.WebPageSetting
         /// <param name="e">The event argument.</param>
         private void InitializeFormular(object sender, FormularEventArgs e)
         {
-            var Guid = e.Context.Request.GetParameter("ConditionId")?.Value;
-            var condition = ViewModel.GetCondition(Guid);
+            var guid = e.Context.Request.GetParameter("ConditionId")?.Value;
+            var condition = ViewModel.GetCondition(guid);
 
             Form.Content.Text = string.Format(InternationalizationManager.I18N(e.Context, "inventoryexpress:inventoryexpress.condition.delete.description"), condition?.Name);
         }
@@ -70,12 +70,12 @@ namespace InventoryExpress.WebPageSetting
         /// <param name="e">The event argument./param>
         private void OnConfirmFormular(object sender, FormularEventArgs e)
         {
-            var Guid = e.Context.Request.GetParameter("ConditionId")?.Value;
-            var condition = ViewModel.GetCondition(Guid);
+            var guid = e.Context.Request.GetParameter("ConditionId")?.Value;
+            var condition = ViewModel.GetCondition(guid);
 
             using (var transaction = ViewModel.BeginTransaction())
             {
-                ViewModel.DeleteCondition(Guid);
+                ViewModel.DeleteCondition(guid);
 
                 transaction.Commit();
             }

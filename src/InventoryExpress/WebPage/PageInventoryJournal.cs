@@ -42,8 +42,8 @@ namespace InventoryExpress.WebPage
         {
             base.Process(context);
 
-            var Guid = context.Request.GetParameter("InventoryId")?.Value;
-            var inventory = ViewModel.GetInventory(Guid);
+            var guid = context.Request.GetParameter("InventoryId")?.Value;
+            var inventory = ViewModel.GetInventory(guid);
             var journals = ViewModel.GetInventoryJournals(inventory);
 
             var list = new ControlList() { Layout = TypeLayoutList.Flush };

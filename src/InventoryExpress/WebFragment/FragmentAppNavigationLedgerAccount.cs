@@ -5,8 +5,8 @@ using WebExpress.UI.WebControl;
 using WebExpress.UI.WebFragment;
 using WebExpress.WebApp.WebFragment;
 using WebExpress.WebAttribute;
+using WebExpress.WebComponent;
 using WebExpress.WebPage;
-using WebExpress.WebUri;
 
 namespace InventoryExpress.WebFragment
 {
@@ -33,7 +33,7 @@ namespace InventoryExpress.WebFragment
             base.Initialization(context, page);
 
             Text = "inventoryexpress:inventoryexpress.ledgeraccounts.label";
-            Uri = UriResource.Combine(context.ApplicationContext.ContextPath, "ledgeraccounts");
+            Uri = ComponentManager.SitemapManager.GetUri<PageLedgerAccounts>();
             Icon = new PropertyIcon(TypeIcon.At);
             Active = page is IPageLedgerAccount ? TypeActive.Active : TypeActive.None;
         }

@@ -1,21 +1,23 @@
 ﻿using InventoryExpress.Model.Entity;
 using InventoryExpress.Model.WebItems;
+using InventoryExpress.WebPageSetting;
 using System.Collections.Generic;
 using System.Linq;
 using WebExpress.WebApp.Wql;
+using WebExpress.WebComponent;
 
 namespace InventoryExpress.Model
 {
     public partial class ViewModel
     {
         /// <summary>
-        /// Ermittelt die Attribut-URL
+        /// Returns the attribute uri.
         /// </summary>
-        /// <param name="Guid">Die Id des Attributes</param>
-        /// <returns>Die Uri oder null</returns>
-        public static string GetAttributeUri(string Guid)
+        /// <param name="guid">Returns or sets the id. des Attributes</param>
+        /// <returns>The uri or null.</returns>
+        public static string GetAttributeUri(string guid)
         {
-            return $"{RootUri}/setting/attributes/{Guid}";
+            return ComponentManager.SitemapManager.GetUri<PageSettingAttributes>()?.Append(guid);
         }
 
         /// <summary>
@@ -55,7 +57,7 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Liefert ein Attribut
         /// </summary>
-        /// <param name="id">Die Id des Attributes</param>
+        /// <param name="id">Returns or sets the id. des Attributes</param>
         /// <returns>Das Attribut oder null</returns>
         public static WebItemEntityAttribute GetAttribute(string id)
         {
@@ -140,7 +142,7 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Löscht ein Attribut
         /// </summary>
-        /// <param name="id">Die Id des Attributes</param>
+        /// <param name="id">Returns or sets the id. des Attributes</param>
         public static void DeleteAttribute(string id)
         {
             lock (DbContext)

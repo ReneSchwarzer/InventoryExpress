@@ -18,13 +18,13 @@ namespace InventoryExpress.Model.WebItems
         public string Action { get; set; }
 
         /// <summary>
-        /// Der Zeitstempel der Erstellung
+        /// Returns or sets the timestamp of the creation.
         /// </summary>
         [JsonPropertyName("created")]
         public DateTime Created { get; set; } = DateTime.Now;
 
         /// <summary>
-        /// Verweis auf die Parameter
+        /// Returns or sets the reference to the parameters.
         /// </summary>
         public virtual IEnumerable<WebItemEntityJournalParameter> Parameters { get; set; } = new List<WebItemEntityJournalParameter>();
 

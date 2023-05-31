@@ -4,42 +4,42 @@ using System.Collections.Generic;
 namespace InventoryExpress.Model.Entity
 {
     /// <summary>
-    /// Journal eines Inventars
+    /// Journal of an inventory.
     /// </summary>
     public partial class InventoryJournal
     {
         /// <summary>
-        /// Die Id
+        /// Returns or sets the id.
         /// </summary>
         public int Id { get; set; }
 
         /// <summary>
-        /// Das Inventar
+        /// Returns or sets the inventory id.
         /// </summary>
         public int InventoryId { get; set; }
 
         /// <summary>
-        /// Die Aktion
+        /// Returns or sets the action.
         /// </summary>
         public string Action { get; set; }
 
         /// <summary>
-        /// Der Zeitstempel der Erstellung
+        /// Returns or sets the timestamp of the creation.
         /// </summary>
         public DateTime Created { get; set; }
 
         /// <summary>
-        /// Die Guid
+        /// Returns or sets the guid.
         /// </summary>
         public string Guid { get; set; }
 
         /// <summary>
-        /// Verweis auf den zugehörige Inventargegenstand
+        /// /// Returns or sets the reference to the associated inventory item.
         /// </summary>
         public virtual Inventory Inventory { get; set; }
 
         /// <summary>
-        /// Verweis auf die Parameter
+        /// Returns or sets the reference to the parameters.
         /// </summary>
         public virtual ICollection<InventoryJournalParameter> InventoryJournalParameters { get; set; }
     }

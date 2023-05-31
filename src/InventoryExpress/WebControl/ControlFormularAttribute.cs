@@ -35,7 +35,7 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">The id.</param>
+        /// <param name="id">Returns or sets the id.</param>
         public ControlFormularAttribute(string id = null)
             : base(id)
         {
@@ -66,8 +66,8 @@ namespace InventoryExpress.WebControl
         /// <param name="e">The event argument./param>
         private void AttributeNameValidation(object sender, ValidationEventArgs e)
         {
-            var Guid = e.Context.Request.GetParameter("AttributeId")?.Value;
-            var attribute = ViewModel.GetAttribute(Guid);
+            var guid = e.Context.Request.GetParameter("AttributeId")?.Value;
+            var attribute = ViewModel.GetAttribute(guid);
 
             if (e.Value == null || e.Value.Length < 1)
             {

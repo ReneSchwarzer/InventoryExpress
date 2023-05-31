@@ -1,22 +1,24 @@
 ﻿using InventoryExpress.WebPage;
+using InventoryExpress.WebPageSetting;
 using WebExpress.Html;
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebControl;
 using WebExpress.UI.WebFragment;
 using WebExpress.WebApp.WebFragment;
 using WebExpress.WebAttribute;
+using WebExpress.WebComponent;
 using WebExpress.WebPage;
 
 namespace InventoryExpress.WebFragment
 {
     [WebExSection(Section.AppSettingsSecondary)]
     [WebExModule(typeof(Module))]
-    public sealed class FragmentSettingsSettings : FragmentControlDropdownItemLink
+    public sealed class FragmentSettingsGeneral : FragmentControlDropdownItemLink
     {
         /// <summary>
         /// Constructor
         /// </summary>
-        public FragmentSettingsSettings()
+        public FragmentSettingsGeneral()
             : base()
         {
         }
@@ -31,7 +33,7 @@ namespace InventoryExpress.WebFragment
             base.Initialization(context, page);
 
             Text = "inventoryexpress:inventoryexpress.setting.label";
-            Uri = context.ModuleContext.ContextPath.Append("setting/general");
+            Uri = ComponentManager.SitemapManager.GetUri<PageSettingGeneral>();
             Icon = new PropertyIcon(TypeIcon.Cog);
         }
 

@@ -1,9 +1,12 @@
 ﻿using InventoryExpress.Model.Entity;
 using InventoryExpress.Model.WebItems;
+using InventoryExpress.Parameters;
+using InventoryExpress.WebPage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using WebExpress.WebApp.Wql;
+using WebExpress.WebComponent;
 
 namespace InventoryExpress.Model
 {
@@ -12,11 +15,11 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Ermittelt die Lieferanten-URL
         /// </summary>
-        /// <param name="Guid">Die Id des Lieferanten</param>
-        /// <returns>Die Uri oder null</returns>
-        public static string GetSupplierUri(string Guid)
+        /// <param name="guid">Returns or sets the id. des Lieferanten</param>
+        /// <returns>The uri or null.</returns>
+        public static string GetSupplierUri(string guid)
         {
-            return $"{RootUri}/suppliers/{Guid}";
+            return ComponentManager.SitemapManager.GetUri<PageSupplierEdit>(new ParameterSupplierId(guid));
         }
 
         /// <summary>
@@ -37,7 +40,7 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Liefert ein Lieferant
         /// </summary>
-        /// <param name="id">Die Id des Lieferanten</param>
+        /// <param name="id">Returns or sets the id. des Lieferanten</param>
         /// <returns>Der Lieferant oder null</returns>
         public static WebItemEntitySupplier GetSupplier(string id)
         {
@@ -148,7 +151,7 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Löscht ein Lieferant
         /// </summary>
-        /// <param name="id">Die Id des Lieferanten</param>
+        /// <param name="id">Returns or sets the id. des Lieferanten</param>
         public static void DeleteSupplier(string id)
         {
             lock (DbContext)

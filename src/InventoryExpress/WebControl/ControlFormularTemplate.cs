@@ -45,7 +45,7 @@ namespace InventoryExpress.WebControl
         };
 
         /// <summary>
-        /// Liefert die Schlagwörter
+        /// Liefert Returns or sets the tags.
         /// </summary>
         public ControlApiFormularItemInputSelection Tag { get; } = new ControlApiFormularItemInputSelection("tags")
         {
@@ -59,7 +59,7 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">The id.</param>
+        /// <param name="id">Returns or sets the id.</param>
         public ControlFormularTemplate(string id = null)
             : base(id)
         {
@@ -94,8 +94,8 @@ namespace InventoryExpress.WebControl
         /// <param name="e">The event argument./param>
         private void TemplateNameValidation(object sender, ValidationEventArgs e)
         {
-            var Guid = e.Context.Request.GetParameter("TemplateId")?.Value;
-            var template = ViewModel.GetTemplate(Guid);
+            var guid = e.Context.Request.GetParameter("TemplateId")?.Value;
+            var template = ViewModel.GetTemplate(guid);
 
             if (e.Value == null || e.Value.Length < 1)
             {
