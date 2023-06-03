@@ -1,4 +1,5 @@
 ﻿using InventoryExpress.Model;
+using InventoryExpress.Parameter;
 using System.IO;
 using WebExpress.WebAttribute;
 using WebExpress.WebMessage;
@@ -8,10 +9,10 @@ using static WebExpress.Internationalization.InternationalizationManager;
 namespace InventoryExpress.WebResource
 {
     /// <summary>
-    /// Lieferung einer im Assamby eingebetteten Ressource
+    /// Delivery of a resource embedded in the assamby.
     /// </summary>
     [WebExTitle("Media")]
-    [WebExSegmentGuid("MediaId", "")]
+    [WebExSegmentGuid<ParameterMediaId>("")]
     [WebExContextPath("/media")]
     [WebExIncludeSubPaths(false)]
     [WebExModule<Module>]

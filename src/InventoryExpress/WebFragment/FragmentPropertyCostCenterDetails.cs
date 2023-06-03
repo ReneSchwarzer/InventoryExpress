@@ -1,4 +1,5 @@
 ﻿using InventoryExpress.Model;
+using InventoryExpress.WebPage;
 using WebExpress.Html;
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebControl;
@@ -14,7 +15,7 @@ namespace InventoryExpress.WebFragment
     /// </summary>
     [WebExSection(Section.PropertyPrimary)]
     [WebExModule<Module>]
-    [WebExContext("costcenteredit")]
+    [WebExScope<PageCostCenterEdit>]
     public sealed class FragmentPropertyCostCenterDetails : FragmentControlList
     {
         /// <summary>

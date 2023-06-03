@@ -12,7 +12,6 @@ namespace InventoryExpress.WebFragment
 {
     [WebExSection(Section.PropertyPrimary)]
     [WebExModule<Module>]
-    [WebExContext("media")]
     public sealed class FragmentPropertyMediaDetails : FragmentControlList
     {
         /// <summary>

@@ -9,18 +9,17 @@ using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
 using WebExpress.WebResource;
+using WebExpress.WebScope;
 
 namespace InventoryExpress.WebPage
 {
     [WebExTitle("inventoryexpress:inventoryexpress.inventory.edit.label")]
     [WebExSegment("edit", "inventoryexpress:inventoryexpress.inventory.edit.display")]
     [WebExContextPath("/")]
-    [WebExParent(typeof(PageInventoryDetails))]
+    [WebExParent<PageInventoryDetails>]
     [WebExModule<Module>]
-    [WebExContext("general")]
-    [WebExContext("inventoryedit")]
     //[Cache]
-    public sealed class PageInventoryEdit : PageWebApp, IPageInventory
+    public sealed class PageInventoryEdit : PageWebApp, IPageInventory, IScope
     {
         /// <summary>
         /// Formular

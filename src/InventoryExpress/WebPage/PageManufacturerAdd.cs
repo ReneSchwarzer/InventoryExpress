@@ -14,10 +14,8 @@ namespace InventoryExpress.WebPage
     [WebExTitle("inventoryexpress:inventoryexpress.manufacturer.add.label")]
     [WebExSegment("add", "inventoryexpress:inventoryexpress.manufacturer.add.label")]
     [WebExContextPath("/")]
-    [WebExParent(typeof(PageManufacturers))]
+    [WebExParent<PageManufacturers>]
     [WebExModule<Module>]
-    [WebExContext("general")]
-    [WebExContext("manufactureradd")]
     public sealed class PageManufacturerAdd : PageWebApp, IPageManufacturer
     {
         /// <summary>

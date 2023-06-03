@@ -6,17 +6,16 @@ using WebExpress.WebApp.WebControl;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
+using WebExpress.WebScope;
 
 namespace InventoryExpress.WebPage
 {
     [WebExTitle("inventoryexpress:inventoryexpress.inventory.attachment.label")]
     [WebExSegment("attachments", "inventoryexpress:inventoryexpress.inventory.attachment.display")]
     [WebExContextPath("/")]
-    [WebExParent(typeof(PageInventoryDetails))]
+    [WebExParent<PageInventoryDetails>]
     [WebExModule<Module>]
-    [WebExContext("general")]
-    [WebExContext("attachment")]
-    public sealed class PageInventoryAttachments : PageWebApp, IPageInventory
+    public sealed class PageInventoryAttachments : PageWebApp, IPageInventory, IScope
     {
         /// <summary>
         /// Constructor

@@ -12,7 +12,6 @@ namespace InventoryExpress.WebFragment
 {
     [WebExSection(Section.MoreSecondary)]
     [WebExModule<Module>]
-    [WebExContext("media")]
     public sealed class FragmentMoreMediaDelete : FragmentControlDropdownItemLink
     {
         /// <summary>

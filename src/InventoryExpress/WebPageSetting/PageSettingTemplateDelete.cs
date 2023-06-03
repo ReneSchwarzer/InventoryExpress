@@ -15,12 +15,10 @@ namespace InventoryExpress.WebPageSetting
     [WebExTitle("inventoryexpress:inventoryexpress.template.delete.label")]
     [WebExSegment("del")]
     [WebExContextPath("/")]
-    [WebExParent(typeof(PageSettingTemplates))]
+    [WebExParent<PageSettingTemplates>]
     [WebExSettingHide()]
     [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
     [WebExModule<Module>]
-    [WebExContext("general")]
-    [WebExContext("templatedelete")]
     public sealed class PageSettingTemplateDelete : PageWebAppSetting, IPageTemplate
     {
         /// <summary>

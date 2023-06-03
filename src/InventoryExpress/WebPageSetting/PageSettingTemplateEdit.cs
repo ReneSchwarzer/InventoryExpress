@@ -1,5 +1,6 @@
 ﻿using InventoryExpress.Model;
 using InventoryExpress.Model.WebItems;
+using InventoryExpress.Parameter;
 using InventoryExpress.WebControl;
 using System;
 using System.Linq;
@@ -13,19 +14,18 @@ using WebExpress.WebApp.Wql;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
 using WebExpress.WebResource;
+using WebExpress.WebScope;
 
 namespace InventoryExpress.WebPageSetting
 {
     [WebExTitle("inventoryexpress:inventoryexpress.template.edit.label")]
-    [WebExSegmentGuid("TemplateId", "inventoryexpress:inventoryexpress.template.edit.display")]
+    [WebExSegmentGuid<ParameterTemplateId>("inventoryexpress:inventoryexpress.template.edit.display")]
     [WebExContextPath("/")]
-    [WebExParent(typeof(PageSettingTemplates))]
+    [WebExParent<PageSettingTemplates>]
     [WebExSettingHide()]
     [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
     [WebExModule<Module>]
-    [WebExContext("general")]
-    [WebExContext("templateedit")]
-    public sealed class PageSettingTemplateEdit : PageWebAppSetting, IPageTemplate
+    public sealed class PageSettingTemplateEdit : PageWebAppSetting, IPageTemplate, IScope
     {
         /// <summary>
         /// Returns the form

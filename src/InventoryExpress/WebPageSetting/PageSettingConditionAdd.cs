@@ -15,13 +15,11 @@ namespace InventoryExpress.WebPageSetting
 {
     [WebExTitle("inventoryexpress:inventoryexpress.condition.add.label")]
     [WebExSegment("add", "inventoryexpress:inventoryexpress.condition.add.label")]
-    [WebExParent(typeof(PageSettingConditions))]
+    [WebExParent<PageSettingConditions>]
     [WebExContextPath("/")]
     [WebExSettingHide()]
     [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
     [WebExModule<Module>]
-    [WebExContext("general")]
-    [WebExContext("conditionadd")]
     public sealed class PageSettingConditionAdd : PageWebAppSetting, IPageCondition
     {
         /// <summary>

@@ -1,4 +1,5 @@
-﻿using QRCoder;
+﻿using InventoryExpress.Parameter;
+using QRCoder;
 using System.Text;
 using WebExpress.WebAttribute;
 using WebExpress.WebMessage;
@@ -7,10 +8,10 @@ using WebExpress.WebResource;
 namespace InventoryExpress.QR.WebResource
 {
     /// <summary>
-    /// Returns of a resource embedded in the Assamby.
+    /// Returns of a resource embedded in the assamby.
     /// </summary>
     [WebExTitle("Assets")]
-    [WebExSegmentGuid("InventoryId", "")]
+    [WebExSegmentGuid<ParameterInventoryId>("")]
     [WebExContextPath("/")]
     [WebExIncludeSubPaths(true)]
     [WebExModule<Module>()]

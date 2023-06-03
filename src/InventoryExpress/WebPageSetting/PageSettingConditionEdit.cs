@@ -1,6 +1,6 @@
 ﻿using InventoryExpress.Model;
 using InventoryExpress.Model.WebItems;
-using InventoryExpress.Parameters;
+using InventoryExpress.Parameter;
 using InventoryExpress.WebControl;
 using System;
 using WebExpress.Internationalization;
@@ -16,14 +16,12 @@ using WebExpress.WebResource;
 namespace InventoryExpress.WebPageSetting
 {
     [WebExTitle("inventoryexpress:inventoryexpress.condition.edit.label")]
-    [WebExSegmentGuid(typeof(ParameterConditionId), "inventoryexpress:inventoryexpress.condition.edit.display")]
-    [WebExParent(typeof(PageSettingConditions))]
+    [WebExSegmentGuid<ParameterConditionId>("inventoryexpress:inventoryexpress.condition.edit.display")]
+    [WebExParent<PageSettingConditions>]
     [WebExContextPath("/edit")]
     [WebExSettingHide()]
     [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
     [WebExModule<Module>]
-    [WebExContext("general")]
-    [WebExContext("conditionedit")]
     public sealed class PageSettingConditionEdit : PageWebAppSetting, IPageCondition
     {
         /// <summary>

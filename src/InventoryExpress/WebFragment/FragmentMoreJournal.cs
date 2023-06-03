@@ -1,4 +1,5 @@
-﻿using WebExpress.Html;
+﻿using InventoryExpress.WebPage;
+using WebExpress.Html;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebControl;
@@ -11,7 +12,7 @@ namespace InventoryExpress.WebFragment
 {
     [WebExSection(Section.MorePrimary)]
     [WebExModule<Module>]
-    [WebExContext("inventorydetails")]
+    [WebExScope<PageInventoryDetails>]
     public sealed class FragmentMoreJournal : FragmentControlDropdownItemLink
     {
         /// <summary>

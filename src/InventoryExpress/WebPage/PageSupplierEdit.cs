@@ -1,5 +1,6 @@
 ﻿using InventoryExpress.Model;
 using InventoryExpress.Model.WebItems;
+using InventoryExpress.Parameter;
 using InventoryExpress.WebControl;
 using System;
 using WebExpress.Internationalization;
@@ -9,17 +10,16 @@ using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
 using WebExpress.WebResource;
+using WebExpress.WebScope;
 
 namespace InventoryExpress.WebPage
 {
     [WebExTitle("inventoryexpress:inventoryexpress.supplier.edit.label")]
-    [WebExSegmentGuid("SupplierId", "inventoryexpress:inventoryexpress.supplier.edit.display")]
+    [WebExSegmentGuid<ParameterSupplierId>("inventoryexpress:inventoryexpress.supplier.edit.display")]
     [WebExContextPath("/")]
-    [WebExParent(typeof(PageSuppliers))]
+    [WebExParent<PageSuppliers>]
     [WebExModule<Module>]
-    [WebExContext("general")]
-    [WebExContext("supplieredit")]
-    public sealed class PageSupplierEdit : PageWebApp, IPageSupplier
+    public sealed class PageSupplierEdit : PageWebApp, IPageSupplier, IScope
     {
         /// <summary>
         /// Returns the form

@@ -1,5 +1,6 @@
 ﻿using InventoryExpress.Model;
 using InventoryExpress.Model.WebItems;
+using InventoryExpress.Parameter;
 using InventoryExpress.WebControl;
 using System;
 using WebExpress.Internationalization;
@@ -15,14 +16,12 @@ using WebExpress.WebResource;
 namespace InventoryExpress.WebPageSetting
 {
     [WebExTitle("inventoryexpress:inventoryexpress.attribute.edit.label")]
-    [WebExSegmentGuid("AttributeId", "inventoryexpress:inventoryexpress.attribute.edit.display")]
+    [WebExSegmentGuid<ParameterAttributeId>("inventoryexpress:inventoryexpress.attribute.edit.display")]
     [WebExContextPath("/edit")]
-    [WebExParent(typeof(PageSettingAttributes))]
+    [WebExParent<PageSettingAttributes>]
     [WebExSettingHide()]
     [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
     [WebExModule<Module>]
-    [WebExContext("general")]
-    [WebExContext("attributeedit")]
     public sealed class PageSettingAttributeEdit : PageWebAppSetting, IPageAttribute
     {
         /// <summary>

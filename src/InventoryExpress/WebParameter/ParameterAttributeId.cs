@@ -1,13 +1,13 @@
 ﻿using WebExpress.WebMessage;
 
-namespace InventoryExpress.Parameters
+namespace InventoryExpress.Parameter
 {
-    public class ParameterTemplateId : Parameter
+    public class ParameterAttributeId : WebExpress.WebMessage.Parameter
     {
         /// <summary>
         /// Constructor
         /// </summary>
-        public ParameterTemplateId()
+        public ParameterAttributeId()
          : this(null)
         {
 
@@ -17,8 +17,8 @@ namespace InventoryExpress.Parameters
         /// Constructor
         /// </summary>
         /// <param name="value">The value.</param>
-        public ParameterTemplateId(string value)
-            : base("TemplateId", value, ParameterScope.Url)
+        public ParameterAttributeId(string value)
+            : base("AttributeId", value, ParameterScope.Url)
         {
 
         }

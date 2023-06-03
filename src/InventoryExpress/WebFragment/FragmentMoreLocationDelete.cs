@@ -1,4 +1,5 @@
 ﻿using InventoryExpress.Model;
+using InventoryExpress.WebPage;
 using WebExpress.Html;
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebControl;
@@ -12,7 +13,7 @@ namespace InventoryExpress.WebFragment
 {
     [WebExSection(Section.MoreSecondary)]
     [WebExModule<Module>]
-    [WebExContext("locationedit")]
+    [WebExScope<PageLocationEdit>]
     public sealed class FragmentMoreLocationDelete : FragmentControlDropdownItemLink
     {
         /// <summary>

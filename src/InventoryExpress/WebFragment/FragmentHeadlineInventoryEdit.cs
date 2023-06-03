@@ -1,7 +1,8 @@
-﻿using WebExpress.Html;
+﻿using InventoryExpress.WebPage;
+using WebExpress.Html;
 using WebExpress.UI.WebAttribute;
-using WebExpress.UI.WebFragment;
 using WebExpress.UI.WebControl;
+using WebExpress.UI.WebFragment;
 using WebExpress.WebApp.WebFragment;
 using WebExpress.WebAttribute;
 using WebExpress.WebPage;
@@ -10,7 +11,7 @@ namespace InventoryExpress.WebFragment
 {
     [WebExSection(Section.HeadlineSecondary)]
     [WebExModule<Module>]
-    [WebExContext("inventorydetails")]
+    [WebExScope<PageInventoryDetails>]
     public sealed class FragmentHeadlineInventoryEdit : FragmentControlButtonLink
     {
         /// <summary>

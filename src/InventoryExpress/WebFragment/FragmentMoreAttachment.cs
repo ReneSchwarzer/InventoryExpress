@@ -1,4 +1,5 @@
 ﻿using InventoryExpress.Model;
+using InventoryExpress.WebPage;
 using WebExpress.Html;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebAttribute;
@@ -12,7 +13,7 @@ namespace InventoryExpress.WebFragment
 {
     [WebExSection(Section.MorePreferences)]
     [WebExModule<Module>]
-    [WebExContext("inventorydetails")]
+    [WebExScope<PageInventoryDetails>]
     public sealed class FragmentMoreAttachment : FragmentControlDropdownItemLink
     {
         /// <summary>

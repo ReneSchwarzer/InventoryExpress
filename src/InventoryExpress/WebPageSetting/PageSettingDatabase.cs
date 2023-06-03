@@ -4,6 +4,7 @@ using WebExpress.Internationalization;
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebPage;
+using WebExpress.WebApp.WebScope;
 using WebExpress.WebApp.WebSettingPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
@@ -18,7 +19,7 @@ namespace InventoryExpress.WebPageSetting
     [WebExSettingGroup("webexpress.webapp:setting.group.system.label")]
     [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
     [WebExModule<Module>]
-    [WebExContext("admin")]
+    [WebExScope<ScopeAdmin>]
     public sealed class PageSettingDatabase : PageWebAppSetting
     {
         /// <summary>

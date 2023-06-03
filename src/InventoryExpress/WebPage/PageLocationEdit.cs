@@ -1,5 +1,6 @@
 ﻿using InventoryExpress.Model;
 using InventoryExpress.Model.WebItems;
+using InventoryExpress.Parameter;
 using InventoryExpress.WebControl;
 using System;
 using WebExpress.Internationalization;
@@ -9,18 +10,17 @@ using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
 using WebExpress.WebResource;
+using WebExpress.WebScope;
 using WebExpress.WebUri;
 
 namespace InventoryExpress.WebPage
 {
     [WebExTitle("inventoryexpress:inventoryexpress.location.edit.label")]
-    [WebExSegmentGuid("LocationId", "inventoryexpress:inventoryexpress.location.edit.display")]
+    [WebExSegmentGuid<ParameterLocationId>("inventoryexpress:inventoryexpress.location.edit.display")]
     [WebExContextPath("/")]
-    [WebExParent(typeof(PageLocations))]
+    [WebExParent<PageLocations>]
     [WebExModule<Module>]
-    [WebExContext("general")]
-    [WebExContext("locationedit")]
-    public sealed class PageLocationEdit : PageWebApp, IPageLocation
+    public sealed class PageLocationEdit : PageWebApp, IPageLocation, IScope
     {
         /// <summary>
         /// Returns the form

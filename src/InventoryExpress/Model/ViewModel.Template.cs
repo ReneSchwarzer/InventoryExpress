@@ -1,6 +1,6 @@
 ﻿using InventoryExpress.Model.Entity;
 using InventoryExpress.Model.WebItems;
-using InventoryExpress.Parameters;
+using InventoryExpress.Parameter;
 using InventoryExpress.WebPageSetting;
 using System;
 using System.Collections.Generic;

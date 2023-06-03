@@ -3,6 +3,7 @@ using InventoryExpress.WebSession;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
+using WebExpress.WebScope;
 
 namespace InventoryExpress.WebPage
 {
@@ -10,9 +11,7 @@ namespace InventoryExpress.WebPage
     [WebExSegment("manufacturers", "inventoryexpress:inventoryexpress.manufacturers.label")]
     [WebExContextPath("/")]
     [WebExModule<Module>]
-    [WebExContext("general")]
-    [WebExContext("manufacturers")]
-    public sealed class PageManufacturers : PageWebApp, IPageManufacturer
+    public sealed class PageManufacturers : PageWebApp, IPageManufacturer, IScope
     {
         /// <summary>
         /// Constructor

@@ -5,17 +5,16 @@ using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
+using WebExpress.WebScope;
 
 namespace InventoryExpress.WebPage
 {
     [WebExTitle("inventoryexpress:inventoryexpress.inventory.journal.label")]
     [WebExSegment("journal", "inventoryexpress:inventoryexpress.inventory.journal.display")]
     [WebExContextPath("/")]
-    [WebExParent(typeof(PageInventoryDetails))]
+    [WebExParent<PageInventoryDetails>]
     [WebExModule<Module>]
-    [WebExContext("general")]
-    [WebExContext("journal")]
-    public sealed class PageInventoryJournal : PageWebApp, IPageInventory
+    public sealed class PageInventoryJournal : PageWebApp, IPageInventory, IScope
     {
         /// <summary>
         /// Constructor

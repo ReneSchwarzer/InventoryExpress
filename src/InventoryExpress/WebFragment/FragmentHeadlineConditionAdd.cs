@@ -1,4 +1,5 @@
-﻿using WebExpress.Html;
+﻿using InventoryExpress.WebPageSetting;
+using WebExpress.Html;
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebControl;
 using WebExpress.UI.WebFragment;
@@ -10,7 +11,7 @@ namespace InventoryExpress.WeFragment
 {
     [WebExSection(Section.HeadlineSecondary)]
     [WebExModule<Module>]
-    [WebExContext("condition")]
+    [WebExScope<IPageCondition>]
     public sealed class FragmentHeadlineConditionAdd : FragmentControlButtonLink
     {
         /// <summary>

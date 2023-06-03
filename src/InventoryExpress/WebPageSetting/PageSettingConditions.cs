@@ -17,8 +17,6 @@ namespace InventoryExpress.WebPageSetting
     [WebExSettingGroup("inventoryexpress:inventoryexpress.setting.data.label")]
     [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
     [WebExModule<Module>]
-    [WebExContext("general")]
-    [WebExContext("condition")]
     [WebExCache]
     public sealed class PageSettingConditions : PageWebAppSetting
     {

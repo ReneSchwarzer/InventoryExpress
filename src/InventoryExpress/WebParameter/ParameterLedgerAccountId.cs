@@ -1,13 +1,13 @@
 ﻿using WebExpress.WebMessage;
 
-namespace InventoryExpress.Parameters
+namespace InventoryExpress.Parameter
 {
-    public class ParameterCostCenterId : Parameter
+    public class ParameterLedgerAccountId : WebExpress.WebMessage.Parameter
     {
         /// <summary>
         /// Constructor
         /// </summary>
-        public ParameterCostCenterId()
+        public ParameterLedgerAccountId()
          : this(null)
         {
 
@@ -17,8 +17,8 @@ namespace InventoryExpress.Parameters
         /// Constructor
         /// </summary>
         /// <param name="value">The value.</param>
-        public ParameterCostCenterId(string value)
-            : base("CostCenterId", value, ParameterScope.Url)
+        public ParameterLedgerAccountId(string value)
+            : base("LedgerAccountId", value, ParameterScope.Url)
         {
 
         }

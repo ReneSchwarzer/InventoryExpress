@@ -1,4 +1,5 @@
 ﻿using InventoryExpress.Model;
+using InventoryExpress.Parameter;
 using System.IO;
 using WebExpress.WebAttribute;
 using WebExpress.WebMessage;
@@ -11,7 +12,7 @@ namespace InventoryExpress.WebResource
     /// Lieferung ein Exportdatei
     /// </summary>
     [WebExTitle("Export")]
-    [WebExSegmentGuid("ExportId", "")]
+    [WebExSegmentGuid<ParameterExportId>("")]
     [WebExContextPath("/export")]
     [WebExIncludeSubPaths(false)]
     [WebExModule<Module>]

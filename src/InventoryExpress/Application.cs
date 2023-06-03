@@ -12,7 +12,7 @@ namespace InventoryExpress
     [WebExAssetPath("ix")]
     [WebExDataPath("ix")]
     [WebExContextPath("/ix")]
-    [WebExOption(typeof(WebExpress.WebApp.Module))]
+    [WebExOption<WebExpress.WebApp.Module>]
     public sealed class Application : IApplication
     {
         /// <summary>

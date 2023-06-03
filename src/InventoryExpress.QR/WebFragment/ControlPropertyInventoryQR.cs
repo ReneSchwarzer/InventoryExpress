@@ -1,4 +1,5 @@
-﻿using WebExpress.Html;
+﻿using InventoryExpress.WebPage;
+using WebExpress.Html;
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebControl;
 using WebExpress.UI.WebFragment;
@@ -10,7 +11,7 @@ namespace InventoryExpress.QR.WebFragment
 {
     [WebExSection(Section.PropertyPreferences)]
     [WebExModule<Module>]
-    [WebExContext("inventorydetails")]
+    [WebExScope<PageInventoryDetails>]
     public sealed class ControlPropertyInventoriesQR : FragmentControlImage
     {
         /// <summary>

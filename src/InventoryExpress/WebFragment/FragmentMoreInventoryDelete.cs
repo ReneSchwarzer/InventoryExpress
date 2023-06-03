@@ -1,10 +1,12 @@
 ﻿using InventoryExpress.Model;
+using InventoryExpress.WebPage;
 using WebExpress.Html;
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebControl;
 using WebExpress.UI.WebFragment;
 using WebExpress.WebApp.WebFragment;
 using WebExpress.WebAttribute;
+using WebExpress.WebComponent;
 using WebExpress.WebPage;
 using WebExpress.WebUri;
 
@@ -12,7 +14,7 @@ namespace InventoryExpress.WebFragment
 {
     [WebExSection(Section.MoreSecondary)]
     [WebExModule<Module>]
-    [WebExContext("inventorydetails")]
+    [WebExScope<PageInventoryDetails>]
     public sealed class FragmentMoreInventoryDelete : FragmentControlDropdownItemLink
     {
         /// <summary>
@@ -52,7 +54,10 @@ namespace InventoryExpress.WebFragment
             TextColor = inUse ? new PropertyColorText(TypeColorText.Muted) : TextColor;
 
             Uri = context.Uri.Append("del");
-            Modal = new PropertyModal(TypeModal.Formular, TypeModalSize.Default) { RedirectUri = context.ApplicationContext.ContextPath };
+            Modal = new PropertyModal(TypeModal.Formular, TypeModalSize.Default)
+            {
+                RedirectUri = ComponentManager.SitemapManager.GetUri<PageInventories>()
+            };
 
             return base.Render(context);
         }

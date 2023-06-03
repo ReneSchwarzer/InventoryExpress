@@ -1,4 +1,5 @@
 ﻿using InventoryExpress.Model;
+using InventoryExpress.WebPageSetting;
 using WebExpress.Html;
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebControl;
@@ -11,7 +12,7 @@ namespace InventoryExpress.WebFragment
 {
     [WebExSection(Section.PropertyPrimary)]
     [WebExModule<Module>]
-    [WebExContext("templateedit")]
+    [WebExScope<PageSettingTemplateEdit>]
     public sealed class FragmentPropertyTemplateDetails : FragmentControlList
     {
         /// <summary>

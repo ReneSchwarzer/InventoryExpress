@@ -8,7 +8,7 @@ namespace InventoryExpress.QR
     [WebExIcon("/assets/img/Logo.png")]
     [WebExAssetPath("/")]
     [WebExContextPath("/qr")]
-    [WebExApplication("InventoryExpress")]
+    [WebExApplication<Application>]
     public sealed class Module : IModule
     {
         /// <summary>
@@ -19,15 +19,15 @@ namespace InventoryExpress.QR
         }
 
         /// <summary>
-        /// Initialization des Moduls. Hier können z.B. verwaltete Ressourcen geladen werden. 
+        /// Initialization of the module. Here, for example, managed resources can be loaded.
         /// </summary>
-        /// <param name="context">Der Kontext, welcher für die Ausführung des Plugins gilt</param>
+        /// <param name="context">The context that applies to the execution of the plugin.</param>
         public void Initialization(IModuleContext context)
         {
         }
 
         /// <summary>
-        /// Wird aufgerufen, wenn das Modul mit der Arbeit beginnt. Der Aufruf erfolgt nebenläufig.
+        /// Invoked when the module starts working. The call is concurrent.
         /// </summary>
         public void Run()
         {
@@ -35,7 +35,7 @@ namespace InventoryExpress.QR
         }
 
         /// <summary>
-        /// Freigeben von nicht verwalteten Ressourcen, welche wärend der Verwendung reserviert wurden.
+        /// Release unmanaged resources that have been reserved during use.
         /// </summary>
         public void Dispose()
         {

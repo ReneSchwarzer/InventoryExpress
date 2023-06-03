@@ -1,6 +1,8 @@
-﻿namespace InventoryExpress.WebPageSetting
+﻿using WebExpress.WebScope;
+
+namespace InventoryExpress.WebPageSetting
 {
-    public interface IPageAttribute
+    public interface IPageAttribute : IScope
     {
     }
 }

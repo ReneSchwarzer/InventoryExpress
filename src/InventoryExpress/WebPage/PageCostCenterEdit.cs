@@ -1,6 +1,6 @@
 ﻿using InventoryExpress.Model;
 using InventoryExpress.Model.WebItems;
-using InventoryExpress.Parameters;
+using InventoryExpress.Parameter;
 using InventoryExpress.WebControl;
 using System;
 using WebExpress.Internationalization;
@@ -10,17 +10,16 @@ using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
 using WebExpress.WebResource;
+using WebExpress.WebScope;
 
 namespace InventoryExpress.WebPage
 {
     [WebExTitle("inventoryexpress:inventoryexpress.costcenter.edit.label")]
-    [WebExSegmentGuid(typeof(ParameterCostCenterId), "inventoryexpress:inventoryexpress.costcenter.edit.display")]
+    [WebExSegmentGuid<ParameterCostCenterId>("inventoryexpress:inventoryexpress.costcenter.edit.display")]
     [WebExContextPath("/")]
-    [WebExParent(typeof(PageCostCenters))]
+    [WebExParent<PageCostCenters>]
     [WebExModule<Module>]
-    [WebExContext("general")]
-    [WebExContext("costcenteredit")]
-    public sealed class PageCostCenterEdit : PageWebApp, IPageCostCenter
+    public sealed class PageCostCenterEdit : PageWebApp, IPageCostCenter, IScope
     {
         /// <summary>
         /// Returns the form

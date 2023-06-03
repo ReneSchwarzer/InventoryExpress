@@ -13,10 +13,8 @@ namespace InventoryExpress.WebPage
     [WebExTitle("inventoryexpress:inventoryexpress.costcenter.delete.label")]
     [WebExSegment("del", "inventoryexpress:inventoryexpress.costcenter.delete.display")]
     [WebExContextPath("/")]
-    [WebExParent(typeof(PageCostCenters))]
+    [WebExParent<PageCostCenters>]
     [WebExModule<Module>]
-    [WebExContext("general")]
-    [WebExContext("costcenterdelete")]
     public sealed class PageCostCenterDelete : PageWebApp, IPageCostCenter
     {
         /// <summary>

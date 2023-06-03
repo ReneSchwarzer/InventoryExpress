@@ -6,6 +6,7 @@ using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
 using WebExpress.WebResource;
+using WebExpress.WebScope;
 using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace InventoryExpress.WebPage
@@ -13,11 +14,9 @@ namespace InventoryExpress.WebPage
     [WebExTitle("inventoryexpress:inventoryexpress.manufacturer.delete.label")]
     [WebExSegment("del", "inventoryexpress:inventoryexpress.manufacturer.delete.display")]
     [WebExContextPath("/")]
-    [WebExParent(typeof(PageManufacturers))]
+    [WebExParent<PageManufacturers>]
     [WebExModule<Module>]
-    [WebExContext("general")]
-    [WebExContext("manufacturerdelete")]
-    public sealed class PageManufacturerDelete : PageWebApp, IPageManufacturer
+    public sealed class PageManufacturerDelete : PageWebApp, IPageManufacturer, IScope
     {
         /// <summary>
         /// Returns the form

@@ -2,6 +2,7 @@
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebPage;
+using WebExpress.WebApp.WebScope;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
 
@@ -11,7 +12,7 @@ namespace InventoryExpress.WebPage
     [WebExSegment("help", "inventoryexpress:inventoryexpress.help.label")]
     [WebExContextPath("/")]
     [WebExModule<Module>]
-    [WebExContext("general")]
+    [WebExScope<ScopeGeneral>]
     public sealed class PageHelp : PageWebApp, IPageHelp
     {
         /// <summary>

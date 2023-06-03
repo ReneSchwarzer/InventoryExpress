@@ -1,5 +1,6 @@
 ﻿using InventoryExpress.Model;
 using InventoryExpress.Model.WebItems;
+using InventoryExpress.WebPage;
 using System.Collections.Generic;
 using System.Linq;
 using WebExpress.Html;
@@ -15,10 +16,10 @@ namespace InventoryExpress.WebFragment
 {
     [WebExSection(Section.SidebarPrimary)]
     [WebExModule<Module>]
-    [WebExContext("inventorydetails")]
-    [WebExContext("attachment")]
-    [WebExContext("journal")]
-    [WebExContext("inventoryedit")]
+    [WebExScope<PageInventoryDetails>]
+    [WebExScope<PageInventoryAttachments>]
+    [WebExScope<PageInventoryJournal>]
+    [WebExScope<PageInventoryEdit>]
     public sealed class FragmentSidebarInventoryTree : FragmentControlTree
     {
         /// <summary>

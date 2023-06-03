@@ -16,12 +16,10 @@ namespace InventoryExpress.WebPageSetting
     [WebExTitle("inventoryexpress:inventoryexpress.attribute.add.label")]
     [WebExSegment("add", "inventoryexpress:inventoryexpress.attribute.add.label")]
     [WebExContextPath("/")]
-    [WebExParent(typeof(PageSettingAttributes))]
+    [WebExParent<PageSettingAttributes>]
     [WebExSettingHide()]
     [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
     [WebExModule<Module>]
-    [WebExContext("general")]
-    [WebExContext("attributeadd")]
     public sealed class PageSettingAttributeAdd : PageWebAppSetting, IPageAttribute
     {
         /// <summary>

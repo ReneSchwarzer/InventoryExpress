@@ -1,4 +1,5 @@
 ﻿using InventoryExpress.Model;
+using InventoryExpress.WebPage;
 using System.Linq;
 using WebExpress.Html;
 using WebExpress.Internationalization;
@@ -13,7 +14,7 @@ namespace InventoryExpress.WebFragment
 {
     [WebExSection(Section.HeadlinePreferences)]
     [WebExModule<Module>]
-    [WebExContext("inventorydetails")]
+    [WebExScope<PageInventoryDetails>]
     public sealed class FragmentHeadlineAttachment : FragmentControlLink
     {
         /// <summary>

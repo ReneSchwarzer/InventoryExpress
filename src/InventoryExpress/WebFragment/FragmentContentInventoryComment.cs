@@ -1,6 +1,7 @@
 ﻿using InventoryExpress.Model;
 using InventoryExpress.Model.WebItems;
 using InventoryExpress.WebControl;
+using InventoryExpress.WebPage;
 using WebExpress.Html;
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebControl;
@@ -14,7 +15,7 @@ namespace InventoryExpress.WebFragment
     [WebExSection(Section.ContentSecondary)]
     [WebExOrder(int.MaxValue)]
     [WebExModule<Module>]
-    [WebExContext("inventorydetails")]
+    [WebExScope<PageInventoryDetails>]
     public sealed class FragmentContentInventoryComment : FragmentControlPanel
     {
         /// <summary>

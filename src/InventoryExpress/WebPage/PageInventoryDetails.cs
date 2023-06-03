@@ -1,24 +1,23 @@
 ﻿using InventoryExpress.Model;
-using InventoryExpress.Parameters;
+using InventoryExpress.Parameter;
 using System.Collections.Generic;
 using System.Linq;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
+using WebExpress.WebScope;
 
 namespace InventoryExpress.WebPage
 {
     [WebExTitle("inventoryexpress:inventoryexpress.details.label")]
-    [WebExSegmentGuid(typeof(ParameterInventoryId), "inventoryexpress:inventoryexpress.details.label")]
+    [WebExSegmentGuid<ParameterInventoryId>("inventoryexpress:inventoryexpress.details.label")]
     [WebExContextPath("/")]
     [WebExModule<Module>]
-    [WebExContext("general")]
-    [WebExContext("inventorydetails")]
-    public sealed class PageInventoryDetails : PageWebApp, IPageInventory
+    public sealed class PageInventoryDetails : PageWebApp, IPageInventory, IScope
     {
         /// <summary>
-        /// Die Beschreibung The inventory item.es
+        /// The description.
         /// </summary>
         private ControlText Description { get; } = new ControlText()
         {

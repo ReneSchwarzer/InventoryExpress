@@ -1,9 +1,10 @@
 ﻿using InventoryExpress.WebControl;
+using InventoryExpress.WebPage;
 using InventoryExpress.WebSession;
 using WebExpress.Html;
 using WebExpress.UI.WebAttribute;
-using WebExpress.UI.WebFragment;
 using WebExpress.UI.WebControl;
+using WebExpress.UI.WebFragment;
 using WebExpress.WebApp.WebFragment;
 using WebExpress.WebAttribute;
 using WebExpress.WebPage;
@@ -12,8 +13,8 @@ namespace InventoryExpress.WebFragment
 {
     [WebExSection(Section.HeadlineSecondary)]
     [WebExModule<Module>]
-    [WebExContext("inventories")]
-    [WebExContext("manufacturers")]
+    [WebExScope<PageInventories>]
+    [WebExScope<PageManufacturers>]
     public sealed class FragmentHeadlineToggleView : ControlFormularToggleView, IFragment
     {
         /// <summary>

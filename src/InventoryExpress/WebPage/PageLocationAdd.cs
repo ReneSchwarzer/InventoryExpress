@@ -5,6 +5,7 @@ using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
+using WebExpress.WebApp.WebScope;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
 using WebExpress.WebResource;
@@ -14,9 +15,9 @@ namespace InventoryExpress.WebPage
     [WebExTitle("inventoryexpress:inventoryexpress.location.add.label")]
     [WebExSegment("add", "inventoryexpress:inventoryexpress.location.add.label")]
     [WebExContextPath("/")]
-    [WebExParent(typeof(PageLocations))]
+    [WebExParent<PageLocations>]
     [WebExModule<Module>]
-    [WebExContext("general")]
+    [WebExScope<ScopeGeneral>]
     public sealed class PageLocationAdd : PageWebApp, IPageLocation
     {
         /// <summary>

@@ -1,4 +1,5 @@
 ﻿using InventoryExpress.Model;
+using InventoryExpress.WebPage;
 using System.Linq;
 using WebExpress.Html;
 using WebExpress.UI.WebAttribute;
@@ -14,7 +15,7 @@ namespace InventoryExpress.WebFragment
     [WebExSection(Section.ContentSecondary)]
     [WebExOrder(int.MinValue)]
     [WebExModule<Module>]
-    [WebExContext("inventorydetails")]
+    [WebExScope<PageInventoryDetails>]
     public sealed class FragmentContentInventoryTag : FragmentControlPanelFlexbox
     {
         /// <summary>

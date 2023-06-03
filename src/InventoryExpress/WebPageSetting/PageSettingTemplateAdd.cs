@@ -11,19 +11,18 @@ using WebExpress.WebApp.Wql;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
 using WebExpress.WebResource;
+using WebExpress.WebScope;
 
 namespace InventoryExpress.WebPageSetting
 {
     [WebExTitle("inventoryexpress:inventoryexpress.template.add.label")]
     [WebExSegment("add", "inventoryexpress:inventoryexpress.template.add.label")]
     [WebExContextPath("/")]
-    [WebExParent(typeof(PageSettingTemplates))]
+    [WebExParent<PageSettingTemplates>]
     [WebExSettingHide()]
     [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
     [WebExModule<Module>]
-    [WebExContext("general")]
-    [WebExContext("templateadd")]
-    public sealed class PageSettingTemplateAdd : PageWebAppSetting, IPageTemplate
+    public sealed class PageSettingTemplateAdd : PageWebAppSetting, IPageTemplate, IScope
     {
         /// <summary>
         /// Returns the form.

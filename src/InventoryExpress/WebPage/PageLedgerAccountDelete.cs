@@ -13,10 +13,8 @@ namespace InventoryExpress.WebPage
     [WebExTitle("inventoryexpress:inventoryexpress.ledgeraccount.delete.label")]
     [WebExSegment("del", "inventoryexpress:inventoryexpress.ledgeraccount.delete.display")]
     [WebExContextPath("/")]
-    [WebExParent(typeof(PageLedgerAccountEdit))]
+    [WebExParent<PageLedgerAccountEdit>]
     [WebExModule<Module>]
-    [WebExContext("general")]
-    [WebExContext("ledgeraccountdelete")]
     public sealed class PageLedgerAccountDelete : PageWebApp, IPageLedgerAccount
     {
         /// <summary>

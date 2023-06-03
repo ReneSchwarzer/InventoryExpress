@@ -1,4 +1,5 @@
 ﻿using InventoryExpress.Model;
+using InventoryExpress.Parameter;
 using InventoryExpress.WebControl;
 using System;
 using WebExpress.Internationalization;
@@ -8,17 +9,16 @@ using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
 using WebExpress.WebResource;
+using WebExpress.WebScope;
 
 namespace InventoryExpress.WebPage
 {
     [WebExTitle("inventoryexpress:inventoryexpress.ledgeraccount.edit.label")]
-    [WebExSegmentGuid("LedgerAccountId", "inventoryexpress:inventoryexpress.ledgeraccount.edit.display")]
+    [WebExSegmentGuid<ParameterLedgerAccountId>("inventoryexpress:inventoryexpress.ledgeraccount.edit.display")]
     [WebExContextPath("/")]
-    [WebExParent(typeof(PageLedgerAccounts))]
+    [WebExParent<PageLedgerAccounts>]
     [WebExModule<Module>]
-    [WebExContext("general")]
-    [WebExContext("ledgeraccountedit")]
-    public sealed class PageLedgerAccountEdit : PageWebApp, IPageLedgerAccount
+    public sealed class PageLedgerAccountEdit : PageWebApp, IPageLedgerAccount, IScope
     {
         /// <summary>
         /// Returns the form

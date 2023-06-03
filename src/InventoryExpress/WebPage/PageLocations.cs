@@ -3,6 +3,7 @@ using InventoryExpress.WebControl;
 using System.Linq;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebPage;
+using WebExpress.WebApp.WebScope;
 using WebExpress.WebApp.Wql;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
@@ -13,7 +14,7 @@ namespace InventoryExpress.WebPage
     [WebExSegment("locations", "inventoryexpress:inventoryexpress.locations.label")]
     [WebExContextPath("/")]
     [WebExModule<Module>]
-    [WebExContext("general")]
+    [WebExScope<ScopeGeneral>]
     public sealed class PageLocations : PageWebApp, IPageLocation
     {
         /// <summary>
