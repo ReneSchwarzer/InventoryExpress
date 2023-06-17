@@ -1,4 +1,5 @@
-﻿using InventoryExpress.WebPage;
+﻿using InventoryExpress.Parameter;
+using InventoryExpress.WebPage;
 using WebExpress.Html;
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebControl;
@@ -60,7 +61,7 @@ namespace InventoryExpress.WebFragment
         /// <returns>The control as html.</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var id = context.Request.GetParameter("InventoryId")?.Value;
+            var id = context.Request.GetParameter<ParameterInventoryId>()?.Value;
             Items.Clear();
 
             //lock (ViewModel.Instance.Database)

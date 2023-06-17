@@ -121,10 +121,10 @@ namespace InventoryExpress.WebPageSetting
         {
             base.Process(context);
 
-            var guid = context.Request.GetParameter("AttributeId")?.Value;
+            var guid = context.Request.GetParameter<ParameterAttributeId>()?.Value;
             Attribute = ViewModel.GetAttribute(guid);
 
-            Uri.Display = Attribute.Name;
+            context.Uri.Display = Attribute.Name;
             context.VisualTree.Content.Primary.Add(Form);
         }
     }

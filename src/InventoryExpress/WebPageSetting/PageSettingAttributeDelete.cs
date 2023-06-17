@@ -59,13 +59,13 @@ namespace InventoryExpress.WebPageSetting
         }
 
         /// <summary>
-        /// Wird ausgelöst, wenn das Formular bestätigt urde.
+        /// Triggered when the form is confirmed.
         /// </summary>
         /// <param name="sender">The trigger of the event.</param>
         /// <param name="e">The event argument./param>
         private void OnConfirmFormular(object sender, FormularEventArgs e)
         {
-            var guid = e.Context.Request.GetParameter("AttributeId")?.Value;
+            var guid = e.Context.Request.GetParameter<ParameterAttributeId>()?.Value;
             var attribute = ViewModel.GetAttribute(guid);
 
             using (var transaction = ViewModel.BeginTransaction())

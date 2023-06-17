@@ -41,7 +41,7 @@ namespace InventoryExpress.WebResource
         /// <returns>The response.</returns>
         public override Response Process(Request request)
         {
-            var guid = request.GetParameter("ExportId")?.Value.ToLower();
+            var guid = request.GetParameter<ParameterExportId>()?.Value.ToLower();
             var path = ViewModel.ExportDirectory;
 
             Data = File.ReadAllBytes(Path.Combine(path, guid + ".zip"));

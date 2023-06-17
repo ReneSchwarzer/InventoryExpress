@@ -1,5 +1,6 @@
 ﻿using InventoryExpress.Model;
 using InventoryExpress.Model.WebItems;
+using InventoryExpress.Parameter;
 using InventoryExpress.WebPage;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,7 +49,7 @@ namespace InventoryExpress.WebFragment
         /// <returns>The control as html.</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var guid = context.Request.GetParameter("InventoryId")?.Value;
+            var guid = context.Request.GetParameter<ParameterInventoryId>()?.Value;
             var inventories = ViewModel.GetInventories(new WqlStatement()).OrderBy(x => x.Name);
 
             foreach (var i in inventories)
@@ -78,7 +79,7 @@ namespace InventoryExpress.WebFragment
         /// <returns></returns>
         private ControlTreeItemLink[] GetChildren(WebItemEntityInventory parent, RenderContext context)
         {
-            var guid = context.Request.GetParameter("InventoryId")?.Value;
+            var guid = context.Request.GetParameter<ParameterInventoryId>()?.Value;
             var children = ViewModel.GetInventoryChildren(parent).OrderBy(x => x.Name);
             var childrenContols = new List<ControlTreeItemLink>();
 

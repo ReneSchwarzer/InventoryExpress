@@ -1,10 +1,12 @@
-﻿using InventoryExpress.WebPage;
+﻿using InventoryExpress.Parameter;
+using InventoryExpress.WebPage;
 using WebExpress.Html;
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebControl;
 using WebExpress.UI.WebFragment;
 using WebExpress.WebApp.WebFragment;
 using WebExpress.WebAttribute;
+using WebExpress.WebComponent;
 using WebExpress.WebPage;
 
 namespace InventoryExpress.WebFragment
@@ -42,7 +44,8 @@ namespace InventoryExpress.WebFragment
         /// <returns>The control as html.</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            Uri = context.Uri.Append("edit");
+            var guid = context.Request.GetParameter<ParameterInventoryId>();
+            Uri = ComponentManager.SitemapManager.GetUri<PageInventoryEdit>(guid);
 
             return base.Render(context);
         }

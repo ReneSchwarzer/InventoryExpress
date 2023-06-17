@@ -1,4 +1,5 @@
 ﻿using InventoryExpress.Model;
+using InventoryExpress.Parameter;
 using InventoryExpress.WebPage;
 using WebExpress.Html;
 using WebExpress.UI.WebAttribute;
@@ -46,14 +47,14 @@ namespace InventoryExpress.WebFragment
         /// <returns>The control as html.</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var guid = context.Request.GetParameter("InventoryId")?.Value;
-            var inventory = ViewModel.GetInventory(guid);
+            var guid = context.Request.GetParameter<ParameterInventoryId>();
+            var inventory = ViewModel.GetInventory(guid?.Value);
             var inUse = ViewModel.GetInventoryInUse(inventory);
 
             Active = inUse ? TypeActive.Disabled : TypeActive.None;
             TextColor = inUse ? new PropertyColorText(TypeColorText.Muted) : TextColor;
 
-            Uri = context.Uri.Append("del");
+            Uri = ComponentManager.SitemapManager.GetUri<PageInventoryDelete>(guid);
             Modal = new PropertyModal(TypeModal.Formular, TypeModalSize.Default)
             {
                 RedirectUri = ComponentManager.SitemapManager.GetUri<PageInventories>()

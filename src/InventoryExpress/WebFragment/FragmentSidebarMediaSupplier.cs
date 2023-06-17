@@ -1,16 +1,11 @@
 ﻿using InventoryExpress.Model;
+using InventoryExpress.Parameter;
 using InventoryExpress.WebPage;
 using WebExpress.Html;
-using WebExpress.Internationalization;
 using WebExpress.UI.WebAttribute;
-using WebExpress.UI.WebControl;
 using WebExpress.UI.WebFragment;
-using WebExpress.WebApp.WebControl;
 using WebExpress.WebApp.WebFragment;
-using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebAttribute;
-using WebExpress.WebComponent;
-using WebExpress.WebMessage;
 using WebExpress.WebPage;
 
 namespace InventoryExpress.WebFragment
@@ -25,7 +20,6 @@ namespace InventoryExpress.WebFragment
         /// </summary>
         public FragmentSidebarMediaSupplier()
         {
-            Form.Header = "inventoryexpress:inventoryexpress.supplier.media.label";
         }
 
         /// <summary>
@@ -39,53 +33,16 @@ namespace InventoryExpress.WebFragment
         }
 
         /// <summary>
-        /// Wird ausgelöst, wenn das Upload-Ereignis ausgelöst wurde
-        /// </summary>
-        /// <param name="sender">The trigger of the event.</param>
-        /// <param name="e">Das Eventargument</param>
-        protected override void OnUpload(object sender, FormularUploadEventArgs e)
-        {
-            var file = e.Context.Request.GetParameter(Form.File.Name) as ParameterFile;
-            var guid = e.Context.Request.GetParameter("SupplierId")?.Value;
-            var supplier = ViewModel.GetSupplier(guid);
-
-            if (file != null)
-            {
-                using var transaction = ViewModel.BeginTransaction();
-
-                ViewModel.AddOrUpdateMedia(supplier, file);
-
-                transaction.Commit();
-            }
-
-            ComponentManager.GetComponent<NotificationManager>()?.AddNotification
-            (
-                request: e.Context.Request,
-                message: string.Format
-                (
-                    InternationalizationManager.I18N(e.Context.Culture, "inventoryexpress:inventoryexpress.media.notification.edit"),
-                    new ControlLink()
-                    {
-                        Text = supplier.Name,
-                        Uri = ViewModel.GetSupplierUri(supplier.Id)
-                    }.Render(e.Context).ToString().Trim()
-                ),
-                icon: ViewModel.GetMediaUri(supplier.Media.Id),
-                durability: 10000
-            );
-        }
-
-        /// <summary>
         /// Convert to html.
         /// </summary>
         /// <param name="context">The context in which the control is represented.</param>
         /// <returns>The control as html.</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var guid = context.Request.GetParameter("SupplierId")?.Value;
-            var supplier = ViewModel.GetSupplier(guid);
+            var guid = context.Request.GetParameter<ParameterSupplierId>();
+            var inventory = ViewModel.GetSupplier(guid?.Value);
 
-            Image.Uri = supplier?.Image;
+            Image.Uri = inventory.Image;
 
             return base.Render(context);
         }

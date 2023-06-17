@@ -1,4 +1,5 @@
 ﻿using InventoryExpress.Model;
+using InventoryExpress.Parameter;
 using InventoryExpress.WebPage;
 using WebExpress.Html;
 using WebExpress.Internationalization;
@@ -49,18 +50,17 @@ namespace InventoryExpress.WebFragment
         {
             base.Initialization(context, page);
             Form.Upload += OnUpload;
-            Form.RedirectUri = page.Uri;
         }
 
         /// <summary>
-        /// Wird ausgelöst, wenn das Upload-Ereignis ausgelöst wurde
+        /// Fired when the upload event was triggered.
         /// </summary>
         /// <param name="sender">The trigger of the event.</param>
-        /// <param name="e">Das Eventargument</param>
+        /// <param name="e">The event argument.</param>
         private void OnUpload(object sender, FormularUploadEventArgs e)
         {
             var file = e.Context.Request.GetParameter(Form.File.Name) as ParameterFile;
-            var guid = e.Context.Request.GetParameter("InventoryId")?.Value;
+            var guid = e.Context.Request.GetParameter<ParameterInventoryId>()?.Value;
             var inventory = ViewModel.GetInventory(guid);
 
             if (file != null)
@@ -96,7 +96,9 @@ namespace InventoryExpress.WebFragment
         /// <returns>The control as html.</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            //var guid = context.Request.GetParameter("InventoryId")?.Value;
+            var guid = context.Request.GetParameter<ParameterInventoryId>();
+            Form.RedirectUri = ComponentManager.SitemapManager.GetUri<PageInventoryAttachments>(guid);
+
             //var inventory = ViewModel.GetInventory(Guid);
 
             //Value = inventory?.Created.ToString(context.Page.Culture.DateTimeFormat.ShortDatePattern);

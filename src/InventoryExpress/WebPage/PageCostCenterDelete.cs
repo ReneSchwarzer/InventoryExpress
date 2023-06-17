@@ -1,8 +1,8 @@
 ﻿using InventoryExpress.Model;
+using InventoryExpress.Parameter;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebControl;
-using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
@@ -15,19 +15,13 @@ namespace InventoryExpress.WebPage
     [WebExContextPath("/")]
     [WebExParent<PageCostCenters>]
     [WebExModule<Module>]
-    public sealed class PageCostCenterDelete : PageWebApp, IPageCostCenter
+    public sealed class PageCostCenterDelete : PageWebAppFormularConfirm<ControlFormularConfirmDelete>, IPageCostCenter
     {
-        /// <summary>
-        /// Returns the form
-        /// </summary>
-        private ControlFormularConfirmDelete Form { get; } = new ControlFormularConfirmDelete("costcenter")
-        {
-        };
-
         /// <summary>
         /// Constructor
         /// </summary>
         public PageCostCenterDelete()
+            : base("costcenter")
         {
         }
 
@@ -39,9 +33,7 @@ namespace InventoryExpress.WebPage
         {
             base.Initialization(context);
 
-            Form.RedirectUri = ResourceContext.ContextPath.Append("costcenters");
-            Form.InitializeFormular += OnInitializeFormular;
-            Form.Confirm += OnConfirmFormular;
+            SetDescription(ComponentManager.SitemapManager.GetUri<PageCostCenters>(context));
         }
 
         /// <summary>
@@ -49,18 +41,26 @@ namespace InventoryExpress.WebPage
         /// </summary>
         /// <param name="sender">The trigger of the event.</param>
         /// <param name="e">The event argument.</param>
-        private void OnInitializeFormular(object sender, FormularEventArgs e)
+        protected override void OnInitializeFormular(object sender, FormularEventArgs e)
         {
+            var guid = e.Context.Request.GetParameter<ParameterCostCenterId>()?.Value;
+            var costcenter = ViewModel.GetCostCenter(guid);
+
+            SetDescription(InternationalizationManager.I18N
+            (
+                "inventoryexpress:inventoryexpress.costcenter.delete.description",
+                costcenter?.Name
+            ));
         }
 
         /// <summary>
-        /// Wird ausgelöst, wenn das Formular bestätigt urde.
+        /// Triggered when the form is confirmed.
         /// </summary>
         /// <param name="sender">The trigger of the event.</param>
         /// <param name="e">The event argument./param>
-        private void OnConfirmFormular(object sender, FormularEventArgs e)
+        protected override void OnConfirmFormular(object sender, FormularEventArgs e)
         {
-            var guid = e.Context.Request.GetParameter("CostCenterId")?.Value;
+            var guid = e.Context.Request.GetParameter<ParameterCostCenterId>()?.Value;
             var costcenter = ViewModel.GetCostCenter(guid);
 
             using (var transaction = ViewModel.BeginTransaction())
@@ -70,21 +70,13 @@ namespace InventoryExpress.WebPage
                 transaction.Commit();
             }
 
-            ComponentManager.GetComponent<NotificationManager>()?.AddNotification
+            AddNotification
             (
-                request: e.Context.Request,
-                message: string.Format
-                (
-                    InternationalizationManager.I18N(Culture, "inventoryexpress:inventoryexpress.costcenter.notification.delete"),
-                    new ControlText()
-                    {
-                        Text = costcenter.Name,
-                        TextColor = new PropertyColorText(TypeColorText.Danger),
-                        Format = TypeFormatText.Span
-                    }.Render(e.Context).ToString().Trim()
-                ),
-                icon: costcenter.Image,
-                durability: 10000
+                e.Context,
+                "inventoryexpress:inventoryexpress.costcenter.notification.delete",
+                costcenter.Name,
+                new PropertyColorText(TypeColorText.Danger),
+                costcenter.Image
             );
         }
 
@@ -95,8 +87,6 @@ namespace InventoryExpress.WebPage
         public override void Process(RenderContextWebApp context)
         {
             base.Process(context);
-
-            context.VisualTree.Content.Primary.Add(Form);
         }
     }
 }

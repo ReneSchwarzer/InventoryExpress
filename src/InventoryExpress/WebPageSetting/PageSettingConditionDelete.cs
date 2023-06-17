@@ -56,20 +56,20 @@ namespace InventoryExpress.WebPageSetting
         /// <param name="e">The event argument.</param>
         private void InitializeFormular(object sender, FormularEventArgs e)
         {
-            var guid = e.Context.Request.GetParameter("ConditionId")?.Value;
+            var guid = e.Context.Request.GetParameter<ParameterConditionId>()?.Value;
             var condition = ViewModel.GetCondition(guid);
 
             Form.Content.Text = string.Format(InternationalizationManager.I18N(e.Context, "inventoryexpress:inventoryexpress.condition.delete.description"), condition?.Name);
         }
 
         /// <summary>
-        /// Wird ausgelöst, wenn das Formular bestätigt urde.
+        /// Triggered when the form is confirmed.
         /// </summary>
         /// <param name="sender">The trigger of the event.</param>
         /// <param name="e">The event argument./param>
         private void OnConfirmFormular(object sender, FormularEventArgs e)
         {
-            var guid = e.Context.Request.GetParameter("ConditionId")?.Value;
+            var guid = e.Context.Request.GetParameter<ParameterConditionId>()?.Value;
             var condition = ViewModel.GetCondition(guid);
 
             using (var transaction = ViewModel.BeginTransaction())

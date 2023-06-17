@@ -131,10 +131,10 @@ namespace InventoryExpress.WebPage
         {
             base.Process(context);
 
-            var guid = context.Request.GetParameter("LocationId")?.Value;
+            var guid = context.Request.GetParameter<ParameterLocationId>()?.Value;
             Location = ViewModel.GetLocation(guid);
 
-            Uri.Display = Location.Name;
+            context.Uri.Display = Location.Name;
             context.VisualTree.Content.Primary.Add(Form);
         }
     }

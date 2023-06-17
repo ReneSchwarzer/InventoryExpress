@@ -53,7 +53,7 @@ namespace InventoryExpress.WebFragment
         /// <returns>The control as html.</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            Uri = context.Uri.Take(-1);
+            Uri = context.Request.Header.Referer;
 
             return base.Render(context);
         }

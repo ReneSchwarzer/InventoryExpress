@@ -1,4 +1,5 @@
 ﻿using InventoryExpress.Model;
+using InventoryExpress.Parameter;
 using InventoryExpress.WebPageSetting;
 using WebExpress.Html;
 using WebExpress.UI.WebAttribute;
@@ -64,7 +65,7 @@ namespace InventoryExpress.WebFragment
         /// <returns>The control as html.</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var guid = context.Request.GetParameter("TemplateId")?.Value;
+            var guid = context.Request.GetParameter<ParameterTemplateId>()?.Value;
             var template = ViewModel.GetTemplate(guid);
 
             CreationDateAttribute.Value = template?.Created.ToString(context.Culture.DateTimeFormat.ShortDatePattern);

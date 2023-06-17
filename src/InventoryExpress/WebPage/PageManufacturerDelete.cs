@@ -1,13 +1,13 @@
 ﻿using InventoryExpress.Model;
+using InventoryExpress.Parameter;
+using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebControl;
-using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
 using WebExpress.WebResource;
 using WebExpress.WebScope;
-using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace InventoryExpress.WebPage
 {
@@ -16,19 +16,13 @@ namespace InventoryExpress.WebPage
     [WebExContextPath("/")]
     [WebExParent<PageManufacturers>]
     [WebExModule<Module>]
-    public sealed class PageManufacturerDelete : PageWebApp, IPageManufacturer, IScope
+    public sealed class PageManufacturerDelete : PageWebAppFormularConfirm<ControlFormularConfirmDelete>, IPageManufacturer, IScope
     {
-        /// <summary>
-        /// Returns the form
-        /// </summary>
-        private ControlFormularConfirmDelete Form { get; } = new ControlFormularConfirmDelete("manufacturer")
-        {
-        };
-
         /// <summary>
         /// Constructor
         /// </summary>
         public PageManufacturerDelete()
+            : base("manufacturer")
         {
         }
 
@@ -40,9 +34,7 @@ namespace InventoryExpress.WebPage
         {
             base.Initialization(context);
 
-            Form.RedirectUri = ResourceContext.ContextPath.Append("manufacturers");
-            Form.InitializeFormular += OnInitializeFormular;
-            Form.Confirm += OnConfirmFormular;
+            SetDescription(ComponentManager.SitemapManager.GetUri<PageManufacturers>(context));
         }
 
         /// <summary>
@@ -50,18 +42,26 @@ namespace InventoryExpress.WebPage
         /// </summary>
         /// <param name="sender">The trigger of the event.</param>
         /// <param name="e">The event argument.</param>
-        private void OnInitializeFormular(object sender, FormularEventArgs e)
+        protected override void OnInitializeFormular(object sender, FormularEventArgs e)
         {
+            var guid = e.Context.Request.GetParameter<ParameterManufacturerId>()?.Value;
+            var manufacturer = ViewModel.GetManufacturer(guid);
+
+            SetDescription(InternationalizationManager.I18N
+            (
+                "inventoryexpress:inventoryexpress.manufacturer.delete.description",
+                manufacturer?.Name
+            ));
         }
 
         /// <summary>
-        /// Wird ausgelöst, wenn das Formular bestätigt urde.
+        /// Triggered when the form is confirmed.
         /// </summary>
         /// <param name="sender">The trigger of the event.</param>
         /// <param name="e">The event argument./param>
-        private void OnConfirmFormular(object sender, FormularEventArgs e)
+        protected override void OnConfirmFormular(object sender, FormularEventArgs e)
         {
-            var guid = e.Context.Request.GetParameter("ManufacturerId")?.Value;
+            var guid = e.Context.Request.GetParameter<ParameterManufacturerId>()?.Value;
             var manufacturer = ViewModel.GetManufacturer(guid);
 
             using (var transaction = ViewModel.BeginTransaction())
@@ -71,21 +71,13 @@ namespace InventoryExpress.WebPage
                 transaction.Commit();
             }
 
-            ComponentManager.GetComponent<NotificationManager>()?.AddNotification
+            AddNotification
             (
-                request: e.Context.Request,
-                message: string.Format
-                (
-                    I18N(Culture, "inventoryexpress:inventoryexpress.manufacturer.notification.delete"),
-                    new ControlText()
-                    {
-                        Text = manufacturer.Name,
-                        TextColor = new PropertyColorText(TypeColorText.Danger),
-                        Format = TypeFormatText.Span
-                    }.Render(e.Context).ToString().Trim()
-                ),
-                icon: manufacturer.Image,
-                durability: 10000
+                e.Context,
+                "inventoryexpress:inventoryexpress.manufacturer.notification.delete",
+                manufacturer.Name,
+                new PropertyColorText(TypeColorText.Danger),
+                manufacturer.Image
             );
         }
 
@@ -96,8 +88,6 @@ namespace InventoryExpress.WebPage
         public override void Process(RenderContextWebApp context)
         {
             base.Process(context);
-
-            context.VisualTree.Content.Primary.Add(Form);
         }
     }
 }

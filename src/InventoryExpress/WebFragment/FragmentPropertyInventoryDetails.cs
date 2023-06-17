@@ -1,4 +1,5 @@
 ﻿using InventoryExpress.Model;
+using InventoryExpress.Parameter;
 using InventoryExpress.WebPage;
 using WebExpress.Html;
 using WebExpress.UI.WebAttribute;
@@ -170,7 +171,7 @@ namespace InventoryExpress.WebFragment
         /// <returns>The control as html.</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var guid = context.Request.GetParameter("InventoryId")?.Value;
+            var guid = context.Request.GetParameter<ParameterInventoryId>()?.Value;
             var inventory = ViewModel.GetInventory(guid);
             var currency = ViewModel.GetSettings()?.Currency;
 

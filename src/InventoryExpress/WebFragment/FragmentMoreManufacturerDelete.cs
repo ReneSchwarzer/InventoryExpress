@@ -1,4 +1,5 @@
 ﻿using InventoryExpress.Model;
+using InventoryExpress.Parameter;
 using InventoryExpress.WebPage;
 using WebExpress.Html;
 using WebExpress.UI.WebAttribute;
@@ -6,6 +7,7 @@ using WebExpress.UI.WebControl;
 using WebExpress.UI.WebFragment;
 using WebExpress.WebApp.WebFragment;
 using WebExpress.WebAttribute;
+using WebExpress.WebComponent;
 using WebExpress.WebPage;
 using WebExpress.WebUri;
 
@@ -44,15 +46,18 @@ namespace InventoryExpress.WebFragment
         /// <returns>The control as html.</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var guid = context.Request.GetParameter("ManufacturerId")?.Value;
-            var manufacturer = ViewModel.GetManufacturer(guid);
+            var guid = context.Request.GetParameter<ParameterManufacturerId>();
+            var manufacturer = ViewModel.GetManufacturer(guid?.Value);
             var inUse = ViewModel.GetManufacturerInUse(manufacturer);
 
             Active = inUse ? TypeActive.Disabled : TypeActive.None;
             TextColor = inUse ? new PropertyColorText(TypeColorText.Muted) : TextColor;
 
-            Uri = context.Uri.Append("del");
-            Modal = new PropertyModal(TypeModal.Formular, TypeModalSize.Default) { RedirectUri = context.ApplicationContext.ContextPath.Append("manufacturers") };
+            Uri = ComponentManager.SitemapManager.GetUri<PageManufacturerDelete>(guid);
+            Modal = new PropertyModal(TypeModal.Formular, TypeModalSize.Default)
+            {
+                RedirectUri = ComponentManager.SitemapManager.GetUri<PageManufacturers>()
+            };
 
             return base.Render(context);
         }

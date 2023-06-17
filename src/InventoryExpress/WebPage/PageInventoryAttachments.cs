@@ -1,5 +1,6 @@
 ﻿using InventoryExpress.Model;
 using InventoryExpress.Model.WebItems;
+using InventoryExpress.Parameter;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebControl;
@@ -42,7 +43,7 @@ namespace InventoryExpress.WebPage
         {
             base.Process(context);
 
-            var guid = context.Request.GetParameter("InventoryId")?.Value;
+            var guid = context.Request.GetParameter<ParameterInventoryId>()?.Value;
             var inventory = ViewModel.GetInventory(guid);
             var attachments = ViewModel.GetInventoryAttachments(inventory);
 

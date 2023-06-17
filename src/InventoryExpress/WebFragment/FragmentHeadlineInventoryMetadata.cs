@@ -40,7 +40,7 @@ namespace InventoryExpress.WebFragment
         {
             //lock (ViewModel.Instance.Database)
             //{
-            //    var id = context.Request.GetParameter("InventoryId")?.Value;
+            //    var id = context.Request.GetParameter<ParameterInventoryId>()?.Value;
             //    var inventory = ViewModel.Instance.Inventories.Where(x => x.Guid.Equals(id)).FirstOrDefault();
 
             //    Text = string.Format(I18N(context.Culture, "inventoryexpress:inventoryexpress.inventory.metadata.created"), inventory.Created.ToString("d", context.Culture));

@@ -1,12 +1,12 @@
 ﻿using InventoryExpress.Model;
-using InventoryExpress.WebPage;
+using InventoryExpress.Parameter;
+using InventoryExpress.WebPageSetting;
 using WebExpress.Html;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebControl;
 using WebExpress.UI.WebFragment;
 using WebExpress.WebApp.WebControl;
-using WebExpress.WebApp.WebFragment;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
@@ -15,17 +15,18 @@ using WebExpress.WebPage;
 
 namespace InventoryExpress.WebFragment
 {
-    [WebExSection(Section.SidebarHeader)]
+    [WebExSection("mediatool.primary")]
     [WebExModule<Module>]
-    [WebExScope<PageManufacturerEdit>]
-    public sealed class FragmentSidebarMediaManufacturer : FragmentSidebarMedia
+    [WebExScope<PageSettingTemplateEdit>]
+    public sealed class FragmentMediaToolEditTemplate : FragmentMediaToolEdit
     {
         /// <summary>
         /// Constructor
         /// </summary>
-        public FragmentSidebarMediaManufacturer()
+        public FragmentMediaToolEditTemplate()
+            : base("E2C47436-A4C7-47D5-A17A-913DD1ED8B8F")
         {
-            Form.Header = "inventoryexpress:inventoryexpress.inventory.media.label";
+            Form.Header = "inventoryexpress:inventoryexpress.template.media.label";
         }
 
         /// <summary>
@@ -39,21 +40,21 @@ namespace InventoryExpress.WebFragment
         }
 
         /// <summary>
-        /// Wird ausgelöst, wenn das Upload-Ereignis ausgelöst wurde
+        /// Fired when the upload event was triggered.
         /// </summary>
         /// <param name="sender">The trigger of the event.</param>
-        /// <param name="e">Das Eventargument</param>
+        /// <param name="e">The event argument.</param>
         protected override void OnUpload(object sender, FormularUploadEventArgs e)
         {
             var file = e.Context.Request.GetParameter(Form.File.Name) as ParameterFile;
-            var guid = e.Context.Request.GetParameter("ManufacturerId")?.Value;
-            var manufacturer = ViewModel.GetManufacturer(guid);
+            var guid = e.Context.Request.GetParameter<ParameterTemplateId>()?.Value;
+            var template = ViewModel.GetTemplate(guid);
 
             if (file != null)
             {
                 using var transaction = ViewModel.BeginTransaction();
 
-                ViewModel.AddOrUpdateMedia(manufacturer, file);
+                ViewModel.AddOrUpdateMedia(template, file);
 
                 transaction.Commit();
             }
@@ -66,11 +67,11 @@ namespace InventoryExpress.WebFragment
                     InternationalizationManager.I18N(e.Context.Culture, "inventoryexpress:inventoryexpress.media.notification.edit"),
                     new ControlLink()
                     {
-                        Text = manufacturer.Name,
-                        Uri = ViewModel.GetManufacturerUri(manufacturer.Id)
+                        Text = template.Name,
+                        Uri = ViewModel.GetTemplateUri(template.Id)
                     }.Render(e.Context).ToString().Trim()
                 ),
-                icon: ViewModel.GetMediaUri(manufacturer.Media.Id),
+                icon: ViewModel.GetMediaUri(template.Media.Id),
                 durability: 10000
             );
         }
@@ -82,10 +83,10 @@ namespace InventoryExpress.WebFragment
         /// <returns>The control as html.</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var guid = context.Request.GetParameter("ManufacturerId")?.Value;
-            var manufacturer = ViewModel.GetManufacturer(guid);
+            var guid = context.Request.GetParameter<ParameterTemplateId>()?.Value;
+            var template = ViewModel.GetTemplate(guid);
 
-            Image.Uri = manufacturer?.Image;
+            Form.RedirectUri = template?.Uri;
 
             return base.Render(context);
         }

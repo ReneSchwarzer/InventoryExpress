@@ -120,10 +120,10 @@ namespace InventoryExpress.WebPage
         {
             base.Process(context);
 
-            var guid = context.Request.GetParameter("CostCenterId")?.Value;
+            var guid = context.Request.GetParameter<ParameterCostCenterId>()?.Value;
             CostCenter = ViewModel.GetCostCenter(guid);
 
-            Uri.Display = CostCenter.Name;
+            context.Uri.Display = CostCenter.Name;
             context.VisualTree.Content.Primary.Add(Form);
         }
     }

@@ -126,10 +126,10 @@ namespace InventoryExpress.WebPage
         {
             base.Process(context);
 
-            var guid = context.Request.GetParameter("ManufacturerId")?.Value;
+            var guid = context.Request.GetParameter<ParameterManufacturerId>()?.Value;
             Manufacturer = ViewModel.GetManufacturer(guid);
 
-            Uri.Display = Manufacturer.Name;
+            context.Uri.Display = Manufacturer.Name;
             context.VisualTree.Content.Primary.Add(Form);
         }
     }

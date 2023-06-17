@@ -31,7 +31,7 @@ namespace InventoryExpress.QR.WebResource
         /// <returns>The response.</returns>
         public override Response Process(Request request)
         {
-            var id = request.GetParameter("InventoryId")?.Value;
+            var id = request.GetParameter<ParameterInventoryId>()?.Value;
 
             var link = $"{ModuleContext.ContextPath.Append(id).ToString().TrimStart('/')}";
 

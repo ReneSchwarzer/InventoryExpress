@@ -1,4 +1,5 @@
 ﻿using InventoryExpress.Model;
+using InventoryExpress.Parameter;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebControl;
@@ -55,20 +56,20 @@ namespace InventoryExpress.WebPageSetting
         /// <param name="e">The event argument.</param>
         private void InitializeFormular(object sender, FormularEventArgs e)
         {
-            var guid = e.Context.Request.GetParameter("TemplateId")?.Value;
+            var guid = e.Context.Request.GetParameter<ParameterTemplateId>()?.Value;
             var template = ViewModel.GetTemplate(guid);
 
             Form.Content.Text = string.Format(InternationalizationManager.I18N(e.Context, "inventoryexpress:inventoryexpress.template.delete.description"), template?.Name);
         }
 
         /// <summary>
-        /// Wird ausgelöst, wenn das Formular bestätigt urde.
+        /// Triggered when the form is confirmed.
         /// </summary>
         /// <param name="sender">The trigger of the event.</param>
         /// <param name="e">The event argument./param>
         private void OnConfirmFormular(object sender, FormularEventArgs e)
         {
-            var guid = e.Context.Request.GetParameter("TemplateId")?.Value;
+            var guid = e.Context.Request.GetParameter<ParameterTemplateId>()?.Value;
             var template = ViewModel.GetTemplate(guid);
 
             using (var transaction = ViewModel.BeginTransaction())

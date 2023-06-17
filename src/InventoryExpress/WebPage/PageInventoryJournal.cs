@@ -1,4 +1,5 @@
 ﻿using InventoryExpress.Model;
+using InventoryExpress.Parameter;
 using System.Linq;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
@@ -41,7 +42,7 @@ namespace InventoryExpress.WebPage
         {
             base.Process(context);
 
-            var guid = context.Request.GetParameter("InventoryId")?.Value;
+            var guid = context.Request.GetParameter<ParameterInventoryId>()?.Value;
             var inventory = ViewModel.GetInventory(guid);
             var journals = ViewModel.GetInventoryJournals(inventory);
 

@@ -49,14 +49,14 @@ namespace InventoryExpress.WebPage
         {
             base.Process(context);
 
-            var guid = context.Request.GetParameter("InventoryId")?.Value;
+            var guid = context.Request.GetParameter<ParameterInventoryId>();
             var classes = new List<string>() { "w-100" };
-            var inventory = ViewModel.GetInventory(guid);
+            var inventory = ViewModel.GetInventory(guid?.Value);
 
             var mediaItems = ViewModel.GetInventoryAttachments(inventory)
                                       .Where(x => x.Name.ToLower().EndsWith(".jpg") || x.Name.ToLower().EndsWith(".png") || x.Name.ToLower().EndsWith(".svg"));
 
-            Uri.Display = inventory?.Name;
+            context.Uri.Display = inventory?.Name;
             Title = inventory?.Name;
             Description.Text = inventory?.Description;
 

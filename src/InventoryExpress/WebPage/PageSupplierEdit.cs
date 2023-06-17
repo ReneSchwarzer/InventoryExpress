@@ -5,7 +5,6 @@ using InventoryExpress.WebControl;
 using System;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
-using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
@@ -19,17 +18,10 @@ namespace InventoryExpress.WebPage
     [WebExContextPath("/")]
     [WebExParent<PageSuppliers>]
     [WebExModule<Module>]
-    public sealed class PageSupplierEdit : PageWebApp, IPageSupplier, IScope
+    public sealed class PageSupplierEdit : PageWebAppFormular<ControlFormularSupplier>, IPageSupplier, IScope
     {
         /// <summary>
-        /// Returns the form
-        /// </summary>
-        private ControlFormularSupplier Form { get; } = new ControlFormularSupplier("supplier")
-        {
-        };
-
-        /// <summary>
-        /// Liefert oder setzt den Lieferanten
+        /// Returns or sets the supplier
         /// </summary>
         private WebItemEntitySupplier Supplier { get; set; }
 
@@ -37,6 +29,7 @@ namespace InventoryExpress.WebPage
         /// Constructor
         /// </summary>
         public PageSupplierEdit()
+            : base("supplier")
         {
         }
 
@@ -47,10 +40,6 @@ namespace InventoryExpress.WebPage
         public override void Initialization(IResourceContext context)
         {
             base.Initialization(context);
-
-            Form.InitializeFormular += InitializeFormular;
-            Form.FillFormular += FillFormular;
-            Form.ProcessFormular += ProcessFormular;
         }
 
         /// <summary>
@@ -58,9 +47,9 @@ namespace InventoryExpress.WebPage
         /// </summary>
         /// <param name="sender">The trigger of the event.</param>
         /// <param name="e">The event argument.</param>
-        private void InitializeFormular(object sender, FormularEventArgs e)
+        protected override void OnInitializeFormular(object sender, FormularEventArgs e)
         {
-            Form.RedirectUri = e.Context.Uri.Take(-1);
+            SetRedirectUri(ComponentManager.SitemapManager.GetUri<PageSuppliers>());
         }
 
         /// <summary>
@@ -68,7 +57,7 @@ namespace InventoryExpress.WebPage
         /// </summary>
         /// <param name="sender">The trigger of the event.</param>
         /// <param name="e">The event argument.</param>
-        private void FillFormular(object sender, FormularEventArgs e)
+        protected override void OnFillFormular(object sender, FormularEventArgs e)
         {
             Form.SupplierName.Value = Supplier?.Name;
             Form.Description.Value = Supplier?.Description;
@@ -83,9 +72,9 @@ namespace InventoryExpress.WebPage
         /// </summary>
         /// <param name="sender">The trigger of the event.</param>
         /// <param name="e">The event argument./param>
-        private void ProcessFormular(object sender, FormularEventArgs e)
+        protected override void OnProcessFormular(object sender, FormularEventArgs e)
         {
-            // Lieferant ändern und speichern
+            // change and save supplier
             Supplier.Name = Form.SupplierName.Value;
             Supplier.Description = Form.Description.Value;
             Supplier.Address = Form.Address.Value;
@@ -101,10 +90,10 @@ namespace InventoryExpress.WebPage
                 transaction.Commit();
             }
 
-            ComponentManager.GetComponent<NotificationManager>()?.AddNotification
+            AddNotification
             (
-                request: e.Context.Request,
-                message: string.Format
+                e.Context,
+                string.Format
                 (
                     InternationalizationManager.I18N(Culture, "inventoryexpress:inventoryexpress.supplier.notification.edit"),
                     new ControlLink()
@@ -113,8 +102,9 @@ namespace InventoryExpress.WebPage
                         Uri = ViewModel.GetSupplierUri(Supplier.Id)
                     }.Render(e.Context).ToString().Trim()
                 ),
-                icon: Supplier.Image,
-                durability: 10000
+                Supplier.Name,
+                new PropertyColorText(TypeColorText.Info),
+                Supplier.Image
             );
         }
 
@@ -126,10 +116,10 @@ namespace InventoryExpress.WebPage
         {
             base.Process(context);
 
-            var guid = context.Request.GetParameter("SupplierId")?.Value;
+            var guid = context.Request.GetParameter<ParameterSupplierId>()?.Value;
             Supplier = ViewModel.GetSupplier(guid);
 
-            Uri.Display = Supplier.Name;
+            context.Uri.Display = Supplier.Name;
             context.VisualTree.Content.Primary.Add(Form);
         }
     }

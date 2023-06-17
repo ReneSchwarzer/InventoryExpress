@@ -1,27 +1,31 @@
-﻿using WebExpress.Html;
-using WebExpress.UI.WebFragment;
+﻿using System.Collections.Generic;
+using System.Linq;
+using WebExpress.Html;
 using WebExpress.UI.WebControl;
-using WebExpress.WebApp.WebControl;
+using WebExpress.UI.WebFragment;
+using WebExpress.WebComponent;
 using WebExpress.WebPage;
 
 namespace InventoryExpress.WebFragment
 {
-    public abstract class FragmentSidebarMedia : FragmentControlLink
+    public abstract class FragmentSidebarMedia : FragmentControlPanelTool
     {
         /// <summary>
-        /// Das Bild
+        /// Retruns or sets an enumeration of the primary tools identified.
+        /// </summary>
+        private IEnumerable<FragmentCacheItem> PrimaryFragments { get; set; }
+
+        /// <summary>
+        /// Retruns or sets an enumeration of the secondary tools identified.
+        /// </summary>
+        private IEnumerable<FragmentCacheItem> SecondaryFragments { get; set; }
+
+        /// <summary>
+        /// Returns the picture.
         /// </summary>
         protected ControlImage Image { get; } = new ControlImage()
         {
             Width = 180,
-            Margin = new PropertySpacingMargin(PropertySpacing.Space.Two)
-        };
-
-        /// <summary>
-        /// Das Formular zum Upload eines Bildes
-        /// </summary>
-        protected ControlModalFormularFileUpload Form { get; } = new ControlModalFormularFileUpload("BCD434C5-655C-483A-AE9A-A12B9891C7B1")
-        {
         };
 
         /// <summary>
@@ -29,8 +33,12 @@ namespace InventoryExpress.WebFragment
         /// </summary>
         public FragmentSidebarMedia()
         {
+            Border = new PropertyBorder(false);
+            Margin = new PropertySpacingMargin(PropertySpacing.Space.Two);
             Content.Add(Image);
-            Modal = new PropertyModal(TypeModal.Modal, Form);
+            Tools.Icon = new PropertyIcon(TypeIcon.EllipsisHorizontal);
+            Tools.BackgroundColor = new PropertyColorButton(TypeColorButton.Light);
+            Tools.Size = TypeSizeButton.Small;
         }
 
         /// <summary>
@@ -41,16 +49,12 @@ namespace InventoryExpress.WebFragment
         public override void Initialization(IFragmentContext context, IPage page)
         {
             base.Initialization(context, page);
-            Form.Upload += OnUpload;
-            Form.RedirectUri = page.Uri;
-        }
 
-        /// <summary>
-        /// Wird ausgelöst, wenn das Upload-Ereignis ausgelöst wurde
-        /// </summary>
-        /// <param name="sender">The trigger of the event.</param>
-        /// <param name="e">Das Eventargument</param>
-        protected abstract void OnUpload(object sender, FormularUploadEventArgs e);
+            var fragmentManager = ComponentManager.GetComponent<FragmentManager>();
+            PrimaryFragments = fragmentManager.GetCacheableFragments<IControlDropdownItem>("mediatool.primary", page);
+            SecondaryFragments = fragmentManager.GetCacheableFragments<IControlDropdownItem>("mediatool.secondary", page);
+
+        }
 
         /// <summary>
         /// Convert to html.
@@ -59,6 +63,17 @@ namespace InventoryExpress.WebFragment
         /// <returns>The control as html.</returns>
         public override IHtmlNode Render(RenderContext context)
         {
+            var primaryControls = PrimaryFragments.SelectMany(x => x.CreateInstance<IControlDropdownItem>(context.Page, context.Request));
+            var secondaryControls = SecondaryFragments.SelectMany(x => x.CreateInstance<IControlDropdownItem>(context.Page, context.Request));
+
+            Tools.Items.Clear();
+            Tools.Items.AddRange(primaryControls);
+            if (primaryControls.Any() && secondaryControls.Any())
+            {
+                Tools.AddSeperator();
+            }
+            Tools.Items.AddRange(secondaryControls);
+
             return base.Render(context);
         }
     }

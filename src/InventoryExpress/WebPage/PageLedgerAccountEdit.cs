@@ -64,7 +64,7 @@ namespace InventoryExpress.WebPage
         /// <param name="e">The event argument.</param>
         private void FillFormular(object sender, FormularEventArgs e)
         {
-            var guid = e.Context.Request.GetParameter("LedgerAccountId")?.Value;
+            var guid = e.Context.Request.GetParameter<ParameterLedgerAccountId>()?.Value;
             var ledgerAccount = ViewModel.GetLedgerAccount(guid);
 
             Form.LedgerAccountName.Value = ledgerAccount?.Name;
@@ -79,7 +79,7 @@ namespace InventoryExpress.WebPage
         /// <param name="e">The event argument./param>
         private void ProcessFormular(object sender, FormularEventArgs e)
         {
-            var guid = e.Context.Request.GetParameter("LedgerAccountId")?.Value;
+            var guid = e.Context.Request.GetParameter<ParameterLedgerAccountId>()?.Value;
             var ledgerAccount = ViewModel.GetLedgerAccount(guid);
 
             // Sachkonto ändern und speichern
@@ -120,10 +120,10 @@ namespace InventoryExpress.WebPage
         {
             base.Process(context);
 
-            var guid = context.Request.GetParameter("LedgerAccountId")?.Value;
+            var guid = context.Request.GetParameter<ParameterLedgerAccountId>()?.Value;
             var ledgerAccount = ViewModel.GetLedgerAccount(guid);
 
-            Uri.Display = ledgerAccount.Name;
+            context.Uri.Display = ledgerAccount.Name;
             context.VisualTree.Content.Primary.Add(Form);
         }
     }

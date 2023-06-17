@@ -122,10 +122,10 @@ namespace InventoryExpress.WebPageSetting
         {
             base.Process(context);
 
-            var guid = context.Request.GetParameter("ConditionId")?.Value;
+            var guid = context.Request.GetParameter<ParameterConditionId>()?.Value;
             Condition = ViewModel.GetCondition(guid);
 
-            Uri.Display = Condition.Name;
+            context.Uri.Display = Condition.Name;
             context.VisualTree.Content.Primary.Add(Form);
         }
     }

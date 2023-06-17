@@ -1,8 +1,8 @@
 ﻿using InventoryExpress.Model;
+using InventoryExpress.Parameter;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebControl;
-using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
@@ -15,19 +15,13 @@ namespace InventoryExpress.WebPage
     [WebExContextPath("/")]
     [WebExParent<PageLedgerAccountEdit>]
     [WebExModule<Module>]
-    public sealed class PageLedgerAccountDelete : PageWebApp, IPageLedgerAccount
+    public sealed class PageLedgerAccountDelete : PageWebAppFormularConfirm<ControlFormularConfirmDelete>, IPageLedgerAccount
     {
-        /// <summary>
-        /// Returns the form
-        /// </summary>
-        private ControlFormularConfirmDelete Form { get; } = new ControlFormularConfirmDelete("ledgeraccount")
-        {
-        };
-
         /// <summary>
         /// Constructor
         /// </summary>
         public PageLedgerAccountDelete()
+            : base("ledgeraccount")
         {
         }
 
@@ -39,9 +33,7 @@ namespace InventoryExpress.WebPage
         {
             base.Initialization(context);
 
-            Form.RedirectUri = ComponentManager.SitemapManager.GetUri<PageLedgerAccounts>(context);
-            Form.InitializeFormular += OnInitializeFormular;
-            Form.Confirm += OnConfirmFormular;
+            SetDescription(ComponentManager.SitemapManager.GetUri<PageLedgerAccounts>(context));
         }
 
         /// <summary>
@@ -49,18 +41,26 @@ namespace InventoryExpress.WebPage
         /// </summary>
         /// <param name="sender">The trigger of the event.</param>
         /// <param name="e">The event argument.</param>
-        private void OnInitializeFormular(object sender, FormularEventArgs e)
+        protected override void OnInitializeFormular(object sender, FormularEventArgs e)
         {
+            var guid = e.Context.Request.GetParameter<ParameterLedgerAccountId>()?.Value;
+            var ledgeraccount = ViewModel.GetLedgerAccount(guid);
+
+            SetDescription(InternationalizationManager.I18N
+            (
+                "inventoryexpress:inventoryexpress.ledgeraccount.delete.description",
+                ledgeraccount?.Name
+            ));
         }
 
         /// <summary>
-        /// Wird ausgelöst, wenn das Formular bestätigt urde.
+        /// Triggered when the form is confirmed.
         /// </summary>
         /// <param name="sender">The trigger of the event.</param>
         /// <param name="e">The event argument./param>
-        private void OnConfirmFormular(object sender, FormularEventArgs e)
+        protected override void OnConfirmFormular(object sender, FormularEventArgs e)
         {
-            var guid = e.Context.Request.GetParameter("LedgerAccountId")?.Value;
+            var guid = e.Context.Request.GetParameter<ParameterLedgerAccountId>()?.Value;
             var ledgeraccount = ViewModel.GetLedgerAccount(guid);
 
             using (var transaction = ViewModel.BeginTransaction())
@@ -70,21 +70,13 @@ namespace InventoryExpress.WebPage
                 transaction.Commit();
             }
 
-            ComponentManager.GetComponent<NotificationManager>()?.AddNotification
+            AddNotification
             (
-                request: e.Context.Request,
-                message: string.Format
-                (
-                    InternationalizationManager.I18N(Culture, "inventoryexpress:inventoryexpress.ledgeraccount.notification.delete"),
-                    new ControlText()
-                    {
-                        Text = ledgeraccount.Name,
-                        TextColor = new PropertyColorText(TypeColorText.Danger),
-                        Format = TypeFormatText.Span
-                    }.Render(e.Context).ToString().Trim()
-                ),
-                icon: ledgeraccount.Image,
-                durability: 10000
+                e.Context,
+                "inventoryexpress:inventoryexpress.ledgeraccount.notification.delete",
+                ledgeraccount.Name,
+                new PropertyColorText(TypeColorText.Danger),
+                ledgeraccount.Image
             );
         }
 
@@ -95,8 +87,6 @@ namespace InventoryExpress.WebPage
         public override void Process(RenderContextWebApp context)
         {
             base.Process(context);
-
-            context.VisualTree.Content.Primary.Add(Form);
         }
     }
 }

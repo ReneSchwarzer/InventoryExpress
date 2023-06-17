@@ -1,4 +1,5 @@
 ﻿using InventoryExpress.Model;
+using InventoryExpress.Parameter;
 using InventoryExpress.WebPageSetting;
 using WebExpress.Html;
 using WebExpress.UI.WebAttribute;
@@ -6,6 +7,7 @@ using WebExpress.UI.WebControl;
 using WebExpress.UI.WebFragment;
 using WebExpress.WebApp.WebFragment;
 using WebExpress.WebAttribute;
+using WebExpress.WebComponent;
 using WebExpress.WebPage;
 
 namespace InventoryExpress.WebFragment
@@ -42,15 +44,18 @@ namespace InventoryExpress.WebFragment
         /// <returns>The control as html.</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var guid = context.Request.GetParameter("TemplateId")?.Value;
-            var template = ViewModel.GetTemplate(guid);
+            var guid = context.Request.GetParameter<ParameterTemplateId>();
+            var template = ViewModel.GetTemplate(guid?.Value);
             var inUse = ViewModel.GetTemplateInUse(template);
 
             Active = inUse ? TypeActive.Disabled : TypeActive.None;
             TextColor = inUse ? new PropertyColorText(TypeColorText.Muted) : TextColor;
 
-            Uri = context.Uri.Append("del");
-            Modal = new PropertyModal(TypeModal.Formular, TypeModalSize.Default) { RedirectUri = context.ApplicationContext.ContextPath.Append("setting/templates") };
+            Uri = ComponentManager.SitemapManager.GetUri<PageSettingTemplateDelete>(guid);
+            Modal = new PropertyModal(TypeModal.Formular, TypeModalSize.Default)
+            {
+                RedirectUri = ComponentManager.SitemapManager.GetUri<PageSettingTemplates>()
+            };
 
             return base.Render(context);
         }

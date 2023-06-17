@@ -1,4 +1,5 @@
 ﻿using InventoryExpress.Model;
+using InventoryExpress.Parameter;
 using InventoryExpress.WebControl;
 using System;
 using System.Linq;
@@ -43,7 +44,6 @@ namespace InventoryExpress.WebPage
         {
             base.Initialization(context);
 
-            Form.RedirectUri = Uri.Take(-1);
             Form.InitializeFormular += OnInitializeFormular;
             Form.FillFormular += OnFillFormular;
             Form.ProcessFormular += OnProcessFormular;
@@ -53,33 +53,36 @@ namespace InventoryExpress.WebPage
         /// Initializes the form.
         /// </summary>
         /// <param name="sender">The trigger of the event.</param>
-        /// <param name="e">Das Eventargument</param>
+        /// <param name="e">The event argument.</param>
         private void OnInitializeFormular(object sender, FormularEventArgs e)
         {
+            var guid = e.Context.Request.GetParameter<ParameterInventoryId>()?.Value;
+
+            Form.RedirectUri = ComponentManager.SitemapManager.GetUri<PageInventoryDetails>(new ParameterInventoryId(guid));
         }
 
         /// <summary>
-        /// Wird aufgerufen, wenn das Formular initial befüllt werden soll
+        /// Called when the form is to be filled initially.
         /// </summary>
         /// <param name="sender">The trigger of the event.</param>
-        /// <param name="e">Das Eventargument</param>
+        /// <param name="e">The event argument.</param>
         /// <exception cref="NotImplementedException"></exception>
         private void OnFillFormular(object sender, FormularEventArgs e)
         {
-            var guid = e.Context.Request.GetParameter("InventoryId")?.Value;
+            var guid = e.Context.Request.GetParameter<ParameterInventoryId>()?.Value;
             var inventory = ViewModel.GetInventory(guid);
 
             Form.Fill(inventory, e.Context.Culture);
         }
 
         /// <summary>
-        /// Wird ausgelöst, wenn die Formulareingaben verarbeitet werden sollen
+        /// Dispatched when the form inputs are to be processed.
         /// </summary>
         /// <param name="sender">The trigger of the event.</param>
-        /// <param name="e">Das Eventargument</param>
+        /// <param name="e">The event argument.</param>
         private void OnProcessFormular(object sender, FormularEventArgs e)
         {
-            var guid = e.Context.Request.GetParameter("InventoryId")?.Value;
+            var guid = e.Context.Request.GetParameter<ParameterInventoryId>()?.Value;
             var inventory = ViewModel.GetInventory(guid);
             Form.Apply(inventory, e.Context.Culture);
 
@@ -115,9 +118,9 @@ namespace InventoryExpress.WebPage
         {
             base.Process(context);
 
-            // Attribute im Formular erstellen
+            // create attributes in the form
             context.VisualTree.Content.Primary.Add(Form);
-            Uri.Display = context.Request.GetParameter("InventoryId")?.Value.Split('-').LastOrDefault();
+            context.Uri.Display = context.Request.GetParameter<ParameterInventoryId>()?.Value.Split('-').LastOrDefault();
         }
     }
 }

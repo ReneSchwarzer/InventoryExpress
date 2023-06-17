@@ -1,4 +1,5 @@
 ﻿using InventoryExpress.Model;
+using InventoryExpress.Parameter;
 using System;
 using System.Linq;
 using WebExpress.UI.WebControl;
@@ -48,7 +49,7 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Returns or sets the id.</param>
+        /// <param name="id">The id.</param>
         public ControlFormularLedgerAccount(string id = null)
             : base(id)
         {
@@ -82,7 +83,7 @@ namespace InventoryExpress.WebControl
         /// <param name="e">The event argument./param>
         private void LedgerAccountNameValidation(object sender, ValidationEventArgs e)
         {
-            var guid = e.Context.Request.GetParameter("LedgerAccountId")?.Value;
+            var guid = e.Context.Request.GetParameter<ParameterLedgerAccountId>()?.Value;
             var ledgeraccount = ViewModel.GetLedgerAccount(guid);
 
             if (e.Value == null || e.Value.Length < 1)

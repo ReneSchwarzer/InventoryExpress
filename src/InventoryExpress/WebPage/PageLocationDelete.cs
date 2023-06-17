@@ -1,12 +1,12 @@
 ﻿using InventoryExpress.Model;
+using InventoryExpress.Parameter;
+using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebControl;
-using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
 using WebExpress.WebResource;
-using static WebExpress.Internationalization.InternationalizationManager;
 
 namespace InventoryExpress.WebPage
 {
@@ -15,19 +15,13 @@ namespace InventoryExpress.WebPage
     [WebExContextPath("/")]
     [WebExParent<PageLocations>]
     [WebExModule<Module>]
-    public sealed class PageLocationDelete : PageWebApp, IPageLocation
+    public sealed class PageLocationDelete : PageWebAppFormularConfirm<ControlFormularConfirmDelete>, IPageLocation
     {
-        /// <summary>
-        /// Returns the form
-        /// </summary>
-        private ControlFormularConfirmDelete Form { get; } = new ControlFormularConfirmDelete("location")
-        {
-        };
-
         /// <summary>
         /// Constructor
         /// </summary>
         public PageLocationDelete()
+            : base("location")
         {
         }
 
@@ -39,9 +33,7 @@ namespace InventoryExpress.WebPage
         {
             base.Initialization(context);
 
-            Form.RedirectUri = ResourceContext.ContextPath.Append("locations");
-            Form.InitializeFormular += OnInitializeFormular;
-            Form.Confirm += OnConfirmFormular;
+            SetDescription(ComponentManager.SitemapManager.GetUri<PageLocations>(context));
         }
 
         /// <summary>
@@ -49,18 +41,26 @@ namespace InventoryExpress.WebPage
         /// </summary>
         /// <param name="sender">The trigger of the event.</param>
         /// <param name="e">The event argument.</param>
-        private void OnInitializeFormular(object sender, FormularEventArgs e)
+        protected override void OnInitializeFormular(object sender, FormularEventArgs e)
         {
+            var guid = e.Context.Request.GetParameter<ParameterLocationId>()?.Value;
+            var location = ViewModel.GetLocation(guid);
+
+            SetDescription(InternationalizationManager.I18N
+            (
+                "inventoryexpress:inventoryexpress.location.delete.description",
+                location?.Name
+            ));
         }
 
         /// <summary>
-        /// Wird ausgelöst, wenn das Formular bestätigt urde.
+        /// Triggered when the form is confirmed.
         /// </summary>
         /// <param name="sender">The trigger of the event.</param>
         /// <param name="e">The event argument./param>
-        private void OnConfirmFormular(object sender, FormularEventArgs e)
+        protected override void OnConfirmFormular(object sender, FormularEventArgs e)
         {
-            var guid = e.Context.Request.GetParameter("LocationId")?.Value;
+            var guid = e.Context.Request.GetParameter<ParameterLocationId>()?.Value;
             var location = ViewModel.GetLocation(guid);
 
             using (var transaction = ViewModel.BeginTransaction())
@@ -70,21 +70,13 @@ namespace InventoryExpress.WebPage
                 transaction.Commit();
             }
 
-            ComponentManager.GetComponent<NotificationManager>()?.AddNotification
+            AddNotification
             (
-                request: e.Context.Request,
-                message: string.Format
-                (
-                    I18N(Culture, "inventoryexpress:inventoryexpress.location.notification.delete"),
-                    new ControlText()
-                    {
-                        Text = location.Name,
-                        TextColor = new PropertyColorText(TypeColorText.Danger),
-                        Format = TypeFormatText.Span
-                    }.Render(e.Context).ToString().Trim()
-                ),
-                icon: location.Image,
-                durability: 10000
+                e.Context,
+                "inventoryexpress:inventoryexpress.location.notification.delete",
+                location.Name,
+                new PropertyColorText(TypeColorText.Danger),
+                location.Image
             );
         }
 
@@ -95,8 +87,6 @@ namespace InventoryExpress.WebPage
         public override void Process(RenderContextWebApp context)
         {
             base.Process(context);
-
-            context.VisualTree.Content.Primary.Add(Form);
         }
     }
 }

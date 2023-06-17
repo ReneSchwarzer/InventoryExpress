@@ -1,28 +1,25 @@
 ﻿using InventoryExpress.Model;
+using InventoryExpress.Parameter;
+using InventoryExpress.WebPage;
 using WebExpress.Html;
 using WebExpress.UI.WebAttribute;
-using WebExpress.UI.WebControl;
 using WebExpress.UI.WebFragment;
 using WebExpress.WebApp.WebFragment;
 using WebExpress.WebAttribute;
 using WebExpress.WebPage;
-using WebExpress.WebUri;
 
 namespace InventoryExpress.WebFragment
 {
-    [WebExSection(Section.MoreSecondary)]
+    [WebExSection(Section.SidebarHeader)]
     [WebExModule<Module>]
-    public sealed class FragmentMoreMediaDelete : FragmentControlDropdownItemLink
+    [WebExScope<PageManufacturerEdit>]
+    public sealed class FragmentSidebarMediaManufacturer : FragmentSidebarMedia
     {
         /// <summary>
         /// Constructor
         /// </summary>
-        public FragmentMoreMediaDelete()
+        public FragmentSidebarMediaManufacturer()
         {
-            TextColor = new PropertyColorText(TypeColorText.Danger);
-            Uri = new UriFragment();
-            Text = "inventoryexpress:inventoryexpress.delete.label";
-            Icon = new PropertyIcon(TypeIcon.Trash);
         }
 
         /// <summary>
@@ -42,15 +39,10 @@ namespace InventoryExpress.WebFragment
         /// <returns>The control as html.</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var guid = context.Request.GetParameter("MediaId")?.Value;
-            var media = ViewModel.GetMedia(guid);
-            var inUse = ViewModel.GetMediaInUse(media);
+            var guid = context.Request.GetParameter<ParameterManufacturerId>();
+            var inventory = ViewModel.GetManufacturer(guid?.Value);
 
-            Active = inUse ? TypeActive.Disabled : TypeActive.None;
-            TextColor = inUse ? new PropertyColorText(TypeColorText.Muted) : TextColor;
-
-            Uri = context.Uri.Append("del");
-            Modal = new PropertyModal(TypeModal.Formular, TypeModalSize.Default) { RedirectUri = context.Uri.Take(-1) };
+            Image.Uri = inventory.Image;
 
             return base.Render(context);
         }

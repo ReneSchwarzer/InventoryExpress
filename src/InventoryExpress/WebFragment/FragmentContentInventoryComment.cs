@@ -1,5 +1,6 @@
 ﻿using InventoryExpress.Model;
 using InventoryExpress.Model.WebItems;
+using InventoryExpress.Parameter;
 using InventoryExpress.WebControl;
 using InventoryExpress.WebPage;
 using WebExpress.Html;
@@ -62,7 +63,7 @@ namespace InventoryExpress.WebFragment
             Form.RedirectUri = context.Uri;
             List.Items.Clear();
 
-            var guid = context.Request.GetParameter("InventoryId")?.Value;
+            var guid = context.Request.GetParameter<ParameterInventoryId>()?.Value;
             var inventory = ViewModel.GetInventory(guid);
 
             foreach (var comment in ViewModel.GetInventoryComments(inventory))

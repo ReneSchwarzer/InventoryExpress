@@ -1,5 +1,6 @@
 ﻿using InventoryExpress.Model;
 using InventoryExpress.Model.WebItems;
+using InventoryExpress.Parameter;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -188,7 +189,7 @@ namespace InventoryExpress.WebControl
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="id">Returns or sets the id.</param>
+        /// <param name="id">The id.</param>
         public ControlFormularInventory(string id = null)
             : base(id ?? "inventory")
         {
@@ -261,10 +262,10 @@ namespace InventoryExpress.WebControl
         /// Wird aufgerufen, wenn der Name überfürft werden soll
         /// </summary>
         /// <param name="sender">The trigger of the event.</param>
-        /// <param name="e">Das Eventargument</param>
+        /// <param name="e">The event argument.</param>
         private void OnInventoryNameValidation(object sender, ValidationEventArgs e)
         {
-            var guid = e.Context.Request.GetParameter("InventoryId")?.Value;
+            var guid = e.Context.Request.GetParameter<ParameterInventoryId>()?.Value;
             var inventory = ViewModel.GetInventory(guid);
 
             if (e.Value == null || e.Value.Length < 1)
@@ -294,7 +295,7 @@ namespace InventoryExpress.WebControl
         /// Wird aufgerufen, wenn der Anschaffungswert überfürft werden soll
         /// </summary>
         /// <param name="sender">The trigger of the event.</param>
-        /// <param name="e">Das Eventargument</param>
+        /// <param name="e">The event argument.</param>
         private void OnCostValueValidation(object sender, ValidationEventArgs e)
         {
             try

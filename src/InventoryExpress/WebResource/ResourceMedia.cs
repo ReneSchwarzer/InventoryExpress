@@ -41,7 +41,7 @@ namespace InventoryExpress.WebResource
         /// <returns>The response.</returns>
         public override Response Process(Request request)
         {
-            var guid = request.GetParameter("MediaId")?.Value.ToLower();
+            var guid = request.GetParameter<ParameterMediaId>()?.Value.ToLower();
             var media = ViewModel.GetMedia(guid);
             var path = ViewModel.MediaDirectory;
 
