@@ -10,11 +10,11 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPage
 {
-    [WebExTitle("inventoryexpress:inventoryexpress.ledgeraccount.delete.label")]
-    [WebExSegment("del", "inventoryexpress:inventoryexpress.ledgeraccount.delete.display")]
-    [WebExContextPath("/")]
-    [WebExParent<PageLedgerAccountEdit>]
-    [WebExModule<Module>]
+    [Title("inventoryexpress:inventoryexpress.ledgeraccount.delete.label")]
+    [Segment("del", "inventoryexpress:inventoryexpress.ledgeraccount.delete.display")]
+    [ContextPath("/")]
+    [Parent<PageLedgerAccountEdit>]
+    [Module<Module>]
     public sealed class PageLedgerAccountDelete : PageWebAppFormularConfirm<ControlFormularConfirmDelete>, IPageLedgerAccount
     {
         /// <summary>

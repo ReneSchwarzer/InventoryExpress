@@ -11,15 +11,15 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPageSetting
 {
-    [WebExTitle("inventoryexpress:inventoryexpress.importexport.label")]
-    [WebExSegment("export", "inventoryexpress:inventoryexpress.importexport.label")]
-    [WebExContextPath("/setting")]
+    [Title("inventoryexpress:inventoryexpress.importexport.label")]
+    [Segment("export", "inventoryexpress:inventoryexpress.importexport.label")]
+    [ContextPath("/setting")]
     [WebExSettingSection(WebExSettingSection.Primary)]
     [WebExSettingIcon(TypeIcon.FileExport)]
     [WebExSettingGroup("inventoryexpress:inventoryexpress.setting.data.label")]
     [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
-    [WebExModule<Module>]
-    [WebExScope<ScopeAdmin>]
+    [Module<Module>]
+    [Scope<ScopeAdmin>]
     public sealed class PageSettingExport : PageWebAppSetting
     {
         /// <summary>

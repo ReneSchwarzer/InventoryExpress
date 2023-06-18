@@ -11,11 +11,11 @@ namespace InventoryExpress.WebResource
     /// <summary>
     /// Delivery of a resource embedded in the assamby.
     /// </summary>
-    [WebExTitle("Media")]
-    [WebExSegmentGuid<ParameterMediaId>("")]
-    [WebExContextPath("/media")]
-    [WebExIncludeSubPaths(false)]
-    [WebExModule<Module>]
+    [Title("Media")]
+    [SegmentGuid<ParameterMediaId>("")]
+    [ContextPath("/media")]
+    [IncludeSubPaths(false)]
+    [Module<Module>]
     public sealed class ResourceMedia : ResourceBinary
     {
         /// <summary>

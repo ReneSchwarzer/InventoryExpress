@@ -13,8 +13,8 @@ using WebExpress.WebPage;
 namespace InventoryExpress.WebFragment
 {
     [WebExSection(Section.MoreSecondary)]
-    [WebExModule<Module>]
-    [WebExScope<PageCostCenterEdit>]
+    [Module<Module>]
+    [Scope<PageCostCenterEdit>]
     public sealed class FragmentMoreCostCenterDelete : FragmentControlDropdownItemLink
     {
         /// <summary>

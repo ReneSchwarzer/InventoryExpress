@@ -8,11 +8,11 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPage
 {
-    [WebExTitle("inventoryexpress:inventoryexpress.help.label")]
-    [WebExSegment("help", "inventoryexpress:inventoryexpress.help.label")]
-    [WebExContextPath("/")]
-    [WebExModule<Module>]
-    [WebExScope<ScopeGeneral>]
+    [Title("inventoryexpress:inventoryexpress.help.label")]
+    [Segment("help", "inventoryexpress:inventoryexpress.help.label")]
+    [ContextPath("/")]
+    [Module<Module>]
+    [Scope<ScopeGeneral>]
     public sealed class PageHelp : PageWebApp, IPageHelp
     {
         /// <summary>

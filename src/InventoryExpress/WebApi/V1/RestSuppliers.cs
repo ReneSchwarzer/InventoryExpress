@@ -13,10 +13,10 @@ namespace InventoryExpress.WebApi.V1
     /// <summary>
     /// Ermittelt alle Lieferanten
     /// </summary>
-    [WebExSegment("suppliers", "")]
-    [WebExContextPath("/api/v1")]
-    [WebExIncludeSubPaths(true)]
-    [WebExModule<Module>]
+    [Segment("suppliers", "")]
+    [ContextPath("/api/v1")]
+    [IncludeSubPaths(true)]
+    [Module<Module>]
     public sealed class RestSuppliers : ResourceRestCrud<WebItem>
     {
         /// <summary>

@@ -3,11 +3,11 @@ using WebExpress.WebModule;
 
 namespace InventoryExpress.QR
 {
-    [WebExName("module.name")]
-    [WebExDescription("module.description")]
-    [WebExIcon("/assets/img/Logo.png")]
-    [WebExAssetPath("/")]
-    [WebExContextPath("/qr")]
+    [Name("module.name")]
+    [Description("module.description")]
+    [Icon("/assets/img/Logo.png")]
+    [AssetPath("/")]
+    [ContextPath("/qr")]
     [WebExApplication<Application>]
     public sealed class Module : IModule
     {

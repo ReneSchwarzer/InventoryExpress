@@ -15,8 +15,8 @@ namespace InventoryExpress.WebFragment
 {
     [WebExSection(Section.ContentSecondary)]
     [WebExOrder(int.MaxValue)]
-    [WebExModule<Module>]
-    [WebExScope<PageInventoryDetails>]
+    [Module<Module>]
+    [Scope<PageInventoryDetails>]
     public sealed class FragmentContentInventoryComment : FragmentControlPanel
     {
         /// <summary>

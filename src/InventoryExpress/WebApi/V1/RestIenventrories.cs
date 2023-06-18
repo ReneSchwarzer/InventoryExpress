@@ -13,10 +13,10 @@ namespace InventoryExpress.WebApi.V1
     /// <summary>
     /// Ermittelt alle Inventargegenstände
     /// </summary>
-    [WebExSegment("inventories", "")]
-    [WebExContextPath("/api/v1")]
-    [WebExIncludeSubPaths(true)]
-    [WebExModule<Module>]
+    [Segment("inventories", "")]
+    [ContextPath("/api/v1")]
+    [IncludeSubPaths(true)]
+    [Module<Module>]
     public sealed class RestInventories : ResourceRestCrud<WebItemEntityInventory>
     {
         /// <summary>

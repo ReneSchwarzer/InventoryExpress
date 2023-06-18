@@ -3,11 +3,11 @@ using WebExpress.WebPlugin;
 
 namespace InventoryExpress
 {
-    [WebExName("InventoryExpress")]
-    [WebExDescription("plugin.description")]
-    [WebExIcon("/assets/img/Logo.png")]
-    [WebExDependency("webexpress.ui")]
-    [WebExDependency("webexpress.webapp")]
+    [Name("InventoryExpress")]
+    [Description("plugin.description")]
+    [Icon("/assets/img/Logo.png")]
+    [Dependency("webexpress.ui")]
+    [Dependency("webexpress.webapp")]
     public sealed class Plugin : IPlugin
     {
         /// <summary>

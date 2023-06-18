@@ -12,12 +12,12 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPage
 {
-    [WebExTitle("inventoryexpress:inventoryexpress.costcenter.add.label")]
-    [WebExSegment("add", "inventoryexpress:inventoryexpress.costcenter.add.label")]
-    [WebExContextPath("/")]
-    [WebExParent<PageCostCenters>]
-    [WebExModule<Module>]
-    [WebExScope<ScopeGeneral>]
+    [Title("inventoryexpress:inventoryexpress.costcenter.add.label")]
+    [Segment("add", "inventoryexpress:inventoryexpress.costcenter.add.label")]
+    [ContextPath("/")]
+    [Parent<PageCostCenters>]
+    [Module<Module>]
+    [Scope<ScopeGeneral>]
     public sealed class PageCostCenterAdd : PageWebApp, IPageCostCenter
     {
         /// <summary>

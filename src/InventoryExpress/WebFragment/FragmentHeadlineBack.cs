@@ -11,17 +11,17 @@ using WebExpress.WebPage;
 namespace InventoryExpress.WebFragment
 {
     [WebExSection(Section.HeadlinePrologue)]
-    [WebExModule<Module>]
-    [WebExScope<PageInventoryAttachments>]
-    [WebExScope<PageInventoryEdit>]
-    [WebExScope<PageCostCenterEdit>]
-    [WebExScope<PageLedgerAccountEdit>]
-    [WebExScope<PageLocationEdit>]
-    [WebExScope<PageManufacturerEdit>]
-    [WebExScope<PageSupplierEdit>]
-    [WebExScope<PageSettingTemplateEdit>]
-    [WebExScope<PageSettingTemplateAdd>]
-    [WebExScope<PageInventoryJournal>]
+    [Module<Module>]
+    [Scope<PageInventoryAttachments>]
+    [Scope<PageInventoryEdit>]
+    [Scope<PageCostCenterEdit>]
+    [Scope<PageLedgerAccountEdit>]
+    [Scope<PageLocationEdit>]
+    [Scope<PageManufacturerEdit>]
+    [Scope<PageSupplierEdit>]
+    [Scope<PageSettingTemplateEdit>]
+    [Scope<PageSettingTemplateAdd>]
+    [Scope<PageInventoryJournal>]
     public sealed class FragmentHeadlineBack : FragmentControlButtonLink
     {
         /// <summary>

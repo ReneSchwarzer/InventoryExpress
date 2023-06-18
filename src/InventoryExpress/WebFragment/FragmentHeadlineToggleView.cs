@@ -12,9 +12,9 @@ using WebExpress.WebPage;
 namespace InventoryExpress.WebFragment
 {
     [WebExSection(Section.HeadlineSecondary)]
-    [WebExModule<Module>]
-    [WebExScope<PageInventories>]
-    [WebExScope<PageManufacturers>]
+    [Module<Module>]
+    [Scope<PageInventories>]
+    [Scope<PageManufacturers>]
     public sealed class FragmentHeadlineToggleView : ControlFormularToggleView, IFragment
     {
         /// <summary>

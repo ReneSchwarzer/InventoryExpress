@@ -10,11 +10,11 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPage
 {
-    [WebExTitle("inventoryexpress:inventoryexpress.costcenters.label")]
-    [WebExSegment("costcenters", "inventoryexpress:inventoryexpress.costcenters.label")]
-    [WebExContextPath("/")]
-    [WebExModule<Module>]
-    [WebExScope<ScopeGeneral>]
+    [Title("inventoryexpress:inventoryexpress.costcenters.label")]
+    [Segment("costcenters", "inventoryexpress:inventoryexpress.costcenters.label")]
+    [ContextPath("/")]
+    [Module<Module>]
+    [Scope<ScopeGeneral>]
     public sealed class PageCostCenters : PageWebApp, IPageCostCenter
     {
         /// <summary>

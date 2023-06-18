@@ -12,8 +12,8 @@ using WebExpress.WebPage;
 namespace InventoryExpress.WebFragment
 {
     [WebExSection("mediatool.secondary")]
-    [WebExModule<Module>]
-    [WebExScope<PageManufacturerEdit>]
+    [Module<Module>]
+    [Scope<PageManufacturerEdit>]
     public sealed class FragmentMediaToolDeleteManufacturer : FragmentMediaToolDelete
     {
         /// <summary>

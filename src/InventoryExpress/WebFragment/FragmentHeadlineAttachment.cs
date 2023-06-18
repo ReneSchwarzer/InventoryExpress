@@ -14,8 +14,8 @@ using WebExpress.WebPage;
 namespace InventoryExpress.WebFragment
 {
     [WebExSection(Section.HeadlinePreferences)]
-    [WebExModule<Module>]
-    [WebExScope<PageInventoryDetails>]
+    [Module<Module>]
+    [Scope<PageInventoryDetails>]
     public sealed class FragmentHeadlineAttachment : FragmentControlLink
     {
         /// <summary>

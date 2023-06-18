@@ -15,13 +15,13 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPageSetting
 {
-    [WebExTitle("inventoryexpress:inventoryexpress.condition.edit.label")]
-    [WebExSegmentGuid<ParameterConditionId>("inventoryexpress:inventoryexpress.condition.edit.display")]
-    [WebExParent<PageSettingConditions>]
-    [WebExContextPath("/edit")]
+    [Title("inventoryexpress:inventoryexpress.condition.edit.label")]
+    [SegmentGuid<ParameterConditionId>("inventoryexpress:inventoryexpress.condition.edit.display")]
+    [Parent<PageSettingConditions>]
+    [ContextPath("/edit")]
     [WebExSettingHide()]
     [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
-    [WebExModule<Module>]
+    [Module<Module>]
     public sealed class PageSettingConditionEdit : PageWebAppSetting, IPageCondition
     {
         /// <summary>

@@ -13,11 +13,11 @@ using WebExpress.WebScope;
 
 namespace InventoryExpress.WebPage
 {
-    [WebExTitle("inventoryexpress:inventoryexpress.ledgeraccount.edit.label")]
-    [WebExSegmentGuid<ParameterLedgerAccountId>("inventoryexpress:inventoryexpress.ledgeraccount.edit.display")]
-    [WebExContextPath("/")]
-    [WebExParent<PageLedgerAccounts>]
-    [WebExModule<Module>]
+    [Title("inventoryexpress:inventoryexpress.ledgeraccount.edit.label")]
+    [SegmentGuid<ParameterLedgerAccountId>("inventoryexpress:inventoryexpress.ledgeraccount.edit.display")]
+    [ContextPath("/")]
+    [Parent<PageLedgerAccounts>]
+    [Module<Module>]
     public sealed class PageLedgerAccountEdit : PageWebApp, IPageLedgerAccount, IScope
     {
         /// <summary>

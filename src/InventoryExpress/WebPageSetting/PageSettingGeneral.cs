@@ -10,15 +10,15 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPageSetting
 {
-    [WebExTitle("inventoryexpress:inventoryexpress.setting.label")]
-    [WebExSegment("general", "inventoryexpress:inventoryexpress.setting.label")]
-    [WebExContextPath("/setting")]
+    [Title("inventoryexpress:inventoryexpress.setting.label")]
+    [Segment("general", "inventoryexpress:inventoryexpress.setting.label")]
+    [ContextPath("/setting")]
     [WebExSettingSection(WebExSettingSection.Preferences)]
     [WebExSettingIcon(TypeIcon.Wrench)]
     [WebExSettingGroup("inventoryexpress:inventoryexpress.setting.general.label")]
     [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
-    [WebExModule<Module>]
-    [WebExScope<ScopeAdmin>]
+    [Module<Module>]
+    [Scope<ScopeAdmin>]
     public sealed class PageSettingGeneral : PageWebAppSetting
     {
         /// <summary>

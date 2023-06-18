@@ -11,8 +11,8 @@ using WebExpress.WebPage;
 namespace InventoryExpress.WebFragment
 {
     [WebExSection(Section.MorePrimary)]
-    [WebExModule<Module>]
-    [WebExScope<PageInventoryDetails>]
+    [Module<Module>]
+    [Scope<PageInventoryDetails>]
     public sealed class FragmentMoreJournal : FragmentControlDropdownItemLink
     {
         /// <summary>

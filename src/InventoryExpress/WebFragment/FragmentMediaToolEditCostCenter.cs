@@ -16,8 +16,8 @@ using WebExpress.WebPage;
 namespace InventoryExpress.WebFragment
 {
     [WebExSection("mediatool.primary")]
-    [WebExModule<Module>]
-    [WebExScope<PageCostCenterEdit>]
+    [Module<Module>]
+    [Scope<PageCostCenterEdit>]
     public sealed class FragmentMediaToolEditCostCenter : FragmentMediaToolEdit
     {
         /// <summary>

@@ -12,9 +12,9 @@ using WebExpress.WebPage;
 namespace InventoryExpress.WebFragment
 {
     [WebExSection(Section.PropertyPrimary)]
-    [WebExModule<Module>]
-    [WebExScope<PageManufacturerEdit>]
-    [WebExScope<PageManufacturerDelete>]
+    [Module<Module>]
+    [Scope<PageManufacturerEdit>]
+    [Scope<PageManufacturerDelete>]
     public sealed class FragmentPropertyManufacturerDetails : FragmentControlList
     {
         /// <summary>

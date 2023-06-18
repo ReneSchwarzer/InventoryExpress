@@ -14,8 +14,8 @@ using WebExpress.WebUri;
 namespace InventoryExpress.WebFragment
 {
     [WebExSection(Section.MoreSecondary)]
-    [WebExModule<Module>]
-    [WebExScope<PageInventoryDetails>]
+    [Module<Module>]
+    [Scope<PageInventoryDetails>]
     public sealed class FragmentMoreInventoryDelete : FragmentControlDropdownItemLink
     {
         /// <summary>

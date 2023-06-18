@@ -10,11 +10,11 @@ using WebExpress.WebScope;
 
 namespace InventoryExpress.WebPage
 {
-    [WebExTitle("inventoryexpress:inventoryexpress.inventory.journal.label")]
-    [WebExSegment("journal", "inventoryexpress:inventoryexpress.inventory.journal.display")]
-    [WebExContextPath("/")]
-    [WebExParent<PageInventoryDetails>]
-    [WebExModule<Module>]
+    [Title("inventoryexpress:inventoryexpress.inventory.journal.label")]
+    [Segment("journal", "inventoryexpress:inventoryexpress.inventory.journal.display")]
+    [ContextPath("/")]
+    [Parent<PageInventoryDetails>]
+    [Module<Module>]
     public sealed class PageInventoryJournal : PageWebApp, IPageInventory, IScope
     {
         /// <summary>

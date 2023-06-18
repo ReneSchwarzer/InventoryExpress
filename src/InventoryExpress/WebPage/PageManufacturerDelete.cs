@@ -11,11 +11,11 @@ using WebExpress.WebScope;
 
 namespace InventoryExpress.WebPage
 {
-    [WebExTitle("inventoryexpress:inventoryexpress.manufacturer.delete.label")]
-    [WebExSegment("del", "inventoryexpress:inventoryexpress.manufacturer.delete.display")]
-    [WebExContextPath("/")]
-    [WebExParent<PageManufacturers>]
-    [WebExModule<Module>]
+    [Title("inventoryexpress:inventoryexpress.manufacturer.delete.label")]
+    [Segment("del", "inventoryexpress:inventoryexpress.manufacturer.delete.display")]
+    [ContextPath("/")]
+    [Parent<PageManufacturers>]
+    [Module<Module>]
     public sealed class PageManufacturerDelete : PageWebAppFormularConfirm<ControlFormularConfirmDelete>, IPageManufacturer, IScope
     {
         /// <summary>

@@ -18,13 +18,13 @@ using WebExpress.WebScope;
 
 namespace InventoryExpress.WebPageSetting
 {
-    [WebExTitle("inventoryexpress:inventoryexpress.template.edit.label")]
-    [WebExSegmentGuid<ParameterTemplateId>("inventoryexpress:inventoryexpress.template.edit.display")]
-    [WebExContextPath("/")]
-    [WebExParent<PageSettingTemplates>]
+    [Title("inventoryexpress:inventoryexpress.template.edit.label")]
+    [SegmentGuid<ParameterTemplateId>("inventoryexpress:inventoryexpress.template.edit.display")]
+    [ContextPath("/")]
+    [Parent<PageSettingTemplates>]
     [WebExSettingHide()]
     [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
-    [WebExModule<Module>]
+    [Module<Module>]
     public sealed class PageSettingTemplateEdit : PageWebAppSetting, IPageTemplate, IScope
     {
         /// <summary>

@@ -13,13 +13,13 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPageSetting
 {
-    [WebExTitle("inventoryexpress:inventoryexpress.condition.delete.label")]
-    [WebExSegmentGuid<ParameterConditionId>("inventoryexpress:inventoryexpress.condition.delete.display")]
-    [WebExParent<PageSettingConditions>]
-    [WebExContextPath("/del")]
+    [Title("inventoryexpress:inventoryexpress.condition.delete.label")]
+    [SegmentGuid<ParameterConditionId>("inventoryexpress:inventoryexpress.condition.delete.display")]
+    [Parent<PageSettingConditions>]
+    [ContextPath("/del")]
     [WebExSettingHide()]
     [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
-    [WebExModule<Module>]
+    [Module<Module>]
     public sealed class PageSettingConditionDelete : PageWebAppSetting, IPageCondition
     {
         /// <summary>

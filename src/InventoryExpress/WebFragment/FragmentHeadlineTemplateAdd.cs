@@ -10,8 +10,8 @@ using WebExpress.WebScope;
 namespace InventoryExpress.WebFragment
 {
     [WebExSection(Section.HeadlineSecondary)]
-    [WebExModule<Module>]
-    [WebExScope<IScope>]
+    [Module<Module>]
+    [Scope<IScope>]
     public sealed class FragmentHeadlineTemplateAdd : FragmentControlButtonLink
     {
         /// <summary>

@@ -11,11 +11,11 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPage
 {
-    [WebExTitle("inventoryexpress:inventoryexpress.manufacturer.add.label")]
-    [WebExSegment("add", "inventoryexpress:inventoryexpress.manufacturer.add.label")]
-    [WebExContextPath("/")]
-    [WebExParent<PageManufacturers>]
-    [WebExModule<Module>]
+    [Title("inventoryexpress:inventoryexpress.manufacturer.add.label")]
+    [Segment("add", "inventoryexpress:inventoryexpress.manufacturer.add.label")]
+    [ContextPath("/")]
+    [Parent<PageManufacturers>]
+    [Module<Module>]
     public sealed class PageManufacturerAdd : PageWebApp, IPageManufacturer
     {
         /// <summary>

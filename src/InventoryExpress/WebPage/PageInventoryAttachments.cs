@@ -11,11 +11,11 @@ using WebExpress.WebScope;
 
 namespace InventoryExpress.WebPage
 {
-    [WebExTitle("inventoryexpress:inventoryexpress.inventory.attachment.label")]
-    [WebExSegment("attachments", "inventoryexpress:inventoryexpress.inventory.attachment.display")]
-    [WebExContextPath("/")]
-    [WebExParent<PageInventoryDetails>]
-    [WebExModule<Module>]
+    [Title("inventoryexpress:inventoryexpress.inventory.attachment.label")]
+    [Segment("attachments", "inventoryexpress:inventoryexpress.inventory.attachment.display")]
+    [ContextPath("/")]
+    [Parent<PageInventoryDetails>]
+    [Module<Module>]
     public sealed class PageInventoryAttachments : PageWebApp, IPageInventory, IScope
     {
         /// <summary>

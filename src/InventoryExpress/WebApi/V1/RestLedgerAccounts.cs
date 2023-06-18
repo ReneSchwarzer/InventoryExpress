@@ -13,10 +13,10 @@ namespace InventoryExpress.WebApi.V1
     /// <summary>
     /// Ermittelt alle Sachkonten
     /// </summary>
-    [WebExSegment("ledgeraccounts", "")]
-    [WebExContextPath("/api/v1")]
-    [WebExIncludeSubPaths(true)]
-    [WebExModule<Module>]
+    [Segment("ledgeraccounts", "")]
+    [ContextPath("/api/v1")]
+    [IncludeSubPaths(true)]
+    [Module<Module>]
     public sealed class RestLedgerAccounts : ResourceRestCrud<WebItem>
     {
         /// <summary>

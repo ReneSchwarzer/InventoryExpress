@@ -14,8 +14,8 @@ using WebExpress.WebUri;
 namespace InventoryExpress.WebFragment
 {
     [WebExSection(Section.MoreSecondary)]
-    [WebExModule<Module>]
-    [WebExScope<PageLedgerAccountEdit>]
+    [Module<Module>]
+    [Scope<PageLedgerAccountEdit>]
     public sealed class FragmentMoreLedgerAccountDelete : FragmentControlDropdownItemLink
     {
         /// <summary>

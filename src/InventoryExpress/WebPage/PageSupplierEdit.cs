@@ -13,11 +13,11 @@ using WebExpress.WebScope;
 
 namespace InventoryExpress.WebPage
 {
-    [WebExTitle("inventoryexpress:inventoryexpress.supplier.edit.label")]
-    [WebExSegmentGuid<ParameterSupplierId>("inventoryexpress:inventoryexpress.supplier.edit.display")]
-    [WebExContextPath("/")]
-    [WebExParent<PageSuppliers>]
-    [WebExModule<Module>]
+    [Title("inventoryexpress:inventoryexpress.supplier.edit.label")]
+    [SegmentGuid<ParameterSupplierId>("inventoryexpress:inventoryexpress.supplier.edit.display")]
+    [ContextPath("/")]
+    [Parent<PageSuppliers>]
+    [Module<Module>]
     public sealed class PageSupplierEdit : PageWebAppFormular<ControlFormularSupplier>, IPageSupplier, IScope
     {
         /// <summary>

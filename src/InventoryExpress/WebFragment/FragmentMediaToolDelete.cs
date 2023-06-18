@@ -9,7 +9,7 @@ using WebExpress.WebUri;
 namespace InventoryExpress.WebFragment
 {
     [WebExSection("mediatool.secondary")]
-    [WebExModule<Module>]
+    [Module<Module>]
     public abstract class FragmentMediaToolDelete : FragmentControlDropdownItemLink
     {
         /// <summary>

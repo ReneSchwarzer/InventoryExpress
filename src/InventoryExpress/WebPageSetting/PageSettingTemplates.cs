@@ -11,14 +11,14 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPageSetting
 {
-    [WebExTitle("inventoryexpress:inventoryexpress.templates.label")]
-    [WebExSegment("templates", "inventoryexpress:inventoryexpress.templates.label")]
-    [WebExContextPath("/setting")]
+    [Title("inventoryexpress:inventoryexpress.templates.label")]
+    [Segment("templates", "inventoryexpress:inventoryexpress.templates.label")]
+    [ContextPath("/setting")]
     [WebExSettingSection(WebExSettingSection.Primary)]
     [WebExSettingIcon(TypeIcon.Clone)]
     [WebExSettingGroup("inventoryexpress:inventoryexpress.setting.data.label")]
     [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
-    [WebExModule<Module>]
+    [Module<Module>]
     public sealed class PageSettingTemplates : PageWebAppSetting
     {
         /// <summary>

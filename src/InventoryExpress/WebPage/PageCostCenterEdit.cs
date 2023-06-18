@@ -14,11 +14,11 @@ using WebExpress.WebScope;
 
 namespace InventoryExpress.WebPage
 {
-    [WebExTitle("inventoryexpress:inventoryexpress.costcenter.edit.label")]
-    [WebExSegmentGuid<ParameterCostCenterId>("inventoryexpress:inventoryexpress.costcenter.edit.display")]
-    [WebExContextPath("/")]
-    [WebExParent<PageCostCenters>]
-    [WebExModule<Module>]
+    [Title("inventoryexpress:inventoryexpress.costcenter.edit.label")]
+    [SegmentGuid<ParameterCostCenterId>("inventoryexpress:inventoryexpress.costcenter.edit.display")]
+    [ContextPath("/")]
+    [Parent<PageCostCenters>]
+    [Module<Module>]
     public sealed class PageCostCenterEdit : PageWebApp, IPageCostCenter, IScope
     {
         /// <summary>

@@ -7,10 +7,10 @@ using WebExpress.WebScope;
 
 namespace InventoryExpress.WebPage
 {
-    [WebExTitle("inventoryexpress:inventoryexpress.inventories.label")]
-    [WebExSegment(null, "inventoryexpress:inventoryexpress.inventories.label")]
-    [WebExContextPath(null)]
-    [WebExModule<Module>()]
+    [Title("inventoryexpress:inventoryexpress.inventories.label")]
+    [Segment(null, "inventoryexpress:inventoryexpress.inventories.label")]
+    [ContextPath(null)]
+    [Module<Module>()]
     public sealed class PageInventories : PageWebApp, IPageInventory, IScope
     {
         /// <summary>

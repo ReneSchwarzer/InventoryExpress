@@ -6,12 +6,12 @@ using WebExpress.WebComponent;
 
 namespace InventoryExpress
 {
-    [WebExName("app.name")]
-    [WebExDescription("app.description")]
-    [WebExIcon("/assets/img/inventoryexpress.svg")]
-    [WebExAssetPath("ix")]
-    [WebExDataPath("ix")]
-    [WebExContextPath("/ix")]
+    [Name("app.name")]
+    [Description("app.description")]
+    [Icon("/assets/img/inventoryexpress.svg")]
+    [AssetPath("ix")]
+    [DataPath("ix")]
+    [ContextPath("/ix")]
     [WebExOption<WebExpress.WebApp.Module>]
     public sealed class Application : IApplication
     {

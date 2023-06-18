@@ -10,11 +10,11 @@ using WebExpress.WebResource;
 
 namespace InventoryExpress.WebPage
 {
-    [WebExTitle("inventoryexpress:inventoryexpress.location.delete.label")]
-    [WebExSegment("del", "inventoryexpress:inventoryexpress.location.delete.display")]
-    [WebExContextPath("/")]
-    [WebExParent<PageLocations>]
-    [WebExModule<Module>]
+    [Title("inventoryexpress:inventoryexpress.location.delete.label")]
+    [Segment("del", "inventoryexpress:inventoryexpress.location.delete.display")]
+    [ContextPath("/")]
+    [Parent<PageLocations>]
+    [Module<Module>]
     public sealed class PageLocationDelete : PageWebAppFormularConfirm<ControlFormularConfirmDelete>, IPageLocation
     {
         /// <summary>

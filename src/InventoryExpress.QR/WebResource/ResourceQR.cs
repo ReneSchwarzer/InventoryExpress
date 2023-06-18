@@ -10,11 +10,11 @@ namespace InventoryExpress.QR.WebResource
     /// <summary>
     /// Returns of a resource embedded in the assamby.
     /// </summary>
-    [WebExTitle("Assets")]
-    [WebExSegmentGuid<ParameterInventoryId>("")]
-    [WebExContextPath("/")]
-    [WebExIncludeSubPaths(true)]
-    [WebExModule<Module>()]
+    [Title("Assets")]
+    [SegmentGuid<ParameterInventoryId>("")]
+    [ContextPath("/")]
+    [IncludeSubPaths(true)]
+    [Module<Module>()]
     public sealed class ResourceQR : ResourceBinary
     {
         /// <summary>

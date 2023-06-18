@@ -16,11 +16,11 @@ using WebExpress.WebPage;
 namespace InventoryExpress.WebFragment
 {
     [WebExSection("mediatool.primary")]
-    [WebExModule<Module>]
-    [WebExScope<PageInventoryDetails>]
-    [WebExScope<PageInventoryAttachments>]
-    [WebExScope<PageInventoryJournal>]
-    [WebExScope<PageInventoryEdit>]
+    [Module<Module>]
+    [Scope<PageInventoryDetails>]
+    [Scope<PageInventoryAttachments>]
+    [Scope<PageInventoryJournal>]
+    [Scope<PageInventoryEdit>]
     public sealed class FragmentMediaToolEditInventory : FragmentMediaToolEdit
     {
         /// <summary>

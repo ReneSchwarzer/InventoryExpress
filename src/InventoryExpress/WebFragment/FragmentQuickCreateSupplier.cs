@@ -11,7 +11,7 @@ using WebExpress.WebPage;
 namespace InventoryExpress.WebFragment
 {
     [WebExSection(Section.AppQuickcreateSecondary)]
-    [WebExModule<Module>]
+    [Module<Module>]
     public sealed class FragmentQuickCreateSupplier : FragmentControlSplitButtonItemLink
     {
         /// <summary>

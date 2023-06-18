@@ -11,11 +11,11 @@ namespace InventoryExpress.WebResource
     /// <summary>
     /// Lieferung ein Exportdatei
     /// </summary>
-    [WebExTitle("Export")]
-    [WebExSegmentGuid<ParameterExportId>("")]
-    [WebExContextPath("/export")]
-    [WebExIncludeSubPaths(false)]
-    [WebExModule<Module>]
+    [Title("Export")]
+    [SegmentGuid<ParameterExportId>("")]
+    [ContextPath("/export")]
+    [IncludeSubPaths(false)]
+    [Module<Module>]
     public sealed class ResourceExport : ResourceBinary
     {
         /// <summary>

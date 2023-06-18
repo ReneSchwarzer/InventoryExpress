@@ -10,8 +10,8 @@ using WebExpress.WebPage;
 namespace InventoryExpress.WeFragment
 {
     [WebExSection(Section.HeadlineSecondary)]
-    [WebExModule<Module>]
-    [WebExScope<IPageCondition>]
+    [Module<Module>]
+    [Scope<IPageCondition>]
     public sealed class FragmentHeadlineConditionAdd : FragmentControlButtonLink
     {
         /// <summary>
