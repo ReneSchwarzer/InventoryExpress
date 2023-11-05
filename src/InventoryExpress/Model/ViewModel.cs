@@ -3,7 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using System.IO;
 using System.Linq;
+using WebExpress.WebApp.WebIndex;
 using WebExpress.WebApplication;
+using WebExpress.WebComponent;
 using WebExpress.WebModule;
 
 namespace InventoryExpress.Model
@@ -76,6 +78,18 @@ namespace InventoryExpress.Model
             _ = DbContext.CostCenters.ToList();
             _ = DbContext.Manufacturers.ToList();
             _ = DbContext.Suppliers.ToList();
+
+            // indexing the data
+            ComponentManager.GetComponent<IndexManager>()?.Register<WebItemEntityInventory>();
+            ComponentManager.GetComponent<IndexManager>()?.Register<WebItemEntityCostCenter>();
+            ComponentManager.GetComponent<IndexManager>()?.Register<WebItemEntityLedgerAccount>();
+            ComponentManager.GetComponent<IndexManager>()?.Register<WebItemEntityLocation>();
+            ComponentManager.GetComponent<IndexManager>()?.Register<WebItemEntityManufacturer>();
+            ComponentManager.GetComponent<IndexManager>()?.Register<WebItemEntitySupplier>();
+            ComponentManager.GetComponent<IndexManager>()?.Register<WebItemEntityJournal>();
+            ComponentManager.GetComponent<IndexManager>()?.Register<WebItemEntityJournalParameter>();
+            ComponentManager.GetComponent<IndexManager>()?.Register<WebItemEntityAttribute>();
+            ComponentManager.GetComponent<IndexManager>()?.Register<WebItemEntityTemplate>();
         }
 
         /// <summary>
