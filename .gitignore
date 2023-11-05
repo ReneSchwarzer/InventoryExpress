@@ -7,6 +7,10 @@
 *.user
 *.sln.docstates
 
+# Versteckte Dateien
+.*
+!/.gitignore
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
@@ -17,6 +21,7 @@ x86/
 build/
 bld/
 data/
+pkg/
 [Bb]in/
 [Oo]bj/
 
@@ -26,6 +31,7 @@ data/
 # MSTest test Results
 [Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*
+*.testlog
 
 #NUNIT
 *.VisualState.xml
@@ -159,6 +165,9 @@ ClientBin/
 *.dbproj.schemaview
 *.pfx
 *.publishsettings
+.dtbcache.v2
+.vs/
+*.db.template
 node_modules/
 
 # RIA/Silverlight projects

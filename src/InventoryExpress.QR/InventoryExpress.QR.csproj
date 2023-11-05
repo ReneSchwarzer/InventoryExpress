@@ -1,0 +1,55 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<Description>Erzeugung von QR-Codes mittels der freien Bibliothek QRCoder.</Description>
+		<Authors>rene_schwarzer@hotmail.de</Authors>
+		<Company />
+		<Version>1.2.0.0</Version>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+		<EnableDynamicLoading>true</EnableDynamicLoading>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Remove="WebPage\**" />
+		<EmbeddedResource Remove="WebPage\**" />
+		<None Remove="WebPage\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Remove="Assets\img\qr.svg" />
+		<None Remove="Internationalization\de" />
+		<None Remove="Internationalization\en" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Include="Assets\img\qr.svg" />
+		<EmbeddedResource Include="Internationalization\de" />
+		<EmbeddedResource Include="Internationalization\en" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="QRCoder" Version="1.4.3" />
+		<PackageReference Include="WebExpress.WebApp" Version="0.0.3-alpha">
+		  <Private>false</Private>
+		  <ExcludeAssets>runtime</ExcludeAssets>
+	  </PackageReference>
+		<PackageReference Include="WebExpress.WebIndex" Version="0.0.3-alpha">
+			<Private>false</Private>
+			<ExcludeAssets>runtime</ExcludeAssets>
+		</PackageReference>
+		<PackageReference Include="WebExpress.WebUI" Version="0.0.3-alpha">
+			<Private>false</Private>
+			<ExcludeAssets>runtime</ExcludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\InventoryExpress\InventoryExpress.csproj">
+			<Private>false</Private>
+			<ExcludeAssets>runtime</ExcludeAssets>
+		</ProjectReference>
+	</ItemGroup>
+
+</Project>

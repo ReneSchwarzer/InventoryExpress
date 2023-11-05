@@ -1,0 +1,6 @@
+﻿# Deutsch
+plugin.name=InventoryExpress QR
+plugin.description=Erzeugung von QR-Codes mittels der freien Bibliothek QRCoder.
+
+module.name=InventoryExpress QR
+module.description=Erzeugung von QR-Codes.
