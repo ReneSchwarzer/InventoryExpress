@@ -5,7 +5,7 @@
 		<Description>Erzeugung von QR-Codes mittels der freien Bibliothek QRCoder.</Description>
 		<Authors>rene_schwarzer@hotmail.de</Authors>
 		<Company />
-		<Version>1.1.0-alpha</Version>
+		<Version>1.2.0.0</Version>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
 		<EnableDynamicLoading>true</EnableDynamicLoading>
@@ -31,9 +31,18 @@
 
 	<ItemGroup>
 		<PackageReference Include="QRCoder" Version="1.4.3" />
-		<PackageReference Include="WebExpress.WebApp" Version="0.0.2-alpha" />
-		<PackageReference Include="WebExpress.WebIndex" Version="0.0.3-alpha" />
-		<PackageReference Include="WebExpress.WebUI" Version="0.0.2-alpha" />
+		<PackageReference Include="WebExpress.WebApp" Version="0.0.3-alpha">
+		  <Private>false</Private>
+		  <ExcludeAssets>runtime</ExcludeAssets>
+	  </PackageReference>
+		<PackageReference Include="WebExpress.WebIndex" Version="0.0.3-alpha">
+			<Private>false</Private>
+			<ExcludeAssets>runtime</ExcludeAssets>
+		</PackageReference>
+		<PackageReference Include="WebExpress.WebUI" Version="0.0.3-alpha">
+			<Private>false</Private>
+			<ExcludeAssets>runtime</ExcludeAssets>
+		</PackageReference>
 	</ItemGroup>
 
 	<ItemGroup>
