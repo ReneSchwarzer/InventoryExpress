@@ -33,9 +33,9 @@ namespace InventoryExpress.Model.WebItems
 
         /// <summary>
         /// Copy-Konstruktor
-        /// Erstellt eine Tiefenkopie.
+        /// Creates a deep copy.
         /// </summary>
-        /// <param name="item">Das zu kopierende Objekt</param>
+        /// <param name="item">The object to be copied.</param>
         public WebItemEntityBaseAddress(WebItemEntityBaseAddress item)
             : base(item)
         {

@@ -2,16 +2,15 @@
 using InventoryExpress.Model.WebItems;
 using InventoryExpress.WebControl;
 using WebExpress.Internationalization;
-using WebExpress.UI.WebAttribute;
-using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebApp.WebSettingPage;
-using WebExpress.WebApp.Wql;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
 using WebExpress.WebResource;
 using WebExpress.WebScope;
+using WebExpress.WebUI.WebAttribute;
+using WebExpress.WebUI.WebControl;
 
 namespace InventoryExpress.WebPageSetting
 {
@@ -19,8 +18,8 @@ namespace InventoryExpress.WebPageSetting
     [Segment("add", "inventoryexpress:inventoryexpress.template.add.label")]
     [ContextPath("/")]
     [Parent<PageSettingTemplates>]
-    [WebExSettingHide()]
-    [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
+    [SettingHide()]
+    [SettingContext("webexpress.webapp:setting.tab.general.label")]
     [Module<Module>]
     public sealed class PageSettingTemplateAdd : PageWebAppSetting, IPageTemplate, IScope
     {
@@ -69,11 +68,11 @@ namespace InventoryExpress.WebPageSetting
         /// <param name="e">The event argument.</param>
         private void FillFormular(object sender, FormularEventArgs e)
         {
-            foreach (var v in ViewModel.GetAttributes(new WqlStatement()))
+            foreach (var v in ViewModel.GetAttributes())
             {
                 Form.Attributes.Options.Add(new ControlFormItemInputSelectionItem()
                 {
-                    Id = v.Id,
+                    Id = v.Guid,
                     Label = v.Name
                 });
             }
@@ -88,7 +87,7 @@ namespace InventoryExpress.WebPageSetting
         /// <param name="e">The event argument./param>
         private void ProcessFormular(object sender, FormularEventArgs e)
         {
-            // Neue Vorlage erstellen und speichern
+            // create and save a new template
             var template = new WebItemEntityTemplate()
             {
                 Name = Form.TemplateName.Value,
@@ -112,7 +111,7 @@ namespace InventoryExpress.WebPageSetting
                     new ControlLink()
                     {
                         Text = template.Name,
-                        Uri = ViewModel.GetTemplateUri(template.Id)
+                        Uri = ViewModel.GetTemplateUri(template.Guid)
                     }.Render(e.Context).ToString().Trim()
                 ),
                 icon: template.Image,

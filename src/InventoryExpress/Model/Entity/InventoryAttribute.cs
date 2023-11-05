@@ -3,18 +3,32 @@
 namespace InventoryExpress.Model.Entity
 {
     /// <summary>
-    /// Attribute eines Inventars
+    /// The attributes of an inventory.
     /// </summary>
     public partial class InventoryAttribute
     {
+        /// <summary>
+        /// Returns or sets the id of the inventory.
+        /// </summary>
         public int InventoryId { get; set; }
+
+        /// <summary>
+        /// Returns or sets the inventory.
+        /// </summary>
         public Inventory Inventory { get; set; }
 
+        /// <summary>
+        /// Returns or sets the id of the attribue.
+        /// </summary>
         public int AttributeId { get; set; }
+
+        /// <summary>
+        /// Returns or sets the attribute.
+        /// </summary>
         public Attribute Attribute { get; set; }
 
         /// <summary>
-        /// Der Wert
+        /// Returns or sets the value.
         /// </summary>
         public string Value { get; set; }
 

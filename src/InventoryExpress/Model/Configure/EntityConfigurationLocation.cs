@@ -5,14 +5,14 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace InventoryExpress.Model.Configure
 {
     /// <summary>
-    /// Datenbankkonfiguration der Standort-Entität
+    /// Database configuration of the location entity.
     /// </summary>
     class EntityConfigurationLocation : IEntityTypeConfiguration<Location>
     {
         /// <summary>
-        /// Konfiguration
+        /// Configuration of the location entity.
         /// </summary>
-        /// <param name="builder">Der Builder</param>
+        /// <param name="builder">The builder.</param>
         public void Configure(EntityTypeBuilder<Location> builder)
         {
             builder.ToTable("Location");
@@ -70,14 +70,14 @@ namespace InventoryExpress.Model.Configure
                    .IsRequired()
                    .HasColumnType("CHAR (36)");
 
-            // Unique-Contraints
+            // unique contraints
             builder.HasIndex(e => e.Name)
                    .IsUnique();
 
             builder.HasIndex(e => e.Guid)
                    .IsUnique();
 
-            // Beziehungen
+            // relations
             builder.HasOne(d => d.Media)
                    .WithMany(p => p.Locations)
                    .HasForeignKey(d => d.MediaId)

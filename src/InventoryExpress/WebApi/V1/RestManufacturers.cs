@@ -3,15 +3,15 @@ using InventoryExpress.Model.WebItems;
 using System.Collections.Generic;
 using WebExpress.Internationalization;
 using WebExpress.WebApp.WebResource;
-using WebExpress.WebApp.Wql;
 using WebExpress.WebAttribute;
+using WebExpress.WebIndex.Wql;
 using WebExpress.WebMessage;
 using WebExpress.WebResource;
 
 namespace InventoryExpress.WebApi.V1
 {
     /// <summary>
-    /// Ermittelt alle Hersteller
+    /// Returns all manufacturers.
     /// </summary>
     [Segment("manufacturers", "")]
     [ContextPath("/api/v1")]
@@ -36,7 +36,7 @@ namespace InventoryExpress.WebApi.V1
         }
 
         /// <summary>
-        /// Processing of the resource. des GET-Request
+        /// Processing of the resource that was called via the get request.
         /// </summary>
         /// <param name="request">The request.</param>
         /// <returns>An enumeration of which json serializer can be serialized.</returns>
@@ -53,22 +53,22 @@ namespace InventoryExpress.WebApi.V1
         }
 
         /// <summary>
-        /// Processing of the resource. des GET-Request
+        /// Processing of the resource that was called via the get request.
         /// </summary>
-        /// <param name="wql">The filter.</param>
+        /// <param name="wql">The filtering and sorting options.</param>
         /// <param name="request">The request.</param>
         /// <returns>An enumeration of which json serializer can be serialized.</returns>
-        public override IEnumerable<WebItemEntityManufacturer> GetData(WqlStatement wql, Request request)
+        public override IEnumerable<WebItemEntityManufacturer> GetData(IWqlStatement<WebItemEntityManufacturer> wql, Request request)
         {
             return ViewModel.GetManufacturers(wql);
         }
 
         /// <summary>
-        /// Processing of the resource. des DELETE-Request
+        /// Processing of the resource that was called via the delete request.
         /// </summary>
-        /// <param name="id">Die zu löschende Id</param>
+        /// <param name="id">The id to delete.</param>
         /// <param name="request">The request.</param>
-        /// <returns>Das Ergebnis der Löschung</returns>
+        /// <returns>The result of the deletion.</returns>
         public override bool DeleteData(string id, Request request)
         {
             using var transaction = ViewModel.BeginTransaction();

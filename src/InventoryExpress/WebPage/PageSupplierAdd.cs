@@ -2,12 +2,12 @@
 using InventoryExpress.Model.WebItems;
 using InventoryExpress.WebControl;
 using WebExpress.Internationalization;
-using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
 using WebExpress.WebResource;
+using WebExpress.WebUI.WebControl;
 
 namespace InventoryExpress.WebPage
 {
@@ -19,7 +19,7 @@ namespace InventoryExpress.WebPage
     public sealed class PageSupplierAdd : PageWebApp, IPageSupplier
     {
         /// <summary>
-        /// Returns the form
+        /// Returns the form.
         /// </summary>
         private ControlFormularSupplier Form { get; } = new ControlFormularSupplier("supplier")
         {
@@ -71,7 +71,7 @@ namespace InventoryExpress.WebPage
         /// <param name="e">The event argument./param>
         private void ProcessFormular(object sender, FormularEventArgs e)
         {
-            // Neuen Liferanten erstellen und speichern
+            // create and save a new supplier.
             var supplier = new WebItemEntitySupplier()
             {
                 Name = Form.SupplierName.Value,
@@ -98,7 +98,7 @@ namespace InventoryExpress.WebPage
                     new ControlLink()
                     {
                         Text = supplier.Name,
-                        Uri = ViewModel.GetSupplierUri(supplier.Id)
+                        Uri = ViewModel.GetSupplierUri(supplier.Guid)
                     }.Render(e.Context).ToString().Trim()
                 ),
                 icon: supplier.Image,

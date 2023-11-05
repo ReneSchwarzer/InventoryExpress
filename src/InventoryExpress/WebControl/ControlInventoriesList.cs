@@ -1,8 +1,7 @@
 ﻿using InventoryExpress.Model;
 using System.Linq;
-using WebExpress.Html;
-using WebExpress.UI.WebControl;
-using WebExpress.WebApp.Wql;
+using WebExpress.WebUI.WebControl;
+using WebExpress.WebHtml;
 using WebExpress.WebPage;
 
 namespace InventoryExpress.WebControl
@@ -26,7 +25,7 @@ namespace InventoryExpress.WebControl
         {
             Content.Clear();
 
-            foreach (var inventory in ViewModel.GetInventories(new WqlStatement()).OrderBy(x => x.Name))
+            foreach (var inventory in ViewModel.GetInventories().OrderBy(x => x.Name))
             {
                 var card = new ControlCardInventory(inventory);
 

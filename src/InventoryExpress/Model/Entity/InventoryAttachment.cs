@@ -3,7 +3,7 @@
 namespace InventoryExpress.Model.Entity
 {
     /// <summary>
-    /// Datei-Anlagen eines Inventargegenstandes
+    /// File attachments of an inventory item.
     /// </summary>
     public partial class InventoryAttachment
     {
@@ -13,7 +13,7 @@ namespace InventoryExpress.Model.Entity
         public int InventoryId { get; set; }
 
         /// <summary>
-        /// VReturns or sets the id. des Dokumented
+        /// Returns or sets the id of the media.
         /// </summary>
         public int MediaId { get; set; }
 
@@ -23,12 +23,12 @@ namespace InventoryExpress.Model.Entity
         public DateTime Created { get; set; }
 
         /// <summary>
-        /// Verweis auf dem Inventargegenstand
+        /// Returns or sets the inventory.
         /// </summary>
         public virtual Inventory Inventory { get; set; }
 
         /// <summary>
-        /// Verweis auf das Dokument
+        /// Returns or sets the media.
         /// </summary>
         public virtual Media Media { get; set; }
     }

@@ -5,14 +5,14 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace InventoryExpress.Model.Configure
 {
     /// <summary>
-    /// Datenbankkonfiguration der Medien-Entität
+    /// Database configuration of the media entity.
     /// </summary>
     class EntityConfigurationMedia : IEntityTypeConfiguration<Media>
     {
         /// <summary>
-        /// Konfiguration
+        /// Configuration of the media entity.
         /// </summary>
-        /// <param name="builder">Der Builder</param>
+        /// <param name="builder">The builder.</param>
         public void Configure(EntityTypeBuilder<Media> builder)
         {
             builder.ToTable("Media");
@@ -46,7 +46,7 @@ namespace InventoryExpress.Model.Configure
                    .IsRequired()
                    .HasColumnType("CHAR(36)");
 
-            // Unique-Contraints
+            // unique contraints
             builder.HasIndex(e => e.Guid)
                    .IsUnique();
         }

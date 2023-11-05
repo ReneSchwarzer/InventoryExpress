@@ -3,10 +3,13 @@
 namespace InventoryExpress.Model.Entity
 {
     /// <summary>
-    /// Kostenstelle
+    /// The cost center.
     /// </summary>
     public class CostCenter : ItemTag
     {
+        /// <summary>
+        /// Returns or sets the related inventory items.
+        /// </summary>
         public virtual ICollection<Inventory> Inventories { get; set; }
 
         /// <summary>

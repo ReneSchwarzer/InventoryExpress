@@ -5,17 +5,18 @@ using InventoryExpress.WebPageSetting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using WebExpress.WebApp.Wql;
+using WebExpress.WebApp.WebIndex;
 using WebExpress.WebComponent;
+using WebExpress.WebIndex.Wql;
 
 namespace InventoryExpress.Model
 {
     public partial class ViewModel
     {
         /// <summary>
-        /// Ermittelt die Vorlagen-URL
+        /// Returns the template uri.
         /// </summary>
-        /// <param name="guid">Returns or sets the id. der Vorlage</param>
+        /// <param name="guid">The id of the template.</param>
         /// <returns>The uri or null.</returns>
         public static string GetTemplateUri(string guid)
         {
@@ -23,25 +24,38 @@ namespace InventoryExpress.Model
         }
 
         /// <summary>
-        /// Liefert alle Vorlagen
+        /// Returns all templates.
         /// </summary>
-        /// <param name="wql">Die Filter- und Sortieroptinen</param>
-        /// <returns>Eine Aufzählung, welche die Vorlagen beinhaltet</returns>
-        public static IEnumerable<WebItemEntityTemplate> GetTemplates(WqlStatement wql)
+        /// <param name="wql">The filtering and sorting options.</param>
+        /// <returns>An enumeration that includes the templates.</returns>
+        public static IEnumerable<WebItemEntityTemplate> GetTemplates(string wql = "")
+        {
+            var wqlStatement = ComponentManager.GetComponent<IndexManager>()
+                    .ExecuteWql<WebItemEntityTemplate>(wql);
+
+            return GetTemplates(wqlStatement);
+        }
+
+        /// <summary>
+        /// Returns all templates.
+        /// </summary>
+        /// <param name="wql">The filtering and sorting options.</param>
+        /// <returns>An enumeration that includes the templates.</returns>
+        public static IEnumerable<WebItemEntityTemplate> GetTemplates(IWqlStatement<WebItemEntityTemplate> wql)
         {
             lock (DbContext)
             {
                 var templates = DbContext.Templates.Select(x => new WebItemEntityTemplate(x));
 
-                return wql.Apply(templates.AsQueryable()).ToList();
+                return wql.Apply(templates.AsQueryable());
             }
         }
 
         /// <summary>
-        /// Liefert eine Vorlage
+        /// Returns a template.
         /// </summary>
-        /// <param name="id">Returns or sets the id. der Vorlage</param>
-        /// <returns>Die Vorlage oder null</returns>
+        /// <param name="id">The id of the template.</param>
+        /// <returns>The template or null.</returns>
         public static WebItemEntityTemplate GetTemplate(string id)
         {
             lock (DbContext)
@@ -53,17 +67,17 @@ namespace InventoryExpress.Model
         }
 
         /// <summary>
-        /// Liefert die Vorlage, welche dem Inventargegenstand zugeordnet ist
+        /// Returns the template that is assigned to the inventory item.
         /// </summary>
         /// <param name="inventory">The inventory item.</param>
-        /// <returns>Die Vorlage oder null</returns>
+        /// <returns>The template or null.</returns>
         public static WebItemEntityTemplate GetTemplate(WebItemEntityInventory inventory)
         {
             lock (DbContext)
             {
                 var template = from i in DbContext.Inventories
                                join t in DbContext.Templates on i.TemplateId equals t.Id
-                               where i.Guid == inventory.Id
+                               where i.Guid == inventory.Guid
                                select new WebItemEntityTemplate(t);
 
                 return template.FirstOrDefault();
@@ -71,21 +85,21 @@ namespace InventoryExpress.Model
         }
 
         /// <summary>
-        /// Fügt eine Vorlage hinzu oder aktuallisiert diesen
+        /// Adds or updates a template.
         /// </summary>
-        /// <param name="template">The template</param>
+        /// <param name="template">The template.</param>
         public static void AddOrUpdateTemplate(WebItemEntityTemplate template)
         {
             lock (DbContext)
             {
-                var availableEntity = DbContext.Templates.Where(x => x.Guid == template.Id).FirstOrDefault();
+                var availableEntity = DbContext.Templates.Where(x => x.Guid == template.Guid).FirstOrDefault();
 
                 if (availableEntity == null)
                 {
-                    // Neu erstellen
+                    // create new
                     var entity = new Template()
                     {
-                        Guid = template.Id,
+                        Guid = template.Guid,
                         Name = template.Name,
                         Description = template.Description,
                         Tag = template.Tag,
@@ -93,7 +107,7 @@ namespace InventoryExpress.Model
                         Updated = DateTime.Now,
                         Media = new Media()
                         {
-                            Guid = template.Media?.Id,
+                            Guid = template.Media?.Guid,
                             Name = template.Media?.Name ?? "",
                             Description = template.Media?.Description,
                             Tag = template.Media?.Tag,
@@ -107,8 +121,8 @@ namespace InventoryExpress.Model
                 }
                 else
                 {
-                    // Update
-                    var availableMedia = template.Media != null ? DbContext.Media.Where(x => x.Guid == template.Media.Id).FirstOrDefault() : null;
+                    // update
+                    var availableMedia = template.Media != null ? DbContext.Media.Where(x => x.Guid == template.Media.Guid).FirstOrDefault() : null;
 
                     availableEntity.Name = template.Name;
                     availableEntity.Description = template.Description;
@@ -119,7 +133,7 @@ namespace InventoryExpress.Model
                     {
                         var media = new Media()
                         {
-                            Guid = template.Media?.Id,
+                            Guid = template.Media?.Guid,
                             Name = template.Media?.Name,
                             Description = template.Media?.Description,
                             Tag = template.Media?.Tag,
@@ -143,9 +157,9 @@ namespace InventoryExpress.Model
         }
 
         /// <summary>
-        /// Löscht ein Standort
+        /// Deletes a template.
         /// </summary>
-        /// <param name="id">Returns or sets the id. des Standortes</param>
+        /// <param name="id">The id of the template.</param>
         public static void DeleteTemplate(string id)
         {
             lock (DbContext)
@@ -167,17 +181,17 @@ namespace InventoryExpress.Model
         }
 
         /// <summary>
-        /// Prüft ob die Vorlage in Verwendung ist
+        /// Checks if the template is in use.
         /// </summary>
-        /// <param name="template">The template</param>
-        /// <returns>True wenn in Verwendung, false sonst</returns>
+        /// <param name="template">The template.</param>
+        /// <returns>True when in use, false otherwise.</returns>
         public static bool GetTemplateInUse(WebItemEntityTemplate template)
         {
             lock (DbContext)
             {
                 var used = from i in DbContext.Inventories
                            join t in DbContext.Templates on i.TemplateId equals t.Id
-                           where t.Guid == template.Id
+                           where t.Guid == template.Guid
                            select t;
 
                 return used.Any();

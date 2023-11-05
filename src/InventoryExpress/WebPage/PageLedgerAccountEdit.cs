@@ -3,13 +3,13 @@ using InventoryExpress.Parameter;
 using InventoryExpress.WebControl;
 using System;
 using WebExpress.Internationalization;
-using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
 using WebExpress.WebResource;
 using WebExpress.WebScope;
+using WebExpress.WebUI.WebControl;
 
 namespace InventoryExpress.WebPage
 {
@@ -21,7 +21,7 @@ namespace InventoryExpress.WebPage
     public sealed class PageLedgerAccountEdit : PageWebApp, IPageLedgerAccount, IScope
     {
         /// <summary>
-        /// Returns the form
+        /// Returns the form.
         /// </summary>
         private ControlFormularLedgerAccount Form { get; } = new ControlFormularLedgerAccount("ledgeraccount")
         {
@@ -82,7 +82,7 @@ namespace InventoryExpress.WebPage
             var guid = e.Context.Request.GetParameter<ParameterLedgerAccountId>()?.Value;
             var ledgerAccount = ViewModel.GetLedgerAccount(guid);
 
-            // Sachkonto ändern und speichern
+            // change and save ledger account.
             ledgerAccount.Name = Form.LedgerAccountName.Value;
             ledgerAccount.Description = Form.Description.Value;
             ledgerAccount.Tag = Form.Tag.Value;
@@ -104,7 +104,7 @@ namespace InventoryExpress.WebPage
                     new ControlLink()
                     {
                         Text = ledgerAccount.Name,
-                        Uri = ViewModel.GetSupplierUri(ledgerAccount.Id)
+                        Uri = ViewModel.GetSupplierUri(ledgerAccount.Guid)
                     }.Render(e.Context).ToString().Trim()
                 ),
                 icon: ledgerAccount.Image,

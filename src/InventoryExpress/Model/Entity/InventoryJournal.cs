@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace InventoryExpress.Model.Entity
 {
     /// <summary>
-    /// Journal of an inventory.
+    /// The journal of an inventory.
     /// </summary>
     public partial class InventoryJournal
     {
@@ -34,7 +34,7 @@ namespace InventoryExpress.Model.Entity
         public string Guid { get; set; }
 
         /// <summary>
-        /// /// Returns or sets the reference to the associated inventory item.
+        /// Returns or sets the reference to the associated inventory item.
         /// </summary>
         public virtual Inventory Inventory { get; set; }
 

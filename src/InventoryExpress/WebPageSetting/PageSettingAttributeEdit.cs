@@ -4,14 +4,14 @@ using InventoryExpress.Parameter;
 using InventoryExpress.WebControl;
 using System;
 using WebExpress.Internationalization;
-using WebExpress.UI.WebAttribute;
-using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebApp.WebSettingPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
 using WebExpress.WebResource;
+using WebExpress.WebUI.WebAttribute;
+using WebExpress.WebUI.WebControl;
 
 namespace InventoryExpress.WebPageSetting
 {
@@ -19,13 +19,13 @@ namespace InventoryExpress.WebPageSetting
     [SegmentGuid<ParameterAttributeId>("inventoryexpress:inventoryexpress.attribute.edit.display")]
     [ContextPath("/edit")]
     [Parent<PageSettingAttributes>]
-    [WebExSettingHide()]
-    [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
+    [SettingHide()]
+    [SettingContext("webexpress.webapp:setting.tab.general.label")]
     [Module<Module>]
     public sealed class PageSettingAttributeEdit : PageWebAppSetting, IPageAttribute
     {
         /// <summary>
-        /// Returns the form
+        /// Returns the form.
         /// </summary>
         private ControlFormularAttribute Form { get; } = new ControlFormularAttribute("attribute")
         {
@@ -84,7 +84,7 @@ namespace InventoryExpress.WebPageSetting
         /// <param name="e">The event argument./param>
         private void ProcessFormular(object sender, FormularEventArgs e)
         {
-            // Attribut ändern und speichern
+            // change and save attribute
             Attribute.Name = Form.AttributeName.Value;
             Attribute.Description = Form.Description.Value;
             Attribute.Updated = DateTime.Now;
@@ -105,7 +105,7 @@ namespace InventoryExpress.WebPageSetting
                     new ControlLink()
                     {
                         Text = Attribute.Name,
-                        Uri = ViewModel.GetAttributeUri(Attribute.Id)
+                        Uri = ViewModel.GetAttributeUri(Attribute.Guid)
                     }.Render(e.Context).ToString().Trim()
                 ),
                 icon: Attribute.Image,

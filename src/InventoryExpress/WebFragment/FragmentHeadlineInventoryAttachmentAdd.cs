@@ -1,28 +1,28 @@
 ﻿using InventoryExpress.Model;
 using InventoryExpress.Parameter;
 using InventoryExpress.WebPage;
-using WebExpress.Html;
 using WebExpress.Internationalization;
-using WebExpress.UI.WebAttribute;
-using WebExpress.UI.WebControl;
-using WebExpress.UI.WebFragment;
 using WebExpress.WebApp.WebControl;
 using WebExpress.WebApp.WebFragment;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
+using WebExpress.WebHtml;
 using WebExpress.WebMessage;
 using WebExpress.WebPage;
+using WebExpress.WebUI.WebAttribute;
+using WebExpress.WebUI.WebControl;
+using WebExpress.WebUI.WebFragment;
 
 namespace InventoryExpress.WebFragment
 {
-    [WebExSection(Section.HeadlineSecondary)]
+    [Section(Section.HeadlineSecondary)]
     [Module<Module>]
     [Scope<PageInventoryAttachments>]
     public sealed class FragmentHeadlineInventoryAttachmentAdd : FragmentControlButtonLink
     {
         /// <summary>
-        /// Formular zum Upload von Anhängen
+        /// Returns the form for uploading attachments.
         /// </summary>
         private ControlModalFormularFileUpload Form { get; } = new ControlModalFormularFileUpload("A21A40B5-29CC-4CA7-A235-79D181F1B77C")
         {
@@ -81,7 +81,7 @@ namespace InventoryExpress.WebFragment
                     new ControlLink()
                     {
                         Text = inventory.Name,
-                        Uri = ViewModel.GetInventoryUri(inventory.Id)
+                        Uri = ViewModel.GetInventoryUri(inventory.Guid)
                     }.Render(e.Context).ToString().Trim()
                 ),
                 icon: ViewModel.GetMediaUri(inventory.Media.Id),

@@ -5,17 +5,18 @@ using InventoryExpress.WebPage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using WebExpress.WebApp.Wql;
+using WebExpress.WebApp.WebIndex;
 using WebExpress.WebComponent;
+using WebExpress.WebIndex.Wql;
 
 namespace InventoryExpress.Model
 {
     public partial class ViewModel
     {
         /// <summary>
-        /// Ermittelt die Standort-URL
+        /// Returns the location URL.
         /// </summary>
-        /// <param name="guid">Returns or sets the id. des Standortes</param>
+        /// <param name="guid">The guidid of the location.</param>
         /// <returns>The uri or null.</returns>
         public static string GetLocationUri(string guid)
         {
@@ -23,25 +24,38 @@ namespace InventoryExpress.Model
         }
 
         /// <summary>
-        /// Liefert alle Standorte
+        /// Returns all locations.
         /// </summary>
-        /// <param name="wql">Die Filter- und Sortieroptinen</param>
-        /// <returns>Eine Aufzählung, welche die Standorte beinhaltet</returns>
-        public static IEnumerable<WebItemEntityLocation> GetLocations(WqlStatement wql)
+        /// <param name="wql">The filtering and sorting options.</param>
+        /// <returns>An enumeration that includes the locations.</returns>
+        public static IEnumerable<WebItemEntityLocation> GetLocations(string wql = "")
+        {
+            var wqlStatement = ComponentManager.GetComponent<IndexManager>()
+                    .ExecuteWql<WebItemEntityLocation>(wql);
+
+            return GetLocations(wqlStatement);
+        }
+
+        /// <summary>
+        /// Returns all locations.
+        /// </summary>
+        /// <param name="wql">The filtering and sorting options.</param>
+        /// <returns>An enumeration that includes the conditions.</returns>
+        public static IEnumerable<WebItemEntityLocation> GetLocations(IWqlStatement<WebItemEntityLocation> wql)
         {
             lock (DbContext)
             {
                 var locations = DbContext.Locations.Select(x => new WebItemEntityLocation(x));
 
-                return wql.Apply(locations).ToList();
+                return wql.Apply(locations.AsQueryable());
             }
         }
 
         /// <summary>
-        /// Liefert ein Standort
+        /// Returns a location.
         /// </summary>
-        /// <param name="id">Returns or sets the id. des Standortes</param>
-        /// <returns>Der Standort oder null</returns>
+        /// <param name="id">The id of the location.</param>
+        /// <returns>The location or null.</returns>
         public static WebItemEntityLocation GetLocation(string id)
         {
             lock (DbContext)
@@ -53,17 +67,17 @@ namespace InventoryExpress.Model
         }
 
         /// <summary>
-        /// Liefert ein Standort, welche dem Inventargegenstand zugeordnet ist
+        /// Returns a location that is assigned to the inventory item.
         /// </summary>
         /// <param name="inventory">The inventory item.</param>
-        /// <returns>Der Standort oder null</returns>
+        /// <returns>The location or null.</returns>
         public static WebItemEntityLocation GetLocation(WebItemEntityInventory inventory)
         {
             lock (DbContext)
             {
                 var location = from i in DbContext.Inventories
                                join l in DbContext.Locations on i.LocationId equals l.Id
-                               where i.Guid == inventory.Id
+                               where i.Guid == inventory.Guid
                                select new WebItemEntityLocation(l);
 
                 return location.FirstOrDefault();
@@ -71,35 +85,37 @@ namespace InventoryExpress.Model
         }
 
         /// <summary>
-        /// Fügt ein Standort hinzu oder aktuallisiert diesen
+        /// Adds or updates a location.
         /// </summary>
-        /// <param name="condition">The location.</param>
-        public static void AddOrUpdateLocation(WebItemEntityLocation condition)
+        /// <param name="location">The location.</param>
+        public static void AddOrUpdateLocation(WebItemEntityLocation location)
         {
             lock (DbContext)
             {
-                var availableEntity = DbContext.Locations.Where(x => x.Guid == condition.Id).FirstOrDefault();
+                var availableEntity = DbContext.Locations.Where(x => x.Guid == location.Guid).FirstOrDefault();
 
                 if (availableEntity == null)
                 {
-                    // Neu erstellen
+                    // create new
                     var entity = new Location()
                     {
-                        Guid = condition.Id,
-                        Name = condition.Name,
-                        Description = condition.Description,
-                        Address = condition.Address,
-                        Zip = condition.Zip,
-                        Place = condition.Place,
-                        Tag = condition.Tag,
+                        Id = location.Id,
+                        Guid = location.Guid,
+                        Name = location.Name,
+                        Description = location.Description,
+                        Address = location.Address,
+                        Zip = location.Zip,
+                        Place = location.Place,
+                        Tag = location.Tag,
                         Created = DateTime.Now,
                         Updated = DateTime.Now,
                         Media = new Media()
                         {
-                            Guid = condition.Media?.Id,
-                            Name = condition.Media?.Name ?? "",
-                            Description = condition.Media?.Description,
-                            Tag = condition.Media?.Tag,
+                            Id = location.Media?.Id ?? -1,
+                            Guid = location.Media?.Guid,
+                            Name = location.Media?.Name ?? "",
+                            Description = location.Media?.Description,
+                            Tag = location.Media?.Tag,
                             Created = DateTime.Now,
                             Updated = DateTime.Now
                         }
@@ -110,36 +126,36 @@ namespace InventoryExpress.Model
                 }
                 else
                 {
-                    // Update
-                    var availableMedia = condition.Media != null ? DbContext.Media.Where(x => x.Guid == condition.Media.Id).FirstOrDefault() : null;
+                    // update
+                    var availableMedia = location.Media != null ? DbContext.Media.Where(x => x.Guid == location.Media.Guid).FirstOrDefault() : null;
 
-                    availableEntity.Name = condition.Name;
-                    availableEntity.Description = condition.Description;
-                    availableEntity.Address = condition.Address;
-                    availableEntity.Zip = condition.Zip;
-                    availableEntity.Place = condition.Place;
-                    availableEntity.Tag = condition.Tag;
+                    availableEntity.Name = location.Name;
+                    availableEntity.Description = location.Description;
+                    availableEntity.Address = location.Address;
+                    availableEntity.Zip = location.Zip;
+                    availableEntity.Place = location.Place;
+                    availableEntity.Tag = location.Tag;
                     availableEntity.Updated = DateTime.Now;
 
                     if (availableMedia == null)
                     {
                         var media = new Media()
                         {
-                            Guid = condition.Media?.Id,
-                            Name = condition.Media?.Name,
-                            Description = condition.Media?.Description,
-                            Tag = condition.Media?.Tag,
+                            Guid = location.Media?.Guid,
+                            Name = location.Media?.Name,
+                            Description = location.Media?.Description,
+                            Tag = location.Media?.Tag,
                             Created = DateTime.Now,
                             Updated = DateTime.Now
                         };
 
                         DbContext.Media.Add(media);
                     }
-                    else if (!string.IsNullOrWhiteSpace(condition.Media.Name))
+                    else if (!string.IsNullOrWhiteSpace(location.Media.Name))
                     {
-                        availableMedia.Name = condition.Media?.Name;
-                        availableMedia.Description = condition.Media?.Description;
-                        availableMedia.Tag = condition.Media?.Tag;
+                        availableMedia.Name = location.Media?.Name;
+                        availableMedia.Description = location.Media?.Description;
+                        availableMedia.Tag = location.Media?.Tag;
                         availableMedia.Updated = DateTime.Now;
                     }
 
@@ -149,9 +165,9 @@ namespace InventoryExpress.Model
         }
 
         /// <summary>
-        /// Löscht ein Standort
+        /// Deletes a location.
         /// </summary>
-        /// <param name="id">Returns or sets the id. des Standortes</param>
+        /// <param name="id">The id of the location.</param>
         public static void DeleteLocation(string id)
         {
             lock (DbContext)
@@ -173,17 +189,17 @@ namespace InventoryExpress.Model
         }
 
         /// <summary>
-        /// Prüft ob der Standort in Verwendung ist
+        /// Checks if the site is in use.
         /// </summary>
         /// <param name="location">The location.</param>
-        /// <returns>True wenn in Verwendung, false sonst</returns>
+        /// <returns>True when in use, false otherwise.</returns>
         public static bool GetLocationInUse(WebItemEntityLocation location)
         {
             lock (DbContext)
             {
                 var used = from i in DbContext.Inventories
                            join l in DbContext.Locations on i.LocationId equals l.Id
-                           where l.Guid == location.Id
+                           where l.Guid == location.Guid
                            select l;
 
                 return used.Any();

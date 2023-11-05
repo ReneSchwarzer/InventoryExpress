@@ -8,19 +8,19 @@ namespace InventoryExpress.Model
     public partial class ViewModel
     {
         /// <summary>
-        /// Fügt ein Journaleintrag hinzu
+        /// Adds a journal entry.
         /// </summary>
         /// <param name="inventory">The inventory item.</param>
-        /// <param name="journal">Der Journaleintrag</param>
+        /// <param name="journal">The journal entry.</param>
         public static void AddInventoryJournal(WebItemEntityInventory inventory, WebItemEntityJournal journal)
         {
             lock (DbContext)
             {
-                var inventoryEntity = DbContext.Inventories.Where(x => x.Guid == inventory.Id).FirstOrDefault();
+                var inventoryEntity = DbContext.Inventories.Where(x => x.Guid == inventory.Guid).FirstOrDefault();
                 var journalEntity = new InventoryJournal()
                 {
                     InventoryId = inventoryEntity.Id,
-                    Guid = journal.Id,
+                    Guid = journal.Guid,
                     Created = journal.Created,
                     Action = journal.Action
                 };
@@ -32,7 +32,7 @@ namespace InventoryExpress.Model
                 {
                     InventoryJournalId = journalEntity.Id,
                     Name = x.Name,
-                    Guid = x.Id,
+                    Guid = x.Guid,
                     OldValue = x.OldValue,
                     NewValue = x.NewValue
                 }));
@@ -41,17 +41,17 @@ namespace InventoryExpress.Model
         }
 
         /// <summary>
-        /// Liefert die Journaleinträge zu einem Inventargegenstand
+        /// Returns the journal entries for an inventory item.
         /// </summary>
         /// <param name="inventory">The inventory item.</param>
-        /// <returns>Eine Aufzählung mit den Journaleinträgen</returns>
+        /// <returns>A enumeration of journal entries.</returns>
         public static IEnumerable<WebItemEntityJournal> GetInventoryJournals(WebItemEntityInventory inventory)
         {
             var journal = new List<WebItemEntityJournal>();
             lock (DbContext)
             {
                 var inventoryEntity = DbContext.Inventories
-                    .Where(x => x.Guid == inventory.Id)
+                    .Where(x => x.Guid == inventory.Guid)
                     .FirstOrDefault();
 
                 if (inventoryEntity != null)

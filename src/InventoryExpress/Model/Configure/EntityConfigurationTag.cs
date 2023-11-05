@@ -5,14 +5,14 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace InventoryExpress.Model.Configure
 {
     /// <summary>
-    /// Datenbankkonfiguration der Schlüsselwort-Entität
+    /// Database configuration of the tag entity.
     /// </summary>
     class EntityConfigurationTag : IEntityTypeConfiguration<Tag>
     {
         /// <summary>
-        /// Konfiguration
+        /// Configuration of the tag entity.
         /// </summary>
-        /// <param name="builder">Der Builder</param>
+        /// <param name="builder">The builder.</param>
         public void Configure(EntityTypeBuilder<Tag> builder)
         {
             builder.ToTable("Tag");

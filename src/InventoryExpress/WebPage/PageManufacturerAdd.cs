@@ -2,12 +2,12 @@
 using InventoryExpress.Model.WebItems;
 using InventoryExpress.WebControl;
 using WebExpress.Internationalization;
-using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
 using WebExpress.WebResource;
+using WebExpress.WebUI.WebControl;
 
 namespace InventoryExpress.WebPage
 {
@@ -19,7 +19,7 @@ namespace InventoryExpress.WebPage
     public sealed class PageManufacturerAdd : PageWebApp, IPageManufacturer
     {
         /// <summary>
-        /// Returns the form
+        /// Returns the form.
         /// </summary>
         private ControlFormularManufacturer Form { get; } = new ControlFormularManufacturer("manufacturer")
         {
@@ -71,7 +71,7 @@ namespace InventoryExpress.WebPage
         /// <param name="e">The event argument./param>
         private void ProcessFormular(object sender, FormularEventArgs e)
         {
-            // Neues Herstellerobjekt erstellen und speichern
+            // creating and saving a new manufacturer object
             var manufacturer = new WebItemEntityManufacturer()
             {
                 Name = Form.ManufacturerName.Value,
@@ -98,7 +98,7 @@ namespace InventoryExpress.WebPage
                     new ControlLink()
                     {
                         Text = manufacturer.Name,
-                        Uri = ViewModel.GetManufacturerUri(manufacturer.Id)
+                        Uri = ViewModel.GetManufacturerUri(manufacturer.Guid)
                     }.Render(e.Context).ToString().Trim()
                 ),
                 icon: manufacturer.Image,

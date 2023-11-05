@@ -5,12 +5,12 @@ using WebExpress.WebApp.Model;
 namespace InventoryExpress.Model.WebItems
 {
     /// <summary>
-    /// Attribut
+    /// The settings.
     /// </summary>
     public class WebItemEntitySettings : WebItem
     {
         /// <summary>
-        /// Die Währung
+        /// Returns or sets the currency.
         /// </summary>
         [JsonPropertyName("currency")]
         public string Currency { get; set; }
@@ -25,7 +25,7 @@ namespace InventoryExpress.Model.WebItems
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="setting">Das Datenbankobjektes der Einstellungen</param>
+        /// <param name="setting">The database object of the setting.</param>
         public WebItemEntitySettings(Setting setting)
         {
             Currency = setting.Currency;

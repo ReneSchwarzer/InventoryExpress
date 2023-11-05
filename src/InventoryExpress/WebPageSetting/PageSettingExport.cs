@@ -1,6 +1,6 @@
 ﻿using InventoryExpress.Model;
-using WebExpress.UI.WebAttribute;
-using WebExpress.UI.WebControl;
+using WebExpress.WebUI.WebAttribute;
+using WebExpress.WebUI.WebControl;
 using WebExpress.WebApp.WebApiControl;
 using WebExpress.WebApp.WebControl;
 using WebExpress.WebApp.WebPage;
@@ -14,10 +14,10 @@ namespace InventoryExpress.WebPageSetting
     [Title("inventoryexpress:inventoryexpress.importexport.label")]
     [Segment("export", "inventoryexpress:inventoryexpress.importexport.label")]
     [ContextPath("/setting")]
-    [WebExSettingSection(WebExSettingSection.Primary)]
-    [WebExSettingIcon(TypeIcon.FileExport)]
-    [WebExSettingGroup("inventoryexpress:inventoryexpress.setting.data.label")]
-    [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
+    [SettingSection(SettingSection.Primary)]
+    [SettingIcon(TypeIcon.FileExport)]
+    [SettingGroup("inventoryexpress:inventoryexpress.setting.data.label")]
+    [SettingContext("webexpress.webapp:setting.tab.general.label")]
     [Module<Module>]
     [Scope<ScopeAdmin>]
     public sealed class PageSettingExport : PageWebAppSetting

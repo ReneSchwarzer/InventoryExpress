@@ -5,15 +5,16 @@ using InventoryExpress.WebPage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using WebExpress.WebApp.Wql;
+using WebExpress.WebApp.WebIndex;
 using WebExpress.WebComponent;
+using WebExpress.WebIndex.Wql;
 
 namespace InventoryExpress.Model
 {
     public partial class ViewModel
     {
         /// <summary>
-        /// Returns the inventory URL.
+        /// Returns the inventory uri.
         /// </summary>
         /// <param name="guid">The inventory id.</param>
         /// <returns>The uri or null.</returns>
@@ -23,55 +24,70 @@ namespace InventoryExpress.Model
         }
 
         /// <summary>
-        /// Liefert alle Inventargegenstände
+        /// Returns all inventories.
         /// </summary>
-        /// <param name="wql">Die Filter- und Sortieroptinen</param>
-        /// <returns>Eine Aufzählung, welche die Inventargegenstände beinhaltet</returns>
-        public static IEnumerable<WebItemEntityInventory> GetInventories(WqlStatement wql)
+        /// <param name="wql">The filtering and sorting options.</param>
+        /// <returns>An enumeration that includes the inventories.</returns>
+        public static IEnumerable<WebItemEntityInventory> GetInventories(string wql = "")
+        {
+            var wqlStatement = ComponentManager.GetComponent<IndexManager>()
+                .ExecuteWql<WebItemEntityInventory>(wql);
+
+            return GetInventories(wqlStatement);
+        }
+
+        /// <summary>
+        /// Returns all inventories.
+        /// </summary>
+        /// <param name="wql">The filtering and sorting options.</param>
+        /// <returns>An enumeration that includes the inventories.</returns>
+        public static IEnumerable<WebItemEntityInventory> GetInventories(IWqlStatement<WebItemEntityInventory> wql)
         {
             lock (DbContext)
             {
                 var inventorys = DbContext.Inventories.Select(x => new WebItemEntityInventory(x));
 
-                return wql.Apply(inventorys.AsQueryable()).ToList();
+                return wql.Apply(inventorys.AsQueryable());
             }
         }
 
         /// <summary>
-        /// Zählt die Inventargegenstände
+        /// Counts the inventory items.
         /// </summary>
-        /// <param name="wql">Die Filteroptinen</param>
-        /// <returns>Die Anzahl der Inventargegenstände, welche der Suchanfrage entspricht</returns>
-        public static long CountInventories(WqlStatement wql)
+        /// <param name="wql">The filtering and sorting options.</param>
+        /// <returns>The number of inventory items that corresponds to the search query.</returns>
+        public static long CountInventories(string wql = "")
         {
             lock (DbContext)
             {
-                var inventorys = DbContext.Inventories;
+                var wqlStatement = ComponentManager.GetComponent<IndexManager>()
+                    .ExecuteWql<WebItemEntityInventory>(wql);
 
-                return wql.Apply(inventorys.AsQueryable()).LongCount();
+                return wqlStatement.Apply().LongCount();
             }
         }
 
         /// <summary>
-        /// Ermittelt die Investitionskosten der Inventargegenstände
+        /// Retruns the investment costs of the inventory items.
         /// </summary>
-        /// <param name="wql">Die Filteroptinen</param>
-        /// <returns>Die Investitionskosten der Inventargegenstände, welche der Suchanfrage entsprichen</returns>
-        public static float GetInventoriesCapitalCosts(WqlStatement wql)
+        /// <param name="wql">The filtering and sorting options.</param>
+        /// <returns>The investment costs of the inventory items that correspond to the search query.</returns>
+        public static float GetInventoriesCapitalCosts(string wql = "")
         {
             lock (DbContext)
             {
-                var inventorys = DbContext.Inventories;
+                var wqlStatement = ComponentManager.GetComponent<IndexManager>()
+                    .ExecuteWql<WebItemEntityInventory>(wql);
 
-                return wql.Apply(inventorys.AsQueryable()).Sum(x => (float)x.CostValue);
+                return wqlStatement.Apply().Sum(x => (float)x.CostValue);
             }
         }
 
         /// <summary>
-        /// Liefert ein Inventargegenstand
+        /// Returns an inventory item.
         /// </summary>
         /// <param name="giud">The inventory id.</param>
-        /// <returns>Der Inventargegenstände oder null</returns>
+        /// <returns>The inventory items or null.</returns>
         public static WebItemEntityInventory GetInventory(string guid)
         {
             lock (DbContext)
@@ -83,17 +99,17 @@ namespace InventoryExpress.Model
         }
 
         /// <summary>
-        /// Liefert ein übergeordnetes Inventargegenstand
+        /// Returns a parent inventory item.
         /// </summary>
-        /// <param name="inventory">Das übergeordnete Inventargegenstand</param>
-        /// <returns>Der Inventargegenstände oder null</returns>
+        /// <param name="inventory">The inventory item whose parent is to be determined.</param>
+        /// <returns>The inventory items or null.</returns>
         public static WebItemEntityInventory GetInventoryParent(WebItemEntityInventory inventory)
         {
             lock (DbContext)
             {
                 var entity = from i in DbContext.Inventories
                              join p in DbContext.Inventories on i.ParentId equals p.Id
-                             where i.Guid == inventory.Id
+                             where i.Guid == inventory.Guid
                              select new WebItemEntityInventory(p);
 
                 return entity.FirstOrDefault();
@@ -101,17 +117,17 @@ namespace InventoryExpress.Model
         }
 
         /// <summary>
-        /// Liefert alle untergeordneten Inventargegenstände
+        /// Returns all child inventory items.
         /// </summary>
         /// <param name="inventory">The inventory item.</param>
-        /// <returns>Eine Aufzählung mit allen untergeordneten Inventargegenstände</returns>
+        /// <returns>A enumaration of all child inventory items.</returns>
         public static IEnumerable<WebItemEntityInventory> GetInventoryChildren(WebItemEntityInventory inventory)
         {
             lock (DbContext)
             {
                 var entities = from i in DbContext.Inventories
                                join c in DbContext.Inventories on i.Id equals c.ParentId
-                               where i.Guid == inventory.Id
+                               where i.Guid == inventory.Guid
                                select new WebItemEntityInventory(c);
 
                 return entities;
@@ -119,19 +135,19 @@ namespace InventoryExpress.Model
         }
 
         /// <summary>
-        /// Liefert alle Attribute einees Inventargegenstandes
+        /// Returns all attributes of an inventory item.
         /// </summary>
         /// <param name="inventory">The inventory item.</param>
-        /// <returns>Eine Aufzählung, welche die Attribute beinhaltet</returns>
+        /// <returns>A enumeration of attributes.</returns>
         public static IEnumerable<WebItemEntityInventoryAttribute> GetInventoryAttributes(WebItemEntityInventory inventory)
         {
-            var template = inventory.Template?.Id;
+            var template = inventory.Template?.Guid;
 
             lock (DbContext)
             {
                 var inventoryAttributes = from i in DbContext.Inventories
                                           join ia in DbContext.InventoryAttributes on i.Id equals ia.InventoryId
-                                          where i.Guid == inventory.Id
+                                          where i.Guid == inventory.Guid
                                           select ia;
 
                 var templateAttributes = from t in DbContext.Templates
@@ -150,34 +166,34 @@ namespace InventoryExpress.Model
         }
 
         /// <summary>
-        /// Fügt ein Inventargegenstand hinzu oder aktuallisiert diesen
+        /// Adds or updates an inventory item.
         /// </summary>
         /// <param name="inventory">The inventory item.</param>
         public static void AddOrUpdateInventory(WebItemEntityInventory inventory)
         {
             lock (DbContext)
             {
-                var availableEntity = DbContext.Inventories.Where(x => x.Guid == inventory.Id).FirstOrDefault();
+                var availableEntity = DbContext.Inventories.Where(x => x.Guid == inventory.Guid).FirstOrDefault();
 
                 if (availableEntity == null)
                 {
                     var newEntity = new Inventory();
 
                     newEntity.Name = inventory.Name;
-                    newEntity.ManufacturerId = inventory.Manufacturer != null ? DbContext.Manufacturers.Where(x => x.Guid == inventory.Manufacturer.Id).Select(x => x.Id).FirstOrDefault() : null;
-                    newEntity.LocationId = inventory.Location != null ? DbContext.Locations.Where(x => x.Guid == inventory.Location.Id).Select(x => x.Id).FirstOrDefault() : null;
-                    newEntity.SupplierId = inventory.Supplier != null ? DbContext.Suppliers.Where(x => x.Guid == inventory.Supplier.Id).Select(x => x.Id).FirstOrDefault() : null;
-                    newEntity.LedgerAccountId = inventory.LedgerAccount != null ? DbContext.LedgerAccounts.Where(x => x.Guid == inventory.LedgerAccount.Id).Select(x => x.Id).FirstOrDefault() : null;
-                    newEntity.CostCenterId = inventory.CostCenter != null ? DbContext.CostCenters.Where(x => x.Guid == inventory.CostCenter.Id).Select(x => x.Id).FirstOrDefault() : null;
-                    newEntity.ConditionId = inventory.Condition != null ? DbContext.Conditions.Where(x => x.Guid == inventory.Condition.Id).Select(x => x.Id).FirstOrDefault() : null;
-                    newEntity.ParentId = inventory.Parent != null ? DbContext.Inventories.Where(x => x.Guid == inventory.Parent.Id).Select(x => x.Id).FirstOrDefault() : null;
-                    newEntity.TemplateId = inventory.Template != null ? DbContext.Templates.Where(x => x.Guid == inventory.Template.Id).Select(x => x.Id).FirstOrDefault() : null;
+                    newEntity.ManufacturerId = inventory.Manufacturer != null ? DbContext.Manufacturers.Where(x => x.Guid == inventory.Manufacturer.Guid).Select(x => x.Id).FirstOrDefault() : null;
+                    newEntity.LocationId = inventory.Location != null ? DbContext.Locations.Where(x => x.Guid == inventory.Location.Guid).Select(x => x.Id).FirstOrDefault() : null;
+                    newEntity.SupplierId = inventory.Supplier != null ? DbContext.Suppliers.Where(x => x.Guid == inventory.Supplier.Guid).Select(x => x.Id).FirstOrDefault() : null;
+                    newEntity.LedgerAccountId = inventory.LedgerAccount != null ? DbContext.LedgerAccounts.Where(x => x.Guid == inventory.LedgerAccount.Guid).Select(x => x.Id).FirstOrDefault() : null;
+                    newEntity.CostCenterId = inventory.CostCenter != null ? DbContext.CostCenters.Where(x => x.Guid == inventory.CostCenter.Guid).Select(x => x.Id).FirstOrDefault() : null;
+                    newEntity.ConditionId = inventory.Condition != null ? DbContext.Conditions.Where(x => x.Guid == inventory.Condition.Guid).Select(x => x.Id).FirstOrDefault() : null;
+                    newEntity.ParentId = inventory.Parent != null ? DbContext.Inventories.Where(x => x.Guid == inventory.Parent.Guid).Select(x => x.Id).FirstOrDefault() : null;
+                    newEntity.TemplateId = inventory.Template != null ? DbContext.Templates.Where(x => x.Guid == inventory.Template.Guid).Select(x => x.Id).FirstOrDefault() : null;
                     newEntity.CostValue = inventory.CostValue;
                     newEntity.PurchaseDate = inventory.PurchaseDate;
                     newEntity.DerecognitionDate = inventory.DerecognitionDate;
                     newEntity.Tag = inventory.Tag;
                     newEntity.Description = inventory.Description;
-                    newEntity.Guid = inventory.Id;
+                    newEntity.Guid = inventory.Guid;
                     newEntity.Created = DateTime.Now;
                     newEntity.Updated = DateTime.Now;
 
@@ -191,12 +207,12 @@ namespace InventoryExpress.Model
 
                     AddInventoryJournal(inventory, journal);
 
-                    // Attribute speichern
+                    // save attributes
                     AddOrUpdateInventoryAttributes(inventory);
                 }
                 else
                 {
-                    // Geänderte Werte ermitteln
+                    // detecting changed values
                     var changed = new List<Tuple<string, string, string, bool>>();
                     ComparisonInventory("inventoryexpress:inventoryexpress.inventory.name.label", availableEntity.Name, inventory.Name, changed, true);
                     ComparisonInventory("inventoryexpress:inventoryexpress.inventory.manufacturer.label", availableEntity.Manufacturer?.Name, inventory.Manufacturer?.Name, changed, true);
@@ -214,14 +230,14 @@ namespace InventoryExpress.Model
                     ComparisonInventory("inventoryexpress:inventoryexpress.inventory.description.label", availableEntity?.Description, inventory?.Description, changed, false);
 
                     availableEntity.Name = inventory.Name;
-                    availableEntity.ManufacturerId = inventory.Manufacturer != null ? DbContext.Manufacturers.Where(x => x.Guid == inventory.Manufacturer.Id).Select(x => x.Id).FirstOrDefault() : null;
-                    availableEntity.LocationId = inventory.Location != null ? DbContext.Locations.Where(x => x.Guid == inventory.Location.Id).Select(x => x.Id).FirstOrDefault() : null;
-                    availableEntity.SupplierId = inventory.Supplier != null ? DbContext.Suppliers.Where(x => x.Guid == inventory.Supplier.Id).Select(x => x.Id).FirstOrDefault() : null;
-                    availableEntity.LedgerAccountId = inventory.LedgerAccount != null ? DbContext.LedgerAccounts.Where(x => x.Guid == inventory.LedgerAccount.Id).Select(x => x.Id).FirstOrDefault() : null;
-                    availableEntity.CostCenterId = inventory.CostCenter != null ? DbContext.CostCenters.Where(x => x.Guid == inventory.CostCenter.Id).Select(x => x.Id).FirstOrDefault() : null;
-                    availableEntity.ConditionId = inventory.Condition != null ? DbContext.Conditions.Where(x => x.Guid == inventory.Condition.Id).Select(x => x.Id).FirstOrDefault() : null;
-                    availableEntity.ParentId = inventory.Parent != null ? DbContext.Inventories.Where(x => x.Guid == inventory.Parent.Id).Select(x => x.Id).FirstOrDefault() : null;
-                    availableEntity.TemplateId = inventory.Template != null ? DbContext.Templates.Where(x => x.Guid == inventory.Template.Id).Select(x => x.Id).FirstOrDefault() : null;
+                    availableEntity.ManufacturerId = inventory.Manufacturer != null ? DbContext.Manufacturers.Where(x => x.Guid == inventory.Manufacturer.Guid).Select(x => x.Id).FirstOrDefault() : null;
+                    availableEntity.LocationId = inventory.Location != null ? DbContext.Locations.Where(x => x.Guid == inventory.Location.Guid).Select(x => x.Id).FirstOrDefault() : null;
+                    availableEntity.SupplierId = inventory.Supplier != null ? DbContext.Suppliers.Where(x => x.Guid == inventory.Supplier.Guid).Select(x => x.Id).FirstOrDefault() : null;
+                    availableEntity.LedgerAccountId = inventory.LedgerAccount != null ? DbContext.LedgerAccounts.Where(x => x.Guid == inventory.LedgerAccount.Guid).Select(x => x.Id).FirstOrDefault() : null;
+                    availableEntity.CostCenterId = inventory.CostCenter != null ? DbContext.CostCenters.Where(x => x.Guid == inventory.CostCenter.Guid).Select(x => x.Id).FirstOrDefault() : null;
+                    availableEntity.ConditionId = inventory.Condition != null ? DbContext.Conditions.Where(x => x.Guid == inventory.Condition.Guid).Select(x => x.Id).FirstOrDefault() : null;
+                    availableEntity.ParentId = inventory.Parent != null ? DbContext.Inventories.Where(x => x.Guid == inventory.Parent.Guid).Select(x => x.Id).FirstOrDefault() : null;
+                    availableEntity.TemplateId = inventory.Template != null ? DbContext.Templates.Where(x => x.Guid == inventory.Template.Guid).Select(x => x.Id).FirstOrDefault() : null;
                     availableEntity.CostValue = inventory.CostValue;
                     availableEntity.PurchaseDate = inventory.PurchaseDate;
                     availableEntity.DerecognitionDate = inventory.DerecognitionDate;
@@ -247,14 +263,14 @@ namespace InventoryExpress.Model
                         AddInventoryJournal(inventory, journal);
                     }
 
-                    // Attribute speichern
+                    // save attributes
                     AddOrUpdateInventoryAttributes(inventory);
                 }
             }
         }
 
         // <summary>
-        /// Fügt die Attribute dem Inventargegenstand hinzu oder aktuallisiert diese
+        /// Adds or updates the attributes to the inventory item.
         /// </summary>
         /// <param name="inventory">The inventory item.</param>
         public static void AddOrUpdateInventoryAttributes(WebItemEntityInventory inventory)
@@ -266,22 +282,22 @@ namespace InventoryExpress.Model
                 var existens = (from i in DbContext.Inventories
                                 join ia in DbContext.InventoryAttributes on i.Id equals ia.InventoryId
                                 join a in DbContext.Attributes on ia.AttributeId equals a.Id
-                                where i.Guid == inventory.Id
+                                where i.Guid == inventory.Guid
                                 select new WebItemEntityInventoryAttribute(ia, a)).ToList();
 
                 var creates = inventory.Attributes.Except(existens, new WebItemEntityInventoryAttributeComparer());
                 var updates = inventory.Attributes.Intersect(existens, new WebItemEntityInventoryAttributeComparer());
                 var removes = existens.Except(inventory.Attributes, new WebItemEntityInventoryAttributeComparer());
 
-                // Ersetllung
+                // creation
                 foreach (var attribute in creates)
                 {
                     var inventoryEntity = DbContext.Inventories
-                        .Where(x => x.Guid == inventory.Id)
+                        .Where(x => x.Guid == inventory.Guid)
                         .FirstOrDefault();
 
                     var attributeEntity = DbContext.Attributes
-                        .Where(x => x.Guid == attribute.Id)
+                        .Where(x => x.Guid == attribute.Guid)
                         .FirstOrDefault();
 
                     DbContext.InventoryAttributes.Add(new InventoryAttribute()
@@ -295,13 +311,13 @@ namespace InventoryExpress.Model
                     ComparisonInventory(attribute.Name, null, attribute.Value, changed, true);
                 }
 
-                // Änderung
+                // changing
                 foreach (var attribute in updates)
                 {
                     var availableEntity = (from i in DbContext.Inventories
                                            join ia in DbContext.InventoryAttributes on i.Id equals ia.InventoryId
                                            join a in DbContext.Attributes on ia.AttributeId equals a.Id
-                                           where i.Guid == inventory.Id && a.Guid == attribute.Id
+                                           where i.Guid == inventory.Guid && a.Guid == attribute.Guid
                                            select ia).FirstOrDefault();
 
                     if (availableEntity != null && availableEntity.Value != attribute.Value)
@@ -312,13 +328,13 @@ namespace InventoryExpress.Model
                     }
                 }
 
-                // Entfernung
+                // deletion
                 foreach (var attribute in removes)
                 {
                     var availableEntity = (from i in DbContext.Inventories
                                            join ia in DbContext.InventoryAttributes on i.Id equals ia.InventoryId
                                            join a in DbContext.Attributes on ia.AttributeId equals a.Id
-                                           where i.Guid == inventory.Id && a.Guid == attribute.Id
+                                           where i.Guid == inventory.Guid && a.Guid == attribute.Guid
                                            select ia).FirstOrDefault();
 
                     DbContext.InventoryAttributes.Remove(availableEntity);
@@ -349,13 +365,13 @@ namespace InventoryExpress.Model
         }
 
         /// <summary>
-        /// Ermittlung der geänderten Werte durch Vergleich alter- und neuer Werte.
+        /// Determination of the changed values by comparing old and new values.
         /// </summary>
-        /// <param name="name">Der Attributname</param>
-        /// <param name="orgValue">Der Wert vor der Änderung</param>
-        /// <param name="newValue">Der geänderte Wert</param>
-        /// <param name="list">Eine Liste mit den Änderungen</param>
-        /// <param name="apply">Die Werte werden im Journal übernommen</param>
+        /// <param name="name">The attribute name.</param>
+        /// <param name="orgValue">The value before the change.</param>
+        /// <param name="newValue">The changed value.</param>
+        /// <param name="list">A list of the changes.</param>
+        /// <param name="apply">The values are copied in the journal.</param>
         private static void ComparisonInventory(string name, string orgValue, string newValue, List<Tuple<string, string, string, bool>> list, bool apply)
         {
             if (orgValue != newValue)
@@ -365,14 +381,14 @@ namespace InventoryExpress.Model
         }
 
         /// <summary>
-        /// Löscht ein Inventargegenstand
+        /// Deletes an inventory item.
         /// </summary>
-        /// <param name="inventory">Der zu löschende Inventargegenstand</param>
+        /// <param name="inventory">The inventory item to be deleted.</param>
         public static void DeleteInventory(WebItemEntityInventory inventory)
         {
             lock (DbContext)
             {
-                var entity = DbContext.Inventories.Where(x => x.Guid == inventory.Id).FirstOrDefault();
+                var entity = DbContext.Inventories.Where(x => x.Guid == inventory.Guid).FirstOrDefault();
                 var entityMedia = DbContext.Media.Where(x => x.Id == entity.MediaId).FirstOrDefault();
                 //var entityComments = DbContext.InventoryComments.Where(x => x.InventoryId == entity.Id);
                 //var entityJournal = DbContext.InventoryJournals.Where(x => x.InventoryId == entity.Id);
@@ -391,17 +407,17 @@ namespace InventoryExpress.Model
         }
 
         /// <summary>
-        /// Prüft ob The inventory item. in Verwendung ist
+        /// Checks if the inventory item is in use.
         /// </summary>
         /// <param name="inventory">The inventory item.</param>
-        /// <returns>True wenn in Verwendung, false sonst</returns>
+        /// <returns>True when in use, false otherwise.</returns>
         public static bool GetInventoryInUse(WebItemEntityInventory inventory)
         {
             lock (DbContext)
             {
                 var used = from i in DbContext.Inventories
                            join p in DbContext.Inventories on i.Id equals p.ParentId
-                           where i.Guid == inventory.Id
+                           where i.Guid == inventory.Guid
                            select i;
 
                 return used.Any();

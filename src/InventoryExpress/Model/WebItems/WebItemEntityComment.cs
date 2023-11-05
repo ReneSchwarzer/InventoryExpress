@@ -11,7 +11,7 @@ namespace InventoryExpress.Model.WebItems
     public class WebItemEntityComment : WebItem
     {
         /// <summary>
-        /// Liefert oder setzt den Kommentar
+        /// Returns or sets the commentary.
         /// </summary>
         [JsonPropertyName("comment")]
         public string Comment { get; set; }
@@ -38,10 +38,11 @@ namespace InventoryExpress.Model.WebItems
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="comment">Das Datenbakobjekt mit dem Kommentar</param>
+        /// <param name="comment">The database object with the comment.</param>
         public WebItemEntityComment(InventoryComment comment)
         {
-            Id = comment.Guid;
+            Id = comment.Id;
+            Guid = comment.Guid;
             Comment = comment.Comment;
             Created = comment.Created;
             Updated = comment.Updated;

@@ -3,14 +3,18 @@
 namespace InventoryExpress.Model.Entity
 {
     /// <summary>
-    /// Vorlagenattribute
+    /// The attribut.
     /// </summary>
     public class Attribute : Item
     {
         /// <summary>
-        /// Liefert oder setzt die Attribute
+        /// Returns or sets the template attributes.
         /// </summary>
         public virtual ICollection<TemplateAttribute> TemplateAttributes { get; set; }
+
+        /// <summary>
+        /// Returns or sets the inventory attributes.
+        /// </summary>
         public virtual ICollection<InventoryAttribute> InventoryAttributes { get; set; }
 
         /// <summary>

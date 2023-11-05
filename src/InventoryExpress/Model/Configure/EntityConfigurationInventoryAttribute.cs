@@ -5,14 +5,14 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace InventoryExpress.Model.Configure
 {
     /// <summary>
-    /// Datenbankkonfiguration der Many-to-Many-Relation zwischen der Ivnentar- und der Attribut-Entität
+    /// Database configuration of the many-to-many relation between the ivnentar and attribute entities.
     /// </summary>
     class EntityConfigurationInventoryAttribute : IEntityTypeConfiguration<InventoryAttribute>
     {
         /// <summary>
-        /// Konfiguration
+        /// Configuration of the relation.
         /// </summary>
-        /// <param name="builder">Der Builder</param>
+        /// <param name="builder">The builder.</param>
         public void Configure(EntityTypeBuilder<InventoryAttribute> builder)
         {
             builder.ToTable("InventoryAttribute");

@@ -1,25 +1,15 @@
-﻿using InventoryExpress.Model.Entity;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.IO.Compression;
-using System.Linq;
-using System.Text;
-using System.Xml;
-using System.Xml.Linq;
+﻿using System;
 
 namespace InventoryExpress.Model
 {
     public partial class ViewModel
     {
         /// <summary>
-        /// Import der Daten
+        /// Import of data.
         /// </summary>
-        /// <param name="fileName">Das Archive</param>
-        /// <param name="dataPath">Das Verzeichnis, indem die Anhänge gespeichert werden</param>
-        /// <param name="progress">Der Fortschritt</param>
+        /// <param name="fileName">The archive.</param>
+        /// <param name="dataPath">The directory where the attachments are stored.</param>
+        /// <param name="progress">The progress of imports.</param>
         public static void Import(string fileName, string dataPath, Action<int> progress)
         {
             //var dict = new Dictionary<string, XElement>();
@@ -93,7 +83,7 @@ namespace InventoryExpress.Model
 
             //progress(5);
 
-            //// Medien
+            //// media
             //foreach (var v in dict.Values.Where(x => x.Name.LocalName.Equals("media")))
             //{
             //    var m = new Media()
@@ -124,7 +114,7 @@ namespace InventoryExpress.Model
 
             //progress(15);
 
-            //// Attribute
+            //// attributes
             //foreach (var v in dict.Values.Where(x => x.Name.LocalName.Equals("attribute")))
             //{
             //    var attribute = new Entity.Attribute()
@@ -148,7 +138,7 @@ namespace InventoryExpress.Model
             //    viewModel.SaveChanges();
             //}
 
-            //// Zustände
+            //// states
             //foreach (var v in dict.Values.Where(x => x.Name.LocalName.Equals("condition")))
             //{
             //    var condition = new Condition()
@@ -173,7 +163,7 @@ namespace InventoryExpress.Model
             //    viewModel.SaveChanges();
             //}
 
-            //// Vorlagen
+            //// templates
             //foreach (var v in dict.Values.Where(x => x.Name.LocalName.Equals("template")))
             //{
             //    var template = new Template()
@@ -211,7 +201,7 @@ namespace InventoryExpress.Model
             //    viewModel.SaveChanges();
             //}
 
-            //// Standorte
+            //// locations
             //foreach (var v in dict.Values.Where(x => x.Name.LocalName.Equals("location")))
             //{
             //    var location = new Location()
@@ -241,7 +231,7 @@ namespace InventoryExpress.Model
             //    viewModel.SaveChanges();
             //}
 
-            //// Kostenstellen
+            //// cost centers
             //foreach (var v in dict.Values.Where(x => x.Name.LocalName.Equals("costcenter")))
             //{
             //    var costcenter = new CostCenter()
@@ -266,7 +256,7 @@ namespace InventoryExpress.Model
             //    viewModel.SaveChanges();
             //}
 
-            //// Hersteller
+            //// manufacturer
             //foreach (var v in dict.Values.Where(x => x.Name.LocalName.Equals("manufacturer")))
             //{
             //    var manufacturer = new Manufacturer()
@@ -294,7 +284,7 @@ namespace InventoryExpress.Model
             //    viewModel.SaveChanges();
             //}
 
-            //// Lieferant
+            //// suppliers
             //foreach (var v in dict.Values.Where(x => x.Name.LocalName.Equals("supplier")))
             //{
             //    var supplier = new Supplier()
@@ -322,7 +312,7 @@ namespace InventoryExpress.Model
             //    viewModel.SaveChanges();
             //}
 
-            //// Sachkonto
+            //// ledger accounts
             //foreach (var v in dict.Values.Where(x => x.Name.LocalName.Equals("ledgeraccount")))
             //{
             //    var ledgeraccount = new LedgerAccount()
@@ -347,7 +337,7 @@ namespace InventoryExpress.Model
             //    viewModel.SaveChanges();
             //}
 
-            //// Inventar
+            //// inventory
             //foreach (var v in dict.Values.Where(x => x.Name.LocalName.Equals("inventory")))
             //{
             //    var inventory = new Inventory()
@@ -454,7 +444,7 @@ namespace InventoryExpress.Model
             //    viewModel.SaveChanges();
             //}
 
-            //// Inventar (Verknüpfung)
+            //// inventory (link)
             //foreach (var v in dict.Values.Where(x => x.Name.LocalName.Equals("inventory")))
             //{
             //    var inventory = inventories.Where(x => x.Guid == v.Element(XName.Get("Guid", string.Empty)).Value).FirstOrDefault();

@@ -3,7 +3,7 @@ using InventoryExpress.Model.WebItems;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using WebExpress.WebApp.Wql;
+using WebExpress.WebIndex.Wql;
 
 namespace InventoryExpress.Model
 {

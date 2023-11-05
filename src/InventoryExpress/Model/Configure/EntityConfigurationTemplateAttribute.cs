@@ -5,14 +5,14 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace InventoryExpress.Model.Configure
 {
     /// <summary>
-    /// Datenbankkonfiguration der Vorlagen-Attribut-Entität
+    /// Database configuration of the template attribute entity.
     /// </summary>
     class EntityConfigurationTemplateAttribute : IEntityTypeConfiguration<TemplateAttribute>
     {
         /// <summary>
-        /// Konfiguration
+        /// Configuration of the template attribute entity.
         /// </summary>
-        /// <param name="builder">Der Builder</param>
+        /// <param name="builder">The builder.</param>
         public void Configure(EntityTypeBuilder<TemplateAttribute> builder)
         {
             builder.HasKey(e => new { e.TemplateId, e.AttributeId });
@@ -29,7 +29,7 @@ namespace InventoryExpress.Model.Configure
                 .HasColumnType("TIMESTAMP")
                 .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-            // Beziehungen
+            // relations
             builder.HasOne(d => d.Attribute)
                 .WithMany(p => p.TemplateAttributes)
                 .HasForeignKey(d => d.AttributeId)

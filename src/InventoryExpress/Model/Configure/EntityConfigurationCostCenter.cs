@@ -5,14 +5,14 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace InventoryExpress.Model.Configure
 {
     /// <summary>
-    /// Datenbankkonfiguration der Kostenstellen-Entität
+    /// Database configuration of the cost center entity.
     /// </summary>
     class EntityConfigurationCostCenter : IEntityTypeConfiguration<CostCenter>
     {
         /// <summary>
-        /// Konfiguration
+        /// Configuration of the cost center entity.
         /// </summary>
-        /// <param name="builder">Der Builder</param>
+        /// <param name="builder">The builder.</param>
         public void Configure(EntityTypeBuilder<CostCenter> builder)
         {
             builder.ToTable("CostCenter");
@@ -51,14 +51,14 @@ namespace InventoryExpress.Model.Configure
                    .IsRequired()
                    .HasColumnType("CHAR(36)");
 
-            // Unique-Contraints
+            // unique contraints
             builder.HasIndex(e => e.Name)
                    .IsUnique();
 
             builder.HasIndex(e => e.Guid)
                    .IsUnique();
 
-            // Beziehungen
+            // relations
             builder.HasOne(d => d.Media)
                    .WithMany(p => p.CostCenters)
                    .HasForeignKey(d => d.MediaId)

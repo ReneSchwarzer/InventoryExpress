@@ -28,7 +28,7 @@ namespace InventoryExpress.Model.Entity
         public DateTime Created { get; set; }
 
         /// <summary>
-        /// The timestamp of the last change.
+        /// Returns or sets the timestamp of the last change.
         /// </summary>
         public DateTime Updated { get; set; }
 
@@ -38,12 +38,12 @@ namespace InventoryExpress.Model.Entity
         public string Guid { get; set; }
 
         /// <summary>
-        /// The media id.
+        /// Returns or sets the media id.
         /// </summary>
         public int? MediaId { get; set; }
 
         /// <summary>
-        /// The media.
+        /// Returns or sets the media.
         /// </summary>
         public virtual Media Media { get; set; }
 

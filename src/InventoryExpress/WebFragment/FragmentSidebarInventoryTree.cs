@@ -4,18 +4,17 @@ using InventoryExpress.Parameter;
 using InventoryExpress.WebPage;
 using System.Collections.Generic;
 using System.Linq;
-using WebExpress.Html;
-using WebExpress.UI.WebAttribute;
-using WebExpress.UI.WebControl;
-using WebExpress.UI.WebFragment;
 using WebExpress.WebApp.WebFragment;
-using WebExpress.WebApp.Wql;
 using WebExpress.WebAttribute;
+using WebExpress.WebHtml;
 using WebExpress.WebPage;
+using WebExpress.WebUI.WebAttribute;
+using WebExpress.WebUI.WebControl;
+using WebExpress.WebUI.WebFragment;
 
 namespace InventoryExpress.WebFragment
 {
-    [WebExSection(Section.SidebarPrimary)]
+    [Section(Section.SidebarPrimary)]
     [Module<Module>]
     [Scope<PageInventoryDetails>]
     [Scope<PageInventoryAttachments>]
@@ -50,7 +49,7 @@ namespace InventoryExpress.WebFragment
         public override IHtmlNode Render(RenderContext context)
         {
             var guid = context.Request.GetParameter<ParameterInventoryId>()?.Value;
-            var inventories = ViewModel.GetInventories(new WqlStatement()).OrderBy(x => x.Name);
+            var inventories = ViewModel.GetInventories().OrderBy(x => x.Name);
 
             foreach (var i in inventories)
             {
@@ -58,8 +57,8 @@ namespace InventoryExpress.WebFragment
                 {
                     Text = i?.Name,
                     Layout = TypeLayoutTreeItem.TreeView,
-                    Uri = context.ContextPath.Append(i.Id),
-                    Active = i.Id == guid ? TypeActive.Active : TypeActive.None
+                    Uri = context.ContextPath.Append(i.Guid),
+                    Active = i.Guid == guid ? TypeActive.Active : TypeActive.None
                 };
 
                 control.Expand = control.IsAnyChildrenActive ? TypeExpandTree.Visible : TypeExpandTree.Collapse;
@@ -71,12 +70,12 @@ namespace InventoryExpress.WebFragment
         }
 
         /// <summary>
-        /// Erstellt die untergeordnenten Baumknoten
-        /// Arbeitet Rekursiv
+        /// Creates the child tree nodes.
+        /// Works recursively.
         /// </summary>
-        /// <param name="parent">Das übergeordnete Baumelement</param>
+        /// <param name="parent">The parent tree element.</param>
         /// <param name="context">The context in which the control is represented.</param>
-        /// <returns></returns>
+        /// <returns>The child tree nodes.</returns>
         private ControlTreeItemLink[] GetChildren(WebItemEntityInventory parent, RenderContext context)
         {
             var guid = context.Request.GetParameter<ParameterInventoryId>()?.Value;
@@ -89,8 +88,8 @@ namespace InventoryExpress.WebFragment
                 {
                     Text = i?.Name,
                     Layout = TypeLayoutTreeItem.TreeView,
-                    Uri = context.ContextPath.Append(i.Id),
-                    Active = i.Id == guid ? TypeActive.Active : TypeActive.None
+                    Uri = context.ContextPath.Append(i.Guid),
+                    Active = i.Guid == guid ? TypeActive.Active : TypeActive.None
                 };
 
                 childrenContols.Add(control);

@@ -2,7 +2,7 @@
 using InventoryExpress.Parameter;
 using System.Linq;
 using WebExpress.Internationalization;
-using WebExpress.UI.WebControl;
+using WebExpress.WebUI.WebControl;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;

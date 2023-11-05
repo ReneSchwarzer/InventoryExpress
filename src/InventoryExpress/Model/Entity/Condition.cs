@@ -3,15 +3,18 @@
 namespace InventoryExpress.Model.Entity
 {
     /// <summary>
-    /// Zustand
+    /// The state.
     /// </summary>
     public class Condition : Item
     {
         /// <summary>
-        /// Zustand als Note
+        /// Returns or sets the state as a note.
         /// </summary>
         public int Grade { get; set; }
 
+        /// <summary>
+        /// Returns or sets the related inventory items.
+        /// </summary>
         public virtual ICollection<Inventory> Inventories { get; set; }
 
         /// <summary>

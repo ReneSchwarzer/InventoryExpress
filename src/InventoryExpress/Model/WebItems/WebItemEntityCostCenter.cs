@@ -3,7 +3,7 @@
 namespace InventoryExpress.Model.WebItems
 {
     /// <summary>
-    /// Kostenstelle
+    /// The cost center.
     /// </summary>
     public class WebItemEntityCostCenter : WebItemEntityBaseTag
     {
@@ -18,7 +18,7 @@ namespace InventoryExpress.Model.WebItems
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="costCenter">Das Datenbankobjektes der Kosenstelle</param>
+        /// <param name="costCenter">The database object of the cost center.</param>
         public WebItemEntityCostCenter(CostCenter costCenter)
             : base(costCenter)
         {

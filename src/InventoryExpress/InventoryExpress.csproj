@@ -48,26 +48,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.5" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.5">
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.13" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.13">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\..\..\WebExpress\src\WebExpress.UI\WebExpress.UI.csproj">
-			<Private>false</Private>
-			<ExcludeAssets>runtime</ExcludeAssets>
-		</ProjectReference>
-		<ProjectReference Include="..\..\..\WebExpress\src\WebExpress.WebApp\WebExpress.WebApp.csproj">
-			<Private>false</Private>
-			<ExcludeAssets>runtime</ExcludeAssets>
-		</ProjectReference>	
-		<ProjectReference Include="..\..\..\WebExpress\src\WebExpress\WebExpress.csproj">
-			<Private>false</Private>
-			<ExcludeAssets>runtime</ExcludeAssets>
-		</ProjectReference>
+		<PackageReference Include="WebExpress" Version="0.0.1-alpha" />
+		<PackageReference Include="WebExpress.WebApp" Version="0.0.1-alpha" />
+		<PackageReference Include="WebExpress.WebIndex" Version="0.0.3-alpha" />
+		<PackageReference Include="WebExpress.WebUI" Version="0.0.1-alpha" />
 	</ItemGroup>
 
 	<ItemGroup>

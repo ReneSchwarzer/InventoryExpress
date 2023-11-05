@@ -4,13 +4,13 @@ using InventoryExpress.Parameter;
 using InventoryExpress.WebControl;
 using System;
 using WebExpress.Internationalization;
-using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
 using WebExpress.WebResource;
 using WebExpress.WebScope;
+using WebExpress.WebUI.WebControl;
 
 namespace InventoryExpress.WebPage
 {
@@ -22,14 +22,14 @@ namespace InventoryExpress.WebPage
     public sealed class PageCostCenterEdit : PageWebApp, IPageCostCenter, IScope
     {
         /// <summary>
-        /// Returns the form
+        /// Returns the form.
         /// </summary>
         private ControlFormularCostCenter Form { get; } = new ControlFormularCostCenter("costcenter")
         {
         };
 
         /// <summary>
-        /// Liefert oder setzt die Kostenstelle
+        /// Returns or sets the cost center.
         /// </summary>
         private WebItemEntityCostCenter CostCenter { get; set; }
 
@@ -82,7 +82,7 @@ namespace InventoryExpress.WebPage
         /// <param name="e">The event argument./param>
         private void ProcessFormular(object sender, FormularEventArgs e)
         {
-            // Herstellerobjekt ändern und speichern
+            // change and save cost center
             CostCenter.Name = Form.CostCenterName.Value;
             CostCenter.Description = Form.Description.Value;
             CostCenter.Tag = Form.Tag.Value;
@@ -104,7 +104,7 @@ namespace InventoryExpress.WebPage
                     new ControlLink()
                     {
                         Text = CostCenter.Name,
-                        Uri = ViewModel.GetManufacturerUri(CostCenter.Id)
+                        Uri = ViewModel.GetManufacturerUri(CostCenter.Guid)
                     }.Render(e.Context).ToString().Trim()
                 ),
                 icon: CostCenter.Image,

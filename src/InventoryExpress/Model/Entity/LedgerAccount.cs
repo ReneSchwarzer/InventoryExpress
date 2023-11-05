@@ -3,10 +3,13 @@
 namespace InventoryExpress.Model.Entity
 {
     /// <summary>
-    /// Sachkonto
+    /// The ledger account.
     /// </summary>
     public class LedgerAccount : ItemTag
     {
+        /// <summary>
+        /// Returns or sets the related inventory items.
+        /// </summary>
         public virtual ICollection<Inventory> Inventories { get; set; }
 
         /// <summary>

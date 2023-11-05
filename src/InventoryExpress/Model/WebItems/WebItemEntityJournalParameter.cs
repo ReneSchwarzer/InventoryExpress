@@ -5,18 +5,18 @@ using WebExpress.WebApp.Model;
 namespace InventoryExpress.Model.WebItems
 {
     /// <summary>
-    /// Journalparameter
+    /// The journal parameter.
     /// </summary>
     public class WebItemEntityJournalParameter : WebItem
     {
         /// <summary>
-        /// Der alte Wert
+        /// Returns or sets the old value.
         /// </summary>
         [JsonPropertyName("oldvalue")]
         public string OldValue { get; set; }
 
         /// <summary>
-        /// Der neue Wert
+        /// Returns or sets the new value.
         /// </summary>
         [JsonPropertyName("newvalue")]
         public string NewValue { get; set; }
@@ -31,10 +31,11 @@ namespace InventoryExpress.Model.WebItems
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="parameter">Das Datenbankobjekt</param>
+        /// <param name="parameter">The database object of the journal parameter.</param>
         public WebItemEntityJournalParameter(InventoryJournalParameter parameter)
         {
-            Id = parameter.Guid;
+            Id = parameter.Id;
+            Guid = parameter.Guid;
             Name = parameter.Name;
             OldValue = parameter.OldValue;
             NewValue = parameter.NewValue;

@@ -1,10 +1,9 @@
 ﻿using InventoryExpress.Model;
 using InventoryExpress.WebControl;
 using System.Linq;
-using WebExpress.UI.WebControl;
+using WebExpress.WebUI.WebControl;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebApp.WebScope;
-using WebExpress.WebApp.Wql;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
 
@@ -42,7 +41,7 @@ namespace InventoryExpress.WebPage
             base.Process(context);
 
             var grid = new ControlPanelGrid() { Fluid = TypePanelContainer.Fluid };
-            var list = ViewModel.GetLocations(new WqlStatement()).OrderBy(x => x.Name);
+            var list = ViewModel.GetLocations().OrderBy(x => x.Name);
 
             foreach (var location in list)
             {

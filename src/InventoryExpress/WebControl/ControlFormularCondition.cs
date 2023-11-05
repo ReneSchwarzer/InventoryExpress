@@ -2,9 +2,8 @@
 using InventoryExpress.Parameter;
 using System;
 using System.Linq;
-using WebExpress.UI.WebControl;
+using WebExpress.WebUI.WebControl;
 using WebExpress.WebApp.WebPage;
-using WebExpress.WebApp.Wql;
 
 namespace InventoryExpress.WebControl
 {
@@ -48,7 +47,7 @@ namespace InventoryExpress.WebControl
             Name = "condition";
             Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Three, PropertySpacing.Space.None, PropertySpacing.Space.None);
             BackgroundColor = LayoutSchema.FormularBackground;
-            Layout = TypeLayoutFormular.Horizontal;
+            Layout = TypeLayoutForm.Horizontal;
 
             ConditionName.Validation += ConditionNameValidation;
 
@@ -82,7 +81,7 @@ namespace InventoryExpress.WebControl
             else if
             (
                 condition == null &&
-                ViewModel.GetConditions(new WqlStatement()).Where(x => x.Name.Equals(e.Value, StringComparison.OrdinalIgnoreCase)).Any()
+                ViewModel.GetConditions().Where(x => x.Name.Equals(e.Value, StringComparison.OrdinalIgnoreCase)).Any()
             )
             {
                 e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.condition.validation.name.used"));
@@ -91,7 +90,7 @@ namespace InventoryExpress.WebControl
             (
                 condition != null &&
                 !condition.Name.Equals(e.Value, StringComparison.InvariantCultureIgnoreCase) &&
-                ViewModel.GetConditions(new WqlStatement()).Where(x => x.Name.Equals(e.Value, StringComparison.OrdinalIgnoreCase)).Any()
+                ViewModel.GetConditions().Where(x => x.Name.Equals(e.Value, StringComparison.OrdinalIgnoreCase)).Any()
             )
             {
                 e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.condition.validation.name.used"));

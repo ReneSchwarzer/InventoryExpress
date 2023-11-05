@@ -6,13 +6,13 @@ namespace InventoryExpress.Model.WebItems
     public class WebItemDbInfo : WebItem
     {
         /// <summary>
-        /// Liefert oder setzt den Provider
+        /// Returns or sets the provider name.
         /// </summary>
         [JsonPropertyName("providername")]
         public string ProviderName { get; set; }
 
         /// <summary>
-        /// Returns or sets the data.quelle
+        /// Returns or sets the data source.
         /// </summary>
         [JsonPropertyName("datasource")]
         public string DataSource { get; set; }

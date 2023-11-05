@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace InventoryExpress.Model.Entity
 {
     /// <summary>
-    /// Einstellungen
+    /// The settings.
     /// </summary>
     public class Setting
     {
@@ -15,7 +15,7 @@ namespace InventoryExpress.Model.Entity
         public int Id { get; set; }
 
         /// <summary>
-        /// Die Währung
+        /// Returns or sets the currency.
         /// </summary>
         public string Currency { get; set; }
 

@@ -1,8 +1,8 @@
 ﻿using InventoryExpress.WebPageSetting;
-using WebExpress.Html;
-using WebExpress.UI.WebAttribute;
-using WebExpress.UI.WebControl;
-using WebExpress.UI.WebFragment;
+using WebExpress.WebHtml;
+using WebExpress.WebUI.WebAttribute;
+using WebExpress.WebUI.WebControl;
+using WebExpress.WebUI.WebFragment;
 using WebExpress.WebApp.WebFragment;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
@@ -10,7 +10,7 @@ using WebExpress.WebPage;
 
 namespace InventoryExpress.WebFragment
 {
-    [WebExSection(Section.AppSettingsPrimary)]
+    [Section(Section.AppSettingsPrimary)]
     [Module<Module>]
     public sealed class FragmentSettingsTemplates : FragmentControlDropdownItemLink
     {

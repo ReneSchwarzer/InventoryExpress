@@ -2,11 +2,11 @@
 using InventoryExpress.Parameter;
 using System.Collections.Generic;
 using System.Linq;
-using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
 using WebExpress.WebScope;
+using WebExpress.WebUI.WebControl;
 
 namespace InventoryExpress.WebPage
 {
@@ -17,7 +17,7 @@ namespace InventoryExpress.WebPage
     public sealed class PageInventoryDetails : PageWebApp, IPageInventory, IScope
     {
         /// <summary>
-        /// The description.
+        /// Returns the description.
         /// </summary>
         private ControlText Description { get; } = new ControlText()
         {
@@ -64,7 +64,7 @@ namespace InventoryExpress.WebPage
             (
                 mediaItems.Select(x => new ControlCarouselItem()
                 {
-                    Control = new ControlImage("id_" + x.Id) { Uri = context.ContextPath.Append("media").Append(x.Id), Classes = classes }
+                    Control = new ControlImage("id_" + x.Id) { Uri = context.ContextPath.Append("media").Append(x.Guid), Classes = classes }
                 }).ToArray()
             )
             {

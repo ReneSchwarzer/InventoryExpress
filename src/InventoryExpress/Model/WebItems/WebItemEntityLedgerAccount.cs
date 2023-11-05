@@ -3,7 +3,7 @@
 namespace InventoryExpress.Model.WebItems
 {
     /// <summary>
-    /// Sachkonto
+    /// The ledger account.
     /// </summary>
     public class WebItemEntityLedgerAccount : WebItemEntityBaseTag
     {
@@ -18,7 +18,7 @@ namespace InventoryExpress.Model.WebItems
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="ledgerAccount">Das Datenbankobjektes des Sachkontos</param>
+        /// <param name="ledgerAccount">The database object of the ledger account.</param>
         public WebItemEntityLedgerAccount(LedgerAccount ledgerAccount)
             : base(ledgerAccount)
         {

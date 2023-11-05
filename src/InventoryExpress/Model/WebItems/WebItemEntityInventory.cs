@@ -8,73 +8,73 @@ namespace InventoryExpress.Model.WebItems
     public class WebItemEntityInventory : WebItemEntityBaseTag
     {
         /// <summary>
-        /// Liefert den Zustand
+        /// Returns or sets the state.
         /// </summary>
         [JsonPropertyName("condition")]
         public WebItemEntityCondition Condition { get; set; }
 
         /// <summary>
-        /// Liefert die Kostenstelle
+        /// Returns or sets the cost center.
         /// </summary>
         [JsonPropertyName("costcenter")]
         public WebItemEntityCostCenter CostCenter { get; set; }
 
         /// <summary>
-        /// Liefert das Sachkonto
+        /// Returns or sets the ledger account.
         /// </summary>
         [JsonPropertyName("ledgeraccount")]
         public WebItemEntityLedgerAccount LedgerAccount { get; set; }
 
         /// <summary>
-        /// Liefert den Standort
+        /// Returns or sets the location.
         /// </summary>
         [JsonPropertyName("location")]
         public WebItemEntityLocation Location { get; set; }
 
         /// <summary>
-        /// Liefert den Hersteller
+        /// Returns or sets the manufacturer.
         /// </summary>
         [JsonPropertyName("manufacturer")]
         public WebItemEntityManufacturer Manufacturer { get; set; }
 
         /// <summary>
-        /// Liefert den Lieferanten
+        /// Returns or sets the supplier.
         /// </summary>
         [JsonPropertyName("supplier")]
         public WebItemEntitySupplier Supplier { get; set; }
 
         /// <summary>
-        /// Liefert die Vorlage
+        /// Returns or sets the template.
         /// </summary>
-        [JsonPropertyName("Template")]
+        [JsonPropertyName("template")]
         public WebItemEntityTemplate Template { get; set; }
 
         /// <summary>
-        /// Liefert das übergeordnete Inventargegenstand
+        /// Returns or sets the parent inventory item.
         /// </summary>
         [JsonPropertyName("parent")]
         public WebItemEntityInventory Parent { get; set; }
 
         /// <summary>
-        /// Liefert die Attribute
+        /// Returns or sets the attributes.
         /// </summary>
         [JsonPropertyName("attributes")]
         public IEnumerable<WebItemEntityInventoryAttribute> Attributes { get; set; }
 
         /// <summary>
-        /// Der Anschaffungswert
+        /// Returns or sets the cost value.
         /// </summary>
         [JsonPropertyName("costvalue")]
         public decimal CostValue { get; set; }
 
         /// <summary>
-        /// Das Anschaffungsdatum
+        /// Returns or sets the purchase date.
         /// </summary>
         [JsonPropertyName("purchasedate")]
         public DateTime? PurchaseDate { get; set; }
 
         /// <summary>
-        /// Das Abgangsdatum
+        /// Returns or sets the derecognition date.
         /// </summary>
         [JsonPropertyName("derecognitiondate")]
         public DateTime? DerecognitionDate { get; set; }
@@ -90,7 +90,7 @@ namespace InventoryExpress.Model.WebItems
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="inventory">Das Datenbankobjektes des Inventargegenstandes</param>
+        /// <param name="inventory">The database object of the inventory.</param>
         public WebItemEntityInventory(Inventory inventory)
             : base(inventory)
         {

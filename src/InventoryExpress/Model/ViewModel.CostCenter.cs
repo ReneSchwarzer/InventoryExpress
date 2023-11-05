@@ -5,17 +5,18 @@ using InventoryExpress.WebPage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using WebExpress.WebApp.Wql;
+using WebExpress.WebApp.WebIndex;
 using WebExpress.WebComponent;
+using WebExpress.WebIndex.Wql;
 
 namespace InventoryExpress.Model
 {
     public partial class ViewModel
     {
         /// <summary>
-        /// Ermittelt die Kostenstelle-URL
+        /// Determines the cost center uri.
         /// </summary>
-        /// <param name="guid">Returns or sets the id. der Kostenstelle</param>
+        /// <param name="guid">The id of the cost center.</param>
         /// <returns>The uri or null.</returns>
         public static string GetCostCenterUri(string guid)
         {
@@ -23,25 +24,38 @@ namespace InventoryExpress.Model
         }
 
         /// <summary>
-        /// Liefert alle Kostenstellen
+        /// Returns all cost centers.
         /// </summary>
-        /// <param name="wql">Die Filter- und Sortieroptinen</param>
-        /// <returns>Eine Aufzählung, welche die Kostenstelle beinhaltet</returns>
-        public static IEnumerable<WebItemEntityCostCenter> GetCostCenters(WqlStatement wql)
+        /// <param name="wql">The filtering and sorting options.</param>
+        /// <returns>An enumeration that includes the cost centers.</returns>
+        public static IEnumerable<WebItemEntityCostCenter> GetCostCenters(string wql = "")
+        {
+            var wqlStatement = ComponentManager.GetComponent<IndexManager>()
+                    .ExecuteWql<WebItemEntityCostCenter>(wql);
+
+            return GetCostCenters(wqlStatement);
+        }
+
+        /// <summary>
+        /// Returns all cost centers.
+        /// </summary>
+        /// <param name="wql">The filtering and sorting options.</param>
+        /// <returns>An enumeration that includes the cost centers.</returns>
+        public static IEnumerable<WebItemEntityCostCenter> GetCostCenters(IWqlStatement<WebItemEntityCostCenter> wql)
         {
             lock (DbContext)
             {
                 var costCenters = DbContext.CostCenters.Select(x => new WebItemEntityCostCenter(x));
 
-                return wql.Apply(costCenters.AsQueryable()).ToList();
+                return wql.Apply(costCenters.AsQueryable());
             }
         }
 
         /// <summary>
-        /// Liefert ein Kostenstelle
+        /// Returns a cost center.
         /// </summary>
-        /// <param name="id">Returns or sets the id. der Kostenstelle</param>
-        /// <returns>Die Kostenstelle oder null</returns>
+        /// <param name="id">The id of the cost center.</param>
+        /// <returns>The cost center or null.</returns>
         public static WebItemEntityCostCenter GetCostCenter(string id)
         {
             lock (DbContext)
@@ -53,17 +67,17 @@ namespace InventoryExpress.Model
         }
 
         /// <summary>
-        /// Liefert die Kostenstelle, welche dem Inventargegenstand zugeordnet ist
+        /// Returns the cost center that is assigned to the inventory item.
         /// </summary>
         /// <param name="inventory">The inventory item.</param>
-        /// <returns>Die Kostenstelle oder null</returns>
+        /// <returns>The cost center or null.</returns>
         public static WebItemEntityCostCenter GetCostCenter(WebItemEntityInventory inventory)
         {
             lock (DbContext)
             {
                 var costCenter = from i in DbContext.Inventories
                                  join c in DbContext.CostCenters on i.CostCenterId equals c.Id
-                                 where i.Guid == inventory.Id
+                                 where i.Guid == inventory.Guid
                                  select new WebItemEntityCostCenter(c);
 
                 return costCenter.FirstOrDefault();
@@ -71,21 +85,21 @@ namespace InventoryExpress.Model
         }
 
         /// <summary>
-        /// Fügt eine Kostenstelle hinzu oder aktuallisiert diesen
+        /// Adds or updates a cost center.
         /// </summary>
-        /// <param name="costCenter">Die Kostenstelle</param>
+        /// <param name="costCenter">The cost center.</param>
         public static void AddOrUpdateCostCenter(WebItemEntityCostCenter costCenter)
         {
             lock (DbContext)
             {
-                var availableEntity = DbContext.CostCenters.Where(x => x.Guid == costCenter.Id).FirstOrDefault();
+                var availableEntity = DbContext.CostCenters.Where(x => x.Guid == costCenter.Guid).FirstOrDefault();
 
                 if (availableEntity == null)
                 {
-                    // Neu erstellen
+                    // create new
                     var entity = new CostCenter()
                     {
-                        Guid = costCenter.Id,
+                        Guid = costCenter.Guid,
                         Name = costCenter.Name,
                         Description = costCenter.Description,
                         Tag = costCenter.Tag,
@@ -93,7 +107,7 @@ namespace InventoryExpress.Model
                         Updated = DateTime.Now,
                         Media = new Media()
                         {
-                            Guid = costCenter.Media?.Id,
+                            Guid = costCenter.Media?.Guid,
                             Name = costCenter.Media?.Name ?? "",
                             Description = costCenter.Media?.Description,
                             Tag = costCenter.Media?.Tag,
@@ -107,8 +121,8 @@ namespace InventoryExpress.Model
                 }
                 else
                 {
-                    // Update
-                    var availableMedia = costCenter.Media != null ? DbContext.Media.Where(x => x.Guid == costCenter.Media.Id).FirstOrDefault() : null;
+                    // update
+                    var availableMedia = costCenter.Media != null ? DbContext.Media.Where(x => x.Guid == costCenter.Media.Guid).FirstOrDefault() : null;
 
                     availableEntity.Name = costCenter.Name;
                     availableEntity.Description = costCenter.Description;
@@ -119,7 +133,7 @@ namespace InventoryExpress.Model
                     {
                         var media = new Media()
                         {
-                            Guid = costCenter.Media?.Id,
+                            Guid = costCenter.Media?.Guid,
                             Name = costCenter.Media?.Name,
                             Description = costCenter.Media?.Description,
                             Tag = costCenter.Media?.Tag,
@@ -143,9 +157,9 @@ namespace InventoryExpress.Model
         }
 
         /// <summary>
-        /// Löscht eine Kostenstelle
+        /// Deletes a cost center.
         /// </summary>
-        /// <param name="id">Returns or sets the id. der Kostenstelle</param>
+        /// <param name="id">The id of the cost center.</param>
         public static void DeleteCostCenter(string id)
         {
             lock (DbContext)
@@ -167,17 +181,17 @@ namespace InventoryExpress.Model
         }
 
         /// <summary>
-        /// Prüft ob die Kostenstelle in Verwendung ist
+        /// Checks whether the cost center is in use.
         /// </summary>
-        /// <param name="costCenter">Die Kostenstelle</param>
-        /// <returns>True wenn in Verwendung, false sonst</returns>
+        /// <param name="costCenter">The cost center.</param>
+        /// <returns>True when in use, false otherwise.</returns>
         public static bool GetCostCenterInUse(WebItemEntityCostCenter costCenter)
         {
             lock (DbContext)
             {
                 var used = from i in DbContext.Inventories
                            join c in DbContext.CostCenters on i.CostCenterId equals c.Id
-                           where c.Guid == costCenter.Id
+                           where c.Guid == costCenter.Guid
                            select c;
 
                 return used.Any();

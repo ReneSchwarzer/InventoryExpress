@@ -33,7 +33,7 @@ namespace InventoryExpress.Model.Entity
         public DateTime Created { get; set; }
 
         /// <summary>
-        /// The timestamp of the last change.
+        /// Returns or sets the timestamp of the last change.
         /// </summary>
         public DateTime Updated { get; set; }
 
@@ -47,16 +47,59 @@ namespace InventoryExpress.Model.Entity
         /// </summary>
         public string Tag { get; set; }
 
+        /// <summary>
+        /// Returns or sets the related ascription items.
+        /// </summary>
         public virtual ICollection<Ascription> Ascriptions { get; set; }
+
+        /// <summary>
+        /// Returns or sets the related attribute items.
+        /// </summary>
         public virtual ICollection<Attribute> Attributes { get; set; }
+
+        /// <summary>
+        /// Returns or sets the related state items.
+        /// </summary>
         public virtual ICollection<Condition> Conditions { get; set; }
+
+        /// <summary>
+        /// Returns or sets the related cost center items.
+        /// </summary>
         public virtual ICollection<CostCenter> CostCenters { get; set; }
+
+        /// <summary>
+        /// Returns or sets the related inventory items.
+        /// </summary>
         public virtual ICollection<Inventory> Inventories { get; set; }
+
+        /// <summary>
+        /// Returns or sets the related inventory attatchment items.
+        /// </summary>
         public virtual ICollection<InventoryAttachment> InventoryAttachment { get; set; }
+
+        /// <summary>
+        /// Returns or sets the related ledger account items.
+        /// </summary>
         public virtual ICollection<LedgerAccount> LedgerAccounts { get; set; }
+
+        /// <summary>
+        /// Returns or sets the related location items.
+        /// </summary>
         public virtual ICollection<Location> Locations { get; set; }
+
+        /// <summary>
+        /// Returns or sets the related manufacturer items.
+        /// </summary>
         public virtual ICollection<Manufacturer> Manufacturers { get; set; }
+
+        /// <summary>
+        /// Returns or sets the related suppliers items.
+        /// </summary>
         public virtual ICollection<Supplier> Suppliers { get; set; }
+
+        /// <summary>
+        /// Returns or sets the related template items.
+        /// </summary>
         public virtual ICollection<Template> Templates { get; set; }
 
         /// <summary>

@@ -3,18 +3,18 @@ using InventoryExpress.Model.WebItems;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using WebExpress.WebApp.Wql;
+using WebExpress.WebIndex.Wql;
 
 namespace InventoryExpress.Model
 {
     public partial class ViewModel
     {
         /// <summary>
-        /// Liefert alle Schlagwörter
+        /// Returns all tags.
         /// </summary>
-        /// <param name="wql">Die Filter- und Sortieroptinen</param>
-        /// <returns>Eine Aufzählung, welche Returns or sets the tags. beinhaltet</returns>
-        public static IEnumerable<WebItemEntityTag> GetTags(WqlStatement wql)
+        /// <param name="wql">The filtering and sorting options.</param>
+        /// <returns>A enumaration that includes the tags.</returns>
+        public static IEnumerable<WebItemEntityTag> GetTags(IWqlStatement<WebItemEntityTag> wql)
         {
             lock (DbContext)
             {
@@ -25,10 +25,10 @@ namespace InventoryExpress.Model
         }
 
         /// <summary>
-        /// Liefert ein Standort
+        /// Returns a tag.
         /// </summary>
-        /// <param name="id">Returns or sets the id. des Standortes</param>
-        /// <returns>Der Standort oder null</returns>
+        /// <param name="id">The id of the tag.</param>
+        /// <returns>The tag or null.</returns>
         public static WebItemEntityTag GetTag(string id)
         {
             lock (DbContext)
@@ -40,14 +40,14 @@ namespace InventoryExpress.Model
         }
 
         /// <summary>
-        /// Fügt ein Schlagwort hinzu oder aktuallisiert dieses
+        /// Adds or updates a tag.
         /// </summary>
-        /// <param name="tag">Das Schlagwort</param>
+        /// <param name="tag">The tag.</param>
         public static void AddOrUpdateTag(WebItemEntityTag tag)
         {
             lock (DbContext)
             {
-                var availableEntity = DbContext.Tags.Where(x => x.Label == tag.Id).FirstOrDefault();
+                var availableEntity = DbContext.Tags.Where(x => x.Label == tag.Guid).FirstOrDefault();
 
                 if (availableEntity == null)
                 {
@@ -70,9 +70,9 @@ namespace InventoryExpress.Model
         }
 
         /// <summary>
-        /// Löscht ein Schlagwort
+        /// Deletes a tag.
         /// </summary>
-        /// <param name="id">Returns or sets the id. des Schlagwortes</param>
+        /// <param name="id">The id of the tag.</param>
         public static void DeleteTag(string id)
         {
             lock (DbContext)
@@ -88,10 +88,10 @@ namespace InventoryExpress.Model
         }
 
         /// <summary>
-        /// Ermittelt alle Schlagwörter zu einem Inventargegenstand
+        /// Identifies all tags related to an inventory item.
         /// </summary>
-        /// <param name="guid">The id of the inventory item.</param>
-        /// <returns>A list with the tags.</returns>
+        /// <param name="guid">The guid of the inventory item.</param>
+        /// <returns>A enumaration that includes the tags.</returns>
         public static IEnumerable<WebItemEntityTag> GetInventoryTags(string guid)
         {
             lock (DbContext)

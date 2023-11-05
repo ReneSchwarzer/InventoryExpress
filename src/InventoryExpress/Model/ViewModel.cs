@@ -11,12 +11,12 @@ namespace InventoryExpress.Model
     public partial class ViewModel
     {
         /// <summary>
-        /// Ermittelt die Uri des Anwendungsicons 
+        /// Returns the Uri of the application icon.
         /// </summary>
         public static string ApplicationIcon { get; private set; }
 
         /// <summary>
-        /// Lifert die einzige Instanz der Datenbank-Klasse
+        /// Returns the only instance of the database class.
         /// </summary>
         private static InventoryDbContext DbContext { get; } = new InventoryDbContext();
 
@@ -31,12 +31,12 @@ namespace InventoryExpress.Model
         public static IModuleContext ModuleContext { get; private set; }
 
         /// <summary>
-        /// Ermittelt das Medienverzeichnis
+        /// Returns the media directory.
         /// </summary>
         public static string MediaDirectory => Path.Combine(ModuleContext.DataPath, "media");
 
         /// <summary>
-        /// Ermittelt das Exportverzeichnis
+        /// Returns the export directory.
         /// </summary>
         public static string ExportDirectory => Path.Combine(ModuleContext.DataPath, "export");
 
@@ -65,13 +65,13 @@ namespace InventoryExpress.Model
                 Directory.CreateDirectory(path);
             }
 
-            // Datenbank initialisieren
+            // initializing the database
             DbContext.DataSource = Path.Combine(path, "inventory.db");
 
-            // möglicherweise erstellen und ggf. Migrationspfad anwenden
+            // and apply a migration path if necessary
             DbContext.Database.Migrate();
 
-            // Daten vorladen
+            // preload data
             _ = DbContext.Inventories.ToList();
             _ = DbContext.CostCenters.ToList();
             _ = DbContext.Manufacturers.ToList();
@@ -79,9 +79,9 @@ namespace InventoryExpress.Model
         }
 
         /// <summary>
-        /// Ermittelt die Datenbankinformationen
+        /// Determines the database informations.
         /// </summary>
-        /// <returns>Die Datenbankinformationen</returns>
+        /// <returns>the database informations.</returns>
         public static WebItemDbInfo GetDbInfo()
         {
             var info = new WebItemDbInfo()
@@ -94,9 +94,9 @@ namespace InventoryExpress.Model
         }
 
         /// <summary>
-        /// Startet eine neue Transaktion
+        /// Starts a new transaction.
         /// </summary>
-        /// <returns>Die Transaktion</returns>
+        /// <returns>The transaction</returns>
         public static IDbContextTransaction BeginTransaction()
         {
             return DbContext.Database.BeginTransaction();

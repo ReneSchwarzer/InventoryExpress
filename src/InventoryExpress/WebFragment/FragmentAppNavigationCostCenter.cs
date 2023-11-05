@@ -1,16 +1,16 @@
 ﻿using InventoryExpress.WebPage;
-using WebExpress.Html;
-using WebExpress.UI.WebAttribute;
-using WebExpress.UI.WebControl;
-using WebExpress.UI.WebFragment;
 using WebExpress.WebApp.WebFragment;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
+using WebExpress.WebHtml;
 using WebExpress.WebPage;
+using WebExpress.WebUI.WebAttribute;
+using WebExpress.WebUI.WebControl;
+using WebExpress.WebUI.WebFragment;
 
 namespace InventoryExpress.WebFragment
 {
-    [WebExSection(Section.AppNavigationPrimary)]
+    [Section(Section.AppNavigationPrimary)]
     [Module<Module>]
     [Cache]
     public sealed class FragmentAppNavigationCostCenter : FragmentControlNavigationItemLink

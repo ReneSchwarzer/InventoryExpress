@@ -4,18 +4,18 @@ using System.Text.Json.Serialization;
 namespace InventoryExpress.Model.WebItems
 {
     /// <summary>
-    /// Standort
+    /// The location.
     /// </summary>
     public class WebItemEntityLocation : WebItemEntityBaseAddress
     {
         /// <summary>
-        /// Das Gebäude
+        /// Returns or sets the building.
         /// </summary>
         [JsonPropertyName("building")]
         public string Building { get; set; }
 
         /// <summary>
-        /// Der Raum innerhalb des Gebäudes
+        /// Returns or sets the room inside the building.
         /// </summary>
         [JsonPropertyName("room")]
         public string Room { get; set; }
@@ -31,7 +31,7 @@ namespace InventoryExpress.Model.WebItems
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="location">Das Datenbankobjektes des Standortes</param>
+        /// <param name="location">The database object of the location.</param>
         public WebItemEntityLocation(Location location)
             : base(location)
         {

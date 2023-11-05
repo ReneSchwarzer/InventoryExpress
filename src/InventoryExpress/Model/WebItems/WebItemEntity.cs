@@ -26,7 +26,7 @@ namespace InventoryExpress.Model.WebItems
         public DateTime Updated { get; set; }
 
         /// <summary>
-        /// Das Bild
+        /// Returns or sets the media.
         /// </summary>
         [JsonPropertyName("media")]
         public WebItemEntityMedia Media { get; set; } = new WebItemEntityMedia();
@@ -40,9 +40,9 @@ namespace InventoryExpress.Model.WebItems
 
         /// <summary>
         /// Copy-Konstruktor
-        /// Erstellt eine Tiefenkopie.
+        /// Creates a deep copy.
         /// </summary>
-        /// <param name="item">Das zu kopierende Objekt</param>
+        /// <param name="item">The object to be copied.</param>
         public WebItemEntity(WebItemEntity item)
             : base(item)
         {
@@ -55,10 +55,11 @@ namespace InventoryExpress.Model.WebItems
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="item">Das Datenbankobjektes des Herstellers</param>
+        /// <param name="item">The database object.</param>
         public WebItemEntity(Item item)
         {
-            Id = item.Guid;
+            Id = item.Id;
+            Guid = item.Guid;
             Label = item.Name;
             Name = item.Name;
             Description = item.Description;

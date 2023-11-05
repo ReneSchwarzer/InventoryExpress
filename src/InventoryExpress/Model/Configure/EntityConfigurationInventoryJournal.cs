@@ -5,14 +5,14 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace InventoryExpress.Model.Configure
 {
     /// <summary>
-    /// Datenbankkonfiguration der Journal-Entität
+    /// Database configuration of the journal entity.
     /// </summary>
     class EntityConfigurationInventoryJournalMedia : IEntityTypeConfiguration<InventoryJournal>
     {
         /// <summary>
-        /// Konfiguration
+        /// Configuration of the journal entity.
         /// </summary>
-        /// <param name="builder">Der Builder</param>
+        /// <param name="builder">The builder.</param>
         public void Configure(EntityTypeBuilder<InventoryJournal> builder)
         {
             builder.HasKey(e => new { e.Id });

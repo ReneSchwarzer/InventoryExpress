@@ -5,14 +5,14 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace InventoryExpress.Model.Configure
 {
     /// <summary>
-    /// Datenbankkonfiguration der Sachkonto-Entität
+    /// Database configuration of the ledger account entity.
     /// </summary>
     class EntityConfigurationLedgerAccount : IEntityTypeConfiguration<LedgerAccount>
     {
         /// <summary>
-        /// Konfiguration
+        /// Configuration of the ledger account entity.
         /// </summary>
-        /// <param name="builder">Der Builder</param>
+        /// <param name="builder">The builder.</param>
         public void Configure(EntityTypeBuilder<LedgerAccount> builder)
         {
             builder.ToTable("LedgerAccount");
@@ -51,14 +51,14 @@ namespace InventoryExpress.Model.Configure
                    .IsRequired()
                    .HasColumnType("CHAR(36)");
 
-            // Unique-Contraints
+            // unique contraints
             builder.HasIndex(e => e.Name)
                    .IsUnique();
 
             builder.HasIndex(e => e.Guid)
                    .IsUnique();
 
-            // Beziehungen
+            // relations
             builder.HasOne(d => d.Media)
                    .WithMany(p => p.LedgerAccounts)
                    .HasForeignKey(d => d.MediaId)

@@ -2,12 +2,12 @@
 using InventoryExpress.Parameter;
 using InventoryExpress.WebResource;
 using WebExpress.Internationalization;
-using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebControl;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
 using WebExpress.WebResource;
+using WebExpress.WebUI.WebControl;
 
 namespace InventoryExpress.WebPage
 {
@@ -66,7 +66,7 @@ namespace InventoryExpress.WebPage
 
             using (var transaction = ViewModel.BeginTransaction())
             {
-                ViewModel.DeleteMedia(media?.Id);
+                ViewModel.DeleteMedia(media?.Guid);
 
                 transaction.Commit();
             }

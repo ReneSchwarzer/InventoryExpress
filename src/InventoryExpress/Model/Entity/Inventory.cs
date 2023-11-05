@@ -4,27 +4,27 @@ using System.Collections.Generic;
 namespace InventoryExpress.Model.Entity
 {
     /// <summary>
-    /// Inventar
+    /// The inventory item.
     /// </summary>
     public class Inventory : ItemTag
     {
         /// <summary>
-        /// Der Anschaffungswert
+        /// Returns or set the cost value.
         /// </summary>
         public decimal CostValue { get; set; }
 
         /// <summary>
-        /// Returns or sets the id. der Vorlage
+        /// Returns or set the id of the template.
         /// </summary>
         public int? TemplateId { get; set; }
 
         /// <summary>
-        /// Das Template
+        /// Returns or set the template.
         /// </summary>
         public Template Template { get; set; }
 
         /// <summary>
-        /// Die Zuschreibungen
+        /// Returns or set the ascriptions.
         /// </summary>
         public List<Ascription> Ascriptions { get; set; }
 
@@ -34,82 +34,82 @@ namespace InventoryExpress.Model.Entity
         //public bool Like { get; set; }
 
         /// <summary>
-        /// Das Anschaffungsdatum
+        /// Returns or set the purchase date.
         /// </summary>
         public DateTime? PurchaseDate { get; set; }
 
         /// <summary>
-        /// Das Abgangsdatum
+        /// Returns or set the derecognition date.
         /// </summary>
         public DateTime? DerecognitionDate { get; set; }
 
         /// <summary>
-        /// Returns or sets the id. des Standortes
+        /// Returns or set the id of the location.
         /// </summary>
         public int? LocationId { get; set; }
 
         /// <summary>
-        /// Der Standort
+        /// Returns or set the location.
         /// </summary>
         public Location Location { get; set; }
 
         /// <summary>
-        /// Returns or sets the id. der Kostenstelle
+        /// Returns or set the id of the cost center.
         /// </summary>
         public int? CostCenterId { get; set; }
 
         /// <summary>
-        /// Die Kostenstelle
+        /// Returns or set the cost center.
         /// </summary>
         public CostCenter CostCenter { get; set; }
 
         /// <summary>
-        /// Returns or sets the id. des Herstellers
+        /// Returns or sets the id of the manufacturer.
         /// </summary>
         public int? ManufacturerId { get; set; }
 
         /// <summary>
-        /// Der Hersteller
+        /// Returns or set the manufacturer.
         /// </summary>
         public Manufacturer Manufacturer { get; set; }
 
         /// <summary>
-        /// Returns or sets the id. des Zustandes
+        /// Returns or set the id of the state.
         /// </summary>
         public int? ConditionId { get; set; }
 
         /// <summary>
-        /// Der Zustand
+        /// Returns or set the state.
         /// </summary>
         public Condition Condition { get; set; }
 
         /// <summary>
-        /// Returns or sets the id. des Lieferanten
+        /// Returns or sets the id of the supplier.
         /// </summary>
         public int? SupplierId { get; set; }
 
         /// <summary>
-        /// Der Lieferant
+        /// Returns or set the supplier.
         /// </summary>
         public Supplier Supplier { get; set; }
 
         /// <summary>
-        /// Returns or sets the id. des Sachkontos
+        /// Returns or set the id of the ledger account.
         /// </summary>
         public int? LedgerAccountId { get; set; }
 
         /// <summary>
-        /// Das Sachkonto
+        /// Returns or set the ledger account.
         /// </summary>
         public LedgerAccount LedgerAccount { get; set; }
 
         /// <summary>
-        /// Returns or sets the id. übergeordneten Inventargegenstandes
+        /// Returns or sets the id parenr inventory.
         /// </summary>
         public int? ParentId { get; set; }
 
         /// <summary>
-        /// Der übergeordnete Inventargegenstand
+        /// Returns or set the parent.
         /// </summary>
         public Inventory Parent { get; set; }
 

@@ -2,12 +2,12 @@
 using InventoryExpress.Model.WebItems;
 using InventoryExpress.Parameter;
 using WebExpress.Internationalization;
-using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebControl;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
 using WebExpress.WebScope;
+using WebExpress.WebUI.WebControl;
 
 namespace InventoryExpress.WebPage
 {
@@ -61,7 +61,7 @@ namespace InventoryExpress.WebPage
             {
                 table.AddRow(new Control[]
                 {
-                    new ControlLink() { Text = item.Name, Uri = context.Uri.ModuleRoot.Append("media").Append(item.Id) },
+                    new ControlLink() { Text = item.Name, Uri = context.Uri.ModuleRoot.Append("media").Append(item.Guid) },
                     new ControlText() { Text = string.Format(new FileSizeFormatProvider() { Culture = Culture }, "{0:fs}", item.Size) },
                     new ControlText() { Text = item.Updated.ToString(Culture.DateTimeFormat.ShortDatePattern + " " + Culture.DateTimeFormat.ShortTimePattern) },
                     new ControlButtonLink()

@@ -1,7 +1,7 @@
 ﻿namespace InventoryExpress.Model.Entity
 {
     /// <summary>
-    /// Journal parameters of an inventory.
+    /// The journal parameters of an inventory.
     /// </summary>
     public partial class InventoryJournalParameter
     {
@@ -36,7 +36,7 @@
         public string Guid { get; set; }
 
         /// <summary>
-        ///  Returns or sets the reference  to the journal.
+        /// Returns or sets the reference to the journal.
         /// </summary>
         public virtual InventoryJournal InventoryJournal { get; set; }
     }

@@ -1,27 +1,27 @@
 ﻿namespace InventoryExpress.Model.Entity
 {
     /// <summary>
-    /// Zuordnung der Schlüsselwörter zu den Inventargegenständen
+    /// The assignment of the tag to the inventory items.
     /// </summary>
     public partial class InventoryTag
     {
         /// <summary>
-        /// Das Inventar
+        /// Returns or sets the id of the inventory.
         /// </summary>
         public int InventoryId { get; set; }
 
         /// <summary>
-        /// Returns or sets the id. des Schlüsselwortes
+        /// Returns or sets the id of the tag.
         /// </summary>
         public int TagId { get; set; }
 
         /// <summary>
-        /// Verweis auf den Inventargegenstand
+        /// Returns or sets the inventory.
         /// </summary>
         public virtual Inventory Inventory { get; set; }
 
         /// <summary>
-        /// Verweis auf das Schlüsselwort
+        /// Returns or sets the tag.
         /// </summary>
         public virtual Tag Tag { get; set; }
     }

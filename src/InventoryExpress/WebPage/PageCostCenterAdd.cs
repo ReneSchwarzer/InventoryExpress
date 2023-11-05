@@ -2,13 +2,13 @@
 using InventoryExpress.Model.WebItems;
 using InventoryExpress.WebControl;
 using WebExpress.Internationalization;
-using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebApp.WebScope;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
 using WebExpress.WebResource;
+using WebExpress.WebUI.WebControl;
 
 namespace InventoryExpress.WebPage
 {
@@ -21,7 +21,7 @@ namespace InventoryExpress.WebPage
     public sealed class PageCostCenterAdd : PageWebApp, IPageCostCenter
     {
         /// <summary>
-        /// Returns the form
+        /// Returns the form.
         /// </summary>
         private ControlFormularCostCenter Form { get; } = new ControlFormularCostCenter("costcenter")
         {
@@ -73,7 +73,7 @@ namespace InventoryExpress.WebPage
         /// <param name="e">The event argument./param>
         private void ProcessFormular(object sender, FormularEventArgs e)
         {
-            // Neue Kostenstelle erstellen und speichern
+            // create and save a new cost center
             var costcenter = new WebItemEntityCostCenter()
             {
                 Name = Form.CostCenterName.Value,
@@ -97,7 +97,7 @@ namespace InventoryExpress.WebPage
                     new ControlLink()
                     {
                         Text = costcenter.Name,
-                        Uri = ViewModel.GetCostCenterUri(costcenter.Id)
+                        Uri = ViewModel.GetCostCenterUri(costcenter.Guid)
                     }.Render(e.Context).ToString().Trim()
                 ),
                 icon: costcenter.Image,

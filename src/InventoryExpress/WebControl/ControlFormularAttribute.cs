@@ -2,16 +2,15 @@
 using InventoryExpress.Parameter;
 using System;
 using System.Linq;
-using WebExpress.UI.WebControl;
+using WebExpress.WebUI.WebControl;
 using WebExpress.WebApp.WebPage;
-using WebExpress.WebApp.Wql;
 
 namespace InventoryExpress.WebControl
 {
     public class ControlFormularAttribute : ControlForm
     {
         /// <summary>
-        /// Liefert den Namen der Kostenstelle
+        /// Returns the name.
         /// </summary>
         public ControlFormItemInputTextBox AttributeName { get; } = new ControlFormItemInputTextBox()
         {
@@ -22,7 +21,7 @@ namespace InventoryExpress.WebControl
         };
 
         /// <summary>
-        /// Liefert die Beschreibung
+        /// Returns the description.
         /// </summary>
         public ControlFormItemInputTextBox Description { get; } = new ControlFormItemInputTextBox("note")
         {
@@ -43,7 +42,7 @@ namespace InventoryExpress.WebControl
             Name = "attribute";
             Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Three, PropertySpacing.Space.None, PropertySpacing.Space.None);
             BackgroundColor = LayoutSchema.FormularBackground;
-            Layout = TypeLayoutFormular.Horizontal;
+            Layout = TypeLayoutForm.Horizontal;
 
             AttributeName.Validation += AttributeNameValidation;
 
@@ -61,7 +60,7 @@ namespace InventoryExpress.WebControl
         }
 
         /// <summary>
-        /// Wird ausgelöst, wenn das Feld AttributeName validiert werden soll.
+        /// Dispatched when the AttributeName field is to be validated.
         /// </summary>
         /// <param name="sender">The trigger of the event.</param>
         /// <param name="e">The event argument./param>
@@ -77,7 +76,7 @@ namespace InventoryExpress.WebControl
             else if
             (
                 attribute == null &&
-                ViewModel.GetAttributes(new WqlStatement()).Where(x => x.Name.Equals(e.Value, StringComparison.OrdinalIgnoreCase)).Any()
+                ViewModel.GetAttributes().Where(x => x.Name.Equals(e.Value, StringComparison.OrdinalIgnoreCase)).Any()
             )
             {
                 e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.attribute.validation.name.used"));
@@ -86,7 +85,7 @@ namespace InventoryExpress.WebControl
             (
                 attribute != null &&
                 !attribute.Name.Equals(e.Value, StringComparison.InvariantCultureIgnoreCase) &&
-                ViewModel.GetAttributes(new WqlStatement()).Where(x => x.Name.Equals(e.Value, StringComparison.OrdinalIgnoreCase)).Any()
+                ViewModel.GetAttributes().Where(x => x.Name.Equals(e.Value, StringComparison.OrdinalIgnoreCase)).Any()
             )
             {
                 e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.attribute.validation.name.used"));

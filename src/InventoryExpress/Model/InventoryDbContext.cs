@@ -6,102 +6,102 @@ namespace InventoryExpress.Model
     public class InventoryDbContext : DbContext
     {
         /// <summary>
-        /// Returns or sets the data.quelle
+        /// Returns or sets the data source.
         /// </summary>
         public string DataSource { get; internal set; }
 
         /// <summary>
-        /// Liefert oder setzt die Inventargegenstände
+        /// Returns or sets the inventory items.
         /// </summary>
         public DbSet<Inventory> Inventories { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Attribute der Inventargegenstände
+        /// Returns or sets the attributes of the inventory items.
         /// </summary>
         public DbSet<InventoryAttribute> InventoryAttributes { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Datei-Anhänge der Inventargegenstände
+        /// Returns or sets the file attachments of the inventory items.
         /// </summary>
         public DbSet<InventoryAttachment> InventoryAttachments { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Kommentare der Inventargegenstände
+        /// Returns or sets the comments of the inventory items.
         /// </summary>
         public DbSet<InventoryComment> InventoryComments { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt das Journal der Inventargegenstände
+        /// Returns or sets the journal of inventory items.
         /// </summary>
         public DbSet<InventoryJournal> InventoryJournals { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Journal-Parameter der Inventargegenstände
+        /// Returns or sets the journal parameters of the inventory items.
         /// </summary>
         public DbSet<InventoryJournalParameter> InventoryJournalParameters { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt Returns or sets the tags. der Inventargegenstände
+        /// Returns or sets the tags of the inventory items.
         /// </summary>
         public DbSet<InventoryTag> InventoryTags { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Zustände
+        /// Returns or sets the states.
         /// </summary>
         public DbSet<Condition> Conditions { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Standorte
+        /// Returns or sets the locations.
         /// </summary>
         public DbSet<Location> Locations { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Hersteller
+        /// Returns or sets the manufacturers.
         /// </summary>
         public DbSet<Manufacturer> Manufacturers { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Lieferanten
+        /// Returns or sets the suppliers.
         /// </summary>
         public DbSet<Supplier> Suppliers { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Sachkonten
+        /// Returns or sets the ledger accounts.
         /// </summary>
         public DbSet<LedgerAccount> LedgerAccounts { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Kostenstellen
+        /// Returns or sets the cost centers.
         /// </summary>
         public DbSet<CostCenter> CostCenters { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Vorlagen
+        /// Returns or sets the templates.
         /// </summary>
         public DbSet<Template> Templates { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Vorlagenattribute
+        /// Returns or sets the template attributes.
         /// </summary>
         public DbSet<TemplateAttribute> TemplateAttributes { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Attribute
+        /// Returns or sets the attributes.
         /// </summary>
-        public DbSet<Entity.Attribute> Attributes { get; set; }
+        public DbSet<Attribute> Attributes { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Medien
+        /// Returns or sets the media.
         /// </summary>
         public DbSet<Media> Media { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt Returns or sets the tags.
+        /// Returns or sets the tags.
         /// </summary>
         public DbSet<Tag> Tags { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Medien
+        /// Returns or sets the settings.
         /// </summary>
         public DbSet<Setting> Settings { get; set; }
 
@@ -113,25 +113,25 @@ namespace InventoryExpress.Model
         }
 
         /// <summary>
-        /// Wird aufgerufen, wenn die DB configuriert werden soll
+        /// Invoked when the db is to be configured.
         /// </summary>
-        /// <param name="optionsBuilder">Der OptionsBuilder</param>
+        /// <param name="optionsBuilder">The options builder.</param>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite($"Data Source={DataSource};");
         }
 
         /// <summary>
-        /// Modell erstellen
+        /// Invoked when the model is to be created.
         /// </summary>
-        /// <param name="modelBuilder">Der Modellbuilder</param>
+        /// <param name="modelBuilder">The model builder.</param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(InventoryDbContext).Assembly);
         }
 
         /// <summary>
-        /// Alles aktualliesieren
+        /// Update everything.
         /// </summary>
         public void RefreshAll()
         {
@@ -142,7 +142,7 @@ namespace InventoryExpress.Model
         }
 
         /// <summary>
-        /// Verwirft die Änderungen, die seit dem letzten Speichern durchgeführt worden
+        /// Discards the changes that have been made since the last save.
         /// </summary>
         public void Rollback()
         {

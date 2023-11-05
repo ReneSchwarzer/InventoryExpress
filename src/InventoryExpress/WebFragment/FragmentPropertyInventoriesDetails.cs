@@ -1,17 +1,16 @@
 ﻿using InventoryExpress.Model;
 using InventoryExpress.WebPage;
-using WebExpress.Html;
-using WebExpress.UI.WebAttribute;
-using WebExpress.UI.WebControl;
-using WebExpress.UI.WebFragment;
+using WebExpress.WebUI.WebAttribute;
+using WebExpress.WebUI.WebControl;
+using WebExpress.WebUI.WebFragment;
 using WebExpress.WebApp.WebFragment;
-using WebExpress.WebApp.Wql;
 using WebExpress.WebAttribute;
+using WebExpress.WebHtml;
 using WebExpress.WebPage;
 
 namespace InventoryExpress.WebFragment
 {
-    [WebExSection(Section.PropertyPrimary)]
+    [Section(Section.PropertyPrimary)]
     [Module<Module>]
     [Scope<PageInventories>]
     public sealed class FragmentPropertyInventoriesDetails : FragmentControlList
@@ -64,8 +63,8 @@ namespace InventoryExpress.WebFragment
         /// <returns>The control as html.</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var count = ViewModel.CountInventories(new WqlStatement());
-            var capitalCosts = ViewModel.GetInventoriesCapitalCosts(new WqlStatement());
+            var count = ViewModel.CountInventories();
+            var capitalCosts = ViewModel.GetInventoriesCapitalCosts();
             var currency = ViewModel.GetSettings()?.Currency;
 
             CountAttribute.Value = count.ToString();

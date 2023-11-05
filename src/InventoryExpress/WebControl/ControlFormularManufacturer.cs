@@ -2,10 +2,9 @@
 using InventoryExpress.Parameter;
 using System;
 using System.Linq;
-using WebExpress.UI.WebControl;
+using WebExpress.WebUI.WebControl;
 using WebExpress.WebApp.WebApiControl;
 using WebExpress.WebApp.WebPage;
-using WebExpress.WebApp.Wql;
 
 namespace InventoryExpress.WebControl
 {
@@ -90,7 +89,7 @@ namespace InventoryExpress.WebControl
             Name = "manufacturer";
             Margin = new PropertySpacingMargin(PropertySpacing.Space.Three);
             BackgroundColor = LayoutSchema.FormularBackground;
-            Layout = TypeLayoutFormular.Horizontal;
+            Layout = TypeLayoutForm.Horizontal;
 
             ManufacturerName.Validation += ManufacturerNameValidation;
             Zip.Validation += ZipValidation;
@@ -147,7 +146,7 @@ namespace InventoryExpress.WebControl
             else if
             (
                 manufacturer == null &&
-                ViewModel.GetManufacturers(new WqlStatement()).Where(x => x.Name.Equals(e.Value, StringComparison.OrdinalIgnoreCase)).Any()
+                ViewModel.GetManufacturers().Where(x => x.Name.Equals(e.Value, StringComparison.OrdinalIgnoreCase)).Any()
             )
             {
                 e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.manufacturer.validation.name.used"));
@@ -156,7 +155,7 @@ namespace InventoryExpress.WebControl
             (
                 manufacturer != null &&
                 !manufacturer.Name.Equals(e.Value, StringComparison.InvariantCultureIgnoreCase) &&
-                ViewModel.GetManufacturers(new WqlStatement()).Where(x => x.Name.Equals(e.Value, StringComparison.OrdinalIgnoreCase)).Any()
+                ViewModel.GetManufacturers().Where(x => x.Name.Equals(e.Value, StringComparison.OrdinalIgnoreCase)).Any()
             )
             {
                 e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.manufacturer.validation.name.used"));

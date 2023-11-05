@@ -15,7 +15,7 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Returns the media uri.
         /// </summary>
-        /// <param name="guid">Returns or sets the id. des Dokumentes</param>
+        /// <param name="guid">The guid of the document.</param>
         /// <returns>The uri or null.</returns>
         public static string GetMediaUri(string guid)
         {
@@ -25,7 +25,7 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Returns the media uri.
         /// </summary>
-        /// <param name="id">Returns or sets the id. des Dokumentes</param>
+        /// <param name="id">The id of the document.</param>
         /// <returns>The uri or null.</returns>
         public static string GetMediaUri(int? id)
         {
@@ -42,7 +42,7 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Returns the media uri.
         /// </summary>
-        /// <param name="id">Returns or sets the id. des Dokumentes</param>
+        /// <param name="id">The id of the document.</param>
         /// <returns>The media.</returns>
         public static WebItemEntityMedia GetMedia(int? id)
         {
@@ -69,7 +69,7 @@ namespace InventoryExpress.Model
             {
                 var media = (from c in DbContext.CostCenters
                              join m in DbContext.Media on c.MediaId equals m.Id
-                             where c.Guid == costCenter.Id
+                             where c.Guid == costCenter.Guid
                              select m).FirstOrDefault();
 
                 return new WebItemEntityMedia(media) ?? new WebItemEntityMedia();
@@ -79,7 +79,7 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Returns the media uri.
         /// </summary>
-        /// <param name="guid">Returns or sets the id. des Dokumentes</param>
+        /// <param name="guid">The id of the document.</param>
         /// <returns>The media.</returns>
         public static WebItemEntityMedia GetMedia(string guid)
         {
@@ -94,7 +94,7 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Adds or updates media.
         /// </summary>
-        /// <param name="costCenter">Die Kostenstelle</param>
+        /// <param name="costCenter">The cost center.</param>
         /// <param name="file">The file or null.</param>
         public static void AddOrUpdateMedia(WebItemEntityCostCenter costCenter, ParameterFile file)
         {
@@ -110,7 +110,7 @@ namespace InventoryExpress.Model
 
             lock (DbContext)
             {
-                var costCenterEntity = DbContext.CostCenters.Where(x => x.Guid == costCenter.Id).FirstOrDefault();
+                var costCenterEntity = DbContext.CostCenters.Where(x => x.Guid == costCenter.Guid).FirstOrDefault();
                 var availableEntity = DbContext.Media.Where(x => x.Id == costCenterEntity.MediaId).FirstOrDefault();
 
                 if (availableEntity == null)
@@ -139,7 +139,7 @@ namespace InventoryExpress.Model
                     }
 
                     costCenter.Media.Name = filename;
-                    costCenter.Media.Id = guid;
+                    costCenter.Media.Guid = guid;
 
                     // update
                     availableEntity.Name = filename;
@@ -175,7 +175,7 @@ namespace InventoryExpress.Model
 
             lock (DbContext)
             {
-                var inventoryEntity = DbContext.Inventories.Where(x => x.Guid == inventory.Id).FirstOrDefault();
+                var inventoryEntity = DbContext.Inventories.Where(x => x.Guid == inventory.Guid).FirstOrDefault();
                 var availableEntity = DbContext.Media.Where(x => x.Id == inventoryEntity.MediaId).FirstOrDefault();
 
                 if (availableEntity == null)
@@ -212,7 +212,7 @@ namespace InventoryExpress.Model
                     }
 
                     inventory.Media.Name = filename;
-                    inventory.Media.Id = guid;
+                    inventory.Media.Guid = guid;
 
                     // update
                     availableEntity.Name = filename;
@@ -240,7 +240,7 @@ namespace InventoryExpress.Model
         /// <summary>
         /// Adds or updates media.
         /// </summary>
-        /// <param name="ledgerAccount">Das Sachkonto</param>
+        /// <param name="ledgerAccount">The ledger account.</param>
         /// <param name="file">The file or null.</param>
         public static void AddOrUpdateMedia(WebItemEntityLedgerAccount ledgerAccount, ParameterFile file)
         {
@@ -256,7 +256,7 @@ namespace InventoryExpress.Model
 
             lock (DbContext)
             {
-                var ledgerAccountEntity = DbContext.LedgerAccounts.Where(x => x.Guid == ledgerAccount.Id).FirstOrDefault();
+                var ledgerAccountEntity = DbContext.LedgerAccounts.Where(x => x.Guid == ledgerAccount.Guid).FirstOrDefault();
                 var availableEntity = DbContext.Media.Where(x => x.Id == ledgerAccountEntity.MediaId).FirstOrDefault();
 
                 if (availableEntity == null)
@@ -285,7 +285,7 @@ namespace InventoryExpress.Model
                     }
 
                     ledgerAccount.Media.Name = filename;
-                    ledgerAccount.Media.Id = guid;
+                    ledgerAccount.Media.Guid = guid;
 
                     // update
                     availableEntity.Name = filename;
@@ -321,7 +321,7 @@ namespace InventoryExpress.Model
 
             lock (DbContext)
             {
-                var locationEntity = DbContext.Locations.Where(x => x.Guid == location.Id).FirstOrDefault();
+                var locationEntity = DbContext.Locations.Where(x => x.Guid == location.Guid).FirstOrDefault();
                 var availableEntity = DbContext.Media.Where(x => x.Id == locationEntity.MediaId).FirstOrDefault();
 
                 if (availableEntity == null)
@@ -350,7 +350,7 @@ namespace InventoryExpress.Model
                     }
 
                     location.Media.Name = filename;
-                    location.Media.Id = guid;
+                    location.Media.Guid = guid;
 
                     // update
                     availableEntity.Name = filename;
@@ -386,7 +386,7 @@ namespace InventoryExpress.Model
 
             lock (DbContext)
             {
-                var manufacturerEntity = DbContext.Manufacturers.Where(x => x.Guid == manufacturer.Id).FirstOrDefault();
+                var manufacturerEntity = DbContext.Manufacturers.Where(x => x.Guid == manufacturer.Guid).FirstOrDefault();
                 var availableEntity = DbContext.Media.Where(x => x.Id == manufacturerEntity.MediaId).FirstOrDefault();
 
                 if (availableEntity == null)
@@ -415,7 +415,7 @@ namespace InventoryExpress.Model
                     }
 
                     manufacturer.Media.Name = filename;
-                    manufacturer.Media.Id = guid;
+                    manufacturer.Media.Guid = guid;
 
                     // update
                     availableEntity.Name = filename;
@@ -451,7 +451,7 @@ namespace InventoryExpress.Model
 
             lock (DbContext)
             {
-                var supplierEntity = DbContext.Suppliers.Where(x => x.Guid == supplier.Id).FirstOrDefault();
+                var supplierEntity = DbContext.Suppliers.Where(x => x.Guid == supplier.Guid).FirstOrDefault();
                 var availableEntity = DbContext.Media.Where(x => x.Id == supplierEntity.MediaId).FirstOrDefault();
 
                 if (availableEntity == null)
@@ -480,7 +480,7 @@ namespace InventoryExpress.Model
                     }
 
                     supplier.Media.Name = filename;
-                    supplier.Media.Id = guid;
+                    supplier.Media.Guid = guid;
 
                     // update
                     availableEntity.Name = filename;
@@ -516,7 +516,7 @@ namespace InventoryExpress.Model
 
             lock (DbContext)
             {
-                var templateEntity = DbContext.Templates.Where(x => x.Guid == template.Id).FirstOrDefault();
+                var templateEntity = DbContext.Templates.Where(x => x.Guid == template.Guid).FirstOrDefault();
                 var availableEntity = DbContext.Media.Where(x => x.Id == templateEntity.MediaId).FirstOrDefault();
 
                 if (availableEntity == null)
@@ -545,7 +545,7 @@ namespace InventoryExpress.Model
                     }
 
                     template.Media.Name = filename;
-                    template.Media.Id = guid;
+                    template.Media.Guid = guid;
 
                     // update
                     availableEntity.Name = filename;
@@ -598,37 +598,37 @@ namespace InventoryExpress.Model
             {
                 var usedInventories = from x in DbContext.Inventories
                                       join m in DbContext.Media on x.MediaId equals m.Id
-                                      where m.Guid == media.Id
+                                      where m.Guid == media.Guid
                                       select m;
 
                 var usedSuppliers = from x in DbContext.Suppliers
                                     join m in DbContext.Media on x.MediaId equals m.Id
-                                    where m.Guid == media.Id
+                                    where m.Guid == media.Guid
                                     select m;
 
                 var usedManufacturers = from x in DbContext.Manufacturers
                                         join m in DbContext.Media on x.MediaId equals m.Id
-                                        where m.Guid == media.Id
+                                        where m.Guid == media.Guid
                                         select m;
 
                 var usedCostCenters = from x in DbContext.CostCenters
                                       join m in DbContext.Media on x.MediaId equals m.Id
-                                      where m.Guid == media.Id
+                                      where m.Guid == media.Guid
                                       select m;
 
                 var usedLedgerAccounts = from x in DbContext.LedgerAccounts
                                          join m in DbContext.Media on x.MediaId equals m.Id
-                                         where m.Guid == media.Id
+                                         where m.Guid == media.Guid
                                          select m;
 
                 var usedLocations = from x in DbContext.Locations
                                     join m in DbContext.Media on x.MediaId equals m.Id
-                                    where m.Guid == media.Id
+                                    where m.Guid == media.Guid
                                     select m;
 
                 var usedTemplates = from x in DbContext.Templates
                                     join m in DbContext.Media on x.MediaId equals m.Id
-                                    where m.Guid == media.Id
+                                    where m.Guid == media.Guid
                                     select m;
 
                 return usedInventories.Any() ||

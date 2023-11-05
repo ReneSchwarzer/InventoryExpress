@@ -3,7 +3,7 @@
 namespace InventoryExpress.Model.WebItems
 {
     /// <summary>
-    /// Hersteller
+    /// The manufacturer.
     /// </summary>
     public class WebItemEntityManufacturer : WebItemEntityBaseAddress
     {
@@ -18,7 +18,7 @@ namespace InventoryExpress.Model.WebItems
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="manufacturer">Das Datenbankobjektes des Herstellers</param>
+        /// <param name="manufacturer">The database object of the manufacturer.</param>
         public WebItemEntityManufacturer(Manufacturer manufacturer)
             : base(manufacturer)
         {

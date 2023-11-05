@@ -5,14 +5,14 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace InventoryExpress.Model.Configure
 {
     /// <summary>
-    /// Datenbankkonfiguration der Kommentar-Entität
+    /// Database configuration of the comment entity.
     /// </summary>
     class InventoryCommentMediaEntityConfiguration : IEntityTypeConfiguration<InventoryComment>
     {
         /// <summary>
-        /// Konfiguration
+        /// Configuration of the comment entity.
         /// </summary>
-        /// <param name="builder">Der Builder</param>
+        /// <param name="builder">The builder.</param>
         public void Configure(EntityTypeBuilder<InventoryComment> builder)
         {
             builder.HasKey(e => new { e.Id });

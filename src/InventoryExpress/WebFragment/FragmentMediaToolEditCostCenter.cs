@@ -1,21 +1,21 @@
 ﻿using InventoryExpress.Model;
 using InventoryExpress.Parameter;
 using InventoryExpress.WebPage;
-using WebExpress.Html;
 using WebExpress.Internationalization;
-using WebExpress.UI.WebAttribute;
-using WebExpress.UI.WebControl;
-using WebExpress.UI.WebFragment;
 using WebExpress.WebApp.WebControl;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
+using WebExpress.WebHtml;
 using WebExpress.WebMessage;
 using WebExpress.WebPage;
+using WebExpress.WebUI.WebAttribute;
+using WebExpress.WebUI.WebControl;
+using WebExpress.WebUI.WebFragment;
 
 namespace InventoryExpress.WebFragment
 {
-    [WebExSection("mediatool.primary")]
+    [Section("mediatool.primary")]
     [Module<Module>]
     [Scope<PageCostCenterEdit>]
     public sealed class FragmentMediaToolEditCostCenter : FragmentMediaToolEdit
@@ -68,7 +68,7 @@ namespace InventoryExpress.WebFragment
                     new ControlLink()
                     {
                         Text = costCenter.Name,
-                        Uri = ViewModel.GetCostCenterUri(costCenter.Id)
+                        Uri = ViewModel.GetCostCenterUri(costCenter.Guid)
                     }.Render(e.Context).ToString().Trim()
                 ),
                 icon: ViewModel.GetMediaUri(costCenter.Media.Id),

@@ -3,20 +3,23 @@
 namespace InventoryExpress.Model.Entity
 {
     /// <summary>
-    /// Standort
+    /// The location.
     /// </summary>
     public class Location : ItemAddress
     {
         /// <summary>
-        /// Das Gebäude
+        /// Returns or sets the building.
         /// </summary>
         public string Building { get; set; }
 
         /// <summary>
-        /// Der Raum innerhalb des Gebäudes
+        /// Returns or sets the room inside the building.
         /// </summary>
         public string Room { get; set; }
 
+        /// <summary>
+        /// Returns or sets the related inventory items.
+        /// </summary>
         public virtual ICollection<Inventory> Inventories { get; set; }
 
         /// <summary>

@@ -7,7 +7,7 @@ using WebExpress.WebApp.Model;
 namespace InventoryExpress.Model.WebItems
 {
     /// <summary>
-    /// Medien
+    /// The media.
     /// </summary>
     public class WebItemEntityMedia : WebItem
     {
@@ -36,10 +36,10 @@ namespace InventoryExpress.Model.WebItems
         public string Tag { get; set; }
 
         /// <summary>
-        /// Die Dateigröße im Bytes
+        /// The file size in bytes.
         /// </summary>
         [JsonIgnore]
-        public long Size => File.Exists(Path.Combine(ViewModel.MediaDirectory, Id)) ? new FileInfo(Path.Combine(ViewModel.MediaDirectory, Id)).Length : 0;
+        public long Size => File.Exists(Path.Combine(ViewModel.MediaDirectory, Guid)) ? new FileInfo(Path.Combine(ViewModel.MediaDirectory, Guid)).Length : 0;
 
         /// <summary>
         /// Constructor
@@ -50,9 +50,9 @@ namespace InventoryExpress.Model.WebItems
 
         /// <summary>
         /// Copy-Konstruktor
-        /// Erstellt eine Tiefenkopie.
+        /// Creates a deep copy.
         /// </summary>
-        /// <param name="media">Das Datenbankobjekt der Medien</param>
+        /// <param name="media">The database object of the media.</param>
         public WebItemEntityMedia(WebItemEntityMedia media)
         {
             Id = media.Id;
@@ -69,10 +69,11 @@ namespace InventoryExpress.Model.WebItems
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="media">Das Datenbankobjekt der Medien</param>
+        /// <param name="media">The database object of the media.</param>
         public WebItemEntityMedia(Media media)
         {
-            Id = media?.Guid;
+            Id = media?.Id ?? -1;
+            Guid = media?.Guid;
             Label = media?.Name;
             Name = media?.Name;
             Description = media?.Description;

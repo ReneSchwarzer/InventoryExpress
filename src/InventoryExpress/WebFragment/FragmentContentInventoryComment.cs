@@ -3,18 +3,18 @@ using InventoryExpress.Model.WebItems;
 using InventoryExpress.Parameter;
 using InventoryExpress.WebControl;
 using InventoryExpress.WebPage;
-using WebExpress.Html;
-using WebExpress.UI.WebAttribute;
-using WebExpress.UI.WebControl;
-using WebExpress.UI.WebFragment;
+using WebExpress.WebHtml;
+using WebExpress.WebUI.WebAttribute;
+using WebExpress.WebUI.WebControl;
+using WebExpress.WebUI.WebFragment;
 using WebExpress.WebApp.WebFragment;
 using WebExpress.WebAttribute;
 using WebExpress.WebPage;
 
 namespace InventoryExpress.WebFragment
 {
-    [WebExSection(Section.ContentSecondary)]
-    [WebExOrder(int.MaxValue)]
+    [Section(Section.ContentSecondary)]
+    [Order(int.MaxValue)]
     [Module<Module>]
     [Scope<PageInventoryDetails>]
     public sealed class FragmentContentInventoryComment : FragmentControlPanel

@@ -35,7 +35,7 @@ namespace InventoryExpress.Settings
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="xml">XML-Node</param> 
+        /// <param name="xml">The xml node.</param> 
         public SettingDB(XElement xml)
         {
             Port = -1;

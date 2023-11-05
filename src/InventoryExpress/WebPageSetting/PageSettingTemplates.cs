@@ -1,11 +1,10 @@
 ﻿using InventoryExpress.Model;
 using InventoryExpress.WebControl;
 using System.Linq;
-using WebExpress.UI.WebAttribute;
-using WebExpress.UI.WebControl;
+using WebExpress.WebUI.WebAttribute;
+using WebExpress.WebUI.WebControl;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebApp.WebSettingPage;
-using WebExpress.WebApp.Wql;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
 
@@ -14,10 +13,10 @@ namespace InventoryExpress.WebPageSetting
     [Title("inventoryexpress:inventoryexpress.templates.label")]
     [Segment("templates", "inventoryexpress:inventoryexpress.templates.label")]
     [ContextPath("/setting")]
-    [WebExSettingSection(WebExSettingSection.Primary)]
-    [WebExSettingIcon(TypeIcon.Clone)]
-    [WebExSettingGroup("inventoryexpress:inventoryexpress.setting.data.label")]
-    [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
+    [SettingSection(SettingSection.Primary)]
+    [SettingIcon(TypeIcon.Clone)]
+    [SettingGroup("inventoryexpress:inventoryexpress.setting.data.label")]
+    [SettingContext("webexpress.webapp:setting.tab.general.label")]
     [Module<Module>]
     public sealed class PageSettingTemplates : PageWebAppSetting
     {
@@ -48,7 +47,7 @@ namespace InventoryExpress.WebPageSetting
             var visualTree = context.VisualTree;
 
             var grid = new ControlPanelGrid() { Fluid = TypePanelContainer.Fluid };
-            var list = ViewModel.GetTemplates(new WqlStatement()).OrderBy(x => x.Name);
+            var list = ViewModel.GetTemplates().OrderBy(x => x.Name);
 
             foreach (var template in list)
             {

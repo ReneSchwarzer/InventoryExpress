@@ -9,7 +9,7 @@ namespace InventoryExpress
     [Icon("/assets/img/Logo.png")]
     [AssetPath("")]
     [ContextPath("/")]
-    [WebExApplication<Application>]
+    [Application<Application>]
     public sealed class Module : IModule
     {
         /// <summary>

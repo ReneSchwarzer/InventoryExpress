@@ -1,8 +1,8 @@
 ﻿using InventoryExpress.Model;
 using InventoryExpress.Parameter;
 using WebExpress.Internationalization;
-using WebExpress.UI.WebAttribute;
-using WebExpress.UI.WebControl;
+using WebExpress.WebUI.WebAttribute;
+using WebExpress.WebUI.WebControl;
 using WebExpress.WebApp.WebControl;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
@@ -17,8 +17,8 @@ namespace InventoryExpress.WebPageSetting
     [Segment("del")]
     [ContextPath("/")]
     [Parent<PageSettingTemplates>]
-    [WebExSettingHide()]
-    [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
+    [SettingHide()]
+    [SettingContext("webexpress.webapp:setting.tab.general.label")]
     [Module<Module>]
     public sealed class PageSettingTemplateDelete : PageWebAppSetting, IPageTemplate
     {

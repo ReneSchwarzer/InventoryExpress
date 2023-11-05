@@ -4,12 +4,12 @@ using InventoryExpress.Parameter;
 using InventoryExpress.WebControl;
 using System;
 using WebExpress.Internationalization;
-using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
 using WebExpress.WebResource;
 using WebExpress.WebScope;
+using WebExpress.WebUI.WebControl;
 
 namespace InventoryExpress.WebPage
 {
@@ -21,7 +21,7 @@ namespace InventoryExpress.WebPage
     public sealed class PageSupplierEdit : PageWebAppFormular<ControlFormularSupplier>, IPageSupplier, IScope
     {
         /// <summary>
-        /// Returns or sets the supplier
+        /// Returns or sets the supplier.
         /// </summary>
         private WebItemEntitySupplier Supplier { get; set; }
 
@@ -99,7 +99,7 @@ namespace InventoryExpress.WebPage
                     new ControlLink()
                     {
                         Text = Supplier.Name,
-                        Uri = ViewModel.GetSupplierUri(Supplier.Id)
+                        Uri = ViewModel.GetSupplierUri(Supplier.Guid)
                     }.Render(e.Context).ToString().Trim()
                 ),
                 Supplier.Name,

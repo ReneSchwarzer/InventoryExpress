@@ -1,8 +1,8 @@
 ﻿using InventoryExpress.Model;
 using System.IO;
 using WebExpress.Internationalization;
-using WebExpress.UI.WebAttribute;
-using WebExpress.UI.WebControl;
+using WebExpress.WebUI.WebAttribute;
+using WebExpress.WebUI.WebControl;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebApp.WebScope;
 using WebExpress.WebApp.WebSettingPage;
@@ -14,10 +14,10 @@ namespace InventoryExpress.WebPageSetting
     [Title("inventoryexpress:inventoryexpress.setting.database.label")]
     [Segment("database", "inventoryexpress:inventoryexpress.setting.database.label")]
     [ContextPath("/setting")]
-    [WebExSettingSection(WebExSettingSection.Secondary)]
-    [WebExSettingIcon(TypeIcon.Database)]
-    [WebExSettingGroup("webexpress.webapp:setting.group.system.label")]
-    [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
+    [SettingSection(SettingSection.Secondary)]
+    [SettingIcon(TypeIcon.Database)]
+    [SettingGroup("webexpress.webapp:setting.group.system.label")]
+    [SettingContext("webexpress.webapp:setting.tab.general.label")]
     [Module<Module>]
     [Scope<ScopeAdmin>]
     public sealed class PageSettingDatabase : PageWebAppSetting

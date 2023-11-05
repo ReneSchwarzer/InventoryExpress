@@ -1,10 +1,10 @@
 ﻿using InventoryExpress.Model;
 using InventoryExpress.Parameter;
 using InventoryExpress.WebPage;
-using WebExpress.Html;
-using WebExpress.UI.WebAttribute;
-using WebExpress.UI.WebControl;
-using WebExpress.UI.WebFragment;
+using WebExpress.WebHtml;
+using WebExpress.WebUI.WebAttribute;
+using WebExpress.WebUI.WebControl;
+using WebExpress.WebUI.WebFragment;
 using WebExpress.WebApp.WebFragment;
 using WebExpress.WebAttribute;
 using WebExpress.WebPage;
@@ -14,7 +14,7 @@ namespace InventoryExpress.WebFragment
     /// <summary>
     /// Anzeige der Metadaten einer Kostenstelle
     /// </summary>
-    [WebExSection(Section.PropertyPrimary)]
+    [Section(Section.PropertyPrimary)]
     [Module<Module>]
     [Scope<PageCostCenterEdit>]
     public sealed class FragmentPropertyCostCenterDetails : FragmentControlList

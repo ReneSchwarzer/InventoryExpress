@@ -3,17 +3,17 @@
     public class ItemAddress : ItemTag
     {
         /// <summary>
-        /// Die Aaddresse
+        /// Returns or sets the address.
         /// </summary>
         public string Address { get; set; }
 
         /// <summary>
-        /// Die Postleitzahl
+        /// Returns or sets the zip.
         /// </summary>
         public string Zip { get; set; }
 
         /// <summary>
-        /// Der Ort
+        /// Returns or sets the place.
         /// </summary>
         public string Place { get; set; }
 

@@ -2,10 +2,9 @@
 using InventoryExpress.Parameter;
 using System;
 using System.Linq;
-using WebExpress.UI.WebControl;
+using WebExpress.WebUI.WebControl;
 using WebExpress.WebApp.WebApiControl;
 using WebExpress.WebApp.WebPage;
-using WebExpress.WebApp.Wql;
 
 namespace InventoryExpress.WebControl
 {
@@ -112,7 +111,7 @@ namespace InventoryExpress.WebControl
             Name = "location";
             Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Three, PropertySpacing.Space.None, PropertySpacing.Space.None);
             BackgroundColor = LayoutSchema.FormularBackground;
-            Layout = TypeLayoutFormular.Horizontal;
+            Layout = TypeLayoutForm.Horizontal;
 
             LocationName.Validation += LocationNameValidation;
             Zip.Validation += ZipValidation;
@@ -174,7 +173,7 @@ namespace InventoryExpress.WebControl
             else if
             (
                 location == null &&
-                ViewModel.GetLocations(new WqlStatement()).Where(x => x.Name.Equals(e.Value, StringComparison.OrdinalIgnoreCase)).Any()
+                ViewModel.GetLocations().Where(x => x.Name.Equals(e.Value, StringComparison.OrdinalIgnoreCase)).Any()
             )
             {
                 e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.location.validation.name.used"));
@@ -183,7 +182,7 @@ namespace InventoryExpress.WebControl
             (
                 location != null &&
                 !location.Name.Equals(e.Value, StringComparison.InvariantCultureIgnoreCase) &&
-                ViewModel.GetLocations(new WqlStatement()).Where(x => x.Name.Equals(e.Value, StringComparison.OrdinalIgnoreCase)).Any()
+                ViewModel.GetLocations().Where(x => x.Name.Equals(e.Value, StringComparison.OrdinalIgnoreCase)).Any()
             )
             {
                 e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.location.validation.name.used"));

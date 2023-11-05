@@ -5,16 +5,15 @@ using InventoryExpress.WebControl;
 using System;
 using System.Linq;
 using WebExpress.Internationalization;
-using WebExpress.UI.WebAttribute;
-using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebApp.WebSettingPage;
-using WebExpress.WebApp.Wql;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
 using WebExpress.WebResource;
 using WebExpress.WebScope;
+using WebExpress.WebUI.WebAttribute;
+using WebExpress.WebUI.WebControl;
 
 namespace InventoryExpress.WebPageSetting
 {
@@ -22,20 +21,20 @@ namespace InventoryExpress.WebPageSetting
     [SegmentGuid<ParameterTemplateId>("inventoryexpress:inventoryexpress.template.edit.display")]
     [ContextPath("/")]
     [Parent<PageSettingTemplates>]
-    [WebExSettingHide()]
-    [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
+    [SettingHide()]
+    [SettingContext("webexpress.webapp:setting.tab.general.label")]
     [Module<Module>]
     public sealed class PageSettingTemplateEdit : PageWebAppSetting, IPageTemplate, IScope
     {
         /// <summary>
-        /// Returns the form
+        /// Returns the form.
         /// </summary>
         private ControlFormularTemplate Form { get; } = new ControlFormularTemplate("template")
         {
         };
 
         /// <summary>
-        /// Liefert oder setzt die Vorlage
+        /// Returns or sets the template.
         /// </summary>
         private WebItemEntityTemplate Template { get; set; }
 
@@ -69,11 +68,11 @@ namespace InventoryExpress.WebPageSetting
             Form.RedirectUri = e.Context.Uri.Take(-1);
             Form.Attributes.Options.Clear();
 
-            foreach (var v in ViewModel.GetAttributes(new WqlStatement()))
+            foreach (var v in ViewModel.GetAttributes())
             {
                 Form.Attributes.Options.Add(new ControlFormItemInputSelectionItem()
                 {
-                    Id = v.Id,
+                    Id = v.Guid,
                     Label = v.Name
                 });
             }
@@ -101,10 +100,10 @@ namespace InventoryExpress.WebPageSetting
         {
             var attributes = Form.Attributes.Value?.Split(";", StringSplitOptions.RemoveEmptyEntries);
 
-            // Vorlage ändern und speichern
+            // modify and save template
             Template.Name = Form.TemplateName.Value;
             Template.Description = Form.Description.Value;
-            Template.Attributes = ViewModel.GetAttributes(new WqlStatement()).Where(x => attributes.Contains(x.Id));
+            Template.Attributes = ViewModel.GetAttributes().Where(x => attributes.Contains(x.Guid));
             Template.Tag = Form.Tag.Value;
             Template.Updated = DateTime.Now;
 
@@ -124,7 +123,7 @@ namespace InventoryExpress.WebPageSetting
                     new ControlLink()
                     {
                         Text = Template.Name,
-                        Uri = ViewModel.GetTemplateUri(Template.Id)
+                        Uri = ViewModel.GetTemplateUri(Template.Guid)
                     }.Render(e.Context).ToString().Trim()
                 ),
                 icon: Template.Image,

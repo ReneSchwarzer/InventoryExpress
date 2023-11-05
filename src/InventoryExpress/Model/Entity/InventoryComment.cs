@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace InventoryExpress.Model.Entity
 {
     /// <summary>
-    /// Comments of an inventory.
+    /// The comments of an inventory.
     /// </summary>
     [Table("INVENTORYCOMMENT")]
     public partial class InventoryComment
@@ -17,12 +17,12 @@ namespace InventoryExpress.Model.Entity
         public int Id { get; set; }
 
         /// <summary>
-        /// Das Inventar
+        /// Returns or sets the id of the inventory.
         /// </summary>
         public int InventoryId { get; set; }
 
         /// <summary>
-        /// Der Wert
+        /// Returns or sets the comment.
         /// </summary>
         [Column("COMMENT")]
         public string Comment { get; set; }
@@ -34,7 +34,7 @@ namespace InventoryExpress.Model.Entity
         public DateTime Created { get; set; }
 
         /// <summary>
-        /// The timestamp of the last change.
+        /// Returns or sets the timestamp of the last change.
         /// </summary>
         [Column("UPDATED")]
         public DateTime Updated { get; set; }

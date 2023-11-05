@@ -1,17 +1,17 @@
 ﻿using InventoryExpress.Model;
 using InventoryExpress.Parameter;
 using InventoryExpress.WebPage;
-using WebExpress.Html;
-using WebExpress.UI.WebAttribute;
-using WebExpress.UI.WebControl;
-using WebExpress.UI.WebFragment;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
+using WebExpress.WebHtml;
 using WebExpress.WebPage;
+using WebExpress.WebUI.WebAttribute;
+using WebExpress.WebUI.WebControl;
+using WebExpress.WebUI.WebFragment;
 
 namespace InventoryExpress.WebFragment
 {
-    [WebExSection("mediatool.secondary")]
+    [Section("mediatool.secondary")]
     [Module<Module>]
     [Scope<PageLedgerAccountEdit>]
     public sealed class FragmentMediaToolDeleteLedgerAccount : FragmentMediaToolDelete
@@ -47,7 +47,7 @@ namespace InventoryExpress.WebFragment
             Active = disabled ? TypeActive.Disabled : TypeActive.None;
             TextColor = disabled ? new PropertyColorText(TypeColorText.Muted) : TextColor;
 
-            Uri = ComponentManager.SitemapManager.GetUri<PageMediaDelete>(new ParameterMediaId(ledgerAccount.Media?.Id));
+            Uri = ComponentManager.SitemapManager.GetUri<PageMediaDelete>(new ParameterMediaId(ledgerAccount.Media?.Guid));
             Modal = new PropertyModal(TypeModal.Formular, TypeModalSize.Default)
             {
                 RedirectUri = ComponentManager.SitemapManager.GetUri<PageLedgerAccountEdit>(guid)

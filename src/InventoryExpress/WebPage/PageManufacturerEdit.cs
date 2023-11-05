@@ -4,13 +4,13 @@ using InventoryExpress.Parameter;
 using InventoryExpress.WebControl;
 using System;
 using WebExpress.Internationalization;
-using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
 using WebExpress.WebResource;
 using WebExpress.WebScope;
+using WebExpress.WebUI.WebControl;
 
 namespace InventoryExpress.WebPage
 {
@@ -22,14 +22,14 @@ namespace InventoryExpress.WebPage
     public sealed class PageManufacturerEdit : PageWebApp, IPageManufacturer, IScope
     {
         /// <summary>
-        /// Returns the form
+        /// Returns the form.
         /// </summary>
         private ControlFormularManufacturer Form { get; } = new ControlFormularManufacturer("manufacturer")
         {
         };
 
         /// <summary>
-        /// Liefert oder setzt den Hersteller
+        /// Returns or sets the manufacturer.
         /// </summary>
         private WebItemEntityManufacturer Manufacturer { get; set; }
 
@@ -85,7 +85,7 @@ namespace InventoryExpress.WebPage
         /// <param name="e">The event argument./param>
         private void ProcessFormular(object sender, FormularEventArgs e)
         {
-            // Herstellerobjekt ändern und speichern
+            // changing and saving the manufacturer object
             Manufacturer.Name = Form.ManufacturerName.Value;
             Manufacturer.Description = Form.Description.Value;
             Manufacturer.Address = Form.Address.Value;
@@ -110,7 +110,7 @@ namespace InventoryExpress.WebPage
                     new ControlLink()
                     {
                         Text = Manufacturer.Name,
-                        Uri = ViewModel.GetManufacturerUri(Manufacturer.Id)
+                        Uri = ViewModel.GetManufacturerUri(Manufacturer.Guid)
                     }.Render(e.Context).ToString().Trim()
                 ),
                 icon: Manufacturer.Image,

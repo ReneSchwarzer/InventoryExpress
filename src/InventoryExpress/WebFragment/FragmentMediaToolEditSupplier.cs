@@ -1,21 +1,21 @@
 ﻿using InventoryExpress.Model;
 using InventoryExpress.Parameter;
 using InventoryExpress.WebPage;
-using WebExpress.Html;
 using WebExpress.Internationalization;
-using WebExpress.UI.WebAttribute;
-using WebExpress.UI.WebControl;
-using WebExpress.UI.WebFragment;
 using WebExpress.WebApp.WebControl;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
+using WebExpress.WebHtml;
 using WebExpress.WebMessage;
 using WebExpress.WebPage;
+using WebExpress.WebUI.WebAttribute;
+using WebExpress.WebUI.WebControl;
+using WebExpress.WebUI.WebFragment;
 
 namespace InventoryExpress.WebFragment
 {
-    [WebExSection("mediatool.primary")]
+    [Section("mediatool.primary")]
     [Module<Module>]
     [Scope<PageSupplierEdit>]
     public sealed class FragmentMediaToolEditSupplier : FragmentMediaToolEdit
@@ -68,10 +68,10 @@ namespace InventoryExpress.WebFragment
                     new ControlLink()
                     {
                         Text = supplier.Name,
-                        Uri = ViewModel.GetSupplierUri(supplier.Id)
+                        Uri = ViewModel.GetSupplierUri(supplier.Guid)
                     }.Render(e.Context).ToString().Trim()
                 ),
-                icon: ViewModel.GetMediaUri(supplier.Media.Id),
+                icon: ViewModel.GetMediaUri(supplier.Media.Guid),
                 durability: 10000
             );
         }

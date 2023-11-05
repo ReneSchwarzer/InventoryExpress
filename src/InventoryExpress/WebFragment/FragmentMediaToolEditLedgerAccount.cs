@@ -1,21 +1,21 @@
 ﻿using InventoryExpress.Model;
 using InventoryExpress.Parameter;
 using InventoryExpress.WebPage;
-using WebExpress.Html;
 using WebExpress.Internationalization;
-using WebExpress.UI.WebAttribute;
-using WebExpress.UI.WebControl;
-using WebExpress.UI.WebFragment;
 using WebExpress.WebApp.WebControl;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
+using WebExpress.WebHtml;
 using WebExpress.WebMessage;
 using WebExpress.WebPage;
+using WebExpress.WebUI.WebAttribute;
+using WebExpress.WebUI.WebControl;
+using WebExpress.WebUI.WebFragment;
 
 namespace InventoryExpress.WebFragment
 {
-    [WebExSection("mediatool.primary")]
+    [Section("mediatool.primary")]
     [Module<Module>]
     [Scope<PageLedgerAccountEdit>]
     public sealed class FragmentMediaToolEditLedgerAccount : FragmentMediaToolEdit
@@ -68,7 +68,7 @@ namespace InventoryExpress.WebFragment
                     new ControlLink()
                     {
                         Text = ledgerAccount.Name,
-                        Uri = ViewModel.GetLedgerAccountUri(ledgerAccount.Id)
+                        Uri = ViewModel.GetLedgerAccountUri(ledgerAccount.Guid)
                     }.Render(e.Context).ToString().Trim()
                 ),
                 icon: ViewModel.GetMediaUri(ledgerAccount.Media.Id),

@@ -5,17 +5,16 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebApiControl;
 using WebExpress.WebApp.WebPage;
-using WebExpress.WebApp.Wql;
+using WebExpress.WebUI.WebControl;
 
 namespace InventoryExpress.WebControl
 {
     public class ControlFormularInventory : ControlForm
     {
         /// <summary>
-        /// Returns or sets the name. des Inventargegenstandes
+        /// Returns the name of the inventory item.
         /// </summary>
         public ControlFormItemInputTextBox InventoryName { get; } = new ControlFormItemInputTextBox()
         {
@@ -27,7 +26,7 @@ namespace InventoryExpress.WebControl
         };
 
         /// <summary>
-        /// Liefert oder setzt den Hersteller
+        /// Returns the manufacturer.
         /// </summary>
         public ControlApiFormularItemInputSelection Manufacturer { get; } = new ControlApiFormularItemInputSelection()
         {
@@ -39,7 +38,7 @@ namespace InventoryExpress.WebControl
         };
 
         /// <summary>
-        /// Liefert oder setzt den Standort
+        /// Returns the location.
         /// </summary>
         public ControlApiFormularItemInputSelection Location { get; } = new ControlApiFormularItemInputSelection()
         {
@@ -51,7 +50,7 @@ namespace InventoryExpress.WebControl
         };
 
         /// <summary>
-        /// Liefert oder setzt den Lieferanten
+        /// Returns the supplier.
         /// </summary>
         public ControlApiFormularItemInputSelection Supplier { get; } = new ControlApiFormularItemInputSelection()
         {
@@ -63,7 +62,7 @@ namespace InventoryExpress.WebControl
         };
 
         /// <summary>
-        /// Liefert oder setzt das Sachkonto
+        /// Returns the ledger account.
         /// </summary>
         public ControlApiFormularItemInputSelection LedgerAccount { get; } = new ControlApiFormularItemInputSelection()
         {
@@ -75,7 +74,7 @@ namespace InventoryExpress.WebControl
         };
 
         /// <summary>
-        /// Liefert oder setzt die Kostenstelle
+        /// Returns the cost center.
         /// </summary>
         public ControlApiFormularItemInputSelection CostCenter { get; } = new ControlApiFormularItemInputSelection()
         {
@@ -87,7 +86,7 @@ namespace InventoryExpress.WebControl
         };
 
         /// <summary>
-        /// Liefert oder setzt den Zustand
+        /// Returns the condition.
         /// </summary>
         public ControlApiFormularItemInputSelection Condition { get; } = new ControlApiFormularItemInputSelection()
         {
@@ -99,7 +98,7 @@ namespace InventoryExpress.WebControl
         };
 
         /// <summary>
-        /// Liefert oder setzt die Zugehörigkeit
+        /// Returns the parent.
         /// </summary>
         public ControlApiFormularItemInputSelection Parent { get; } = new ControlApiFormularItemInputSelection()
         {
@@ -111,7 +110,7 @@ namespace InventoryExpress.WebControl
         };
 
         /// <summary>
-        /// Liefert oder setzt das Template
+        /// Returns the template.
         /// </summary>
         public ControlApiFormularItemInputSelection Template { get; } = new ControlApiFormularItemInputSelection()
         {
@@ -123,12 +122,12 @@ namespace InventoryExpress.WebControl
         };
 
         /// <summary>
-        /// Liefert oder setzt die Attribute
+        /// Returns the attributes.
         /// </summary>
         public ControlFormItemGroupVertical Attributes { get; } = new ControlFormItemGroupVertical();
 
         /// <summary>
-        /// Liefert oder setzt den Anschaffungswert
+        /// Returns the cost value.
         /// </summary>
         public ControlFormItemInputTextBox CostValue { get; } = new ControlFormItemInputTextBox()
         {
@@ -139,7 +138,7 @@ namespace InventoryExpress.WebControl
         };
 
         /// <summary>
-        /// Liefert oder setzt das Anschaffungsdatum
+        /// Returns the purchase date.
         /// </summary>
         public ControlFormItemInputDatepicker PurchaseDate { get; } = new ControlFormItemInputDatepicker()
         {
@@ -150,7 +149,7 @@ namespace InventoryExpress.WebControl
         };
 
         /// <summary>
-        /// Liefert oder setzt das Abgangsdatum
+        /// Returns the derecognition date.
         /// </summary>
         public ControlFormItemInputDatepicker DerecognitionDate { get; } = new ControlFormItemInputDatepicker()
         {
@@ -161,7 +160,7 @@ namespace InventoryExpress.WebControl
         };
 
         /// <summary>
-        /// Liefert oder setzt Returns or sets the tags.
+        /// Returns the tags.
         /// </summary>
         public ControlApiFormularItemInputSelection Tag { get; } = new ControlApiFormularItemInputSelection()
         {
@@ -173,7 +172,7 @@ namespace InventoryExpress.WebControl
         };
 
         /// <summary>
-        /// Returns or sets the description.
+        /// Returns the description.
         /// </summary>
         public ControlFormItemInputTextBox Description { get; } = new ControlFormItemInputTextBox()
         {
@@ -196,7 +195,7 @@ namespace InventoryExpress.WebControl
             Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Three, PropertySpacing.Space.None, PropertySpacing.Space.None);
             BackgroundColor = LayoutSchema.FormularBackground;
             Padding = new PropertySpacingPadding(PropertySpacing.Space.Two);
-            Layout = TypeLayoutFormular.Horizontal;
+            Layout = TypeLayoutForm.Horizontal;
 
             Add(InventoryName);
             Add(Manufacturer);
@@ -242,7 +241,7 @@ namespace InventoryExpress.WebControl
             var guid = context.Request.GetParameter(Template.Name)?.Value;
             var template = ViewModel.GetTemplate(guid);
 
-            // Attribute ermitteln
+            // finding attributes
             if (template != null)
             {
                 foreach (var attribute in template.Attributes)
@@ -259,7 +258,7 @@ namespace InventoryExpress.WebControl
         }
 
         /// <summary>
-        /// Wird aufgerufen, wenn der Name überfürft werden soll
+        /// Invoked when the name is to be verified.
         /// </summary>
         /// <param name="sender">The trigger of the event.</param>
         /// <param name="e">The event argument.</param>
@@ -275,7 +274,7 @@ namespace InventoryExpress.WebControl
             else if
             (
                 inventory == null &&
-                ViewModel.GetInventories(new WqlStatement()).Where(x => x.Name.Equals(e.Value, StringComparison.OrdinalIgnoreCase)).Any()
+                ViewModel.GetInventories().Where(x => x.Name.Equals(e.Value, StringComparison.OrdinalIgnoreCase)).Any()
             )
             {
                 e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.inventory.validation.name.used"));
@@ -284,7 +283,7 @@ namespace InventoryExpress.WebControl
             (
                 inventory != null &&
                 !inventory.Name.Equals(e.Value, StringComparison.InvariantCultureIgnoreCase) &&
-                ViewModel.GetInventories(new WqlStatement()).Where(x => x.Name.Equals(e.Value, StringComparison.OrdinalIgnoreCase)).Any()
+                ViewModel.GetInventories().Where(x => x.Name.Equals(e.Value, StringComparison.OrdinalIgnoreCase)).Any()
             )
             {
                 e.Results.Add(new ValidationResult(TypesInputValidity.Error, "inventoryexpress:inventoryexpress.inventory.validation.name.used"));
@@ -292,7 +291,7 @@ namespace InventoryExpress.WebControl
         }
 
         /// <summary>
-        /// Wird aufgerufen, wenn der Anschaffungswert überfürft werden soll
+        /// Invoked when the purchase value is to be checked.
         /// </summary>
         /// <param name="sender">The trigger of the event.</param>
         /// <param name="e">The event argument.</param>
@@ -312,9 +311,9 @@ namespace InventoryExpress.WebControl
         }
 
         /// <summary>
-        /// Liefert die Attribute
+        /// Returns the attributes.
         /// </summary>
-        /// <returns>Die Attribute</returns>
+        /// <returns>The attributes.</returns>
         public IEnumerable<WebItemEntityInventoryAttribute> GetAttributes()
         {
             var attributes = Attributes.Items.Select(x => x as ControlFormItemInputTextBox)
@@ -327,9 +326,9 @@ namespace InventoryExpress.WebControl
         }
 
         /// <summary>
-        /// Setzt einen Wert in ein Attributfeld ein
+        /// Inserts a value into an attribute field.
         /// </summary>
-        /// <param name="attributes">Das Attribute</param>
+        /// <param name="attributes">The attribute.</param>
         public void SetAttributes(IEnumerable<WebItemEntityInventoryAttribute> attributes)
         {
             foreach (var attribute in attributes)
@@ -356,10 +355,10 @@ namespace InventoryExpress.WebControl
         }
 
         /// <summary>
-        /// Übernahme der Werte aus dem Formular
+        /// Transfer of values from the form.
         /// </summary>
-        /// <param name="inventory">The inventory item., welcher die Werte aufnimmt</param>
-        /// <param name="culture">Die Kultur</param>
+        /// <param name="inventory">The inventory item, which takes the values.</param>
+        /// <param name="culture">The culture.</param>
         public void Apply(WebItemEntityInventory inventory, CultureInfo culture)
         {
             inventory.Name = InventoryName.Value;
@@ -380,29 +379,29 @@ namespace InventoryExpress.WebControl
         }
 
         /// <summary>
-        /// Übernahme der Werte aus dem Inventargegenstand
+        /// Transfer of values from the inventory item.
         /// </summary>
-        /// <param name="inventory">The inventory item., aus denen die Werte stammen</param>
-        /// <param name="culture">Die Kultur</param>
+        /// <param name="inventory">The inventory item from which the values originate.</param>
+        /// <param name="culture">The culture.</param>
         public void Fill(WebItemEntityInventory inventory, CultureInfo culture)
         {
             InventoryName.Value = inventory?.Name;
-            Manufacturer.Value = inventory.Manufacturer?.Id;
-            Manufacturer.Options.Add(new ControlFormItemInputSelectionItem() { Id = inventory.Manufacturer?.Id, Label = inventory.Manufacturer?.Name });
-            Location.Value = inventory.Location?.Id;
-            Location.Options.Add(new ControlFormItemInputSelectionItem() { Id = inventory.Location?.Id, Label = inventory.Location?.Name });
-            Supplier.Value = inventory.Supplier?.Id;
-            Supplier.Options.Add(new ControlFormItemInputSelectionItem() { Id = inventory.Supplier?.Id, Label = inventory.Supplier?.Name });
-            LedgerAccount.Value = inventory.LedgerAccount?.Id;
-            LedgerAccount.Options.Add(new ControlFormItemInputSelectionItem() { Id = inventory.LedgerAccount?.Id, Label = inventory.LedgerAccount?.Name });
-            CostCenter.Value = inventory.CostCenter?.Id;
-            CostCenter.Options.Add(new ControlFormItemInputSelectionItem() { Id = inventory.CostCenter?.Id, Label = inventory.CostCenter?.Name });
-            Condition.Value = inventory.Condition?.Id;
-            Condition.Options.Add(new ControlFormItemInputSelectionItem() { Id = inventory.Condition?.Id, Label = inventory.Condition?.Name });
-            Parent.Value = inventory.Parent?.Id;
-            Parent.Options.Add(new ControlFormItemInputSelectionItem() { Id = inventory.Parent?.Id, Label = inventory.Parent?.Name });
-            Template.Value = inventory.Template?.Id;
-            Template.Options.Add(new ControlFormItemInputSelectionItem() { Id = inventory.Template?.Id, Label = inventory.Template?.Name });
+            Manufacturer.Value = inventory.Manufacturer?.Guid;
+            Manufacturer.Options.Add(new ControlFormItemInputSelectionItem() { Id = inventory.Manufacturer?.Guid, Label = inventory.Manufacturer?.Name });
+            Location.Value = inventory.Location?.Guid;
+            Location.Options.Add(new ControlFormItemInputSelectionItem() { Id = inventory.Location?.Guid, Label = inventory.Location?.Name });
+            Supplier.Value = inventory.Supplier?.Guid;
+            Supplier.Options.Add(new ControlFormItemInputSelectionItem() { Id = inventory.Supplier?.Guid, Label = inventory.Supplier?.Name });
+            LedgerAccount.Value = inventory.LedgerAccount?.Guid;
+            LedgerAccount.Options.Add(new ControlFormItemInputSelectionItem() { Id = inventory.LedgerAccount?.Guid, Label = inventory.LedgerAccount?.Name });
+            CostCenter.Value = inventory.CostCenter?.Guid;
+            CostCenter.Options.Add(new ControlFormItemInputSelectionItem() { Id = inventory.CostCenter?.Guid, Label = inventory.CostCenter?.Name });
+            Condition.Value = inventory.Condition?.Guid;
+            Condition.Options.Add(new ControlFormItemInputSelectionItem() { Id = inventory.Condition?.Guid, Label = inventory.Condition?.Name });
+            Parent.Value = inventory.Parent?.Guid;
+            Parent.Options.Add(new ControlFormItemInputSelectionItem() { Id = inventory.Parent?.Guid, Label = inventory.Parent?.Name });
+            Template.Value = inventory.Template?.Guid;
+            Template.Options.Add(new ControlFormItemInputSelectionItem() { Id = inventory.Template?.Guid, Label = inventory.Template?.Name });
             CostValue.Value = inventory.CostValue.ToString(culture);
             PurchaseDate.Value = inventory.PurchaseDate.HasValue ? inventory.PurchaseDate.Value.ToString(culture.DateTimeFormat.ShortDatePattern) : null;
             DerecognitionDate.Value = inventory.DerecognitionDate.HasValue ? inventory.DerecognitionDate.Value.ToString(culture.DateTimeFormat.ShortDatePattern) : null;

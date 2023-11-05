@@ -1,18 +1,18 @@
 ﻿using InventoryExpress.Model;
 using InventoryExpress.Parameter;
 using InventoryExpress.WebPage;
-using WebExpress.Html;
+using WebExpress.WebHtml;
 using WebExpress.Internationalization;
-using WebExpress.UI.WebAttribute;
-using WebExpress.UI.WebControl;
-using WebExpress.UI.WebFragment;
+using WebExpress.WebUI.WebAttribute;
+using WebExpress.WebUI.WebControl;
+using WebExpress.WebUI.WebFragment;
 using WebExpress.WebApp.WebFragment;
 using WebExpress.WebAttribute;
 using WebExpress.WebPage;
 
 namespace InventoryExpress.WebFragment
 {
-    [WebExSection(Section.MorePreferences)]
+    [Section(Section.MorePreferences)]
     [Module<Module>]
     [Scope<PageInventoryDetails>]
     public sealed class FragmentMoreAttachment : FragmentControlDropdownItemLink

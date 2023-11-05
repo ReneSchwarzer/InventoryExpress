@@ -5,14 +5,14 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace InventoryExpress.Model.Configure
 {
     /// <summary>
-    /// Datenbankkonfiguration der Zuschreibungs-Entität
+    /// Database configuration of the ascription entity.
     /// </summary>
     class EntityConfigurationAscription : IEntityTypeConfiguration<Ascription>
     {
         /// <summary>
-        /// Konfiguration
+        /// Configuration of the ascription entity
         /// </summary>
-        /// <param name="builder">Der Builder</param>
+        /// <param name="builder">The builder.</param>
         public void Configure(EntityTypeBuilder<Ascription> builder)
         {
             builder.ToTable("Ascription");
@@ -39,7 +39,7 @@ namespace InventoryExpress.Model.Configure
                 .HasColumnType("TIMESTAMP")
                 .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-            // Beziehungen
+            // relations
             builder.HasOne(d => d.Media)
                 .WithMany(p => p.Ascriptions)
                 .HasForeignKey(d => d.MediaId)

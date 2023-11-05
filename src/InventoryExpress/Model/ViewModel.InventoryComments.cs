@@ -9,17 +9,17 @@ namespace InventoryExpress.Model
     public partial class ViewModel
     {
         /// <summary>
-        /// Ermittelt alle Kommentare zu einem Inventargegenstand
+        /// Returns all comments on an inventory item.
         /// </summary>
         /// <param name="inventory">The inventory item.</param>
-        /// <returns>Eine Aufzählung mit den Kommentaren</returns>
+        /// <returns>A enumaration with the comments.</returns>
         public static IEnumerable<WebItemEntityComment> GetInventoryComments(WebItemEntityInventory inventory)
         {
             lock (DbContext)
             {
                 var comments = from i in DbContext.Inventories
                                join c in DbContext.InventoryComments on i.Id equals c.InventoryId
-                               where i.Guid == inventory.Id
+                               where i.Guid == inventory.Guid
                                select new WebItemEntityComment(c);
 
                 return comments.ToList();
@@ -27,19 +27,19 @@ namespace InventoryExpress.Model
         }
 
         /// <summary>
-        /// Fügt ein Kommentar hinzu
+        /// Adds a comment.
         /// </summary>
         /// <param name="inventory">The inventory item.</param>
-        /// <param name="comment">Der Kommentar</param>
+        /// <param name="comment">The commentary.</param>
         public static void AddInventoryComment(WebItemEntityInventory inventory, WebItemEntityComment comment)
         {
             lock (DbContext)
             {
-                var inventoryEntity = DbContext.Inventories.Where(x => x.Guid == inventory.Id).FirstOrDefault();
+                var inventoryEntity = DbContext.Inventories.Where(x => x.Guid == inventory.Guid).FirstOrDefault();
                 var commentEntity = new InventoryComment()
                 {
                     InventoryId = inventoryEntity.Id,
-                    Guid = comment.Id,
+                    Guid = comment.Guid,
                     Comment = comment.Comment,
                     Created = DateTime.Now,
                     Updated = DateTime.Now

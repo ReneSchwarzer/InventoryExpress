@@ -4,7 +4,7 @@ using WebExpress.WebApp.Model;
 namespace InventoryExpress.Model.WebItems
 {
     /// <summary>
-    /// Standort
+    /// The tag.
     /// </summary>
     public class WebItemEntityTag : WebItem
     {
@@ -19,10 +19,10 @@ namespace InventoryExpress.Model.WebItems
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="tag">Das Datenbankobjektes des Schlagwortes</param>
+        /// <param name="tag">The database object of the tag.</param>
         public WebItemEntityTag(Tag tag)
         {
-            Id = tag.Label;
+            Id = tag.Id;
             Name = tag.Label;
             Label = tag.Label;
         }

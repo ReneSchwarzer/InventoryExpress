@@ -8,7 +8,7 @@ namespace InventoryExpress.QR
     [Icon("/assets/img/Logo.png")]
     [AssetPath("/")]
     [ContextPath("/qr")]
-    [WebExApplication<Application>]
+    [Application<Application>]
     public sealed class Module : IModule
     {
         /// <summary>

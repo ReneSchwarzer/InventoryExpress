@@ -1,16 +1,15 @@
 ﻿using InventoryExpress.Model;
 using InventoryExpress.Parameter;
 using InventoryExpress.WebControl;
-using System;
 using System.Linq;
 using WebExpress.Internationalization;
-using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
 using WebExpress.WebResource;
 using WebExpress.WebScope;
+using WebExpress.WebUI.WebControl;
 
 namespace InventoryExpress.WebPage
 {
@@ -23,7 +22,7 @@ namespace InventoryExpress.WebPage
     public sealed class PageInventoryEdit : PageWebApp, IPageInventory, IScope
     {
         /// <summary>
-        /// Formular
+        /// Returns the formular.
         /// </summary>
         private readonly ControlFormularInventory Form = new("inventory")
         {
@@ -66,7 +65,6 @@ namespace InventoryExpress.WebPage
         /// </summary>
         /// <param name="sender">The trigger of the event.</param>
         /// <param name="e">The event argument.</param>
-        /// <exception cref="NotImplementedException"></exception>
         private void OnFillFormular(object sender, FormularEventArgs e)
         {
             var guid = e.Context.Request.GetParameter<ParameterInventoryId>()?.Value;
@@ -102,7 +100,7 @@ namespace InventoryExpress.WebPage
                     new ControlLink()
                     {
                         Text = inventory.Name,
-                        Uri = ViewModel.GetInventoryUri(inventory.Id)
+                        Uri = ViewModel.GetInventoryUri(inventory.Guid)
                     }.Render(e.Context).ToString().Trim()
                 ),
                 icon: inventory.Image,

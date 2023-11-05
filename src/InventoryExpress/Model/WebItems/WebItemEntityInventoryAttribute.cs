@@ -4,12 +4,12 @@ using System.Text.Json.Serialization;
 namespace InventoryExpress.Model.WebItems
 {
     /// <summary>
-    /// Attribut
+    /// The attribute.
     /// </summary>
     public class WebItemEntityInventoryAttribute : WebItemEntityAttribute
     {
         /// <summary>
-        /// Der Wert
+        /// Returns or sets the value.
         /// </summary>
         [JsonPropertyName("value")]
         public string Value { get; set; }
@@ -24,7 +24,7 @@ namespace InventoryExpress.Model.WebItems
         /// <summary>
         /// Copy-Konstruktor
         /// </summary>
-        /// <param name="attribute">Das Attribut</param>
+        /// <param name="attribute">The attribute.</param>
         public WebItemEntityInventoryAttribute(WebItemEntityInventoryAttribute attribute)
             : base(attribute)
         {
@@ -34,7 +34,7 @@ namespace InventoryExpress.Model.WebItems
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="attribute">Das Attribut</param>
+        /// <param name="attribute">The attribute.</param>
         public WebItemEntityInventoryAttribute(WebItemEntityAttribute attribute)
             : base(attribute)
         {
@@ -44,8 +44,8 @@ namespace InventoryExpress.Model.WebItems
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="attribute">Das Datenbankobjektes des Inventarattributes</param>
-        /// <param name="attribute">Das Datenbankobjektes des Attributs</param>
+        /// <param name="attribute">The database object of the inventory attribute.</param>
+        /// <param name="attribute">The database object of the attribute.</param>
         public WebItemEntityInventoryAttribute(InventoryAttribute inventoryAttribute, Attribute attribute)
             : base(attribute)
         {

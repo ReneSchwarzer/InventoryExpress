@@ -2,13 +2,13 @@
 using InventoryExpress.Model.WebItems;
 using InventoryExpress.WebControl;
 using WebExpress.Internationalization;
-using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebApp.WebScope;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
 using WebExpress.WebResource;
+using WebExpress.WebUI.WebControl;
 
 namespace InventoryExpress.WebPage
 {
@@ -21,7 +21,7 @@ namespace InventoryExpress.WebPage
     public sealed class PageInventoryAdd : PageWebApp, IPageInventory
     {
         /// <summary>
-        /// Returns the form
+        /// Returns the form.
         /// </summary>
         private ControlFormularInventory Form { get; } = new ControlFormularInventory("inventory")
         {
@@ -73,7 +73,7 @@ namespace InventoryExpress.WebPage
         /// <param name="e">The event argument./param>
         private void ProcessFormular(object sender, FormularEventArgs e)
         {
-            // Neues Inventarobjekt erstellen und speichern
+            // creating and saving a new inventory object
             var inventory = new WebItemEntityInventory();
             Form.Apply(inventory, e.Context.Culture);
 
@@ -93,7 +93,7 @@ namespace InventoryExpress.WebPage
                     new ControlLink()
                     {
                         Text = inventory.Name,
-                        Uri = ViewModel.GetInventoryUri(inventory.Id)
+                        Uri = ViewModel.GetInventoryUri(inventory.Guid)
                     }.Render(e.Context).ToString().Trim()
                 ),
                 icon: inventory.Image,

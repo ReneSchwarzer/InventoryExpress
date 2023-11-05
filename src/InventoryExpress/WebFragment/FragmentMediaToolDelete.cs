@@ -1,14 +1,14 @@
-﻿using WebExpress.Html;
-using WebExpress.UI.WebAttribute;
-using WebExpress.UI.WebControl;
-using WebExpress.UI.WebFragment;
+﻿using WebExpress.WebHtml;
+using WebExpress.WebUI.WebAttribute;
+using WebExpress.WebUI.WebControl;
+using WebExpress.WebUI.WebFragment;
 using WebExpress.WebAttribute;
 using WebExpress.WebPage;
 using WebExpress.WebUri;
 
 namespace InventoryExpress.WebFragment
 {
-    [WebExSection("mediatool.secondary")]
+    [Section("mediatool.secondary")]
     [Module<Module>]
     public abstract class FragmentMediaToolDelete : FragmentControlDropdownItemLink
     {

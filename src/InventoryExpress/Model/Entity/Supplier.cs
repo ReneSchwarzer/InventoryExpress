@@ -4,11 +4,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace InventoryExpress.Model.Entity
 {
     /// <summary>
-    /// Lieferant
+    /// The supplier.
     /// </summary>
     [Table("SUPPLIER")]
     public class Supplier : ItemAddress
     {
+        /// <summary>
+        /// Returns or sets the related inventory items.
+        /// </summary>
         public virtual ICollection<Inventory> Inventories { get; set; }
 
         /// <summary>

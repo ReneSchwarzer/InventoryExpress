@@ -4,14 +4,14 @@ using InventoryExpress.Parameter;
 using InventoryExpress.WebControl;
 using System;
 using WebExpress.Internationalization;
-using WebExpress.UI.WebAttribute;
-using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebApp.WebSettingPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
 using WebExpress.WebResource;
+using WebExpress.WebUI.WebAttribute;
+using WebExpress.WebUI.WebControl;
 
 namespace InventoryExpress.WebPageSetting
 {
@@ -19,13 +19,13 @@ namespace InventoryExpress.WebPageSetting
     [SegmentGuid<ParameterConditionId>("inventoryexpress:inventoryexpress.condition.edit.display")]
     [Parent<PageSettingConditions>]
     [ContextPath("/edit")]
-    [WebExSettingHide()]
-    [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
+    [SettingHide()]
+    [SettingContext("webexpress.webapp:setting.tab.general.label")]
     [Module<Module>]
     public sealed class PageSettingConditionEdit : PageWebAppSetting, IPageCondition
     {
         /// <summary>
-        /// Returns the form
+        /// Returns the form.
         /// </summary>
         private ControlFormularCondition Form { get; } = new ControlFormularCondition("condition")
         {
@@ -33,7 +33,7 @@ namespace InventoryExpress.WebPageSetting
         };
 
         /// <summary>
-        /// Liefert oder setzt den zu ändernden Zustand
+        /// Returns or sets the state.
         /// </summary>
         private WebItemEntityCondition Condition { get; set; }
 
@@ -85,7 +85,7 @@ namespace InventoryExpress.WebPageSetting
         /// <param name="e">The event argument./param>
         private void ProcessFormular(object sender, FormularEventArgs e)
         {
-            // Zustand ändern und speichern
+            // change and save state
             Condition.Name = Form.ConditionName.Value;
             Condition.Description = Form.Description.Value;
             Condition.Updated = DateTime.Now;
@@ -106,7 +106,7 @@ namespace InventoryExpress.WebPageSetting
                     new ControlLink()
                     {
                         Text = Condition.Name,
-                        Uri = ViewModel.GetConditionUri(Condition.Id)
+                        Uri = ViewModel.GetConditionUri(Condition.Guid)
                     }.Render(e.Context).ToString().Trim()
                 ),
                 icon: Condition.Image,

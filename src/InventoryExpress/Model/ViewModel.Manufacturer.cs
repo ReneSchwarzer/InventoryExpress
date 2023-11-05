@@ -5,17 +5,18 @@ using InventoryExpress.WebPage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using WebExpress.WebApp.Wql;
+using WebExpress.WebApp.WebIndex;
 using WebExpress.WebComponent;
+using WebExpress.WebIndex.Wql;
 
 namespace InventoryExpress.Model
 {
     public partial class ViewModel
     {
         /// <summary>
-        /// Ermittelt die Hersteller-URL
+        /// Returns the manufacturer's uri.
         /// </summary>
-        /// <param name="guid">Returns or sets the id. des Herstellers</param>
+        /// <param name="guid">The id of the manufacturer.</param>
         /// <returns>The uri or null.</returns>
         public static string GetManufacturerUri(string guid)
         {
@@ -23,25 +24,38 @@ namespace InventoryExpress.Model
         }
 
         /// <summary>
-        /// Liefert alle Hersteller
+        /// Returns all manufacturers.
         /// </summary>
-        /// <param name="wql">Die Filter- und Sortieroptinen</param>
-        /// <returns>Eine Aufzählung, welche die Hersteller beinhaltet</returns>
-        public static IEnumerable<WebItemEntityManufacturer> GetManufacturers(WqlStatement wql)
+        /// <param name="wql">The filtering and sorting options.</param>
+        /// <returns>An enumeration that includes the manufacturers.</returns>
+        public static IEnumerable<WebItemEntityManufacturer> GetManufacturers(string wql = "")
+        {
+            var wqlStatement = ComponentManager.GetComponent<IndexManager>()
+                    .ExecuteWql<WebItemEntityManufacturer>(wql);
+
+            return GetManufacturers(wqlStatement);
+        }
+
+        /// <summary>
+        /// Returns all manufacturers.
+        /// </summary>
+        /// <param name="wql">The filtering and sorting options.</param>
+        /// <returns>An enumeration that includes the manufacturers.</returns>
+        public static IEnumerable<WebItemEntityManufacturer> GetManufacturers(IWqlStatement<WebItemEntityManufacturer> wql)
         {
             lock (DbContext)
             {
                 var manufacturers = DbContext.Manufacturers.Select(x => new WebItemEntityManufacturer(x));
 
-                return wql.Apply(manufacturers).ToList();
+                return wql.Apply(manufacturers.AsQueryable());
             }
         }
 
         /// <summary>
-        /// Liefert ein Hersteller
+        /// Returns a manufacturer.
         /// </summary>
         /// <param name="id">Returns or sets the id. des Herstellers</param>
-        /// <returns>Der Hersteller oder null</returns>
+        /// <returns>The manufacturer or null.</returns>
         public static WebItemEntityManufacturer GetManufacturer(string id)
         {
             lock (DbContext)
@@ -53,17 +67,17 @@ namespace InventoryExpress.Model
         }
 
         /// <summary>
-        /// Liefert den Hersteller, welche dem Inventargegenstand zugeordnet ist
+        /// Returns the manufacturer that is assigned to the inventory item.
         /// </summary>
         /// <param name="inventory">The inventory item.</param>
-        /// <returns>Der Hersteller oder null</returns>
+        /// <returns>The manufacturer or null.</returns>
         public static WebItemEntityManufacturer GetManufacturer(WebItemEntityInventory inventory)
         {
             lock (DbContext)
             {
                 var manufacturer = from i in DbContext.Inventories
                                    join m in DbContext.Manufacturers on i.ManufacturerId equals m.Id
-                                   where i.Guid == inventory.Id
+                                   where i.Guid == inventory.Guid
                                    select new WebItemEntityManufacturer(m);
 
                 return manufacturer.FirstOrDefault();
@@ -71,21 +85,21 @@ namespace InventoryExpress.Model
         }
 
         /// <summary>
-        /// Fügt ein Hersteller hinzu oder aktuallisiert diesen
+        /// A manufacturer adds or updates it.
         /// </summary>
         /// <param name="manufacturer">The manufacturer.</param>
         public static void AddOrUpdateManufacturer(WebItemEntityManufacturer manufacturer)
         {
             lock (DbContext)
             {
-                var availableEntity = DbContext.Manufacturers.Where(x => x.Guid == manufacturer.Id).FirstOrDefault();
+                var availableEntity = DbContext.Manufacturers.Where(x => x.Guid == manufacturer.Guid).FirstOrDefault();
 
                 if (availableEntity == null)
                 {
-                    // Neu erstellen
+                    // create new
                     var entity = new Manufacturer()
                     {
-                        Guid = manufacturer.Id,
+                        Guid = manufacturer.Guid,
                         Name = manufacturer.Name,
                         Description = manufacturer.Description,
                         Address = manufacturer.Address,
@@ -96,7 +110,7 @@ namespace InventoryExpress.Model
                         Updated = DateTime.Now,
                         Media = new Media()
                         {
-                            Guid = manufacturer.Media?.Id,
+                            Guid = manufacturer.Media?.Guid,
                             Name = manufacturer.Media?.Name ?? "",
                             Description = manufacturer.Media?.Description,
                             Tag = manufacturer.Media?.Tag,
@@ -110,8 +124,8 @@ namespace InventoryExpress.Model
                 }
                 else
                 {
-                    // Update
-                    var availableMedia = manufacturer.Media != null ? DbContext.Media.Where(x => x.Guid == manufacturer.Media.Id).FirstOrDefault() : null;
+                    // update
+                    var availableMedia = manufacturer.Media != null ? DbContext.Media.Where(x => x.Guid == manufacturer.Media.Guid).FirstOrDefault() : null;
 
                     availableEntity.Name = manufacturer.Name;
                     availableEntity.Description = manufacturer.Description;
@@ -125,7 +139,7 @@ namespace InventoryExpress.Model
                     {
                         var media = new Media()
                         {
-                            Guid = manufacturer.Media?.Id,
+                            Guid = manufacturer.Media?.Guid,
                             Name = manufacturer.Media?.Name,
                             Description = manufacturer.Media?.Description,
                             Tag = manufacturer.Media?.Tag,
@@ -149,9 +163,9 @@ namespace InventoryExpress.Model
         }
 
         /// <summary>
-        /// Löscht ein Hersteller
+        /// Deletes a manufacturer.
         /// </summary>
-        /// <param name="id">Returns or sets the id. des Herstellers</param>
+        /// <param name="id">The id of the manufacturer.</param>
         public static void DeleteManufacturer(string id)
         {
             lock (DbContext)
@@ -173,17 +187,17 @@ namespace InventoryExpress.Model
         }
 
         /// <summary>
-        /// Prüft ob der HErsteller in Verwendung ist
+        /// Checks if the manufacturer is in use.
         /// </summary>
         /// <param name="manufacturer">The manufacturer.</param>
-        /// <returns>True wenn in Verwendung, false sonst</returns>
+        /// <returns>True when in use, false otherwise.</returns>
         public static bool GetManufacturerInUse(WebItemEntityManufacturer manufacturer)
         {
             lock (DbContext)
             {
                 var used = from i in DbContext.Inventories
                            join m in DbContext.Manufacturers on i.ManufacturerId equals m.Id
-                           where m.Guid == manufacturer.Id
+                           where m.Guid == manufacturer.Guid
                            select m;
 
                 return used.Any();

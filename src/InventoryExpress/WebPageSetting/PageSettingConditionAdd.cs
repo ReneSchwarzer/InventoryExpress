@@ -2,14 +2,14 @@
 using InventoryExpress.Model.WebItems;
 using InventoryExpress.WebControl;
 using WebExpress.Internationalization;
-using WebExpress.UI.WebAttribute;
-using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebApp.WebSettingPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
 using WebExpress.WebResource;
+using WebExpress.WebUI.WebAttribute;
+using WebExpress.WebUI.WebControl;
 
 namespace InventoryExpress.WebPageSetting
 {
@@ -17,8 +17,8 @@ namespace InventoryExpress.WebPageSetting
     [Segment("add", "inventoryexpress:inventoryexpress.condition.add.label")]
     [Parent<PageSettingConditions>]
     [ContextPath("/")]
-    [WebExSettingHide()]
-    [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
+    [SettingHide()]
+    [SettingContext("webexpress.webapp:setting.tab.general.label")]
     [Module<Module>]
     public sealed class PageSettingConditionAdd : PageWebAppSetting, IPageCondition
     {
@@ -76,7 +76,7 @@ namespace InventoryExpress.WebPageSetting
         /// <param name="e">The event argument./param>
         private void ProcessFormular(object sender, FormularEventArgs e)
         {
-            // Neuen Zustand erstellen und speichern
+            // create and save a new state
             var condition = new WebItemEntityCondition()
             {
                 Name = Form.ConditionName.Value,
@@ -99,7 +99,7 @@ namespace InventoryExpress.WebPageSetting
                     new ControlLink()
                     {
                         Text = condition.Name,
-                        Uri = ViewModel.GetConditionUri(condition.Id)
+                        Uri = ViewModel.GetConditionUri(condition.Guid)
                     }.Render(e.Context).ToString().Trim()
                 ),
                 icon: condition.Image,

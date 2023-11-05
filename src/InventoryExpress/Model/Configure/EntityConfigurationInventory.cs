@@ -5,14 +5,14 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace InventoryExpress.Model.Configure
 {
     /// <summary>
-    /// Datenbankkonfiguration der Inventar-Entität
+    /// Database configuration of the inventory entity.
     /// </summary>
     class EntityConfigurationInventory : IEntityTypeConfiguration<Inventory>
     {
         /// <summary>
-        /// Konfiguration
+        /// Configuration of the inventory entity.
         /// </summary>
-        /// <param name="builder">Der Builder</param>
+        /// <param name="builder">The builder.</param>
         public void Configure(EntityTypeBuilder<Inventory> builder)
         {
             builder.ToTable("Inventory");
@@ -88,14 +88,14 @@ namespace InventoryExpress.Model.Configure
                    .IsRequired()
                    .HasColumnType("CHAR(36)");
 
-            // Unique-Contraints
+            // unique contraints
             builder.HasIndex(e => e.Name)
                    .IsUnique();
 
             builder.HasIndex(e => e.Guid)
                    .IsUnique();
 
-            // Beziehungen
+            // relations
             builder.HasOne(d => d.Condition)
                    .WithMany(p => p.Inventories)
                    .HasForeignKey(d => d.ConditionId)

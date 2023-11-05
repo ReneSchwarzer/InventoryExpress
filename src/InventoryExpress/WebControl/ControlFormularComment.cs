@@ -1,5 +1,5 @@
-﻿using WebExpress.Html;
-using WebExpress.UI.WebControl;
+﻿using WebExpress.WebHtml;
+using WebExpress.WebUI.WebControl;
 using WebExpress.WebPage;
 
 namespace InventoryExpress.WebControl
@@ -29,7 +29,7 @@ namespace InventoryExpress.WebControl
 
             Name = "form_comment";
             Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Three, PropertySpacing.Space.Five, PropertySpacing.Space.None);
-            Layout = TypeLayoutFormular.Vertical;
+            Layout = TypeLayoutForm.Vertical;
             SubmitButton.Icon = new PropertyIcon(TypeIcon.PaperPlane);
             SubmitButton.Text = "inventoryexpress:inventoryexpress.inventory.comment.submit";
         }

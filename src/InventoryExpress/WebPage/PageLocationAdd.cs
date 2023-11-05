@@ -2,13 +2,13 @@
 using InventoryExpress.Model.WebItems;
 using InventoryExpress.WebControl;
 using WebExpress.Internationalization;
-using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebApp.WebScope;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
 using WebExpress.WebResource;
+using WebExpress.WebUI.WebControl;
 
 namespace InventoryExpress.WebPage
 {
@@ -21,7 +21,7 @@ namespace InventoryExpress.WebPage
     public sealed class PageLocationAdd : PageWebApp, IPageLocation
     {
         /// <summary>
-        /// Returns the form
+        /// Returns the form.
         /// </summary>
         private ControlFormularLocation Form { get; } = new ControlFormularLocation("location")
         {
@@ -73,7 +73,7 @@ namespace InventoryExpress.WebPage
         /// <param name="e">The event argument./param>
         private void ProcessFormular(object sender, FormularEventArgs e)
         {
-            // Neues Herstellerobjekt erstellen und speichern
+            // creating and saving a new manufacturer object
             var location = new WebItemEntityLocation()
             {
                 Name = Form.LocationName.Value,
@@ -102,7 +102,7 @@ namespace InventoryExpress.WebPage
                     new ControlLink()
                     {
                         Text = location.Name,
-                        Uri = ViewModel.GetLocationUri(location.Id)
+                        Uri = ViewModel.GetLocationUri(location.Guid)
                     }.Render(e.Context).ToString().Trim()
                 ),
                 icon: location.Image,

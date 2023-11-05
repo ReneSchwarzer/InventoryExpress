@@ -2,13 +2,13 @@
 using InventoryExpress.Model.WebItems;
 using InventoryExpress.WebControl;
 using WebExpress.Internationalization;
-using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebApp.WebScope;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
 using WebExpress.WebResource;
+using WebExpress.WebUI.WebControl;
 
 namespace InventoryExpress.WebPage
 {
@@ -97,7 +97,7 @@ namespace InventoryExpress.WebPage
                     new ControlLink()
                     {
                         Text = ledgeraccount.Name,
-                        Uri = ViewModel.GetLedgerAccountUri(ledgeraccount.Id)
+                        Uri = ViewModel.GetLedgerAccountUri(ledgeraccount.Guid)
                     }.Render(e.Context).ToString().Trim()
                 ),
                 icon: ledgeraccount.Image,

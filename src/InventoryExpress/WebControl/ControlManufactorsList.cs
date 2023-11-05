@@ -1,7 +1,6 @@
 ﻿using InventoryExpress.Model;
-using WebExpress.Html;
-using WebExpress.UI.WebControl;
-using WebExpress.WebApp.Wql;
+using WebExpress.WebUI.WebControl;
+using WebExpress.WebHtml;
 using WebExpress.WebPage;
 
 namespace InventoryExpress.WebControl
@@ -25,7 +24,7 @@ namespace InventoryExpress.WebControl
         {
             Content.Clear();
 
-            foreach (var manufacturer in ViewModel.GetManufacturers(new WqlStatement()))
+            foreach (var manufacturer in ViewModel.GetManufacturers())
             {
                 var card = new ControlCardManufacturer(manufacturer);
 

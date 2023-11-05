@@ -2,14 +2,14 @@
 using InventoryExpress.Model.WebItems;
 using InventoryExpress.WebControl;
 using WebExpress.Internationalization;
-using WebExpress.UI.WebAttribute;
-using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebApp.WebSettingPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
 using WebExpress.WebResource;
+using WebExpress.WebUI.WebAttribute;
+using WebExpress.WebUI.WebControl;
 
 namespace InventoryExpress.WebPageSetting
 {
@@ -17,8 +17,8 @@ namespace InventoryExpress.WebPageSetting
     [Segment("add", "inventoryexpress:inventoryexpress.attribute.add.label")]
     [ContextPath("/")]
     [Parent<PageSettingAttributes>]
-    [WebExSettingHide()]
-    [WebExSettingContext("webexpress.webapp:setting.tab.general.label")]
+    [SettingHide()]
+    [SettingContext("webexpress.webapp:setting.tab.general.label")]
     [Module<Module>]
     public sealed class PageSettingAttributeAdd : PageWebAppSetting, IPageAttribute
     {
@@ -75,7 +75,7 @@ namespace InventoryExpress.WebPageSetting
         /// <param name="e">The event argument./param>
         private void ProcessFormular(object sender, FormularEventArgs e)
         {
-            // Neues Attribut erstellen und speichern
+            // create and save a new attribute
             var attribute = new WebItemEntityAttribute()
             {
                 Name = Form.AttributeName.Value,
@@ -98,7 +98,7 @@ namespace InventoryExpress.WebPageSetting
                     new ControlLink()
                     {
                         Text = attribute.Name,
-                        Uri = ViewModel.GetAttributeUri(attribute.Id)
+                        Uri = ViewModel.GetAttributeUri(attribute.Guid)
                     }.Render(e.Context).ToString().Trim()
                 ),
                 icon: attribute.Image,

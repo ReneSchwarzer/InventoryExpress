@@ -5,12 +5,12 @@ using System.Text.Json.Serialization;
 namespace InventoryExpress.Model.WebItems
 {
     /// <summary>
-    /// Vorlage
+    /// The template.
     /// </summary>
     public class WebItemEntityTemplate : WebItemEntityBaseTag
     {
         /// <summary>
-        /// Liefert oder setzt die Attribute
+        /// Returns or sets the attributes.
         /// </summary>
         [JsonPropertyName("attributes")]
         public IEnumerable<WebItemEntityAttribute> Attributes { get; set; }
@@ -27,7 +27,7 @@ namespace InventoryExpress.Model.WebItems
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="template">Das Datenbankobjektes der Vorlage</param>
+        /// <param name="template">The database object of the template.</param>
         public WebItemEntityTemplate(Template template)
             : base(template)
         {

@@ -3,7 +3,7 @@
 namespace InventoryExpress.Model.WebItems
 {
     /// <summary>
-    /// Attribut
+    /// The inventory attatchment.
     /// </summary>
     public class WebItemEntityInventoryAttachment : WebItemEntityMedia
     {
@@ -17,7 +17,7 @@ namespace InventoryExpress.Model.WebItems
         /// <summary>
         /// Copy-Konstruktor
         /// </summary>
-        /// <param name="attachment">Das Attribut</param>
+        /// <param name="attachment">The attachment.</param>
         public WebItemEntityInventoryAttachment(WebItemEntityInventoryAttachment attachment)
             : base(attachment)
         {
@@ -26,7 +26,7 @@ namespace InventoryExpress.Model.WebItems
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="attachment">Das Datenbankobjektes der Anlage</param>
+        /// <param name="attachment">The database object of the attatchment.</param>
         public WebItemEntityInventoryAttachment(Media attachment)
             : base(attachment)
         {

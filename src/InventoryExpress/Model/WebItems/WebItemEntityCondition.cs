@@ -1,22 +1,21 @@
 ﻿using InventoryExpress.Model.Entity;
-using System.Linq;
 using System.Text.Json.Serialization;
 
 namespace InventoryExpress.Model.WebItems
 {
     /// <summary>
-    /// Zustand
+    /// The state..
     /// </summary>
     public class WebItemEntityCondition : WebItemEntity
     {
         /// <summary>
-        /// Zustand als Note
+        /// Returns or sets the state as a note.
         /// </summary>
         [JsonPropertyName("grade")]
         public int Grade { get; set; }
 
         /// <summary>
-        /// Ermittelt, ob der Zustand in Verwendung ist oder nicht
+        /// Determines whether the state is in use or not.
         /// </summary>
         [JsonPropertyName("isinuse")]
         public bool IsInUse => ViewModel.GetConditionInUse(this);
@@ -32,7 +31,7 @@ namespace InventoryExpress.Model.WebItems
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="condition">Das Datenbankobjektes des Zustandes</param>
+        /// <param name="condition">The database object of the state.</param>
         public WebItemEntityCondition(Condition condition)
             : base(condition)
         {

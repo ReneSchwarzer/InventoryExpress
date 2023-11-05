@@ -5,14 +5,14 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace InventoryExpress.Model.Configure
 {
     /// <summary>
-    /// Datenbankkonfiguration der Anlage-Entität
+    /// Database configuration of the attachment entity.
     /// </summary>
     class EntityConfigurationInventoryAttachment : IEntityTypeConfiguration<InventoryAttachment>
     {
         /// <summary>
-        /// Konfiguration
+        /// Configuration of the attachment entity.
         /// </summary>
-        /// <param name="builder">Der Builder</param>
+        /// <param name="builder">The builder.</param>
         public void Configure(EntityTypeBuilder<InventoryAttachment> builder)
         {
             builder.HasKey(e => new { e.InventoryId, e.MediaId });
@@ -28,7 +28,7 @@ namespace InventoryExpress.Model.Configure
                 .HasColumnType("TIMESTAMP")
                 .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-            // Beziehungen
+            // relations
             builder.HasOne(d => d.Media)
                 .WithMany(p => p.InventoryAttachment)
                 .HasForeignKey(d => d.MediaId)

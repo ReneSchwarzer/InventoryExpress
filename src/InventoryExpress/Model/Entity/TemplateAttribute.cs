@@ -2,15 +2,18 @@
 
 namespace InventoryExpress.Model.Entity
 {
+    /// <summary>
+    /// The template attributes.
+    /// </summary>
     public class TemplateAttribute
     {
         /// <summary>
-        /// Der Verweis auf die Vorlage
+        /// Returns or sets the id of the template.
         /// </summary>
         public int TemplateId { get; set; }
 
         /// <summary>
-        /// Der Verweis auf das Attribut
+        /// Returns or sets the id of the attribute.
         /// </summary>
         public int AttributeId { get; set; }
 
@@ -20,12 +23,12 @@ namespace InventoryExpress.Model.Entity
         public DateTime Created { get; set; }
 
         /// <summary>
-        /// Der Verweis auf den Mitarbeiter
+        /// Returns or sets the template.
         /// </summary>
         public Template Template { get; set; }
 
         /// <summary>
-        /// Der Verweis auf die Rolle
+        /// Returns or sets the attribute.
         /// </summary> 
         public Attribute Attribute { get; set; }
 

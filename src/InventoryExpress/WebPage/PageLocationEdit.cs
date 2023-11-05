@@ -4,13 +4,13 @@ using InventoryExpress.Parameter;
 using InventoryExpress.WebControl;
 using System;
 using WebExpress.Internationalization;
-using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebComponent;
 using WebExpress.WebResource;
 using WebExpress.WebScope;
+using WebExpress.WebUI.WebControl;
 using WebExpress.WebUri;
 
 namespace InventoryExpress.WebPage
@@ -23,14 +23,14 @@ namespace InventoryExpress.WebPage
     public sealed class PageLocationEdit : PageWebApp, IPageLocation, IScope
     {
         /// <summary>
-        /// Returns the form
+        /// Returns the form.
         /// </summary>
         private ControlFormularLocation Form { get; } = new ControlFormularLocation("location")
         {
         };
 
         /// <summary>
-        /// Liefert oder setzt den Standort
+        /// Returns or sets the site.
         /// </summary>
         private WebItemEntityLocation Location { get; set; }
 
@@ -88,7 +88,7 @@ namespace InventoryExpress.WebPage
         /// <param name="e">The event argument./param>
         private void ProcessFormular(object sender, FormularEventArgs e)
         {
-            // Standort ändern und speichern
+            // change and save your location
             Location.Name = Form.LocationName.Value;
             Location.Description = Form.Description.Value;
             Location.Address = Form.Address.Value;
@@ -115,7 +115,7 @@ namespace InventoryExpress.WebPage
                     new ControlLink()
                     {
                         Text = Location.Name,
-                        Uri = new UriResource(ViewModel.GetLocationUri(Location.Id))
+                        Uri = new UriResource(ViewModel.GetLocationUri(Location.Guid))
                     }.Render(e.Context).ToString().Trim()
                 ),
                 icon: new UriResource(Location.Image),

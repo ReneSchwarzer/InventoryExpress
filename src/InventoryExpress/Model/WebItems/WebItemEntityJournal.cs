@@ -7,12 +7,12 @@ using WebExpress.WebApp.Model;
 namespace InventoryExpress.Model.WebItems
 {
     /// <summary>
-    /// Journal
+    /// The journal.
     /// </summary>
     public class WebItemEntityJournal : WebItem
     {
         /// <summary>
-        /// Die Aktion
+        /// Returns or sets the action.
         /// </summary>
         [JsonPropertyName("action")]
         public string Action { get; set; }
@@ -33,14 +33,13 @@ namespace InventoryExpress.Model.WebItems
         /// </summary>
         public WebItemEntityJournal()
         {
-            Id = Guid.NewGuid().ToString();
         }
 
         /// <summary>
         /// Constructor
         /// </summary>
         public WebItemEntityJournal(params WebItemEntityJournalParameter[] paramertes)
-            :this()
+            : this()
         {
             Parameters = new List<WebItemEntityJournalParameter>(paramertes);
         }
@@ -48,10 +47,11 @@ namespace InventoryExpress.Model.WebItems
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="journal">Das Datenbankobjekt</param>
+        /// <param name="journal">The database object of the journal.</param>
         public WebItemEntityJournal(InventoryJournal journal)
         {
-            Id = journal.Guid;
+            Id = journal.Id;
+            Guid = journal.Guid;
             Action = journal.Action;
             Created = journal.Created;
         }
