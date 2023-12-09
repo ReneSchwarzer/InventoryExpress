@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using WebExpress.WebHtml;
+using WebExpress.WebCore.WebComponent;
+using WebExpress.WebCore.WebHtml;
+using WebExpress.WebCore.WebPage;
 using WebExpress.WebUI.WebControl;
 using WebExpress.WebUI.WebFragment;
-using WebExpress.WebComponent;
-using WebExpress.WebPage;
 
 namespace InventoryExpress.WebFragment
 {

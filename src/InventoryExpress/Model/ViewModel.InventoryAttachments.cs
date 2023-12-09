@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using WebExpress.WebMessage;
+using WebExpress.WebCore.WebMessage;
 
 namespace InventoryExpress.Model
 {

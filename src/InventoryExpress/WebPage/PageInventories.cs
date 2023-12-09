@@ -1,9 +1,9 @@
 ﻿using InventoryExpress.WebControl;
 using InventoryExpress.WebSession;
 using WebExpress.WebApp.WebPage;
-using WebExpress.WebAttribute;
-using WebExpress.WebResource;
-using WebExpress.WebScope;
+using WebExpress.WebCore.WebAttribute;
+using WebExpress.WebCore.WebResource;
+using WebExpress.WebCore.WebScope;
 
 namespace InventoryExpress.WebPage
 {

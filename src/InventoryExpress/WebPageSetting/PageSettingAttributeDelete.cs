@@ -1,15 +1,15 @@
 ﻿using InventoryExpress.Model;
 using InventoryExpress.Parameter;
-using WebExpress.Internationalization;
-using WebExpress.WebUI.WebAttribute;
-using WebExpress.WebUI.WebControl;
 using WebExpress.WebApp.WebControl;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebApp.WebSettingPage;
-using WebExpress.WebAttribute;
-using WebExpress.WebComponent;
-using WebExpress.WebResource;
+using WebExpress.WebCore.Internationalization;
+using WebExpress.WebCore.WebAttribute;
+using WebExpress.WebCore.WebComponent;
+using WebExpress.WebCore.WebResource;
+using WebExpress.WebUI.WebAttribute;
+using WebExpress.WebUI.WebControl;
 
 namespace InventoryExpress.WebPageSetting
 {

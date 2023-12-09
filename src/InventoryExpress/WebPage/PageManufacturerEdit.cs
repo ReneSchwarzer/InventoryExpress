@@ -3,19 +3,19 @@ using InventoryExpress.Model.WebItems;
 using InventoryExpress.Parameter;
 using InventoryExpress.WebControl;
 using System;
-using WebExpress.Internationalization;
 using WebExpress.WebApp.WebNotificaation;
 using WebExpress.WebApp.WebPage;
-using WebExpress.WebAttribute;
-using WebExpress.WebComponent;
-using WebExpress.WebResource;
-using WebExpress.WebScope;
+using WebExpress.WebCore.Internationalization;
+using WebExpress.WebCore.WebAttribute;
+using WebExpress.WebCore.WebComponent;
+using WebExpress.WebCore.WebResource;
+using WebExpress.WebCore.WebScope;
 using WebExpress.WebUI.WebControl;
 
 namespace InventoryExpress.WebPage
 {
     [Title("inventoryexpress:inventoryexpress.manufacturer.edit.label")]
-    [SegmentGuid<ParameterManufacturerId>("inventoryexpress:inventoryexpress.manufacturer.edit.display", WebExpress.WebUri.UriPathSegmentVariableGuid.Format.Simple)]
+    [SegmentGuid<ParameterManufacturerId>("inventoryexpress:inventoryexpress.manufacturer.edit.display", WebExpress.WebCore.WebUri.UriPathSegmentVariableGuid.Format.Simple)]
     [ContextPath("/")]
     [Parent<PageManufacturers>]
     [Module<Module>]

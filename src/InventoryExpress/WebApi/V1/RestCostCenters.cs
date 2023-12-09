@@ -1,12 +1,12 @@
 ﻿using InventoryExpress.Model;
 using InventoryExpress.Model.WebItems;
 using System.Collections.Generic;
-using WebExpress.Internationalization;
 using WebExpress.WebApp.WebResource;
-using WebExpress.WebAttribute;
+using WebExpress.WebCore.Internationalization;
+using WebExpress.WebCore.WebAttribute;
+using WebExpress.WebCore.WebMessage;
+using WebExpress.WebCore.WebResource;
 using WebExpress.WebIndex.Wql;
-using WebExpress.WebMessage;
-using WebExpress.WebResource;
 
 namespace InventoryExpress.WebApi.V1
 {

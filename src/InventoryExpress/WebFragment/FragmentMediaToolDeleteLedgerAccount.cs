@@ -1,10 +1,10 @@
 ﻿using InventoryExpress.Model;
 using InventoryExpress.Parameter;
 using InventoryExpress.WebPage;
-using WebExpress.WebAttribute;
-using WebExpress.WebComponent;
-using WebExpress.WebHtml;
-using WebExpress.WebPage;
+using WebExpress.WebCore.WebAttribute;
+using WebExpress.WebCore.WebComponent;
+using WebExpress.WebCore.WebHtml;
+using WebExpress.WebCore.WebPage;
 using WebExpress.WebUI.WebAttribute;
 using WebExpress.WebUI.WebControl;
 using WebExpress.WebUI.WebFragment;

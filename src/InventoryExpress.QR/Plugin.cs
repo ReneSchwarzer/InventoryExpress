@@ -1,5 +1,5 @@
-﻿using WebExpress.WebAttribute;
-using WebExpress.WebPlugin;
+﻿using WebExpress.WebCore.WebAttribute;
+using WebExpress.WebCore.WebPlugin;
 
 namespace InventoryExpress.QR
 {

@@ -3,9 +3,9 @@ using InventoryExpress.Parameter;
 using System.Collections.Generic;
 using System.Linq;
 using WebExpress.WebApp.WebPage;
-using WebExpress.WebAttribute;
-using WebExpress.WebResource;
-using WebExpress.WebScope;
+using WebExpress.WebCore.WebAttribute;
+using WebExpress.WebCore.WebResource;
+using WebExpress.WebCore.WebScope;
 using WebExpress.WebUI.WebControl;
 
 namespace InventoryExpress.WebPage

@@ -1,10 +1,10 @@
-﻿using WebExpress.WebHtml;
+﻿using WebExpress.WebCore.WebAttribute;
+using WebExpress.WebCore.WebHtml;
+using WebExpress.WebCore.WebPage;
+using WebExpress.WebCore.WebUri;
 using WebExpress.WebUI.WebAttribute;
 using WebExpress.WebUI.WebControl;
 using WebExpress.WebUI.WebFragment;
-using WebExpress.WebAttribute;
-using WebExpress.WebPage;
-using WebExpress.WebUri;
 
 namespace InventoryExpress.WebFragment
 {

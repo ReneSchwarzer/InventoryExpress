@@ -5,8 +5,8 @@ using InventoryExpress.WebResource;
 using System;
 using System.IO;
 using System.Linq;
-using WebExpress.WebComponent;
-using WebExpress.WebMessage;
+using WebExpress.WebCore.WebComponent;
+using WebExpress.WebCore.WebMessage;
 
 namespace InventoryExpress.Model
 {

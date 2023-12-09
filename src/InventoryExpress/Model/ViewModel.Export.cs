@@ -8,10 +8,10 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
-using WebExpress.Internationalization;
 using WebExpress.WebApp.WebNotificaation;
-using WebExpress.WebComponent;
-using WebExpress.WebPage;
+using WebExpress.WebCore.Internationalization;
+using WebExpress.WebCore.WebComponent;
+using WebExpress.WebCore.WebPage;
 
 namespace InventoryExpress.Model
 {

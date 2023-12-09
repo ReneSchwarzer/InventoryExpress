@@ -1,6 +1,6 @@
 ﻿using InventoryExpress.Model;
-using WebExpress.WebAttribute;
-using WebExpress.WebModule;
+using WebExpress.WebCore.WebAttribute;
+using WebExpress.WebCore.WebModule;
 
 namespace InventoryExpress
 {

@@ -4,7 +4,7 @@ using InventoryExpress.WebPageSetting;
 using System.Collections.Generic;
 using System.Linq;
 using WebExpress.WebApp.WebIndex;
-using WebExpress.WebComponent;
+using WebExpress.WebCore.WebComponent;
 using WebExpress.WebIndex.Wql;
 
 namespace InventoryExpress.Model

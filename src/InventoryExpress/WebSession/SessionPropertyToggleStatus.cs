@@ -1,11 +1,11 @@
-﻿using WebExpress.WebSession;
+﻿using WebExpress.WebCore.WebSession;
 
 namespace InventoryExpress.WebSession
 {
     public class SessionPropertyToggleStatus : SessionProperty
     {
         /// <summary>
-        /// Bestimmt die Ansicht
+        /// Determines the view
         /// </summary>
         public bool ViewList { get; set; } = true;
     }

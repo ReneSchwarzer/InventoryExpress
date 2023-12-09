@@ -1,12 +1,13 @@
 ﻿using InventoryExpress.Model.WebItems;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using WebExpress.WebApp.WebIndex;
-using WebExpress.WebApplication;
-using WebExpress.WebComponent;
-using WebExpress.WebModule;
+using WebExpress.WebCore.WebApplication;
+using WebExpress.WebCore.WebComponent;
+using WebExpress.WebCore.WebModule;
 
 namespace InventoryExpress.Model
 {
@@ -80,16 +81,16 @@ namespace InventoryExpress.Model
             _ = DbContext.Suppliers.ToList();
 
             // indexing the data
-            ComponentManager.GetComponent<IndexManager>()?.Register<WebItemEntityInventory>();
-            ComponentManager.GetComponent<IndexManager>()?.Register<WebItemEntityCostCenter>();
-            ComponentManager.GetComponent<IndexManager>()?.Register<WebItemEntityLedgerAccount>();
-            ComponentManager.GetComponent<IndexManager>()?.Register<WebItemEntityLocation>();
-            ComponentManager.GetComponent<IndexManager>()?.Register<WebItemEntityManufacturer>();
-            ComponentManager.GetComponent<IndexManager>()?.Register<WebItemEntitySupplier>();
-            ComponentManager.GetComponent<IndexManager>()?.Register<WebItemEntityJournal>();
-            ComponentManager.GetComponent<IndexManager>()?.Register<WebItemEntityJournalParameter>();
-            ComponentManager.GetComponent<IndexManager>()?.Register<WebItemEntityAttribute>();
-            ComponentManager.GetComponent<IndexManager>()?.Register<WebItemEntityTemplate>();
+            ComponentManager.GetComponent<IndexManager>()?.Register<WebItemEntityInventory>(CultureInfo.CurrentCulture);
+            ComponentManager.GetComponent<IndexManager>()?.Register<WebItemEntityCostCenter>(CultureInfo.CurrentCulture);
+            ComponentManager.GetComponent<IndexManager>()?.Register<WebItemEntityLedgerAccount>(CultureInfo.CurrentCulture);
+            ComponentManager.GetComponent<IndexManager>()?.Register<WebItemEntityLocation>(CultureInfo.CurrentCulture);
+            ComponentManager.GetComponent<IndexManager>()?.Register<WebItemEntityManufacturer>(CultureInfo.CurrentCulture);
+            ComponentManager.GetComponent<IndexManager>()?.Register<WebItemEntitySupplier>(CultureInfo.CurrentCulture);
+            ComponentManager.GetComponent<IndexManager>()?.Register<WebItemEntityJournal>(CultureInfo.CurrentCulture);
+            ComponentManager.GetComponent<IndexManager>()?.Register<WebItemEntityJournalParameter>(CultureInfo.CurrentCulture);
+            ComponentManager.GetComponent<IndexManager>()?.Register<WebItemEntityAttribute>(CultureInfo.CurrentCulture);
+            ComponentManager.GetComponent<IndexManager>()?.Register<WebItemEntityTemplate>(CultureInfo.CurrentCulture);
         }
 
         /// <summary>

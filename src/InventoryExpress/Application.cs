@@ -1,8 +1,8 @@
-﻿using WebExpress.Internationalization;
-using WebExpress.WebApp.WebNotificaation;
-using WebExpress.WebApplication;
-using WebExpress.WebAttribute;
-using WebExpress.WebComponent;
+﻿using WebExpress.WebApp.WebNotificaation;
+using WebExpress.WebCore.Internationalization;
+using WebExpress.WebCore.WebApplication;
+using WebExpress.WebCore.WebAttribute;
+using WebExpress.WebCore.WebComponent;
 
 namespace InventoryExpress
 {

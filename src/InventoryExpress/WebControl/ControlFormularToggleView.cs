@@ -1,7 +1,7 @@
 ﻿using InventoryExpress.WebSession;
-using WebExpress.WebHtml;
+using WebExpress.WebCore.WebHtml;
+using WebExpress.WebCore.WebPage;
 using WebExpress.WebUI.WebControl;
-using WebExpress.WebPage;
 
 namespace InventoryExpress.WebControl
 {

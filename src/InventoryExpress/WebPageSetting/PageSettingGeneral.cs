@@ -1,12 +1,12 @@
 ﻿using InventoryExpress.Model;
 using InventoryExpress.WebControl;
-using WebExpress.WebUI.WebAttribute;
-using WebExpress.WebUI.WebControl;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebApp.WebScope;
 using WebExpress.WebApp.WebSettingPage;
-using WebExpress.WebAttribute;
-using WebExpress.WebResource;
+using WebExpress.WebCore.WebAttribute;
+using WebExpress.WebCore.WebResource;
+using WebExpress.WebUI.WebAttribute;
+using WebExpress.WebUI.WebControl;
 
 namespace InventoryExpress.WebPageSetting
 {

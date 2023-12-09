@@ -1,8 +1,8 @@
-﻿using WebExpress.WebMessage;
+﻿using WebExpress.WebCore.WebMessage;
 
 namespace InventoryExpress.Parameter
 {
-    public class ParameterTemplateId : WebExpress.WebMessage.Parameter
+    public class ParameterTemplateId : WebExpress.WebCore.WebMessage.Parameter
     {
         /// <summary>
         /// Constructor

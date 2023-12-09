@@ -1,4 +1,4 @@
-﻿using WebExpress.WebAttribute;
+﻿using WebExpress.WebCore.WebAttribute;
 
 namespace InventoryExpress.QR.WebResource
 {
@@ -10,7 +10,7 @@ namespace InventoryExpress.QR.WebResource
     [ContextPath("/")]
     [IncludeSubPaths(true)]
     [Module<Module>()]
-    public sealed class ResourceAsset : WebExpress.WebResource.ResourceAsset
+    public sealed class ResourceAsset : WebExpress.WebCore.WebResource.ResourceAsset
     {
         /// <summary>
         /// Constructor

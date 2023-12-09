@@ -1,10 +1,10 @@
 ﻿using System.Reflection;
-using WebExpress.Internationalization;
-using WebExpress.WebUI.WebControl;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebApp.WebScope;
-using WebExpress.WebAttribute;
-using WebExpress.WebResource;
+using WebExpress.WebCore.Internationalization;
+using WebExpress.WebCore.WebAttribute;
+using WebExpress.WebCore.WebResource;
+using WebExpress.WebUI.WebControl;
 
 namespace InventoryExpress.WebPage
 {

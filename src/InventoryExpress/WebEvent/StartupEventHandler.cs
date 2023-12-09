@@ -1,5 +1,5 @@
-﻿using WebExpress.WebAttribute;
-using WebExpress.WebEvent;
+﻿using WebExpress.WebCore.WebAttribute;
+using WebExpress.WebCore.WebEvent;
 
 namespace InventoryExpress.WebEvent
 {

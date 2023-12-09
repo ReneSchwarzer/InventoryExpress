@@ -1,6 +1,6 @@
-﻿using WebExpress.WebHtml;
-using WebExpress.WebApp.WebApiControl;
-using WebExpress.WebPage;
+﻿using WebExpress.WebApp.WebApiControl;
+using WebExpress.WebCore.WebHtml;
+using WebExpress.WebCore.WebPage;
 
 namespace InventoryExpress.WebControl
 {

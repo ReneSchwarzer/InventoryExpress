@@ -1,10 +1,10 @@
 ﻿using InventoryExpress.Model;
 using InventoryExpress.Parameter;
 using System.IO;
-using WebExpress.WebAttribute;
-using WebExpress.WebMessage;
-using WebExpress.WebResource;
-using static WebExpress.Internationalization.InternationalizationManager;
+using WebExpress.WebCore.WebAttribute;
+using WebExpress.WebCore.WebMessage;
+using WebExpress.WebCore.WebResource;
+using static WebExpress.WebCore.Internationalization.InternationalizationManager;
 
 namespace InventoryExpress.WebResource
 {

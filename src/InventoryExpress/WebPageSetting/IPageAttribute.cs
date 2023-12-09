@@ -1,4 +1,4 @@
-﻿using WebExpress.WebScope;
+﻿using WebExpress.WebCore.WebScope;
 
 namespace InventoryExpress.WebPageSetting
 {

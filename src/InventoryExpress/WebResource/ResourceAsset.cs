@@ -1,5 +1,5 @@
-﻿using WebExpress.WebAttribute;
-using WebExpress.WebResource;
+﻿using WebExpress.WebCore.WebAttribute;
+using WebExpress.WebCore.WebResource;
 
 namespace InventoryExpress.WebResource
 {
@@ -11,7 +11,7 @@ namespace InventoryExpress.WebResource
     [ContextPath("/")]
     [IncludeSubPaths(true)]
     [Module<Module>]
-    public sealed class ResourceAsset : WebExpress.WebResource.ResourceAsset
+    public sealed class ResourceAsset : WebExpress.WebCore.WebResource.ResourceAsset
     {
         /// <summary>
         /// Constructor
