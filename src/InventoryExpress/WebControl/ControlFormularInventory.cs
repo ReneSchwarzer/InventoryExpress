@@ -34,6 +34,7 @@ namespace InventoryExpress.WebControl
             Label = "inventoryexpress:inventoryexpress.inventory.manufacturer.label",
             Help = "inventoryexpress:inventoryexpress.inventory.manufacturer.description",
             Icon = new PropertyIcon(TypeIcon.Industry),
+            //HideDescription = true,
             MultiSelect = false
         };
 

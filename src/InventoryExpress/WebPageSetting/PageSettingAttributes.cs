@@ -62,7 +62,7 @@ namespace InventoryExpress.WebPageSetting
                 Icon = TypeIcon.Edit.ToClass(),
                 Color = TypeColorText.Dark.ToClass(),
                 Uri = "#",
-                OnClick = $"new webexpress.ui.modalFormularCtrl({{ uri: '{context.ApplicationContext.ContextPath.Append("setting/attributes/edit/")}/' + item.id, size: 'large' }});"
+                OnClick = $"new webexpress.webui.modalFormularCtrl({{ uri: '{context.ApplicationContext.ContextPath.Append("setting/attributes/edit/")}/' + item.id, size: 'large' }});"
             });
 
             Table.OptionItems.Add(new ControlApiTableOptionItem());
@@ -72,7 +72,7 @@ namespace InventoryExpress.WebPageSetting
                 Icon = TypeIcon.Trash.ToClass(),
                 Color = TypeColorText.Danger.ToClass(),
                 Disabled = "return !item.isinuse;",
-                OnClick = $"new webexpress.ui.modalFormularCtrl({{ uri: '{context.ApplicationContext.ContextPath.Append("setting/conditions/del/")}/' + item.id, size: 'small' }});"
+                OnClick = $"new webexpress.webui.modalFormularCtrl({{ uri: '{context.ApplicationContext.ContextPath.Append("setting/conditions/del/")}/' + item.id, size: 'small' }});"
             });
 
             context.VisualTree.Content.Preferences.Add(Table);

@@ -44,7 +44,7 @@ namespace InventoryExpress.WebFragment
         /// <returns>The control as html.</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            var webexpress = ComponentManager.PluginManager.Plugins.Where(x => x.PluginId == "webexpress.ui").FirstOrDefault();
+            var webexpress = ComponentManager.PluginManager.Plugins.Where(x => x.PluginId == "webexpress.webui").FirstOrDefault();
             var inventoryExpress = ComponentManager.PluginManager.Plugins.Where(x => x.Assembly == GetType().Assembly).FirstOrDefault();
 
             Text = string.Format

@@ -90,6 +90,7 @@ namespace InventoryExpress.Model
             ComponentManager.GetComponent<IndexManager>()?.Register<WebItemEntityJournal>(CultureInfo.CurrentCulture);
             ComponentManager.GetComponent<IndexManager>()?.Register<WebItemEntityJournalParameter>(CultureInfo.CurrentCulture);
             ComponentManager.GetComponent<IndexManager>()?.Register<WebItemEntityAttribute>(CultureInfo.CurrentCulture);
+            ComponentManager.GetComponent<IndexManager>()?.Register<WebItemEntityTag>(CultureInfo.CurrentCulture);
             ComponentManager.GetComponent<IndexManager>()?.Register<WebItemEntityTemplate>(CultureInfo.CurrentCulture);
         }
 
