@@ -194,3 +194,4 @@ UpgradeLog*.htm
 *.appx
 _*.txt
 BundleArtifacts/
+/.vs/slnx.sqlite
