@@ -20,10 +20,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="WebExpress.WebCore" Version="0.0.5-alpha" />
-	  <PackageReference Include="WebExpress.WebApp" Version="0.0.5-alpha" />
-	  <PackageReference Include="WebExpress.WebIndex" Version="0.0.5-alpha" />
-	  <PackageReference Include="WebExpress.WebUI" Version="0.0.5-alpha" />
+	  <PackageReference Include="WebExpress.WebCore" Version="0.0.7-alpha" />
+	  <PackageReference Include="WebExpress.WebApp" Version="0.0.7-alpha" />
+	  <PackageReference Include="WebExpress.WebIndex" Version="0.0.7-alpha" />
+	  <PackageReference Include="WebExpress.WebUI" Version="0.0.7-alpha" />
 	</ItemGroup>
 
 	<ItemGroup>

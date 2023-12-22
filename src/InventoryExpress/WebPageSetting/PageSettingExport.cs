@@ -100,7 +100,7 @@ namespace InventoryExpress.WebPageSetting
         /// <param name="e">The event argument.</param>
         private void ImportFormUpload(object sender, FormularUploadEventArgs e)
         {
-
+            ViewModel.CreateImportTask(e.Context, e.File.Data);
         }
 
         /// <summary>

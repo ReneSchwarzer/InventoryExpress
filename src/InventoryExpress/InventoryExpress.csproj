@@ -24,6 +24,7 @@
 		<None Remove="Assets\img\condition_5.svg" />
 		<None Remove="Assets\img\condition_6.svg" />
 		<None Remove="Assets\img\export.svg" />
+		<None Remove="Assets\img\import.svg" />
 		<None Remove="Assets\img\inventoryexpress.svg" />
 		<None Remove="Assets\img\Logo.png" />
 		<None Remove="icon.png" />
@@ -38,6 +39,7 @@
 		<EmbeddedResource Include="Assets\img\condition_4.svg" />
 		<EmbeddedResource Include="Assets\img\condition_5.svg" />
 		<EmbeddedResource Include="Assets\img\condition_6.svg" />
+		<EmbeddedResource Include="Assets\img\import.svg" />
 		<EmbeddedResource Include="Assets\img\export.svg" />
 		<EmbeddedResource Include="Assets\img\Favicon.png">
 			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
@@ -57,19 +59,19 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="WebExpress.WebCore" Version="0.0.5-alpha">
+		<PackageReference Include="WebExpress.WebCore" Version="0.0.7-alpha">
 			<Private>false</Private>
 			<ExcludeAssets>runtime</ExcludeAssets>
 		</PackageReference>
-		<PackageReference Include="WebExpress.WebApp" Version="0.0.5-alpha">
+		<PackageReference Include="WebExpress.WebApp" Version="0.0.7-alpha">
 			<Private>false</Private>
 			<ExcludeAssets>runtime</ExcludeAssets>
 		</PackageReference>
-		<PackageReference Include="WebExpress.WebIndex" Version="0.0.5-alpha">
+		<PackageReference Include="WebExpress.WebIndex" Version="0.0.7-alpha">
 			<Private>false</Private>
 			<ExcludeAssets>runtime</ExcludeAssets>
 		</PackageReference>
-		<PackageReference Include="WebExpress.WebUI" Version="0.0.5-alpha">
+		<PackageReference Include="WebExpress.WebUI" Version="0.0.7-alpha">
 			<Private>false</Private>
 			<ExcludeAssets>runtime</ExcludeAssets>
 		</PackageReference>
