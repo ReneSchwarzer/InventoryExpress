@@ -97,7 +97,7 @@ namespace InventoryExpress.WebPage
                     new ControlLink()
                     {
                         Text = costcenter.Name,
-                        Uri = ViewModel.GetCostCenterUri(costcenter.Guid)
+                        Uri = costcenter.Uri
                     }.Render(e.Context).ToString().Trim()
                 ),
                 icon: costcenter.Image,

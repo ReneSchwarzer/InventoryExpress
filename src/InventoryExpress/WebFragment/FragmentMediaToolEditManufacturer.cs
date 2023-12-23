@@ -68,10 +68,10 @@ namespace InventoryExpress.WebFragment
                     new ControlLink()
                     {
                         Text = manufacturer.Name,
-                        Uri = ViewModel.GetManufacturerUri(manufacturer.Guid)
+                        Uri = manufacturer.Uri
                     }.Render(e.Context).ToString().Trim()
                 ),
-                icon: ViewModel.GetMediaUri(manufacturer.Media.Guid),
+                icon: manufacturer.Media?.Uri,
                 durability: 10000
             );
         }

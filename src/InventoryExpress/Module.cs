@@ -1,6 +1,16 @@
 ﻿using InventoryExpress.Model;
+using InventoryExpress.Model.WebItems;
+using InventoryExpress.Parameter;
+using InventoryExpress.WebPage;
+using InventoryExpress.WebPageSetting;
+using InventoryExpress.WebResource;
+using System;
+using WebExpress.WebApp.Model;
 using WebExpress.WebCore.WebAttribute;
+using WebExpress.WebCore.WebComponent;
 using WebExpress.WebCore.WebModule;
+using WebExpress.WebCore.WebUri;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace InventoryExpress
 {
@@ -34,7 +44,7 @@ namespace InventoryExpress
 
             var applicationContext = moduleContext.ApplicationContext;
 
-            ViewModel.Initialization(applicationContext, ModuleContext);
+            ViewModel.Initialization(applicationContext, ModuleContext, GetUri);
         }
 
         /// <summary>
@@ -42,8 +52,6 @@ namespace InventoryExpress
         /// </summary>
         public void Run()
         {
-            //ViewModel.Instance.Import(Path.Combine(@"C:\Users\rene_\OneDrive\Bilder\Desktop\Sandbox\inventory.zip"), Context.Application.AssetPath, i => { });
-            //ViewModel.Instance.Export(Path.Combine(@"C:\Users\rene_\OneDrive\Bilder\Desktop\Sandbox\_inventory.zip"), Context.Application.AssetPath, i => { });
         }
 
         /// <summary>
@@ -51,7 +59,30 @@ namespace InventoryExpress
         /// </summary>
         public void Dispose()
         {
+        }
 
+        /// <summary>
+        /// Returns the root uri of a web item.
+        /// </summary>
+        /// <param name="item">The web item.</param>
+        private UriResource GetUri(WebItem item) 
+        {
+            return item switch
+            {
+                WebItemEntityAttribute => ComponentManager.SitemapManager.GetUri<PageSettingAttributes>(new ParameterAttributeId(item.Guid)),
+                WebItemEntityCondition => ComponentManager.SitemapManager.GetUri<PageSettingConditionEdit>(new ParameterConditionId(item.Guid)),
+                WebItemEntityCostCenter => ComponentManager.SitemapManager.GetUri<PageCostCenterEdit>(new ParameterCostCenterId(item.Guid)),
+                WebItemEntityInventory => ComponentManager.SitemapManager.GetUri<PageInventoryDetails>(new ParameterInventoryId(item.Guid)),
+                WebItemEntityLedgerAccount => ComponentManager.SitemapManager.GetUri<PageLedgerAccountEdit>(new ParameterLedgerAccountId(item.Guid)),
+                WebItemEntityLocation => ComponentManager.SitemapManager.GetUri<PageLocationEdit>(new ParameterLocationId(item.Guid)),
+                WebItemEntityManufacturer => ComponentManager.SitemapManager.GetUri<PageManufacturerEdit>(new ParameterManufacturerId(item.Guid)),
+                //WebItemEntitySettings => ComponentManager.SitemapManager.GetUri<PageSettingGeneral>(new ParameterSettingsId(item.Guid)),
+                WebItemEntitySupplier => ComponentManager.SitemapManager.GetUri<PageSupplierEdit>(new ParameterSupplierId(item.Guid)),
+                WebItemEntityTemplate => ComponentManager.SitemapManager.GetUri<PageSettingTemplateEdit>(new ParameterTemplateId(item.Guid)),
+                WebItemEntityMedia => ComponentManager.SitemapManager.GetUri<ResourceMedia>(new ParameterMediaId(item.Guid)),
+                _ => ComponentManager.SitemapManager.GetUri<ResourceAsset>()
+            };
+           
         }
     }
 }

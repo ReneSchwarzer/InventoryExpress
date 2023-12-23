@@ -98,7 +98,7 @@ namespace InventoryExpress.WebPage
                     new ControlLink()
                     {
                         Text = supplier.Name,
-                        Uri = ViewModel.GetSupplierUri(supplier.Guid)
+                        Uri = supplier.Uri
                     }.Render(e.Context).ToString().Trim()
                 ),
                 icon: supplier.Image,

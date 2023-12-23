@@ -99,7 +99,7 @@ namespace InventoryExpress.WebPage
                     new ControlLink()
                     {
                         Text = Supplier.Name,
-                        Uri = ViewModel.GetSupplierUri(Supplier.Guid)
+                        Uri = Supplier.Uri
                     }.Render(e.Context).ToString().Trim()
                 ),
                 Supplier.Name,

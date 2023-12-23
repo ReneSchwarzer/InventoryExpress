@@ -68,10 +68,10 @@ namespace InventoryExpress.WebFragment
                     new ControlLink()
                     {
                         Text = ledgerAccount.Name,
-                        Uri = ViewModel.GetLedgerAccountUri(ledgerAccount.Guid)
+                        Uri = ledgerAccount.Uri
                     }.Render(e.Context).ToString().Trim()
                 ),
-                icon: ViewModel.GetMediaUri(ledgerAccount.Media.Id),
+                icon: ledgerAccount.Media?.Uri,
                 durability: 10000
             );
         }

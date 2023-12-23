@@ -105,7 +105,7 @@ namespace InventoryExpress.WebPageSetting
                     new ControlLink()
                     {
                         Text = Attribute.Name,
-                        Uri = ViewModel.GetAttributeUri(Attribute.Guid)
+                        Uri = Attribute.Uri
                     }.Render(e.Context).ToString().Trim()
                 ),
                 icon: Attribute.Image,

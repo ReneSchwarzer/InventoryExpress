@@ -1,40 +1,55 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<!-- Generiert durch Microsoft Visio, SVG Export export.svg template -->
+<!-- Generiert durch Microsoft Visio, SVG Export import.svg template -->
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"
 		xmlns:v="http://schemas.microsoft.com/visio/2003/SVGExtensions/" width="3.93701in" height="3.93701in"
-		viewBox="0 0 283.465 283.465" xml:space="preserve" color-interpolation-filters="sRGB" class="st3">
-	<v:documentProperties v:langId="1031"/>
+		viewBox="0 0 283.465 283.465" xml:space="preserve" color-interpolation-filters="sRGB" class="st4">
+	<v:documentProperties v:langID="1031"/>
 
 	<style type="text/css">
 	<![CDATA[
-		.st1 {fill:#789440;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.749999}
-		.st2 {fill:#7e649e;stroke:#ffffff;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.749998}
-		.st3 {fill:none;fill-rule:evenodd;font-size:12px;overflow:visible;stroke-linecap:square;stroke-miterlimit:3}
+		.st1 {fill:#789440;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.749998}
+		.st2 {fill:#7e649e}
+		.st3 {stroke:#ffffff;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.749997}
+		.st4 {fill:none;fill-rule:evenodd;font-size:12px;overflow:visible;stroke-linecap:square;stroke-miterlimit:3}
 	]]>
 	</style>
 
-	<g v:mId="0" v:index="1" v:groupContext="foregroundPage">
+	<g v:mID="0" v:index="1" v:groupContext="foregroundPage">
 		<title>template</title>
-		<v:pageProperties v:drawingScale="1" v:pageScale="1" v:drawingUnits="19" v:shadowOffsetX="8.99997"
-				v:shadowOffsetY="-8.99997"/>
-		<g id="shape5-1" v:mId="5" v:groupContext="shape" transform="translate(264.745,383.884) rotate(180)">
+		<v:pageProperties v:drawingScale="1" v:pageScale="1" v:drawingUnits="19" v:shadowOffsetX="8.99996"
+				v:shadowOffsetY="-8.99996"/>
+		<g id="shape1-1" v:mID="1" v:groupContext="shape" transform="translate(147.734,299.911) rotate(180)">
 			<title>Tabelle.5</title>
-			<path d="M128.68 186.98 L69.71 120.59 A6.45366 6.45366 -180 0 0 60.06 120.59 L1.07 186.98 A6.45366 6.45366 -180 0 0 5.89
-						 197.72 L33.01 197.72 A6.45366 6.45366 0 0 1 39.48 204.17 L39.48 277.02 A6.45366 6.45366 -180 0 0 45.92 283.46
-						 L83.83 283.46 A6.45366 6.45366 -180 0 0 90.29 277.02 L90.29 204.17 A6.45366 6.45366 0 0 1 96.74 197.72 L123.85
-						 197.72 A6.45366 6.45366 -180 0 0 128.68 186.98 Z" class="st1"/>
+			<path d="M128.67 186.98 L69.7 120.59 A6.45365 6.45365 -180 0 0 60.05 120.59 L1.06 186.98 A6.45365 6.45365 -180 0 0 5.88
+						 197.72 L33 197.72 A6.45365 6.45365 0 0 1 39.47 204.17 L39.47 277.02 A6.45365 6.45365 -180 0 0 45.91 283.46
+						 L83.82 283.46 A6.45365 6.45365 -180 0 0 90.28 277.02 L90.28 204.17 A6.45365 6.45365 0 0 1 96.73 197.72 L123.84
+						 197.72 A6.45365 6.45365 -180 0 0 128.67 186.98 Z" class="st1"/>
 		</g>
-		<g id="shape8-3" v:mId="8" v:groupContext="shape" transform="translate(18,-72)">
-			<title>Tabelle.8</title>
-			<path d="M171.69 167.23 L171.69 155.76 L170.41 155.76 A85.9819 22.76 0 0 1 149.4 167.23 L171.69 167.23 ZM142.2 169.1
-						 A85.9819 22.76 0 0 1 85.85 174.72 A85.9819 22.76 0 0 1 1.28 155.76 L0.85 155.76 L0 155.76 L0 202.08 A85.9819
-						 22.76 -0 0 0 85.85 222.78 A85.9819 22.76 -0 0 0 140.27 217.69 L140.27 173.43 A6.79612 6.20989 0 0 1 142.2
-						 169.1 ZM140.27 230.23 A85.9819 22.76 0 0 1 85.85 235.42 A85.9819 22.76 0 0 1 1.28 216.45 L0.85 216.45 L0
-						 216.45 L0 262.78 A85.9819 22.76 -0 0 0 85.84 283.46 A85.9819 22.76 -0 0 0 120.71 281.54 L99.84 260.07 A6.79612
-						 6.20989 0 0 1 104.93 249.73 L133.48 249.73 A6.79612 6.20989 -180 0 0 140.27 243.53 L140.27 230.23 ZM171.69
-						 141.27 L171.69 110.88 A85.9819 22.76 -0 0 0 85.85 90.06 A85.9819 22.76 -0 0 0 0 110.88 L0 141.27 A85.9819
-						 22.76 -0 0 0 85.85 162.08 A85.9819 22.76 -0 0 0 171.69 141.27 Z" class="st2"/>
+		<g id="shape7-3" v:mID="7" v:groupContext="shape" transform="translate(93.8102,-11.3)">
+			<title>Tabelle.7</title>
+			<path d="M0 195.74 L0 202.08 A85.9818 22.76 0 0 0 31.42 217.69 A85.8984 22.7379 -180 0 0 85.84 222.78 A85.982 22.76 0
+						 0 0 140.27 217.69 A86.0435 22.7763 -180 0 0 171.69 202.08 L171.69 155.76 L170.41 155.76 A85.9818 22.76 0
+						 0 1 149.4 167.23 A85.9818 22.76 0 0 1 142.2 169.11 A86.011 22.7677 -180 0 1 85.85 174.72 A85.9816 22.7599
+						 0 0 1 29.49 169.1 A84.9216 22.4793 -180 0 1 25.05 168 L1.6 194.39 A7.25618 7.25618 0 0 1 -0 195.74 ZM34.31
+						 157.58 A85.9818 22.76 0 0 0 85.85 162.08 A85.9818 22.76 -180 0 0 171.69 141.27 L171.69 110.88 A85.9818 22.76
+						 -180 0 0 85.84 90.06 A85.9818 22.76 0 0 0 24.74 96.77 L24.74 100.41 A7.25618 7.25618 -180 0 0 32.02 107.67
+						 L62.51 107.67 A7.25618 7.25618 0 0 1 67.93 119.74 L34.31 157.58 ZM50.98 281.54 A85.9818 22.76 -180 0 0 85.85
+						 283.46 A85.981 22.7598 0 0 0 120.71 281.54 A86.094 22.7897 -180 0 0 171.69 262.78 L171.69 216.45 L170.41
+						 216.45 A85.9818 22.76 0 0 1 140.27 230.24 A86.0593 22.7805 -180 0 1 85.85 235.42 A85.9816 22.7599 0 0 1
+						 31.42 230.23 A85.9105 22.7411 -180 0 1 1.28 216.45 L0 216.45 L0 262.78 A85.9818 22.76 0 0 0 50.99 281.54
+						 L50.98 281.54 ZM120.7 281.54 L120.71 281.54 L120.7 281.54 Z" class="st2"/>
+			<path d="M0 195.74 L0 202.08 A85.9818 22.76 0 0 0 31.42 217.69 A85.8984 22.7379 -180 0 0 85.84 222.78 A85.982 22.76 0
+						 0 0 140.27 217.69 A86.0435 22.7763 -180 0 0 171.69 202.08 L171.69 155.76 L170.41 155.76 A85.9818 22.76 0
+						 0 1 149.4 167.23 A85.9818 22.76 0 0 1 142.2 169.11 A86.011 22.7677 -180 0 1 85.85 174.72 A85.9816 22.7599
+						 0 0 1 29.49 169.1 A84.9216 22.4793 -180 0 1 25.05 168 L1.6 194.39 A7.25618 7.25618 0 0 1 -0 195.74M34.31
+						 157.58 A85.9818 22.76 0 0 0 85.85 162.08 A85.9818 22.76 -180 0 0 171.69 141.27 L171.69 110.88 A85.9818 22.76
+						 -180 0 0 85.84 90.06 A85.9818 22.76 0 0 0 24.74 96.77 L24.74 100.41 A7.25618 7.25618 -180 0 0 32.02 107.67
+						 L62.51 107.67 A7.25618 7.25618 0 0 1 67.93 119.74 L34.31 157.58M50.98 281.54 A85.9818 22.76 -180 0 0 85.85
+						 283.46 A85.981 22.7598 0 0 0 120.71 281.54 A86.094 22.7897 -180 0 0 171.69 262.78 L171.69 216.45 L170.41
+						 216.45 A85.9818 22.76 0 0 1 140.27 230.24 A86.0593 22.7805 -180 0 1 85.85 235.42 A85.9816 22.7599 0 0 1
+						 31.42 230.23 A85.9105 22.7411 -180 0 1 1.28 216.45 L0 216.45 L0 262.78 A85.9818 22.76 0 0 0 50.99 281.54M120.7
+						 281.54 L120.71 281.54" class="st3"/>
 		</g>
 	</g>
 </svg>

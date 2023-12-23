@@ -123,7 +123,7 @@ namespace InventoryExpress.WebPageSetting
                     new ControlLink()
                     {
                         Text = Template.Name,
-                        Uri = ViewModel.GetTemplateUri(Template.Guid)
+                        Uri = Template.Uri
                     }.Render(e.Context).ToString().Trim()
                 ),
                 icon: Template.Image,

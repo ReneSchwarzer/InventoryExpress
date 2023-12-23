@@ -54,16 +54,16 @@ namespace InventoryExpress.WebFragment
         }
 
         /// <summary>
-        /// Processing of the resource. des Formulars
+        /// Processing of the resource.
         /// </summary>
-        /// <param name="sender">Der Sender</param>
+        /// <param name="sender">The object that triggered the event.</param>
         /// <param name="e">The event argument.</param>
         private void OnProcessFormular(object sender, FormularEventArgs e)
         {
             var property = e.Context.Request.Session.GetOrCreateProperty<SessionPropertyToggleStatus>();
             property.ViewList = !property.ViewList;
 
-            // Seite neu laden
+            // reload page
             e.Context.Page.Redirecting(e.Context.Uri);
         }
     }

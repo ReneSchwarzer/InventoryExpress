@@ -115,7 +115,7 @@ namespace InventoryExpress.WebPage
                     new ControlLink()
                     {
                         Text = Location.Name,
-                        Uri = new UriResource(ViewModel.GetLocationUri(Location.Guid))
+                        Uri = Location.Uri
                     }.Render(e.Context).ToString().Trim()
                 ),
                 icon: new UriResource(Location.Image),

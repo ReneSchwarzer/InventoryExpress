@@ -12,4 +12,5 @@
   <tags>inventar webexpress</tags>
   <plugin>src/InventoryExpress</plugin>
   <plugin>src/InventoryExpress.QR</plugin>
+  <artifact>InventoryExpress.Modell.dll</artifact>
 </package>

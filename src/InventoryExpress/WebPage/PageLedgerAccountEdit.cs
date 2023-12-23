@@ -104,7 +104,7 @@ namespace InventoryExpress.WebPage
                     new ControlLink()
                     {
                         Text = ledgerAccount.Name,
-                        Uri = ViewModel.GetSupplierUri(ledgerAccount.Guid)
+                        Uri = ledgerAccount.Uri
                     }.Render(e.Context).ToString().Trim()
                 ),
                 icon: ledgerAccount.Image,

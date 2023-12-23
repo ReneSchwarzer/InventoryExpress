@@ -106,7 +106,7 @@ namespace InventoryExpress.WebPageSetting
                     new ControlLink()
                     {
                         Text = Condition.Name,
-                        Uri = ViewModel.GetConditionUri(Condition.Guid)
+                        Uri = Condition.Uri
                     }.Render(e.Context).ToString().Trim()
                 ),
                 icon: Condition.Image,

@@ -50,15 +50,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.13">
-		</PackageReference>
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.13">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="WebExpress.WebCore" Version="0.0.7-alpha">
 			<Private>false</Private>
 			<ExcludeAssets>runtime</ExcludeAssets>
@@ -75,6 +66,10 @@
 			<Private>false</Private>
 			<ExcludeAssets>runtime</ExcludeAssets>
 		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\InventoryExpress.Model\InventoryExpress.Model.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
